@@ -1,0 +1,48 @@
+table_name,ddl
+pathway_hierarchy_v77,"CREATE TABLE `isb-cgc-bq.reactome_versioned.pathway_hierarchy_v77`
+(
+  parent_id STRING OPTIONS(description=""Reactome pathway stable identifier associated with 'child' pathways""),
+  child_id STRING OPTIONS(description=""Reactome pathway stable identifier associated with 'parent' pathways"")
+)
+OPTIONS(
+  friendly_name=""REACTOME PATHWAYS HIERARCHY V77 VERSIONED"",
+  description=""Reactome pathways parent to child hierarchy downloaded from https://reactome.org/download-data/ on 08/2021 and filtered to only include human pathways (i.e., species = 'Homo sapiens'). This data is part of the version 77 release of Reactome. Additional information and the Creative Commons license agreement can be found here: https://reactome.org/license"",
+  labels=[(""access"", ""open""), (""source"", ""reactome""), (""category"", ""reference_database""), (""status"", ""current""), (""data_type"", ""pathway_annotations"")]
+);"
+pe_to_pathway_v77,"CREATE TABLE `isb-cgc-bq.reactome_versioned.pe_to_pathway_v77`
+(
+  pe_stable_id STRING OPTIONS(description=""Reactome physical entity stable identifier""),
+  pathway_stable_id STRING OPTIONS(description=""Reactome pathway stable identifier""),
+  evidence_code STRING OPTIONS(description=""Code that indicates the type of evidence supporting physical entity relation to pathway"")
+)
+OPTIONS(
+  friendly_name=""REACTOME PHYSICAL ENTITIES TO PATHWAY MAPPING V77 VERSIONED"",
+  description=""External protein, gene, or small molecules mapped to Reactome pathways. This data was downloaded from https://reactome.org/download-data on 8/2021 and filtered to include only human physical entities and pathways. This data is part of the version 77 release of Reactome. Additional information and the Creative Commons license agreement can be found here: https://reactome.org/license"",
+  labels=[(""access"", ""open""), (""source"", ""reactome""), (""category"", ""reference_database""), (""status"", ""current""), (""data_type"", ""pathway_annotations"")]
+);"
+physical_entity_v77,"CREATE TABLE `isb-cgc-bq.reactome_versioned.physical_entity_v77`
+(
+  ensembl_id STRING OPTIONS(description=""Ensembl database identifier""),
+  uniprot_id STRING OPTIONS(description=""UniProt database identifier""),
+  stable_id STRING OPTIONS(description=""Reactome physical entity stable identifier""),
+  name STRING OPTIONS(description=""Reactome physical entity name""),
+  location STRING OPTIONS(description=""Reactome physical entity location"")
+)
+OPTIONS(
+  friendly_name=""REACTOME PHYSICAL ENTITIES V77 VERSIONED"",
+  description=""External protein, gene, or small molecule identifiers that have been mapped to Reactome physical entities. This data was downloaded from https://reactome.org/download-data on 8/2021 and filtered to include only human physical entities. This data is part of the version 77 release of Reactome. Additional information and the Creative Commons license agreement can be found here: https://reactome.org/license"",
+  labels=[(""access"", ""open""), (""source"", ""reactome""), (""category"", ""reference_database""), (""status"", ""current""), (""data_type"", ""pathway_annotations"")]
+);"
+pathway_v77,"CREATE TABLE `isb-cgc-bq.reactome_versioned.pathway_v77`
+(
+  stable_id STRING OPTIONS(description=""Reactome pathway stable identifier""),
+  url STRING OPTIONS(description=""URL to pathway on the Reactome website""),
+  name STRING OPTIONS(description=""Reactome pathway name""),
+  species STRING OPTIONS(description=""Reactome pathway species""),
+  lowest_level BOOL OPTIONS(description=""Indicates if pathway is at the lowest level in the hierarchy, i.e., not a parent"")
+)
+OPTIONS(
+  friendly_name=""REACTOME PATHWAYS V77 VERSIONED"",
+  description=""Reactome pathways downloaded from https://reactome.org/download-data/ on 08/2021 and filtered to only include human pathways (i.e., species = 'Homo sapiens'). This data is part of the version 77 release of Reactome. Additional information and the Creative Commons license agreement can be found here: https://reactome.org/license"",
+  labels=[(""access"", ""open""), (""source"", ""reactome""), (""category"", ""reference_database""), (""status"", ""current""), (""data_type"", ""pathway_annotations"")]
+);"

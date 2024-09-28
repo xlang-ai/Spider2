@@ -1,0 +1,49 @@
+table_name,ddl
+lsad_codes,"CREATE TABLE `bigquery-public-data.census_utility.lsad_codes`
+(
+  lsad_code STRING,
+  lsad_description STRING,
+  associated_geographic_entities STRING
+)
+OPTIONS(
+  description=""The legal/statistical area description (LSAD) codes describe the particular typology for each geographic entity. For legal entities, the LSAD reflects the term that appears in legal documentation pertaining to the entity, such as a treaty, charter, legislation, resolution, or ordinance. For statistical entities, the LSAD is the term assigned by the Census Bureau or other agency defining the entity. The LSAD code is a two-character field that corresponds to a description of the legal or statistical type of entity and identifies whether the LSAD term should be capitalized and should precede or follow the name of the geographic entity. Note that the same LSAD code is assigned to entities at different levels of the geographic hierarchy when they share the same LSAD. For example, the Census Bureau assigns the same LSAD code (\""21\"") to boroughs in New York and Connecticut, although they are county subdivisions in the former and incorporated places in the latter.\n\nThese codes can be found in the TIGER/Line products, gazetteer files, and other products. The table below describes each code and which geographic entities each code is valid for.""
+);"
+mtfcc_feature_class_codes,"CREATE TABLE `bigquery-public-data.census_utility.mtfcc_feature_class_codes`
+(
+  feature_class_code STRING,
+  feature_class STRING,
+  superclass STRING,
+  point BOOL,
+  linear BOOL,
+  areal BOOL,
+  description STRING
+);"
+fips_class_code,"CREATE TABLE `bigquery-public-data.census_utility.fips_class_code`
+(
+  fips_class_code STRING,
+  code_description STRING
+);"
+functional_status_codes,"CREATE TABLE `bigquery-public-data.census_utility.functional_status_codes`
+(
+  functional_status_code STRING,
+  code_description STRING,
+  associated_geographic_entity STRING
+);"
+fips_codes_all,"CREATE TABLE `bigquery-public-data.census_utility.fips_codes_all`
+(
+  summary_level STRING,
+  summary_level_name STRING,
+  state_fips_code STRING,
+  county_fips_code STRING,
+  county_subdivision_fips_code STRING,
+  place_fips_code STRING,
+  consolidated_city_fips_code STRING,
+  area_name STRING
+);"
+fips_codes_states,"CREATE TABLE `bigquery-public-data.census_utility.fips_codes_states`
+(
+  state_fips_code STRING,
+  state_postal_abbreviation STRING,
+  state_name STRING,
+  state_gnisid STRING
+);"
