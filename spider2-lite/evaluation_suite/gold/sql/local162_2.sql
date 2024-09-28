@@ -3,21 +3,21 @@ WITH AvgSalaries AS (
         facrank AS FacRank,
         AVG(facsalary) AS AvSalary
     FROM 
-        faculty
+        university_faculty
     GROUP BY 
         facrank
 ),
 SalaryDifferences AS (
     SELECT 
-        faculty.facrank AS FacRank, 
-        faculty.facfirstname AS FacFirstName, 
-        faculty.faclastname AS FacLastName, 
-        faculty.facsalary AS Salary, 
-        ABS(faculty.facsalary - AvgSalaries.AvSalary) AS Diff
+        university_faculty.facrank AS FacRank, 
+        university_faculty.facfirstname AS FacFirstName, 
+        university_faculty.faclastname AS FacLastName, 
+        university_faculty.facsalary AS Salary, 
+        ABS(university_faculty.facsalary - AvgSalaries.AvSalary) AS Diff
     FROM 
-        faculty
+        university_faculty
     JOIN 
-        AvgSalaries ON faculty.facrank = AvgSalaries.FacRank
+        AvgSalaries ON university_faculty.facrank = AvgSalaries.FacRank
 ),
 MinDifferences AS (
     SELECT 

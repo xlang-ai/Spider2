@@ -7,13 +7,13 @@ WITH rgn_ttl AS (
             r.name region,
             SUM(o.total_amt_usd) total_usd
         FROM 
-            orders o
+            web_orders o
         JOIN 
-            accounts a ON a.id = o.account_id
+            web_accounts a ON a.id = o.account_id
         JOIN 
-            sales_reps s ON a.sales_rep_id = s.id
+            web_sales_reps s ON a.sales_rep_id = s.id
         JOIN 
-            region r ON r.id = s.region_id
+            web_region r ON r.id = s.region_id
         GROUP BY 
             1
     ) x
@@ -27,13 +27,13 @@ WITH rgn_ttl AS (
 SELECT 
     COUNT(*) AS total_order
 FROM 
-    orders o
+    web_orders o
 JOIN 
-    accounts a ON a.id = o.account_id
+    web_accounts a ON a.id = o.account_id
 JOIN 
-    sales_reps s ON a.sales_rep_id = s.id
+    web_sales_reps s ON a.sales_rep_id = s.id
 JOIN 
-    region r ON r.id = s.region_id
+    web_region r ON r.id = s.region_id
 WHERE 
     r.name = (
         SELECT 

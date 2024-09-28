@@ -8,7 +8,7 @@ WITH cte_adjusted_prices AS (
       WHEN volume = '-' THEN 0
       ELSE cast(volume AS REAL)
     END AS volume
-  FROM prices
+  FROM bitcoin_prices
 ),
 cte_previous_volume AS (
   SELECT

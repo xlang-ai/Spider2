@@ -4,9 +4,9 @@ WITH product_viewed AS (
         SUM(CASE WHEN event_type = 1 THEN 1 ELSE 0 END) AS n_page_views,
         SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS n_added_to_cart
     FROM
-        page_hierarchy AS t1
+        shopping_cart_page_hierarchy AS t1
     JOIN
-        events AS t2
+        shopping_cart_events AS t2
     ON
         t1.page_id = t2.page_id
     WHERE
@@ -19,9 +19,9 @@ product_purchased AS (
         t2.page_id,
         SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS purchased_from_cart
     FROM
-        page_hierarchy AS t1
+        shopping_cart_page_hierarchy AS t1
     JOIN
-        events AS t2
+        shopping_cart_events AS t2
     ON
         t1.page_id = t2.page_id
     WHERE
@@ -30,7 +30,7 @@ product_purchased AS (
             SELECT
                 visit_id
             FROM
-                events
+                shopping_cart_events
             WHERE
                 event_type = 3
                 AND t2.visit_id = visit_id
@@ -44,9 +44,9 @@ product_abandoned AS (
         t2.page_id,
         SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS abandoned_in_cart
     FROM
-        page_hierarchy AS t1
+        shopping_cart_page_hierarchy AS t1
     JOIN
-        events AS t2
+        shopping_cart_events AS t2
     ON
         t1.page_id = t2.page_id
     WHERE
@@ -55,7 +55,7 @@ product_abandoned AS (
             SELECT
                 visit_id
             FROM
-                events
+                shopping_cart_events
             WHERE
                 event_type = 3
                 AND t2.visit_id = visit_id
@@ -72,7 +72,7 @@ SELECT
     t4.abandoned_in_cart AS 'without being purchased in cart',
     t3.purchased_from_cart AS 'count of actual purchases'
 FROM
-    page_hierarchy AS t1
+    shopping_cart_page_hierarchy AS t1
 JOIN
     product_viewed AS t2 
 ON

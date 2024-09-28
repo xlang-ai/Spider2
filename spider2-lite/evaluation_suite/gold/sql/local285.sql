@@ -13,7 +13,7 @@ WITH item_2020 AS (
     FROM veg_txn_df v
     LEFT JOIN veg_whsle_df w ON v.txn_date = w.whsle_date AND v.item_code = w.item_code
     LEFT JOIN veg_cat c ON v.item_code = c.item_code
-    LEFT JOIN loss_rate_df alr ON alr.item_code = v.item_code
+    LEFT JOIN veg_loss_rate_df alr ON alr.item_code = v.item_code
     WHERE v.`qty_sold(kg)` > 0 AND yr = '2020'
     GROUP BY strftime('%Y', v.[txn_date]), c.category_code, c.category_name
 ),
@@ -32,7 +32,7 @@ item_2021 AS (
     FROM veg_txn_df v
     LEFT JOIN veg_whsle_df w ON v.txn_date = w.whsle_date AND v.item_code = w.item_code
     LEFT JOIN veg_cat c ON v.item_code = c.item_code
-    LEFT JOIN loss_rate_df alr ON alr.item_code = v.item_code
+    LEFT JOIN veg_loss_rate_df alr ON alr.item_code = v.item_code
     WHERE v.`qty_sold(kg)` > 0 AND yr = '2021'
     GROUP BY strftime('%Y', v.[txn_date]), c.category_code, c.category_name
 ),
@@ -51,7 +51,7 @@ item_2022 AS (
     FROM veg_txn_df v
     LEFT JOIN veg_whsle_df w ON v.txn_date = w.whsle_date AND v.item_code = w.item_code
     LEFT JOIN veg_cat c ON v.item_code = c.item_code
-    LEFT JOIN loss_rate_df alr ON alr.item_code = v.item_code
+    LEFT JOIN veg_loss_rate_df alr ON alr.item_code = v.item_code
     WHERE v.`qty_sold(kg)` > 0 AND yr = '2022'
     GROUP BY strftime('%Y', v.[txn_date]), c.category_code, c.category_name
 ),
@@ -70,7 +70,7 @@ item_2023 AS (
     FROM veg_txn_df v
     LEFT JOIN veg_whsle_df w ON v.txn_date = w.whsle_date AND v.item_code = w.item_code
     LEFT JOIN veg_cat c ON v.item_code = c.item_code
-    LEFT JOIN loss_rate_df alr ON alr.item_code = v.item_code
+    LEFT JOIN veg_loss_rate_df alr ON alr.item_code = v.item_code
     WHERE v.`qty_sold(kg)` > 0 AND yr = '2023'
     GROUP BY strftime('%Y', v.[txn_date]), c.category_code, c.category_name
 ),

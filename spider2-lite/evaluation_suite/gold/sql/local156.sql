@@ -1,17 +1,17 @@
 WITH cte_dollar_cost_average AS (
   SELECT
-    strftime('%Y', substr(transactions.txn_date, 7, 4) || '-' || substr(transactions.txn_date, 4, 2) || '-' || substr(transactions.txn_date, 1, 2)) AS year_start,
-    members.region,
-    SUM(transactions.quantity * prices.price) / SUM(transactions.quantity) AS btc_dca
-  FROM transactions
-  INNER JOIN prices
-    ON transactions.ticker = prices.ticker
-    AND transactions.txn_date = prices.market_date
-  INNER JOIN members
-    ON transactions.member_id = members.member_id
-  WHERE transactions.ticker = 'BTC'
-    AND transactions.txn_type = 'BUY'
-  GROUP BY year_start, members.region
+    strftime('%Y', substr(bitcoin_transactions.txn_date, 7, 4) || '-' || substr(bitcoin_transactions.txn_date, 4, 2) || '-' || substr(bitcoin_transactions.txn_date, 1, 2)) AS year_start,
+    bitcoin_members.region,
+    SUM(bitcoin_transactions.quantity * bitcoin_prices.price) / SUM(bitcoin_transactions.quantity) AS btc_dca
+  FROM bitcoin_transactions
+  INNER JOIN bitcoin_prices
+    ON bitcoin_transactions.ticker = bitcoin_prices.ticker
+    AND bitcoin_transactions.txn_date = bitcoin_prices.market_date
+  INNER JOIN bitcoin_members
+    ON bitcoin_transactions.member_id = bitcoin_members.member_id
+  WHERE bitcoin_transactions.ticker = 'BTC'
+    AND bitcoin_transactions.txn_type = 'BUY'
+  GROUP BY year_start, bitcoin_members.region
 ),
 
 cte_window_functions AS (

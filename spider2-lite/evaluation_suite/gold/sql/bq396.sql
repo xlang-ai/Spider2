@@ -30,9 +30,10 @@ weather_difference AS (
 )
 
 SELECT
-    state_name
+    state_name,
+    Difference
 FROM
     weather_difference
 ORDER BY
     Difference DESC
-LIMIT 1;
+LIMIT 3;

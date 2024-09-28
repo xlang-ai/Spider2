@@ -14,7 +14,7 @@ WITH base_table AS (
   FROM
     `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
   WHERE
-    _table_suffix = '20210101'
+    _table_suffix = '20210102'
   AND event_name IN ('page_view')
 )
 , unnested_events AS (
@@ -77,4 +77,4 @@ WITH base_table AS (
     unnested_events
 )
 
-SELECT (SELECT COUNT(*) FROM unnested_events_categorised WHERE page_title_adjusted='PDP') / (SELECT COUNT(*) FROM unnested_events_categorised);
+SELECT (SELECT COUNT(*) FROM unnested_events_categorised WHERE page_title_adjusted='PDP') / (SELECT COUNT(*) FROM unnested_events_categorised)*100;

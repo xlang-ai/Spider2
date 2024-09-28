@@ -1,0 +1,40 @@
+WITH
+    MOVIES_WITH_NON_FEMALES AS (
+        SELECT DISTINCT
+            TRIM(MC.MID) AS MID
+        FROM
+            M_Cast MC
+            JOIN Person P ON TRIM(MC.PID) = TRIM(P.PID)
+        WHERE
+            TRIM(P.Gender) IN ('Male', 'None') -- Considering None as not female.
+    ),
+    NUM_OF_MOV_WITH_ONLY_F_BY_YR AS (
+        SELECT
+            CAST(SUBSTR(M.year, -4) AS UNSIGNED) AS YEAR,
+            COUNT(DISTINCT TRIM(MID)) AS NUM_OF_MOV_WITH_ONLY_FEMALES
+        FROM
+            Movie M
+        WHERE
+            TRIM(MID) NOT IN (SELECT MID FROM MOVIES_WITH_NON_FEMALES)
+        GROUP BY 
+            CAST(SUBSTR(M.year, -4) AS UNSIGNED)
+    ),
+    TOTAL_NUM_OF_MOV_BY_YR AS (
+        SELECT
+            CAST(SUBSTR(M.year, -4) AS UNSIGNED) AS YEAR,
+            COUNT(DISTINCT TRIM(MID)) AS TOTAL_NUM_OF_MOV
+        FROM
+            Movie M
+        GROUP BY
+            CAST(SUBSTR(M.year, -4) AS UNSIGNED)
+    )
+SELECT
+    TOT_MOV.YEAR,
+    TOT_MOV.TOTAL_NUM_OF_MOV,
+    ((IFNULL(MOV_F.NUM_OF_MOV_WITH_ONLY_FEMALES, 0) * 100.0) / TOT_MOV.TOTAL_NUM_OF_MOV) || '%' AS PERCENT_OF_MOV_WITH_ONLY_F
+FROM
+    TOTAL_NUM_OF_MOV_BY_YR TOT_MOV
+    LEFT OUTER JOIN NUM_OF_MOV_WITH_ONLY_F_BY_YR MOV_F
+    ON TRIM(TOT_MOV.YEAR) = TRIM(MOV_F.YEAR)
+ORDER BY
+    PERCENT_OF_MOV_WITH_ONLY_F DESC;

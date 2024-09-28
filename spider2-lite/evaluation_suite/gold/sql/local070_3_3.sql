@@ -64,4 +64,4 @@ WHERE
             MAX(diff_count)
         FROM
             count_rank
-	)
+	);

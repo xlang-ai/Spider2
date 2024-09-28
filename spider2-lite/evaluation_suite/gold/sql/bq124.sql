@@ -32,7 +32,7 @@ JOIN
               code.coding[safe_offset(0)].code condition_code,
               code.coding[safe_offset(0)].display condition_desc
        FROM `bigquery-public-data.fhir_synthea.condition`
-       WHERE 
+       wHERE 
          code.coding[safe_offset(0)].display = 'Diabetes'
          OR 
          code.coding[safe_offset(0)].display = 'Hypertension' 

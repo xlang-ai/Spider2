@@ -6,9 +6,9 @@ WITH RankedProducts AS (
         SUM(fsm.sold_quantity) AS total_sold_quantity,
         ROW_NUMBER() OVER(PARTITION BY dp.division ORDER BY SUM(fsm.sold_quantity) DESC) AS rank_order
     FROM
-        fact_sales_monthly fsm
+        hardware_fact_sales_monthly fsm
     JOIN
-        dim_product dp ON fsm.product_code = dp.product_code
+        hardware_dim_product dp ON fsm.product_code = dp.product_code
     WHERE
         strftime('%Y', fsm.date) = '2021'
     GROUP BY
