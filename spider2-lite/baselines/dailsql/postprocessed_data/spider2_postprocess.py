@@ -29,7 +29,9 @@ def main(root_path, dev_json, table_json):
         for file_name in files:
             if file_name.endswith('.sql'):
                 instance_id = file_name.split('.')[0].split('@')[0]  # for pass-mode
-                assert instance_id in instance_id_to_db_id, "check the dev.json"
+                if not instance_id in instance_id_to_db_id:
+                    print(f">>>warning: not existed instance_id:{instance_id}. check the dev.json.")
+                    continue
 
                 db_id = instance_id_to_db_id[instance_id]
                 if isinstance(db_id, str): db_id = [db_id]
