@@ -109,7 +109,8 @@ if __name__ == '__main__':
                                                       LLM.GPT_35_TURBO_0613,
                                                       LLM.GPT_35_TURBO_16K,
                                                       LLM.GPT_4, 
-                                                      LLM.GPT_4o],
+                                                      LLM.GPT_4o,
+                                                      LLM.GPT_o1],
                         default=LLM.GPT_35_TURBO)
 
     parser.add_argument("--temperature", type=float, default=0)

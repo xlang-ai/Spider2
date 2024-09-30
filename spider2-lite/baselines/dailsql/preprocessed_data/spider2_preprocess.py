@@ -127,7 +127,7 @@ def process_dev_json(args):
         if FLAG and FLAG2:
             # 0922 statistics   
             db_ids = entry['db_id'] if isinstance(entry['db_id'], list) else [entry['db_id']]
-            entry['No. of candidate columns'] = sum([dbid_to_ncols[db] for db in db_ids])
+            entry['No. of candidate columns'] = sum([dbid_to_ncols[db] for db in db_ids])  # No. columns / SQL
             
             selected_tables_to_dbid = {}
             for db in db_ids:
@@ -136,13 +136,13 @@ def process_dev_json(args):
                     selected_tables_to_dbid[table_name] = db
             
             _, total_substitutions = replace_table_names(entry['query'], selected_tables_to_dbid)
-            entry['No. of gold tables'] = total_substitutions 
+            entry['No. of gold tables'] = total_substitutions  # No. tables / SQL
 
             if total_substitutions == 0:
                 if 'table_suffix' in entry['query'].lower() or '*`' in entry['query'].lower():
                     entry['No. of gold tables'] = 20
                 else:
-                    print('>>>!!!!', entry['instance_id'])
+                    print('when count the statistics, not captured any tables.', entry['instance_id'])
 
             new_data.append(entry)
 

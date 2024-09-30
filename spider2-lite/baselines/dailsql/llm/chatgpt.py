@@ -16,33 +16,43 @@ def init_chatgpt(OPENAI_API_KEY, OPENAI_GROUP_ID, model):
     openai.organization = OPENAI_GROUP_ID
 
 
-def ask_completion(model, batch, temperature, max_tokens):
-    response = openai.Completion.create(
-        model=model,
-        prompt=batch,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0,
-        stop=[";"]
-    )
-    response_clean = [_["text"] for _ in response["choices"]]
-    return dict(
-        response=response_clean,
-        **response["usage"]
-    )
+# def ask_completion(model, batch, temperature, max_tokens):
+#     response = openai.Completion.create(
+#         model=model,
+#         prompt=batch,
+#         temperature=temperature,
+#         max_tokens=max_tokens,
+#         top_p=1,
+#         frequency_penalty=0,
+#         presence_penalty=0,
+#         stop=[";"]
+#     )
+#     response_clean = [_["text"] for _ in response["choices"]]
+#     return dict(
+#         response=response_clean,
+#         **response["usage"]
+#     )
 
 
 def ask_chat(model, messages: list, temperature, n, max_tokens):
+    print('>>>model:', model)
     print('>>>max_tokens:', max_tokens)
-    response = openai.ChatCompletion.create(
-        model=model,
-        messages=messages,
-        temperature=temperature,
-        max_tokens=max_tokens,
-        n=n
-    )
+    if model == LLM.GPT_o1:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            # temperature=temperature,
+            # max_completion_tokens=max_tokens,  # will cause output dummy string
+            n=n
+        )
+    else:
+        response = openai.ChatCompletion.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            n=n
+        )
     response_clean = [choice["message"]["content"] for choice in response["choices"]]
     return dict(
         response=response_clean,
