@@ -1,0 +1,126 @@
+table_name,DDL
+categories,"CREATE TABLE categories (
+    categoryid INTEGER,
+    categoryname TEXT,
+    description TEXT,
+    picture BLOB
+);"
+customercustomerdemo,"CREATE TABLE customercustomerdemo (
+    customerid TEXT,
+    customertypeid TEXT
+);"
+customerdemographics,"CREATE TABLE customerdemographics (
+    customertypeid TEXT,
+    customerdesc TEXT
+);"
+customers,"CREATE TABLE customers (
+    customerid TEXT,
+    companyname TEXT,
+    contactname TEXT,
+    contacttitle TEXT,
+    address TEXT,
+    city TEXT,
+    region TEXT,
+    postalcode TEXT,
+    country TEXT,
+    phone TEXT,
+    fax TEXT
+);"
+employees,"CREATE TABLE employees (
+    employeeid INTEGER,
+    lastname TEXT,
+    firstname TEXT,
+    title TEXT,
+    titleofcourtesy TEXT,
+    birthdate DATE,
+    hiredate DATE,
+    address TEXT,
+    city TEXT,
+    region TEXT,
+    postalcode TEXT,
+    country TEXT,
+    homephone TEXT,
+    extension TEXT,
+    photo BLOB,
+    notes TEXT,
+    reportsto INTEGER,
+    photopath TEXT
+);"
+employeeterritories,"CREATE TABLE employeeterritories (
+    employeeid INTEGER,
+    territoryid TEXT
+);"
+order_details,"CREATE TABLE order_details (
+    orderid INTEGER,
+    productid INTEGER,
+    unitprice REAL,
+    quantity INTEGER,
+    discount REAL
+);"
+orders,"CREATE TABLE orders (
+    orderid INTEGER,
+    customerid TEXT,
+    employeeid INTEGER,
+    orderdate DATE,
+    requireddate DATE,
+    shippeddate DATE,
+    shipvia INTEGER,
+    freight REAL,
+    shipname TEXT,
+    shipaddress TEXT,
+    shipcity TEXT,
+    shipregion TEXT,
+    shippostalcode TEXT,
+    shipcountry TEXT
+);"
+products,"CREATE TABLE products (
+    productid INTEGER,
+    productname TEXT,
+    supplierid INTEGER,
+    categoryid INTEGER,
+    quantityperunit TEXT,
+    unitprice REAL,
+    unitsinstock INTEGER,
+    unitsonorder INTEGER,
+    reorderlevel INTEGER,
+    discontinued INTEGER
+);"
+region,"CREATE TABLE region (
+    regionid INTEGER,
+    regiondescription TEXT
+);"
+shippers,"CREATE TABLE shippers (
+    shipperid INTEGER,
+    companyname TEXT,
+    phone TEXT
+);"
+suppliers,"CREATE TABLE suppliers (
+    supplierid INTEGER,
+    companyname TEXT,
+    contactname TEXT,
+    contacttitle TEXT,
+    address TEXT,
+    city TEXT,
+    region TEXT,
+    postalcode TEXT,
+    country TEXT,
+    phone TEXT,
+    fax TEXT,
+    homepage TEXT
+);"
+territories,"CREATE TABLE territories (
+    territoryid TEXT,
+    territorydescription TEXT,
+    regionid INTEGER
+);"
+usstates,"CREATE TABLE usstates (
+    stateid INTEGER,
+    statename TEXT,
+    stateabbr TEXT,
+    stateregion TEXT
+);"
+customergroupthreshold,"CREATE TABLE customergroupthreshold (
+    groupname TEXT,
+    rangebottom DECIMAL,
+    rangetop DECIMAL
+);"
