@@ -122,7 +122,8 @@ def process_dev_json(args):
             entry['db_id'] = entry['db_id'].split('\n')  # we should conduct split here
             FLAG = all([db in available_dbs for db in entry['db_id']])
         
-        FLAG2 = entry['instance_id'] != 'bq276'  # TODO hack: erroreous instance
+        # FLAG2 = entry['instance_id'] != 'bq276' 
+        FLAG2 = True
 
         if FLAG and FLAG2:
             # 0922 statistics   
@@ -142,9 +143,19 @@ def process_dev_json(args):
                 if 'table_suffix' in entry['query'].lower() or '*`' in entry['query'].lower():
                     entry['No. of gold tables'] = 20
                 else:
-                    print('when count the statistics, not captured any tables.', entry['instance_id'])
+                    pass
+                    # print('when count the statistics, not captured any tables.', entry['instance_id'])
 
             new_data.append(entry)
+        else:
+            print('when count the statistics, not found the db_id.', entry['instance_id'])
+
+
+    # print AVG No. of candidate columns and No. of gold tables
+    candidate_columns = [entry['No. of candidate columns'] for entry in new_data]
+    gold_tables = [entry['No. of gold tables'] for entry in new_data]
+    print(f"AVG No. of candidate columns: {np.mean(candidate_columns):.2f}")
+    print(f"AVG No. of gold tables: {np.mean(gold_tables):.2f}")
 
     plot_statistics(new_data)
 

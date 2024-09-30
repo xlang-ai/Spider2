@@ -22,7 +22,7 @@ def postprocess_sql_by_dialect(sql_content, selected_tables_to_dbid, file_name):
     elif file_name.startswith('bq') or file_name.startswith('ga'):  # bq
         new_sql_content = replace_table_names(sql_content, selected_tables_to_dbid)
     elif file_name.startswith('sf'):  # snowflake
-        raise NotImplementedError
+        new_sql_content = replace_table_names(sql_content, selected_tables_to_dbid)  # TODO NEXT check
     else:
         raise ValueError(f"Unknown database type: {file_name}")
     return new_sql_content

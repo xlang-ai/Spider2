@@ -1,0 +1,54 @@
+{
+    "sample_rows": [
+        {
+            "POI_ID": "08f26c862279d1150352e1060f847671",
+            "POI_NAME": "Redbox",
+            "CATEGORY_MAIN": "Video And Video Game Rentals",
+            "CATEGORY_ALTERNATE": "[\n  \"Books Mags Music And Video\",\n  \"Rental Kiosks\"\n]"
+        },
+        {
+            "POI_ID": "08f27490544e86b1036967efcd70720e",
+            "POI_NAME": "Hudson Place",
+            "CATEGORY_MAIN": "Retirement Home",
+            "CATEGORY_ALTERNATE": "[\n  \"Health And Medical\",\n  \"Public Service And Government\"\n]"
+        },
+        {
+            "POI_ID": "08f275d740d8184e03d67542272d1020",
+            "POI_NAME": "One Source Construction Corp.",
+            "CATEGORY_MAIN": "Construction Services",
+            "CATEGORY_ALTERNATE": "[\n  \"Commercial Industrial\",\n  \"Contractor\"\n]"
+        },
+        {
+            "POI_ID": "08f26c18910da49303ca27a9af04b9cf",
+            "POI_NAME": "Council Road",
+            "CATEGORY_MAIN": "Church Cathedral",
+            "CATEGORY_ALTERNATE": "[\n  \"Baptist Church\",\n  \"Religious Organization\"\n]"
+        },
+        {
+            "POI_ID": "08f2a94d0592d19c0352b1ade5f7bfe8",
+            "POI_NAME": "Impact Employment Solutions",
+            "CATEGORY_MAIN": "Employment Agencies",
+            "CATEGORY_ALTERNATE": "[\n  \"Information Technology Company\",\n  \"Professional Services\"\n]"
+        }
+    ],
+    "table_name": "POINT_OF_INTEREST_INDEX",
+    "table_fullname": "US_REAL_ESTATE.CYBERSYN.POINT_OF_INTEREST_INDEX",
+    "column_names": [
+        "CATEGORY_MAIN",
+        "POI_NAME",
+        "CATEGORY_ALTERNATE",
+        "POI_ID"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "ARRAY",
+        "TEXT"
+    ],
+    "description": [
+        "Primary category or class of place for the POI.",
+        "Name of the place, merchant, or landmark for the particular the POI.",
+        "Alternate categories of the POI. A POI could fit multiple categories (e.g., Restaurant, Burger Restaurant, Fast Food Restaurant), in which case one category would be recorded as CATEGORY_MAIN and the remaining categories would be recorded in a list under CATEGORY_ALTERNATE.",
+        "A unique identifier for a point of interest (such as a park, fast food chain, hotel, etc.) based on its description and location. This is joinable to the POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS table which can be used to link POIs to addresses."
+    ]
+}

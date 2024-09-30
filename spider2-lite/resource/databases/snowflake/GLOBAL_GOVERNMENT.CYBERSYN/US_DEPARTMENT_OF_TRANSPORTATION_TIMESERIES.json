@@ -1,0 +1,110 @@
+{
+    "sample_rows": [
+        {
+            "FLIGHT_TYPE_ID": "28ad3b116a705f65fd2a9df6bec3f49f",
+            "AIRCRAFT_CARRIER_ID": "06964_12",
+            "AIRCRAFT_ID": "3501",
+            "ORIGIN_AIRPORT_ID": "90530OOK",
+            "DESTINATION_AIRPORT_ID": "10360BET",
+            "SERVICE_CLASS": "Non-Scheduled Civilian Passenger Service",
+            "VARIABLE": "RAMP_IN_MINUTES",
+            "VARIABLE_NAME": "Ramp to Ramp Time",
+            "DATE": "2010-08-31",
+            "VALUE": 56.0,
+            "UNIT": "Minutes"
+        },
+        {
+            "FLIGHT_TYPE_ID": "cf4b7309ce4884368d51a7e51942e1b9",
+            "AIRCRAFT_CARRIER_ID": "06820_32",
+            "AIRCRAFT_ID": "67761",
+            "ORIGIN_AIRPORT_ID": "33342MKE",
+            "DESTINATION_AIRPORT_ID": "30977ORD",
+            "SERVICE_CLASS": "Scheduled Passenger/Cargo Service",
+            "VARIABLE": "RAMP_IN_MINUTES",
+            "VARIABLE_NAME": "Ramp to Ramp Time",
+            "DATE": "2022-08-31",
+            "VALUE": 129.0,
+            "UNIT": "Minutes"
+        },
+        {
+            "FLIGHT_TYPE_ID": "f367e322ca9c2659c07cc794f71f1d91",
+            "AIRCRAFT_CARRIER_ID": "07028_22",
+            "AIRCRAFT_ID": "3161",
+            "ORIGIN_AIRPORT_ID": "30781BTR",
+            "DESTINATION_AIRPORT_ID": "31057CLT",
+            "SERVICE_CLASS": "Scheduled Passenger/Cargo Service",
+            "VARIABLE": "AVAILABLE_CAPACITY_PAYLOAD_POUNDS",
+            "VARIABLE_NAME": "Available Payload",
+            "DATE": "2018-12-31",
+            "VALUE": 17600.0,
+            "UNIT": "Pounds"
+        },
+        {
+            "FLIGHT_TYPE_ID": "c9dd4f9fc360815254514841363591c7",
+            "AIRCRAFT_CARRIER_ID": "01220_31",
+            "AIRCRAFT_ID": "61661",
+            "ORIGIN_AIRPORT_ID": "31703EWR",
+            "DESTINATION_AIRPORT_ID": "30792BUF",
+            "SERVICE_CLASS": "Scheduled Passenger/Cargo Service",
+            "VARIABLE": "DEPARTURES_PERFORMED",
+            "VARIABLE_NAME": "Departures Performed",
+            "DATE": "2001-02-28",
+            "VALUE": 17.0,
+            "UNIT": "Count"
+        },
+        {
+            "FLIGHT_TYPE_ID": "43c78ee4a763fae537e32de92c688134",
+            "AIRCRAFT_CARRIER_ID": "06860_12",
+            "AIRCRAFT_ID": "41641",
+            "ORIGIN_AIRPORT_ID": "32122HGZ",
+            "DESTINATION_AIRPORT_ID": "32214HSL",
+            "SERVICE_CLASS": "Scheduled Passenger/Cargo Service",
+            "VARIABLE": "MAIL_TRANSPORTED",
+            "VARIABLE_NAME": "Non-Stop Segment Mail Transported",
+            "DATE": "2003-06-30",
+            "VALUE": 1121.0,
+            "UNIT": "Pounds"
+        }
+    ],
+    "table_name": "US_DEPARTMENT_OF_TRANSPORTATION_TIMESERIES",
+    "table_fullname": "GLOBAL_GOVERNMENT.CYBERSYN.US_DEPARTMENT_OF_TRANSPORTATION_TIMESERIES",
+    "column_names": [
+        "FLIGHT_TYPE_ID",
+        "AIRCRAFT_ID",
+        "DESTINATION_AIRPORT_ID",
+        "UNIT",
+        "VALUE",
+        "DATE",
+        "SERVICE_CLASS",
+        "VARIABLE_NAME",
+        "ORIGIN_AIRPORT_ID",
+        "VARIABLE",
+        "AIRCRAFT_CARRIER_ID"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "FLOAT",
+        "DATE",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "A unique hash for the combination of the origin and destination airports, aircraft carriers, and aircrafts. Primary key reflecting the flight pattern.",
+        "ID for the aircraft type, a distinctive model as designated by the manufacturer.",
+        "ID for the destination airport that is part of the flight route being measured, combination of the DOT unique code and official 3 letter OAG code issued for that airport.",
+        "Unit of measurement for the reported value.",
+        "Value reported for the variable.",
+        "Date associated with the value.",
+        "Type of service provided by the airline on a specific flight, breaking out scheduled from non-scheduled service and the type of service.",
+        "Human-readable unique name for the variable.",
+        "ID for the origin airport that is part of the flight route being measured, combination of the DOT unique code and official 3 letter OAG code issued for that airport.",
+        "Unique identifier for a variable, joinable to the timeseries table.",
+        "ID for the aircraft carrier."
+    ]
+}

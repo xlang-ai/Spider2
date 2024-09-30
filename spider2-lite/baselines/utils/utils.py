@@ -138,7 +138,7 @@ def walk_metadata(dev):
         else:  
             db_ids.add(item['db'])
   
-    # TODO: currently supporting only bigquery, local_metadata and snowflake
+    # currently supporting only bigquery, local_metadata and snowflake
     db_base_paths = ["../../resource/databases/bigquery/", "../../resource/databases/local_metadata/", "../../resource/databases/snowflake/"]
     json_glob_path = "**/*.json"
 
@@ -155,10 +155,13 @@ def walk_metadata(dev):
                     continue 
             elif 'local_metadata' in base_path:
                 db_name = proj_db_name
-                if db_name not in db_ids:
+                if proj_db_name not in db_ids:
                     continue
-            elif 'snowflake' in base_path:
-                continue  # TODO
+            elif 'snowflake' in base_path:  # the same structure as bigquery
+                assert '.' in proj_db_name
+                project_name, db_name = proj_db_name.split('.')
+                if f"{project_name}.{db_name}" not in db_ids:
+                    continue 
             else:
                 raise ValueError(f"Unknown database type: {base_path}")
 
@@ -207,7 +210,7 @@ def walk_metadata(dev):
             elif 'local_metadata' in base_path:
                 db_id = db_name
             elif 'snowflake' in base_path:
-                raise NotImplementedError
+                db_id = f"{project_name}.{db_name}" 
             else:
                 raise ValueError(f"Unknown database type: {base_path}")
 

@@ -1,0 +1,54 @@
+{
+    "sample_rows": [
+        {
+            "POI_ID": "08f2aad4446520ec03e1f001780831d4",
+            "POI_NAME": "Bk Rentals",
+            "CATEGORY_MAIN": "Party Equipment Rental",
+            "CATEGORY_ALTERNATE": "[\n  \"Party Supply\",\n  \"Retail\"\n]"
+        },
+        {
+            "POI_ID": "08f44a112860108a03b33ba25948478f",
+            "POI_NAME": "Amethyst Law Group",
+            "CATEGORY_MAIN": "Lawyer",
+            "CATEGORY_ALTERNATE": null
+        },
+        {
+            "POI_ID": "08f2986ab4d3447503b83560c1fe48ad",
+            "POI_NAME": "Iglesia Cristiana Mi Refugio",
+            "CATEGORY_MAIN": "Church Cathedral",
+            "CATEGORY_ALTERNATE": "[\n  \"Religious Organization\"\n]"
+        },
+        {
+            "POI_ID": "08f2832b99aed21203072dc6cbb35c3b",
+            "POI_NAME": "Jass Gardening",
+            "CATEGORY_MAIN": null,
+            "CATEGORY_ALTERNATE": null
+        },
+        {
+            "POI_ID": "08f2a33cd328310e0331f178e0caa82b",
+            "POI_NAME": "Pampered By G",
+            "CATEGORY_MAIN": null,
+            "CATEGORY_ALTERNATE": null
+        }
+    ],
+    "table_name": "POINT_OF_INTEREST_INDEX",
+    "table_fullname": "US_ADDRESSES__POI.CYBERSYN.POINT_OF_INTEREST_INDEX",
+    "column_names": [
+        "CATEGORY_MAIN",
+        "POI_NAME",
+        "CATEGORY_ALTERNATE",
+        "POI_ID"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "ARRAY",
+        "TEXT"
+    ],
+    "description": [
+        "Primary category or class of place for the POI.",
+        "Name of the place, merchant, or landmark for the particular the POI.",
+        "Alternate categories of the POI. A POI could fit multiple categories (e.g., Restaurant, Burger Restaurant, Fast Food Restaurant), in which case one category would be recorded as CATEGORY_MAIN and the remaining categories would be recorded in a list under CATEGORY_ALTERNATE.",
+        "A unique identifier for a point of interest (such as a park, fast food chain, hotel, etc.) based on its description and location. This is joinable to the POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS table which can be used to link POIs to addresses."
+    ]
+}

@@ -1,0 +1,94 @@
+{
+    "sample_rows": [
+        {
+            "COMPANY_ID": "ca52d8c892a8ffe6e8368f2bd7a5fca7",
+            "COMPANY_NAME": "WYNN RESORTS LTD",
+            "ENTITY_LEVEL": "Corporate",
+            "RELATED_COMPANY_ID": "5a2aaa890644211a8e69ad206ee9d4de",
+            "RELATED_COMPANY_NAME": "WYNN LAS VEGAS LLC",
+            "RELATED_ENTITY_LEVEL": "Corporate",
+            "RELATIONSHIP_TYPE": "Parent",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "COMPANY_ID": "61042fb57d4bc5965ff4f0dfa55f3aa2",
+            "COMPANY_NAME": "RITZ-CARLTON HOTEL COMPANY LLC",
+            "ENTITY_LEVEL": "Corporate",
+            "RELATED_COMPANY_ID": "d0d371457687b60bbb116b9fc9ae65ea",
+            "RELATED_COMPANY_NAME": "MARRIOTT INTERNATIONAL INC /MD/",
+            "RELATED_ENTITY_LEVEL": "Corporate",
+            "RELATIONSHIP_TYPE": "Subsidiary",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "COMPANY_ID": "9d60e1934f9141a0991597d08181e126",
+            "COMPANY_NAME": "TOWNEPLACE SUITES BY MARRIOTT",
+            "ENTITY_LEVEL": "Corporate",
+            "RELATED_COMPANY_ID": "d0d371457687b60bbb116b9fc9ae65ea",
+            "RELATED_COMPANY_NAME": "MARRIOTT INTERNATIONAL INC /MD/",
+            "RELATED_ENTITY_LEVEL": "Corporate",
+            "RELATIONSHIP_TYPE": "Subsidiary",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "COMPANY_ID": "b5647b2c2c12a1b09f5ce31802833f10",
+            "COMPANY_NAME": "WYNDHAM HOTELS & RESORTS, INC.",
+            "ENTITY_LEVEL": "Corporate",
+            "RELATED_COMPANY_ID": "015a8a998d3e9492c6ff9ed4e452d802",
+            "RELATED_COMPANY_NAME": "SUPER 8 WORLDWIDE, INC.",
+            "RELATED_ENTITY_LEVEL": "Corporate",
+            "RELATIONSHIP_TYPE": "Parent",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "COMPANY_ID": "b00320b7fdfbd6ecdbe7379e1e1e1d61",
+            "COMPANY_NAME": "COMCAST CORP",
+            "ENTITY_LEVEL": "Corporate",
+            "RELATED_COMPANY_ID": "36df5b636ad537c1a94fb35cd7c91f80",
+            "RELATED_COMPANY_NAME": "FANDANGO MEDIA LLC",
+            "RELATED_ENTITY_LEVEL": "Corporate",
+            "RELATIONSHIP_TYPE": "Parent",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        }
+    ],
+    "table_name": "COMPANY_RELATIONSHIPS",
+    "table_fullname": "FINANCE__ECONOMICS.CYBERSYN.COMPANY_RELATIONSHIPS",
+    "column_names": [
+        "COMPANY_NAME",
+        "RELATIONSHIP_TYPE",
+        "RELATIONSHIP_START_DATE",
+        "RELATIONSHIP_END_DATE",
+        "COMPANY_ID",
+        "ENTITY_LEVEL",
+        "RELATED_COMPANY_ID",
+        "RELATED_ENTITY_LEVEL",
+        "RELATED_COMPANY_NAME"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "DATE",
+        "DATE",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "The name of the company.",
+        "Specifies the kind of relationship between the company and the related company. The value is 'Parent' when the company is the parent of the related company and 'Subsidiary' when the company is a subsidiary of the related company.",
+        "The beginning of a company being associated with the related company. In cases where the start date is unknown, NULL is assigned.",
+        "The ending of the relationship being valid for the company and the related company. In cases where a relationship is currently valid, an end date of NULL is assigned.",
+        "Unique identifier assigned by Cybersyn to each company. Joinable to the COMPANY_INDEX table.",
+        "Describes the type or level of the entity for additional convenience. Currently, all entities are corporate entities and are denoted as 'Corporate'.",
+        "Unique identifier assigned by Cybersyn to the related company. Joinable to the COMPANY_INDEX table.",
+        "Describes the type or level of the related entity for additional convenience. Currently, all entities are corporate entities and are denoted as 'Corporate'.",
+        "The name of the related company."
+    ]
+}

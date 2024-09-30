@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "GEO_NAME": "Bureau County",
+            "GEO_ID": "geoId/17011",
+            "LEVEL": "County",
+            "RELATED_GEO_NAME": "61317",
+            "RELATED_GEO_ID": "zip/61317",
+            "RELATED_LEVEL": "CensusZipCodeTabulationArea",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Census Tract 8, Geary County, Kansas",
+            "GEO_ID": "geoId/20061000800",
+            "LEVEL": "CensusTract",
+            "RELATED_GEO_NAME": "67487",
+            "RELATED_GEO_ID": "zip/67487",
+            "RELATED_LEVEL": "CensusZipCodeTabulationArea",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "Canada",
+            "GEO_ID": "country/CAN",
+            "LEVEL": "Country",
+            "RELATED_GEO_NAME": "24180065",
+            "RELATED_GEO_ID": "statcanId/S051224180065",
+            "RELATED_LEVEL": "DisseminationArea",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "California",
+            "GEO_ID": "geoId/06",
+            "LEVEL": "State",
+            "RELATED_GEO_NAME": "Census Tract 4087.07, Los Angeles County, California",
+            "RELATED_GEO_ID": "geoId/06037408707",
+            "RELATED_LEVEL": "CensusTract",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "04346",
+            "GEO_ID": "zip/04346",
+            "LEVEL": "CensusZipCodeTabulationArea",
+            "RELATED_GEO_NAME": "United States",
+            "RELATED_GEO_ID": "country/USA",
+            "RELATED_LEVEL": "Country",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        }
+    ],
+    "table_name": "GEOGRAPHY_RELATIONSHIPS",
+    "table_fullname": "GLOBAL_GOVERNMENT.CYBERSYN.GEOGRAPHY_RELATIONSHIPS",
+    "column_names": [
+        "RELATED_GEO_NAME",
+        "RELATED_LEVEL",
+        "RELATIONSHIP_TYPE",
+        "RELATED_GEO_ID",
+        "GEO_ID",
+        "LEVEL",
+        "GEO_NAME"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Name of the place related to GEO_NAME. This is a place that overlaps or is contained within the primary geo (e.g., city within a state)",
+        "Geographic level or hierarchy of the related place (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "Relationship between the two places. Contains means the RELATED_GEO_ID is fully contained within the GEO_ID (e.g., relationship of state to a city) while Overlaps indicates the GEO_ID is a subpart of the RELATED_GEO_ID (e.g., relationship of city to a state)",
+        "A unique identifier for the related place joinable to the GEOGRAPHY_INDEX table",
+        "A unique identifier for a place joinable to the GEOGRAPHY_INDEX table",
+        "Geographic level or hierarchy (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "Full name of the place"
+    ]
+}
