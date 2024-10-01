@@ -5,7 +5,7 @@ To align with research interests in **traditional Text2SQL settings**, we releas
 
 ## 🚀 Quickstart
 
-1. Download  [local database](https://drive.google.com/uc?export=download&id=1mdcGd2EwizOZp4JNPZQTYKnSC3QCIFKS), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
+1. Download  [local database](https://drive.usercontent.google.com/download?id=1hZq4Jsx0Gj0bhstrViNF_nbo6Qh6slER&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
 
 
 
