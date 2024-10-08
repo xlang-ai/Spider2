@@ -156,9 +156,13 @@ class SpiderEncoderV2Preproc(abstract_preproc.AbstractPreproc):
         question, question_for_copying = self._tokenize_for_copying(item['question_toks'], item['question'])
         preproc_schema = self._preprocess_schema(schema)
         if self.compute_sc_link:
-            assert preproc_schema.column_names[0][0].startswith("<type:")
-            column_names_without_types = [col[1:] for col in preproc_schema.column_names]
-            sc_link = compute_schema_linking(question, column_names_without_types, preproc_schema.table_names)
+            try:
+                assert preproc_schema.column_names[0][0].startswith("<type:")
+                column_names_without_types = [col[1:] for col in preproc_schema.column_names]
+                sc_link = compute_schema_linking(question, column_names_without_types, preproc_schema.table_names)
+            except Exception as e:
+                print(f"Warning: error in schema linking for {item['db_id']}, skip.")
+                sc_link = {"q_col_match": {}, "q_tab_match": {}}
         else:
             sc_link = {"q_col_match": {}, "q_tab_match": {}}
 

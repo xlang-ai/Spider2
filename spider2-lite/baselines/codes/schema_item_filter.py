@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import torch
-
+import copy
 from tqdm import tqdm
 from transformers import AutoTokenizer
 from utils.classifier_model import SchemaItemClassifier
@@ -97,7 +97,12 @@ def get_sequence_length(text, tables_and_columns, tokenizer):
         # remove the last ","
         input_words = input_words[:-1]
 
-    tokenized_inputs = tokenizer(input_words, is_split_into_words = True)
+    tokenized_inputs = tokenizer(
+        input_words, 
+        is_split_into_words=True,
+        max_length=512, 
+        truncation=True
+    )
 
     return len(tokenized_inputs["input_ids"])
 
@@ -195,11 +200,7 @@ def filter_schema(dataset, dataset_type, sic, num_top_k_tables = 5, num_top_k_co
             table_probs = [pred_result["table_prob"] for pred_result in pred_results]
             table_indices = np.argsort(-np.array(table_probs), kind="stable")[:num_top_k_tables].tolist()
         elif dataset_type == "train":
-            table_indices = [table_idx for table_idx, table_label in enumerate(data["table_labels"]) if table_label == 1]
-            if len(table_indices) < num_top_k_tables:
-                unused_table_indices = [table_idx for table_idx, table_label in enumerate(data["table_labels"]) if table_label == 0]
-                table_indices += random.sample(unused_table_indices, min(len(unused_table_indices), num_top_k_tables - len(table_indices))) 
-            random.shuffle(table_indices)
+            raise NotImplementedError("For spider2.0, filtering schema items for training dataset is not implemented yet!")
 
         for table_idx in table_indices:
             if dataset_type == "eval":
