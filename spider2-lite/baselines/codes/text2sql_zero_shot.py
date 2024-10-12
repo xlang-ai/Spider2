@@ -107,7 +107,6 @@ if __name__ == "__main__":
         if not args.override and instance_id in existing_instance_ids:
             continue 
 
-
         processed_number += 1
 
         # write prompt to file
