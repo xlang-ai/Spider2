@@ -90,19 +90,28 @@ def evaluate_instance(id, mode, pred_result_dir, gold_result_dir, gold_sql_dir, 
                 score = 0
                 error_info = dbms_error_info
             else:
+
+                resultEq_s_time = time.time()
                 pred_pd = pd.read_csv(os.path.join("temp", f"{id}_pred.csv"))
-                try:
+                pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+
+                all_files = os.listdir(gold_result_dir)
+                csv_files = [file for file in all_files if pattern.match(file)]
+                if len(csv_files) == 1:
                     gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
-                except:
-                    gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}_a.csv"))
-                try:
-                    score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict[id]['condition_cols'], eval_standard_dict[id]['ignore_order'])
-                except Exception as e:
-                    # print(f"An error occurred: {e}")
-                    score = 0
-                    error_info = 'Python Script Error:' + str(e)
-                if score == 0 and error_info is None:
-                    error_info = 'Result Error'
+                    try:
+                        score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict[id]['condition_cols'], eval_standard_dict[id]['ignore_order'])
+                    except Exception as e:
+                        # print(f"An error occurred: {e}")
+                        score = 0
+                        error_info = 'Python Script Error:' + str(e)
+                    if score == 0 and error_info is None:
+                        error_info = 'Result Error'
+                elif len(csv_files) > 1:
+                    gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
+                    score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict[id]['condition_cols'], eval_standard_dict[id]['ignore_order'])
+                    if score == 0 and error_info is None:
+                        error_info = 'Result Error'
 
             if score == 1:
                 instance_correct = True
