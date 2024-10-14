@@ -188,17 +188,34 @@ def get_bigquery_sql_result(sql_query, is_save, credential_path, save_dir=None, 
     return True, None
       
 
-def get_sqlite_result(db_path, query, save_dir=None, file_name="result.csv"):
+def get_sqlite_result(db_path, query, save_dir=None, file_name="result.csv", chunksize=500):
     conn = sqlite3.connect(db_path)
-    try:        
-        df = pd.read_sql_query(query, conn)
-        df.to_csv(os.path.join(save_dir, file_name), index=False)
+    memory_conn = sqlite3.connect(':memory:')
+
+    conn.backup(memory_conn)
+    
+    try:
+        if save_dir:
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+            for i, chunk in enumerate(pd.read_sql_query(query, memory_conn, chunksize=chunksize)):
+                mode = 'a' if i > 0 else 'w'
+                header = i == 0
+                chunk.to_csv(os.path.join(save_dir, file_name), mode=mode, header=header, index=False)
+        else:
+            df = pd.read_sql_query(query, memory_conn)
+            return True, df
+
     except Exception as e:
-        print(f"An error occurred: {e}, when executing {db_path}")
+        print(f"An error occurred: {e}")
         return False, str(e)
+
     finally:
+        memory_conn.close()
         conn.close()
+    
     return True, None
+
 
 
 def evaluate_spider2sql(args):
