@@ -192,7 +192,6 @@ def get_sqlite_result(db_path, query, save_dir=None, file_name="result.csv"):
     conn = sqlite3.connect(db_path)
     try:        
         df = pd.read_sql_query(query, conn)
-        df = pd.read_sql_query(query, conn)
         df.to_csv(os.path.join(save_dir, file_name), index=False)
     except Exception as e:
         print(f"An error occurred: {e}, when executing {db_path}")
