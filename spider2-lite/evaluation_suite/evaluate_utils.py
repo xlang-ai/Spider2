@@ -62,8 +62,10 @@ def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_
 
     if multi_condition_cols == [] or multi_condition_cols == [[]] or multi_condition_cols == [None] or multi_condition_cols == None:
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
+    elif len(multi_gold) > 1 and not all(isinstance(sublist, list) for sublist in multi_condition_cols):
+        multi_condition_cols = [multi_condition_cols for _ in range(len(multi_gold))]
     multi_ignore_order = [multi_ignore_order for _ in range(len(multi_gold))]
-    
+
     for i, gold in enumerate(multi_gold):
         if compare_pandas_table(pred, gold, multi_condition_cols[i], multi_ignore_order[i]):
             return 1
