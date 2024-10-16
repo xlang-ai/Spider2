@@ -3,6 +3,8 @@
 
 ## 📰 News
 
+- 2024-10-16: We have cleaned the data in BigQuery, significantly reducing the execution cost of SQL queries. We have now released 80% of the Spider 2.0-lite data, so please stay tuned for updates on the paper and the complete dataset.
+
 - 2024-08-28: We released a smaller version of Spider 2.0 (~ 25% of the full dataset) containing 190 examples to give users early access. The full dataset and the paper will be available in two weeks. As this is a preliminary release, there may be errors. Your feedback would be invaluable in refining the dataset. Stay tuned!
 
 ## 👋 Overview
