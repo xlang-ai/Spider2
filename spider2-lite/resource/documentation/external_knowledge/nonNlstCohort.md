@@ -11,8 +11,8 @@ The assumptions include:
 - have number of instances in the series equal to the number of distinct values of Image Position (Patient) attribute (converted to string for comparison)
 - all instances in a series have identical values for the first two components of Image Position (Patient)
 - all instances in a series have identical pixel rows, and similarly identical pixel columns
-- for the difference between the values of the 3rd component of Image Position (Patient), after sorting all instances by that third component, the difference between the largest and smallest values is less than 0.01
-- the number of SOP instances in the series should be at least 1000.
+- for the difference between the values of the 3rd component of Image Position (Patient), after sorting all instances by that third component
+
 
 BTW, the desired output report should contain:
 1. The unique identifier for each image series;
@@ -27,5 +27,5 @@ BTW, the desired output report should contain:
 10. The number of distinct exposure values;
 11. The maximum and minimum exposure value recorded for the images;
 12. The difference between the maximum and minimum exposure values within the series, indicating the range of exposure variation;
-13. The total size of the image series in megabytes (MB).
+13. The total size of the image series in megabytes (MiB).
 And please sort the final output by slice interval difference tolerance, maximum exposure difference and series unique ID (all in descending order).
