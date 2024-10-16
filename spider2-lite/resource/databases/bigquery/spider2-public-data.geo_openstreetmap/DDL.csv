@@ -1,0 +1,117 @@
+table_name,ddl
+planet_features_points,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_features_points`
+(
+  osm_id INT64,
+  osm_version INT64,
+  osm_way_id INT64,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>
+);"
+history_nodes,"CREATE TABLE `spider2-public-data.geo_openstreetmap.history_nodes`
+(
+  id INT64,
+  version INT64,
+  username STRING,
+  changeset INT64,
+  visible BOOL,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  latitude NUMERIC,
+  longitude NUMERIC
+);"
+planet_nodes,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_nodes`
+(
+  id INT64,
+  version INT64,
+  username STRING,
+  changeset INT64,
+  visible BOOL,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  latitude NUMERIC,
+  longitude NUMERIC
+);"
+planet_relations,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_relations`
+(
+  id INT64,
+  version INT64,
+  username STRING,
+  changeset INT64,
+  visible BOOL,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  members ARRAY<STRUCT<type STRING, id INT64, role STRING>>
+);"
+history_layers,"CREATE TABLE `spider2-public-data.geo_openstreetmap.history_layers`
+(
+  layer_code INT64,
+  layer_class STRING,
+  layer_name STRING,
+  osm_id INT64,
+  osm_way_id INT64,
+  osm_timestamp TIMESTAMP,
+  osm_version INT64,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  geometry GEOGRAPHY,
+  gdal_type STRING
+);"
+planet_features,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_features`
+(
+  feature_type STRING,
+  osm_id INT64,
+  osm_way_id INT64,
+  osm_version INT64,
+  osm_timestamp TIMESTAMP,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  geometry GEOGRAPHY
+);"
+planet_layers,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_layers`
+(
+  layer_code INT64,
+  layer_class STRING,
+  layer_name STRING,
+  gdal_type STRING,
+  osm_id INT64,
+  osm_way_id INT64,
+  osm_timestamp TIMESTAMP,
+  osm_version INT64,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  geometry GEOGRAPHY
+);"
+planet_ways,"CREATE TABLE `spider2-public-data.geo_openstreetmap.planet_ways`
+(
+  id INT64,
+  version INT64,
+  username STRING,
+  changeset INT64,
+  visible BOOL,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>,
+  nodes ARRAY<STRUCT<id INT64>>
+);"
+history_changesets,"CREATE TABLE `spider2-public-data.geo_openstreetmap.history_changesets`
+(
+  id INT64,
+  osm_timestamp_min INT64,
+  osm_timestamp_max INT64,
+  relations ARRAY<INT64>,
+  ways ARRAY<INT64>,
+  nodes ARRAY<INT64>
+);"
+history_relations,"CREATE TABLE `spider2-public-data.geo_openstreetmap.history_relations`
+(
+  id INT64,
+  version INT64,
+  username STRING,
+  changeset INT64,
+  visible BOOL,
+  osm_timestamp TIMESTAMP,
+  geometry GEOGRAPHY,
+  members ARRAY<STRUCT<type STRING, id INT64, role STRING>>,
+  all_tags ARRAY<STRUCT<key STRING, value STRING>>
+);"
