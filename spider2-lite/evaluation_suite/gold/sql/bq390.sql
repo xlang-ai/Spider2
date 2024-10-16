@@ -4,7 +4,7 @@ mr_studies AS (
   SELECT
     dicom_all_mr.StudyInstanceUID
   FROM
-    bigquery-public-data.idc_v17.dicom_all AS dicom_all_mr
+    spider2-public-data.idc_v17.dicom_all AS dicom_all_mr
   WHERE
     Modality = 'MR'
     AND collection_id = 'qin_prostate_repeatability'
@@ -16,9 +16,9 @@ seg_studies AS (
   SELECT
     dicom_all_seg.StudyInstanceUID
   FROM
-    bigquery-public-data.idc_v17.dicom_all AS dicom_all_seg
+    spider2-public-data.idc_v17.dicom_all AS dicom_all_seg
   JOIN
-    bigquery-public-data.idc_v17.segmentations AS segmentations
+    spider2-public-data.idc_v17.segmentations AS segmentations
   ON
     dicom_all_seg.SOPInstanceUID = segmentations.SOPInstanceUID
   WHERE

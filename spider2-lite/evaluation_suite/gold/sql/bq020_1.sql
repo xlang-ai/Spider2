@@ -7,8 +7,8 @@ FROM (
     COUNT(reference_name) AS variant_count,
     r.length AS reference_length
   FROM
-    `bigquery-public-data.genomics_cannabis.MNPR01_201703` v,
-    `bigquery-public-data.genomics_cannabis.MNPR01_reference_201703` r
+    `spider2-public-data.genomics_cannabis.MNPR01_201703` v,
+    `spider2-public-data.genomics_cannabis.MNPR01_reference_201703` r
   WHERE
     v.reference_name = r.name
     AND EXISTS (

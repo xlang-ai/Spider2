@@ -8,7 +8,7 @@ FROM (
     feature_name,
     AVG(X_value) AS avg_counts_clust41
   FROM
-    `isb-cgc-bq.HTAN.scRNAseq_MSK_SCLC_combined_samples_current`
+    `spider2-public-data.HTAN.scRNAseq_MSK_SCLC_combined_samples_current`
   WHERE development_stage = '74-year-old human stage' AND Cell_Type = 'epithelial cell' AND clusters = '41' AND sex = 'female'
   GROUP BY
     1) AS A
@@ -17,7 +17,7 @@ INNER JOIN (
     feature_name,
     AVG(X_value) AS avg_counts_clust41
   FROM
-    `isb-cgc-bq.HTAN.scRNAseq_MSK_SCLC_combined_samples_current`
+    `spider2-public-data.HTAN.scRNAseq_MSK_SCLC_combined_samples_current`
   WHERE development_stage = '74-year-old human stage' AND Cell_Type = 'epithelial cell' AND clusters = '41' AND sex = 'male'
   GROUP BY
     1) AS B

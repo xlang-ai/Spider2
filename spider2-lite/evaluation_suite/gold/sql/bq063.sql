@@ -14,7 +14,7 @@ WITH HighestReleases AS (
                 ORDER BY VersionInfo.Ordinal DESC
             ) AS RowNumber
         FROM
-            `bigquery-public-data.deps_dev_v1.PackageVersions`
+            `spider2-public-data.deps_dev_v1.PackageVersions`
         WHERE
             System = Sys
             AND VersionInfo.IsRelease)

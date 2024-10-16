@@ -7,7 +7,7 @@ SELECT
     times_shown_lower_bound AS times_shown_lower,
     times_shown_upper_bound AS times_shown_upper
 FROM
-    `bigquery-public-data.google_ads_transparency_center.removed_creative_stats`,
+    `spider2-public-data.google_ads_transparency_center.removed_creative_stats`,
     UNNEST(region_stats)
 WHERE
     region_code = 'HR' AND

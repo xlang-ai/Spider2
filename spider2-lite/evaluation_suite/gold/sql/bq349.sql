@@ -3,10 +3,9 @@ WITH bounding_area AS (
         osm_id, 
         geometry,
         ST_Area(geometry) AS area
-    FROM `bigquery-public-data.geo_openstreetmap.planet_features`
+    FROM `spider2-public-data.geo_openstreetmap.planet_features`
     WHERE 
         feature_type = "multipolygons"
-        AND ('admin_level', '2') IN (SELECT (key, value) FROM UNNEST(all_tags))
         AND ('boundary', 'administrative') IN (SELECT (key, value) FROM UNNEST(all_tags))
 ),
 
@@ -15,7 +14,7 @@ poi AS (
         nodes.id AS poi_id,
         nodes.geometry AS poi_geometry,
         tags.value AS poitype
-    FROM `bigquery-public-data.geo_openstreetmap.planet_nodes` AS nodes
+    FROM `spider2-public-data.geo_openstreetmap.planet_nodes` AS nodes
     JOIN UNNEST(nodes.all_tags) AS tags
     WHERE tags.key = 'amenity'
 ),

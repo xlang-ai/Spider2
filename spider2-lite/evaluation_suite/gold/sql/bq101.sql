@@ -10,7 +10,7 @@ FROM (
       SPLIT(content, '\n') AS lines,
       id
     FROM
-      `bigquery-public-data.github_repos.sample_contents`
+      `spider2-public-data.github_repos.sample_contents`
     WHERE
       REGEXP_CONTAINS(content, r'import')
       AND sample_path LIKE '%.java'

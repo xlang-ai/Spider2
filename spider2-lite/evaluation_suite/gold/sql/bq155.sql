@@ -1,7 +1,7 @@
 WITH cohort AS(
     SELECT case_barcode FROM `isb-cgc.TCGA_bioclin_v0.Clinical`
-    WHERE project_short_name = "TCGA-BRCA" AND age_at_diagnosis <= 50
-        AND pathologic_stage = 'Stage IIA'
+    WHERE project_short_name = "TCGA-BRCA" AND age_at_diagnosis <= 80
+        AND pathologic_stage in ('Stage I','Stage II','Stage IIA')
 ),
 table1 AS (
     SELECT
@@ -13,9 +13,9 @@ table1 AS (
             gene_name AS symbol, 
             AVG( LOG10( HTSeq__Counts + 1 ) )  AS data,
             case_barcode AS ParticipantBarcode
-        FROM `isb-cgc.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
+        FROM `spider2-public-data.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
         WHERE case_barcode IN ( SELECT case_barcode FROM cohort )     # cohort 
-                AND gene_name  =  'RNU7-6P'   # labels 
+                AND gene_name  =  'SNORA31'   # labels 
                 AND HTSeq__Counts IS NOT NULL  
         GROUP BY
             ParticipantBarcode, symbol
@@ -31,7 +31,7 @@ table2 AS (
         mirna_id AS symbol, 
         AVG( reads_per_million_miRNA_mapped ) AS data,
         case_barcode AS ParticipantBarcode
-    FROM `isb-cgc.TCGA_hg38_data_v0.miRNAseq_Expression`
+    FROM `spider2-public-data.TCGA_hg38_data_v0.miRNAseq_Expression`
     WHERE case_barcode IN ( SELECT case_barcode FROM cohort )     # cohort 
             AND mirna_id  IS NOT NULL   # labels 
             AND reads_per_million_miRNA_mapped IS NOT NULL  

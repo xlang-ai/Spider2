@@ -5,17 +5,17 @@ FROM (
     repo_name,
     lang.name AS language_name
   FROM
-    `bigquery-public-data.github_repos.languages` AS lang_table,
+    `spider2-public-data.github_repos.languages` AS lang_table,
     UNNEST(LANGUAGE) AS lang) lang_table
 JOIN
-  `bigquery-public-data.github_repos.licenses` AS license_table
+  `spider2-public-data.github_repos.licenses` AS license_table
 ON
   license_table.repo_name = lang_table.repo_name
 JOIN (
   SELECT
     *
   FROM
-    `bigquery-public-data.github_repos.sample_commits`) commits_table
+    `spider2-public-data.github_repos.sample_commits`) commits_table
 ON
   commits_table.repo_name = lang_table.repo_name
 WHERE

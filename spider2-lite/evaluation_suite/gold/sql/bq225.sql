@@ -63,7 +63,7 @@ WITH languages AS (
       WHEN '.xml'         THEN 'XML'
     END AS language
   FROM
-    `bigquery-public-data.github_repos.sample_files` AS files
+    `spider2-public-data.github_repos.sample_files` AS files
 )
 
 SELECT
@@ -71,7 +71,7 @@ SELECT
 FROM
   languages
 INNER JOIN
-  `bigquery-public-data.github_repos.sample_contents` AS contents
+  `spider2-public-data.github_repos.sample_contents` AS contents
 ON
   contents.id = languages.id
 WHERE
@@ -79,4 +79,4 @@ WHERE
   AND contents.content IS NOT NULL
 GROUP BY languages.language
 ORDER BY COUNT(*) DESC
-LIMIT 3;
+LIMIT 10;

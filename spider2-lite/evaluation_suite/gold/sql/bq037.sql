@@ -3,7 +3,7 @@ WITH A AS (
         reference_bases,
         start_position
     FROM
-        `bigquery-public-data.human_genome_variants.1000_genomes_phase_3_optimized_schema_variants_20150220`
+        `spider2-public-data.human_genome_variants.1000_genomes_phase_3_optimized_schema_variants_20150220`
     WHERE
         reference_bases IN ('AT', 'TA')
 ),

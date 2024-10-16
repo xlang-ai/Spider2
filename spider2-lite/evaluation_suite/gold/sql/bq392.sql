@@ -4,13 +4,12 @@ WITH
     SELECT
       *,
       CAST(year AS STRING) AS year_string,
-      CAST(month AS STRING) AS month_string,
-      CAST(day AS STRING) AS day_string
+      CAST(mo AS STRING) AS month_string,
+      CAST(da AS STRING) AS day_string
     FROM
-      `bigquery-public-data.samples.gsod`
+      `bigquery-public-data.noaa_gsod.gsod2009`
     WHERE
-      station_number = 723758
-      AND year = 2009
+      stn = "723758"
   ),
 
   # SECOND, CONCAT ALL THE STRINGS TOGETHER INTO ONE COLUMN
@@ -35,7 +34,7 @@ WITH
   Temp_Avg AS (
     SELECT
       date_date,
-      AVG(mean_temp) AS avg_temp
+      AVG(temp) AS avg_temp
     FROM
       TTT
     WHERE

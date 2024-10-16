@@ -14,7 +14,7 @@ WITH temp_query AS (
       ELSE CONCAT(SeriesDescription, collection_id, Modality)
     END AS collection_sequence_id
   FROM 
-    `bigquery-public-data.idc_v15.dicom_all`
+    `spider2-public-data.idc_v17.dicom_all`
   WHERE 
     collection_id = 'prostatex'
 ),

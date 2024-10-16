@@ -5,8 +5,8 @@ WITH token_transfers AS (
     transaction_hash,
     block_number,
     log_index
-  FROM `bigquery-public-data.crypto_ethereum.token_transfers`
-  WHERE token_address = "0xa92a861fc11b99b24296af880011b47f9cafb5ab"
+  FROM `spider2-public-data.crypto_ethereum.token_transfers`
+  WHERE token_address = "0x0d8775f648430679a709e98d2b0cb6250d2887ef0"
 
   UNION ALL
 
@@ -16,8 +16,8 @@ WITH token_transfers AS (
     transaction_hash,
     block_number,
     log_index
-  FROM `bigquery-public-data.crypto_ethereum.token_transfers`
-  WHERE token_address = "0xa92a861fc11b99b24296af880011b47f9cafb5ab"
+  FROM `spider2-public-data.crypto_ethereum.token_transfers`
+  WHERE token_address = "0x1e15c05cbad367f044cbfbafda3d9a1510db5513"
 ),
 
 balances AS (

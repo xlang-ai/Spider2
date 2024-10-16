@@ -2,7 +2,7 @@ WITH collections_with_seg_rtstruct AS (
   SELECT
     DISTINCT(StudyInstanceUID)
   FROM
-    bigquery-public-data.idc_v17.dicom_all
+    spider2-public-data.idc_v17.dicom_all
   WHERE
     Modality = "SEG"
     OR Modality = "RTSTRUCT"

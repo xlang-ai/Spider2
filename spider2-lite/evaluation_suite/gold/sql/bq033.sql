@@ -6,7 +6,7 @@ WITH
       ANY_VALUE(abstract_info.text) AS Patent_Title,
       ANY_VALUE(abstract_info.language) AS Patent_Title_Language
     FROM
-      `patents-public-data.patents.publications` AS patentsdb,
+      `spider2-public-data.patents.publications` AS patentsdb,
       UNNEST(abstract_localized) AS abstract_info
     WHERE
       LOWER(abstract_info.text) LIKE '%internet of things%'

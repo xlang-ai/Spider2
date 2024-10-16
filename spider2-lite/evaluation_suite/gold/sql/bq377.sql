@@ -3,12 +3,12 @@ WITH json_files AS (
     c.id,
     JSON_EXTRACT(c.content, '$.require') AS dependencies
   FROM
-    `bigquery-public-data.github_repos.contents` c
+    `spider2-public-data.github_repos.sample_contents` c
   JOIN (
     SELECT
       id
     FROM
-      `bigquery-public-data.github_repos.files`
+      `spider2-public-data.github_repos.sample_files`
     WHERE
       path = 'composer.json'
   ) f

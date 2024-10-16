@@ -17,7 +17,7 @@ amenities AS (
                     tags.key = 'amenity'
            ) AS amenity
     FROM 
-        `bigquery-public-data.geo_openstreetmap.planet_features_points` AS features
+        `spider2-public-data.geo_openstreetmap.planet_features_points` AS features
     CROSS JOIN philadelphia
     WHERE ST_CONTAINS(philadelphia.place_geom, features.geometry)
     AND 

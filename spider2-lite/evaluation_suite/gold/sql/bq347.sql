@@ -4,7 +4,7 @@ WITH union_mr_seg AS (
     '' AS segPropertyTypeCodeMeaning, 
     '' AS segPropertyCategoryCodeMeaning
   FROM
-    `bigquery-public-data.idc_v17.dicom_all` AS dicom_all_mr
+    `spider2-public-data.idc_v17.dicom_all` AS dicom_all_mr
   WHERE
     dicom_all_mr.SeriesInstanceUID IN UNNEST(["1.3.6.1.4.1.14519.5.2.1.3671.4754.105976129314091491952445656147"])
     
@@ -15,9 +15,9 @@ WITH union_mr_seg AS (
     segmentations.SegmentedPropertyType.CodeMeaning AS segPropertyTypeCodeMeaning,
     segmentations.SegmentedPropertyCategory.CodeMeaning AS segPropertyCategoryCodeMeaning
   FROM
-    `bigquery-public-data.idc_v17.dicom_all` AS dicom_all_seg
+    `spider2-public-data.idc_v17.dicom_all` AS dicom_all_seg
   JOIN
-    `bigquery-public-data.idc_v17.segmentations` AS segmentations
+    `spider2-public-data.idc_v17.segmentations` AS segmentations
   ON
     dicom_all_seg.SOPInstanceUID = segmentations.SOPInstanceUID
 )
@@ -26,7 +26,7 @@ SELECT
   dc_all.Modality,
   COUNT(*) AS count_
 FROM 
-  `bigquery-public-data.idc_v17.dicom_all` AS dc_all
+  `spider2-public-data.idc_v17.dicom_all` AS dc_all
 INNER JOIN
   union_mr_seg
 ON 

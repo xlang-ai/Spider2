@@ -11,7 +11,7 @@ WITH files_with_levels AS (
       ELSE 'Other'
     END AS file_type
   FROM
-    `bigquery-public-data.github_repos.sample_files` AS files
+    `spider2-public-data.github_repos.sample_files` AS files
   WHERE
     REGEXP_CONTAINS(files.path, r'\.py$') OR
     REGEXP_CONTAINS(files.path, r'\.c$') OR

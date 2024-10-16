@@ -1,5 +1,6 @@
-DECLARE var_State            STRING DEFAULT 'MN';
-DECLARE var_RoadType        STRING DEFAULT 'motorway';
+DECLARE var_State            STRING DEFAULT 'CA';
+DECLARE var_RoadTypes ARRAY<STRING> DEFAULT ['motorway', 'trunk','primary', 'secondary','residential'];
+
 
 with t_state_geo as (
     select State
@@ -9,15 +10,15 @@ with t_state_geo as (
 )
 , t_roads as (
     select distinct Id as WayId
-      from `bigquery-public-data.geo_openstreetmap.planet_ways` pw, pw.all_tags as tag
+      from `spider2-public-data.geo_openstreetmap.planet_ways` pw, pw.all_tags as tag
      where LOWER(tag.Key) = 'highway'
-       and LOWER(tag.Value) = var_RoadType
+       and LOWER(tag.Value) in UNNEST(var_RoadTypes)
 )
 , t_state_ways as (
     select pw.Id       as WayId
          , pw.geometry as WayGeography
          , pw.Nodes    as WayNodes
-      from `bigquery-public-data.geo_openstreetmap.planet_ways` pw
+      from `spider2-public-data.geo_openstreetmap.planet_ways` pw
       join t_state_geo ts
         on ST_CONTAINS(ts.StateGeography, pw.geometry)
       join t_roads tr
@@ -51,9 +52,9 @@ with t_state_geo as (
          , pw1.geometry as WayGeography
          , pw2.geometry as TouchingWayGeography
       from t_overlapping_ways tw
-      join `bigquery-public-data.geo_openstreetmap.planet_ways` pw1
+      join `spider2-public-data.geo_openstreetmap.planet_ways` pw1
         on tw.WayId = pw1.Id
-      join `bigquery-public-data.geo_openstreetmap.planet_ways` pw2
+      join `spider2-public-data.geo_openstreetmap.planet_ways` pw2
         on tw.TouchingWayId = pw2.Id
 )
 , t_has_bridge_tag as (

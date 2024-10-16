@@ -2,7 +2,7 @@ WITH block_rows AS (
   SELECT *, 
          ROW_NUMBER() OVER (ORDER BY timestamp) AS row_num
   FROM 
-      `bigquery-public-data.crypto_bitcoin.blocks` 
+      `spider2-public-data.crypto_bitcoin.blocks` 
 ), 
 
 miner_block_interval AS (

@@ -9,7 +9,7 @@ WITH
     concept_code_sequence.CodingSchemeDesignator AS ccs_csd,
     concept_code_sequence.CodeValue AS ccs_val
   FROM
-    `bigquery-public-data.idc_v17.dicom_all`,
+    `spider2-public-data.idc_v17.dicom_all`,
     UNNEST(SpecimenDescriptionSequence[SAFE_OFFSET(0)].SpecimenPreparationSequence) AS preparation_unnest_step1,
     UNNEST(preparation_unnest_step1.SpecimenPreparationStepContentItemSequence) AS preparation_unnest_step2,
     UNNEST(preparation_unnest_step2.ConceptNameCodeSequence) AS concept_name_code_sequence,
@@ -56,7 +56,7 @@ FROM (
       FROM UNNEST(s.staining_usingSubstance_code_str) AS code
     ) AS staining_usingSubstance_CodeMeaning
   FROM
-    `bigquery-public-data.idc_v17.dicom_all` AS d
+    `spider2-public-data.idc_v17.dicom_all` AS d
   LEFT JOIN
     slide_embedding AS e ON d.SOPInstanceUID = e.SOPInstanceUID
   LEFT JOIN

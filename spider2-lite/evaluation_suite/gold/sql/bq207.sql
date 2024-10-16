@@ -22,7 +22,7 @@ WITH table_a AS(
             publication_number, application_number, country_code,
             ROW_NUMBER() OVER(PARTITION BY application_number ORDER BY publication_date ASC) row_num,
             kind_code, publication_date
-        FROM `patents-public-data.patents.publications`
+        FROM `spider2-public-data.patents.publications`
     ) USING(publication_number)
     WHERE row_num=1
 )

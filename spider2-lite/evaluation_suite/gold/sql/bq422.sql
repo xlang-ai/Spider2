@@ -9,7 +9,7 @@ WITH
       LEAD(SAFE_CAST(ipp AS FLOAT64)) OVER (PARTITION BY SeriesInstanceUID ORDER BY SAFE_CAST(ipp AS FLOAT64)) - SAFE_CAST(ipp AS FLOAT64) AS slice_interval,
       instance_size AS instanceSize  -- Ensure instanceSize is included here
     FROM
-      `bigquery-public-data.idc_v17.dicom_all` bid
+      `spider2-public-data.idc_v17.dicom_all` bid
     LEFT JOIN
       UNNEST(bid.ImagePositionPatient) ipp WITH OFFSET AS axes
     WHERE

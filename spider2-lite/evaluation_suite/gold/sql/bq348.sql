@@ -1,8 +1,8 @@
 WITH singapore AS (
   SELECT 
       ST_MAKEPOLYGON(ST_MAKELINE(
-    [ST_GEOGPOINT(103.6920359,1.1304753),ST_GEOGPOINT(104.0120359,1.1304753),
-     ST_GEOGPOINT(104.0120359,1.4504753),ST_GEOGPOINT(103.6920359,1.4504753)
+    [ST_GEOGPOINT(31.1798246, 18.4519921),ST_GEOGPOINT(54.3798246, 18.4519921),
+     ST_GEOGPOINT(54.3798246, 33.6519921),ST_GEOGPOINT(31.1798246, 33.6519921)
     ]
   )) AS boundingbox
 ),
@@ -11,7 +11,7 @@ historical_data AS (
       hist.username, 
       hist.id
   FROM 
-      `bigquery-public-data.geo_openstreetmap.history_nodes` AS hist
+      `spider2-public-data.geo_openstreetmap.history_nodes` AS hist
   INNER JOIN UNNEST(all_tags) AS tags
   INNER JOIN singapore ON ST_INTERSECTS(singapore.boundingbox, hist.geometry)
   WHERE 
@@ -21,7 +21,7 @@ historical_data AS (
       SELECT 
           nodes.id
       FROM 
-          `bigquery-public-data.geo_openstreetmap.planet_nodes` AS nodes
+          `spider2-public-data.geo_openstreetmap.planet_nodes` AS nodes
       INNER JOIN UNNEST(all_tags) AS tags
       INNER JOIN singapore ON ST_INTERSECTS(singapore.boundingbox, nodes.geometry)
       WHERE 

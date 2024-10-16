@@ -1,7 +1,7 @@
 WITH copy AS (
   SELECT case_barcode,        #sample_barcode,        aliquot_barcode, 
     chromosome,        start_pos,        end_pos,        MAX(copy_number) as copy_number
-  FROM `isb-cgc-bq.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23` 
+  FROM `spider2-public-data.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23` 
   WHERE  project_short_name = 'TCGA-LAML'
   GROUP BY case_barcode, chromosome,        start_pos,        end_pos
 ),
@@ -41,4 +41,3 @@ chromosome = 'chr15' AND cytoband_name = '15q11'
 ORDER BY copy_number
 DESC
 LIMIT 1
-

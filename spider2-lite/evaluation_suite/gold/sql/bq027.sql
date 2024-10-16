@@ -3,12 +3,9 @@ SELECT
   t1.publication_number, 
   t1.application_number 
 FROM 
-  `patents-public-data.patents.publications` t1 
-WHERE 
-  country_code = 'US'                                                        -- only consider US patents
-  AND grant_date between 20180101 AND 20180107                               -- grant dates between 2002 and 2006
-  AND grant_date != 0                                                        -- only consider granted patents
-  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+  `spider2-public-data.patents.publications` t1 
+WHERE                                                       -- only consider US patents
+  grant_date between 20100101 AND 20181231                               -- grant dates between 2002 and 2006
 )
 
 SELECT
@@ -26,7 +23,7 @@ LEFT OUTER JOIN (
     -- the category in the unnested citation record is the category of the cited publication
     citation_u.category AS cited_publication_category
   FROM
-    `patents-public-data.patents.publications` x2,
+    `spider2-public-data.patents.publications` x2,
     UNNEST(citation) AS citation_u ) t2
 ON
   t2.citing_publication_number = t1.publication_number
@@ -34,10 +31,10 @@ ON
   AND CONTAINS_SUBSTR(t2.cited_publication_category, 'SEA')
   -- one more join to publications table to get the application number
 LEFT OUTER JOIN
-  `patents-public-data.patents.publications` t3
+  `spider2-public-data.patents.publications` t3
 ON
   t2.cited_publication_number = t3.publication_number
 GROUP BY
   t1.publication_number
 ORDER BY
-  t1.publication_number
+  backward_citations DESC

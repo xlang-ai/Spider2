@@ -11,7 +11,7 @@ WITH
         SourceImageSequence[SAFE_OFFSET(0)].ReferencedSOPInstanceUID
       ) AS referenced_sop
     FROM
-      `bigquery-public-data.idc_v17.dicom_all`
+      `spider2-public-data.idc_v17.dicom_all`
     WHERE
       Modality = "SEG"
       AND SOPClassUID = "1.2.840.10008.5.1.4.1.1.66.4"
@@ -27,11 +27,11 @@ WITH
     FROM
       sampled_sops
     JOIN
-      `bigquery-public-data.idc_v17.dicom_all` AS dicom_all
+      `spider2-public-data.idc_v17.dicom_all` AS dicom_all
     ON
       sampled_sops.referenced_sop = dicom_all.SOPInstanceUID
     JOIN
-      `bigquery-public-data.idc_v17.segmentations` AS segmentations
+      `spider2-public-data.idc_v17.segmentations` AS segmentations
     ON
       segmentations.SOPInstanceUID = sampled_sops.seg_SOPInstanceUID
   )

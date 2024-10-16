@@ -1,6 +1,6 @@
 WITH copy AS (
   SELECT case_barcode, chromosome, start_pos, end_pos, MAX(copy_number) as copy_number
-  FROM `isb-cgc-bq.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23`
+  FROM `spider2-public-data.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23`
   WHERE project_short_name = 'TCGA-KIRC'
   GROUP BY case_barcode, chromosome, start_pos, end_pos
 ),
@@ -51,5 +51,3 @@ results AS (
 SELECT cytoband_name
 FROM results
 WHERE rank_amp <= 11 AND rank_gain <= 11  AND rank_heterodel <= 11
-
-

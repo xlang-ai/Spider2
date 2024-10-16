@@ -19,7 +19,7 @@ FROM ( /* This will get the clinical information for the cases*/
       mutation.case_barcode,
       mutation.Variant_Type
     FROM
-      isb-cgc-bq.TCGA_versioned.somatic_mutation_hg19_DCC_2017_02 AS mutation
+      spider2-public-data.TCGA_versioned.somatic_mutation_hg19_DCC_2017_02 AS mutation
     WHERE
       mutation.Hugo_Symbol = 'CDKN2A'
       AND project_short_name = 'TCGA-BLCA'
@@ -30,11 +30,11 @@ FROM ( /* This will get the clinical information for the cases*/
       mutation.case_barcode
       ) AS case_list /* end case_list */
   INNER JOIN
-    isb-cgc-bq.TCGA.clinical_gdc_current AS clinical
+    spider2-public-data.TCGA_versioned.clinical_gdc_r39 AS clinical
   ON
     case_list.case_barcode = clinical.submitter_id /* end clinical annotation */ ) AS clinical_info
 INNER JOIN
-  isb-cgc-bq.TCGA_versioned.RNAseq_hg19_gdc_2017_02 AS genex
+  spider2-public-data.TCGA_versioned.RNAseq_hg19_gdc_2017_02 AS genex
 ON
   genex.case_barcode = clinical_info.case_barcode
 WHERE

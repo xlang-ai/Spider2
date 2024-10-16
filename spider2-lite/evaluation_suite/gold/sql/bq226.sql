@@ -1,9 +1,9 @@
 SELECT
     CONCAT("https://cronoscan.com/address/", t.from_address) AS cronoscan_link,
 FROM
-    `bigquery-public-data.goog_blockchain_cronos_mainnet_us.transactions` AS t
+    `spider2-public-data.goog_blockchain_cronos_mainnet_us.transactions` AS t
 INNER JOIN
-    `bigquery-public-data.goog_blockchain_cronos_mainnet_us.blocks` AS b
+    `spider2-public-data.goog_blockchain_cronos_mainnet_us.blocks` AS b
 ON
     b.block_hash = t.block_hash
 WHERE

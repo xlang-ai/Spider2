@@ -3,12 +3,9 @@ SELECT
   t1.publication_number, 
   t1.application_number 
 FROM 
-  `patents-public-data.patents.publications` t1 
+  `spider2-public-data.patents.publications` t1 
 WHERE 
-  country_code = 'US'                                                        -- only consider US patents
-  AND grant_date between 20100101 AND 20100131                               -- grant dates between 2002 and 2006
-  AND grant_date != 0                                                        -- only consider granted patents
-  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+  grant_date between 20100101 AND 20101231                               -- grant dates between 2002 and 2006                                                      -- only consider granted patents                                        -- only consider patents with kind code B2
 ),
 Forward_citation AS (
      SELECT
@@ -33,7 +30,7 @@ Forward_citation AS (
      PARSE_DATE('%Y%m%d', CAST(x3.filing_date AS STRING)) AS joined_filing_date,
      citation_u.publication_number AS cited_publication_number
      FROM
-     `patents-public-data.patents.publications` x3,
+     `spider2-public-data.patents.publications` x3,
      UNNEST(citation) AS citation_u
      WHERE
      x3.filing_date!=0) t3
@@ -46,10 +43,7 @@ Forward_citation AS (
 )
 
 SELECT 
-     publication_number
+COUNT(*)
 FROM
      Forward_citation
-ORDER BY
-  forward_citations
-DESC
-LIMIT 1
+WHERE forward_citations=1

@@ -11,7 +11,7 @@ WITH filtered_data AS (
           IFNULL(totals.bounces, 0) AS bounces,
           IFNULL(totals.timeOnSite, 0) AS time_on_site
         FROM
-          `data-to-insights.ecommerce.web_analytics`
+          `bigquery-public-data.google_analytics_sample.*`
         WHERE
           totals.newVisits = 1
         AND date BETWEEN '20160801'

@@ -20,9 +20,9 @@ SELECT
     r.repo,
     r.watch_count
 FROM
-    `bigquery-public-data.github_repos.sample_files` AS f
+    `spider2-public-data.github_repos.sample_files` AS f
 JOIN
-    `bigquery-public-data.github_repos.sample_contents` AS c
+    `spider2-public-data.github_repos.sample_contents` AS c
 ON
     f.id = c.id
 JOIN 

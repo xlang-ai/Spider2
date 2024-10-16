@@ -13,7 +13,7 @@ SELECT
   EXTRACT(YEAR FROM MIN(txn.block_timestamp)) AS YEAR,
   EXTRACT(MONTH FROM MIN(txn.block_timestamp)) AS MONTH
 FROM
-  `bigquery-public-data.goog_blockchain_polygon_mainnet_us.transactions` AS txn
+  `spider2-public-data.goog_blockchain_polygon_mainnet_us.transactions` AS txn
 WHERE EXTRACT(YEAR FROM txn.block_timestamp) = 2023
 GROUP BY
   EXTRACT(YEAR FROM txn.block_timestamp),

@@ -3,11 +3,11 @@ WITH patents_sample AS (
     t1.publication_number,
     claim.text AS claims_text
   FROM 
-    patents-public-data.patents.publications t1,
+    spider2-public-data.patents.publications t1,
     UNNEST(t1.claims_localized) AS claim
   WHERE 
     t1.country_code = 'US'
-    AND t1.grant_date BETWEEN 20150101 AND 20181231
+    AND t1.grant_date BETWEEN 20080101 AND 20181231
     AND t1.grant_date != 0
     AND t1.publication_number LIKE '%B2%'
 ),

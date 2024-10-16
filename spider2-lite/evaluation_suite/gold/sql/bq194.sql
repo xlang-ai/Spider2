@@ -51,8 +51,8 @@ WITH extracted_modules AS (
       # Add a space after each line.
       # It is required to ensure correct line numbering.
       SPLIT(REPLACE(content, "\n", " \n"), "\n") AS lines
-    FROM `bigquery-public-data.github_repos.sample_files` AS fl
-    JOIN `bigquery-public-data.github_repos.sample_contents` AS ct ON fl.id = ct.id
+    FROM `spider2-public-data.github_repos.sample_files` AS fl
+    JOIN `spider2-public-data.github_repos.sample_contents` AS ct ON fl.id = ct.id
     WHERE
       ENDS_WITH(path, '.py') OR
       (

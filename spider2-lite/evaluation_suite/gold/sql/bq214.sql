@@ -3,10 +3,10 @@ WITH patents_sample AS (
         t1.publication_number, 
         t1.application_number 
     FROM 
-        `patents-public-data.patents.publications` t1 
+        `spider2-public-data.patents_google.publications` t1 
     WHERE 
         country_code = 'US' AND
-        grant_date BETWEEN 20170101 AND 20170131 AND
+        grant_date BETWEEN 20100101 AND 20141231 AND
         publication_number LIKE '%B2%'
 ),
 
@@ -21,7 +21,7 @@ Forward_citation AS (
             x2.publication_number,
             PARSE_DATE('%Y%m%d', CAST(x2.filing_date AS STRING)) AS filing_date
         FROM
-            `patents-public-data.patents.publications` x2
+            `spider2-public-data.patents_google.publications` x2
         WHERE
             x2.filing_date != 0
     ) t2 ON t2.publication_number = patents_sample.publication_number
@@ -32,7 +32,7 @@ Forward_citation AS (
             PARSE_DATE('%Y%m%d', CAST(x3.filing_date AS STRING)) AS joined_filing_date,
             citation_u.publication_number AS cited_publication_number
         FROM
-            `patents-public-data.patents.publications` x3,
+            `spider2-public-data.patents_google.publications` x3,
             UNNEST(citation) AS citation_u
         WHERE
             x3.filing_date != 0
@@ -66,7 +66,7 @@ t AS (
             x3.publication_number,
             EXTRACT(YEAR FROM PARSE_DATE('%Y%m%d', CAST(x3.filing_date AS STRING))) AS focal_filing_year
         FROM 
-            `patents-public-data.patents.publications` x3
+            `spider2-public-data.patents_google.publications` x3
         WHERE 
             x3.filing_date != 0
     ) t3 ON t3.publication_number = t1.publication_number
@@ -75,13 +75,13 @@ t AS (
             x4.publication_number,
             EXTRACT(YEAR FROM PARSE_DATE('%Y%m%d', CAST(x4.filing_date AS STRING))) AS filing_year
         FROM 
-            `patents-public-data.patents.publications` x4
+            `spider2-public-data.patents_google.publications` x4
         WHERE 
             x4.filing_date != 0
     ) t4 ON  t4.publication_number != t1.publication_number AND
              t3.focal_filing_year = t4.filing_year
-    LEFT JOIN `patents-public-data.google_patents_research.publications` t5 ON t5.publication_number = t1.publication_number
-    LEFT JOIN `patents-public-data.google_patents_research.publications` t6 ON t6.publication_number = t4.publication_number
+    LEFT JOIN `spider2-public-data.patents_google.abs_and_emb` t5 ON t5.publication_number = t1.publication_number
+    LEFT JOIN `spider2-public-data.patents_google.abs_and_emb` t6 ON t6.publication_number = t4.publication_number
     ORDER BY 
         t1.publication_number, similarity DESC
 )
@@ -97,6 +97,3 @@ FROM (
 ) t
 WHERE
     seqnum <= 1;
-
-
-
