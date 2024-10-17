@@ -152,8 +152,9 @@ def run_evaluation(result_dir, gold_dir):
         else:
             eval_metadatas = eval_metadata
         
+        score = 0
         if data['answer_type'] == 'answer':
-            score = 0    
+            
             for eval_metadata in eval_metadatas:
                 # if 'temporal' in eval_metadata and eval_metadata['temporal']: 
                 #     eval_metadata['parameters'] = execute_process(eval_metadata['func'], eval_metadata['parameters'], os.path.join(gold_dir, data['instance_id']))
@@ -164,10 +165,6 @@ def run_evaluation(result_dir, gold_dir):
                         score = number_match(data['answer_or_path'], **eval_metadata['parameters'])
                 except:
                     import pdb; pdb.set_trace()
-
-            if score == 1:
-                print(data)
-            output_dict['score'] = score
                 
                         
         elif data['answer_type'] == 'file':
@@ -176,7 +173,7 @@ def run_evaluation(result_dir, gold_dir):
                 sql_query = open(os.path.join(result_dir,data['instance_id'], data['answer_or_path']), 'r').read()
                 get_bigquery_sql_result(sql_query, is_save=True, save_dir=os.path.join(result_dir, data['instance_id']), save_file='pred_result.csv')
                 data['answer_or_path'] = 'pred_result.csv'
-            scores = []
+
             for eval_metadata in eval_metadatas:
                 # if 'temporal' in eval_metadata and eval_metadata['temporal']: 
                 #     eval_metadata['parameters'] = execute_process(eval_metadata['func'], eval_metadata['parameters'], os.path.join(gold_dir, data['instance_id']))
@@ -197,15 +194,12 @@ def run_evaluation(result_dir, gold_dir):
                         score = duckdb_match(os.path.join(result_dir,data['instance_id'], data['answer_or_path']), **eval_metadata['parameters'])    
                     except:
                         score = 0
-                scores.append(score)
 
-            if sum(scores) == len(scores) and len(scores) > 0:   
-                output_dict['score'] = 1
-            elif (sum(scores) == 0 or sum(scores) != len(scores)) and len(scores) > 0:
-                output_dict['score'] = 0
-            elif len(scores) == 0:
-                output_dict['score'] = 0
-
+        if score == 1:
+            print(data)   
+            # import pdb; pdb.set_trace()   
+                        
+        output_dict['score'] = score
         output_list.append(output_dict)
         
                 
