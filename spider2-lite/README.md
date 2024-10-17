@@ -37,7 +37,7 @@ To align with research interests in **traditional Text2SQL settings**, we releas
 │   │   ├── sql
 │   └── └── spider2-lite_eval.jsonl
 ├── spider2-lite_0930.json       # The previous version of Spider 2.0-lite 
-└── spider2-lite.json            # The standard evaluation examples of Spider 2.0-lite
+└── spider2-lite.json            # The latest version of Spider 2.0-lite.
 ```
 
 
