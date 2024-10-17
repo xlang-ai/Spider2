@@ -89,12 +89,14 @@ def get_id_doc():
                 is_nested = 1
             
             id_dict[instance_id] = {"doc": doc, "toks": toks, "multiple": is_multiple, "nested": is_nested}
-            
+
     return id_dict
     
 
-
 id_dict = get_id_doc()
+
+
+dbt_dict = json.load(open("dbt_difficulty.json", 'r'))
 
 def read_jsonl(file_path):
     data = []
@@ -130,10 +132,12 @@ def run_evaluation(result_dir, gold_dir):
     common_instance_ids = set(gold_dict.keys()).intersection(result_dict.keys())
     evaluation_data = [{**gold_dict[id], **result_dict[id]} for id in common_instance_ids]
     
-    
 
-    
-    # print(len(evaluation_data))
+    target_instance_ids = ["airbnb002"]
+
+    evaluation_data = [item for item in evaluation_data if item["instance_id"] not in target_instance_ids]
+
+
     
     total = 0
     output_list = []
@@ -148,9 +152,8 @@ def run_evaluation(result_dir, gold_dir):
         else:
             eval_metadatas = eval_metadata
         
-        score = 0
         if data['answer_type'] == 'answer':
-            
+            score = 0    
             for eval_metadata in eval_metadatas:
                 # if 'temporal' in eval_metadata and eval_metadata['temporal']: 
                 #     eval_metadata['parameters'] = execute_process(eval_metadata['func'], eval_metadata['parameters'], os.path.join(gold_dir, data['instance_id']))
@@ -161,6 +164,10 @@ def run_evaluation(result_dir, gold_dir):
                         score = number_match(data['answer_or_path'], **eval_metadata['parameters'])
                 except:
                     import pdb; pdb.set_trace()
+
+            if score == 1:
+                print(data)
+            output_dict['score'] = score
                 
                         
         elif data['answer_type'] == 'file':
@@ -169,7 +176,7 @@ def run_evaluation(result_dir, gold_dir):
                 sql_query = open(os.path.join(result_dir,data['instance_id'], data['answer_or_path']), 'r').read()
                 get_bigquery_sql_result(sql_query, is_save=True, save_dir=os.path.join(result_dir, data['instance_id']), save_file='pred_result.csv')
                 data['answer_or_path'] = 'pred_result.csv'
-
+            scores = []
             for eval_metadata in eval_metadatas:
                 # if 'temporal' in eval_metadata and eval_metadata['temporal']: 
                 #     eval_metadata['parameters'] = execute_process(eval_metadata['func'], eval_metadata['parameters'], os.path.join(gold_dir, data['instance_id']))
@@ -190,12 +197,15 @@ def run_evaluation(result_dir, gold_dir):
                         score = duckdb_match(os.path.join(result_dir,data['instance_id'], data['answer_or_path']), **eval_metadata['parameters'])    
                     except:
                         score = 0
+                scores.append(score)
 
-        if score == 1:
-            print(data)   
-            # import pdb; pdb.set_trace()   
-                        
-        output_dict['score'] = score
+            if sum(scores) == len(scores) and len(scores) > 0:   
+                output_dict['score'] = 1
+            elif (sum(scores) == 0 or sum(scores) != len(scores)) and len(scores) > 0:
+                output_dict['score'] = 0
+            elif len(scores) == 0:
+                output_dict['score'] = 0
+
         output_list.append(output_dict)
         
                 
@@ -366,7 +376,23 @@ def run_evaluation(result_dir, gold_dir):
                 answer_statistics['answer_string']['total_count'] += 1  
                 if score == 1:  
                     answer_statistics['answer_string']['count_with_score_1'] += 1
-             
+        else:
+            if dbt_dict[instance_id] == 'Easy':  
+                toks_classification['toks_less_80']['total_count'] += 1  
+                if score == 1:  
+                    toks_classification['toks_less_80']['count_with_score_1'] += 1  
+            elif dbt_dict[instance_id] == 'Medium':  
+                toks_classification['toks_80_to_160']['total_count'] += 1  
+                if score == 1:  
+                    toks_classification['toks_80_to_160']['count_with_score_1'] += 1  
+            else:  # toks >= 160  
+                toks_classification['toks_more_160']['total_count'] += 1  
+                if score == 1:  
+                    toks_classification['toks_more_160']['count_with_score_1'] += 1 
+
+                
+
+
 
     print("##############################################################")  
 
