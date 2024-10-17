@@ -1,7 +1,7 @@
 import argparse
 import os
 import json
-from eval_utils import number_match, string_match, table_match, duckdb_match, execute_process, get_bigquery_sql_result
+from eval_utils import number_match, string_match, table_match, duckdb_match, execute_process, get_bigquery_sql_result,tables_match
 from tqdm import tqdm
 from typing import List, Union
 
@@ -197,6 +197,12 @@ def run_evaluation(result_dir, gold_dir):
                         score = duckdb_match(os.path.join(result_dir,data['instance_id'], data['answer_or_path']), **eval_metadata['parameters'])    
                     except:
                         score = 0
+            
+        elif data['answer_type'] == 'files':
+            eval_metadata['parameters']['gold'] = [ os.path.join(gold_dir, data['instance_id'], gold_item) for gold_item in eval_metadata['parameters']['gold']   ]
+            results_data = [ os.path.join(result_dir,data['instance_id'], path) for path in  data['answer_or_path']]
+            score = tables_match(results_data, **eval_metadata['parameters'])
+
 
         if score == 1:
             print(data)   
