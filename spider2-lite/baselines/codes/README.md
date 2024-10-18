@@ -56,7 +56,7 @@ We use the CodeS-7b pretrained on the merged dataset provided by the CodeS paper
 
 | Method                  | Score   |    Score  [w/ Func & w/ Plan]     |
 | -------------------------- | ---- | -------------------------
-| CodeS-7B      | 1.34% (2/149) |   2.01% (3/149)            |
+| CodeS-7B      | 2.19% (7/319) |   2.50% (8/319)            |
 
 ## Prompts
 

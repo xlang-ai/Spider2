@@ -50,8 +50,7 @@ The performance is shown as:
 
 | Method                     | Score   | Score [w/ Func & w/ Plan] |
 | -------------------------- | ---- | --- |
-| DailSQL + GPT-4o   | 6.04% (9/149) | 12.75% (19/149) |
-<!-- | DailSQL+Func+Plan+Debug (GPT-4o) | 9.73$ | -->
+| DailSQL + GPT-4o   | 9.40% (30/319) | 12.54% (40/319) |
 
 ## Prompts
 

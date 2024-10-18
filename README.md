@@ -23,8 +23,8 @@ Notably, as shown below, even the most advanced LLMs, including GPT-4, solve onl
 
 |                 | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0 |
 | --------------- | -------------- | --------------- | --------- | ---------- |
-| DailSQL + GPT-4 | 82.4           | 86.6            | 57.4      | 6.0        |
-| CodeS-7B        | 85.4           | -               | 59.3      | 1.3        |
+| DailSQL + GPT-4 | 82.4           | 86.6            | 57.4      | 9.4 (on a subset of 319 examples)        |
+| CodeS-7B        | 85.4           | -               | 59.3      | 2.2 (on a subset of 319 examples)        |
 
 
 
