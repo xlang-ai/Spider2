@@ -238,6 +238,46 @@ def duckdb_match(result: str, gold: str, condition_tabs=None, condition_cols: Li
             return 0
         
     return 1
+
+
+def tables_match(result: List[str], gold: List[str], condition_cols: List[List[int]]=None, ignore_orders: List[bool]=None):
+    """
+    Parameters:
+    - result (Lstr): Path to the result tables.
+    - gold (str): Path to the gold standard tables.
+    - condition_cols (List[List[int]], optional): A list of lists, where each inner list contains column indices used for matching conditions for the corresponding table. Defaults to considering all columns.
+    - ignore_orders (List[bool], optional): A list of boolean values indicating whether to ignore the row order for each table comparison. Defaults to [False] for each table.
+    """
+
+    def get_tables_to_dfs(csv_file: str):
+        df = pd.read_csv(csv_file)
+        return df
+
+    gold_tables = [get_tables_to_dfs(table_name) for table_name in gold]
+    try:
+        pred_tables = [get_tables_to_dfs(table_name) for table_name in result]
+    except:
+        return 0
+    
+    assert len(gold_tables) == len(pred_tables)
+
+    if ignore_orders is None:
+        ignore_orders = [False] * len(gold_tables)
+        
+    assert len(ignore_orders) == len(gold_tables)
+
+    if condition_cols is None:
+        condition_cols = [[]] * len(gold_tables)
+
+
+    assert len(condition_cols) == len(gold_tables)
+    
+    for i, (gold_table, pred_table) in enumerate(zip(gold_tables, pred_tables)):
+        if not compare_pandas_table(pred_table, gold_table, condition_cols=condition_cols[i], ignore_order=ignore_orders[i]):
+            return 0
+        
+    return 1
+
     
     
 def get_bigquery_sql_result(sql_query, is_save, save_dir=None, save_file="result.csv"):
