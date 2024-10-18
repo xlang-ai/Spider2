@@ -1,6 +1,6 @@
 SELECT
     creative_page_url,
-FROM `bigquery-public-data.google_ads_transparency_center.creative_stats`,
+FROM `spider2-public-data.google_ads_transparency_center.creative_stats`,
     UNNEST(region_stats)
     
 WHERE

@@ -1,9 +1,9 @@
 SELECT filterData.fwrdCitations_3
 FROM
-  `patents-public-data.patentsview.application` as app,
+  `spider2-public-data.patentsview.application` as app,
   (SELECT DISTINCT cpc.patent_id, IFNULL(citation_3.bkwdCitations_3, 0) as bkwdCitations_3, IFNULL(citation_3.fwrdCitations_3, 0) as fwrdCitations_3
   FROM
-    `patents-public-data.patentsview.cpc_current` AS cpc
+    `spider2-public-data.patentsview.cpc_current` AS cpc
     LEFT JOIN
     (SELECT  b.patent_id, b.bkwdCitations_3, f.fwrdCitations_3
       FROM 
@@ -11,8 +11,8 @@ FROM
           cited.patent_id,
           COUNT(*) as fwrdCitations_3
           FROM 
-          `patents-public-data.patentsview.uspatentcitation` AS cited,
-          `patents-public-data.patentsview.application` AS apps
+          `spider2-public-data.patentsview.uspatentcitation` AS cited,
+          `spider2-public-data.patentsview.application` AS apps
         WHERE
           apps.country = 'US'
           AND cited.patent_id = apps.patent_id 
@@ -24,8 +24,8 @@ FROM
           cited.patent_id,
           COUNT(*) as bkwdCitations_3
           FROM 
-          `patents-public-data.patentsview.uspatentcitation` AS cited,
-          `patents-public-data.patentsview.application` AS apps
+          `spider2-public-data.patentsview.uspatentcitation` AS cited,
+          `spider2-public-data.patentsview.application` AS apps
         WHERE
           apps.country = 'US'
           AND cited.patent_id = apps.patent_id 

@@ -36,7 +36,8 @@ To align with research interests in **traditional Text2SQL settings**, we releas
 │   │   ├── exec_result
 │   │   ├── sql
 │   └── └── spider2-lite_eval.jsonl
-└── spider2-lite.json            # The standard evaluation examples of Spider 2.0-Lite
+├── spider2-lite_0930.json       # The previous version of Spider 2.0-lite 
+└── spider2-lite.json            # The latest version of Spider 2.0-lite.
 ```
 
 
@@ -49,6 +50,8 @@ If your method doesn't require dynamic interaction with the databases, you can m
 If your method requires dynamic interaction with the database, in addition to these, you can use the scripts in the [`interface`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/interface) to interact with the cloud database.
 
 In addition, if you want to view the data in more detail, you need to register for a BigQuery account. Here is a [Bigquery Guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md).
+
+The file `spider2-lite_0930.json` is an older version, while `spider2-lite.json` is the latest version. To address the high query costs associated with large datasets, we have sampled certain tables from `bigquery-public-data` and `patent-public-data` into `spider2-public-data`, making development more efficient and convenient.
 
 
 ## Data Content and Format
@@ -79,5 +82,6 @@ The gold SQLs are shown in [evaluation_suite/gold/sql](https://github.com/xlang-
 ## Evaluation
 
 We create [evaluation suite](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite) for Spider 2.0-Lite.
+
 
 

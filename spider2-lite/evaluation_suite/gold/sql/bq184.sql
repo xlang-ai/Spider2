@@ -3,9 +3,9 @@ WITH a AS (
         DATE(block_timestamp) AS date, 
         COUNT(*) AS contracts_creation
     FROM  
-        `bigquery-public-data.crypto_ethereum.traces` AS traces
+        `spider2-public-data.crypto_ethereum.traces` AS traces
     WHERE 
-        block_timestamp < '2021-09-01 00:00:00'
+        block_timestamp < '2022-01-01 00:00:00'
         AND trace_type = 'create'
         AND trace_address IS null
     GROUP BY 
@@ -25,7 +25,7 @@ calendar AS (
     SELECT 
         date
     FROM 
-        UNNEST(generate_date_array('2021-08-01', '2021-08-31')) AS date
+        UNNEST(generate_date_array('2017-01-01', '2021-12-31')) AS date
 ),
 c AS (
     SELECT 
@@ -46,9 +46,9 @@ d AS (
         DATE(block_timestamp) AS date1, 
         COUNT(*) AS contracts_creation1
     FROM  
-        `bigquery-public-data.crypto_ethereum.traces` AS traces
+        `spider2-public-data.crypto_ethereum.traces` AS traces
     WHERE 
-        block_timestamp < '2021-09-01 00:00:00'
+        block_timestamp < '2022-01-01 00:00:00'
         AND trace_type = 'create'
         AND trace_address IS NOT null
     GROUP BY 
@@ -68,7 +68,7 @@ calendar1 AS (
     SELECT 
         date1
     FROM 
-        UNNEST(generate_date_array('2021-08-01', '2021-08-31')) AS date1
+        UNNEST(generate_date_array('2017-01-01', '2021-12-31')) AS date1
 ),
 f AS (
     SELECT 

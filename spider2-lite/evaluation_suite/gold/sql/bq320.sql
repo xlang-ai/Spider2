@@ -1,24 +1,24 @@
 SELECT
   COUNT(*) AS total_count
 FROM
-  `bigquery-public-data.idc_v11.dicom_pivot_v11` dicom_pivot_v11
+  `spider2-public-data.idc_v17.dicom_pivot` dicom_pivot
 WHERE
   StudyInstanceUID IN (
     SELECT
       StudyInstanceUID
     FROM
-      `bigquery-public-data.idc_v11.dicom_pivot_v11` dicom_pivot_v11
+      `spider2-public-data.idc_v17.dicom_pivot` dicom_pivot
     WHERE
       StudyInstanceUID IN (
         SELECT
           StudyInstanceUID
         FROM
-          `bigquery-public-data.idc_v11.dicom_pivot_v11` dicom_pivot_v11
+          `spider2-public-data.idc_v17.dicom_pivot` dicom_pivot
         WHERE
           (
             LOWER(
-              dicom_pivot_v11.SegmentedPropertyTypeCodeSequence
-            ) LIKE LOWER('80891009:SCT')
+              dicom_pivot.SegmentedPropertyTypeCodeSequence
+            ) LIKE LOWER('15825003')
           )
         GROUP BY
           StudyInstanceUID
@@ -26,10 +26,10 @@ WHERE
         SELECT
           StudyInstanceUID
         FROM
-          `bigquery-public-data.idc_v11.dicom_pivot_v11` dicom_pivot_v11
+          `spider2-public-data.idc_v17.dicom_pivot` dicom_pivot
         WHERE
           (
-            dicom_pivot_v11.collection_id IN ('Community', 'nsclc_radiomics')
+            dicom_pivot.collection_id IN ('Community', 'nsclc_radiomics')
           )
         GROUP BY
           StudyInstanceUID
@@ -37,3 +37,4 @@ WHERE
     GROUP BY
       StudyInstanceUID
   );
+  

@@ -4,10 +4,10 @@ WITH PatentApplications AS (
         ANY_VALUE(filing_date) AS filing_date,  -- Randomly sampling filing date
         application_number  -- The unique identifier for each patent application
     FROM 
-        `patents-public-data.patents.publications` AS pubs  -- Using the patent publications dataset
+        `spider2-public-data.patents.publications` AS pubs  -- Using the patent publications dataset
     WHERE EXISTS (
         -- Checks if there is a CPC code "A61K39"
-        SELECT 1 FROM UNNEST(pubs.cpc) AS c WHERE REGEXP_CONTAINS(c.code, "A61K39")
+        SELECT 1 FROM UNNEST(pubs.cpc) AS c WHERE c.code LIKE "A61%"
     )
     GROUP BY 
         application_number  -- Grouping by application number to ensure unique entries

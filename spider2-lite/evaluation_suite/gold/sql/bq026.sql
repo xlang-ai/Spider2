@@ -5,10 +5,10 @@ WITH PatentApplications AS (
         ANY_VALUE(country_code) AS country_code,  -- Collects any sample of country code.
         application_number  -- The unique identifier for each patent application.
     FROM 
-        `patents-public-data.patents.publications` AS pubs  -- Using the patents publications dataset.
+        `spider2-public-data.patents.publications` AS pubs  -- Using the patents publications dataset.
     WHERE EXISTS (
         -- Checks if there exists a CPC code "A61K39" within the nested CPC field.
-        SELECT 1 FROM UNNEST(pubs.cpc) AS c WHERE REGEXP_CONTAINS(c.code, "A61K39")
+        SELECT 1 FROM UNNEST(pubs.cpc) AS c WHERE c.code LIKE "A61%"
     )
     GROUP BY 
         application_number  -- Group by application number to ensure distinct entries.

@@ -1,20 +1,19 @@
 WITH 
 CTERepoCommits AS (
   SELECT
-    RName AS repo_name,
+    repo_name,
     committer.date,
     t1.COMMIT,
     CONCAT(CAST(EXTRACT(YEAR FROM TIMESTAMP_SECONDS(committer.time_sec)) AS STRING), '-', 
            LPAD(CAST(EXTRACT(MONTH FROM TIMESTAMP_SECONDS(committer.time_sec)) AS STRING), 2, '0')) AS YearMonth
-  FROM `bigquery-public-data.github_repos.commits` t1
-  LEFT JOIN UNNEST(t1.repo_name) RName
-  WHERE EXTRACT(YEAR FROM TIMESTAMP_SECONDS(committer.time_sec)) = 2020
+  FROM `spider2-public-data.github_repos.sample_commits` t1
+  WHERE EXTRACT(YEAR FROM TIMESTAMP_SECONDS(committer.time_sec)) = 2016
 ),
 CTERepoLang AS (
   SELECT
     t2.repo_name,
     l.name AS LangName
-  FROM `bigquery-public-data.github_repos.languages` t2
+  FROM `spider2-public-data.github_repos.languages` t2
   LEFT JOIN UNNEST(t2.LANGUAGE) AS l
 )
 , MonthlyCommits AS (

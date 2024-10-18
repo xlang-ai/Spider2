@@ -1,5 +1,3 @@
--- Some reformatting and such of GitHub queries.
-
 SELECT language AS name, count
 FROM (
   SELECT *
@@ -27,8 +25,6 @@ FROM (
             ''
           ) AS name
         FROM `githubarchive.day.20230118`
-        -- If needed, you can uncomment and add more tables
-        -- , `githubarchive.day.20140118`
       ) a
       JOIN (
         SELECT
@@ -42,7 +38,7 @@ FROM (
             ) AS lang
           FROM (
             SELECT repo_name, language.name AS language, language.bytes
-            FROM `bigquery-public-data.github_repos.languages`,
+            FROM `spider2-public-data.github_repos.languages`,
             UNNEST(language) AS language
           )
         )

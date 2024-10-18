@@ -8,7 +8,7 @@ WITH rna as (
        unstranded,
        fpkm_uq_unstranded,
        sample_type_name,
-    FROM `isb-cgc-bq.TCGA_versioned.RNAseq_hg38_gdc_r35`
+    FROM `spider2-public-data.TCGA_versioned.RNAseq_hg38_gdc_r35`
     WHERE gene_type = 'protein_coding'
     AND project_short_name = 'TCGA-BRCA'
 ),

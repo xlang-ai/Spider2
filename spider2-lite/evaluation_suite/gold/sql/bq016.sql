@@ -1,5 +1,5 @@
 DECLARE
-    Sys STRING DEFAULT 'PYPI';
+    Sys STRING DEFAULT 'NPM';
 
 WITH HighestReleases AS (
     SELECT

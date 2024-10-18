@@ -1,4 +1,3 @@
-
 WITH extracted_modules AS (
   SELECT 
     file_id, 
@@ -28,8 +27,8 @@ WITH extracted_modules AS (
       fl.repo_name, 
       path, 
       SPLIT(REPLACE(ct.content, "\n", " \n"), "\n") AS lines
-    FROM `bigquery-public-data.github_repos.sample_files` AS fl
-    JOIN `bigquery-public-data.github_repos.sample_contents` AS ct ON fl.id = ct.id
+    FROM `spider2-public-data.github_repos.sample_files` AS fl
+    JOIN `spider2-public-data.github_repos.sample_contents` AS ct ON fl.id = ct.id
   ), UNNEST(lines) as line
   WHERE
     (ENDS_WITH(path, '.py') AND (REGEXP_CONTAINS(line, r'^import ') OR REGEXP_CONTAINS(line, r'^from '))) OR 
@@ -57,7 +56,6 @@ top5_python AS (
   FROM module_counts
   WHERE language = 'python'
   ORDER BY occurrence_count DESC
-  LIMIT 5
 ),
 top5_r AS (
   SELECT 
@@ -67,7 +65,6 @@ top5_r AS (
   FROM module_counts
   WHERE language = 'r'
   ORDER BY occurrence_count DESC
-  LIMIT 5
 )
 SELECT * FROM top5_python
 UNION ALL

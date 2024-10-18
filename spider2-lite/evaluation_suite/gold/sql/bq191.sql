@@ -3,7 +3,7 @@ WITH repos as (
          b.watches as watches
   FROM (
     SELECT DISTINCT repo_name AS repo_in_mirror
-    FROM `bigquery-public-data.github_repos.sample_files` 
+    FROM `spider2-public-data.github_repos.sample_files` 
   ) a RIGHT JOIN (
     SELECT repo.name AS repo_with_watches, APPROX_COUNT_DISTINCT(actor.id) watches 
     FROM `githubarchive.year.2017` 
@@ -19,12 +19,12 @@ contents as (
   SELECT *
   FROM (
     SELECT DISTINCT *
-    FROM `bigquery-public-data.github_repos.sample_files` 
+    FROM `spider2-public-data.github_repos.sample_files` 
     WHERE repo_name IN (SELECT repo_name FROM repos)
   ) a RIGHT JOIN (
     SELECT id as idcontent,
            content as content
-    FROM `bigquery-public-data.github_repos.sample_contents` 
+    FROM `spider2-public-data.github_repos.sample_contents` 
   ) b
   ON a.id = b.idcontent 
 )
@@ -35,9 +35,6 @@ JOIN
   contents
 ON
   repos.repo_name = contents.repo_name 
-WHERE
-  contents.content LIKE '%junit</artifactId>%'
-  AND contents.path LIKE 'pom.xml'
 ORDER BY
   repos.watches DESC
 LIMIT 5

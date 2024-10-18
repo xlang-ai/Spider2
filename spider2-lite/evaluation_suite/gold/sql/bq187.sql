@@ -1,6 +1,6 @@
 WITH tokenInfo AS (
     SELECT address
-    FROM `bigquery-public-data.ethereum_blockchain.tokens`
+    FROM `spider2-public-data.ethereum_blockchain.tokens`
     WHERE name = 'BNB'
 ),
 
@@ -8,9 +8,9 @@ receivedTx AS (
     SELECT tx.to_address as addr, 
            tokens.name as name, 
            SUM(CAST(tx.value AS float64) / POWER(10, 18)) as amount_received
-    FROM `bigquery-public-data.ethereum_blockchain.token_transfers` as tx
+    FROM `spider2-public-data.ethereum_blockchain.token_transfers` as tx
     JOIN tokenInfo ON tx.token_address = tokenInfo.address,
-         `bigquery-public-data.ethereum_blockchain.tokens` as tokens
+         `spider2-public-data.ethereum_blockchain.tokens` as tokens
     WHERE tx.token_address = tokens.address 
         AND tx.to_address <> '0x0000000000000000000000000000000000000000'
     GROUP BY 1, 2
@@ -20,9 +20,9 @@ sentTx AS (
     SELECT tx.from_address as addr, 
            tokens.name as name, 
            SUM(CAST(tx.value AS float64) / POWER(10, 18)) as amount_sent
-    FROM `bigquery-public-data.ethereum_blockchain.token_transfers` as tx
+    FROM `spider2-public-data.ethereum_blockchain.token_transfers` as tx
     JOIN tokenInfo ON tx.token_address = tokenInfo.address,
-         `bigquery-public-data.ethereum_blockchain.tokens` as tokens
+         `spider2-public-data.ethereum_blockchain.tokens` as tokens
     WHERE tx.token_address = tokens.address 
         AND tx.from_address <> '0x0000000000000000000000000000000000000000'
     GROUP BY 1, 2

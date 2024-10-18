@@ -2,7 +2,7 @@ WITH s1 AS (
   SELECT
     sample_barcode_tumor AS sample_barcode
   FROM
-    `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation_DR10`
+    `spider2-public-data.TCGA_hg38_data_v0.Somatic_Mutation_DR10`
   WHERE
     project_short_name = 'TCGA-UCEC'
   GROUP BY
@@ -13,7 +13,7 @@ sampleGroup AS (
   SELECT
     sample_barcode
   FROM
-    `isb-cgc.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
+    `spider2-public-data.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
   WHERE
     project_short_name = 'TCGA-UCEC'
     AND sample_barcode IN (SELECT sample_barcode FROM s1)
@@ -25,7 +25,7 @@ grp1 AS (
   SELECT
     sample_barcode_tumor AS sample_barcode
   FROM
-    `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation_DR10`
+    `spider2-public-data.TCGA_hg38_data_v0.Somatic_Mutation_DR10`
   WHERE
     Hugo_Symbol = 'PARP1'
     AND One_Consequence <> 'synonymous_variant'
@@ -50,7 +50,7 @@ summaryGrp1 AS (
     VAR_SAMP(LOG10(HTSeq__FPKM_UQ + 1)) AS genevar,
     COUNT(sample_barcode) AS genen
   FROM
-    `isb-cgc.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
+    `spider2-public-data.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
   WHERE
     sample_barcode IN (SELECT sample_barcode FROM grp1)
     AND gene_name IN (SELECT Symbol FROM `isb-cgc.QotM.WikiPathways_20170425_Annotated`)
@@ -65,7 +65,7 @@ summaryGrp2 AS (
     VAR_SAMP(LOG10(HTSeq__FPKM_UQ + 1)) AS genevar,
     COUNT(sample_barcode) AS genen
   FROM
-    `isb-cgc.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
+    `spider2-public-data.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
   WHERE
     sample_barcode IN (SELECT sample_barcode FROM grp2)
     AND gene_name IN (SELECT Symbol FROM `isb-cgc.QotM.WikiPathways_20170425_Annotated`)

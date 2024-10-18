@@ -3,7 +3,7 @@ WITH imports AS (
     id,
     SPLIT(REGEXP_EXTRACT(content, r'import\s*\(([^)]*)\)'), '\n') AS lines
   FROM
-    `bigquery-public-data.github_repos.sample_contents`
+    `spider2-public-data.github_repos.sample_contents`
   WHERE
     REGEXP_CONTAINS(content, r'import\s*\([^)]*\)')
 ),
@@ -11,7 +11,7 @@ go_files AS (
   SELECT
     id
   FROM
-    `bigquery-public-data.github_repos.sample_files`
+    `spider2-public-data.github_repos.sample_files`
   WHERE
     path LIKE '%.go'
   GROUP BY

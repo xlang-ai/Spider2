@@ -10,7 +10,7 @@ WITH parsed_aggregator_oracle_requests AS (
     ) AS rates,
     block_timestamp,
     oracle_request_id,
-    FROM `public-data-finance.crypto_band.oracle_requests`
+    FROM `spider2-public-data.crypto_band.oracle_requests`
     WHERE request.oracle_script_id = 3
 ),
 -- zip symbols and rates

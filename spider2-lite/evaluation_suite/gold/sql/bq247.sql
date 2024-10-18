@@ -4,7 +4,7 @@ WITH
       family_id,
       COUNT(publication_number) AS publication_number_count
     FROM
-      `patents-public-data.patents.publications`
+      `spider2-public-data.patents_google.publications`
     GROUP BY
       family_id
   ),
@@ -23,9 +23,9 @@ WITH
       p.family_id,
       gpr.abstract
     FROM
-      `patents-public-data.google_patents_research.publications` gpr
+      `spider2-public-data.patents_google.abs_and_emb` gpr
     JOIN
-      `patents-public-data.patents.publications` p
+      `spider2-public-data.patents_google.publications` p
     ON
       p.publication_number = gpr.publication_number
     WHERE
@@ -45,3 +45,5 @@ SELECT
   abstract
 FROM
   abstracts_from_top_family;
+
+

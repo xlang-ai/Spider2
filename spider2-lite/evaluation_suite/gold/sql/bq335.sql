@@ -4,7 +4,7 @@ WITH all_transactions AS (
         ARRAY_TO_STRING(addresses, ",") AS address,
         value,
         block_timestamp AS timestamp
-    FROM `bigquery-public-data.crypto_bitcoin.inputs`
+    FROM `spider2-public-data.crypto_bitcoin.inputs`
     
     UNION ALL
     
@@ -12,7 +12,7 @@ WITH all_transactions AS (
         ARRAY_TO_STRING(addresses, ",") AS address,
         value,
         block_timestamp AS timestamp
-    FROM `bigquery-public-data.crypto_bitcoin.outputs`
+    FROM `spider2-public-data.crypto_bitcoin.outputs`
 ),
 
 filtered_transactions AS (

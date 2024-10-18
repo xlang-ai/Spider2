@@ -5,7 +5,7 @@ WITH PatentApplications AS (
         ANY_VALUE(country_code) AS country_code,  -- Collects any sample of country code.
         application_number  -- The unique identifier for each patent application.
     FROM 
-        `patents-public-data.patents.publications` AS pubs  -- Using the patents publications dataset.
+        `spider2-public-data.patents.publications` AS pubs  -- Using the patents publications dataset.
     WHERE EXISTS (
         SELECT 1 FROM UNNEST(pubs.cpc) AS c WHERE REGEXP_CONTAINS(c.code, "A01B3")
     )
@@ -69,4 +69,4 @@ FROM
     FinalAggregation  -- Using the FinalAggregation CTE.
 ORDER BY 
     total_count DESC  -- Ordering by total application count in descending order.
-LIMIT 20;  -- Limits the results to the top 20 assignees.
+LIMIT 3;

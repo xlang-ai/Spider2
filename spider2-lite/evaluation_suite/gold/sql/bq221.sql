@@ -22,14 +22,14 @@ WITH patent_cpcs AS (
             ANY_VALUE(cpc) AS cpc,
             ANY_VALUE(filing_date) AS filing_date
         FROM
-            `patents-public-data.patents.publications`
+            `spider2-public-data.patents.publications`
         WHERE 
             application_number != ""
         GROUP BY
             application_number
         ), UNNEST(cpc) AS cpcs
     JOIN
-        `patents-public-data.cpc.definition` cd
+        `spider2-public-data.patents.cpc_definition` cd
     ON cd.symbol = cpcs.code
     WHERE
         cpcs.first = TRUE
@@ -59,7 +59,7 @@ FROM (
     )
     GROUP BY cpc_group
 )
-JOIN `patents-public-data.cpc.definition` c
+JOIN `spider2-public-data.patents.cpc_definition` c
 ON cpc_group = c.symbol
 WHERE c.level = 5
 ORDER BY c.titleFull, cpc_group ASC;

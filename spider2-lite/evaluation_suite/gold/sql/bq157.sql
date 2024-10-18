@@ -1,7 +1,7 @@
 WITH
 barcodes AS (
    SELECT Tumor_SampleBarcode AS SampleBarcode   
-   FROM `pancancer-atlas.Filtered.MC3_MAF_V5_one_per_tumor_sample`
+   FROM `spider2-public-data.pancancer_atlas_filtered.MC3_MAF_V5_one_per_tumor_sample`
    WHERE Study = 'LGG'       
 )
 ,table1 AS (
@@ -9,7 +9,7 @@ SELECT Symbol, data, ParticipantBarcode
 FROM ( 
    SELECT 
          Symbol AS symbol, AVG( LOG10( normalized_count + 1 )) AS data, ParticipantBarcode
-   FROM  `pancancer-atlas.Filtered.EBpp_AdjustPANCAN_IlluminaHiSeq_RNASeqV2_genExp_filtered` 
+   FROM  `spider2-public-data.pancancer_atlas_filtered.EBpp_AdjustPANCAN_IlluminaHiSeq_RNASeqV2_genExp_filtered` 
    WHERE Study = 'LGG' AND Symbol ='DRG2' AND normalized_count IS NOT NULL
          AND SampleBarcode  IN (SELECT * FROM barcodes)
          
@@ -24,7 +24,7 @@ FROM
    (
    SELECT
       ParticipantBarcode AS ParticipantBarcode
-   FROM `pancancer-atlas.Filtered.MC3_MAF_V5_one_per_tumor_sample`
+   FROM `spider2-public-data.pancancer_atlas_filtered.MC3_MAF_V5_one_per_tumor_sample`
    WHERE Study = 'LGG' AND Hugo_Symbol = 'TP53'
          AND FILTER = 'PASS'  
    GROUP BY ParticipantBarcode

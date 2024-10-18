@@ -10,7 +10,7 @@ WITH content_extracted AS (
                 id,
                 content
             FROM 
-                `bigquery-public-data.github_repos.sample_contents`
+                `spider2-public-data.github_repos.sample_contents`
         ) AS D
     INNER JOIN 
         (
@@ -25,9 +25,9 @@ WITH content_extracted AS (
                         repo_name,
                         path
                     FROM 
-                        `bigquery-public-data.github_repos.sample_files`
+                        `spider2-public-data.github_repos.sample_files`
                     WHERE 
-                        LOWER(path) LIKE '%requirements.txt'
+                        LOWER(path) LIKE '%readme.md'
                 ) AS C
             INNER JOIN 
                 (
@@ -40,7 +40,7 @@ WITH content_extracted AS (
                                 repo_name, 
                                 language
                             FROM 
-                                `bigquery-public-data.github_repos.languages`
+                                `spider2-public-data.github_repos.languages`
                         )
                     CROSS JOIN 
                         UNNEST(language) AS language_struct

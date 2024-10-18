@@ -1,8 +1,8 @@
-  WITH
+ WITH
   -- Create a common table expression (CTE) named localizerAndJpegCompressedSeries
   localizerAndJpegCompressedSeries AS (
   Select SeriesInstanceUID  from 
-  `bigquery-public-data.idc_v17.dicom_all` bid, bid.ImageType image_type 
+  `spider2-public-data.idc_v17.dicom_all` bid, bid.ImageType image_type 
    where 
    image_type='LOCALIZER' OR  
    TransferSyntaxUID  IN ( '1.2.840.10008.1.2.4.70','1.2.840.10008.1.2.4.51')
@@ -52,7 +52,7 @@
       -- Store the size of the SOP Instance in bytes
       instance_size AS instanceSize,
     FROM
-      `bigquery-public-data.idc_v17.dicom_all` bid
+      `spider2-public-data.idc_v17.dicom_all` bid
     LEFT JOIN
       UNNEST(bid.ImagePositionPatient) ipp WITH OFFSET AS axes
     LEFT JOIN
@@ -180,8 +180,6 @@ GROUP BY
   sliceThicknessCount,
   exposureCount,
   seriesSizeInMiB
-#Setting the minimum number of series to be 1000
-HAVING sliceIntervalifferenceTolerance < 0.01 and sopInstanceCount >= 1000 
 ORDER BY
     sliceIntervalifferenceTolerance desc,
     maxExposureDifference desc,

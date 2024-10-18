@@ -4,7 +4,7 @@ WITH selected_repos as (
     f.repo_name as repo_name,
     f.path as path,
   FROM
-    `bigquery-public-data.github_repos.sample_files` as f
+    `spider2-public-data.github_repos.sample_files` as f
 ),
 
 deduped_files as (
@@ -22,7 +22,7 @@ SELECT
   f.repo_name,
 FROM
   deduped_files as f
-  JOIN `bigquery-public-data.github_repos.sample_contents` as c on f.id = c.id
+  JOIN `spider2-public-data.github_repos.sample_contents` as c on f.id = c.id
 WHERE
   NOT c.binary
   AND f.path like '%.swift'

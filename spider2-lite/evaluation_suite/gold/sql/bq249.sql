@@ -4,7 +4,7 @@ WITH
     SPLIT(content, '\\n') AS line,
     id
   FROM
-    `bigquery-public-data.github_repos.sample_contents`
+    `spider2-public-data.github_repos.sample_contents`
   WHERE
     sample_path LIKE "%.sql" )
 SELECT

@@ -1,14 +1,14 @@
-WITH patents_sample AS (               -- name of our table
+WITH patents_sample AS (          
 SELECT 
   t1.publication_number, 
   t1.application_number 
 FROM 
-  `patents-public-data.patents.publications` t1 
+  `spider2-public-data.patents.publications` t1 
 WHERE 
-  country_code = 'US'                                                        -- only consider US patents
-  AND grant_date between 20180101 AND 20180131                               -- grant dates between 2002 and 2006
-  AND grant_date != 0                                                        -- only consider granted patents
-  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+  country_code = 'US'                      
+  AND grant_date between 20150101 AND 20181231                
+  AND grant_date != 0                               
+  AND publication_number LIKE '%B2%'                        
 ),
 interim_table AS (
     SELECT
@@ -16,7 +16,7 @@ interim_table AS (
         SUBSTR(ipc_u.code, 0, 4) AS ipc4,
         COUNT(SUBSTR(ipc_u.code, 0, 4)) AS ipc4_count
     FROM
-        patents-public-data.patents.publications t1,
+        spider2-public-data.patents.publications t1,
         UNNEST(ipc) AS ipc_u
     GROUP BY
         t1.publication_number,
@@ -52,7 +52,7 @@ ipc_counts AS (
       x2.publication_number AS citing_publication_number,
       citation_u.publication_number AS backward_citation
     FROM
-      patents-public-data.patents.publications x2,
+      spider2-public-data.patents.publications x2,
       UNNEST(citation) AS citation_u) t2
   ON
     t2.citing_publication_number = t1.publication_number
@@ -83,3 +83,4 @@ SELECT
   publication_number
 FROM 
   max_originality
+  

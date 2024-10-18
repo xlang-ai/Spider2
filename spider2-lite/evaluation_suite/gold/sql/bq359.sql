@@ -15,7 +15,7 @@ WITH python_repo AS (
             arr.name AS LANGUAGE,
             arr.bytes AS language_bytes
             FROM
-            `bigquery-public-data.github_repos.languages`,
+            `spider2-public-data.github_repos.languages`,
             UNNEST(LANGUAGE) arr ) AS t1 ) AS t2
         WHERE
         rank = 1)
@@ -25,10 +25,10 @@ WITH python_repo AS (
     FROM
         repositories
     WHERE
-        LANGUAGE = 'Python'
+        LANGUAGE = 'JavaScript'
         )
-SELECT Rname, COUNT(commit) AS num_commits FROM `bigquery-public-data.github_repos.commits`
-LEFT JOIN UNNEST(`bigquery-public-data.github_repos.commits`.repo_name) Rname
-INNER JOIN python_repo ON python_repo.repo_name = Rname
-GROUP BY Rname
-ORDER BY num_commits DESC LIMIT 5
+SELECT sc.repo_name, COUNT(commit) AS num_commits FROM `spider2-public-data.github_repos.sample_commits` sc
+INNER JOIN python_repo ON python_repo.repo_name = sc.repo_name
+GROUP BY sc.repo_name
+ORDER BY num_commits 
+DESC LIMIT 2

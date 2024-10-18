@@ -26,10 +26,10 @@ GRNT AS (
         application_number,
         grant_date
     FROM 
-        `patents-public-data.patents.publications_201809`
+        `spider2-public-data.patents.publications`
     WHERE
-        grant_date > 20150000
-        AND grant_date < 20180000
+        grant_date > 20100000
+        AND grant_date < 20240000
         AND country_code = 'US'
 ),
 
@@ -40,11 +40,10 @@ AS_FILED AS (
         MIN(publication_date) AS first_pub_date,
         claims.text AS filed_claims
     FROM 
-        `patents-public-data.patents.publications_201809` AS PUB,
+        `spider2-public-data.patents.publications` AS PUB,
         UNNEST(claims_localized) AS claims
     JOIN GRNT ON GRNT.application_number = PUB.application_number
-    WHERE 
-        PUB.publication_number LIKE '%A1'  -- Only A1 publication numbers
+
     GROUP BY 
         PUB.application_number, 
         PUB.publication_number, 

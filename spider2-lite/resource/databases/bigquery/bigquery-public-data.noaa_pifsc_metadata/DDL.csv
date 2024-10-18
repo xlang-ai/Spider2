@@ -1,0 +1,170 @@
+table_name,ddl
+dclde_2020_1705_visual_sightings,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1705_visual_sightings`
+(
+  local_ship_date DATE,
+  sighting_local_time TIME,
+  sighting_number STRING,
+  species_id STRING,
+  effort STRING,
+  effort_type STRING,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY,
+  bearing INT64,
+  distance FLOAT64,
+  total_best FLOAT64,
+  total_high INT64,
+  total_low INT64
+);"
+dclde_2020_detection_readme,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_detection_readme`
+(
+  table STRING,
+  field STRING,
+  description STRING
+);"
+dclde_2020_1705_minke_detections,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1705_minke_detections`
+(
+  detection_time_start_local DATETIME,
+  detection_time_start_utc TIMESTAMP,
+  detection_time_end_utc TIMESTAMP,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY
+);"
+dclde_2020_1705_array,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1705_array`
+(
+  array_start_local DATETIME,
+  array_end_local DATETIME,
+  array_start_utc TIMESTAMP,
+  array_end_utc TIMESTAMP,
+  array1 STRING,
+  array2 STRING,
+  hp1_dist FLOAT64,
+  hp1_ad INT64,
+  hp2_dist FLOAT64,
+  hp2_ad INT64,
+  hp3_dist FLOAT64,
+  hp3_ad INT64,
+  hp4_dist FLOAT64,
+  hp4_ad INT64,
+  hp5_dist FLOAT64,
+  hp5_ad INT64,
+  hp6_dist FLOAT64,
+  hp6_ad INT64
+);"
+dclde_sette_array_depth,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_sette_array_depth`
+(
+  utc_time TIMESTAMP,
+  local_time DATETIME,
+  inline_depth FLOAT64,
+  end_depth FLOAT64
+);"
+dclde_lasker_array_depth,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_lasker_array_depth`
+(
+  utc_time TIMESTAMP,
+  local_time DATETIME,
+  inline_depth FLOAT64,
+  end_depth FLOAT64
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+dclde_2020_species_lookup,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_species_lookup`
+(
+  code STRING,
+  common_name STRING,
+  species_name STRING
+);"
+dclde_2020_1706_odontocete_detections,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1706_odontocete_detections`
+(
+  detection_time_start_local DATETIME,
+  detection_time_start_utc TIMESTAMP,
+  detection_time_end_utc TIMESTAMP,
+  acoustic_detection_number STRING,
+  sighting_number INT64,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY,
+  first_angle INT64,
+  first_distance INT64,
+  beam_distance INT64,
+  beam_time_utc TIMESTAMP,
+  detection_distance INT64,
+  species1_id STRING,
+  species2_id STRING,
+  species3_id STRING
+);"
+dclde_2020_1706_array,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1706_array`
+(
+  array_start_local DATETIME,
+  array_end_local DATETIME,
+  array_start_utc TIMESTAMP,
+  array_end_utc TIMESTAMP,
+  array1 STRING,
+  array2 STRING,
+  hp1_dist FLOAT64,
+  hp1_ad INT64,
+  hp2_dist FLOAT64,
+  hp2_ad INT64,
+  hp3_dist FLOAT64,
+  hp3_ad INT64,
+  hp4_dist STRING,
+  hp4_ad STRING,
+  hp5_dist STRING,
+  hp5_ad STRING,
+  hp6_dist STRING,
+  hp6_ad STRING
+);"
+dclde_sette_gps,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_sette_gps`
+(
+  utc_time TIMESTAMP,
+  local_time DATETIME,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY,
+  speed FLOAT64,
+  effort INT64
+);"
+dclde_lasker_gps,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_lasker_gps`
+(
+  utc_time TIMESTAMP,
+  local_time DATETIME,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  speed FLOAT64,
+  effort INT64
+);"
+dclde_2020_1706_visual_sightings,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1706_visual_sightings`
+(
+  local_ship_date DATE,
+  sighting_local_time TIME,
+  sighting_number STRING,
+  species_id STRING,
+  effort STRING,
+  effort_type STRING,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY,
+  bearing INT64,
+  distance FLOAT64,
+  total_best FLOAT64,
+  total_high INT64,
+  total_low INT64
+);"
+dclde_2020_1705_odontocete_detections,"CREATE TABLE `bigquery-public-data.noaa_pifsc_metadata.dclde_2020_1705_odontocete_detections`
+(
+  detection_time_start_local DATETIME,
+  detection_time_start_utc TIMESTAMP,
+  detection_time_end_utc TIMESTAMP,
+  acoustic_detection_number STRING,
+  sighting_number STRING,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  point GEOGRAPHY,
+  first_angle INT64,
+  first_distance INT64,
+  beam_distance INT64,
+  beam_time_utc TIMESTAMP,
+  detection_distance INT64,
+  species1_id STRING,
+  species2_id STRING,
+  species3_id STRING
+);"

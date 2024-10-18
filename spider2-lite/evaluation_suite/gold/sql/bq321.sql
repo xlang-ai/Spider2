@@ -2,7 +2,7 @@ WITH relevant_series AS (
   SELECT 
     DISTINCT StudyInstanceUID
   FROM 
-    `bigquery-public-data.idc_v14.dicom_all`
+    `spider2-public-data.idc_v17.dicom_all`
   WHERE 
     collection_id = 'qin_prostate_repeatability'
     AND 
@@ -18,7 +18,7 @@ t2_seg_lesion_series AS (
   SELECT 
     DISTINCT StudyInstanceUID
   FROM 
-    `bigquery-public-data.idc_v14.dicom_all`
+    `spider2-public-data.idc_v17.dicom_all`
   CROSS JOIN UNNEST(SegmentSequence) AS segSeq
   WHERE 
     collection_id = 'qin_prostate_repeatability'

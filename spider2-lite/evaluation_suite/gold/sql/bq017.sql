@@ -2,7 +2,7 @@ WITH bounding_area AS (
   SELECT geometry 
   FROM `bigquery-public-data.geo_openstreetmap.planet_features`
   WHERE feature_type = "multipolygons"
-    AND ('wikidata', 'Q17') IN (
+    AND ('wikidata', 'Q35') IN (
       SELECT (key, value) 
       FROM unnest(all_tags)
     )

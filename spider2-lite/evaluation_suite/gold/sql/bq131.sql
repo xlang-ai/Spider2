@@ -1,8 +1,8 @@
 WITH bounding_area AS (
   SELECT geometry
-  FROM `bigquery-public-data.geo_openstreetmap.planet_features`
+  FROM `spider2-public-data.geo_openstreetmap.planet_features`
   WHERE feature_type = "multipolygons"
-    AND ('wikidata', 'Q62') IN (
+    AND ('wikidata', 'Q35') IN (
       SELECT (key, value)
       FROM unnest(all_tags)
     )
@@ -15,9 +15,9 @@ INFO AS (
       SELECT value 
       FROM unnest(all_tags) 
       WHERE key = 'network'
-    ) AS bus_network  -- Extract value of "network" tag
+    ) AS bus_network
   FROM 
-    `bigquery-public-data.geo_openstreetmap.planet_features` planet_features,
+    `spider2-public-data.geo_openstreetmap.planet_features` planet_features,
     bounding_area
   WHERE 
     feature_type = 'points'

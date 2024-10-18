@@ -4,7 +4,7 @@ WITH specimen_preparation_sequence_items AS (
     steps_unnested2.ConceptNameCodeSequence[SAFE_OFFSET(0)].CodeMeaning AS item_name,
     steps_unnested2.ConceptCodeSequence[SAFE_OFFSET(0)].CodeMeaning AS item_value
   FROM
-    `bigquery-public-data.idc_v11.dicom_all`
+    `spider2-public-data.idc_v17.dicom_all`
   CROSS JOIN
     UNNEST(SpecimenDescriptionSequence[SAFE_OFFSET(0)].SpecimenPreparationSequence) AS steps_unnested1
   CROSS JOIN
@@ -16,7 +16,7 @@ grouped_by_study AS (
     dicom.StudyInstanceUID AS case_id,
     ANY_VALUE(dicom.ContainerIdentifier) AS physical_slide_id
   FROM
-    `bigquery-public-data.idc_v18.dicom_all` AS dicom
+    `spider2-public-data.idc_v17.dicom_all` AS dicom
   WHERE
     dicom.Modality = 'SM' AND
     EXISTS (
@@ -34,7 +34,7 @@ SELECT
 FROM
   grouped_by_study AS study
 JOIN
-  `bigquery-public-data.idc_v18.dicom_all` AS dicom
+  `spider2-public-data.idc_v17.dicom_all` AS dicom
 ON
   dicom.StudyInstanceUID = study.case_id
   AND dicom.ContainerIdentifier = study.physical_slide_id

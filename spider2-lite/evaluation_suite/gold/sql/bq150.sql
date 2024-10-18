@@ -4,7 +4,7 @@ cohortExpr AS (
     sample_barcode,
     LOG10(normalized_count) AS expr
   FROM
-    `isb-cgc.TCGA_hg19_data_v0.RNAseq_Gene_Expression_UNC_RSEM`
+    `spider2-public-data.TCGA_hg19_data_v0.RNAseq_Gene_Expression_UNC_RSEM`
   WHERE
     project_short_name = 'TCGA-BRCA'
     AND HGNC_gene_symbol = 'TP53'
@@ -16,7 +16,7 @@ cohortVar AS (
     Variant_Type,
     sample_barcode_tumor AS sample_barcode
   FROM
-    `isb-cgc.TCGA_hg19_data_v0.Somatic_Mutation_MC3`
+    `spider2-public-data.TCGA_hg19_data_v0.Somatic_Mutation_MC3`
   WHERE
     SYMBOL = 'TP53'
 ),

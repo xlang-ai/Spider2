@@ -10,7 +10,7 @@ WITH requests AS (
                 id,
                 content
             FROM 
-                `bigquery-public-data.github_repos.sample_contents`
+                `spider2-public-data.github_repos.sample_contents`
             GROUP BY 
                 id,
                 content
@@ -28,9 +28,9 @@ WITH requests AS (
                         repo_name,
                         path
                     FROM 
-                        `bigquery-public-data.github_repos.sample_files`
+                        `spider2-public-data.github_repos.sample_files`
                     WHERE 
-                        LOWER(path) LIKE '%requirements.txt'
+                        LOWER(path) LIKE '%readme.md'
                     GROUP BY 
                         path,
                         id,
@@ -42,10 +42,10 @@ WITH requests AS (
                         repo_name,
                         language_struct.name AS language_name
                     FROM 
-                        `bigquery-public-data.github_repos.languages`,
+                        `spider2-public-data.github_repos.languages`,
                         UNNEST(language) AS language_struct
                     WHERE 
-                        LOWER(language_struct.name) LIKE '%python%'
+                        LOWER(language_struct.name) NOT LIKE '%python%'
                     GROUP BY 
                         language_name,
                         repo_name
@@ -56,5 +56,5 @@ WITH requests AS (
     ON 
         D.id = E.id
 )
-SELECT (SELECT COUNT(*) FROM requests WHERE content LIKE '%requests%') / COUNT(*) AS proportion
+SELECT (SELECT COUNT(*) FROM requests WHERE content LIKE '%Copyright (c)%') / COUNT(*) AS proportion
 FROM requests

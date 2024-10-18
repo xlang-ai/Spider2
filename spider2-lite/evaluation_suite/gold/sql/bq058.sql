@@ -1,4 +1,3 @@
--- UDF for easier string manipulation.
 CREATE TEMP FUNCTION ParseSubStr(hexStr STRING, startIndex INT64, endIndex INT64)
 RETURNS STRING
 LANGUAGE js
@@ -46,12 +45,13 @@ SELECT
   StripLeadingZeroes(ParseSubStr(l.data, 0, 66), 26) AS to_address,
   HexToDec(ParseSubStr(l.data, 66, 130)) AS amount_deposited,
 FROM
-  `bigquery-public-data.goog_blockchain_optimism_mainnet_us.logs` as l
+  `spider2-public-data.goog_blockchain_optimism_mainnet_us.logs` as l
 WHERE
   ARRAY_LENGTH(l.topics) > 0 -- Check for non-empty topics first to short-circuit boolean evaluation.
 AND
   -- DepositFinalized:
   -- https://github.com/ethereum-optimism/optimism/blob/e24d77204ede3635d57253f5b6306be261e109b5/packages/contracts-ts/abis.json#L10319
-  l.topics[OFFSET(0)] = "0xb0444523268717a02698be47d0803aa7468c00acbed2f8bd93a0459cde61dd89"
+  l.topics[OFFSET(0)] = "0x3303facd24627943a92e9dc87cfbb34b15c49b726eec3ad3487c16be9ab8efe8"
 AND
-  block_number = 109223310;
+  block_number = 29815485;
+

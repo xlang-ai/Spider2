@@ -18,13 +18,13 @@ WITH patent_cpcs AS (
     CAST(FLOOR(filing_date/10000) AS INT64) AS filing_year
     FROM (
         SELECT ANY_VALUE(cpc) AS cpc, ANY_VALUE(filing_date) AS filing_date
-        FROM `patents-public-data.patents.publications`
+        FROM `spider2-public-data.patents.publications`
         WHERE application_number != ""
         AND country_code = 'DE'
         AND grant_date >= 20161201
         AND grant_date <= 20161231
         GROUP BY application_number), UNNEST(cpc) AS cpcs
-    JOIN `patents-public-data.cpc.definition` cd ON cd.symbol = cpcs.code
+    JOIN `spider2-public-data.patents.cpc_definition` cd ON cd.symbol = cpcs.code
     WHERE cpcs.first = TRUE AND filing_date > 0)
 
 SELECT c.titleFull, cpc_group, best_year.filing_year
@@ -38,6 +38,6 @@ FROM (
         GROUP BY cpc_group, filing_year
         ORDER BY filing_year DESC, cnt DESC)
     GROUP BY cpc_group)
-JOIN `patents-public-data.cpc.definition` c ON cpc_group = c.symbol
+JOIN `spider2-public-data.patents.cpc_definition` c ON cpc_group = c.symbol
 WHERE c.level = 4
 ORDER BY titleFull, cpc_group ASC;

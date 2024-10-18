@@ -8,7 +8,7 @@ WITH totals AS (
     sum(txs_tot.output_count) as tx_outputs,
     sum(txs_tot.input_value) / 100000000 as tx_input_val,
     sum(txs_tot.output_value) / 100000000 as tx_output_val
-  FROM `bigquery-public-data.crypto_bitcoin.transactions` as txs_tot
+  FROM `spider2-public-data.crypto_bitcoin.transactions` as txs_tot
   WHERE txs_tot.block_timestamp_month BETWEEN cast('2021-01-01' as date) AND cast('2021-12-31' as date)
   GROUP BY txs_tot.block_timestamp_month
   ORDER BY txs_tot.block_timestamp_month desc
@@ -27,7 +27,7 @@ coinjoinOuts AS(
     txs.input_value,
     txs.output_value,
     o.value as outputs_val
-  FROM `bigquery-public-data.crypto_bitcoin.transactions` as txs, UNNEST(txs.outputs) as o
+  FROM `spider2-public-data.crypto_bitcoin.transactions` as txs, UNNEST(txs.outputs) as o
   WHERE output_count > 2 AND 
     output_value <= input_value AND 
     block_timestamp_month BETWEEN cast('2021-01-01' as date) AND cast('2021-12-31' as date)

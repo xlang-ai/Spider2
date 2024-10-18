@@ -5,10 +5,10 @@ WITH double_entry_book AS (
       inputs.type,
       - inputs.value AS value
     FROM
-        `bigquery-public-data.crypto_dash.transactions`
+        `spider2-public-data.crypto_dash.transactions`
     JOIN
         UNNEST(inputs) AS inputs
-    WHERE block_timestamp_month = '2019-01-01'
+    WHERE block_timestamp_month = '2023-04-01'
 
     UNION ALL
  
@@ -18,8 +18,8 @@ WITH double_entry_book AS (
       outputs.type,
       outputs.value AS value
     FROM
-        `bigquery-public-data.crypto_dash.transactions` JOIN UNNEST(outputs) AS outputs
-    WHERE block_timestamp_month = '2019-01-01'
+        `spider2-public-data.crypto_dash.transactions` JOIN UNNEST(outputs) AS outputs
+    WHERE block_timestamp_month = '2023-04-01'
 ),
 address_balances AS (
     SELECT 

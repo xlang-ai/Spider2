@@ -1,0 +1,168 @@
+{
+    "table_name": "removed_creative_stats",
+    "table_fullname": "spider2-public-data.google_ads_transparency_center.removed_creative_stats",
+    "column_names": [
+        "creative_page_url",
+        "region_stats",
+        "audience_selection_approach_info",
+        "disapproval"
+    ],
+    "column_types": [
+        "STRING",
+        "ARRAY<STRUCT<region_code STRING, first_shown STRING, last_shown STRING, times_shown_end_date STRING, times_shown_lower_bound INT64, times_shown_upper_bound INT64, times_shown_start_date STRING, times_shown_availability_date STRING, surface_serving_stats STRUCT<surface_serving_stats ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>>>>",
+        "STRUCT<demographic_info STRING, geo_location STRING, contextual_signals STRING, customer_lists STRING, topics_of_interest STRING>",
+        "ARRAY<STRUCT<removal_reason STRING, violation_category STRING, use_of_automated_means BOOL, removal_location ARRAY<STRING>, decision_type STRING>>"
+    ],
+    "nested_column_names": [
+        "creative_page_url",
+        "region_stats",
+        "region_stats.region_code",
+        "region_stats.first_shown",
+        "region_stats.last_shown",
+        "region_stats.times_shown_end_date",
+        "region_stats.times_shown_lower_bound",
+        "region_stats.times_shown_upper_bound",
+        "region_stats.times_shown_start_date",
+        "region_stats.times_shown_availability_date",
+        "region_stats.surface_serving_stats",
+        "region_stats.surface_serving_stats.surface_serving_stats",
+        "region_stats.surface_serving_stats.surface_serving_stats.surface",
+        "region_stats.surface_serving_stats.surface_serving_stats.times_shown_upper_bound",
+        "region_stats.surface_serving_stats.surface_serving_stats.times_shown_lower_bound",
+        "region_stats.surface_serving_stats.surface_serving_stats.times_shown_availability_date",
+        "audience_selection_approach_info",
+        "audience_selection_approach_info.demographic_info",
+        "audience_selection_approach_info.geo_location",
+        "audience_selection_approach_info.contextual_signals",
+        "audience_selection_approach_info.customer_lists",
+        "audience_selection_approach_info.topics_of_interest",
+        "disapproval",
+        "disapproval.removal_reason",
+        "disapproval.violation_category",
+        "disapproval.use_of_automated_means",
+        "disapproval.removal_location",
+        "disapproval.decision_type"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "ARRAY<STRUCT<region_code STRING, first_shown STRING, last_shown STRING, times_shown_end_date STRING, times_shown_lower_bound INT64, times_shown_upper_bound INT64, times_shown_start_date STRING, times_shown_availability_date STRING, surface_serving_stats STRUCT<surface_serving_stats ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>>>>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<surface_serving_stats ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>>",
+        "ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRUCT<demographic_info STRING, geo_location STRING, contextual_signals STRING, customer_lists STRING, topics_of_interest STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "ARRAY<STRUCT<removal_reason STRING, violation_category STRING, use_of_automated_means BOOL, removal_location ARRAY<STRING>, decision_type STRING>>",
+        "STRING",
+        "STRING",
+        "BOOL",
+        "ARRAY<STRING>",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "creative_page_url": "https://adstransparency.google.com/removed/creative/CR15307655384479563777",
+            "region_stats": "[{'region_code': 'EEA', 'first_shown': '2024-08-02', 'last_shown': '2024-08-26', 'times_shown_end_date': None, 'times_shown_lower_bound': None, 'times_shown_upper_bound': None, 'times_shown_start_date': None, 'times_shown_availability_date': '2024-10-31', 'surface_serving_stats': None}\n {'region_code': 'PL', 'first_shown': '2024-08-02', 'last_shown': '2024-08-26', 'times_shown_end_date': None, 'times_shown_lower_bound': None, 'times_shown_upper_bound': None, 'times_shown_start_date': None, 'times_shown_availability_date': '2024-10-31', 'surface_serving_stats': None}]",
+            "audience_selection_approach_info": {
+                "demographic_info": "CRITERIA_INCLUDED_AND_EXCLUDED",
+                "geo_location": "CRITERIA_INCLUDED",
+                "contextual_signals": "CRITERIA_INCLUDED_AND_EXCLUDED",
+                "customer_lists": "CRITERIA_UNUSED",
+                "topics_of_interest": "CRITERIA_INCLUDED"
+            },
+            "disapproval": "[{'removal_reason': 'Alcohol', 'violation_category': 'RESTRICTED_CONTENT_AND_FEATURES', 'use_of_automated_means': False, 'removal_location': array(['PL'], dtype=object), 'decision_type': 'Google investigation'}]"
+        },
+        {
+            "creative_page_url": "https://adstransparency.google.com/removed/creative/CR09137800998234882049",
+            "region_stats": "[{'region_code': 'EEA', 'first_shown': '2024-01-16', 'last_shown': '2024-01-22', 'times_shown_end_date': '2024-01-22', 'times_shown_lower_bound': 1000, 'times_shown_upper_bound': 2000, 'times_shown_start_date': '2024-01-16', 'times_shown_availability_date': None, 'surface_serving_stats': None}\n {'region_code': 'IT', 'first_shown': '2024-01-16', 'last_shown': '2024-01-22', 'times_shown_end_date': '2024-01-22', 'times_shown_lower_bound': 1000, 'times_shown_upper_bound': 2000, 'times_shown_start_date': '2024-01-16', 'times_shown_availability_date': None, 'surface_serving_stats': None}]",
+            "audience_selection_approach_info": {
+                "demographic_info": "CRITERIA_INCLUDED",
+                "geo_location": "CRITERIA_INCLUDED",
+                "contextual_signals": "CRITERIA_INCLUDED",
+                "customer_lists": "CRITERIA_UNUSED",
+                "topics_of_interest": "CRITERIA_UNUSED"
+            },
+            "disapproval": "[{'removal_reason': 'Alcohol', 'violation_category': 'RESTRICTED_CONTENT_AND_FEATURES', 'use_of_automated_means': True, 'removal_location': array(['GLOBAL'], dtype=object), 'decision_type': 'Google investigation'}]"
+        },
+        {
+            "creative_page_url": "https://adstransparency.google.com/removed/creative/CR11323031567611199489",
+            "region_stats": "[{'region_code': 'AT', 'first_shown': '2023-04-04', 'last_shown': '2023-05-12', 'times_shown_end_date': '2023-05-12', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-04-04', 'times_shown_availability_date': None, 'surface_serving_stats': None}\n {'region_code': 'DE', 'first_shown': '2023-03-01', 'last_shown': '2024-05-30', 'times_shown_end_date': '2024-05-30', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-01', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'EEA', 'first_shown': '2023-03-01', 'last_shown': '2024-05-30', 'times_shown_end_date': '2024-05-30', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-01', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}                                                                                                                                                                                                                                                                                                                                                                                                                                   ]",
+            "audience_selection_approach_info": {
+                "demographic_info": "CRITERIA_INCLUDED",
+                "geo_location": "CRITERIA_INCLUDED",
+                "contextual_signals": "CRITERIA_INCLUDED",
+                "customer_lists": "CRITERIA_UNUSED",
+                "topics_of_interest": "CRITERIA_UNUSED"
+            },
+            "disapproval": "[{'removal_reason': 'Alcohol', 'violation_category': 'RESTRICTED_CONTENT_AND_FEATURES', 'use_of_automated_means': True, 'removal_location': array(['GLOBAL'], dtype=object), 'decision_type': 'Google investigation'}]"
+        },
+        {
+            "creative_page_url": "https://adstransparency.google.com/removed/creative/CR15253652870881345537",
+            "region_stats": "[{'region_code': 'BE', 'first_shown': '2023-04-08', 'last_shown': '2023-06-12', 'times_shown_end_date': '2023-06-12', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-04-08', 'times_shown_availability_date': None, 'surface_serving_stats': None}\n {'region_code': 'EEA', 'first_shown': '2023-03-15', 'last_shown': '2024-02-21', 'times_shown_end_date': '2024-02-21', 'times_shown_lower_bound': 3000, 'times_shown_upper_bound': 4000, 'times_shown_start_date': '2023-03-15', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'NL', 'first_shown': '2023-03-15', 'last_shown': '2024-02-21', 'times_shown_end_date': '2024-02-21', 'times_shown_lower_bound': 3000, 'times_shown_upper_bound': 4000, 'times_shown_start_date': '2023-03-15', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}                                                                                                                                                                                                                                                                                                                                                                                                                                     ]",
+            "audience_selection_approach_info": {
+                "demographic_info": "CRITERIA_INCLUDED",
+                "geo_location": "CRITERIA_INCLUDED",
+                "contextual_signals": "CRITERIA_INCLUDED_AND_EXCLUDED",
+                "customer_lists": "CRITERIA_UNUSED",
+                "topics_of_interest": "CRITERIA_UNUSED"
+            },
+            "disapproval": "[{'removal_reason': 'Alcohol', 'violation_category': 'RESTRICTED_CONTENT_AND_FEATURES', 'use_of_automated_means': False, 'removal_location': array(['GLOBAL'], dtype=object), 'decision_type': 'Google investigation'}]"
+        },
+        {
+            "creative_page_url": "https://adstransparency.google.com/removed/creative/CR12123040763466481665",
+            "region_stats": "[{'region_code': 'BE', 'first_shown': '2023-03-11', 'last_shown': '2023-08-16', 'times_shown_end_date': '2023-08-16', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-11', 'times_shown_availability_date': None, 'surface_serving_stats': None}\n {'region_code': 'DE', 'first_shown': '2023-03-07', 'last_shown': '2023-11-13', 'times_shown_end_date': '2023-11-13', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-07', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'DK', 'first_shown': '2023-03-10', 'last_shown': '2023-09-11', 'times_shown_end_date': '2023-09-11', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-10', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'EEA', 'first_shown': '2023-03-02', 'last_shown': '2023-11-16', 'times_shown_end_date': '2023-11-16', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-02', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'ES', 'first_shown': '2023-03-22', 'last_shown': '2023-11-07', 'times_shown_end_date': '2023-11-07', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-22', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'FR', 'first_shown': '2023-03-13', 'last_shown': '2023-11-08', 'times_shown_end_date': '2023-11-08', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-13', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'IE', 'first_shown': '2023-03-06', 'last_shown': '2023-11-14', 'times_shown_end_date': '2023-11-14', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-06', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'IT', 'first_shown': '2023-03-10', 'last_shown': '2023-11-12', 'times_shown_end_date': '2023-11-12', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-10', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'NL', 'first_shown': '2023-03-15', 'last_shown': '2023-11-15', 'times_shown_end_date': '2023-11-15', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-15', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'NO', 'first_shown': '2023-04-30', 'last_shown': '2023-11-16', 'times_shown_end_date': '2023-11-16', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-04-30', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}\n {'region_code': 'PT', 'first_shown': '2023-03-02', 'last_shown': '2023-11-12', 'times_shown_end_date': '2023-11-12', 'times_shown_lower_bound': 0, 'times_shown_upper_bound': 1000, 'times_shown_start_date': '2023-03-02', 'times_shown_availability_date': None, 'surface_serving_stats': {'surface_serving_stats': array([{'surface': 'PLAY', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'MAPS', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SEARCH', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'SHOPPING', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None},\n        {'surface': 'YOUTUBE', 'times_shown_upper_bound': 1000, 'times_shown_lower_bound': 0, 'times_shown_availability_date': None}],\n       dtype=object)}}                                                                                                                                                                                                                                                                                                                                                                                                                                  ]",
+            "audience_selection_approach_info": {
+                "demographic_info": "CRITERIA_INCLUDED",
+                "geo_location": "CRITERIA_INCLUDED",
+                "contextual_signals": "CRITERIA_INCLUDED_AND_EXCLUDED",
+                "customer_lists": "CRITERIA_UNUSED",
+                "topics_of_interest": "CRITERIA_UNUSED"
+            },
+            "disapproval": "[{'removal_reason': 'Alcohol', 'violation_category': 'RESTRICTED_CONTENT_AND_FEATURES', 'use_of_automated_means': False, 'removal_location': array(['GLOBAL'], dtype=object), 'decision_type': 'Google investigation'}]"
+        }
+    ]
+}

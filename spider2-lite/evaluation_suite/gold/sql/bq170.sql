@@ -5,7 +5,7 @@ WITH copy AS (
         start_pos,
         end_pos,
         MAX(copy_number) as copy_number
-    FROM `isb-cgc-bq.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23` 
+    FROM `spider2-public-data.TCGA_versioned.copy_number_segment_allelic_hg38_gdc_r23` 
     WHERE  project_short_name = 'TCGA-BRCA'
     GROUP BY case_barcode, chromosome, start_pos, end_pos
 ),
@@ -47,15 +47,10 @@ aberrations AS (
     cytoband_name,
     hg38_start,
     hg38_stop,
-    -- Homozygous deletions, or complete deletions
     SUM( IF( copy_number = 0, 1, 0) ) AS total_homodel,
-    -- Heterozygous deletions, 1 copy lost
     SUM( IF( copy_number = 1, 1, 0) ) AS total_heterodel,
-    -- Normal for Diploid = 2
     SUM( IF( copy_number = 2, 1, 0) )  AS total_normal,
-    -- Gains: at most two extra copies
     SUM( IF( copy_number = 3 ,1, 0) ) AS total_gain,
-    -- Amplifications: more than two copies for diploid > 4
     SUM( IF (copy_number > 3 , 1 , 0) ) AS total_amp
 
   FROM cbands

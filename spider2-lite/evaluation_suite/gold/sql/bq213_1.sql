@@ -6,11 +6,11 @@ SELECT
     SUBSTR(ipc_u.code, 0, 4)
     ) as ipc4_count 
 FROM 
-    `patents-public-data.patents.publications` t1, 
+    `spider2-public-data.patents.publications` t1, 
     UNNEST(ipc) AS ipc_u 
 WHERE
 country_code = 'US'  
-AND grant_date between 20150401 AND 20150430
+AND grant_date between 20220601 AND 20220930
   AND grant_date != 0
   AND publication_number LIKE '%B2%'  
 GROUP BY 
@@ -36,4 +36,4 @@ concat(
     group by 
     publication_number
 )
-AND ipc4_count >= 20
+AND ipc4_count >= 10

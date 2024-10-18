@@ -4,7 +4,7 @@ SELECT  symbol, data, ParticipantBarcode
 FROM ( 
    SELECT 
          Symbol AS symbol, AVG( LOG10( normalized_count + 1 )) AS data, ParticipantBarcode
-   FROM  `pancancer-atlas.Filtered.EBpp_AdjustPANCAN_IlluminaHiSeq_RNASeqV2_genExp_filtered` 
+   FROM  `spider2-public-data.pancancer_atlas_filtered.EBpp_AdjustPANCAN_IlluminaHiSeq_RNASeqV2_genExp_filtered` 
    WHERE Study = 'LGG' AND Symbol ='IGF2' AND normalized_count IS NOT NULL
    GROUP BY 
          ParticipantBarcode, symbol
@@ -20,7 +20,7 @@ FROM (
       'icd_o_3_histology' AS symbol, 
       icd_o_3_histology AS avgdata,
       bcr_patient_barcode AS ParticipantBarcode
-   FROM `pancancer-atlas.Filtered.clinical_PANCAN_patient_with_followup_filtered`
+   FROM `spider2-public-data.pancancer_atlas_filtered.clinical_PANCAN_patient_with_followup_filtered`
    WHERE acronym = 'LGG' AND icd_o_3_histology IS NOT NULL  
          AND NOT REGEXP_CONTAINS(icd_o_3_histology,r"^(\[.*\]$)")     
    )

@@ -9,7 +9,7 @@ WITH double_entry_book AS (
         to_address IS NOT NULL
         AND status = 1
         AND (call_type NOT IN ('delegatecall', 'callcode', 'staticcall') OR call_type IS NULL)
-        AND EXTRACT(DATE FROM block_timestamp) = '2019-01-01'
+        AND EXTRACT(DATE FROM block_timestamp) = '2016-10-14'
 
     UNION ALL
     
@@ -23,7 +23,7 @@ WITH double_entry_book AS (
         from_address IS NOT NULL
         AND status = 1
         AND (call_type NOT IN ('delegatecall', 'callcode', 'staticcall') OR call_type IS NULL)
-        AND EXTRACT(DATE FROM block_timestamp) = '2019-01-01'
+        AND EXTRACT(DATE FROM block_timestamp) = '2016-10-14'
 
     UNION ALL
 
@@ -37,7 +37,7 @@ WITH double_entry_book AS (
         `bigquery-public-data.crypto_ethereum_classic.blocks` AS blocks 
         ON blocks.number = transactions.block_number
     WHERE 
-        EXTRACT(DATE FROM block_timestamp) = '2019-01-01'
+        EXTRACT(DATE FROM block_timestamp) = '2016-10-14'
     GROUP BY 
         blocks.miner, 
         block_timestamp
@@ -51,7 +51,7 @@ WITH double_entry_book AS (
     FROM 
         `bigquery-public-data.crypto_ethereum_classic.transactions`
     WHERE 
-        EXTRACT(DATE FROM block_timestamp) = '2019-01-01'
+        EXTRACT(DATE FROM block_timestamp) = '2016-10-14'
 ),
 net_changes AS (
     SELECT 

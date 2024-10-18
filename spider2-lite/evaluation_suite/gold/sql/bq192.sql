@@ -3,7 +3,7 @@ WITH allowed_repos AS (
         repo_name, 
         license 
     FROM 
-        `bigquery-public-data.github_repos.licenses`
+        `spider2-public-data.github_repos.licenses`
     WHERE 
         license IN UNNEST(["artistic-2.0", "isc", "mit", "apache-2.0"])
 ),
@@ -66,7 +66,7 @@ github_files_at_head AS (
     SELECT 
         repo_name
     FROM 
-        `bigquery-public-data.github_repos.sample_files`
+        `spider2-public-data.github_repos.sample_files`
     WHERE 
         ref = "refs/heads/master" 
         AND ENDS_WITH(path, ".py")
