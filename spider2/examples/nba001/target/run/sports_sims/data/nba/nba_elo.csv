@@ -1,0 +1,13 @@
+
+    
+    
+    
+    create table "nba"."main"."nba_elo" ("date" text,"season" integer,"neutral" integer,"playoff" text,"team1" text,"team2" text,"elo1_pre" integer,"elo2_pre" integer,"elo_prob1" float8,"elo_prob2" float8,"elo1_post" integer,"elo2_post" integer,"score1" integer,"score2" integer)
+  ;
+    -- dbt seed --
+    
+          COPY "nba"."main"."nba_elo" FROM '/Users/leifangyu/workspace/Spider2-C/evaluation_examples/dbt/source/dbt_nba/data/nba/nba_elo.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  

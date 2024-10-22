@@ -1,0 +1,43 @@
+## CURRENT_DATETIME
+
+CURRENT_DATETIME([time_zone])
+
+
+CURRENT_DATETIME
+
+**Description**
+
+Returns the current time as a ` DATETIME ` object. Parentheses are optional when called with no arguments.
+
+This function supports an optional ` time_zone ` parameter. See [ Time zone definitions ](/bigquery/docs/reference/standard-
+sql/timestamp_functions#timezone_definitions) for information on how to specify a time zone.
+
+The current date and time is recorded at the start of the query statement which contains this function, not when this specific function is evaluated.
+
+**Return Data Type**
+
+` DATETIME `
+
+**Example**
+
+
+SELECT CURRENT_DATETIME() as now;
+
+/*----------------------------*
+| now                        |
++----------------------------+
+| 2016-05-19T10:38:47.046465 |
+*----------------------------*/
+
+When a column named ` current_datetime ` is present, the column name and the function call without parentheses are ambiguous. To ensure the function call,
+add parentheses; to ensure the column name, qualify it with its [ range variable ](/bigquery/docs/reference/standard-sql/query-syntax#range_variables) . For example, the following query will select the function in the ` now `
+column and the table column in the ` current_datetime ` column.
+
+
+WITH t AS (SELECT 'column value' AS `current_datetime`) SELECT current_datetime() as now, t.current_datetime FROM t;
+
+/*----------------------------+------------------*
+| now                        | current_datetime |
++----------------------------+------------------+
+| 2016-05-19T10:38:47.046465 | column value     |
+*----------------------------+------------------*/

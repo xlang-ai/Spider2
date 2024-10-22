@@ -1,0 +1,1 @@
+1. please query `sample_commits`, `sample_contents`, `sample_files`, `sample_repos`, `languages` tables in `bigquery-public-data.github_repos` database and data in `githubarchive.month` to solve this problem.

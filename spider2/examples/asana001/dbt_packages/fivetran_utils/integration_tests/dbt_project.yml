@@ -1,0 +1,14 @@
+name: 'fivetran_utils_integration_tests'
+version: '0.4.10'
+config-version: 2
+profile: 'integration_tests'
+
+clean-targets:        
+  - "target"
+  - "dbt_packages"
+
+dispatch:
+  - macro_namespace: fivetran_utils
+    search_order: ['spark_utils', 'fivetran_utils']
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'fivetran_utils', 'dbt_utils']

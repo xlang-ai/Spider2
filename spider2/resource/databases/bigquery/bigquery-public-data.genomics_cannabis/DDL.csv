@@ -1,0 +1,200 @@
+table_name,ddl
+MNPR01_201703,"CREATE TABLE `bigquery-public-data.genomics_cannabis.MNPR01_201703`
+(
+  reference_name STRING,
+  start INT64,
+  `end` INT64,
+  reference_bases STRING,
+  alternate_bases ARRAY<STRING>,
+  variant_id STRING,
+  quality FLOAT64,
+  filter ARRAY<STRING>,
+  names ARRAY<STRING>,
+  call ARRAY<STRUCT<call_set_id STRING, call_set_name STRING, genotype ARRAY<INT64>, phaseset STRING, genotype_likelihood ARRAY<FLOAT64>, AD ARRAY<INT64>, AO ARRAY<INT64>, DP INT64, QA ARRAY<INT64>, QR INT64, QUAL FLOAT64, RO INT64>>,
+  AB ARRAY<FLOAT64>,
+  ABP ARRAY<FLOAT64>,
+  AC ARRAY<INT64>,
+  AF ARRAY<FLOAT64>,
+  AN INT64,
+  AO ARRAY<INT64>,
+  CIGAR ARRAY<STRING>,
+  DP INT64,
+  DPB FLOAT64,
+  DPRA ARRAY<INT64>,
+  EPP ARRAY<FLOAT64>,
+  EPPR FLOAT64,
+  GTI INT64,
+  LEN ARRAY<INT64>,
+  MEANALT ARRAY<INT64>,
+  MQM ARRAY<FLOAT64>,
+  MQMR FLOAT64,
+  NS INT64,
+  NUMALT INT64,
+  ODDS FLOAT64,
+  PAIRED ARRAY<FLOAT64>,
+  PAIREDR FLOAT64,
+  PAO ARRAY<FLOAT64>,
+  PQA ARRAY<FLOAT64>,
+  PQR FLOAT64,
+  PRO FLOAT64,
+  QA ARRAY<INT64>,
+  QR INT64,
+  RO INT64,
+  RPL ARRAY<INT64>,
+  RPP ARRAY<FLOAT64>,
+  RPPR FLOAT64,
+  RPR ARRAY<INT64>,
+  RUN ARRAY<INT64>,
+  SAF ARRAY<INT64>,
+  SAP ARRAY<FLOAT64>,
+  SAR ARRAY<INT64>,
+  SRF INT64,
+  SRP FLOAT64,
+  SRR INT64,
+  TYPE ARRAY<STRING>
+)
+OPTIONS(
+  description=""MNPR01_201703: contains variant calls for all included samples (see: sample_info) and all types (genomic, transcriptomic) aligned to MNPR01 reference.  This table is exported using the Google Genomics BigQuery Variants Schema.  This is useful for general analysis of the Cannabis genome.""
+);"
+sample_info_201703,"CREATE TABLE `bigquery-public-data.genomics_cannabis.sample_info_201703`
+(
+  SRA_Sample_s STRING,
+  Sample_Name_s STRING,
+  cultivar_s STRING,
+  Library_Name_s STRING
+)
+OPTIONS(
+  description=""Sample_info: contains fields extracted for each SRA sample, including the SRA sample ID and other data that give indications about the type of sample it is (e.g. strain, library prep methods, sequencing technology).  See SRP008673 for an example of upstream sample info data for the University of Toronto sequencing of Cannabis sativa subsp. Purple Kush.""
+);"
+MNPR01_transcriptome_201703,"CREATE TABLE `bigquery-public-data.genomics_cannabis.MNPR01_transcriptome_201703`
+(
+  reference_name STRING,
+  start INT64,
+  `end` INT64,
+  reference_bases STRING,
+  alternate_bases ARRAY<STRING>,
+  variant_id STRING,
+  quality FLOAT64,
+  filter ARRAY<STRING>,
+  names ARRAY<STRING>,
+  call ARRAY<STRUCT<call_set_id STRING, call_set_name STRING, genotype ARRAY<INT64>, phaseset STRING, genotype_likelihood ARRAY<FLOAT64>, AD ARRAY<INT64>, AO ARRAY<INT64>, DP INT64, QA ARRAY<INT64>, QR INT64, QUAL FLOAT64, RO INT64>>,
+  AB ARRAY<FLOAT64>,
+  ABP ARRAY<FLOAT64>,
+  AC ARRAY<INT64>,
+  AF ARRAY<FLOAT64>,
+  AN INT64,
+  AO ARRAY<INT64>,
+  CIGAR ARRAY<STRING>,
+  DP INT64,
+  DPB FLOAT64,
+  DPRA ARRAY<INT64>,
+  EPP ARRAY<FLOAT64>,
+  EPPR FLOAT64,
+  GTI INT64,
+  LEN ARRAY<INT64>,
+  MEANALT ARRAY<INT64>,
+  MQM ARRAY<FLOAT64>,
+  MQMR FLOAT64,
+  NS INT64,
+  NUMALT INT64,
+  ODDS FLOAT64,
+  PAIRED ARRAY<FLOAT64>,
+  PAIREDR FLOAT64,
+  PAO ARRAY<FLOAT64>,
+  PQA ARRAY<FLOAT64>,
+  PQR FLOAT64,
+  PRO FLOAT64,
+  QA ARRAY<INT64>,
+  QR INT64,
+  RO INT64,
+  RPL ARRAY<INT64>,
+  RPP ARRAY<FLOAT64>,
+  RPPR FLOAT64,
+  RPR ARRAY<INT64>,
+  RUN ARRAY<INT64>,
+  SAF ARRAY<INT64>,
+  SAP ARRAY<FLOAT64>,
+  SAR ARRAY<INT64>,
+  SRF INT64,
+  SRP FLOAT64,
+  SRR INT64,
+  TYPE ARRAY<STRING>
+)
+OPTIONS(
+  description=""MNPR01_transcriptome_201703: similar to MNPR01, but includes only the subset transcriptomic samples.  In contrast to the larger table, this is useful for transcribed gene-level analysis of the Cannabis genome.""
+);"
+cs10_gff,"CREATE TABLE `bigquery-public-data.genomics_cannabis.cs10_gff`
+(
+  id STRING,
+  seq_id STRING,
+  source STRING,
+  type STRING,
+  start INT64,
+  `end` INT64,
+  geometry GEOGRAPHY,
+  score STRING,
+  strand STRING,
+  phase INT64,
+  attributes STRUCT<ID ARRAY<STRING>, Name ARRAY<STRING>, Alias ARRAY<STRING>, Parent ARRAY<STRING>, Target ARRAY<STRING>, Gap ARRAY<STRING>, Derives_from ARRAY<STRING>, Note ARRAY<STRING>, Dbxref ARRAY<STRING>, Ontology_term ARRAY<BOOL>, vendor ARRAY<STRUCT<key STRING, value ARRAY<STRING>>>>,
+  derived_features ARRAY<STRING>,
+  child_features ARRAY<STRING>,
+  _part INT64
+)
+PARTITION BY RANGE_BUCKET(_part, GENERATE_ARRAY(0, 221, 1))
+CLUSTER BY geometry
+OPTIONS(
+  description=""Genome annotation from GCF_900626175.1_cs10_genomic.gff.gz""
+);"
+cs3k_vcf_cs10_dv090,"CREATE TABLE `bigquery-public-data.genomics_cannabis.cs3k_vcf_cs10_dv090`
+(
+  reference_name STRING,
+  start_position INT64,
+  end_position INT64,
+  geometry GEOGRAPHY,
+  reference_bases STRING,
+  alternate_bases ARRAY<STRUCT<alt STRING>>,
+  names ARRAY<STRING>,
+  quality FLOAT64,
+  filter ARRAY<STRING>,
+  call ARRAY<STRUCT<name STRING, genotype ARRAY<INT64>, phaseset STRING, GQ INT64, DP INT64, MIN_DP INT64, AD ARRAY<INT64>, VAF ARRAY<FLOAT64>, PL ARRAY<INT64>>>,
+  _part INT64
+)
+PARTITION BY RANGE_BUCKET(_part, GENERATE_ARRAY(0, 213, 1))
+CLUSTER BY geometry;"
+MNPR01_reference_201703,"CREATE TABLE `bigquery-public-data.genomics_cannabis.MNPR01_reference_201703`
+(
+  name STRING NOT NULL,
+  length INT64 NOT NULL
+)
+OPTIONS(
+  description=""MNPR01_reference_201703: contains reference sequence names and lengths for the draft assembly of C. sativa subsp. Cannatonic produced by Phylos Bioscience.  Table contains contig identifiers and their lengths.""
+);"
+cs3k_project_info,"CREATE TABLE `bigquery-public-data.genomics_cannabis.cs3k_project_info`
+(
+  AvgSpotLen INT64,
+  BioSample STRING,
+  DATASTORE_provider STRING,
+  DATASTORE_region STRING,
+  Experiment STRING,
+  InsertSize INT64,
+  LibraryLayout STRING,
+  Library_Name STRING,
+  MBases INT64,
+  MBytes INT64,
+  Run STRING,
+  SRA_Sample STRING,
+  Sample_Name STRING,
+  Assay_Type STRING,
+  BioProject STRING,
+  Center_Name STRING,
+  Consent STRING,
+  DATASTORE_filetype STRING,
+  Instrument STRING,
+  LibrarySelection STRING,
+  LibrarySource STRING,
+  LoadDate DATE,
+  Organism STRING,
+  Platform STRING,
+  ReleaseDate DATE,
+  SRA_Study STRING
+);"

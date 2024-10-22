@@ -1,0 +1,116 @@
+{
+    "table_name": "logs",
+    "table_fullname": "bigquery-public-data.crypto_ethereum.logs",
+    "column_names": [
+        "log_index",
+        "transaction_hash",
+        "transaction_index",
+        "address",
+        "data",
+        "topics",
+        "block_timestamp",
+        "block_number",
+        "block_hash"
+    ],
+    "column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "ARRAY<STRING>",
+        "TIMESTAMP",
+        "INT64",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "log_index",
+        "transaction_hash",
+        "transaction_index",
+        "address",
+        "data",
+        "topics",
+        "block_timestamp",
+        "block_number",
+        "block_hash"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "ARRAY<STRING>",
+        "TIMESTAMP",
+        "INT64",
+        "STRING"
+    ],
+    "description": [
+        "Integer of the log index position in the block",
+        "Hash of the transactions this log was created from",
+        "Integer of the transactions index position log was created from",
+        "Address from which this log originated",
+        "Contains one or more 32 Bytes non-indexed arguments of the log",
+        "Indexed log arguments (0 to 4 32-byte hex strings). (In solidity: The first topic is the hash of the signature of the event (e.g. Deposit(address,bytes32,uint256)), except you declared the event with the anonymous specifier.)",
+        "Timestamp of the block where this log was in",
+        "The block number where this log was in",
+        "Hash of the block where this log was in"
+    ],
+    "sample_rows": [
+        {
+            "log_index": 470,
+            "transaction_hash": "0x2cac18a363ebfbb393a86815b7cc264f249d4457fc2ee18f7f70d8d6cbf72136",
+            "transaction_index": 321,
+            "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+            "data": "0x0000000000000000000000000000000000000000000000000000000011490c80",
+            "topics": "['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'\n '0x0000000000000000000000001b09d2e722bb9fd64d912ed41c671b831f477339'\n '0x0000000000000000000000000d4a11d5eeaac28ec3f61d100daf4d40471f1852']",
+            "block_timestamp": "2022-04-29 15:44:24+00:00",
+            "block_number": 14680064,
+            "block_hash": "0xe84f73ab220adcad543d59d67bad520db498c68461e891c0489cb1d7e701cd33"
+        },
+        {
+            "log_index": 404,
+            "transaction_hash": "0x5632fe2abb576bfa8c02ee8e3492d207e06b6cba165da8bc00a8da14e6fc64ae",
+            "transaction_index": 291,
+            "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+            "data": "0x0000000000000000000000000000000000000000000000000143eb598c52effd",
+            "topics": "['0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'\n '0x00000000000000000000000072af4d1d175672d1f99506e68e6e7cff484be4de'\n '0x000000000000000000000000def1c0ded9bec7f1a1670819833240f027b25eff']",
+            "block_timestamp": "2022-04-29 15:44:24+00:00",
+            "block_number": 14680064,
+            "block_hash": "0xe84f73ab220adcad543d59d67bad520db498c68461e891c0489cb1d7e701cd33"
+        },
+        {
+            "log_index": 22,
+            "transaction_hash": "0x4e39e51b64542577bf4c7e8d44000fb1cc9e2f4d9955c20dd64d7770338ef704",
+            "transaction_index": 2,
+            "address": "0x9e305fae42f87fb082b2c61cef84c99e1361034c",
+            "data": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000136fa01803b2bfda0000000000000000000000000000000000000000160055c70a35d32f602e368b0000000000000000000000000000000000000000000000000000000000000000",
+            "topics": "['0xd78ad95fa46c994b6551d0da85fc275fe613ce37657fb8d5e3d130840159d822'\n '0x000000000000000000000000499dd900f800fd0a2ed300006000a57f00fa009b'\n '0x000000000000000000000000499dd900f800fd0a2ed300006000a57f00fa009b']",
+            "block_timestamp": "2022-04-29 15:44:24+00:00",
+            "block_number": 14680064,
+            "block_hash": "0xe84f73ab220adcad543d59d67bad520db498c68461e891c0489cb1d7e701cd33"
+        },
+        {
+            "log_index": 472,
+            "transaction_hash": "0x2cac18a363ebfbb393a86815b7cc264f249d4457fc2ee18f7f70d8d6cbf72136",
+            "transaction_index": 321,
+            "address": "0x0d4a11d5eeaac28ec3f61d100daf4d40471f1852",
+            "data": "0x000000000000000000000000000000000000000000000516a0c9074e32026b1000000000000000000000000000000000000000000000000000003e557520b9fc",
+            "topics": "['0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1']",
+            "block_timestamp": "2022-04-29 15:44:24+00:00",
+            "block_number": 14680064,
+            "block_hash": "0xe84f73ab220adcad543d59d67bad520db498c68461e891c0489cb1d7e701cd33"
+        },
+        {
+            "log_index": 255,
+            "transaction_hash": "0x1d7a425de7b808dbb07cf1c7464aa8a163b302d63a6f571ee0d56114217ddeef",
+            "transaction_index": 152,
+            "address": "0xea27f115dc312aa07925ff33c562967743f450e1",
+            "data": "0x0000000000000000000000000000000000000000000000000000000000000009",
+            "topics": "['0x46da844413b3f8bb18b5c99db97c2a3543fbb4e24f2d7ee0e9a6086cab6005b6'\n '0xd7008b76bd8d2ddc9f5e6b92fa7837b2ebe7247b72b0ff7ec95723d1263f9352']",
+            "block_timestamp": "2022-04-29 15:44:24+00:00",
+            "block_number": 14680064,
+            "block_hash": "0xe84f73ab220adcad543d59d67bad520db498c68461e891c0489cb1d7e701cd33"
+        }
+    ]
+}

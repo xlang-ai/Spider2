@@ -1,0 +1,36 @@
+name: 'xero'
+version: '0.6.2'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'xero_new'
+
+vars:
+  xero_source:
+    xero_account_identifier: "xero_account_data"
+    xero_contact_identifier: "xero_contact_data"
+    xero_invoice_line_item_identifier: "xero_invoice_line_item_data"
+    xero_invoice_identifier: "xero_invoice_data"
+    xero_journal_line_identifier: "xero_journal_line_data"
+    xero_journal_identifier: "xero_journal_data"
+    xero_organization_identifier: "xero_organization_data"
+    xero_bank_transaction_identifier: "xero_bank_transaction_data"
+    xero_credit_note_identifier: "xero_credit_note_data"
+    xero_schema: main
+  xero:
+    account: "{{ ref('stg_xero__account') }}"
+    contact: "{{ ref('stg_xero__contact') }}"
+    invoice_line_item: "{{ ref('stg_xero__invoice_line_item') }}"
+    invoice: "{{ ref('stg_xero__invoice') }}"
+    journal_line: "{{ ref('stg_xero__journal_line') }}"
+    journal: "{{ ref('stg_xero__journal') }}"
+    organization: "{{ ref('stg_xero__organization') }}"
+    credit_note: "{{ ref('stg_xero__credit_note') }}"
+    bank_transaction: "{{ ref('stg_xero__bank_transaction') }}"
+    xero__using_bank_transaction: true
+    xero__using_credit_note: true
+models:
+  xero:
+    +materialized: table
+    utilities:
+      +materialized: table

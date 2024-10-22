@@ -1,0 +1,37 @@
+table_name,ddl
+trials_201710,"CREATE TABLE `bigquery-public-data.uspto_ptab.trials_201710`
+(
+  InventorName STRING,
+  PatentOwnerName STRING,
+  LastModifiedDatetime STRING,
+  InstitutionDecisionDate STRING,
+  ProsecutionStatus STRING,
+  AccordedFilingDate STRING,
+  PatentNumber STRING,
+  PetitionerPartyName STRING,
+  TrialNumber STRING,
+  ApplicationNumber STRING,
+  FilingDate STRING,
+  Documents ARRAY<STRUCT<SizeInBytes INT64, TrialNumber STRING, DocumentNumber STRING, Title STRING, FilingDatetime STRING, LastModifiedDatedime STRING, FilingParty STRING, MediaType STRING, Id INT64, Type STRING>>
+);"
+match_201710,"CREATE TABLE `bigquery-public-data.uspto_ptab.match_201710`
+(
+  ApplicationNumber STRING,
+  application_number STRING
+);"
+trials,"CREATE TABLE `bigquery-public-data.uspto_ptab.trials`
+(
+  InventorName STRING,
+  PatentOwnerName STRING,
+  LastModifiedDatetime STRING,
+  InstitutionDecisionDate STRING,
+  ProsecutionStatus STRING,
+  AccordedFilingDate STRING,
+  PatentNumber STRING,
+  PetitionerPartyName STRING,
+  TrialNumber STRING,
+  ApplicationNumber STRING,
+  publication_number STRING,
+  FilingDate STRING,
+  Documents ARRAY<STRUCT<SizeInBytes INT64, TrialNumber STRING, DocumentNumber STRING, Title STRING, FilingDatetime STRING, LastModifiedDatedime STRING, FilingParty STRING, MediaType STRING, Id INT64, Type STRING>>
+);"

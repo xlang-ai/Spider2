@@ -1,0 +1,41 @@
+## INITCAP
+
+INITCAP(value[, delimiters])
+
+**Description**
+
+Takes a ` STRING ` and returns it with the first character in each word in uppercase and all other characters in lowercase. Non-alphabetic characters remain the same.
+
+` delimiters ` is an optional string argument that is used to override the default set of characters used to separate words. If ` delimiters ` is not specified, it defaults to the following characters:
+` <whitespace> [ ] ( ) { } / | \ < > ! ? @ " ^ # $ & ~ _ , . : ; * % + - `
+
+If ` value ` or ` delimiters ` is ` NULL ` , the function returns ` NULL ` .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+WITH example AS ( SELECT 'Hello World-everyone!' AS value UNION ALL SELECT 'tHe dog BARKS loudly+friendly' AS value UNION ALL SELECT 'apples&oranges;&pears' AS value UNION ALL SELECT 'καθίσματα ταινιών' AS value ) SELECT value, INITCAP(value) AS initcap_value FROM example
+
+/*-------------------------------+-------------------------------*
+| value                         | initcap_value                 |
++-------------------------------+-------------------------------+
+| Hello World-everyone!         | Hello World-Everyone!         |
+| tHe dog BARKS loudly+friendly | The Dog Barks Loudly+Friendly |
+| apples&oranges;&pears         | Apples&Oranges;&Pears         |
+| καθίσματα ταινιών             | Καθίσματα Ταινιών             |
+*-------------------------------+-------------------------------*/
+
+WITH example AS ( SELECT 'hello WORLD!' AS value, '' AS delimiters UNION ALL SELECT 'καθίσματα ταιντιώ@ν' AS value, 'τ@' AS delimiters UNION ALL SELECT 'Apples1oranges2pears' AS value, '12' AS delimiters UNION ALL SELECT 'tHisEisEaESentence' AS value, 'E' AS delimiters ) SELECT value, delimiters, INITCAP(value, delimiters) AS initcap_value FROM example;
+
+/*----------------------+------------+----------------------*
+| value                | delimiters | initcap_value        |
++----------------------+------------+----------------------+
+| hello WORLD!         |            | Hello world!         |
+| καθίσματα ταιντιώ@ν  | τ@         | ΚαθίσματΑ τΑιντΙώ@Ν  |
+| Apples1oranges2pears | 12         | Apples1Oranges2Pears |
+| tHisEisEaESentence   | E          | ThisEIsEAESentence   |
+*----------------------+------------+----------------------*/

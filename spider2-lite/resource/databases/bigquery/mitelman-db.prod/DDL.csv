@@ -1,0 +1,223 @@
+table_name,ddl
+AuthorReference,"CREATE TABLE `mitelman-db.prod.AuthorReference`
+(
+  Refno INT64 OPTIONS(description=""this reference number is always an integer, between 1 and 50000""),
+  Name STRING OPTIONS(description=""eg 'Mitelman F', or 'Rowley JD'""),
+  NameOrder INT64 OPTIONS(description=""an integer between 1 and 228, indicating the position of this author's name in the list of authors for this reference"")
+);"
+CytoConvertedLog,"CREATE TABLE `mitelman-db.prod.CytoConvertedLog`
+(
+  RefNo INT64 NOT NULL,
+  CaseNo STRING NOT NULL,
+  InvNo INT64 NOT NULL,
+  Clone INT64,
+  Type STRING,
+  Message STRING
+);"
+KaryBreak,"CREATE TABLE `mitelman-db.prod.KaryBreak`
+(
+  RefNo INT64 OPTIONS(description=""reference number, eg '14617'""),
+  CaseNo STRING OPTIONS(description=""case number, usually between 1 and 10, but can also be an arbitrary string, eg 'A11'""),
+  InvNo INT64 OPTIONS(description=""investigation number, between 1 and 9""),
+  CloneNo INT64 OPTIONS(description=""clone number, between 1 and 58""),
+  OrderNo INT64 OPTIONS(description=""order number, between 1 and 392""),
+  Breakpoint STRING OPTIONS(description=""arbitrary string, eg '14q32', or '9', or '?10q?11'"")
+);"
+CytoConverted,"CREATE TABLE `mitelman-db.prod.CytoConverted`
+(
+  RefNo INT64 NOT NULL,
+  CaseNo STRING NOT NULL,
+  InvNo INT64 NOT NULL,
+  Clone INT64 NOT NULL,
+  Chr STRING,
+  ChrOrd INT64,
+  Start INT64,
+  `End` INT64,
+  Type STRING,
+  CellsPresent STRING
+);"
+KaryBit,"CREATE TABLE `mitelman-db.prod.KaryBit`
+(
+  RefNo INT64 OPTIONS(description=""reference number""),
+  CaseNo STRING OPTIONS(description=""case number, usually an integer but can be a string, eg 'A11'""),
+  InvNo INT64 OPTIONS(description=""investigation number""),
+  CloneNo INT64 OPTIONS(description=""clone number""),
+  OrderNo INT64 OPTIONS(description=""order number""),
+  Bit STRING OPTIONS(description=""karyotype 'bit', eg '46', or 'Xy', or 'idem', etc"")
+);"
+Koder,"CREATE TABLE `mitelman-db.prod.Koder`
+(
+  Kod STRING OPTIONS(description=""this field contains the 'code' which can be something like '5230' or '02' or 'O' -- there are 470 unique codes""),
+  KodTyp STRING OPTIONS(description=""this field indicates the type of the code -- there are 7 types: 'MORPH' (morphology), 'GEO' (geography), 'TOP' (topography), 'HER' (heredity), 'TISSUE', 'TREAT' (treatment), and 'RACE'""),
+  Aktiv STRING OPTIONS(description=""whether or not this code is active -- almost always 'J' (yes), but is 'N' once and blank once""),
+  Intern STRING OPTIONS(description=""whether or not this code is internal -- almost always 'J' (yes), but is 'N' once and blank once""),
+  Benamning STRING OPTIONS(description=""the 'long' name corresponding to this code, eg 'Vascular and perivascular tumors (all subtypes)'""),
+  Kortnamn STRING OPTIONS(description=""the 'short' name corresponding to this code, eg 'Adipo'""),
+  Notering STRING OPTIONS(description=""this field is always blank""),
+  Inregdatum STRING OPTIONS(description=""this field contains a date, eg 'Jul 7 2000 12:00AM' or 'Jan 9 2014 12:00AM'""),
+  GiltigFran STRING OPTIONS(description=""this field appears to contain the same date""),
+  GiltigTill STRING OPTIONS(description=""this field contains a date far into the future, eg 'Dec 27 2063 12:00AM'""),
+  Flagga1 STRING OPTIONS(description=""unknown field -- either blank (443 rows) or '1' (41 rows)""),
+  Flagga2 STRING OPTIONS(description=""this field is always blank""),
+  Flagga3 STRING OPTIONS(description=""this field is always blank""),
+  Flagga4 STRING OPTIONS(description=""this field is always blank"")
+);"
+RecurrentNumData,"CREATE TABLE `mitelman-db.prod.RecurrentNumData`
+(
+  Chromosome STRING OPTIONS(description=""number between 1 and 48""),
+  Abnormality STRING OPTIONS(description=""abnormality description, eg '-22', or '-X', or '+15', etc""),
+  Morph STRING OPTIONS(description=""morphology code, eg '3111'""),
+  Topo STRING OPTIONS(description=""topography code, eg '0902' (or blank)""),
+  TotalCases STRING OPTIONS(description=""total number of cases (up to 2211)""),
+  ChrOrder INT64 OPTIONS(description=""numeric order of the chromosome"")
+);"
+CytoBands_hg38,"CREATE TABLE `mitelman-db.prod.CytoBands_hg38`
+(
+  chromosome STRING,
+  cytoband_name STRING,
+  hg38_start INT64,
+  hg38_stop INT64
+);"
+KaryClone,"CREATE TABLE `mitelman-db.prod.KaryClone`
+(
+  RefNo INT64 OPTIONS(description=""reference number, eg '14620'""),
+  CaseNo STRING OPTIONS(description=""case number, usually between 1 and 10, but can also be an arbitrary string, eg 'A11'""),
+  InvNo INT64 OPTIONS(description=""investigation number, between 1 and 9""),
+  CloneNo INT64 OPTIONS(description=""clone number, between 1 and 58""),
+  ChromoMin INT64 OPTIONS(description=""most common values are between '42' and '51', but minimum value is '0' and maximum is '409'""),
+  ChromoMax INT64 OPTIONS(description=""most common values are between '43' and '52', but minimum value is '0' and maximum is '409'""),
+  CloneShort STRING OPTIONS(description=""shorter, sometimes truncated clone description, eg '45,X,-Y' or '46,Xy,t(8;21)(q22;q22)'""),
+  CloneLong STRING OPTIONS(description=""usually blank, but if the clone description is very long, that string will be stored here""),
+  CloneLength INT64 OPTIONS(description=""length of clone description string -- usually between 8 and 24 characters, but can be up to 2199 characters""),
+  Sole STRING OPTIONS(description=""T/F flag indicating whether or not this is the sole abnormality"")
+);"
+Cytogen,"CREATE TABLE `mitelman-db.prod.Cytogen`
+(
+  RefNo INT64 OPTIONS(description=""reference number (but treated as a string)""),
+  CaseNo STRING OPTIONS(description=""case number (usually a number, but can be a string, therefore treating as string)""),
+  Sex STRING OPTIONS(description=""one of 'M', 'F', or blank""),
+  Age INT64 OPTIONS(description=""can be blank, otherwise an integer between 0 and 100""),
+  Race STRING OPTIONS(description=""one of 'W', 'A', 'B', or 'O' (or blank)""),
+  Series STRING OPTIONS(description=""one of 'U', 'S', or 'D' (never blank)""),
+  Country STRING OPTIONS(description=""country code, eg '3020'""),
+  PrevTum STRING OPTIONS(description=""previous-tumor flag, either blank or 'Y'""),
+  PrevMorph STRING OPTIONS(description=""morphology code (eg '3111') for previous-tumor (frequently blank)""),
+  PrevTopo STRING OPTIONS(description=""topology code (eg '0401') for previous-tumor (frequently blank)""),
+  PrevTreat STRING OPTIONS(description=""one or more characters indicating previous treatment type(s), eg 'C', or 'C,R', or 'R,S' (or blank)""),
+  HerDis STRING OPTIONS(description=""hereditary disease code (eg '110')""),
+  SpecHerDis STRING OPTIONS(description=""specific hereditary disease, eg 'Fanconi anemia' or 'inv(9)(p11q13)'""),
+  Morph STRING OPTIONS(description=""morphology code, eg '1602'""),
+  SpecMorph STRING OPTIONS(description=""specific morphology, eg 'Aplastic anemia', or 'AML with cup-like nuclei'""),
+  Topo STRING OPTIONS(description=""topology code, eg '0902'""),
+  Immunology STRING OPTIONS(description=""most frequently blank, otherwise 'B' or 'T'""),
+  SpecObs STRING OPTIONS(description=""unknown/unnecessary field -- always blank""),
+  Origin STRING OPTIONS(description=""blank about half the time, otherwise 'L'""),
+  PatientID STRING OPTIONS(description=""unknown/unnecessary field -- always blank""),
+  PatientName STRING OPTIONS(description=""unknown/unnecessary field -- always blank""),
+  CaseOrder INT64 OPTIONS(description=""unknown integer field between 0 and 991807"")
+);"
+MolClinGene,"CREATE TABLE `mitelman-db.prod.MolClinGene`
+(
+  MolClin STRING OPTIONS(description=""flag indicating either molecular 'M', or clinical 'C'""),
+  RefNo INT64 OPTIONS(description=""reference number, eg '15563'""),
+  InvNo INT64 OPTIONS(description=""investigation number, usually between 1 and 10""),
+  OrderNo INT64 OPTIONS(description=""order number, between 1 and 15""),
+  Prefix STRING OPTIONS(description=""prefix string -- either blank or '+' ""),
+  Gene STRING OPTIONS(description=""gene symbol(s), eg 'KMT2A' or 'BCR/ABL1'""),
+  Suffix STRING OPTIONS(description=""suffix string -- either blank or '+'"")
+);"
+RecurrentData,"CREATE TABLE `mitelman-db.prod.RecurrentData`
+(
+  Chromosome STRING OPTIONS(description=""chromosome number (1- 22, X or Y)""),
+  Arm STRING OPTIONS(description=""arm of the chromosome (p or q)""),
+  Band STRING OPTIONS(description=""position of the gene on the p or q arm""),
+  Abnormality STRING OPTIONS(description=""abnormality description, eg 'add(19)(q13)' or 'del(20)(q11q13)'""),
+  Morph STRING OPTIONS(description=""morphology code, eg '1602'""),
+  Topo STRING OPTIONS(description=""topography code, eg '0902' (or blank)""),
+  TotalCases STRING OPTIONS(description=""total number of cases (up to 2150)""),
+  Gene STRING OPTIONS(description=""gene symbol(s), eg 'KMT2A+' or 'BCR/ABL1' or blank""),
+  ChrOrder INT64 OPTIONS(description=""numeric order of the chromosome""),
+  Type STRING OPTIONS(description=""indicate balanced ('B') or unbalanced ('U')"")
+);"
+KaryAbnorm,"CREATE TABLE `mitelman-db.prod.KaryAbnorm`
+(
+  RefNo INT64 OPTIONS(description=""reference number, eg '14620'""),
+  CaseNo STRING OPTIONS(description=""case number, most frequently an integer between 1 and 10, but can also be an arbitrary string, eg '11H046'""),
+  InvNo INT64 OPTIONS(description=""investigation number (between 1 and 9)""),
+  CloneNo INT64 OPTIONS(description=""clone number (between 1 and 58)""),
+  OrderNo INT64 OPTIONS(description=""order number (between 1 and 198)""),
+  Abnormality STRING OPTIONS(description=""eg '46', or 'XY', or 'XX', or '-22', etc"")
+);"
+MolClinBreak,"CREATE TABLE `mitelman-db.prod.MolClinBreak`
+(
+  MolClin STRING OPTIONS(description=""flag indicating either molecular 'M', or clinical 'C'""),
+  RefNo INT64 OPTIONS(description=""reference number, eg '15563'""),
+  InvNo INT64 OPTIONS(description=""investigation number, usually between 1 and 10""),
+  OrderNo INT64 OPTIONS(description=""order number, between 1 and 68""),
+  Breakpoint STRING OPTIONS(description=""breakpoint description, eg '19p13' or '12q2?3', etc"")
+);"
+Reference,"CREATE TABLE `mitelman-db.prod.Reference`
+(
+  RefNo INT64 OPTIONS(description=""reference number from 10 to 15880""),
+  TitleLength INT64 OPTIONS(description=""length of title, up to 334""),
+  TitleShort STRING OPTIONS(description=""short or truncated title, eg aThe myeloperoxidase gene in acute promyelocytic leukemia'""),
+  TitleLong STRING OPTIONS(description=""blank for shorter titles, otherwise the full title is in this field""),
+  Volume STRING OPTIONS(description=""journal volume, eg '95:96-101'""),
+  Year INT64 OPTIONS(description=""publication year, eg '1998'""),
+  Journal STRING OPTIONS(description=""journal name abbreviation, eg 'Cancer Genet Cytogenet'""),
+  Text STRING OPTIONS(description=""this field is always blank""),
+  Abbreviation STRING OPTIONS(description=""author abbreviation, eg 'Park et al 2009'""),
+  AuthorsLength STRING OPTIONS(description=""author string length, up to 2411""),
+  AuthorsShort STRING OPTIONS(description=""short or truncated author string, eg 'Atkin NB, Baker MC'""),
+  AuthorsLong STRING OPTIONS(description=""blank or complete, long author string""),
+  Flag STRING OPTIONS(description=""this field is always blank""),
+  Pubmed STRING OPTIONS(description=""PubMed identifier, if available, eg '17334343'"")
+);"
+MolClinAbnorm,"CREATE TABLE `mitelman-db.prod.MolClinAbnorm`
+(
+  MolClin STRING OPTIONS(description=""flag indicating molecular 'M', or clinical 'C'""),
+  RefNo INT64 OPTIONS(description=""reference number, eg '15563'""),
+  InvNo INT64 OPTIONS(description=""investigation number, usually between 1 and 10""),
+  OrderNo INT64 OPTIONS(description=""order number, between 1 and 54""),
+  Abnormality STRING OPTIONS(description=""abnormality description, eg 't(19;19)(p13;p13)' or 'del(7)(q?)'"")
+);"
+CytogenInv,"CREATE TABLE `mitelman-db.prod.CytogenInv`
+(
+  RefNo INT64 OPTIONS(description=""reference number""),
+  CaseNo STRING OPTIONS(description=""case number -- usually an intger, but can also be an arbitrary string""),
+  InvNo INT64 OPTIONS(description=""investigation number -- always an integer between 1 and 9""),
+  InvDate STRING OPTIONS(description=""investigation date -- eg '19730327' or '20170627' but can also be blank or simply '1'""),
+  Tissue STRING OPTIONS(description=""one of: 'BM', 'TB', 'LN', 'EX', or 'CSF' or (rarely) blank""),
+  Clones INT64 OPTIONS(description=""an integer between 1 and 58""),
+  KaryLength INT64 OPTIONS(description=""length of the karyotype description -- can be as long as thousands of characters, but is usually < 30""),
+  KaryShort STRING OPTIONS(description=""short (possibly truncated) karyotype description""),
+  KaryLong STRING OPTIONS(description=""if the karyotype description exceeds a certain length, the full string is in this column, otherwise this field is null""),
+  CaseOrder STRING OPTIONS(description=""unknown integer field between 0 and 9638369"")
+);"
+MolBiolClinAssoc,"CREATE TABLE `mitelman-db.prod.MolBiolClinAssoc`
+(
+  MolClin STRING OPTIONS(description=""this flag indicates whether this row describes a molecular 'M' or clinical 'C' association""),
+  RefNo INT64 OPTIONS(description=""reference number, eg '15563'""),
+  InvNo INT64 OPTIONS(description=""investigation number, usually between 1 and 10""),
+  Morph STRING OPTIONS(description=""morphology code, eg '3111'""),
+  Topo STRING OPTIONS(description=""topography code, eg '0401'""),
+  Immunology STRING OPTIONS(description=""immunology flag, usually blank, other values are 'B' or 'T'""),
+  GeneLength STRING OPTIONS(description=""length of gene string -- usually an integer between 0 and 15""),
+  GeneShort STRING OPTIONS(description=""gene symbol(s), eg 'BCR/ABL1', or 'IGH+', etc""),
+  GeneLong STRING OPTIONS(description=""this field is always blank (never needed)""),
+  KaryLength INT64 OPTIONS(description=""length of karyotype description string (up to 569)""),
+  KaryShort STRING OPTIONS(description=""short or truncated karyotype string, eg 't(19;19)(p13;p13)' or '+12,+19'""),
+  KaryLong STRING OPTIONS(description=""blank or long karyotype description"")
+);"
+CytogenInvValid,"CREATE TABLE `mitelman-db.prod.CytogenInvValid`
+(
+  RefNo INT64 OPTIONS(description=""reference number""),
+  CaseNo STRING OPTIONS(description=""case number -- usually an intger, but can also be an arbitrary string""),
+  InvNo INT64 OPTIONS(description=""investigation number -- always an integer between 1 and 9""),
+  KaryLength INT64 OPTIONS(description=""length of the karyotype description -- can be as long as thousands of characters, but is usually < 30""),
+  KaryShort STRING OPTIONS(description=""short (possibly truncated) karyotype description""),
+  KaryLong STRING OPTIONS(description=""if the karyotype description exceeds a certain length, the full string is in this column, otherwise this field is null""),
+  Message STRING OPTIONS(description=""Indicates if the karyotype has been corrected by the syntax checker""),
+  Reason STRING OPTIONS(description=""Error Messages""),
+  CytoConvInput STRING OPTIONS(description=""A full karyotype value adjusted to work with CytoConverter's tool"")
+);"

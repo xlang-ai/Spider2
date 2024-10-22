@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.cms_medicare` and `bigquery-public-data.cms_codes` and `bigquery-public-data.cms_synthetic_patient_data_omop` database to solve this problem.

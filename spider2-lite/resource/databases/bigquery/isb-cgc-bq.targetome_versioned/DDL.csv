@@ -1,0 +1,84 @@
+table_name,ddl
+target_synonyms_v1,"CREATE TABLE `isb-cgc-bq.targetome_versioned.target_synonyms_v1`
+(
+  targetID INT64 OPTIONS(description=""ID for Targetome target""),
+  synonym STRING OPTIONS(description=""Synonym or alias for Targetome target"")
+)
+OPTIONS(
+  friendly_name=""TARGETOME TARGET SYNONYMS V1 VERSIONED"",
+  description=""Synonyms for targets involved in Targetome interactions. More information can be found here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5759325/. Data was downloaded from the Targetome Git repository (https://github.com/ablucher/The-Cancer-Targetome) in July 2021."",
+  labels=[(""access"", ""open""), (""data_type"", ""drug_target_interactions""), (""source"", ""targetome""), (""category"", ""reference_database""), (""status"", ""current"")]
+);"
+sources_v1,"CREATE TABLE `isb-cgc-bq.targetome_versioned.sources_v1`
+(
+  sourceID INT64 OPTIONS(description=""ID for source supporting Targetome interaction""),
+  PubMedID STRING OPTIONS(description=""PubMedID identifying literature""),
+  databaseName STRING OPTIONS(description=""Name of database from which supporting evidence and literature are obtained""),
+  db_version STRING OPTIONS(description=""Database version""),
+  db_downloadURL STRING OPTIONS(description=""URL from which database was downloaded""),
+  db_downloadDate STRING OPTIONS(description=""Date on which database was downloaded"")
+)
+OPTIONS(
+  friendly_name=""TARGETOME SOURCES V1 VERSIONED"",
+  description=""Targetome literature evidence table, providing support for Targetome interactions. More information can be found here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5759325/. Data was downloaded from the Targetome Git repository (https://github.com/ablucher/The-Cancer-Targetome) in July 2021."",
+  labels=[(""access"", ""open""), (""data_type"", ""drug_target_interactions""), (""source"", ""targetome""), (""category"", ""reference_database""), (""status"", ""current"")]
+);"
+interactions_v1,"CREATE TABLE `isb-cgc-bq.targetome_versioned.interactions_v1`
+(
+  interactionID INT64 OPTIONS(description=""ID for Targetome drug to target interaction""),
+  drugID INT64 OPTIONS(description=""ID of drug involved in interaction""),
+  targetID INT64 OPTIONS(description=""ID of target (e.g., protein, DNA, RNA) involved in interaction""),
+  interactionType STRING OPTIONS(description=""Type of Targetome interaction, e.g., Antagonist, Inhibition, etc.""),
+  drugName STRING OPTIONS(description=""Name of the Targetome drug""),
+  drug_approvalDate STRING OPTIONS(description=""Date drug was approved for use""),
+  drug_atcClassID STRING OPTIONS(description=""Anatomical Therapeutic Chemical (ATC) drug classification ID""),
+  drug_atcClassName STRING OPTIONS(description=""Anatomical Therapeutic Chemical (ATC) drug classification name""),
+  drug_atcClassStatus STRING OPTIONS(description=""Anatomical Therapeutic Chemical (ATC) approval status""),
+  drug_epcClassID STRING OPTIONS(description=""FDA Established Pharmacologic Class (EPC) drug classification ID""),
+  drug_epcClassName STRING OPTIONS(description=""FDA Established Pharmacologic Class (EPC) drug classification name""),
+  targetName STRING OPTIONS(description=""Name of Targetome target""),
+  targetType STRING OPTIONS(description=""Type of Targetome target (e.g., protein, DNA, or RNA)""),
+  target_uniprotID STRING OPTIONS(description=""Uniprot ID of Targetome target""),
+  targetSpecies STRING OPTIONS(description=""Species of Targetome target""),
+  sourceID INT64 OPTIONS(description=""ID for source supporting Targetome interaction""),
+  expID INT64 OPTIONS(description=""ID for experimental evidence supporting Targetome interaction"")
+)
+OPTIONS(
+  friendly_name=""TARGETOME INTERACTIONS V1 VERSIONED"",
+  description=""Targetome interactions table linking drugs to targets, supported by experimental or literature evidence. This table is part of a database that aggregates drug-target interaction and bioactivity information for FDA-approved antineoplastic drugs across four publicly available resources. It includes putative target interactions encompassing multiple targets for each antineoplastic drug and introduces a framework for categorizing the supporting evidence behind each drug-target interaction. More information can be found here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5759325/. Data was downloaded from the Targetome Git repository (https://github.com/ablucher/The-Cancer-Targetome) in July 2021."",
+  labels=[(""access"", ""open""), (""data_type"", ""drug_target_interactions""), (""source"", ""targetome""), (""category"", ""reference_database""), (""status"", ""current"")]
+);"
+experiments_v1,"CREATE TABLE `isb-cgc-bq.targetome_versioned.experiments_v1`
+(
+  expID INT64 OPTIONS(description=""ID for experimental evidence supporting Targetome interactions""),
+  exp_assayType STRING OPTIONS(description=""Assay type used for experimental evidence""),
+  exp_assayValueLow FLOAT64 OPTIONS(description=""Low value for experimental assay""),
+  exp_assayValueMedian FLOAT64 OPTIONS(description=""Median value for experimental assay""),
+  exp_assayValueHigh FLOAT64 OPTIONS(description=""High value for experimental assay""),
+  exp_assayUnits STRING OPTIONS(description=""Units of measurement for experimental assay""),
+  exp_assayRelation STRING OPTIONS(description=""Relation of values for experimental assay""),
+  exp_assayDescription STRING OPTIONS(description=""Experimental assay description""),
+  exp_assaySpecies STRING OPTIONS(description=""Species used in experimental assay""),
+  exp_parentSource STRING OPTIONS(description=""Source from which experimental assay was obtained""),
+  sourceID INT64 OPTIONS(description=""ID for source of supporting Targetome evidence""),
+  PubMedID STRING OPTIONS(description=""PubMedID identifying literature""),
+  databaseName STRING OPTIONS(description=""Name of database from which supporting evidence and literature are obtained""),
+  db_version STRING OPTIONS(description=""Database version""),
+  db_downloadURL STRING OPTIONS(description=""URL from which database was downloaded""),
+  db_downloadDate STRING OPTIONS(description=""Date on which database was downloaded"")
+)
+OPTIONS(
+  friendly_name=""TARGETOME EXPERIMENTAL EVIDENCE V1 VERSIONED"",
+  description=""Targetome experimental evidence table, providing experimental support for Targetome interactions. More information can be found here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5759325/. Data was downloaded from the Targetome Git repository (https://github.com/ablucher/The-Cancer-Targetome) in July 2021."",
+  labels=[(""access"", ""open""), (""data_type"", ""drug_target_interactions""), (""source"", ""targetome""), (""category"", ""reference_database""), (""status"", ""current"")]
+);"
+drug_synonyms_v1,"CREATE TABLE `isb-cgc-bq.targetome_versioned.drug_synonyms_v1`
+(
+  drugID INT64 OPTIONS(description=""Unique ID of the Targetome drug""),
+  synonym STRING OPTIONS(description=""Synonym or alias for the Targetome drug"")
+)
+OPTIONS(
+  friendly_name=""TARGETOME DRUG SYNONYMS V1 VERSIONED"",
+  description=""Synonyms for drugs involved in Targetome interactions. More information can be found here: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5759325/. Data was downloaded from the Targetome Git repository (https://github.com/ablucher/The-Cancer-Targetome) in July 2021."",
+  labels=[(""access"", ""open""), (""data_type"", ""drug_target_interactions""), (""source"", ""targetome""), (""category"", ""reference_database""), (""status"", ""current"")]
+);"

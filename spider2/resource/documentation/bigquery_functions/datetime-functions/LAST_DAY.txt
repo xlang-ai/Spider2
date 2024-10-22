@@ -1,0 +1,78 @@
+## LAST_DAY
+
+LAST_DAY(datetime_expression[, date_part])
+
+**Description**
+
+Returns the last day from a datetime expression that contains the date. This is commonly used to return the last day of the month.
+
+You can optionally specify the date part for which the last day is returned.
+If this parameter is not used, the default value is ` MONTH ` . ` LAST_DAY `
+supports the following values for ` date_part ` :
+
+* ` YEAR `
+* ` QUARTER `
+* ` MONTH `
+* ` WEEK ` . Equivalent to 7 ` DAY ` s.
+* ` WEEK(<WEEKDAY>) ` . ` <WEEKDAY> ` represents the starting day of the week. Valid values are ` SUNDAY ` , ` MONDAY ` , ` TUESDAY ` , ` WEDNESDAY ` , ` THURSDAY ` , ` FRIDAY ` , and ` SATURDAY ` .
+* ` ISOWEEK ` . Uses [ ISO 8601 ](https://en.wikipedia.org/wiki/ISO_week_date) week boundaries. ISO weeks begin on Monday.
+* ` ISOYEAR ` . Uses the [ ISO 8601 ](https://en.wikipedia.org/wiki/ISO_8601) week-numbering year boundary. The ISO year boundary is the Monday of the first week whose Thursday belongs to the corresponding Gregorian calendar year.
+
+**Return Data Type**
+
+` DATE `
+
+**Example**
+
+These both return the last day of the month:
+
+
+SELECT LAST_DAY(DATETIME '2008-11-25', MONTH) AS last_day
+
+/*------------*
+| last_day   |
++------------+
+| 2008-11-30 |
+*------------*/
+
+
+SELECT LAST_DAY(DATETIME '2008-11-25') AS last_day
+
+/*------------*
+| last_day   |
++------------+
+| 2008-11-30 |
+*------------*/
+
+This returns the last day of the year:
+
+
+SELECT LAST_DAY(DATETIME '2008-11-25 15:30:00', YEAR) AS last_day
+
+/*------------*
+| last_day   |
++------------+
+| 2008-12-31 |
+*------------*/
+
+This returns the last day of the week for a week that starts on a Sunday:
+
+
+SELECT LAST_DAY(DATETIME '2008-11-10 15:30:00', WEEK(SUNDAY)) AS last_day
+
+/*------------*
+| last_day   |
++------------+
+| 2008-11-15 |
+*------------*/
+
+This returns the last day of the week for a week that starts on a Monday:
+
+
+SELECT LAST_DAY(DATETIME '2008-11-10 15:30:00', WEEK(MONDAY)) AS last_day
+
+/*------------*
+| last_day   |
++------------+
+| 2008-11-16 |
+*------------*/

@@ -1,0 +1,29 @@
+## BIT_OR
+
+BIT_OR( expression )
+
+**Description**
+
+Performs a bitwise OR operation on ` expression ` and returns the result.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* INT64
+
+**Returned Data Types**
+
+INT64
+
+**Examples**
+
+
+SELECT BIT_OR(x) as bit_or FROM UNNEST([0xF001, 0x00A1]) as x;
+
+/*--------*
+| bit_or |
++--------+
+| 61601  |
+*--------*/

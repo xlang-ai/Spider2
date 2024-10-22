@@ -1,0 +1,178 @@
+table_name,ddl
+rendering,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.rendering`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  report INT64 NOT NULL OPTIONS(description=""Represents the report grouping. The numeric value refers to the \\\""R file\\\"" as computed by the renderer and posted on the EDGAR website. Note that in some situations the numbers skip.""),
+  file_type STRING OPTIONS(description=""The type of interactive data file rendered on the EDGAR website, H = .htm file, X = .xml file. file_type: [rfile]""),
+  menu_category STRING OPTIONS(description=""If available, one of the menu categories as computed by the renderer: C=Cover, S=Statements, N=Notes, P=Policies, T=Tables, D=Details, O=Other, and U=Uncategorized. menu_category: [menucat]""),
+  shortname STRING OPTIONS(description=""The portion of the long name used in the renderer menu.""),
+  longname STRING OPTIONS(description=""The space-normalized text of the XBRL link \\\""definition\\\"" element content.""),
+  roleuri STRING OPTIONS(description=""The XBRL \\\""roleuri\\\"" of the role.""),
+  parentroleuri STRING OPTIONS(description=""The XBRL roleuri of a role for which this role has a matching shortname prefix and a higher level menu category, as computed by the renderer.""),
+  parentreport INT64 OPTIONS(description=""The value of the report field for the role where roleuri equals this parentroleuri.""),
+  ultimate_parent_report INT64 OPTIONS(description=""The highest ancestor report reachable by following parentreport relationships. A note (menucat = N) is its own ultimate parent. ultimate_parent_report: [ultparentrpt]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+numbers,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.numbers`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  company_name STRING OPTIONS(description=""Name of registrant from the submission table. This corresponds to the name of the legal entity as recorded in EDGAR as of the filing date.""),
+  measure_tag STRING NOT NULL OPTIONS(description=""The unique identifier (name) for a tag in a specific taxonomy release. measure_tag: [tag]""),
+  version STRING NOT NULL OPTIONS(description=""For a standard tag, an identifier for the taxonomy; otherwise the accession number where the tag was defined.""),
+  period_end_date INT64 NOT NULL OPTIONS(description=""The end date for the data value, rounded to the nearest month end. period_end_date: [ddate]""),
+  number_of_quarters INT64 NOT NULL OPTIONS(description=""The count of the number of quarters represented by the data value, rounded to the nearest whole number. \\\""0\\\"" indicates it is a point-in-time value. number_of_quarters: [qtrs]""),
+  units STRING NOT NULL OPTIONS(description=""The unit of measure for the value. units: [uom]""),
+  dimension_hash STRING NOT NULL OPTIONS(description=""The 32-byte hexadecimal key for the dimensional information in the DIM data set. dimension_hash: [dimh]""),
+  iprx INT64 NOT NULL OPTIONS(description=""A positive integer to distinguish different reported facts that otherwise would have the same primary key. For most purposes, data with iprx greater than 1 are not needed. The priority for the fact based on higher precision, closeness of the end date to a month end, and closeness of the duration to a multiple of three months. See fields dcml, durp and datp below.""),
+  value FLOAT64 OPTIONS(description=""The value. This is not scaled, it is as found in the Interactive Data file, but is rounded to four digits to the right of the decimal point.""),
+  footnote STRING OPTIONS(description=""The plain text of any superscripted footnotes on the value, if any, as shown on the statement page, truncated to 512 characters.""),
+  footnote_length INT64 OPTIONS(description=""Number of bytes in the plain text of the footnote prior to truncation; zero if no footnote. footnote_length: [footlen]""),
+  num_dimensions INT64 OPTIONS(description=""Small integer representing the number of dimensions. Note that this value is a function of the dimension segments. num_dimensions: [dimn]""),
+  coregistrant STRING OPTIONS(description=""If specified, indicates a specific co-registrant, the parent company, or other entity (e.g., guarantor). NULL indicates the consolidated entity. Note that this value is a function of the dimension segments. coregistrant: [coreg]""),
+  duration_fraction FLOAT64 OPTIONS(description=""The difference between the reported fact duration and the quarter duration (qtrs), expressed as a fraction of 1. For example, a fact with duration of 120 days rounded to a 91-day quarter has a durp value of 29/91 = +0.3187. duration_fraction: [durp]""),
+  date_fraction FLOAT64 OPTIONS(description=""The difference between the reported fact date and the month-end rounded date (ddate), expressed as a fraction of 1. For example, a fact reported for 29/Dec, with ddate rounded to 31/Dec, has a datp value of minus 2/31 = -0.0645. date_fraction: [datp]""),
+  decimal INT64 OPTIONS(description=""The value of the fact \\\""decimals\\\"" attribute, with INF represented by 32767. decimal: [dcml]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+sic_codes,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.sic_codes`
+(
+  sic_code STRING,
+  ad_office STRING,
+  industry_title STRING
+);"
+presentation,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.presentation`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  report INT64 NOT NULL OPTIONS(description=""Represents the report grouping. The numeric value refers to the \\\""R file\\\"" as computed by the renderer and posted on the EDGAR website. Note that in some situations the numbers skip.""),
+  line INT64 NOT NULL OPTIONS(description=""Represents the tag's presentation line order for a given report. Together with the statement and report field, presentation location, order and grouping can be derived.""),
+  statement STRING OPTIONS(description=""The financial statement location to which the value of the \\\""report\\\"" field pertains. statement: [stmt]""),
+  presented_parenthetically BOOL OPTIONS(description=""1 indicates that the value was presented \\\""parenthetically\\\"" instead of in fields within the financial statements. For example: Receivables (net of allowance for bad debts of USD 200 in 2012) USD 700 presented_parenthetically: [inpth]""),
+  rfile STRING OPTIONS(description=""The type of interactive data file rendered on the EDGAR website, H = .htm file, X = .xml file.""),
+  measure_tag STRING OPTIONS(description=""The tag chosen by the filer for this line item. measure_tag: [tag]""),
+  version STRING OPTIONS(description=""The taxonomy identifier if the tag is a standard tag, otherwise adsh.""),
+  preferred_role STRING OPTIONS(description=""The XBRL link \\\""role\\\"" of the preferred label, using only the portion of the role URI after the last \\\""/\\\"". preferred_role: [prole]""),
+  preferred_label STRING OPTIONS(description=""The text presented on the line item, also known as a \\\""preferred\\\"" label. preferred_label: [plabel]""),
+  negating BOOL OPTIONS(description=""Flag to indicate whether the prole is treated as negating by the renderer."")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+dimension,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.dimension`
+(
+  segments_hash STRING NOT NULL OPTIONS(description=""MD5 hash of the segments field text. Although MD5 is unsuitable for cryptographic use, it is used here merely to limit the size of the primary key. segments_hash: [dimhash]""),
+  segments STRING OPTIONS(description=""Concatenation of tag names representing the axis and members appearing in the XBRL segments. Tag names have their first characters \\\""Statement\\\"", last 4 characters \\\""Axis\\\"", and last 6 characters \\\""Member\\\"" or \\\""Domain\\\"" truncated where they appear. Namespaces and prefixes are ignored because EDGAR validation guarantees that the local-names are unique with a submission. Each dimension is represented as the pair \\\""{axis}={member};\\\"" and the axes concatenated in lexical order. Example: \\\""LegalEntity=Xyz;Scenario=Restated;\\\"" represents the XBRL segment with dimension LegalEntityAxis and member XyzMember, dimension StatementScenarioAxis and member RestatedMember.""),
+  segment_truncation BOOL OPTIONS(description=""TRUE if the segments field would have been longer than 1024 characters had it not been truncated, else FALSE. segment_truncation: [segt]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+measure_tag,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.measure_tag`
+(
+  measure_tag STRING NOT NULL OPTIONS(description=""The unique identifier (name) for a tag in a specific taxonomy release. measure_tag:[tag]""),
+  version STRING NOT NULL OPTIONS(description=""For a standard tag, an identifier for the taxonomy; otherwise the accession number where the tag was defined.""),
+  custom BOOL OPTIONS(description=""1 if tag is custom (version=adsh), 0 if it is standard. Note: This flag is technically redundant with the version and adsh fields.""),
+  abstract BOOL OPTIONS(description=""1 if the tag is not used to represent a numeric fact.""),
+  datatype STRING OPTIONS(description=""If abstract=1, then NULL, otherwise the data type (e.g., monetary) for the tag.""),
+  i_or_d STRING OPTIONS(description=""If abstract=1, then NULL; otherwise, I if the value is a point in time, or D if the value is a duration. i_or_d: [iord]""),
+  credit_or_debit STRING OPTIONS(description=""If datatype = monetary, then the tag's natural accounting balance from the perspective of the balance sheet or income statement (debit or credit); if not defined, then NULL. credit_or_debit: [crdr]""),
+  tag_label STRING OPTIONS(description=""If a standard tag, then the label text provided by the taxonomy, otherwise the text provided by the filer. A tag which had neither would have a NULL value here. tag_label: [tlabel]""),
+  doc STRING OPTIONS(description=""The detailed definition for the tag, truncated to 2048 characters. If a standard tag, then the text provided by the taxonomy, otherwise the text assigned by the filer. Some tags have neither, in which case this field is NULL."")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+quick_summary,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.quick_summary`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  company_name STRING OPTIONS(description=""Name of registrant from the submission table. This corresponds to the name of the legal entity as recorded in EDGAR as of the filing date.""),
+  measure_tag STRING NOT NULL OPTIONS(description=""The unique identifier (name) for a tag in a specific taxonomy release. measure_tag: [tag]""),
+  period_end_date STRING NOT NULL OPTIONS(description=""The end date for the data value, rounded to the nearest month end. period_end_date: [ddate]""),
+  value FLOAT64 OPTIONS(description=""The value. This is not scaled, it is as found in the Interactive Data file, but is rounded to four digits to the right of the decimal point.""),
+  units STRING NOT NULL OPTIONS(description=""The unit of measure for the value. units: [uom]""),
+  number_of_quarters INT64 NOT NULL OPTIONS(description=""The count of the number of quarters represented by the data value, rounded to the nearest whole number. \\\""0\\\"" indicates it is a point-in-time value. number_of_quarters: [qtrs]""),
+  version STRING NOT NULL OPTIONS(description=""For a standard tag, an identifier for the taxonomy; otherwise the accession number where the tag was defined.""),
+  central_index_key INT64 OPTIONS(description=""Central Index Key (CIK). Ten digit number assigned by the Commission to each registrant that submits filings. central_index_key: [cik]""),
+  ein STRING OPTIONS(description=""Employee Identification Number, 9 digit identification number assigned by the Internal Revenue Service to business entities operating in the United States.""),
+  sic STRING OPTIONS(description=""Standard Industrial Classification (SIC). Four digit code assigned by the Commission as of the filing date, indicating the registrant's type of business.""),
+  fiscal_year_end STRING OPTIONS(description=""Fiscal Year End Date. fiscal_year_end: [fye]""),
+  form STRING OPTIONS(description=""The submission type of the registrant's filing.""),
+  fiscal_year INT64 OPTIONS(description=""Fiscal Year Focus (as defined in EFM Ch. 6). fiscal_year: [fy]""),
+  fiscal_period_focus STRING OPTIONS(description=""Fiscal Period Focus (as defined in EFM Ch. 6) within Fiscal Year. The 10-Q for the 1st, 2nd and 3rd quarters would have a fiscal period focus of Q1, Q2 (or H1), and Q3 (or M9) respectively, and a 10-K would have a fiscal period focus of FY. fiscal_period_focus: [fp]""),
+  date_filed INT64 OPTIONS(description=""The date of the registrant's filing with the Commission. date_filed: [filed]""),
+  date_accepted TIMESTAMP OPTIONS(description=""The acceptance date and time of the registrant's filing with the Commission. Filings accepted after 5:30pm EST are considered filed on the following business day. date_accepted: [accepted]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+calculation,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.calculation`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  `group` INT64 NOT NULL OPTIONS(description=""Sequential number for grouping arcs in a submission. group: [grp]""),
+  arc INT64 NOT NULL OPTIONS(description=""Sequential number for arcs within a group in a submission.""),
+  negative INT64 OPTIONS(description=""Indicates a weight of -1 (TRUE if the arc is negative), but typically +1 (FALSE).""),
+  parent_tag STRING OPTIONS(description=""The tag for the parent of the arc parent_tag: [ptag]""),
+  parent_version STRING OPTIONS(description=""The version of the tag for the parent of the arc parent_version: [pversion]""),
+  child_tag STRING OPTIONS(description=""The tag for the child of the arc child_tag: [ctag]""),
+  child_version STRING OPTIONS(description=""The version of the tag for the child of the arc child_version: [cversion]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+submission,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.submission`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  central_index_key INT64 OPTIONS(description=""Central Index Key (CIK). Ten digit number assigned by the Commission to each registrant that submits filings. central_index_key: [cik]""),
+  company_name STRING OPTIONS(description=""Name of registrant. This corresponds to the name of the legal entity as recorded in EDGAR as of the filing date. company_name: [name]""),
+  sic STRING OPTIONS(description=""Standard Industrial Classification (SIC). Four digit code assigned by the Commission as of the filing date, indicating the registrant's type of business.""),
+  countryba STRING OPTIONS(description=""The ISO 3166-1 country of the registrant's business address.""),
+  stprba STRING OPTIONS(description=""The state or province of the registrant's business address, if field countryba is US or CA.""),
+  cityba STRING OPTIONS(description=""The city of the registrant's business address.""),
+  zipba STRING OPTIONS(description=""The zip code of the registrant's business address.""),
+  ba_street1 STRING OPTIONS(description=""The first line of the street of the registrant's business address. ba_street1: [bas1]""),
+  ba_street2 STRING OPTIONS(description=""The second line of the street of the registrant's business address. ba_street2: [bas2]""),
+  ba_phone STRING OPTIONS(description=""The phone number of the registrant's business address. ba_phone: [baph]""),
+  countryma STRING OPTIONS(description=""The ISO 3166-1 country of the registrant's mailing address.""),
+  stprma STRING OPTIONS(description=""The state or province of the registrant's mailing address, if field countryma is US or CA.""),
+  cityma STRING OPTIONS(description=""The city of the registrant's mailing address.""),
+  zipma STRING OPTIONS(description=""The zip code of the registrant's mailing address.""),
+  ma_street1 STRING OPTIONS(description=""The first line of the street of the registrant's mailing address. ma_street1: [mas1]""),
+  ma_street2 STRING OPTIONS(description=""The second line of the street of the registrant's mailing address. ma_street2: [mas2]""),
+  country_inc STRING OPTIONS(description=""The country of incorporation for the registrant. country_inc: [countryinc]""),
+  state_province_inc STRING OPTIONS(description=""The state or province of incorporation for the registrant, if countryinc is US or CA, otherwise NULL. state_province_inc: [stprinc]""),
+  ein STRING OPTIONS(description=""Employee Identification Number, 9 digit identification number assigned by the Internal Revenue Service to business entities operating in the United States.""),
+  former_name STRING OPTIONS(description=""Most recent former name of the registrant, if any. former_name: [former]""),
+  date_changed INT64 OPTIONS(description=""Date of change from the former name, if any. date_changed: [changed]""),
+  filer_status STRING OPTIONS(description=""Filer status with the Commission at the time of submission: 1-LAF=Large Accelerated, 2-ACC=Accelerated, 3-SRA=Smaller Reporting Accelerated, 4-NON=Non-Accelerated, 5-SML=Smaller Reporting Filer, NULL=not assigned. filer_status: [afs]""),
+  well_known_seasoned_issuer BOOL OPTIONS(description=""Well Known Seasoned Issuer (WKSI). An issuer that meets specific Commission requirements at some point during a 60-day period preceding the date the issuer satisfies its obligation to update its shelf registration statement. well_known_seasoned_issuer: [wksi]""),
+  fiscal_year_end STRING OPTIONS(description=""Fiscal Year End Date. fiscal_year_end: [fye]""),
+  form STRING OPTIONS(description=""The submission type of the registrant's filing.""),
+  period INT64 OPTIONS(description=""Balance Sheet Date.""),
+  fiscal_year INT64 OPTIONS(description=""Fiscal Year Focus (as defined in EFM Ch. 6). fiscal_year: [fy]""),
+  fiscal_period_focus STRING OPTIONS(description=""Fiscal Period Focus (as defined in EFM Ch. 6) within Fiscal Year. The 10-Q for the 1st, 2nd and 3rd quarters would have a fiscal period focus of Q1, Q2 (or H1), and Q3 (or M9) respectively, and a 10-K would have a fiscal period focus of FY. fiscal_period_focus: [fp]""),
+  date_filed INT64 OPTIONS(description=""The date of the registrant's filing with the Commission. date_filed: [filed]""),
+  date_accepted TIMESTAMP OPTIONS(description=""The acceptance date and time of the registrant's filing with the Commission. Filings accepted after 5:30pm EST are considered filed on the following business day. date_accepted: [accepted]""),
+  has_previous_report BOOL OPTIONS(description=""Previous Report.  TRUE indicates that the submission information was subsequently amended prior to the end cutoff date of the data set. \""has_previous_report: [prevrpt]""),
+  has_required_detail BOOL OPTIONS(description=""TRUE indicates that the XBRL submission contains quantitative disclosures within the footnotes and schedules at the required detail level (e.g., each amount). has_required_detail: [detail]""),
+  instance STRING OPTIONS(description=""The name of the submitted XBRL Instance Document (EX-101.INS) type data file. The name often begins with the company ticker symbol.""),
+  num_ciks INT64 OPTIONS(description=""Number of Central Index Keys (CIK) of registrants (i.e., business units) included in the consolidating entity's submitted filing. num_ciks: [nciks]""),
+  additional_ciks STRING OPTIONS(description=""Additional CIKs of co-registrants included in a consolidating entity's EDGAR submission, separated by spaces. If there are no other co-registrants (i.e., nciks = 1), the value of aciks is NULL. For a very small number of filers, the list of co-registrants is too long to fit in the field. Where this is the case, PARTIAL will appear at the end of the list indicating that not all co-registrants' CIKs are included in the field; users should refer to the complete submission file for all CIK information. additional_ciks: [aciks]""),
+  public_float_usd FLOAT64 OPTIONS(description=""Public float, in USD, if provided in this submission. public_float_usd: [pubfloatusd]""),
+  float_date INT64 OPTIONS(description=""Date on which the public float was measured by the filer. float_date: [floatdate]""),
+  float_axis STRING OPTIONS(description=""If the public float value was computed by summing across several tagged values, this indicates the nature of the summation. float_axis: [floataxis]""),
+  float_terms INT64 OPTIONS(description=""If the public float was computed, the number of terms in the summation. float_terms: [floatmems]"")
+)
+PARTITION BY DATE(_PARTITIONTIME);"
+txt,"CREATE TABLE `bigquery-public-data.sec_quarterly_financials.txt`
+(
+  submission_number STRING NOT NULL OPTIONS(description=""Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]""),
+  measure_tag STRING NOT NULL OPTIONS(description=""The unique identifier (name) for a tag in a specific taxonomy release. measure_tag: [tag]""),
+  version STRING NOT NULL OPTIONS(description=""For a standard tag, an identifier for the taxonomy; otherwise the accession number where the tag was defined. For example, \\\""invest/2013\\\"" indicates that the tag is defined in the 2013 INVEST taxonomy.""),
+  period_end_date INT64 NOT NULL OPTIONS(description=""The end date for the data value, rounded to the nearest month end. period_end_date:[ddate]""),
+  num_quarters INT64 NOT NULL OPTIONS(description=""The count of the number of quarters represented by the data value, rounded to the nearest whole number. A point in time value is represented by 0. num_quarters:[qtrs]""),
+  iprx INT64 NOT NULL OPTIONS(description=""A positive integer to distinguish different reported facts that otherwise would have the same primary key. For most purposes, data with iprx greater than 1 are not needed. The priority for the fact based on higher precision, closeness of the end date to a month end, and closeness of the duration to a multiple of three months. See fields dcml, durp and datp below.""),
+  language STRING OPTIONS(description=""The ISO language code of the fact content. language:[lang]""),
+  language_decimal INT64 OPTIONS(description=""The value of the fact \\\""xml:lang\\\"" attribute, en-US represented by 32767, other \\\""en\\\"" dialects having lower values, and other languages lower still. language_decimal: [dcml]""),
+  duration_fraction FLOAT64 OPTIONS(description=""The difference between the reported fact duration and the quarter duration (qtrs), expressed as a fraction of 1. For example, a fact with duration of 120 days rounded to a 91-day quarter has a durp value of 29/91 = +0.3187. duration_fraction: [durp]""),
+  date_fraction FLOAT64 OPTIONS(description=""The difference between the reported fact date and the month-end rounded date (ddate), expressed as a fraction of 1. For example, a fact reported for 29/Dec, with ddate rounded to 31/Dec, has a datp value of minus 2/31 = -0.0645. date_fraction: [datp]""),
+  dimension_hash STRING OPTIONS(description=""The 32-byte hexadecimal key for the dimensional information in the DIM data set. dimension_hash: [dimh]""),
+  num_dimensions INT64 OPTIONS(description=""Small integer representing the number of dimensions, useful for sorting. Note that this value is function of the dimension segments. num_dimensions: [dimn]""),
+  coregistrant STRING OPTIONS(description=""If specified, indicates a specific co-registrant, the parent company, or other entity (e.g., guarantor). NULL indicates the consolidated entity. Note that this value is a function of the dimension segments. coregistrant: [coreg]""),
+  escaped BOOL OPTIONS(description=""Flag indicating whether the value has had tags removed.""),
+  source_length INT64 OPTIONS(description=""Number of bytes in the original, unprocessed value. Zero indicates a NULL value. source_length: [srclen]""),
+  text_length INT64 OPTIONS(description=""The original length of the whitespace normalized value, which may have been greater than 8192. text_length: [txtlen]""),
+  footnote STRING OPTIONS(description=""The plain text of any superscripted footnotes on the value, as shown on the page, truncated to 512 characters, or if there is no footnote, then this field will be blank.""),
+  footnote_length INT64 OPTIONS(description=""Number of bytes in the plain text of the footnote prior to truncation. footnote_length: [footlen]""),
+  context STRING OPTIONS(description=""The value of the contextRef attribute in the source XBRL document, which can be used to recover the original HTML tagging if desired.""),
+  value STRING OPTIONS(description=""The value, with all whitespace normalized, that is, all sequences of line feeds, carriage returns, tabs, non-breaking spaces, and spaces having been collapsed to a single space, and no leading or trailing spaces. Escaped XML that appears in EDGAR \\\""Text Block\\\"" tags is processed to remove all mark-up (comments, processing instructions, elements, attributes). The value is truncated to a maximum number of bytes. The resulting text is not intended for end user display but only for text analysis applications."")
+)
+PARTITION BY DATE(_PARTITIONTIME);"

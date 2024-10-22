@@ -1,0 +1,198 @@
+table_name,ddl
+dar_non_intersectional_hiring,"CREATE TABLE `bigquery-public-data.google_dei.dar_non_intersectional_hiring`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description="" The year the report was published""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Asian and zero or more other races  ""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Black and zero or more other races    ""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Hispanic or Latinx and zero or more other races ""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Native American and zero or more other races ""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as White and zero or more other races ""),
+  gender_us_women FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who are women ""),
+  gender_us_men FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who are men ""),
+  gender_global_women FLOAT64 OPTIONS(description=""The percentage of global Googlers hired who are women ""),
+  gender_global_men FLOAT64 OPTIONS(description=""The percentage of global Googlers hired who are men "")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googlers hired in the U.S. cut by race and gender separately and the hiring breakdown of global Googlers cut by gender. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_non_intersectional_attrition_index,"CREATE TABLE `bigquery-public-data.google_dei.dar_non_intersectional_attrition_index`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  race_asian INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Asian and zero or more other races   ""),
+  race_black INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Black and zero or more other races   ""),
+  race_hispanic_latinx INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Hispanic or Latinx and zero or more other races  ""),
+  race_native_american INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Native American and zero or more other races     ""),
+  race_white INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as White and zero or more other races ""),
+  gender_us_women INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who are women""),
+  gender_us_men INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who are men""),
+  gender_global_women INT64 OPTIONS(description=""The attrition index score of global Googlers who are women ""),
+  gender_global_men INT64 OPTIONS(description=""The attrition index score of global Googlers who are men "")
+)
+OPTIONS(
+  description=""This table contains the attrition index score of Googlers in the U.S. cut by race and gender separately and the attrition index score of global Googlers cut by gender. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_intersectional_exits_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_intersectional_exits_representation`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  gender_us STRING OPTIONS(description=""Gender of Googler exits in the U.S.""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Asian and zero or more other races""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Native American and zero or more other races""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as White and zero or more other races"")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googler exits in the U.S. cut by race and gender combined. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+full_csv-latest-data-is-2023,"CREATE TABLE `bigquery-public-data.google_dei.full_csv-latest-data-is-2023`
+(
+  year INT64,
+  sector STRING,
+  subsector STRING,
+  industry_group STRING,
+  industry STRING,
+  total_employed_in_thousands INT64,
+  percent_women FLOAT64,
+  percent_white FLOAT64,
+  percent_black_or_african_american FLOAT64,
+  percent_asian FLOAT64,
+  percent_hispanic_or_latino FLOAT64
+);"
+dar_non_intersectional_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_non_intersectional_representation`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Asian and zero or more other races""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Native American and zero or more other races""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as White and zero or more other races""),
+  gender_us_women FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who are women""),
+  gender_us_men FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who are men""),
+  gender_global_women FLOAT64 OPTIONS(description=""The percentage of global Googlers who are women""),
+  gender_global_men FLOAT64 OPTIONS(description=""The percentage of global Googlers who are men"")
+)
+OPTIONS(
+  description=""This table contains the representation of Googlers in the U.S. cut by race and gender separately and the representation of global Googlers cut by gender. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_intersectional_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_intersectional_representation`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  gender_us STRING OPTIONS(description=""Gender""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Asian and zero or more other races""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as Native American and zero or more other races""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googlers in the U.S. who identify as White and zero or more other races"")
+)
+OPTIONS(
+  description=""This table contains the representation of Googlers in the U.S. cut by race and gender combined. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_region_non_intersectional_exits_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_region_non_intersectional_exits_representation`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  region STRING OPTIONS(description=""Region""),
+  gender_women FLOAT64 OPTIONS(description=""The percentage of Googler exits in the region who are women""),
+  gender_men FLOAT64 OPTIONS(description=""The percentage of Googler exits in the region who are men"")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googler exits by region (Americas, APAC, and EMEA) cut by gender. “Americas” includes all countries in North and South America in which we operate, excluding the U.S. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_non_intersectional_exits_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_non_intersectional_exits_representation`
+(
+  workforce STRING OPTIONS(description="" Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Asian and zero or more other races""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as Native American and zero or more other races""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who identify as White and zero or more other races ""),
+  gender_us_women FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who are women""),
+  gender_us_men FLOAT64 OPTIONS(description=""The percentage of Googler exits in the U.S. who are men""),
+  gender_global_women FLOAT64 OPTIONS(description=""The percentage of global Googler exits who are women""),
+  gender_global_men FLOAT64 OPTIONS(description=""The percentage of global Googler exits who are men"")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googler exits in the U.S. cut by race and gender separately and the breakdown of global Googler exits cut by gender. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_intersectional_attrition_index,"CREATE TABLE `bigquery-public-data.google_dei.dar_intersectional_attrition_index`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  gender_us STRING OPTIONS(description=""Gender of Googler exits in the U.S.""),
+  race_asian INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Asian and zero or more other races""),
+  race_black INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american INT64 OPTIONS(description="" The attrition index score of Googlers in the U.S. who identify as Native American and zero or more other races""),
+  race_white INT64 OPTIONS(description=""The attrition index score of Googlers in the U.S. who identify as White and zero or more other races"")
+)
+OPTIONS(
+  description=""This table contains the attrition index score of Googlers in the U.S. cut by race and gender combined. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_region_non_intersectional_hiring,"CREATE TABLE `bigquery-public-data.google_dei.dar_region_non_intersectional_hiring`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  region STRING OPTIONS(description="" Region""),
+  gender_women FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the region who are women""),
+  gender_men FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the region who are men"")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googlers hired by region (Americas, APAC, and EMEA) cut by gender. “Americas” includes all countries in North and South America in which we operate, excluding the U.S. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_region_non_intersectional_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_region_non_intersectional_representation`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  region STRING OPTIONS(description=""Region""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as Asian and zero or more other racesion""),
+  race_black_african FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as Black or African and zero or more other races""),
+  race_hispanic_latino_latinx FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as Hispanic, Latino, or Latinx and zero or more other races""),
+  race_indigenous FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as Indigenous and zero or more other races""),
+  race_mena FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as Middle Eastern or North African and zero or more other races""),
+  race_white_european FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who identify as White or European and zero or more other races""),
+  gender_women FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who are women""),
+  gender_men FLOAT64 OPTIONS(description=""The percentage of Googlers in the region who are men"")
+)
+OPTIONS(
+  description=""This table contains the representation of Googlers by region (Americas, APAC, and EMEA) cut by race and gender. “Americas” includes all countries in North and South America in which we operate, excluding the U.S. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_selfid_representation,"CREATE TABLE `bigquery-public-data.google_dei.dar_selfid_representation`
+(
+  workforce STRING OPTIONS(description=""Self-identification category""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  global FLOAT64 OPTIONS(description="" The percentage of global Googlers who identify as being part of the self-identification category (i.e., “workforce” type)"")
+)
+OPTIONS(
+  description=""This table contains the representation of Googlers globally who identify as LGBTQ+, members of the military or veterans, people with disabilities, or non-binary genders. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_region_non_intersectional_attrition_index,"CREATE TABLE `bigquery-public-data.google_dei.dar_region_non_intersectional_attrition_index`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  region STRING OPTIONS(description=""Region""),
+  gender_women INT64 OPTIONS(description=""The attrition index score of Googlers in the region who are women""),
+  gender_men INT64 OPTIONS(description=""The attrition index score of Googlers in the region who are women"")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googler exits by region (Americas, APAC, and EMEA) cut by gender. “Americas” includes all countries in North and South America in which we operate, excluding the U.S. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"
+dar_intersectional_hiring,"CREATE TABLE `bigquery-public-data.google_dei.dar_intersectional_hiring`
+(
+  workforce STRING OPTIONS(description=""Overall and sub-categories""),
+  report_year INT64 OPTIONS(description=""The year the report was published""),
+  gender_us STRING OPTIONS(description=""Gender of Googlers in the U.S.""),
+  race_asian FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Asian and zero or more other races""),
+  race_black FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Black and zero or more other races""),
+  race_hispanic_latinx FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Hispanic or Latinx and zero or more other races""),
+  race_native_american FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as Native American and zero or more other races ""),
+  race_white FLOAT64 OPTIONS(description=""The percentage of Googlers hired in the U.S. who identify as White and zero or more other races "")
+)
+OPTIONS(
+  description=""This table contains the breakdown of Googlers hired in the U.S. cut by race and gender combined. Some data may be intentionally redacted due to security and privacy restrictions regarding smaller n-counts. In those cases, the data is displayed as a null value.""
+);"

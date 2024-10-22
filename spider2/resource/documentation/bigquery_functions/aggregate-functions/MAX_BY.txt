@@ -1,0 +1,22 @@
+## MAX_BY
+
+MAX_BY( x, y )
+
+**Description**
+
+Synonym for  ` ANY_VALUE(x HAVING MAX y) ` .
+
+**Return Data Types**
+
+Matches the input ` x ` data type.
+
+**Examples**
+
+
+WITH fruits AS ( SELECT "apple"  fruit, 3.55 price UNION ALL SELECT "banana"  fruit, 2.10 price UNION ALL SELECT "pear"  fruit, 4.30 price ) SELECT MAX_BY(fruit, price) as fruit FROM fruits;
+
+/*-------*
+| fruit |
++-------+
+| pear  |
+*-------*/

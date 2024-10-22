@@ -1,0 +1,59 @@
+## ST_CLUSTERDBSCAN
+
+ST_CLUSTERDBSCAN(geography_column, epsilon, minimum_geographies) OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+
+
+Performs [ DBSCAN clustering ](https://en.wikipedia.org/wiki/DBSCAN) on a column of geographies. Returns a 0-based cluster number.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Input parameters**
+
+* ` geography_column ` : A column of ` GEOGRAPHY ` s that is clustered.
+* ` epsilon ` : The epsilon that specifies the radius, measured in meters, around a core value. Non-negative ` FLOAT64 ` value.
+* ` minimum_geographies ` : Specifies the minimum number of geographies in a single cluster. Only dense input forms a cluster, otherwise it is classified as noise. Non-negative ` INT64 ` value.
+
+**Geography types and the DBSCAN algorithm**
+
+The DBSCAN algorithm identifies high-density clusters of data and marks outliers in low-density areas of noise. Geographies passed in through `
+geography_column ` are classified in one of three ways by the DBSCAN algorithm:
+
+* Core value: A geography is a core value if it is within ` epsilon ` distance of ` minimum_geographies ` geographies, including itself. The core value starts a new cluster, or is added to the same cluster as a core value within ` epsilon ` distance. Core values are grouped in a cluster together with all other core and border values that are within ` epsilon ` distance.
+* Border value: A geography is a border value if it is within epsilon distance of a core value. It is added to the same cluster as a core value within ` epsilon ` distance. A border value may be within ` epsilon ` distance of more than one cluster. In this case, it may be arbitrarily assigned to either cluster and the function will produce the same result in subsequent calls.
+* Noise: A geography is noise if it is neither a core nor a border value. Noise values are assigned to a ` NULL ` cluster. An empty ` GEOGRAPHY ` is always classified as noise.
+
+**Constraints**
+
+* The argument ` minimum_geographies ` is a non-negative ` INT64 ` and ` epsilon ` is a non-negative ` FLOAT64 ` .
+* An empty geography cannot join any cluster.
+* Multiple clustering assignments could be possible for a border value. If a geography is a border value, ` ST_CLUSTERDBSCAN ` will assign it to an arbitrary valid cluster.
+
+**Return type**
+
+` INT64 ` for each geography in the geography column.
+
+**Examples**
+
+This example performs DBSCAN clustering with a radius of 100,000 meters with a
+` minimum_geographies ` argument of 1. The geographies being analyzed are a mixture of points, lines, and polygons.
+
+
+WITH Geos as (SELECT 1 as row_id, ST_GEOGFROMTEXT('POINT EMPTY') as geo UNION ALL SELECT 2, ST_GEOGFROMTEXT('MULTIPOINT(1 1, 2 2, 4 4, 5 2)') UNION ALL SELECT 3, ST_GEOGFROMTEXT('POINT(14 15)') UNION ALL SELECT 4, ST_GEOGFROMTEXT('LINESTRING(40 1, 42 34, 44 39)') UNION ALL SELECT 5, ST_GEOGFROMTEXT('POLYGON((40 2, 40 1, 41 2, 40 2))')) SELECT row_id, geo, ST_CLUSTERDBSCAN(geo, 1e5, 1) OVER () AS cluster_num FROM Geos ORDER BY row_id
+
+/*--------+-----------------------------------+-------------*
+| row_id |                geo                | cluster_num |
++--------+-----------------------------------+-------------+
+| 1      | GEOMETRYCOLLECTION EMPTY          | NULL        |
+| 2      | MULTIPOINT(1 1, 2 2, 5 2, 4 4)    | 0           |
+| 3      | POINT(14 15)                      | 1           |
+| 4      | LINESTRING(40 1, 42 34, 44 39)    | 2           |
+| 5      | POLYGON((40 2, 40 1, 41 2, 40 2)) | 2           |
+*--------+-----------------------------------+-------------*/

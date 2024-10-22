@@ -1,0 +1,127 @@
+## GENERATE_DATE_ARRAY
+
+GENERATE_DATE_ARRAY(start_date, end_date[, INTERVAL INT64_expr date_part])
+
+**Description**
+
+Returns an array of dates. The ` start_date ` and ` end_date ` parameters determine the inclusive start and end of the array.
+
+The ` GENERATE_DATE_ARRAY ` function accepts the following data types as inputs:
+
+* ` start_date ` must be a ` DATE ` .
+* ` end_date ` must be a ` DATE ` .
+* ` INT64_expr ` must be an ` INT64 ` .
+* ` date_part ` must be either DAY, WEEK, MONTH, QUARTER, or YEAR.
+
+The ` INT64_expr ` parameter determines the increment used to generate dates.
+The default value for this parameter is 1 day.
+
+This function returns an error if ` INT64_expr ` is set to 0.
+
+**Return Data Type**
+
+` ARRAY ` containing 0 or more ` DATE ` values.
+
+**Examples**
+
+The following returns an array of dates, with a default step of 1.
+
+
+SELECT GENERATE_DATE_ARRAY('2016-10-05', '2016-10-08') AS example;
+
+/*--------------------------------------------------*
+| example                                          |
++--------------------------------------------------+
+| [2016-10-05, 2016-10-06, 2016-10-07, 2016-10-08] |
+*--------------------------------------------------*/
+
+The following returns an array using a user-specified step size.
+
+
+SELECT GENERATE_DATE_ARRAY(
+'2016-10-05', '2016-10-09', INTERVAL 2 DAY) AS example;
+
+/*--------------------------------------*
+| example                              |
++--------------------------------------+
+| [2016-10-05, 2016-10-07, 2016-10-09] |
+*--------------------------------------*/
+
+The following returns an array using a negative value, ` -3 ` for its step size.
+
+
+SELECT GENERATE_DATE_ARRAY('2016-10-05',
+'2016-10-01', INTERVAL -3 DAY) AS example;
+
+/*--------------------------*
+| example                  |
++--------------------------+
+| [2016-10-05, 2016-10-02] |
+*--------------------------*/
+
+The following returns an array using the same value for the ` start_date ` and
+` end_date ` .
+
+
+SELECT GENERATE_DATE_ARRAY('2016-10-05',
+'2016-10-05', INTERVAL 8 DAY) AS example;
+
+/*--------------*
+| example      |
++--------------+
+| [2016-10-05] |
+*--------------*/
+
+The following returns an empty array, because the ` start_date ` is greater than the ` end_date ` , and the ` step ` value is positive.
+
+
+SELECT GENERATE_DATE_ARRAY('2016-10-05',
+'2016-10-01', INTERVAL 1 DAY) AS example;
+
+/*---------*
+| example |
++---------+
+| []      |
+*---------*/
+
+The following returns a ` NULL ` array, because one of its inputs is ` NULL `
+.
+
+
+SELECT GENERATE_DATE_ARRAY('2016-10-05', NULL) AS example;
+
+/*---------*
+| example |
++---------+
+| NULL    |
+*---------*/
+
+The following returns an array of dates, using MONTH as the ` date_part `
+interval:
+
+
+SELECT GENERATE_DATE_ARRAY('2016-01-01',
+'2016-12-31', INTERVAL 2 MONTH) AS example;
+
+/*--------------------------------------------------------------------------*
+| example                                                                  |
++--------------------------------------------------------------------------+
+| [2016-01-01, 2016-03-01, 2016-05-01, 2016-07-01, 2016-09-01, 2016-11-01] |
+*--------------------------------------------------------------------------*/
+
+The following uses non-constant dates to generate an array.
+
+
+SELECT GENERATE_DATE_ARRAY(date_start, date_end, INTERVAL 1 WEEK) AS date_range FROM ( SELECT DATE '2016-01-01' AS date_start, DATE '2016-01-31' AS date_end UNION ALL SELECT DATE "2016-04-01", DATE "2016-04-30"
+UNION ALL SELECT DATE "2016-07-01", DATE "2016-07-31"
+UNION ALL SELECT DATE "2016-10-01", DATE "2016-10-31"
+) AS items;
+
+/*--------------------------------------------------------------*
+| date_range                                                   |
++--------------------------------------------------------------+
+| [2016-01-01, 2016-01-08, 2016-01-15, 2016-01-22, 2016-01-29] |
+| [2016-04-01, 2016-04-08, 2016-04-15, 2016-04-22, 2016-04-29] |
+| [2016-07-01, 2016-07-08, 2016-07-15, 2016-07-22, 2016-07-29] |
+| [2016-10-01, 2016-10-08, 2016-10-15, 2016-10-22, 2016-10-29] |
+*--------------------------------------------------------------*/

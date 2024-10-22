@@ -1,0 +1,47 @@
+## KEYS.NEW_WRAPPED_KEYSET
+
+KEYS.NEW_WRAPPED_KEYSET(kms_resource_name, key_type)
+
+**Description**
+
+Creates a new keyset and encrypts it with a [ Cloud KMS key
+](/bigquery/docs/aead-encryption-concepts#cloud_kms_protection) . Returns the
+[ wrapped keyset ](/bigquery/docs/aead-encryption-concepts#wrapped_keysets) as a ` BYTES ` representation of [ google.crypto.tink.Keyset
+](https://github.com/google/tink/blob/master/proto/tink.proto) that contains a primary cryptographic key and no additional keys.
+
+This function takes the following arguments:
+
+* ` kms_resource_name ` : A ` STRING ` literal representation of the Cloud KMS key. ` kms_resource_name ` cannot be ` NULL ` . The Cloud KMS key must reside in the same Cloud region where this function is executed. A Cloud KMS key looks like this:
+
+gcp-kms://projects/my-project/locations/us/keyRings/my-key-ring/cryptoKeys/my-crypto-key
+
+* ` key_type ` : A ` STRING ` literal representation of the keyset type. ` key_type ` cannot be ` NULL ` but can be one of the following values:
+
+* ` AEAD_AES_GCM_256 ` : Creates a 256-bit key with the pseudo-random number generator provided by [ boringSSL ](https://boringssl.googlesource.com/boringssl/) . The key uses AES-GCM for encryption and decryption operations.
+
+* ` DETERMINISTIC_AEAD_AES_SIV_CMAC_256 ` : Creates a 512-bit ` AES-SIV-CMAC ` key, which contains a 256-bit ` AES-CTR ` key and 256-bit ` AES-CMAC ` key. The ` AES-SIV-CMAC ` key is created with the pseudo-random number generator provided by [ boringSSL ](https://boringssl.googlesource.com/boringssl/) . The key uses AES-SIV for encryption and decryption operations.
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+Put the following variables above each example query that you run:
+
+
+DECLARE kms_resource_name STRING;
+SET kms_resource_name = 'gcp-kms://projects/my-project/locations/us/keyRings/my-key-ring/cryptoKeys/my-crypto-key';
+
+The following query creates a wrapped keyset, which contains the ciphertext produced by encrypting a [ Tink
+](https://github.com/google/tink/blob/master/proto/tink.proto) keyset with the specified Cloud KMS key. If you run the query multiple times, it generates multiple wrapped keysets, and each wrapped keyset is unique to each query that is run.
+
+
+SELECT KEYS.NEW_WRAPPED_KEYSET(kms_resource_name, 'AEAD_AES_GCM_256');
+
+Multiple calls to this function with the same arguments in one query returns the same value. For example, the following query only creates one wrapped keyset and returns it for each row in a table called ` my_table ` .
+
+
+SELECT
+*,
+KEYS.NEW_WRAPPED_KEYSET(kms_resource_name, 'AEAD_AES_GCM_256') FROM my_table

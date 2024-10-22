@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.cms_medicare` database to solve this problem.

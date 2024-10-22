@@ -1,0 +1,85 @@
+table_name,ddl
+facility_boundary_us_all,"CREATE TABLE `bigquery-public-data.covid19_vaccination_access.facility_boundary_us_all`
+(
+  facility_place_id STRING NOT NULL OPTIONS(description=""The Google Place ID of the vaccination site. For example, ChIJV3woGFkSK4cRWP9s3-kIFGk.""),
+  facility_provider_id STRING OPTIONS(description=""An identifier imported from the provider of the vaccination site information. In the US, we use the ID provided by VaccineFinder when available. For example, 7ede5bd5-44da-4a59-b4d9-b3a49c53472c.""),
+  facility_name STRING OPTIONS(description=""The name of the vaccination site. For example, St. Joseph's Hospital.""),
+  facility_latitude FLOAT64 NOT NULL OPTIONS(description=""The latitude of the vaccination site. For example, 36.0507""),
+  facility_longitude FLOAT64 NOT NULL OPTIONS(description=""The longitude of the vaccination site. For example, 41.4356""),
+  facility_country_region STRING OPTIONS(description=""The name of the country or region in English. For example, United States.""),
+  facility_country_region_code STRING OPTIONS(description=""The ISO 3166-1 code for the country or region. For example, US.""),
+  facility_sub_region_1 STRING OPTIONS(description=""The name of a region in the country. For example, California.""),
+  facility_sub_region_1_code STRING OPTIONS(description=""A country-specific ISO 3166-2 code for the region. For example, US-CA.""),
+  facility_sub_region_2 STRING OPTIONS(description=""The name (or type) of a region in the country. Typically a subdivision of sub_region_1. For example, Santa Clara County or municipal_borough.""),
+  facility_sub_region_2_code STRING OPTIONS(description=""In the US, the FIPS code for a US county (or equivalent). For example, 06085.""),
+  facility_region_place_id STRING OPTIONS(description=""The Google place ID for the most-specific region, used in Google Places API and on Google Maps. For example, ChIJd_Y0eVIvkIARuQyDN0F1LBA.""),
+  mode_of_transportation STRING OPTIONS(description=""The mode of transport used to calculate the catchment boundary. For example, driving.""),
+  travel_time_threshold_minutes INT64 OPTIONS(description=""The maximum travel time, in minutes, used to calculate the catchment boundary. For example, 30.""),
+  facility_catchment_boundary GEOGRAPHY OPTIONS(description=""A GeoJSON representation of the catchment area boundary of the site, for a particular mode of transportation and travel time threshold. Consists of multiple latitude and longitude points."")
+)
+OPTIONS(
+  description=""This table is formed by combining the data from the individual US tables of drive, transit and walk. It represents the boundaries of areas surrounding vaccination facilities from which people can reach the facility within certain duration. It is computed for 3 travel modes of drive, transit and walk and for predetermined time periods.""
+);"
+facility_boundary_us_walk,"CREATE TABLE `bigquery-public-data.covid19_vaccination_access.facility_boundary_us_walk`
+(
+  facility_place_id STRING NOT NULL OPTIONS(description=""The Google Place ID of the vaccination site. For example, ChIJV3woGFkSK4cRWP9s3-kIFGk.""),
+  facility_provider_id STRING OPTIONS(description=""An identifier imported from the provider of the vaccination site information. In the US, we use the ID provided by VaccineFinder when available. For example, 7ede5bd5-44da-4a59-b4d9-b3a49c53472c.""),
+  facility_name STRING OPTIONS(description=""The name of the vaccination site. For example, St. Joseph's Hospital.""),
+  facility_latitude FLOAT64 NOT NULL OPTIONS(description=""The latitude of the vaccination site. For example, 36.0507""),
+  facility_longitude FLOAT64 NOT NULL OPTIONS(description=""The longitude of the vaccination site. For example, 41.4356""),
+  facility_country_region STRING OPTIONS(description=""The name of the country or region in English. For example, United States.""),
+  facility_country_region_code STRING OPTIONS(description=""The ISO 3166-1 code for the country or region. For example, US.""),
+  facility_sub_region_1 STRING OPTIONS(description=""The name of a region in the country. For example, California.""),
+  facility_sub_region_1_code STRING OPTIONS(description=""A country-specific ISO 3166-2 code for the region. For example, US-CA.""),
+  facility_sub_region_2 STRING OPTIONS(description=""The name (or type) of a region in the country. Typically a subdivision of sub_region_1. For example, Santa Clara County or municipal_borough.""),
+  facility_sub_region_2_code STRING OPTIONS(description=""In the US, the FIPS code for a US county (or equivalent). For example, 06085.""),
+  facility_region_place_id STRING OPTIONS(description=""The Google place ID for the most-specific region, used in Google Places API and on Google Maps. For example, ChIJd_Y0eVIvkIARuQyDN0F1LBA.""),
+  mode_of_transportation STRING OPTIONS(description=""The mode of transport used to calculate the catchment boundary. For example, driving.""),
+  travel_time_threshold_minutes INT64 OPTIONS(description=""The maximum travel time, in minutes, used to calculate the catchment boundary. For example, 30.""),
+  facility_catchment_boundary GEOGRAPHY OPTIONS(description=""A GeoJSON representation of the catchment area boundary of the site, for a particular mode of transportation and travel time threshold. Consists of multiple latitude and longitude points."")
+)
+OPTIONS(
+  description=""This table represents the boundaries of areas surrounding vaccination facilities from which people can reach the facility by walking within predetermined time periods.""
+);"
+facility_boundary_us_transit,"CREATE TABLE `bigquery-public-data.covid19_vaccination_access.facility_boundary_us_transit`
+(
+  facility_place_id STRING NOT NULL OPTIONS(description=""The Google Place ID of the vaccination site. For example, ChIJV3woGFkSK4cRWP9s3-kIFGk.""),
+  facility_provider_id STRING OPTIONS(description=""An identifier imported from the provider of the vaccination site information. In the US, we use the ID provided by VaccineFinder when available. For example, 7ede5bd5-44da-4a59-b4d9-b3a49c53472c.""),
+  facility_name STRING OPTIONS(description=""The name of the vaccination site. For example, St. Joseph's Hospital.""),
+  facility_latitude FLOAT64 NOT NULL OPTIONS(description=""The latitude of the vaccination site. For example, 36.0507""),
+  facility_longitude FLOAT64 NOT NULL OPTIONS(description=""The longitude of the vaccination site. For example, 41.4356""),
+  facility_country_region STRING OPTIONS(description=""The name of the country or region in English. For example, United States.""),
+  facility_country_region_code STRING OPTIONS(description=""The ISO 3166-1 code for the country or region. For example, US.""),
+  facility_sub_region_1 STRING OPTIONS(description=""The name of a region in the country. For example, California.""),
+  facility_sub_region_1_code STRING OPTIONS(description=""A country-specific ISO 3166-2 code for the region. For example, US-CA.""),
+  facility_sub_region_2 STRING OPTIONS(description=""The name (or type) of a region in the country. Typically a subdivision of sub_region_1. For example, Santa Clara County or municipal_borough.""),
+  facility_sub_region_2_code STRING OPTIONS(description=""In the US, the FIPS code for a US county (or equivalent). For example, 06085.""),
+  facility_region_place_id STRING OPTIONS(description=""The Google place ID for the most-specific region, used in Google Places API and on Google Maps. For example, ChIJd_Y0eVIvkIARuQyDN0F1LBA.""),
+  mode_of_transportation STRING OPTIONS(description=""The mode of transport used to calculate the catchment boundary. For example, driving.""),
+  travel_time_threshold_minutes INT64 OPTIONS(description=""The maximum travel time, in minutes, used to calculate the catchment boundary. For example, 30.""),
+  facility_catchment_boundary GEOGRAPHY OPTIONS(description=""A GeoJSON representation of the catchment area boundary of the site, for a particular mode of transportation and travel time threshold. Consists of multiple latitude and longitude points."")
+)
+OPTIONS(
+  description=""This table represents the boundaries of areas surrounding vaccination facilities from which people can reach the facility by public transit within predetermined time periods.""
+);"
+facility_boundary_us_drive,"CREATE TABLE `bigquery-public-data.covid19_vaccination_access.facility_boundary_us_drive`
+(
+  facility_place_id STRING NOT NULL OPTIONS(description=""The Google Place ID of the vaccination site. For example, ChIJV3woGFkSK4cRWP9s3-kIFGk.""),
+  facility_provider_id STRING OPTIONS(description=""An identifier imported from the provider of the vaccination site information. In the US, we use the ID provided by VaccineFinder when available. For example, 7ede5bd5-44da-4a59-b4d9-b3a49c53472c.""),
+  facility_name STRING OPTIONS(description=""The name of the vaccination site. For example, St. Joseph's Hospital.""),
+  facility_latitude FLOAT64 NOT NULL OPTIONS(description=""The latitude of the vaccination site. For example, 36.0507""),
+  facility_longitude FLOAT64 NOT NULL OPTIONS(description=""The longitude of the vaccination site. For example, 41.4356""),
+  facility_country_region STRING OPTIONS(description=""The name of the country or region in English. For example, United States.""),
+  facility_country_region_code STRING OPTIONS(description=""The ISO 3166-1 code for the country or region. For example, US.""),
+  facility_sub_region_1 STRING OPTIONS(description=""The name of a region in the country. For example, California.""),
+  facility_sub_region_1_code STRING OPTIONS(description=""A country-specific ISO 3166-2 code for the region. For example, US-CA.""),
+  facility_sub_region_2 STRING OPTIONS(description=""The name (or type) of a region in the country. Typically a subdivision of sub_region_1. For example, Santa Clara County or municipal_borough.""),
+  facility_sub_region_2_code STRING OPTIONS(description=""In the US, the FIPS code for a US county (or equivalent). For example, 06085.""),
+  facility_region_place_id STRING OPTIONS(description=""The Google place ID for the most-specific region, used in Google Places API and on Google Maps. For example, ChIJd_Y0eVIvkIARuQyDN0F1LBA.""),
+  mode_of_transportation STRING OPTIONS(description=""The mode of transport used to calculate the catchment boundary. For example, driving.""),
+  travel_time_threshold_minutes INT64 OPTIONS(description=""The maximum travel time, in minutes, used to calculate the catchment boundary. For example, 30.""),
+  facility_catchment_boundary GEOGRAPHY OPTIONS(description=""A GeoJSON representation of the catchment area boundary of the site, for a particular mode of transportation and travel time threshold. Consists of multiple latitude and longitude points."")
+)
+OPTIONS(
+  description=""This table represents the boundaries of areas surrounding vaccination facilities from which people can reach the facility by driving within predetermined time periods.""
+);"

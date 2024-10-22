@@ -1,0 +1,1 @@
+1. please query `GLOBAL_WEATHER__CLIMATE_DATA_FOR_BI.STANDARD_TILE` to solve this problem.

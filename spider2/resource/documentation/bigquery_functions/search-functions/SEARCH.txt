@@ -1,0 +1,369 @@
+## SEARCH
+
+SEARCH( data_to_search, search_query
+[, json_scope=>{ 'JSON_VALUES' | 'JSON_KEYS' | 'JSON_KEYS_AND_VALUES' }]
+[, analyzer=>{ 'LOG_ANALYZER' | 'NO_OP_ANALYZER' | 'PATTERN_ANALYZER'}]
+[, analyzer_options=>analyzer_options_values]
+)
+
+**Description**
+
+The ` SEARCH ` function checks to see whether a BigQuery table or other search data contains a set of search terms (tokens). It returns ` TRUE ` if all search terms appear in the data, based on the text analysis described in the [
+text analyzer ](/bigquery/docs/reference/standard-sql/text-analysis) , and `
+FALSE ` otherwise.
+
+**Definitions**
+
+* ` data_to_search ` : The data to search over. The value can be:
+
+* Any GoogleSQL data type literal
+* A list of columns
+* A table reference
+* A column of any type
+
+A table reference is evaluated as a ` STRUCT ` whose fields are the columns of the table. ` data_to_search ` can be any type, but ` SEARCH ` will return `
+FALSE ` for all types except those listed here:
+
+* ` ARRAY<STRING> `
+* ` ARRAY<STRUCT> `
+* ` JSON `
+* ` STRING `
+* ` STRUCT `
+
+You can search for string literals in columns of the preceding types. For additional rules, see  Search data rules  .
+
+* ` search_query ` : A ` STRING ` literal, or a ` STRING ` constant expression that represents the terms of the search query. If ` search_query ` is ` NULL ` , an error is returned. If ` search_query ` contains no tokens and the text analyzer is ` LOG_ANALYZER ` , an error is returned.
+* ` json_scope ` : Optional mandatory-named argument that takes one of the following values to indicate the scope of JSON data to be searched. It has no effect if ` data_to_search ` isn't a JSON value or doesn't contain a JSON field.
+
+* ` 'JSON_VALUES' ` (default): Only the JSON values are searched. If ` json_scope ` isn't provided, this is used by default.
+
+* ` 'JSON_KEYS' ` : Only the JSON keys are searched.
+
+* ` 'JSON_KEYS_AND_VALUES' ` : The JSON keys and values are searched.
+
+* ` analyzer ` : Optional mandatory-named argument that takes one of the following values to indicate the text analyzer to use:
+
+* ` 'LOG_ANALYZER' ` (default): Breaks the input into terms when delimiters are encountered and then normalizes the terms. For more information, see [ ` LOG_ANALYZER ` ](/bigquery/docs/reference/standard-sql/text-analysis#log_analyzer) .
+
+* ` 'NO_OP_ANALYZER' ` : Extracts the text as a single term (token), but doesn't apply normalization. For more information about this analyzer, see [ ` NO_OP_ANALYZER ` ](/bigquery/docs/reference/standard-sql/text-analysis#no_op_analyzer) .
+
+* ` 'PATTERN_ANALYZER' ` : Breaks the input into terms that match a regular expression. For more information, see [ ` PATTERN_ANALYZER ` text analyzer ](/bigquery/docs/reference/standard-sql/text-analysis#pattern_analyzer) .
+
+* ` analyzer_options ` : Optional mandatory-named argument that takes a list of text analysis rules as a JSON-formatted ` STRING ` . For more information, see [ Text analyzer options ](/bigquery/docs/reference/standard-sql/text-analysis#text_analyzer_options) .
+
+**Details**
+
+The ` SEARCH ` function is designed to work with [ search indexes
+](/bigquery/docs/search-index) to optimize point lookups. Although the `
+SEARCH ` function works for tables that aren't indexed, its performance will be greatly improved with a search index. If both the analyzer and analyzer options match the one used to create the index, the search index will be used.
+
+**Rules for` search_query ` **
+
+Backtick rules for  ` search_query ` :
+
+* If the ` LOG_ANALYZER ` text analyzer is used, text enclosed in backticks forces an exact match.
+
+For example, ` `Hello World` happy days ` becomes ` Hello World ` , ` happy `
+, and ` days ` .
+
+* Search terms enclosed in backticks must match exactly in ` data_to_search ` , subject to the following conditions:
+
+* It appears at the start of ` data_to_search ` or is immediately preceded by a delimiter.
+
+* It appears at the end of ` data_to_search ` or is immediately followed by a delimiter.
+
+For example, ` SEARCH('foo.bar', '`foo.`') ` returns ` FALSE ` because the text enclosed in the backticks ` foo. ` is immediately followed by the character ` b ` in the search data ` foo.bar ` , rather than by a delimiter or the end of the string. However, ` SEARCH('foo..bar', '`foo.`') ` returns `
+TRUE ` because ` foo. ` is immediately followed by the delimiter ` . ` in the search data.
+
+* The backtick itself can be escaped using a backslash, as in ` \`foobar\` ` .
+
+* The following are reserved words and must be enclosed in backticks:
+
+` AND ` , ` NOT ` , ` OR ` , ` IN ` , and ` NEAR `
+
+Reserved character rules for  ` search_query ` :
+
+* Text not enclosed in backticks requires the following reserved characters to be escaped by a double backslash ` \\ ` :
+
+* ` [ ] < > ( ) { } | ! ' " * & ? + / : = - \ ~ ^ `
+
+* If the quoted string is preceded by the character ` r ` or ` R ` , such as ` r"my\+string" ` , then it is treated as a raw string and only a single backslash is required to escape the reserved characters. For more information about raw strings and escape sequences, see [ String and byte literals ](/bigquery/docs/reference/standard-sql/lexical#literals) .
+
+**How` search_query ` is broken into searchable terms **
+
+The following table shows how  ` search_query ` is broken into searchable terms by the ` LOG_ANALYZER ` text analyzer. All entries are strings.
+
+search_query  |  searchable terms
+---|---
+127.0.0.1  |  127 0 1 127.0.0.1 . 127.0.0 127.0 0.0 0.0.1 0.1 foobar@example.com  |  foobar example com foobar@example example.com foobar@example.com The fox.  |  the fox The The fox The fox.
+fox fox.
+
+The following table shows how ` search_query ` is broken into query terms by the ` LOG_ANALYZER ` text analyzer. All entries are strings.
+
+search_query  |  query terms
+---|---
+127.0.0.1  |  127 0 1
+
+`127.0.0.1`  |  127.0.0.1 foobar@example.com  |  foobar example com
+`foobar@example.com`  |  foobar@example.com
+
+**Rules for` data_to_search ` **
+
+General rules for  ` data_to_search ` :
+
+* ` data_to_search ` must contain all terms, in any order, from the ` search_query ` for the function to return ` TRUE ` .
+* To perform a cross-field search, ` data_to_search ` must be a ` STRUCT ` , ` ARRAY ` , or ` JSON ` data type.
+* Each ` STRING ` field in a compound data type is individually searched for terms.
+* If at least one field in ` data_to_search ` includes all search terms in any order, ` SEARCH ` returns ` TRUE ` . Otherwise it has the following behavior:
+
+* If at least one ` STRING ` field is ` NULL ` , ` SEARCH ` returns ` NULL ` .
+
+* Otherwise, ` SEARCH ` returns ` FALSE ` .
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+The following queries show how tokens in ` search_query ` are analyzed by a `
+SEARCH ` function call using the default analyzer, ` LOG_ANALYZER ` :
+
+
+SELECT
+-- ERROR: `search_query` is NULL.
+SEARCH('foobarexample', NULL) AS a,
+
+-- ERROR: `search_query` contains no tokens.
+SEARCH('foobarexample', '') AS b,
+
+
+SELECT
+-- TRUE: '-' and ' ' are delimiters.
+SEARCH('foobar-example', 'foobar example') AS a,
+
+-- TRUE: The search query is a constant expression evaluated to 'foobar'.
+SEARCH('foobar-example', CONCAT('foo', 'bar')) AS b,
+
+-- FALSE: The search_query is not split.
+SEARCH('foobar-example', 'foobarexample') AS c,
+
+-- TRUE: The double backslash escapes the ampersand which is a delimiter.
+SEARCH('foobar-example', 'foobar\\&example') AS d,
+
+-- TRUE: The single backslash escapes the ampersand in a raw string.
+SEARCH('foobar-example', R'foobar\&example')AS e,
+
+-- FALSE: The backticks indicate that there must be an exact match for
+-- foobar&example.
+SEARCH('foobar-example', '`foobar&example`') AS f,
+
+-- TRUE: An exact match is found.
+SEARCH('foobar&example', '`foobar&example`') AS g
+
+/*-------+-------+-------+-------+-------+-------+-------*
+| a     | b     | c     | d     | e     | f     | g     |
++-------+-------+-------+-------+-------+-------+-------+
+| true  | true  | false | true  | true  | false | true  |
+*-------+-------+-------+-------+-------+-------+-------*/
+
+
+SELECT
+-- TRUE: The order of terms doesn't matter.
+SEARCH('foobar-example', 'example foobar') AS a,
+
+-- TRUE: Tokens are made lower-case.
+SEARCH('foobar-example', 'Foobar Example') AS b,
+
+-- TRUE: An exact match is found.
+SEARCH('foobar-example', '`foobar-example`') AS c,
+
+-- FALSE: Backticks preserve capitalization.
+SEARCH('foobar-example', '`Foobar`') AS d,
+
+-- FALSE: Backticks don't have special meaning for search_data and are
+-- not delimiters in the default LOG_ANALYZER.
+SEARCH('`foobar-example`', '`foobar-example`') AS e,
+
+-- TRUE: An exact match is found after the delimiter in search_data.
+SEARCH('foobar@example.com', '`example.com`') AS f,
+
+-- TRUE: An exact match is found between the space delimiters.
+SEARCH('a foobar-example b', '`foobar-example`') AS g;
+
+/*-------+-------+-------+-------+-------+-------+-------*
+| a     | b     | c     | d     | e     | f     | g     |
++-------+-------+-------+-------+-------+-------+-------+
+| true  | true  | true  | false | false | true  | true  |
+*-------+-------+-------+-------+-------+-------+-------*/
+
+
+SELECT
+-- FALSE: No single array entry matches all search terms.
+SEARCH(['foobar', 'example'], 'foobar example') AS a,
+
+-- FALSE: The search_query is equivalent to foobar\\=.
+SEARCH('foobar=', '`foobar\\=`') AS b,
+
+-- FALSE: This is equivalent to the previous example.
+SEARCH('foobar=', R'`\foobar=`') AS c,
+
+-- TRUE: The equals sign is a delimiter in the data and query.
+SEARCH('foobar=', 'foobar\\=') AS d,
+
+-- TRUE: This is equivalent to the previous example.
+SEARCH('foobar=', R'foobar\=') AS e,
+
+-- TRUE: An exact match is found.
+SEARCH('foobar.example', '`foobar`') AS f,
+
+-- FALSE: `foobar.\` is not analyzed because of backticks; it is not
+-- followed by a delimiter in search_data 'foobar.example'.
+SEARCH('foobar.example', '`foobar.\`') AS g,
+
+-- TRUE: `foobar.` is not analyzed because of backticks; it is
+-- followed by the delimiter '.' in search_data 'foobar..example'.
+SEARCH('foobar..example', '`foobar.`') AS h;
+
+/*-------+-------+-------+-------+-------+-------+-------+-------*
+| a     | b     | c     | d     | e     | f     | g     | h     |
++-------+-------+-------+-------+-------+-------+-------+-------+
+| false | false | false | true  | true  | true  | false | true  |
+*-------+-------+-------+-------+-------+-------+-------+-------*/
+
+The following query shows examples of calls to the ` SEARCH ` function using the ` NO_OP_ANALYZER ` text analyzer and reasons for various return values:
+
+
+SELECT
+-- TRUE: exact match SEARCH('foobar', 'foobar', analyzer=>'NO_OP_ANALYZER') AS a,
+
+-- FALSE: Backticks are not special characters for `NO_OP_ANALYZER`.
+SEARCH('foobar', '\`foobar\`', analyzer=>'NO_OP_ANALYZER') AS b,
+
+-- FALSE: The capitalization does not match.
+SEARCH('foobar', 'Foobar', analyzer=>'NO_OP_ANALYZER') AS c,
+
+-- FALSE: There are no delimiters for `NO_OP_ANALYZER`.
+SEARCH('foobar example', 'foobar', analyzer=>'NO_OP_ANALYZER') AS d,
+
+-- TRUE: An exact match is found.
+SEARCH('', '', analyzer=>'NO_OP_ANALYZER') AS e;
+
+/*-------+-------+-------+-------+-------*
+| a     | b     | c     | d     | e     |
++-------+-------+-------+-------+-------+
+| true  | false | false | false | true  |
+*-------+-------+-------+-------+-------*/
+
+Consider the following table called ` meals ` with columns ` breakfast ` , `
+lunch ` , and ` dinner ` :
+
+
+/*-------------------+-------------------------+------------------*
+| breakfast         | lunch                   | dinner           |
++-------------------+-------------------------+------------------+
+| Potato pancakes   | Toasted cheese sandwich | Beef soup        |
+| Avocado toast     | Tomato soup             | Chicken soup     |
+*-------------------+-------------------------+------------------*/
+
+The following query shows how to search single columns, multiple columns, and whole tables, using the default [ ` LOG_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#log_analyzer) text analyzer with the default analyzer options:
+
+
+WITH meals AS ( SELECT
+'Potato pancakes' AS breakfast,
+'Toasted cheese sandwich' AS lunch,
+'Beef soup' AS dinner UNION ALL SELECT
+'Avocado toast' AS breakfast,
+'Tomato soup' AS lunch,
+'Chicken soup' AS dinner ) SELECT SEARCH(lunch, 'soup') AS lunch_soup,
+SEARCH((breakfast, dinner), 'soup') AS breakfast_or_dinner_soup,
+SEARCH(meals, 'soup') AS anytime_soup FROM meals;
+
+/*------------+--------------------------+--------------*
+| lunch_soup | breakfast_or_dinner_soup | anytime_soup |
++------------+--------------------------+--------------+
+| false      | true                     | true         |
+| true       | true                     | true         |
+*------------+--------------------------+--------------*/
+
+The following query shows additional ways to search, using the default [ `
+LOG_ANALYZER ` ](/bigquery/docs/reference/standard-sql/text-
+analysis#log_analyzer) text analyzer with default analyzer options:
+
+
+WITH data AS ( SELECT 'Please use foobar@example.com as your email.' AS email ) SELECT SEARCH(email, 'exam') AS a,
+SEARCH(email, 'foobar') AS b,
+SEARCH(email, 'example.com') AS c FROM data;
+
+/*-------+-------+-------*
+| a     | b     | c     |
++-------+-------+-------+
+| false | true  | true  |
+*-------+-------+-------*/
+
+The following query shows additional ways to search, using the default [ `
+LOG_ANALYZER ` ](/bigquery/docs/reference/standard-sql/text-
+analysis#log_analyzer) text analyzer with custom analyzer options. Terms are only split when a space or ` @ ` symbol is encountered.
+
+
+WITH data AS ( SELECT 'Please use foobar@example.com as your email.' AS email ) SELECT SEARCH(email, 'foobar', analyzer_options=>'{"delimiters": [" ", "@"]}') AS a,
+SEARCH(email, 'example', analyzer_options=>'{"delimiters": [" ", "@"]}') AS b,
+SEARCH(email, 'example.com', analyzer_options=>'{"delimiters": [" ", "@"]}') AS c,
+SEARCH(email, 'foobar@example.com', analyzer_options=>'{"delimiters": [" ", "@"]}') AS d FROM data;
+
+/*-------+-------+-------+-------*
+| a     | b     | c     | d     |
++-------+-------+-------+-------+
+| true  | false | true  | true  |
+*-------+-------+-------+-------*/
+
+The following query shows how to search, using the [ ` NO_OP_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#no_op_analyzer) text analyzer:
+
+
+WITH meals AS ( SELECT 'Tomato soup' AS lunch ) SELECT SEARCH(lunch, 'Tomato soup', analyzer=>'NO_OP_ANALYZER') AS a,
+SEARCH(lunch, 'soup', analyzer=>'NO_OP_ANALYZER') AS b,
+SEARCH(lunch, 'tomato soup', analyzer=>'NO_OP_ANALYZER') AS c FROM meals;
+
+/*-------+-------+-------*
+| a     | b     | c     |
++-------+-------+-------+
+| true  | false | false |
+*-------+-------+-------*/
+
+The following query shows how to use the [ ` PATTERN_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#pattern_analyzer) text analyzer with default analyzer options:
+
+
+WITH data AS ( SELECT 'Please use foobar@example.com as your email.' AS email ) SELECT SEARCH(email, 'exam', analyzer=>'PATTERN_ANALYZER') AS a,
+SEARCH(email, 'foobar', analyzer=>'PATTERN_ANALYZER') AS b,
+SEARCH(email, 'example.com', analyzer=>'PATTERN_ANALYZER') AS c FROM data;
+
+/*-------+-------+-------*
+| a     | b     | c     |
++-------+-------+-------+
+| false | true  | true  |
+*-------+-------+-------*/
+
+The following query shows additional ways to search, using the [ `
+PATTERN_ANALYZER ` ](/bigquery/docs/reference/standard-sql/text-
+analysis#pattern_analyzer) text analyzer with custom analyzer options:
+
+
+WITH data AS ( SELECT 'Please use foobar@EXAMPLE.com as your email.' AS email ) SELECT SEARCH(email, 'EXAMPLE', analyzer=>'PATTERN_ANALYZER', analyzer_options=>'{"patterns": ["[A-Z]*"]}') AS a,
+SEARCH(email, 'example', analyzer=>'PATTERN_ANALYZER', analyzer_options=>'{"patterns": ["[a-z]*"]}') AS b,
+SEARCH(email, 'example.com', analyzer=>'PATTERN_ANALYZER', analyzer_options=>'{"patterns": ["[a-z]*"]}') AS c,
+SEARCH(email, 'example.com', analyzer=>'PATTERN_ANALYZER', analyzer_options=>'{"patterns": ["[a-zA-Z.]*"]}') AS d FROM data;
+
+/*-------+-------+-------+-------*
+| a     | b     | c     | d     |
++-------+-------+-------+-------+
+| true  | false | false | true  |
+*-------+-------+-------+-------*/
+
+For additional examples that include analyzer options, see the [ Text analysis
+](/bigquery/docs/reference/standard-sql/text-analysis) reference guide.
+
+For helpful analyzer recipes that you can use to enhance analyzer-supported queries, see the [ Search with text analyzers ](/bigquery/docs/text-analysis-
+search) user guide.

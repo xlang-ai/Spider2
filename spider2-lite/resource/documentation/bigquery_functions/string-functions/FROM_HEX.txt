@@ -1,0 +1,29 @@
+## FROM_HEX
+
+FROM_HEX(string)
+
+**Description**
+
+Converts a hexadecimal-encoded ` STRING ` into ` BYTES ` format. Returns an error if the input ` STRING ` contains characters outside the range ` (0..9,
+A..F, a..f) ` . The lettercase of the characters does not matter. If the input
+` STRING ` has an odd number of characters, the function acts as if the input has an additional leading ` 0 ` . To convert ` BYTES ` to a hexadecimal-
+encoded ` STRING ` , use  TO_HEX  .
+
+**Return type**
+
+` BYTES `
+
+**Example**
+
+
+WITH Input AS ( SELECT '00010203aaeeefff' AS hex_str UNION ALL SELECT '0AF' UNION ALL SELECT '666f6f626172'
+) SELECT hex_str, FROM_HEX(hex_str) AS bytes_str FROM Input;
+
+-- Note that the result of FROM_HEX is of type BYTES, displayed as a base64-encoded string.
+/*------------------+--------------*
+| hex_str          | bytes_str    |
++------------------+--------------+
+| 0AF              | AAECA6ru7/8= |
+| 00010203aaeeefff | AK8=         |
+| 666f6f626172     | Zm9vYmFy     |
+*------------------+--------------*/

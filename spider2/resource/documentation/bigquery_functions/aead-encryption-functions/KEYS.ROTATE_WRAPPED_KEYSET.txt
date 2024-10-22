@@ -1,0 +1,48 @@
+## KEYS.ROTATE_WRAPPED_KEYSET
+
+KEYS.ROTATE_WRAPPED_KEYSET(kms_resource_name, wrapped_keyset, key_type)
+
+**Description**
+
+Takes an existing [ wrapped keyset ](/bigquery/docs/aead-encryption-
+concepts#wrapped_keysets) and returns a rotated and rewrapped keyset. The returned wrapped keyset is a ` BYTES ` representation of [
+google.crypto.tink.Keyset
+](https://github.com/google/tink/blob/master/proto/tink.proto) .
+
+When this function is used, the wrapped keyset is decrypted, the new key is added, and then the keyset is re-encrypted. The primary cryptographic key from the input ` wrapped_keyset ` remains as an additional key in the returned keyset. During this rotation process, the decrypted keyset is never visible to customers.
+
+This function takes the following arguments:
+
+* ` kms_resource_name ` : A ` STRING ` literal representation of the [ Cloud KMS key ](/bigquery/docs/aead-encryption-concepts#cloud_kms_protection) that was used to wrap the wrapped keyset. The Cloud KMS key must reside in the same Cloud region where this function is executed. A Cloud KMS key looks like this:
+
+gcp-kms://projects/my-project/locations/us/keyRings/my-key-ring/cryptoKeys/my-crypto-key
+
+* ` wrapped_keyset ` : A ` BYTES ` literal representation of the existing keyset that you want to work with.
+
+* ` key_type ` : A ` STRING ` literal representation of the keyset type. This must match the key type of existing keys in ` wrapped_keyset ` .
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+Put the following variables above each example query that you run:
+
+
+DECLARE kms_resource_name STRING;
+DECLARE wrapped_keyset BYTES;
+SET kms_resource_name = 'gcp-kms://projects/my-project/locations/us/keyRings/my-key-ring/cryptoKeys/my-crypto-key';
+SET wrapped_keyset = b'\012\044\000\107\275\360\176\264\206\332\235\215\304...';
+
+The following query rotates a wrapped keyset. If you run the query multiple times, it generates multiple wrapped keysets, and each wrapped keyset is unique to each query that is run.
+
+
+SELECT KEYS.ROTATE_WRAPPED_KEYSET(kms_resource_name, wrapped_keyset, 'AEAD_AES_GCM_256');
+
+Multiple calls to this function with the same arguments in one query returns the same value. For example, the following query only creates one wrapped keyset and returns it for each row in a table called ` my_table ` .
+
+
+SELECT
+*,
+KEYS.ROTATE_WRAPPED_KEYSET(kms_resource_name, wrapped_keyset, 'AEAD_AES_GCM_256') FROM my_table

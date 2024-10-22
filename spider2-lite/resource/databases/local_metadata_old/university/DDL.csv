@@ -1,0 +1,45 @@
+table_name,DDL
+Faculty,"CREATE TABLE Faculty (
+    FacNo CHAR(11),
+    FacFirstName VARCHAR(30),
+    FacLastName VARCHAR(30),
+    FacCity VARCHAR(30),
+    FacState CHAR(2),
+    FacDept CHAR(6),
+    FacRank CHAR(4),
+    FacSalary DECIMAL(10,2),
+    FacSupervisor CHAR(11),
+    FacHireDate TEXT,
+    FacZipCode CHAR(10)
+);"
+Offering,"CREATE TABLE Offering (
+    OfferNo INTEGER,
+    CourseNo CHAR(6),
+    OffTerm CHAR(6),
+    OffYear INTEGER,
+    OffLocation VARCHAR(30),
+    OffTime VARCHAR(10),
+    FacNo CHAR(11),
+    OffDays CHAR(4)
+);"
+Student,"CREATE TABLE Student (
+    StdNo CHAR(11),
+    StdFirstName VARCHAR(30),
+    StdLastName VARCHAR(30),
+    StdCity VARCHAR(30),
+    StdState CHAR(2),
+    StdZip CHAR(10),
+    StdMajor CHAR(6),
+    StdClass CHAR(2),
+    StdGPA DECIMAL(3,2)
+);"
+Course,"CREATE TABLE Course (
+    CourseNo CHAR(6),
+    CrsDesc VARCHAR(50),
+    CrsUnits INTEGER
+);"
+Enrollment,"CREATE TABLE Enrollment (
+    OfferNo INTEGER,
+    StdNo CHAR(11),
+    EnrGrade DECIMAL(3,2)
+);"

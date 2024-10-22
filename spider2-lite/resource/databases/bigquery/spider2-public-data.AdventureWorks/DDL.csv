@@ -1,0 +1,160 @@
+table_name,ddl
+SalesPersonQuotaHistory,"CREATE TABLE `spider2-public-data.AdventureWorks.SalesPersonQuotaHistory`
+(
+  ModifiedDate TIMESTAMP,
+  rowguid STRING,
+  SalesQuota FLOAT64,
+  QuotaDate TIMESTAMP,
+  BusinessEntityID INT64
+);"
+salesperson,"CREATE TABLE `spider2-public-data.AdventureWorks.salesperson`
+(
+  rowguid STRING,
+  saleslastyear FLOAT64,
+  modifieddate TIMESTAMP,
+  salesytd FLOAT64,
+  commissionpct FLOAT64,
+  bonus INT64,
+  salesquota INT64,
+  territoryid INT64,
+  businessentityid INT64
+);"
+salesorderheader,"CREATE TABLE `spider2-public-data.AdventureWorks.salesorderheader`
+(
+  modifieddate TIMESTAMP,
+  duedate TIMESTAMP,
+  totaldue FLOAT64,
+  accountnumber STRING,
+  subtotal FLOAT64,
+  comment STRING,
+  freight FLOAT64,
+  creditcardid INT64,
+  currencyrateid INT64,
+  billtoaddressid INT64,
+  rowguid STRING,
+  taxamt FLOAT64,
+  territoryid INT64,
+  salespersonid INT64,
+  purchaseordernumber STRING,
+  onlineorderflag BOOL,
+  STATUS INT64,
+  creditcardapprovalcode STRING,
+  revisionnumber INT64,
+  shipmethodid INT64,
+  shipdate TIMESTAMP,
+  shiptoaddressid INT64,
+  customerid INT64,
+  orderdate TIMESTAMP,
+  salesorderid INT64
+);"
+currencyrate,"CREATE TABLE `spider2-public-data.AdventureWorks.currencyrate`
+(
+  averagerate FLOAT64,
+  modifieddate TIMESTAMP,
+  endofdayrate FLOAT64,
+  fromcurrencycode STRING,
+  tocurrencycode STRING,
+  currencyratedate TIMESTAMP,
+  currencyrateid INT64
+);"
+productdescription,"CREATE TABLE `spider2-public-data.AdventureWorks.productdescription`
+(
+  modifieddate TIMESTAMP,
+  rowguid STRING,
+  description STRING,
+  productdescriptionid INT64
+);"
+productcategory,"CREATE TABLE `spider2-public-data.AdventureWorks.productcategory`
+(
+  modifieddate TIMESTAMP,
+  rowguid STRING,
+  name STRING,
+  productcategoryid INT64
+);"
+salesterritory,"CREATE TABLE `spider2-public-data.AdventureWorks.salesterritory`
+(
+  costlastyear FLOAT64,
+  costytd FLOAT64,
+  saleslastyear FLOAT64,
+  rowguid STRING,
+  `group` STRING,
+  countryregioncode STRING,
+  modifieddate TIMESTAMP,
+  salesytd FLOAT64,
+  name STRING,
+  territoryid INT64
+);"
+product,"CREATE TABLE `spider2-public-data.AdventureWorks.product`
+(
+  modifieddate TIMESTAMP,
+  rowguid STRING,
+  sellenddate TIMESTAMP,
+  makeflag BOOL,
+  productmodelid INT64,
+  class STRING,
+  productline STRING,
+  daystomanufacture INT64,
+  style STRING,
+  discontinueddate STRING,
+  weightunitmeasurecode STRING,
+  sizeunitmeasurecode STRING,
+  reorderpoint INT64,
+  size STRING,
+  NAME STRING,
+  listprice FLOAT64,
+  weight FLOAT64,
+  productsubcategoryid INT64,
+  safetystocklevel INT64,
+  color STRING,
+  standardcost FLOAT64,
+  productnumber STRING,
+  sellstartdate TIMESTAMP,
+  finishedgoodsflag BOOL,
+  productid INT64
+);"
+productmodelproductdescriptionculture,"CREATE TABLE `spider2-public-data.AdventureWorks.productmodelproductdescriptionculture`
+(
+  modifieddate TIMESTAMP,
+  cultureid STRING,
+  productdescriptionid INT64,
+  productmodelid INT64
+);"
+productsubcategory,"CREATE TABLE `spider2-public-data.AdventureWorks.productsubcategory`
+(
+  modifieddate TIMESTAMP,
+  rowguid STRING,
+  name STRING,
+  productcategoryid INT64,
+  productsubcategoryid INT64
+);"
+productreview,"CREATE TABLE `spider2-public-data.AdventureWorks.productreview`
+(
+  comments STRING,
+  modifieddate TIMESTAMP,
+  rating INT64,
+  modifeddate STRING,
+  emailaddress STRING,
+  productreviewid INT64,
+  reviewername STRING,
+  reviewdate TIMESTAMP,
+  productid INT64
+);"
+countryregioncurrency,"CREATE TABLE `spider2-public-data.AdventureWorks.countryregioncurrency`
+(
+  currencycode STRING,
+  modifieddate TIMESTAMP,
+  countryregioncode STRING
+);"
+salesorderdetail,"CREATE TABLE `spider2-public-data.AdventureWorks.salesorderdetail`
+(
+  modifieddate TIMESTAMP,
+  unitprice FLOAT64,
+  unitpricediscount FLOAT64,
+  specialofferid INT64,
+  rowguid STRING,
+  productid INT64,
+  orderqty INT64,
+  carriertrackingnumber STRING,
+  salesorderdetailid INT64,
+  salesorderid INT64
+);"

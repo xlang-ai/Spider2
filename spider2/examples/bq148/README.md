@@ -1,0 +1,1 @@
+1. please query `isb-cgc-bq.TCGA_versioned` database to solve this problem.

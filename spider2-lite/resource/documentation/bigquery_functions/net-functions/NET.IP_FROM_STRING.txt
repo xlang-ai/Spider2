@@ -1,0 +1,41 @@
+## NET.IP_FROM_STRING
+
+NET.IP_FROM_STRING(addr_str)
+
+**Description**
+
+Converts an IPv4 or IPv6 address from text (STRING) format to binary (BYTES) format in network byte order.
+
+This function supports the following formats for ` addr_str ` :
+
+* IPv4: Dotted-quad format. For example, ` 10.1.2.3 ` .
+* IPv6: Colon-separated format. For example, ` 1234:5678:90ab:cdef:1234:5678:90ab:cdef ` . For more examples, see the [ IP Version 6 Addressing Architecture ](http://www.ietf.org/rfc/rfc2373.txt) .
+
+This function does not support [ CIDR notation
+](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) , such as `
+10.1.2.3/32 ` .
+
+If this function receives a ` NULL ` input, it returns ` NULL ` . If the input is considered invalid, an ` OUT_OF_RANGE ` error occurs.
+
+**Return Data Type**
+
+BYTES
+
+**Example**
+
+
+SELECT addr_str, FORMAT("%T", NET.IP_FROM_STRING(addr_str)) AS ip_from_string FROM UNNEST([
+'48.49.50.51',
+'::1',
+'3031:3233:3435:3637:3839:4041:4243:4445',
+'::ffff:192.0.2.128'
+]) AS addr_str;
+
+/*---------------------------------------------------------------------------------------------------------------*
+| addr_str                                | ip_from_string                                                      |
++---------------------------------------------------------------------------------------------------------------+
+| 48.49.50.51                             | b"0123"                                                             |
+| ::1                                     | b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01" |
+| 3031:3233:3435:3637:3839:4041:4243:4445 | b"0123456789@ABCDE"                                                 |
+| ::ffff:192.0.2.128                      | b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xc0\x00\x02\x80" |
+*---------------------------------------------------------------------------------------------------------------*/

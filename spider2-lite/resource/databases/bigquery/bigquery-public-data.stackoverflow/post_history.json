@@ -1,0 +1,106 @@
+{
+    "table_name": "post_history",
+    "table_fullname": "bigquery-public-data.stackoverflow.post_history",
+    "column_names": [
+        "id",
+        "creation_date",
+        "post_id",
+        "post_history_type_id",
+        "revision_guid",
+        "user_id",
+        "text",
+        "comment"
+    ],
+    "column_types": [
+        "INT64",
+        "TIMESTAMP",
+        "INT64",
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "id",
+        "creation_date",
+        "post_id",
+        "post_history_type_id",
+        "revision_guid",
+        "user_id",
+        "text",
+        "comment"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "TIMESTAMP",
+        "INT64",
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": 79288580,
+            "creation_date": "2014-12-08 05:45:42.583000+00:00",
+            "post_id": 27352112,
+            "post_history_type_id": 2,
+            "revision_guid": "405ebdc0-31a8-430d-a457-7321d8992fb9",
+            "user_id": null,
+            "text": "i am newbie in angularjs, i am trying to develop a simple ng-grid in which the data which is coming need to be filter before displaying, so what i am trying i am trying to filter but its not giving me exact filter if filter value is '/xyz/' then it is giving me '/xyz/asd' also but i need only '/xyz/' value. \n'/xyz/' is folderpath\nwhere i am doing wrong can anyone help me please.\n\n    app.controller('DeatilCtrl', function($scope, $http) {\n   $scope.totalServerItems = 0;\n      $scope.pagingOptions = {\n          pageSizes: [15, 20, 30],\n          pageSize: 15,\n          currentPage: 1\n      }; \n  \n      $scope.filterByPath ={\n        filterText : '/xyz/' \n      };\n      $scope.setPagingData = function(data, page, pageSize){ \n          var pagedData = data.slice((page - 1) * pageSize, page * pageSize);\n          $scope.myData = pagedData;\n          $scope.totalServerItems = data.length;\n          if (!$scope.$$phase) {\n              $scope.$apply();\n          }\n      };         \n      $scope.getPagedDataAsync = function (pageSize, page, searchText,folderPath) {\n     \n          setTimeout(function () {\n              var data;\n              var fPath = folderPath;\n              if(fPath == null){\n               fPath ='/';\n              }\n              if (searchText) {\n                  var ft = searchText.toLowerCase();\n                  $http.get('rest/files').success(function (largeLoad) {  \n                      data = largeLoad.filter(function(item) {\n                          return JSON.stringify(item).toLowerCase().indexOf(ft) != -1;\n                      });\n                      $scope.setPagingData(data,page,pageSize);\n                  });            \n              } else {\n                  $http.get('rest/files').success(function (largeLoad) {\n                      $scope.setPagingData(largeLoad,page,pageSize);\n                  });\n              }\n          }, 100);\n      };\n   \n      $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);\n   \n      $scope.$watch('pagingOptions', function (newVal, oldVal) {\n          if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage) {\n            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);\n          }\n      }, true);\n      $scope.$watch('filterOptions', function (newVal, oldVal) {\n          if (newVal !== oldVal) {\n            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);\n          }\n      }, true);\n      \n      var rowTempl = '<div ng-dblClick=\"onDblClickRow(row)\" ng-style=\"{ \\'cursor\\': row.cursor   }\" ng-repeat=\"col in renderedColumns\" '+'ng-class=\"col.colIndex()\" class=\"ngCell{{col.cellClass}}\"><div ng-cell></div></div>';\n\n      $scope.onDblClickRow = function(row){\n       var rowData =  $scope.myData[row.rowIndex];\n          var folderpath= rowData.folderPath+rowData.fileName+\"/\";\n          \n         $scope.getPagedDataAsync(folderpath);\n         \n      };\n      $scope.gridOptions = {\n          data: 'myData',\n          \n          columnDefs: [\n                       { field: \"fileName\", displayName: \"File Name\"},\n                       { field: \"folderPath\", displayName: \"Full Path\"}\n                   ],\n          enablePaging: true,\n     showFooter: true,\n          totalServerItems: 'totalServerItems',\n          pagingOptions: $scope.pagingOptions,\n          filterOptions: $scope.filterByPath,\n          rowTemplate: rowTempl,\n          \n      };\n    });",
+            "comment": null
+        },
+        {
+            "id": 79288581,
+            "creation_date": "2014-12-08 05:45:42.583000+00:00",
+            "post_id": 27352112,
+            "post_history_type_id": 1,
+            "revision_guid": "405ebdc0-31a8-430d-a457-7321d8992fb9",
+            "user_id": null,
+            "text": "how to filter according to exact filter value in ng-grid?",
+            "comment": null
+        },
+        {
+            "id": 79288582,
+            "creation_date": "2014-12-08 05:45:42.583000+00:00",
+            "post_id": 27352112,
+            "post_history_type_id": 3,
+            "revision_guid": "405ebdc0-31a8-430d-a457-7321d8992fb9",
+            "user_id": null,
+            "text": "<angularjs><ng-grid>",
+            "comment": null
+        },
+        {
+            "id": 79289234,
+            "creation_date": "2014-12-08 06:04:36.827000+00:00",
+            "post_id": 27352281,
+            "post_history_type_id": 2,
+            "revision_guid": "215cb4e2-e50c-4c50-94dc-89d43cc87eae",
+            "user_id": null,
+            "text": "AngularJs Source code deep dive - What does `invokeQueue` and `configBlocks` do during angularjs bootstrapping? I see they are passed to arguments for `runInvokeQueue` function inside `loadModules`.",
+            "comment": null
+        },
+        {
+            "id": 79289235,
+            "creation_date": "2014-12-08 06:04:36.827000+00:00",
+            "post_id": 27352281,
+            "post_history_type_id": 1,
+            "revision_guid": "215cb4e2-e50c-4c50-94dc-89d43cc87eae",
+            "user_id": null,
+            "text": "AngularJS invokeQueue and configBlocks",
+            "comment": null
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_buyers_extracted_from_users
+    description: All buyers, based on sales history, extracted from users
+    
+  - name: int_sellers_extracted_from_users
+    description: "A view that extracts sellers' details, including their first sale date, from sales and users data."
+
+    columns:
+      - name: user_id
+        description: "Unique identifier for each seller, extracted from the users table."
+        tests:
+          - not_null
+          - unique
+
+      - name: username
+        description: "Username of the seller, as recorded in the users table."
+        tests:
+          - not_null
+
+      - name: full_name
+        description: "Concatenated full name of the seller, formatted as 'Last Name, First Name'."
+        tests:
+          - not_null
+
+      - name: first_sale_date
+        description: "The date of the seller's first sale, derived from the sales table."
+        tests:
+          - not_null
+
+      - name: city
+        description: "The city where the seller is located."
+        tests:
+          - not_null
+
+      - name: state
+        description: "The state where the seller is located."
+        tests:
+          - not_null
+
+      - name: email
+        description: "The seller's email address."
+        tests:
+          - not_null
+
+      - name: phone
+        description: "The seller's phone number."
+        tests:
+          - not_null

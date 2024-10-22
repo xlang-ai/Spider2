@@ -1,0 +1,26 @@
+table_name,ddl
+311_service_requests,"CREATE TABLE `bigquery-public-data.austin_311.311_service_requests`
+(
+  unique_key STRING OPTIONS(description=""The service request tracking number.""),
+  complaint_description STRING OPTIONS(description=""Service request type""),
+  source STRING OPTIONS(description=""Contact method Service request was received from. Mass entry requests are submitted by dept. in groups after work is completed.""),
+  status STRING OPTIONS(description=""Service request status. Duplicate statuses indicate that issue had previously been reported recently.""),
+  status_change_date TIMESTAMP OPTIONS(description=""Date of last Service request status change. Status changes occur when service request moves from one status to another. I.E. new to open, open to closed.""),
+  created_date TIMESTAMP OPTIONS(description=""Date Service request was created.""),
+  last_update_date TIMESTAMP OPTIONS(description=""Date Service request was updated. Last date Service request received updates. Updates may include creation, status changes, or changes to data in Service request.""),
+  close_date TIMESTAMP OPTIONS(description=""Date Service request was closed.""),
+  incident_address STRING OPTIONS(description=""Service location of Service request.""),
+  street_number STRING OPTIONS(description=""Parsed location information. Street number.""),
+  street_name STRING OPTIONS(description=""Parsed location information. Street name.""),
+  city STRING OPTIONS(description=""Parsed location information. City.""),
+  incident_zip INT64 OPTIONS(description=""Parsed location information. Zip code.""),
+  county STRING OPTIONS(description=""Parsed location information. County.""),
+  state_plane_x_coordinate STRING OPTIONS(description=""State plane X coordinate.""),
+  state_plane_y_coordinate FLOAT64 OPTIONS(description=""State plane Y coordinate.""),
+  latitude FLOAT64 OPTIONS(description=""Service request location latitude coordinate.""),
+  longitude FLOAT64 OPTIONS(description=""Service request location longitude coordinate.""),
+  location STRING OPTIONS(description=""Service request location latitude and longitude coordinates.""),
+  council_district_code INT64 OPTIONS(description=""Council district corresponding to Service request location. Locations outside of the City of Austin jurisdiction will not have a council district.""),
+  map_page STRING OPTIONS(description=""Service request location corresponding map page.""),
+  map_tile STRING OPTIONS(description=""Service request location corresponding map tile."")
+);"

@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.noaa_historic_severe_storms` and `bigquery-public-data.geo_us_boundaries.zip_codes` database to solve this problem.

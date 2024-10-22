@@ -1,0 +1,91 @@
+name: 'shopify'
+version: '0.13.1'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  shopify:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral
+      int_shopify__customer_email_rollup:
+        +materialized: view # so we can use the dbt_utils.star macro
+
+profile: 'shopify'
+        
+vars:
+  shopify_using_fulfillment_event: true # set to true when regenerating docs
+  shopify_using_all_metafields: true # set to true when regenerating docs
+  shopify_schema: main
+  shopify_source:
+    shopify_customer_identifier: "shopify_customer_data"
+    shopify_order_line_refund_identifier: "shopify_order_line_refund_data"
+    shopify_order_line_identifier: "shopify_order_line_data"
+    shopify_order_identifier: "shopify_order_data"
+    shopify_product_identifier: "shopify_product_data"
+    shopify_order_adjustment_identifier: "shopify_order_adjustment_data"
+    shopify_product_variant_identifier: "shopify_product_variant_data"
+    shopify_refund_identifier: "shopify_refund_data"
+    shopify_transaction_identifier: "shopify_transaction_data"
+    shopify_abandoned_checkout_identifier: "shopify_abandoned_checkout_data"
+    shopify_collection_product_identifier: "shopify_collection_product_data"
+    shopify_collection_identifier: "shopify_collection_data"
+    shopify_customer_tag_identifier: "shopify_customer_tag_data"
+    shopify_discount_code_identifier: "shopify_discount_code_data"
+    shopify_fulfillment_identifier: "shopify_fulfillment_data"
+    shopify_fulfillment_event_identifier: "shopify_fulfillment_event_data"
+    shopify_inventory_item_identifier: "shopify_inventory_item_data"
+    shopify_inventory_level_identifier: "shopify_inventory_level_data"
+    shopify_location_identifier: "shopify_location_data"
+    shopify_metafield_identifier: "shopify_metafield_data"
+    shopify_order_note_attribute_identifier: "shopify_order_note_attribute_data"
+    shopify_order_shipping_line_identifier: "shopify_order_shipping_line_data"
+    shopify_order_shipping_tax_line_identifier: "shopify_order_shipping_tax_line_data"
+    shopify_order_tag_identifier: "shopify_order_tag_data"
+    shopify_order_url_tag_identifier: "shopify_order_url_tag_data"
+    shopify_price_rule_identifier: "shopify_price_rule_data"
+    shopify_product_image_identifier: "shopify_product_image_data"
+    shopify_product_tag_identifier: "shopify_product_tag_data"
+    shopify_shop_identifier: "shopify_shop_data"
+    shopify_tax_line_identifier: "shopify_tax_line_data"
+    shopify_tender_transaction_identifier: "shopify_tender_transaction_data"
+    shopify_abandoned_checkout_discount_code_identifier: "shopify_abandoned_checkout_discount_code_data"
+    shopify_order_discount_code_identifier: "shopify_order_discount_code_data"
+    shopify_abandoned_checkout_shipping_line_identifier: "shopify_abandoned_checkout_shipping_line_data"
+
+
+  shopify:
+    shopify_customer: "{{ ref('stg_shopify__customer') }}"
+    shopify_order: "{{ ref('stg_shopify__order') }}"
+    shopify_order_line: "{{ ref('stg_shopify__order_line') }}"
+    shopify_order_line_refund: "{{ ref('stg_shopify__order_line_refund') }}"
+    shopify_product: "{{ ref('stg_shopify__product') }}"
+    shopify_product_variant: "{{ ref('stg_shopify__product_variant') }}"
+    shopify_transaction: "{{ ref('stg_shopify__transaction') }}"
+    shopify_refund: "{{ ref('stg_shopify__refund') }}"
+    shopify_order_adjustment: "{{ ref('stg_shopify__order_adjustment') }}"
+    shopify_abandoned_checkout: "{{ ref('stg_shopify__abandoned_checkout') }}"
+    shopify_collection_product: "{{ ref('stg_shopify__collection_product') }}"
+    shopify_collection: "{{ ref('stg_shopify__collection') }}"
+    shopify_customer_tag: "{{ ref('stg_shopify__customer_tag') }}"
+    shopify_discount_code: "{{ ref('stg_shopify__discount_code') }}"
+    shopify_fulfillment: "{{ ref('stg_shopify__fulfillment') }}"
+    shopify_inventory_item: "{{ ref('stg_shopify__inventory_item') }}"
+    shopify_inventory_level: "{{ ref('stg_shopify__inventory_level') }}"
+    shopify_location: "{{ ref('stg_shopify__location') }}"
+    shopify_metafield: "{{ ref('stg_shopify__metafield') }}"
+    shopify_order_note_attribute: "{{ ref('stg_shopify__order_note_attribute') }}"
+    shopify_order_shipping_line: "{{ ref('stg_shopify__order_shipping_line') }}"
+    shopify_order_shipping_tax_line: "{{ ref('stg_shopify__order_shipping_tax_line') }}"
+    shopify_order_tag: "{{ ref('stg_shopify__order_tag') }}"
+    shopify_order_url_tag: "{{ ref('stg_shopify__order_url_tag') }}"
+    shopify_price_rule: "{{ ref('stg_shopify__price_rule') }}"
+    shopify_product_image: "{{ ref('stg_shopify__product_image') }}"
+    shopify_product_tag: "{{ ref('stg_shopify__product_tag') }}"
+    shopify_shop: "{{ ref('stg_shopify__shop') }}"
+    shopify_tax_line: "{{ ref('stg_shopify__tax_line') }}"
+    shopify_tender_transaction: "{{ ref('stg_shopify__tender_transaction') }}"
+    shopify_abandoned_checkout_discount_code: "{{ ref('stg_shopify__abandoned_checkout_discount_code') }}"
+    shopify_order_discount_code: "{{ ref('stg_shopify__order_discount_code') }}"
+    shopify_abandoned_checkout_shipping_line: "{{ ref('stg_shopify__abandoned_checkout_shipping_line') }}"
+    shopify_fulfillment_event: "{{ ref('stg_shopify__fulfillment_event') }}"
+

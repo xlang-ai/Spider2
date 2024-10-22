@@ -1,0 +1,345 @@
+{
+    "table_name": "quantitative_measurements",
+    "table_fullname": "bigquery-public-data.idc_v17.quantitative_measurements",
+    "column_names": [
+        "PatientID",
+        "SOPInstanceUID",
+        "SeriesDescription",
+        "measurementGroup_number",
+        "segmentationInstanceUID",
+        "segmentationSegmentNumber",
+        "sourceSegmentedSeriesUID",
+        "trackingIdentifier",
+        "trackingUniqueIdentifier",
+        "Quantity",
+        "derivationModifier",
+        "Value",
+        "Units",
+        "finding",
+        "findingSite"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING",
+        "ARRAY<INT64>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "NUMERIC",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>"
+    ],
+    "nested_column_names": [
+        "PatientID",
+        "SOPInstanceUID",
+        "SeriesDescription",
+        "measurementGroup_number",
+        "segmentationInstanceUID",
+        "segmentationSegmentNumber",
+        "sourceSegmentedSeriesUID",
+        "trackingIdentifier",
+        "trackingUniqueIdentifier",
+        "Quantity",
+        "Quantity.CodeValue",
+        "Quantity.CodingSchemeDesignator",
+        "Quantity.CodeMeaning",
+        "derivationModifier",
+        "derivationModifier.CodeValue",
+        "derivationModifier.CodingSchemeDesignator",
+        "derivationModifier.CodeMeaning",
+        "Value",
+        "Units",
+        "Units.CodeValue",
+        "Units.CodingSchemeDesignator",
+        "Units.CodingSchemeVersion",
+        "Units.CodeMeaning",
+        "finding",
+        "finding.CodeValue",
+        "finding.CodingSchemeDesignator",
+        "finding.CodingSchemeVersion",
+        "finding.CodeMeaning",
+        "findingSite",
+        "findingSite.CodeValue",
+        "findingSite.CodingSchemeDesignator",
+        "findingSite.CodingSchemeVersion",
+        "findingSite.CodeMeaning"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING",
+        "ARRAY<INT64>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "NUMERIC",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        "Measurement group number corresponding to the measurement groups within the TID 1500 report, starting from 0.",
+        "SOPInstanceUID of the segmentation object defining the region of interest corresponding to the measurement.",
+        "SegmentNumber of the segment within the segmentation object referenced by segmentationInstanceUID defining the region of interest corresponding to the measurement.",
+        "SeriesInstanceUID corresponding to the image series over which the measurement was done.",
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Tracking Identifier\" (e.g., row 2 in TID 1411)",
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Tracking Unique Identifier\" (e.g., row 3 in TID 1411)",
+        "Value of the concept code corresponding to TID 1500 Measurement group row where VT is NUM.",
+        null,
+        null,
+        null,
+        "Value corresponding to the concept \"Derivation\" for the measurement within SR TID 1500 document (e.g., row 8 in TID 1419)",
+        null,
+        null,
+        null,
+        "Value corresponding to the concept listed in the Quantity field.",
+        "Coded units for the value stored in the Value attribute.",
+        null,
+        null,
+        null,
+        null,
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Finding\" (e.g., row 3b in TID 1411)",
+        null,
+        null,
+        null,
+        null,
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Finding Site\" (e.g., row 2 in TID 1419)",
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "PatientID": "LIDC-IDRI-0397",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.24708.1553307842.497923",
+            "SeriesDescription": "Nodule 1 - Annotation 3 evaluations",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.24707.1553307837.545602",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.306558074682524259000586270818",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.10008514525368495574288867913463260630101268156245589914641",
+            "Quantity": {
+                "CodeValue": "C0JK",
+                "CodingSchemeDesignator": "IBSI",
+                "CodeMeaning": "Surface area of mesh"
+            },
+            "derivationModifier": {
+                "CodeValue": null,
+                "CodingSchemeDesignator": null,
+                "CodeMeaning": null
+            },
+            "Value": "66.868550000",
+            "Units": {
+                "CodeValue": "mm2",
+                "CodingSchemeDesignator": "UCUM",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "square millimeter"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0397",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.24708.1553307842.497923",
+            "SeriesDescription": "Nodule 1 - Annotation 3 evaluations",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.24707.1553307837.545602",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.306558074682524259000586270818",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.10008514525368495574288867913463260630101268156245589914641",
+            "Quantity": {
+                "CodeValue": "M-02550",
+                "CodingSchemeDesignator": "SRT",
+                "CodeMeaning": "Diameter"
+            },
+            "derivationModifier": {
+                "CodeValue": null,
+                "CodingSchemeDesignator": null,
+                "CodeMeaning": null
+            },
+            "Value": "4.723983000",
+            "Units": {
+                "CodeValue": "mm",
+                "CodingSchemeDesignator": "UCUM",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "millimeter"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0397",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.24708.1553307842.497923",
+            "SeriesDescription": "Nodule 1 - Annotation 3 evaluations",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.24707.1553307837.545602",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.306558074682524259000586270818",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.10008514525368495574288867913463260630101268156245589914641",
+            "Quantity": {
+                "CodeValue": "G-D705",
+                "CodingSchemeDesignator": "SRT",
+                "CodeMeaning": "Volume"
+            },
+            "derivationModifier": {
+                "CodeValue": null,
+                "CodingSchemeDesignator": null,
+                "CodeMeaning": null
+            },
+            "Value": "27.036710000",
+            "Units": {
+                "CodeValue": "mm3",
+                "CodingSchemeDesignator": "UCUM",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "cubic millimeter"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0151",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.10785.1553294068.298147",
+            "SeriesDescription": "Nodule 1 - Annotation 10768 evaluations",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.10784.1553294067.35130",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.453946099750629491201946672998",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.10013701357622659031443573713161005884798844833955496332841",
+            "Quantity": {
+                "CodeValue": "G-D705",
+                "CodingSchemeDesignator": "SRT",
+                "CodeMeaning": "Volume"
+            },
+            "derivationModifier": {
+                "CodeValue": null,
+                "CodingSchemeDesignator": null,
+                "CodeMeaning": null
+            },
+            "Value": "311.097600000",
+            "Units": {
+                "CodeValue": "mm3",
+                "CodingSchemeDesignator": "UCUM",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "cubic millimeter"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0151",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.10787.1553294071.58449",
+            "SeriesDescription": "Nodule 1 - Annotation 14996 evaluations",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.10786.1553294069.745640",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.453946099750629491201946672998",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.10013701357622659031443573713161005884798844833955496332841",
+            "Quantity": {
+                "CodeValue": "M-02550",
+                "CodingSchemeDesignator": "SRT",
+                "CodeMeaning": "Diameter"
+            },
+            "derivationModifier": {
+                "CodeValue": null,
+                "CodingSchemeDesignator": null,
+                "CodeMeaning": null
+            },
+            "Value": "9.505012000",
+            "Units": {
+                "CodeValue": "mm",
+                "CodingSchemeDesignator": "UCUM",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "millimeter"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        }
+    ]
+}

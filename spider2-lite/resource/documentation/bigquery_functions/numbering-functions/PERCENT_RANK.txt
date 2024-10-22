@@ -1,0 +1,52 @@
+## PERCENT_RANK
+
+PERCENT_RANK() OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+ORDER BY expression [ { ASC | DESC }  ] [, ...]
+
+
+**Description**
+
+Return the percentile rank of a row defined as (RK-1)/(NR-1), where RK is the
+` RANK ` of the row and NR is the number of rows in the partition. Returns 0 if NR=1.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Return Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+WITH finishers AS (SELECT 'Sophia Liu' as name,
+TIMESTAMP '2016-10-18 2:51:45' as finish_time,
+'F30-34' as division UNION ALL SELECT 'Lisa Stelzner', TIMESTAMP '2016-10-18 2:54:11', 'F35-39'
+UNION ALL SELECT 'Nikki Leith', TIMESTAMP '2016-10-18 2:59:01', 'F30-34'
+UNION ALL SELECT 'Lauren Matthews', TIMESTAMP '2016-10-18 3:01:17', 'F35-39'
+UNION ALL SELECT 'Desiree Berry', TIMESTAMP '2016-10-18 3:05:42', 'F35-39'
+UNION ALL SELECT 'Suzy Slane', TIMESTAMP '2016-10-18 3:06:24', 'F35-39'
+UNION ALL SELECT 'Jen Edwards', TIMESTAMP '2016-10-18 3:06:36', 'F30-34'
+UNION ALL SELECT 'Meghan Lederer', TIMESTAMP '2016-10-18 2:59:01', 'F30-34') SELECT name,
+finish_time,
+division,
+PERCENT_RANK() OVER (PARTITION BY division ORDER BY finish_time ASC) AS finish_rank FROM finishers;
+
+/*-----------------+------------------------+----------+---------------------*
+| name            | finish_time            | division | finish_rank         |
++-----------------+------------------------+----------+---------------------+
+| Sophia Liu      | 2016-10-18 09:51:45+00 | F30-34   | 0                   |
+| Meghan Lederer  | 2016-10-18 09:59:01+00 | F30-34   | 0.33333333333333331 |
+| Nikki Leith     | 2016-10-18 09:59:01+00 | F30-34   | 0.33333333333333331 |
+| Jen Edwards     | 2016-10-18 10:06:36+00 | F30-34   | 1                   |
+| Lisa Stelzner   | 2016-10-18 09:54:11+00 | F35-39   | 0                   |
+| Lauren Matthews | 2016-10-18 10:01:17+00 | F35-39   | 0.33333333333333331 |
+| Desiree Berry   | 2016-10-18 10:05:42+00 | F35-39   | 0.66666666666666663 |
+| Suzy Slane      | 2016-10-18 10:06:24+00 | F35-39   | 1                   |
+*-----------------+------------------------+----------+---------------------*/

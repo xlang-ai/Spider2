@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.bbc_news` database to solve this problem.

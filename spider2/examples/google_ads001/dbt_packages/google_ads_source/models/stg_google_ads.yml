@@ -1,0 +1,388 @@
+version: 2
+
+models:
+  - name: stg_google_ads__account_history
+    description: Each record represents a version of an account in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - account_id
+            - updated_at
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('account_id') }}"
+        tests:
+          - not_null
+      - name: currency_code
+        description: The currency of the spend reported.
+      - name: auto_tagging_enabled
+        description: Boolean indicating if auto tagging is enabled on the account ads.
+      - name: time_zone
+        description: The time zone of the account ads.
+      - name: account_name
+        description: "{{ doc('account_descriptive_name') }}"
+      - name: updated_at
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+
+  - name: stg_google_ads__ad_group_history
+    description: Each record represents a version of an ad group in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - ad_group_id
+            - updated_at
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "{{ doc('updated_at') }}"
+      - name: ad_group_type
+        description: "{{ doc('ad_group_type') }}"
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+      - name: campaign_name
+        description: "{{ doc('campaign_name') }}"
+      - name: ad_group_name
+        description: "{{ doc('ad_group_name') }}"
+      - name: ad_group_status
+        description: "{{ doc('ad_group_status') }}"
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+
+  - name: stg_google_ads__ad_history
+    description: Each record represents a version of an ad in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - ad_id
+            - ad_group_id
+            - updated_at
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+      - name: ad_id
+        description: "{{ doc('ad_id') }}"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "{{ doc('updated_at') }}"
+      - name: display_url
+        description: The display url of the ad that is being served.
+      - name: ad_type
+        description: "{{ doc('ad_type') }}"
+      - name: ad_status
+        description: "{{ doc('ad_status') }}"
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+      - name: source_final_urls
+        description: The original list of final urls expressed as an array. Please be aware the test used on this field is intended to warn you if you have fields with multiple urls. If you do, the `final_url` field will filter down the urls within the array to just the first. Therefore, this package will only leverage one of possibly many urls within this field array.
+      - name: final_url
+        description: The first url in the list of the urls within the `final_urls` source field.
+      - name: base_url
+        description: "{{ doc('base_url') }}"
+      - name: url_host
+        description: "{{ doc('url_host') }}"
+      - name: url_path
+        description: "{{ doc('url_path') }}"
+      - name: utm_source
+        description: "{{ doc('utm_source') }}"
+      - name: utm_medium
+        description: "{{ doc('utm_medium') }}"
+      - name: utm_campaign
+        description: "{{ doc('utm_campaign') }}"
+      - name: utm_content
+        description: "{{ doc('utm_content') }}"
+      - name: utm_term
+        description: "{{ doc('utm_term') }}"
+        
+  - name: stg_google_ads__ad_stats
+    description: Each record represents the daily performance of an ad in Google Ads broken down to the ad network, device type, and ad_group_id.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - ad_id
+            - ad_network_type
+            - device
+            - ad_group_id
+            - keyword_ad_group_criterion
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+        tests:
+          - not_null
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+      - name: ad_id
+        description: "{{ doc('ad_id') }}"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+      - name: ad_network_type
+        description: "{{ doc('ad_network_type') }}"
+      - name: keyword_ad_group_criterion
+        description: The ad group which the keyword criterion resides.
+      - name: device
+        description: "{{ doc('device') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('cost') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+      - name: view_through_conversions
+        description: "{{ doc('view_through_conversions') }}"
+
+  - name: stg_google_ads__campaign_history
+    description: Each record represents a version of a campaign in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - campaign_id
+            - updated_at
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+        tests:
+          - not_null
+      - name: updated_at
+        description: "{{ doc('updated_at') }}"
+      - name: advertising_channel_type
+        description: The type of advertising channel being used by the campaign.
+      - name: advertising_channel_subtype
+        description: The advertising channel subtype that is being used by the campaign.
+      - name: start_date
+        description: The start date of the campaign.
+      - name: end_date
+        description: The end date of the campaign.
+      - name: serving_status
+        description: Status of the ads and how they are currently being served.
+      - name: status
+        description: General status of the campaign.
+      - name: tracking_url_template
+        description: The tracking url template being used throughout the campaign ads.
+      - name: campaign_name
+        description: "{{ doc('campaign_name') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+
+  - name: stg_google_ads__ad_group_criterion_history
+    description: Each record represents a historical version of an ad group criterion in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - criterion_id
+            - ad_group_id
+            - updated_at
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: criterion_id
+        description: Unique identifier of the ad group criterion.
+        tests:
+          - not_null
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+      - name: base_campaign_id
+        description: "{{ doc('campaign_id') }}"
+      - name: updated_at
+        description: "{{ doc('updated_at') }}"
+      - name: type
+        description: The type of ad group criterion.
+      - name: status
+        description: The current status of the ad group criterion.
+      - name: keyword_match_type
+        description: The match type which dictate how closely the keyword needs to match with the user’s search query so that the ad can be considered for the auction. 
+      - name: keyword_text
+        description: The text used within the keyword criterion that is being matched against.
+      - name: is_most_recent_record
+        description: "{{ doc('is_most_recent_record') }}"
+
+  - name: stg_google_ads__ad_group_stats
+    description: Each record represents the daily performance of an ad group in Google Ads broken down to the ad network and device type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - ad_group_id
+            - device
+            - ad_network_type
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+        tests:
+          - not_null
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+      - name: ad_network_type
+        description: "{{ doc('ad_network_type') }}"
+      - name: device
+        description: "{{ doc('device') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('cost') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+      - name: view_through_conversions
+        description: "{{ doc('view_through_conversions') }}"
+
+  - name: stg_google_ads__campaign_stats
+    description: Each record represents the daily performance of a campaign in Google Ads broken down to the ad network and device type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - campaign_id
+            - ad_network_type
+            - device
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+        tests:
+          - not_null
+      - name: ad_network_type
+        description: "{{ doc('ad_network_type') }}"
+      - name: device
+        description: "{{ doc('device') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('cost') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+      - name: view_through_conversions
+        description: "{{ doc('view_through_conversions') }}"
+
+  - name: stg_google_ads__keyword_stats
+    description: Each record represents the daily performance of a keyword in Google Ads.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - keyword_id
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+      - name: date_day
+        description: "{{ doc('date') }}"
+        tests:
+          - not_null
+      - name: ad_group_id
+        description: "{{ doc('ad_group_id') }}"
+      - name: keyword_id
+        description: The unique ID of the keyword record.
+        tests:
+          - not_null
+      - name: campaign_id
+        description: "{{ doc('campaign_id') }}"
+      - name: criterion_id
+        description: Reference to the ad group criterion used for the keyword.
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('cost') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+      - name: view_through_conversions
+        description: "{{ doc('view_through_conversions') }}"
+
+  - name: stg_google_ads__account_stats
+    description: Each record represents the daily performance of an account in Google Ads broken down to the ad network and device type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - account_id
+            - device
+            - ad_network_type
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: account_id
+        description: "{{ doc('external_customer_id') }}"
+        tests:
+          - not_null
+      - name: date_day
+        description: "{{ doc('date') }}"
+        tests:
+          - not_null
+      - name: ad_network_type
+        description: "{{ doc('ad_network_type') }}"
+      - name: device
+        description: "{{ doc('device') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: spend
+        description: "{{ doc('cost') }}"
+      - name: impressions
+        description: "{{ doc('impressions') }}"
+      - name: conversions
+        description: "{{ doc('conversions') }}"
+      - name: conversions_value
+        description: "{{ doc('conversions_value') }}"
+      - name: view_through_conversions
+        description: "{{ doc('view_through_conversions') }}"

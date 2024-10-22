@@ -1,0 +1,1 @@
+1. please query `patents-public-data.patents` and `patents-public-data.uspto_oce_office_actions` database to solve this problem.

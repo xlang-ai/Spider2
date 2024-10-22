@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: dim_neighbourhoods
+    description: >
+      List of unique neighborhoods and their geo-locational information identified by station name. 
+
+  - name: facts_divvy
+    description: |
+      This model represents bike trips for both annual and casual subscribers, combining user data, trip duration, and geo-locational information for the start and end stations. 
+      The model filters trips that have a duration between 1 minute and 24 hours.
+
+    refs:
+      - name: stg_divvy_data
+      - name: dim_neighbourhoods
+
+    columns:
+      - name: ride_id
+        description: "The unique identifier for each bike ride."
+        tests:
+          - not_null
+          - unique
+
+      - name: rideable_type
+        description: "The type of bike used for the trip (Docked, Classic, Electric)."
+
+      - name: membership_status
+        description: "The membership status of the user, either 'member' (annual) or 'casual' (non-annual)."
+
+      - name: start_station_id
+        description: "The unique identifier of the station where the ride started."
+
+      - name: start_station_name
+        description: "The name of the station where the ride started."
+
+      - name: end_station_id
+        description: "The unique identifier of the station where the ride ended."
+
+      - name: end_station_name
+        description: "The name of the station where the ride ended."
+
+      - name: started_at
+        description: "The timestamp indicating when the ride started."
+        tests:
+          - not_null
+
+      - name: ended_at
+        description: "The timestamp indicating when the ride ended."
+        tests:
+          - not_null
+
+      - name: duration_minutes
+        description: "The total duration of the trip in minutes, calculated from the difference between the start and end times."
+
+      - name: start_neighbourhood
+        description: "The neighbourhood where the start station is located."
+
+      - name: start_location
+        description: "The geographic coordinates (latitude and longitude) of the start station."
+
+      - name: end_neighbourhood
+        description: "The neighbourhood where the end station is located."
+
+      - name: end_location
+        description: "The geographic coordinates (latitude and longitude) of the end station."

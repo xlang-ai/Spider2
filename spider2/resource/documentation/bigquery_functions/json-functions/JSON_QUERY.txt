@@ -1,0 +1,125 @@
+## JSON_QUERY
+
+JSON_QUERY(json_string_expr, json_path)
+
+
+JSON_QUERY(json_expr, json_path)
+
+**Description**
+
+Extracts a JSON value and converts it to a SQL JSON-formatted ` STRING ` or `
+JSON ` value. This function uses double quotes to escape invalid  JSONPath characters in JSON keys. For example: ` "a.b" ` .
+
+Arguments:
+
+* ` json_string_expr ` : A JSON-formatted string. For example:
+
+'{"class": {"students": [{"name": "Jane"}]}}'
+
+Extracts a SQL ` NULL ` when a JSON-formatted string ` null ` is encountered.
+For example:
+
+SELECT JSON_QUERY("null", "$") -- Returns a SQL NULL
+
+* ` json_expr ` : JSON. For example:
+
+JSON '{"class": {"students": [{"name": "Jane"}]}}'
+
+Extracts a JSON ` null ` when a JSON ` null ` is encountered.
+
+SELECT JSON_QUERY(JSON 'null', "$") -- Returns a JSON 'null'
+
+* ` json_path ` : The  JSONPath  . This identifies the data that you want to obtain from the input.
+
+There are differences between the JSON-formatted string and JSON input types.
+For details, see  Differences between the JSON and JSON-formatted STRING types .
+
+**Return type**
+
+* ` json_string_expr ` : A JSON-formatted ` STRING `
+* ` json_expr ` : ` JSON `
+
+**Examples**
+
+In the following example, JSON data is extracted and returned as JSON.
+
+
+SELECT JSON_QUERY(JSON '{"class": {"students": [{"id": 5}, {"id": 12}]}}', '$.class') AS json_data;
+
+/*-----------------------------------*
+| json_data                         |
++-----------------------------------+
+| {"students":[{"id":5},{"id":12}]} |
+*-----------------------------------*/
+
+In the following examples, JSON data is extracted and returned as JSON-
+formatted strings.
+
+
+SELECT JSON_QUERY(json_text, '$') AS json_text_string FROM UNNEST([
+'{"class": {"students": [{"name": "Jane"}]}}',
+'{"class": {"students": []}}',
+'{"class": {"students": [{"name": "John"}, {"name": "Jamie"}]}}'
+]) AS json_text;
+
+/*-----------------------------------------------------------*
+| json_text_string                                          |
++-----------------------------------------------------------+
+| {"class":{"students":[{"name":"Jane"}]}}                  |
+| {"class":{"students":[]}}                                 |
+| {"class":{"students":[{"name":"John"},{"name":"Jamie"}]}} |
+*-----------------------------------------------------------*/
+
+
+SELECT JSON_QUERY(json_text, '$.class.students[0]') AS first_student FROM UNNEST([
+'{"class": {"students": [{"name": "Jane"}]}}',
+'{"class": {"students": []}}',
+'{"class": {"students": [{"name": "John"}, {"name": "Jamie"}]}}'
+]) AS json_text;
+
+/*-----------------*
+| first_student   |
++-----------------+
+| {"name":"Jane"} |
+| NULL            |
+| {"name":"John"} |
+*-----------------*/
+
+
+SELECT JSON_QUERY(json_text, '$.class.students[1].name') AS second_student_name FROM UNNEST([
+'{"class": {"students": [{"name": "Jane"}]}}',
+'{"class": {"students": []}}',
+'{"class": {"students": [{"name": "John"}, {"name": null}]}}',
+'{"class": {"students": [{"name": "John"}, {"name": "Jamie"}]}}'
+]) AS json_text;
+
+/*----------------*
+| second_student |
++----------------+
+| NULL           |
+| NULL           |
+| NULL           |
+| "Jamie"        |
+*----------------*/
+
+
+SELECT JSON_QUERY(json_text, '$.class."students"') AS student_names FROM UNNEST([
+'{"class": {"students": [{"name": "Jane"}]}}',
+'{"class": {"students": []}}',
+'{"class": {"students": [{"name": "John"}, {"name": "Jamie"}]}}'
+]) AS json_text;
+
+/*------------------------------------*
+| student_names                      |
++------------------------------------+
+| [{"name":"Jane"}]                  |
+| []                                 |
+| [{"name":"John"},{"name":"Jamie"}] |
+*------------------------------------*/
+
+
+SELECT JSON_QUERY('{"a": null}', "$.a"); -- Returns a SQL NULL SELECT JSON_QUERY('{"a": null}', "$.b"); -- Returns a SQL NULL
+
+
+SELECT JSON_QUERY(JSON '{"a": null}', "$.a"); -- Returns a JSON 'null'
+SELECT JSON_QUERY(JSON '{"a": null}', "$.b"); -- Returns a SQL NULL

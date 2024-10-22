@@ -1,0 +1,145 @@
+table_name,DDL
+weekly_sales,"CREATE TABLE weekly_sales (
+    week_date TEXT,
+    region TEXT,
+    platform TEXT,
+    segment TEXT,
+    customer_type TEXT,
+    transactions INTEGER,
+    sales INTEGER
+);"
+shopping_cart_users,"CREATE TABLE shopping_cart_users (
+    user_id INTEGER,
+    cookie_id TEXT,
+    start_date TEXT
+);"
+bitcoin_members,"CREATE TABLE bitcoin_members (
+    member_id TEXT,
+    first_name TEXT,
+    region TEXT
+);"
+interest_metrics,"CREATE TABLE interest_metrics (
+    _month REAL,
+    _year REAL,
+    month_year TEXT,
+    interest_id REAL,
+    composition REAL,
+    index_value REAL,
+    ranking INTEGER,
+    percentile_ranking REAL
+);"
+customer_regions,"CREATE TABLE customer_regions (
+    region_id INTEGER,
+    region_name TEXT
+);"
+customer_transactions,"CREATE TABLE customer_transactions (
+    customer_id INTEGER,
+    txn_date TEXT,
+    txn_type TEXT,
+    txn_amount INTEGER
+);"
+bitcoin_transactions,"CREATE TABLE bitcoin_transactions (
+    txn_id INTEGER,
+    member_id TEXT,
+    ticker TEXT,
+    txn_date TEXT,
+    txn_type TEXT,
+    quantity REAL,
+    percentage_fee REAL,
+    txn_time TEXT
+);"
+customer_nodes,"CREATE TABLE customer_nodes (
+    customer_id INTEGER,
+    region_id INTEGER,
+    node_id INTEGER,
+    start_date TEXT,
+    end_date TEXT
+);"
+cleaned_weekly_sales,"CREATE TABLE cleaned_weekly_sales (
+    week_date_formatted TEXT,
+    week_date TEXT,
+    region TEXT,
+    platform TEXT,
+    segment TEXT,
+    customer_type TEXT,
+    transactions INTEGER,
+    sales INTEGER,
+    week_number INTEGER,
+    month_number INTEGER,
+    calendar_year INTEGER,
+    age_band TEXT,
+    demographic TEXT,
+    avg_transaction REAL
+);"
+veg_txn_df,"CREATE TABLE veg_txn_df (
+    index INTEGER,
+    txn_date TEXT,
+    txn_time TEXT,
+    item_code INTEGER,
+    qty_sold(kg) REAL,
+    unit_selling_px_rmb/kg REAL,
+    sale/return TEXT,
+    discount(%) INTEGER,
+    day_of_week TEXT
+);"
+shopping_cart_events,"CREATE TABLE shopping_cart_events (
+    visit_id TEXT,
+    cookie_id TEXT,
+    page_id INTEGER,
+    event_type INTEGER,
+    sequence_number INTEGER,
+    event_time TEXT
+);"
+shopping_cart_page_hierarchy,"CREATE TABLE shopping_cart_page_hierarchy (
+    page_id INTEGER,
+    page_name TEXT,
+    product_category TEXT,
+    product_id REAL
+);"
+bitcoin_prices,"CREATE TABLE bitcoin_prices (
+    ticker TEXT,
+    market_date TEXT,
+    price REAL,
+    open REAL,
+    high REAL,
+    low REAL,
+    volume TEXT,
+    change TEXT
+);"
+interest_map,"CREATE TABLE interest_map (
+    id INTEGER,
+    interest_name TEXT,
+    interest_summary TEXT,
+    created_at TEXT,
+    last_modified TEXT
+);"
+veg_loss_rate_df,"CREATE TABLE veg_loss_rate_df (
+    index INTEGER,
+    item_code INTEGER,
+    item_name TEXT,
+    loss_rate_% REAL
+);"
+shopping_cart_campaign_identifier,"CREATE TABLE shopping_cart_campaign_identifier (
+    campaign_id INTEGER,
+    products TEXT,
+    campaign_name TEXT,
+    start_date TEXT,
+    end_date TEXT
+);"
+veg_cat,"CREATE TABLE veg_cat (
+    index INTEGER,
+    item_code INTEGER,
+    item_name TEXT,
+    category_code INTEGER,
+    category_name TEXT
+);"
+veg_whsle_df,"CREATE TABLE veg_whsle_df (
+    index INTEGER,
+    whsle_date TEXT,
+    item_code INTEGER,
+    whsle_px_rmb-kg REAL
+);"
+shopping_cart_event_identifier,"CREATE TABLE shopping_cart_event_identifier (
+    event_type INTEGER,
+    event_name TEXT
+);"

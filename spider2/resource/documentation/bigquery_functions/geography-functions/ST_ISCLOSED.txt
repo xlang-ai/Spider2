@@ -1,0 +1,35 @@
+## ST_ISCLOSED
+
+ST_ISCLOSED(geography_expression)
+
+**Description**
+
+Returns ` TRUE ` for a non-empty Geography, where each element in the Geography has an empty boundary. The boundary for each element can be defined with  ` ST_BOUNDARY ` .
+
+* A point is closed.
+* A linestring is closed if the start and end points of the linestring are the same.
+* A polygon is closed only if it is a full polygon.
+* A collection is closed if and only if every element in the collection is closed.
+
+An empty ` GEOGRAPHY ` is not closed.
+
+**Return type**
+
+` BOOL `
+
+**Example**
+
+
+WITH example AS( SELECT ST_GEOGFROMTEXT('POINT(5 0)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('LINESTRING(0 1, 4 3, 2 6, 0 1)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('LINESTRING(2 6, 1 3, 3 9)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION(POINT(0 0), LINESTRING(1 2, 2 1))') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION EMPTY')) SELECT geography,
+ST_ISCLOSED(geography) AS is_closed,
+FROM example;
+
+/*------------------------------------------------------+-----------*
+| geography                                            | is_closed |
++------------------------------------------------------+-----------+
+| POINT(5 0)                                           | TRUE      |
+| LINESTRING(0 1, 4 3, 2 6, 0 1)                       | TRUE      |
+| LINESTRING(2 6, 1 3, 3 9)                            | FALSE     |
+| GEOMETRYCOLLECTION(POINT(0 0), LINESTRING(1 2, 2 1)) | FALSE     |
+| GEOMETRYCOLLECTION EMPTY                             | FALSE     |
+*------------------------------------------------------+-----------*/

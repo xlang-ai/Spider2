@@ -1,0 +1,42 @@
+## LEFT
+
+LEFT(value, length)
+
+**Description**
+
+Returns a ` STRING ` or ` BYTES ` value that consists of the specified number of leftmost characters or bytes from ` value ` . The ` length ` is an ` INT64
+` that specifies the length of the returned value. If ` value ` is of type `
+BYTES ` , ` length ` is the number of leftmost bytes to return. If ` value `
+is ` STRING ` , ` length ` is the number of leftmost characters to return.
+
+If ` length ` is 0, an empty ` STRING ` or ` BYTES ` value will be returned.
+If ` length ` is negative, an error will be returned. If ` length ` exceeds the number of characters or bytes from ` value ` , the original ` value ` will be returned.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH examples AS (SELECT 'apple' as example UNION ALL SELECT 'banana' as example UNION ALL SELECT 'абвгд' as example ) SELECT example, LEFT(example, 3) AS left_example FROM examples;
+
+/*---------+--------------*
+| example | left_example |
++---------+--------------+
+| apple   | app          |
+| banana  | ban          |
+| абвгд   | абв          |
+*---------+--------------*/
+
+
+WITH examples AS (SELECT b'apple' as example UNION ALL SELECT b'banana' as example UNION ALL SELECT b'\xab\xcd\xef\xaa\xbb' as example ) SELECT example, LEFT(example, 3) AS left_example FROM examples;
+
+-- Note that the result of LEFT is of type BYTES, displayed as a base64-encoded string.
+/*----------+--------------*
+| example  | left_example |
++----------+--------------+
+| YXBwbGU= | YXBw         |
+| YmFuYW5h | YmFu         |
+| q83vqrs= | q83v         |
+*----------+--------------*/

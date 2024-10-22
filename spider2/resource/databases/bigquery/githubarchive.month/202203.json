@@ -1,0 +1,235 @@
+{
+    "table_name": "202203",
+    "table_fullname": "githubarchive.month.202203",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9457791776,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/wasm\",\"head\":\"2e968754bf184278a077cf24ed14e990281a811d\",\"before\":\"53358f3ded1526add4ccfe030c45cca2411b8f46\",\"commits\":[{\"sha\":\"2e968754bf184278a077cf24ed14e990281a811d\",\"author\":{\"email\":\"9a4b87be6b454de0782547453406133dd2657490@gmail.com\",\"name\":\"Mizar\"},\"message\":\"v7.0.1-alpha.32\",\"distinct\":true,\"url\":\"https://api.github.com/repos/mizar/YaneuraOu.wasm/commits/2e968754bf184278a077cf24ed14e990281a811d\"}]}",
+            "repo": {
+                "id": 468523243,
+                "name": "mizar/YaneuraOu.wasm",
+                "url": "https://api.github.com/repos/mizar/YaneuraOu.wasm"
+            },
+            "actor": {
+                "id": 68691,
+                "login": "mizar",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/68691?",
+                "url": "https://api.github.com/users/mizar"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-27 00:37:38+00:00",
+            "id": "20954715412",
+            "other": "{\"actor\":{\"display_login\":\"mizar\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9457848134,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"c96286bf219376f64900a72f6ea9c78feed1fd94\",\"before\":\"b9370a32f54e031a8f778960b6dd60c03d390dbd\",\"commits\":[{\"sha\":\"c96286bf219376f64900a72f6ea9c78feed1fd94\",\"author\":{\"email\":\"977c7868213e7714c026a35a55bc67a840d29aea@gmail.com\",\"name\":\"gregr\"},\"message\":\"Implement dict:diff\",\"distinct\":true,\"url\":\"https://api.github.com/repos/gregr/dbKanren/commits/c96286bf219376f64900a72f6ea9c78feed1fd94\"}]}",
+            "repo": {
+                "id": 243429366,
+                "name": "gregr/dbKanren",
+                "url": "https://api.github.com/repos/gregr/dbKanren"
+            },
+            "actor": {
+                "id": 192561,
+                "login": "gregr",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/192561?",
+                "url": "https://api.github.com/users/gregr"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-27 00:57:20+00:00",
+            "id": "20954805504",
+            "other": "{\"actor\":{\"display_login\":\"gregr\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9457824922,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/snyk-fix-fbcdf68d520354291818b7fcea255d1e\",\"head\":\"d418ed129a9b1a809f26e0299c0805f1834f9476\",\"before\":\"7587eb9d64b12c06cb3aec26bf4147653262f3b2\",\"commits\":[{\"sha\":\"d418ed129a9b1a809f26e0299c0805f1834f9476\",\"author\":{\"email\":\"6524ae312692b75c8ed05087d0aa3c757ac39348@snyk.io\",\"name\":\"snyk-bot\"},\"message\":\"fix: docker/Dockerfile.publishers to reduce vulnerabilities\\n\\nThe following vulnerabilities are fixed with an upgrade:\\n- https://snyk.io/vuln/SNYK-ALPINE314-KRB5-2432003\\n- https://snyk.io/vuln/SNYK-ALPINE314-LIBRETLS-2432985\",\"distinct\":true,\"url\":\"https://api.github.com/repos/sebix/Taranis-NG/commits/d418ed129a9b1a809f26e0299c0805f1834f9476\"}]}",
+            "repo": {
+                "id": 423141018,
+                "name": "sebix/Taranis-NG",
+                "url": "https://api.github.com/repos/sebix/Taranis-NG"
+            },
+            "actor": {
+                "id": 199050,
+                "login": "sebix",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/199050?",
+                "url": "https://api.github.com/users/sebix"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-27 00:49:26+00:00",
+            "id": "20954768157",
+            "other": "{\"actor\":{\"display_login\":\"sebix\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9457797323,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"813db84d7451e58b574062700c60e1217d5d4e65\",\"before\":\"a684f8753666c6ded479a44b09d4ac717b92d827\",\"commits\":[{\"sha\":\"813db84d7451e58b574062700c60e1217d5d4e65\",\"author\":{\"email\":\"3cdaa70a3bed18f96fc4dc9d9878fb12b37e8d3c@gmail.com\",\"name\":\"Chris Billington\"},\"message\":\"ACT animation\",\"distinct\":true,\"url\":\"https://api.github.com/repos/chrisjbillington/chrisjbillington.github.io/commits/813db84d7451e58b574062700c60e1217d5d4e65\"}]}",
+            "repo": {
+                "id": 240584386,
+                "name": "chrisjbillington/chrisjbillington.github.io",
+                "url": "https://api.github.com/repos/chrisjbillington/chrisjbillington.github.io"
+            },
+            "actor": {
+                "id": 1044087,
+                "login": "chrisjbillington",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1044087?",
+                "url": "https://api.github.com/users/chrisjbillington"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-27 00:39:38+00:00",
+            "id": "20954724480",
+            "other": "{\"actor\":{\"display_login\":\"chrisjbillington\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9457692002,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"b4c32702088c933042edf1f291f148ee49a4e619\",\"before\":\"bbbaeba2ab4aaa2959956069476aaa84a1bb7998\",\"commits\":[{\"sha\":\"b4c32702088c933042edf1f291f148ee49a4e619\",\"author\":{\"email\":\"4cf72e2beedb8e963edfbb8a27b5c0c6d092e233@codefresh.io\",\"name\":\"lrochette\"},\"message\":\"update image to 1.0.0\",\"distinct\":true,\"url\":\"https://api.github.com/repos/lrochette/CorpSite_gitops/commits/b4c32702088c933042edf1f291f148ee49a4e619\"}]}",
+            "repo": {
+                "id": 421874366,
+                "name": "lrochette/CorpSite_gitops",
+                "url": "https://api.github.com/repos/lrochette/CorpSite_gitops"
+            },
+            "actor": {
+                "id": 2013371,
+                "login": "lrochette",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/2013371?",
+                "url": "https://api.github.com/users/lrochette"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-27 00:03:54+00:00",
+            "id": "20954543525",
+            "other": "{\"actor\":{\"display_login\":\"lrochette\"}}"
+        }
+    ]
+}

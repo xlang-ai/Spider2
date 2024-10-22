@@ -1,0 +1,85 @@
+name: 'jira_source_integration_tests'
+version: '0.7.0'
+config-version: 2
+profile: 'integration_tests'
+
+
+vars:
+  jira_schema: jira_source_integration_tests_02
+  jira_source:
+    jira_comment_identifier: "comment"
+    jira_component_identifier: "component"
+    jira_epic_identifier: "epic"
+    jira_field_identifier: "field"
+    jira_field_option_identifier: "field_option"
+    jira_issue_field_history_identifier: "issue_field_history"
+    jira_issue_link_identifier: "issue_link"
+    jira_issue_multiselect_history_identifier: "issue_multiselect_history"
+    jira_issue_type_identifier: "issue_type"
+    jira_issue_identifier: "issue"
+    jira_priority_identifier: "priority"
+    jira_project_board_identifier: "project_board"
+    jira_project_category_identifier: "project_category"
+    jira_project_identifier: "project"
+    jira_resolution_identifier: "resolution"
+    jira_sprint_identifier: "sprint"
+    jira_status_category_identifier: "status_category"
+    jira_status_identifier: "status"
+    jira_user_group_identifier: "user_group"
+    jira_user_identifier: "user"
+    jira_version_identifier: "version"
+
+models:
+  jira_source:
+    +schema: "{{ 'jira_source_integrations_tests_sqlw' if target.name == 'databricks-sql' else 'jira_source' }}"
+
+seeds:
+  jira_source_integration_tests:
+    +column_types:
+      _fivetran_synced: timestamp
+    comment:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        created: timestamp
+        issue_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        updated: timestamp
+    component:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        project_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    epic: 
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    field_option:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+    issue:
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        created: timestamp
+        work_ratio: float
+        resolved: timestamp
+        assignee: "{{ 'string' if target.name in ('bigquery', 'spark', 'databricks', 'databricks-sql') else 'varchar' }}"
+    issue_multiselect_history:
+      +column_types:
+        time: timestamp
+        issue_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        value: "{{ 'string' if target.name in ('bigquery', 'spark', 'databricks', 'databricks-sql') else 'varchar' }}"
+    issue_field_history:
+      +column_types:
+        time: timestamp
+        issue_id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        value: "{{ 'string' if target.name in ('bigquery', 'spark', 'databricks', 'databricks-sql') else 'varchar' }}"
+    sprint: 
+      +column_types:
+        id: "{{ 'int64' if target.name == 'bigquery' else 'bigint' }}"
+        complete_date: timestamp
+        end_date: timestamp
+        start_date: timestamp
+    field: 
+      +column_types:
+        id: "{{ 'string' if target.name in ('bigquery', 'spark', 'databricks', 'databricks-sql') else 'varchar' }}"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']

@@ -1,0 +1,317 @@
+{
+    "table_name": "transactions",
+    "table_fullname": "spider2-public-data.goog_blockchain_tron_mainnet_us.transactions",
+    "column_names": [
+        "block_hash",
+        "block_timestamp",
+        "transaction_hash",
+        "transaction_index",
+        "nonce",
+        "from_address",
+        "to_address",
+        "value",
+        "input",
+        "gas",
+        "gas_price",
+        "max_fee_per_gas",
+        "max_priority_fee_per_gas",
+        "transaction_type",
+        "access_list",
+        "r",
+        "s",
+        "v"
+    ],
+    "column_types": [
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "INT64",
+        "BIGNUMERIC",
+        "STRING",
+        "STRING",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "INT64",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "INT64",
+        "INT64",
+        "INT64",
+        "ARRAY<STRUCT<address STRING, storage_keys ARRAY<STRING>>>",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>"
+    ],
+    "nested_column_names": [
+        "block_hash",
+        "block_timestamp",
+        "transaction_hash",
+        "transaction_index",
+        "nonce",
+        "from_address",
+        "to_address",
+        "value",
+        "value.string_value",
+        "value.bignumeric_value",
+        "input",
+        "gas",
+        "gas_price",
+        "gas_price.string_value",
+        "gas_price.bignumeric_value",
+        "max_fee_per_gas",
+        "max_priority_fee_per_gas",
+        "transaction_type",
+        "access_list",
+        "access_list.address",
+        "access_list.storage_keys",
+        "r",
+        "r.string_value",
+        "r.bignumeric_value",
+        "s",
+        "s.string_value",
+        "s.bignumeric_value",
+        "v",
+        "v.string_value",
+        "v.bignumeric_value"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "INT64",
+        "BIGNUMERIC",
+        "STRING",
+        "STRING",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "BIGNUMERIC",
+        "STRING",
+        "INT64",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "BIGNUMERIC",
+        "INT64",
+        "INT64",
+        "INT64",
+        "ARRAY<STRUCT<address STRING, storage_keys ARRAY<STRING>>>",
+        "STRING",
+        "ARRAY<STRING>",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "BIGNUMERIC",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "BIGNUMERIC",
+        "STRUCT<string_value STRING, bignumeric_value BIGNUMERIC>",
+        "STRING",
+        "BIGNUMERIC"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "block_hash": "0x000000000385ac742ba2d71819430da7398903909cd36a2d212aed04e0f6943d",
+            "block_timestamp": "2024-02-14 11:47:30+00:00",
+            "transaction_hash": "0xbdeb576032312aef1643b8ff2bb5532d0b0e4c26535975d46c5c4d46d0b1b921",
+            "transaction_index": 143,
+            "nonce": "0E-38",
+            "from_address": "0x16f28cf65bc3bd062808ad1b0833345b0eb8c54c",
+            "to_address": "0xdf778099fcd6b0fcae8f897532b1eb5b2bc119ee",
+            "value": {
+                "string_value": "30949279",
+                "bignumeric_value": "30949279.00000000000000000000000000000000000000"
+            },
+            "input": "0x",
+            "gas": 0,
+            "gas_price": {
+                "string_value": "420",
+                "bignumeric_value": "420.00000000000000000000000000000000000000"
+            },
+            "max_fee_per_gas": null,
+            "max_priority_fee_per_gas": null,
+            "transaction_type": 0,
+            "access_list": "[]",
+            "r": {
+                "string_value": "45292545325352099739475352887086597973551846432795240707206767547331666143903",
+                "bignumeric_value": null
+            },
+            "s": {
+                "string_value": "8083208384510925388402383660968169483944730179550742318568558371814082156256",
+                "bignumeric_value": null
+            },
+            "v": {
+                "string_value": "27",
+                "bignumeric_value": null
+            }
+        },
+        {
+            "block_hash": "0x000000000385ac742ba2d71819430da7398903909cd36a2d212aed04e0f6943d",
+            "block_timestamp": "2024-02-14 11:47:30+00:00",
+            "transaction_hash": "0xc62fe15c13bf94472d30c218d07c5eae958a02248bc95fe2a060a14435b6fdbd",
+            "transaction_index": 2,
+            "nonce": "0E-38",
+            "from_address": "0x456e66550c1e9be79eb8034dbe1cb7f5885c08ca",
+            "to_address": "0x570e471f0b5feb7324f8d3b6ccaf0e550a2d9446",
+            "value": {
+                "string_value": "14000000",
+                "bignumeric_value": "14000000.00000000000000000000000000000000000000"
+            },
+            "input": "0x",
+            "gas": 0,
+            "gas_price": {
+                "string_value": "420",
+                "bignumeric_value": "420.00000000000000000000000000000000000000"
+            },
+            "max_fee_per_gas": null,
+            "max_priority_fee_per_gas": null,
+            "transaction_type": 0,
+            "access_list": "[]",
+            "r": {
+                "string_value": "52651051683077508724076725675621481709564108202638101230745356970222311605757",
+                "bignumeric_value": null
+            },
+            "s": {
+                "string_value": "4949655707675783659280879932394152919054211903872268630393247509236181523632",
+                "bignumeric_value": null
+            },
+            "v": {
+                "string_value": "27",
+                "bignumeric_value": null
+            }
+        },
+        {
+            "block_hash": "0x000000000385ac742ba2d71819430da7398903909cd36a2d212aed04e0f6943d",
+            "block_timestamp": "2024-02-14 11:47:30+00:00",
+            "transaction_hash": "0x45376ab1322cdc98b46371a7ab4d6e19ed2ecd13d749b3ab029f581ee423c83d",
+            "transaction_index": 29,
+            "nonce": "0E-38",
+            "from_address": "0x4dcd83618d0ad98fc6cdeb6790f276d287eaee45",
+            "to_address": "0x42ec9d6a4713afa615f1cf1f123f095cabd638b6",
+            "value": {
+                "string_value": "0",
+                "bignumeric_value": "0E-38"
+            },
+            "input": "0x",
+            "gas": 0,
+            "gas_price": {
+                "string_value": "420",
+                "bignumeric_value": "420.00000000000000000000000000000000000000"
+            },
+            "max_fee_per_gas": null,
+            "max_priority_fee_per_gas": null,
+            "transaction_type": 0,
+            "access_list": "[]",
+            "r": {
+                "string_value": "11716800754570811768429777518462637521441693955030392443195419877475573324633",
+                "bignumeric_value": null
+            },
+            "s": {
+                "string_value": "47230528022165126671970275476443846492106116971253749517726375339870319628652",
+                "bignumeric_value": null
+            },
+            "v": {
+                "string_value": "28",
+                "bignumeric_value": null
+            }
+        },
+        {
+            "block_hash": "0x000000000385ac742ba2d71819430da7398903909cd36a2d212aed04e0f6943d",
+            "block_timestamp": "2024-02-14 11:47:30+00:00",
+            "transaction_hash": "0x63508012c299a0516ffa86afda80325efcdc07c60bcce3634bf0f66c26b29012",
+            "transaction_index": 19,
+            "nonce": "0E-38",
+            "from_address": "0x4dcd83618d0ad98fc6cdeb6790f276d287eaee45",
+            "to_address": "0xbc75ccce6a989786cf3460654fbd2c33a6b133ab",
+            "value": {
+                "string_value": "0",
+                "bignumeric_value": "0E-38"
+            },
+            "input": "0x",
+            "gas": 0,
+            "gas_price": {
+                "string_value": "420",
+                "bignumeric_value": "420.00000000000000000000000000000000000000"
+            },
+            "max_fee_per_gas": null,
+            "max_priority_fee_per_gas": null,
+            "transaction_type": 0,
+            "access_list": "[]",
+            "r": {
+                "string_value": "63248175767864982263676596147182338335977914104915252618217177821025143337172",
+                "bignumeric_value": null
+            },
+            "s": {
+                "string_value": "39840749342322981419134024728370115142457842922355207671849619451984429028500",
+                "bignumeric_value": null
+            },
+            "v": {
+                "string_value": "27",
+                "bignumeric_value": null
+            }
+        },
+        {
+            "block_hash": "0x000000000385ac742ba2d71819430da7398903909cd36a2d212aed04e0f6943d",
+            "block_timestamp": "2024-02-14 11:47:30+00:00",
+            "transaction_hash": "0x865081284e30b3ad355961e5c10a9fac734d2e423c574bf0ffb4bcf3588e270c",
+            "transaction_index": 91,
+            "nonce": "0E-38",
+            "from_address": "0x0c07f407b3c61880e82843b0b080d524f372ec1b",
+            "to_address": "0xcab9c8bd7beb2116ecd009019306a0cab3591328",
+            "value": {
+                "string_value": "0",
+                "bignumeric_value": "0E-38"
+            },
+            "input": "0x",
+            "gas": 0,
+            "gas_price": {
+                "string_value": "420",
+                "bignumeric_value": "420.00000000000000000000000000000000000000"
+            },
+            "max_fee_per_gas": null,
+            "max_priority_fee_per_gas": null,
+            "transaction_type": 0,
+            "access_list": "[]",
+            "r": {
+                "string_value": "38827008993865815405601952576299158091427424962800249063640224062645779881662",
+                "bignumeric_value": null
+            },
+            "s": {
+                "string_value": "28647790525209596877716259637691144876734904158698663710575111475040720563202",
+                "bignumeric_value": null
+            },
+            "v": {
+                "string_value": "28",
+                "bignumeric_value": null
+            }
+        }
+    ]
+}

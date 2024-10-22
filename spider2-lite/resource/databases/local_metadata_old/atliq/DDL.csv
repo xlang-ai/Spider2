@@ -1,0 +1,40 @@
+table_name,DDL
+dim_customer,"CREATE TABLE dim_customer (
+    customer_code INTEGER,
+    customer TEXT,
+    platform TEXT,
+    channel TEXT,
+    market TEXT,
+    sub_zone TEXT,
+    region TEXT
+);"
+dim_product,"CREATE TABLE dim_product (
+    product_code TEXT,
+    division TEXT,
+    segment TEXT,
+    category TEXT,
+    product TEXT,
+    variant TEXT
+);"
+fact_gross_price,"CREATE TABLE fact_gross_price (
+    product_code TEXT,
+    fiscal_year INTEGER,
+    gross_price REAL
+);"
+fact_manufacturing_cost,"CREATE TABLE fact_manufacturing_cost (
+    product_code TEXT,
+    cost_year INTEGER,
+    manufacturing_cost REAL
+);"
+fact_pre_invoice_deductions,"CREATE TABLE fact_pre_invoice_deductions (
+    customer_code INTEGER,
+    fiscal_year INTEGER,
+    pre_invoice_discount_pct REAL
+);"
+fact_sales_monthly,"CREATE TABLE fact_sales_monthly (
+    date TEXT,
+    product_code TEXT,
+    customer_code INTEGER,
+    sold_quantity INTEGER,
+    fiscal_year INTEGER
+);"

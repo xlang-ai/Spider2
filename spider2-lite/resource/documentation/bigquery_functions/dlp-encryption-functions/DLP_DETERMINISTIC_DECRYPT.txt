@@ -1,0 +1,38 @@
+## DLP_DETERMINISTIC_DECRYPT
+
+DLP_DETERMINISTIC_DECRYPT(key, ciphertext, context)
+
+
+DLP_DETERMINISTIC_DECRYPT(key, ciphertext, context, surrogate)
+
+**Description**
+
+This function decrypts ` ciphertext ` using an encryption key derived from `
+key ` and ` context ` . Optionally, you can use ` surrogate ` to prepend the decryption result.
+
+**Definitions**
+
+* ` key ` : A serialized ` BYTES ` value returned by  ` DLP_KEY_CHAIN ` . ` key ` must be set to ` ENABLED ` in Cloud KMS. For information about how to generate a wrapped key, see [ gcloud kms encrypt ](https://cloud.google.com/sdk/gcloud/reference/kms/encrypt) .
+* ` ciphertext ` : The ` STRING ` value to decrypt.
+* ` context ` : A ` STRING ` value that is used with a Cloud KMS key to derive a data encryption key. For more information, see [ CryptoDeterministicConfig:context ](https://cloud.google.com/dlp/docs/reference/rest/v2/projects.deidentifyTemplates#cryptodeterministicconfig) .
+* ` surrogate ` : A ` STRING ` value that you can prepend to output.
+
+**Return data type**
+
+` STRING `
+
+**Example**
+
+
+SELECT DLP_DETERMINISTIC_DECRYPT( DLP_KEY_CHAIN(
+'gcp-kms://projects/myproject/locations/us-central1/keyRings/keyringtest/cryptoKeys/testkey',
+b'\123\044\290\876....'),
+'your_surrogate(36)AdFnA6r5doSDWxPwW/W4vBaa4iOvDagC8z8=',
+'',
+'your_surrogate') AS results
+
+/*-----------*
+| results   |
++-----------+
+| plaintext |
+*-----------*/

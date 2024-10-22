@@ -1,0 +1,118 @@
+## RANGE_CONTAINS
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+* Signature 1  : Checks if every value in one range is in another range.
+* Signature 2  : Checks if a value is in a range.
+
+####  Signature 1
+
+
+RANGE_CONTAINS(outer_range, inner_range)
+
+**Description**
+
+Checks if the inner range is in the outer range.
+
+**Definitions**
+
+* ` outer_range ` : The ` RANGE<T> ` value to search within.
+* ` inner_range ` : The ` RANGE<T> ` value to search for in ` outer_range ` .
+
+**Details**
+
+Returns ` TRUE ` if ` inner_range ` exists in ` outer_range ` . Otherwise,
+returns ` FALSE ` .
+
+` T ` must be of the same type for all inputs.
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+In the following query, the inner range is in the outer range:
+
+
+SELECT RANGE_CONTAINS( RANGE<DATE> '[2022-01-01, 2023-01-01)',
+RANGE<DATE> '[2022-04-01, 2022-07-01)') AS results;
+
+/*---------+
+| results |
++---------+
+| TRUE    |
++---------*/
+
+In the following query, the inner range is not in the outer range:
+
+
+SELECT RANGE_CONTAINS( RANGE<DATE> '[2022-01-01, 2023-01-01)',
+RANGE<DATE> '[2023-01-01, 2023-04-01)') AS results;
+
+/*---------+
+| results |
++---------+
+| FALSE   |
++---------*/
+
+####  Signature 2
+
+
+RANGE_CONTAINS(range_to_search, value_to_find)
+
+**Description**
+
+Checks if a value is in a range.
+
+**Definitions**
+
+* ` range_to_search ` : The ` RANGE<T> ` value to search within.
+* ` value_to_find ` : The value to search for in ` range_to_search ` .
+
+**Details**
+
+Returns ` TRUE ` if ` value_to_find ` exists in ` range_to_search ` .
+Otherwise, returns ` FALSE ` .
+
+The data type for ` value_to_find ` must be the same data type as ` T ` in `
+range_to_search ` .
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+In the following query, the value ` 2022-04-01 ` is found in the range `
+[2022-01-01, 2023-01-01) ` :
+
+
+SELECT RANGE_CONTAINS( RANGE<DATE> '[2022-01-01, 2023-01-01)',
+DATE '2022-04-01') AS results;
+
+/*---------+
+| results |
++---------+
+| TRUE    |
++---------*/
+
+In the following query, the value ` 2023-04-01 ` is not found in the range `
+[2022-01-01, 2023-01-01) ` :
+
+
+SELECT RANGE_CONTAINS( RANGE<DATE> '[2022-01-01, 2023-01-01)',
+DATE '2023-04-01') AS results;
+
+/*---------+
+| results |
++---------+
+| FALSE   |
++---------*/

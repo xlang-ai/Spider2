@@ -1,0 +1,32 @@
+## DATE_SUB
+
+DATE_SUB(date_expression, INTERVAL int64_expression date_part)
+
+**Description**
+
+Subtracts a specified time interval from a DATE.
+
+` DATE_SUB ` supports the following ` date_part ` values:
+
+* ` DAY `
+* ` WEEK ` . Equivalent to 7 ` DAY ` s.
+* ` MONTH `
+* ` QUARTER `
+* ` YEAR `
+
+Special handling is required for MONTH, QUARTER, and YEAR parts when the date is at (or near) the last day of the month. If the resulting month has fewer days than the original date's day, then the resulting date is the last date of that month.
+
+**Return Data Type**
+
+DATE
+
+**Example**
+
+
+SELECT DATE_SUB(DATE '2008-12-25', INTERVAL 5 DAY) AS five_days_ago;
+
+/*---------------*
+| five_days_ago |
++---------------+
+| 2008-12-20    |
+*---------------*/

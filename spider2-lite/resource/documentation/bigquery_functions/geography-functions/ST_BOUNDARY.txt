@@ -1,0 +1,17 @@
+## ST_BOUNDARY
+
+ST_BOUNDARY(geography_expression)
+
+**Description**
+
+Returns a single ` GEOGRAPHY ` that contains the union of the boundaries of each component in the given input ` GEOGRAPHY ` .
+
+The boundary of each component of a ` GEOGRAPHY ` is defined as follows:
+
+* The boundary of a point is empty.
+* The boundary of a linestring consists of the endpoints of the linestring.
+* The boundary of a polygon consists of the linestrings that form the polygon shell and each of the polygon's holes.
+
+**Return type**
+
+` GEOGRAPHY `

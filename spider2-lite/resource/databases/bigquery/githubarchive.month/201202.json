@@ -1,0 +1,235 @@
+{
+    "table_name": "201202",
+    "table_fullname": "githubarchive.month.201202",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"created_at\":\"2009-04-27T06:07:28Z\",\"id\":78213,\"login\":\"nhoizey\",\"type\":\"User\",\"html_url\":\"https://github.com/nhoizey\",\"public_repos\":7,\"bio\":null,\"email\":\"nicolas@hoizey.com\",\"following\":82,\"name\":\"Nicolas Hoizey\",\"blog\":\"http://gasteroprod.com/\",\"hireable\":false,\"url\":\"https://api.github.com/users/nhoizey\",\"public_gists\":3,\"company\":null,\"location\":null,\"gravatar_id\":\"9aa2aa68144b2781ac025a29c83bbdd4\",\"avatar_url\":\"https://secure.gravatar.com/avatar/9aa2aa68144b2781ac025a29c83bbdd4?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"followers\":40}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 265349,
+                "login": "mauricesvay",
+                "gravatar_id": "937af6d5cb81c125bb9d626344ffd994",
+                "avatar_url": "https://secure.gravatar.com/avatar/937af6d5cb81c125bb9d626344ffd994?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/mauricesvay"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2012-02-17 13:24:52+00:00",
+            "id": "1520717518",
+            "other": null
+        },
+        {
+            "type": "GistEvent",
+            "public": true,
+            "payload": "{\"action\":\"update\",\"gist\":{\"created_at\":\"2012-02-22T17:46:51Z\",\"comments\":0,\"public\":true,\"files\":{},\"updated_at\":\"2012-02-22T17:46:51Z\",\"git_push_url\":\"git@gist.github.com:1886283.git\",\"url\":\"https://api.github.com/gists/1886283\",\"id\":\"1886283\",\"git_pull_url\":\"git://gist.github.com/1886283.git\",\"description\":\"\",\"user\":{\"gravatar_id\":\"2f2b2bc4463335cf52c22f9e14491747\",\"avatar_url\":\"https://secure.gravatar.com/avatar/2f2b2bc4463335cf52c22f9e14491747?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/BaylorRae\",\"id\":241816,\"login\":\"BaylorRae\"},\"html_url\":\"https://gist.github.com/1886283\"},\"legacy\":{\"name\":\"gist: 1886283\",\"action\":\"update\",\"url\":\"https://gist.github.com/1886283\",\"id\":1886283,\"desc\":\"\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.com/repos//"
+            },
+            "actor": {
+                "id": 241816,
+                "login": "BaylorRae",
+                "gravatar_id": "2f2b2bc4463335cf52c22f9e14491747",
+                "avatar_url": "https://secure.gravatar.com/avatar/2f2b2bc4463335cf52c22f9e14491747?d=%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.com/users/BaylorRae"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2012-02-22 18:45:15+00:00",
+            "id": "1522438004",
+            "other": null
+        },
+        {
+            "type": "GistEvent",
+            "public": true,
+            "payload": "{\"action\":\"update\",\"gist\":{\"created_at\":\"2012-02-28T20:10:40Z\",\"comments\":0,\"public\":true,\"files\":{},\"updated_at\":\"2012-02-28T20:10:40Z\",\"git_push_url\":\"git@gist.github.com:1934818.git\",\"url\":\"https://api.github.com/gists/1934818\",\"id\":\"1934818\",\"git_pull_url\":\"git://gist.github.com/1934818.git\",\"description\":\"Round corners in Chrome and Safari\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/285996ba451b2f282f9c908633c0e715?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"gravatar_id\":\"285996ba451b2f282f9c908633c0e715\",\"url\":\"https://api.github.com/users/michsch\",\"id\":357387,\"login\":\"michsch\"},\"html_url\":\"https://gist.github.com/1934818\"},\"legacy\":{\"name\":\"gist: 1934818\",\"action\":\"update\",\"url\":\"https://gist.github.com/1934818\",\"id\":1934818,\"desc\":\"Round corners in Chrome and Safari\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.com/repos//"
+            },
+            "actor": {
+                "id": 357387,
+                "login": "michsch",
+                "gravatar_id": "285996ba451b2f282f9c908633c0e715",
+                "avatar_url": "https://secure.gravatar.com/avatar/285996ba451b2f282f9c908633c0e715?d=%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.com/users/michsch"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2012-02-28 20:21:16+00:00",
+            "id": "1524544978",
+            "other": null
+        },
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"created_at\":\"2009-12-01T17:24:38Z\",\"id\":160441,\"login\":\"mignev\",\"type\":\"User\",\"public_repos\":21,\"bio\":null,\"html_url\":\"https://github.com/mignev\",\"email\":\"\",\"following\":29,\"hireable\":false,\"name\":\"Marian Ignev\",\"blog\":\"http://m.ignev.net\",\"url\":\"https://api.github.com/users/mignev\",\"public_gists\":2,\"company\":null,\"location\":\"Sofia, Bulgaria\",\"followers\":5,\"avatar_url\":\"https://secure.gravatar.com/avatar/a642479c35e45c3907f5aa277e404e4e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"gravatar_id\":\"a642479c35e45c3907f5aa277e404e4e\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 27381,
+                "login": "chovy",
+                "gravatar_id": "5f8673ebb2a41d696a881b7b1c92d9ad",
+                "avatar_url": "https://secure.gravatar.com/avatar/5f8673ebb2a41d696a881b7b1c92d9ad?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/chovy"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2012-02-18 23:12:35+00:00",
+            "id": "1521116832",
+            "other": null
+        },
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"created_at\":\"2011-05-27T14:34:41Z\",\"id\":814370,\"login\":\"syklon\",\"type\":\"User\",\"public_repos\":1,\"html_url\":\"https://github.com/syklon\",\"following\":0,\"url\":\"https://api.github.com/users/syklon\",\"public_gists\":0,\"followers\":1,\"gravatar_id\":\"d63fd49ee5ab1d9a579d01dd33d53667\",\"avatar_url\":\"https://secure.gravatar.com/avatar/d63fd49ee5ab1d9a579d01dd33d53667?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 81906,
+                "login": "mwl",
+                "gravatar_id": "e014baa5ae7fda72754a97983da2e7d1",
+                "avatar_url": "https://secure.gravatar.com/avatar/e014baa5ae7fda72754a97983da2e7d1?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/mwl"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2012-02-06 07:35:29+00:00",
+            "id": "1517285936",
+            "other": null
+        }
+    ]
+}

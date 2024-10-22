@@ -1,0 +1,116 @@
+{
+    "table_name": "RNAseq_hg19_gdc_current",
+    "table_fullname": "isb-cgc-bq.TCGA.RNAseq_hg19_gdc_current",
+    "column_names": [
+        "project_short_name",
+        "case_barcode",
+        "sample_barcode",
+        "aliquot_barcode",
+        "HGNC_gene_symbol",
+        "gene_id",
+        "normalized_count",
+        "original_gene_symbol",
+        "platform"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "project_short_name",
+        "case_barcode",
+        "sample_barcode",
+        "aliquot_barcode",
+        "HGNC_gene_symbol",
+        "gene_id",
+        "normalized_count",
+        "original_gene_symbol",
+        "platform"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.",
+        "Original TCGA case barcode, eg TCGA-12-1089  --  note that each case typically has a primary-tumor sample and a matched-normal (blood or adjacent tissue) sample; please refer to the TCGA Biospecimen table for more details",
+        "Original TCGA sample barcode, eg TCGA-12-1089-01A",
+        "Original TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-01",
+        "HUGO Gene Nomenclature Committee gene symbol, based on gene_id in original data file, eg AMY1A. Null if no gene symbol could be found (see documentation for additional details regarding ETL) http://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/data/data2/ETL_mRNAexpression.html",
+        "The gene symbol. In this table, gene symbol is gene namee.g. ENSG00000251562",
+        "Normalized gene expression from original rsem.genes.normalized_results file",
+        "Gene symbol from the original data file, differs if the approved gene symbol has since changed, eg C11orf17 became AKIP1",
+        "Platform used to generate data; either IlluminaHiSeq (for close to 93% of samples) or IlluminaGA"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-KIRP",
+            "case_barcode": "TCGA-DZ-6134",
+            "sample_barcode": "TCGA-DZ-6134-01A",
+            "aliquot_barcode": "TCGA-DZ-6134-01A-11R-1965-07",
+            "HGNC_gene_symbol": "ABHD8",
+            "gene_id": 79575,
+            "normalized_count": 394.0603,
+            "original_gene_symbol": "ABHD8",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-KIRP",
+            "case_barcode": "TCGA-DZ-6134",
+            "sample_barcode": "TCGA-DZ-6134-01A",
+            "aliquot_barcode": "TCGA-DZ-6134-01A-11R-1965-07",
+            "HGNC_gene_symbol": "NID1",
+            "gene_id": 4811,
+            "normalized_count": 1208.797,
+            "original_gene_symbol": "NID1",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-KIRP",
+            "case_barcode": "TCGA-DZ-6134",
+            "sample_barcode": "TCGA-DZ-6134-01A",
+            "aliquot_barcode": "TCGA-DZ-6134-01A-11R-1965-07",
+            "HGNC_gene_symbol": "SLC52A1",
+            "gene_id": 55065,
+            "normalized_count": 75.6198,
+            "original_gene_symbol": "GPR172B",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-KIRP",
+            "case_barcode": "TCGA-DZ-6134",
+            "sample_barcode": "TCGA-DZ-6134-01A",
+            "aliquot_barcode": "TCGA-DZ-6134-01A-11R-1965-07",
+            "HGNC_gene_symbol": "ACAA2",
+            "gene_id": 10449,
+            "normalized_count": 5523.1242,
+            "original_gene_symbol": "ACAA2",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-KIRP",
+            "case_barcode": "TCGA-DZ-6134",
+            "sample_barcode": "TCGA-DZ-6134-01A",
+            "aliquot_barcode": "TCGA-DZ-6134-01A-11R-1965-07",
+            "HGNC_gene_symbol": "SEC31A",
+            "gene_id": 22872,
+            "normalized_count": 4896.6835,
+            "original_gene_symbol": "SEC31A",
+            "platform": "IlluminaHiSeq"
+        }
+    ]
+}

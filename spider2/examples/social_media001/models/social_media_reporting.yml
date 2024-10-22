@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: social_media_reporting__rollup_report
+    description: Each record represents a post from a social media account
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - post_id
+            - platform
+            - source_relation
+    columns:
+      - name: created_timestamp
+        description: The timestamp the post was created
+      - name: post_id
+        description: The ID of the post, from the source platform
+      - name: post_message
+        description: The message of the post
+      - name: page_id
+        description: The ID of the page, from the source platform
+      - name: page_name
+        description: The name of the page, from the source platform
+      - name: post_url
+        description: The URL of the post
+      - name: platform
+        description: The platform the post comes from
+      - name: clicks
+        description: The number of clicks on the post
+      - name: impressions
+        description: The number of impressions on the post
+      - name: likes
+        description: The number of likes on the post
+      - name: shares
+        description: The number of shares on the post
+      - name: comments
+        description: The number of comments on the post

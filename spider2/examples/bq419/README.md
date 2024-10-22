@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.noaa_historic_severe_storms` database to solve this problem.

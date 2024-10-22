@@ -1,0 +1,2 @@
+1. please query `bigquery-public-data.geo_census_tracts` and `bigquery-public-data.geo_us_boundaries` and `bigquery-public-data.census_bureau_acs` database to solve this problem.
+2. Please complete the file result.csv with your answer.

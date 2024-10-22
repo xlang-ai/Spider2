@@ -1,0 +1,125 @@
+table_name,ddl
+Projects,"CREATE TABLE `spider2-public-data.deps_dev_v1.Projects`
+(
+  SnapshotAt TIMESTAMP,
+  Type STRING,
+  Name STRING,
+  OpenIssuesCount INT64,
+  StarsCount INT64,
+  ForksCount INT64,
+  Licenses ARRAY<STRING>,
+  Description STRING,
+  Homepage STRING,
+  OSSFuzz STRUCT<LineCount INT64, LineCoverCount INT64, Date TIMESTAMP, ConfigURL STRING>
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:49:59.693Z""
+);"
+DependencyGraphEdges,"CREATE TABLE `spider2-public-data.deps_dev_v1.DependencyGraphEdges`
+(
+  SnapshotAt TIMESTAMP,
+  System STRING,
+  Name STRING,
+  Version STRING,
+  Requirement STRING,
+  `From` STRUCT<System STRING, Name STRING, Version STRING>,
+  `To` STRUCT<System STRING, Name STRING, Version STRING>
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:48:24.776Z""
+);"
+PackageVersionHashes,"CREATE TABLE `spider2-public-data.deps_dev_v1.PackageVersionHashes`
+(
+  SnapshotAt TIMESTAMP,
+  `Hash` STRING,
+  HashType STRING,
+  System STRING,
+  Name STRING,
+  Version STRING
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:49:35.952Z""
+);"
+PackageVersions,"CREATE TABLE `spider2-public-data.deps_dev_v1.PackageVersions`
+(
+  SnapshotAt TIMESTAMP,
+  System STRING,
+  Name STRING,
+  Version STRING,
+  Licenses ARRAY<STRING>,
+  Links ARRAY<STRUCT<Label STRING, URL STRING>>,
+  Advisories ARRAY<STRUCT<Source STRING, SourceID STRING>>,
+  VersionInfo STRUCT<IsRelease BOOL, Ordinal INT64>,
+  Hashes ARRAY<STRUCT<Type STRING, `Hash` STRING>>,
+  DependenciesProcessed BOOL,
+  DependencyError BOOL,
+  UpstreamPublishedAt TIMESTAMP,
+  Registries ARRAY<STRING>,
+  SLSAProvenance STRUCT<SourceRepository STRING, Commit STRING, URL STRING, Verified BOOL>,
+  UpstreamIdentifiers ARRAY<STRUCT<PackageName STRING, VersionString STRING, Source STRING>>
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:28:03.269Z""
+);"
+Advisories,"CREATE TABLE `spider2-public-data.deps_dev_v1.Advisories`
+(
+  SnapshotAt TIMESTAMP,
+  Source STRING,
+  SourceID STRING,
+  SourceURL STRING,
+  Title STRING,
+  Description STRING,
+  ReferenceURLs ARRAY<STRING>,
+  CVSS3Score NUMERIC,
+  Severity STRING,
+  GitHubSeverity STRING,
+  Disclosed TIMESTAMP,
+  Packages ARRAY<STRUCT<System STRING, Name STRING, AffectedVersions STRING, UnaffectedVersions STRING>>,
+  Aliases ARRAY<STRING>
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:47:46.740Z""
+);"
+NuGetRequirements,"CREATE TABLE `spider2-public-data.deps_dev_v1.NuGetRequirements`
+(
+  SnapshotAt TIMESTAMP,
+  Name STRING,
+  Version STRING,
+  DependencyGroups ARRAY<STRUCT<TargetFramework STRING, Dependencies ARRAY<STRUCT<Name STRING, Requirement STRING>>>>
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:49:10.432Z""
+);"
+Snapshots,"CREATE TABLE `spider2-public-data.deps_dev_v1.Snapshots`
+(
+  Time TIMESTAMP
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:50:57.955Z""
+);"
+Dependencies,"CREATE TABLE `spider2-public-data.deps_dev_v1.Dependencies`
+(
+  SnapshotAt TIMESTAMP,
+  System STRING,
+  Name STRING,
+  Version STRING,
+  Dependency STRUCT<System STRING, Name STRING, Version STRING>,
+  MinimumDepth INT64
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:35:46.028Z""
+);"
+PackageVersionToProject,"CREATE TABLE `spider2-public-data.deps_dev_v1.PackageVersionToProject`
+(
+  SnapshotAt TIMESTAMP,
+  System STRING,
+  Name STRING,
+  Version STRING,
+  ProjectType STRING,
+  ProjectName STRING,
+  RelationProvenance STRING,
+  RelationType STRING
+)
+OPTIONS(
+  expiration_timestamp=TIMESTAMP ""2024-09-30T09:49:46.389Z""
+);"

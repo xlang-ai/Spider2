@@ -1,0 +1,288 @@
+## EXTERNAL_QUERY
+
+EXTERNAL_QUERY('connection_id', '''external_database_query'''[, 'options'])
+
+**Description**
+
+Executes a query on an external database and returns the results as a temporary table. The external database data type is converted to a [ GoogleSQL data type ](/bigquery/docs/reference/standard-sql/data-types#data-types) in the temporary result table with  these data type mappings  .
+
+* ` external_database_query ` : The query to run on the external database.
+* ` connection_id ` : The ID of the [ connection resource ](/bigquery/docs/cloud-sql-federated-queries#setting_up_database_connections) . The connection resource contains settings for the connection between the external database and BigQuery. If you do not have a default project configured, prepend the project ID to the connection ID in following format:
+
+projects/PROJECT_ID/locations/LOCATION/connections/CONNECTION_ID
+
+Replace the following:
+
+* PROJECT_ID  : The project ID.
+* LOCATION  : The location of the connection.
+* CONNECTION_ID  : The connection ID.
+
+For example, ` projects/example-project/locations/us/connections/sql-bq ` .
+For more information, see [ Create a connection resource
+](/bigquery/docs/working-with-connections#create_a_connection_resource) .
+
+**Caution:** If you have a view that is shared across multiple projects where you use ` EXTERNAL_QUERY ` , always use the fully qualified connection ID (projects/  PROJECT_ID  /locations/  LOCATION  /connections/  CONNECTION_ID ), otherwise the wrong project might be used.
+
+\+ ` options ` : An optional string of a JSON format map with key value pairs of option name and value (both are case sensitive).
+
+
+For example::
+``` '{"default_type_for_decimal_columns":"numeric"}' ```
+
+Supported options:
+
+|Option Name | Description
+|-------- | -------
+|"default_type_for_decimal_columns" | Can be "float64", "numeric", "bignumeric" or "string". With this option, the MySQL Decimal type or PostgreSQL Numeric type will be mapped to the provided BigQuery type. When this option is not provided, the MySQL Decimal type or PostgreSQL Numeric type will be mapped to BigQuery NUMERIC type.
+|"query_execution_priority" | Can be "low", "medium" or "high". Only supported in Spanner. Specifies priority for execution of the query. Execution priority is "medium" by default.
+
+Additional notes:
+
+* The ` EXTERNAL_QUERY ` function is usually used in a ` FROM ` clause.
+* You can use the ` EXTERNAL_QUERY() ` function to access metadata about the external database.
+* ` EXTERNAL_QUERY() ` won't honor the ordering of the external query result, even if your external query includes ` ORDER BY ` .
+
+**Return Data Type**
+
+BigQuery table
+
+**Examples**
+
+Suppose you need the date of the first order for each of your customers to include in a report. This data is not currently in BigQuery but is available in your operational PostgreSQL database in . The following federated query example accomplishes this and includes 3 parts:
+
+1. Run the external query ` SELECT customer_id, MIN(order_date) AS first_order_date FROM orders GROUP BY customer_id ` in the operational PostgreSQL database to get the first order date for each customer through the ` EXTERNAL_QUERY() ` function.
+2. Join external query result table with customers table in BigQuery by ` customer_id ` .
+3. Select customer information and first order date.
+
+
+SELECT c.customer_id, c.name, SUM(t.amount) AS total_revenue, rq.first_order_date FROM customers AS c INNER JOIN transaction_fact AS t ON c.customer_id = t.customer_id LEFT OUTER JOIN EXTERNAL_QUERY(
+'connection_id',
+'''SELECT customer_id, MIN(order_date) AS first_order_date FROM orders GROUP BY customer_id'''
+) AS rq ON rq.customer_id = c.customer_id GROUP BY c.customer_id, c.name, rq.first_order_date;
+
+You can use the ` EXTERNAL_QUERY() ` function to query information_schema tables to access database metadata, such as list all tables in the database or show table schema. The following example information_schema queries work in both [ MySQL ](https://dev.mysql.com/doc/refman/8.0/en/information-schema-
+introduction.html) and [ PostgreSQL
+](https://www.postgresql.org/docs/9.1/information-schema.html) .
+
+
+-- List all tables in a database.
+SELECT *
+FROM EXTERNAL_QUERY(
+'connection_id',
+'''SELECT * FROM information_schema.tables'''
+);
+
+
+-- List all columns in a table.
+SELECT *
+FROM EXTERNAL_QUERY(
+'connection_id',
+'''SELECT * FROM information_schema.columns WHERE table_name='x';'''
+);
+
+` EXTERNAL_QUERY() ` won't honor the ordering of the external query result,
+even if your external query includes ` ORDER BY ` . The following example query orders rows by customer ID in the external database, but BigQuery will not output the result rows in that order.
+
+
+-- ORDER BY will not order rows.
+SELECT *
+FROM EXTERNAL_QUERY(
+'connection_id',
+'''SELECT * FROM customers AS c ORDER BY c.customer_id'''
+);
+
+####  Data type mappings
+
+When you execute a federated query, the data from the external database are converted to GoogleSQL types. Below are the data type mappings from  MySQL to BigQuery  and  PostgreSQL to BigQuery  .
+
+Things to know about mapping:
+
+* Most MySQL data types can be matched to the same BigQuery data type, with a few exceptions such as ` decimal ` , ` timestamp ` , and ` time ` .
+* PostgreSQL supports many non-standard data types which are not supported in BigQuery, for example ` money ` , ` path ` , ` uuid ` , ` boxer ` , and others.
+* The numeric data types in MySQL and PostgreSQL will be mapped to BigQuery ` NUMERIC ` value by default. The BigQuery ` NUMERIC ` value range is smaller than in MySQL and PostgreSQL. It can also be mapped to [ ` BIGNUMERIC ` ](/bigquery/docs/reference/standard-sql/data-types#numeric_types) , ` FLOAT64 ` , or ` STRING ` with  "default_type_for_decimal_columns"  in ` EXTERNAL_QUERY ` options.
+
+**Error handling**
+
+If your external query contains a data type that is unsupported in BigQuery,
+the query will fail immediately. You can cast the unsupported data type to a different MySQL / PostgreSQL data type that is supported. See  unsupported data types  for more information on how to cast.
+
+####  MySQL to BigQuery type mapping
+
+**MySQL type** |  **MySQL Description** |  **BigQuery type** |  **Type difference**
+---|---|---|---
+**Integer** |  |  |
+INT  |  4 bytes, 2^32 - 1  |  INT64  |
+TINYINT  |  1 byte, 2^8 - 1  |  INT64  |
+SMALLINT  |  2 bytes, 2^16 - 1  |  INT64  |
+MEDIUMINT  |  3 bytes, 2^24 - 1  |  INT64  |
+BIGINT  |  8 bytes, 2^64 - 1  |  INT64  |
+UNSIGNED BIGINT  |  8 bytes, 2^64 - 1  |  NUMERIC  |
+**Exact numeric** |  |  |
+DECIMAL (M,D)  |  A decimal represents by (M,D) where M is the total number of digits and D is the number of decimals. M <= 65  |  NUMERIC, BIGNUMERIC,
+FLOAT64, or STRING
+
+|  DECIMAL (M,D) will to mapped to NUMERIC by default, or can be mapped to BIGNUMERIC, FLOAT64, or STRING with  default_type_for_decimal_columns  .
+**Approximate numeric** |  |  |
+FLOAT (M,D)  |  4 bytes, M <= 23  |  FLOAT64  |
+DOUBLE (M,D)  |  8 bytes, M <= 53  |  FLOAT64  |
+**Date and time** |  |  |
+TIMESTAMP  |  '1970-01-01 00:00:01'UTC to '2038-01-19 03:14:07' UTC.  |
+TIMESTAMP  |  MySQL TIMESTAMP is retrieved as UTC timezone no matter where user call BigQuery DATETIME  |  '1000-01-01 00:00:00' to '9999-12-31 23:59:59'  |  DATETIME  |
+DATE  |  '1000-01-01' to '9999-12-31'.  |  DATE  |
+TIME  |  Time in 'HH:MM:SS' format
+'-838:59:59' to '838:59:59'.  |  TIME
+|  BigQuery TIME range is smaller, from 00:00:00 to 23:59:59 YEAR  |  |  INT64  |
+**Character and strings** |  |  |
+ENUM  |  string object with a value chosen from a list of permitted values  |
+STRING  |
+CHAR (M)  |  A fixed-length string between 1 and 255 characters  |  STRING  |
+VARCHAR (M)  |  A variable-length string between 1 and 255 characters in length.  |  STRING  |
+TEXT  |  A field with a maximum length of 65535 characters.  |  STRING  |
+TINYTEXT  |  TEXT column with a maximum length of 255 characters.  |  STRING
+|
+MEDIUMTEXT  |  TEXT column with a maximum length of 16777215 characters.  |
+STRING  |
+LONGTEXT  |  TEXT column with a maximum length of 4294967295 characters.  |
+STRING  |
+**Binary** |  |  |
+BLOB  |  A binary large object with a maximum length of 65535 characters.  |
+BYTES  |
+MEDIUM_BLOB  |  A BLOB with a maximum length of 16777215 characters.  |  BYTES
+|
+LONG_BLOB  |  A BLOB with a maximum length of 4294967295 characters.  |  BYTES
+|
+TINY_BLOB  |  A BLOB with a maximum length of 255 characters.  |  BYTES  |
+BINARY  |  A fixed-length binary string between 1 and 255 characters.  |
+BYTES  |
+VARBINARY  |  A variable-length binary string between 1 and 255 characters.  |
+BYTES  |
+**Other** |  |  |
+SET  |  when declare SET column, predefine some values. Then INSERT any set of predefined values into this column  |  STRING  |
+GEOMETRY  |  |  GEOGRAPHY  |  NOT YET SUPPORTED BIT  |  |  INT64  |  NOT YET SUPPORTED
+
+####  PostgreSQL to BigQuery type mapping
+
+**Name** |  **Description** |  **BigQuery type** |  **Type difference**
+---|---|---|---
+**Integer** |  |  |
+smallint  |  2 bytes, -32768 to +32767  |  INT64  |
+smallserial  |  See smallint  |  INT64  |
+integer  |  4 bytes, -2147483648 to +2147483647  |  INT64  |
+serial  |  See integer  |  INT64  |
+bigint  |  8 bytes, -9223372036854775808 to 9223372036854775807  |  INT64  |
+bigserial  |  See bigint  |  INT64  |
+**Exact numeric** |  |  |
+numeric [ (p, s) ]  |  Precision up to 1,000.  |  NUMERIC, BIGNUMERIC,
+FLOAT64, or STRING  |  numeric [ (p, s) ] will to mapped to NUMERIC by default, or can be mapped to BIGNUMERIC, FLOAT64, or STRING with default_type_for_decimal_columns  .
+Decimal [ (p, s) ]  |  See numeric  |  NUMERIC  |  See numeric money  |  8 bytes, 2 digit scale, -92233720368547758.08 to
++92233720368547758.07  |  NOT SUPPORTED  |
+**Approximate numeric** |  |  |
+real  |  4 bytes, single precision floating-point number  |  FLOAT64  |
+double precision  |  8 bytes, double precision floating-point number  |
+FLOAT64  |
+**Date and time** |  |  |
+date  |  calendar date (year, month, day)  |  DATE  |
+time [ (p) ] [ without time zone ]  |  time of day (no time zone)  |  TIME  |
+time [ (p) ] with time zone  |  time of day, including time zone  |  NOT SUPPORTED  |
+timestamp [ (p) ] [ without time zone ]  |  date and time (no time zone)  |
+DATETIME  |
+timestamp [ (p) ] with time zone  |  date and time, including time zone  |
+TIMESTAMP  |  PostgreSQL TIMESTAMP is retrieved as UTC timezone no matter where user call BigQuery interval  |  A time duration  |  NOT SUPPORTED  |
+**Character and strings** |  |  |
+character [ (n) ]  |  fixed-length character string  |  STRING  |
+character varying [ (n) ]  |  variable-length character string  |  STRING  |
+text  |  variable-length character string  |  STRING  |
+**Binary** |  |  |
+bytea  |  binary data ("byte array")  |  BYTES  |
+bit [ (n) ]  |  fixed-length bit string  |  BYTES  |
+bit varying [ (n) ]  |  variable-length bit string  |  BYTES  |
+**Other** |  |  |
+boolean  |  logical Boolean (true/false)  |  BOOL  |
+inet  |  IPv4 or IPv6 host address  |  NOT SUPPORTED  |
+path  |  geometric path on a plane  |  NOT SUPPORTED  |
+pg_lsn  |  PostgreSQL Log Sequence Number  |  NOT SUPPORTED  |
+point  |  geometric point on a plane  |  NOT SUPPORTED  |
+polygon  |  closed geometric path on a plane  |  NOT SUPPORTED  |
+tsquery  |  text search query  |  NOT SUPPORTED  |
+tsvector  |  text search document  |  NOT SUPPORTED  |
+txid_snapshot  |  user-level transaction ID snapshot  |  NOT SUPPORTED  |
+uuid  |  universally unique identifier  |  NOT SUPPORTED  |
+xml  |  XML data  |  STRING  |
+box  |  rectangular box on a plane  |  NOT SUPPORTED  |
+cidr  |  IPv4 or IPv6 network address  |  NOT SUPPORTED  |
+circle  |  circle on a plane  |  NOT SUPPORTED  |
+interval [ fields ] [ (p) ]  |  time span  |  NOT SUPPORTED  |
+json  |  textual JSON data  |  STRING  |
+jsonb  |  binary JSON data, decomposed  |  NOT SUPPORTED  |
+line  |  infinite line on a plane  |  NOT SUPPORTED  |
+lseg  |  line segment on a plane  |  NOT SUPPORTED  |
+macaddr  |  MAC (Media Access Control) address  |  NOT SUPPORTED  |
+macaddr8  |  MAC (Media Access Control) address (EUI-64 format)  |  NOT SUPPORTED  |
+
+####  Unsupported MySQL and PostgreSQL data types
+
+If your external query contains a data type that is unsupported in BigQuery,
+the query will fail immediately. You can cast the unsupported data type to a different supported MySQL / PostgreSQL data type.
+
+* Unsupported MySQL data type
+* **Error message:** ` Invalid table-valued function external_query Found unsupported MySQL type in BigQuery. at [1:15] `
+* **Unsupported type:** ` GEOMETRY ` , ` BIT `
+* **Resolution:** Cast the unsupported data type to STRING.
+* **Example:** ` SELECT ST_AsText(ST_GeomFromText('POINT(1 1)')); ` This command casts the unsupported data type ` GEOMETRY ` to ` STRING ` .
+* Unsupported PostgreSQL data type
+* **Error message:** ` Invalid table-valued function external_query Postgres type (OID = 790) is not supported now at [1:15] `
+* **Unsupported type:** ` money, time with time zone, inet, path, pg_lsn, point, polygon, tsquery, tsvector, txid_snapshot, uuid, box, cidr, circle, interval, jsonb, line, lseg, macaddr, macaddr8 `
+* **Resolution:** Cast the unsupported data type to STRING.
+* **Example:** ` SELECT CAST('12.34'::float8::numeric::money AS varchar(30)); ` This command casts the unsupported data type ` money ` to ` string ` .
+
+####  Spanner to BigQuery type mapping
+
+When you execute a Spanner federated query, the data from Spanner is converted to GoogleSQL types.
+
+Spanner GoogleSQL type  |  Spanner PostgreSQL type  |  BigQuery type
+---|---|---
+` ARRAY ` |  \-  |  ` ARRAY `
+` BOOL ` |  ` bool ` |  ` BOOL `
+` BYTES ` |  ` bytea ` |  ` BYTES `
+` DATE ` |  ` date ` |  ` DATE `
+` FLOAT64 ` |  ` float8 ` |  ` FLOAT64 `
+` INT64 ` |  ` bigint ` |  ` INT64 `
+` JSON ` |  ` JSONB ` |  ` JSON `
+` NUMERIC ` |  ` numeric ` *  |  ` NUMERIC `
+` STRING ` |  ` varchar ` |  ` STRING `
+` STRUCT ` |  \-  |  Not supported for Spanner federated queries
+` TIMESTAMP ` |  ` timestamptz ` |  ` TIMESTAMP ` with nanoseconds truncated
+
+* PostgreSQL numeric values with a precision that is greater than the precision that BigQuery supports are rounded. Values that are larger than the maximum value generate an ` Invalid NUMERIC value ` error.
+
+If your external query contains a data type that is unsupported for federated queries, the query fails immediately. You can cast the unsupported data type to a supported data type.
+
+####  SAP Datasphere to BigQuery type mapping
+
+When you execute a [ SAP Datasphere federated query ](/bigquery/docs/sap-
+datasphere-federated-queries) , the data from SAP Datasphere is converted to the following GoogleSQL types.
+
+**SAP Datasphere type** |  **SAP Datasphere description** |  **BigQuery type**
+---|---|---
+**Integer** |  |
+Integer  |  Standard signed integer.  |  INT64 Integer64  |  Signed 64-bit integer.  |  BIGNUMERIC hana.SMALLINT  |  Signed 16-bit integer supporting the values -32,768 to 32,767.  |  INT64 hana.TINYINT  |  Unsigned 8-bit integer supporting the values 0 to 255.  |
+INT64
+**Exact numeric** |  |
+Decimal (p, s)  |  Precision (p) defines the number of total digits and can be between 1 and 38.
+
+Scale (s) defines the number of digits after the decimal point and can be between 0 and p.  |  BIGNUMERIC DecimalFloat  |  Decimal floating-point number with 34 mantissa digits.  |
+BIGNUMERIC hana.SMALLDECIMAL  |  64-bit decimal floating-point number, where (p) can be between 1 and 16 and s can be between -369 and 368.  |  BIGNUMERIC
+**Approximate numeric** |  |
+Double  |  Double-precision, 64-bit floating-point number.  |  FLOAT64 hana.REAL  |  32-bit binary floating-point number.  |  FLOAT64
+**Date and time** |  |
+Date  |  Default format YYYY-MM-DD.  |  DATE Datetime  |  Default format YYYY-MM-DD HH24:MI:SS.  |  TIMESTAMP Time  |  Default format HH24:MI:SS.  |  TIME Timestamp  |  Default format YYYY-MM-DD HH24:MI:SS.  |  TIMESTAMP
+**Character and strings** |  |
+LargeString  |  Variable length string of up to 2GB.  |  STRING String (n)  |  Variable-length Unicode string of up to 5000 characters.  |
+STRING
+**Binary** |  |
+Binary (n)  |  Variable length byte string of up to 4000 bytes.  |  BYTES LargeBinary  |  Variable length byte string of up to 2GB.  |  BYTES hana.BINARY (n)  |  Byte string of fixed length (n).  |  STRING
+**Other** |  |
+Boolean  |  TRUE, FALSE and UNKNOWN, where UNKNOWN is a synonym of NULL.  |
+BOOL UUID  |  Universally unique identifier encoded as a 128-bit integer.  |
+STRING hana.ST_GEOMETRY  |  Spatial data in any form, including 0-dimensional points,
+lines, multi-lines, and polygons.  |  NOT SUPPORTED hana.ST_POINT  |  Spatial data in the form of 0-dimensional points that represents a single location in coordinate space.  |  NOT SUPPORTED

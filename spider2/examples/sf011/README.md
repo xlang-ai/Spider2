@@ -1,0 +1,1 @@
+1. please query `CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.PUBLIC` to solve this problem.

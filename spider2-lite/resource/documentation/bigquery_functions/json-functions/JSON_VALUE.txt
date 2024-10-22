@@ -1,0 +1,85 @@
+## JSON_VALUE
+
+JSON_VALUE(json_string_expr[, json_path])
+
+
+JSON_VALUE(json_expr[, json_path])
+
+**Description**
+
+Extracts a JSON scalar value and converts it to a SQL ` STRING ` value. In addition, this function:
+
+* Removes the outermost quotes and unescapes the values.
+* Returns a SQL ` NULL ` if a non-scalar value is selected.
+* Uses double quotes to escape invalid  JSONPath  characters in JSON keys. For example: ` "a.b" ` .
+
+Arguments:
+
+* ` json_string_expr ` : A JSON-formatted string. For example:
+
+'{"name": "Jakob", "age": "6"}'
+
+* ` json_expr ` : JSON. For example:
+
+JSON '{"name": "Jane", "age": "6"}'
+
+* ` json_path ` : The  JSONPath  . This identifies the data that you want to obtain from the input. If this optional parameter is not provided, then the JSONPath ` $ ` symbol is applied, which means that all of the data is analyzed.
+
+If ` json_path ` returns a JSON ` null ` or a non-scalar value (in other words, if ` json_path ` refers to an object or an array), then a SQL ` NULL `
+is returned.
+
+There are differences between the JSON-formatted string and JSON input types.
+For details, see  Differences between the JSON and JSON-formatted STRING types .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+In the following example, JSON data is extracted and returned as a scalar value.
+
+
+SELECT JSON_VALUE(JSON '{"name": "Jakob", "age": "6" }', '$.age') AS scalar_age;
+
+/*------------*
+| scalar_age |
++------------+
+| 6          |
+*------------*/
+
+The following example compares how results are returned for the ` JSON_QUERY `
+and ` JSON_VALUE ` functions.
+
+
+SELECT JSON_QUERY('{"name": "Jakob", "age": "6"}', '$.name') AS json_name,
+JSON_VALUE('{"name": "Jakob", "age": "6"}', '$.name') AS scalar_name,
+JSON_QUERY('{"name": "Jakob", "age": "6"}', '$.age') AS json_age,
+JSON_VALUE('{"name": "Jakob", "age": "6"}', '$.age') AS scalar_age;
+
+/*-----------+-------------+----------+------------*
+| json_name | scalar_name | json_age | scalar_age |
++-----------+-------------+----------+------------+
+| "Jakob"   | Jakob       | "6"      | 6          |
+*-----------+-------------+----------+------------*/
+
+
+SELECT JSON_QUERY('{"fruits": ["apple", "banana"]}', '$.fruits') AS json_query,
+JSON_VALUE('{"fruits": ["apple", "banana"]}', '$.fruits') AS json_value;
+
+/*--------------------+------------*
+| json_query         | json_value |
++--------------------+------------+
+| ["apple","banana"] | NULL       |
+*--------------------+------------*/
+
+In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using double quotes. For example:
+
+
+SELECT JSON_VALUE('{"a.b": {"c": "world"}}', '$."a.b".c') AS hello;
+
+/*-------*
+| hello |
++-------+
+| world |
+*-------*/

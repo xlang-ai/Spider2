@@ -1,0 +1,2 @@
+1. please query `sample_commits`, `sample_contents`, `sample_files`, `sample_repos`, `languages` and `languages` tables in ``bigquery-public-data.github_repos` database to solve this problem, don't use `commits`, `contents`, `files` and `repos` tables
+2. Please complete the file result.csv with your answer.

@@ -1,0 +1,48 @@
+## COLLATE
+
+COLLATE(value, collate_specification)
+
+Takes a ` STRING ` and a [ collation specification
+](/bigquery/docs/reference/standard-sql/collation-
+concepts#collate_spec_details) . Returns a ` STRING ` with a collation specification. If ` collate_specification ` is empty, returns a value with collation removed from the ` STRING ` .
+
+The collation specification defines how the resulting ` STRING ` can be compared and sorted. To learn more, see [ Working with collation
+](/bigquery/docs/reference/standard-sql/collation-
+concepts#working_with_collation) .
+
+* ` collation_specification ` must be a string literal, otherwise an error is thrown.
+* Returns ` NULL ` if ` value ` is ` NULL ` .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+In this example, the weight of ` a ` is less than the weight of ` Z ` . This is because the collate specification, ` und:ci ` assigns more weight to ` Z `
+.
+
+
+WITH Words AS ( SELECT COLLATE('a', 'und:ci') AS char1,
+COLLATE('Z', 'und:ci') AS char2 ) SELECT ( Words.char1 < Words.char2 ) AS a_less_than_Z FROM Words;
+
+/*----------------*
+| a_less_than_Z  |
++----------------+
+| TRUE           |
+*----------------*/
+
+In this example, the weight of ` a ` is greater than the weight of ` Z ` .
+This is because the default collate specification assigns more weight to ` a `
+.
+
+
+WITH Words AS ( SELECT
+'a' AS char1,
+'Z' AS char2 ) SELECT ( Words.char1 < Words.char2 ) AS a_less_than_Z FROM Words;
+
+/*----------------*
+| a_less_than_Z  |
++----------------+
+| FALSE          |
+*----------------*/

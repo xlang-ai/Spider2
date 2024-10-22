@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+# Export secrets for Docker containers.
+# Restrict exposing secrets only to the steps that need them
+export GCLOUD_SERVICE_KEY=$(gcloud secrets versions access latest --secret="GCLOUD_SERVICE_KEY" --project="dbt-package-testing-363917")
+export CI_POSTGRES_DBT_HOST=$(gcloud secrets versions access latest --secret="CI_POSTGRES_DBT_HOST" --project="dbt-package-testing-363917")
+export CI_POSTGRES_DBT_USER=$(gcloud secrets versions access latest --secret="CI_POSTGRES_DBT_USER" --project="dbt-package-testing-363917")
+export CI_POSTGRES_DBT_PASS=$(gcloud secrets versions access latest --secret="CI_POSTGRES_DBT_PASS" --project="dbt-package-testing-363917")
+export CI_POSTGRES_DBT_DBNAME=$(gcloud secrets versions access latest --secret="CI_POSTGRES_DBT_DBNAME" --project="dbt-package-testing-363917")
+export CI_REDSHIFT_DBT_DBNAME=$(gcloud secrets versions access latest --secret="CI_REDSHIFT_DBT_DBNAME" --project="dbt-package-testing-363917")
+export CI_REDSHIFT_DBT_HOST=$(gcloud secrets versions access latest --secret="CI_REDSHIFT_DBT_HOST" --project="dbt-package-testing-363917")
+export CI_REDSHIFT_DBT_PASS=$(gcloud secrets versions access latest --secret="CI_REDSHIFT_DBT_PASS" --project="dbt-package-testing-363917")
+export CI_REDSHIFT_DBT_USER=$(gcloud secrets versions access latest --secret="CI_REDSHIFT_DBT_USER" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_ACCOUNT=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_ACCOUNT" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_DATABASE=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_DATABASE" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_PASS=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_PASS" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_ROLE=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_ROLE" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_USER=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_USER" --project="dbt-package-testing-363917")
+export CI_SNOWFLAKE_DBT_WAREHOUSE=$(gcloud secrets versions access latest --secret="CI_SNOWFLAKE_DBT_WAREHOUSE" --project="dbt-package-testing-363917")
+export CI_DATABRICKS_DBT_HOST=$(gcloud secrets versions access latest --secret="CI_DATABRICKS_DBT_HOST" --project="dbt-package-testing-363917")
+export CI_DATABRICKS_DBT_HTTP_PATH=$(gcloud secrets versions access latest --secret="CI_DATABRICKS_DBT_HTTP_PATH" --project="dbt-package-testing-363917")
+export CI_DATABRICKS_DBT_TOKEN=$(gcloud secrets versions access latest --secret="CI_DATABRICKS_DBT_TOKEN" --project="dbt-package-testing-363917")

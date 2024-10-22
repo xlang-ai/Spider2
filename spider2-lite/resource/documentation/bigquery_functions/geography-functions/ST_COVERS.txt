@@ -1,0 +1,32 @@
+## ST_COVERS
+
+ST_COVERS(geography_1, geography_2)
+
+**Description**
+
+Returns ` FALSE ` if ` geography_1 ` or ` geography_2 ` is empty. Returns `
+TRUE ` if no points of ` geography_2 ` lie in the exterior of ` geography_1 `
+.
+
+**Return type**
+
+` BOOL `
+
+**Example**
+
+The following query tests whether the polygon ` POLYGON((1 1, 20 1, 10 20, 1 1)) ` covers each of the three points ` (0, 0) ` , ` (1, 1) ` , and ` (10, 10)
+` , which lie on the exterior, the boundary, and the interior of the polygon respectively.
+
+
+SELECT ST_GEOGPOINT(i, i) AS p,
+ST_COVERS(ST_GEOGFROMTEXT('POLYGON((1 1, 20 1, 10 20, 1 1))'),
+ST_GEOGPOINT(i, i)) AS `covers`
+FROM UNNEST([0, 1, 10]) AS i;
+
+/*--------------+--------*
+| p            | covers |
++--------------+--------+
+| POINT(0 0)   | FALSE  |
+| POINT(1 1)   | TRUE   |
+| POINT(10 10) | TRUE   |
+*--------------+--------*/

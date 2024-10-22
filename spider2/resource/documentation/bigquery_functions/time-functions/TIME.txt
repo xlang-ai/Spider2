@@ -1,0 +1,34 @@
+## TIME
+
+1. TIME(hour, minute, second) 2. TIME(timestamp, [time_zone]) 3. TIME(datetime)
+
+**Description**
+
+1. Constructs a ` TIME ` object using ` INT64 ` values representing the hour, minute, and second.
+2. Constructs a ` TIME ` object using a ` TIMESTAMP ` object. It supports an optional parameter to [ specify a time zone ](/bigquery/docs/reference/standard-sql/timestamp_functions#timezone_definitions) . If no time zone is specified, the default time zone, UTC, is used.
+3. Constructs a ` TIME ` object using a ` DATETIME ` object.
+
+**Return Data Type**
+
+` TIME `
+
+**Example**
+
+
+SELECT TIME(15, 30, 00) as time_hms,
+TIME(TIMESTAMP "2008-12-25 15:30:00+08", "America/Los_Angeles") as time_tstz;
+
+/*----------+-----------*
+| time_hms | time_tstz |
++----------+-----------+
+| 15:30:00 | 23:30:00  |
+*----------+-----------*/
+
+
+SELECT TIME(DATETIME "2008-12-25 15:30:00.000000") AS time_dt;
+
+/*----------*
+| time_dt  |
++----------+
+| 15:30:00 |
+*----------*/

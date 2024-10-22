@@ -1,0 +1,27 @@
+## BYTE_LENGTH
+
+BYTE_LENGTH(value)
+
+**Description**
+
+Gets the number of ` BYTES ` in a ` STRING ` or ` BYTES ` value, regardless of whether the value is a ` STRING ` or ` BYTES ` type.
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS (SELECT 'абвгд' AS characters, b'абвгд' AS bytes)
+
+SELECT characters,
+BYTE_LENGTH(characters) AS string_example,
+bytes,
+BYTE_LENGTH(bytes) AS bytes_example FROM example;
+
+/*------------+----------------+-------+---------------*
+| characters | string_example | bytes | bytes_example |
++------------+----------------+-------+---------------+
+| абвгд      | 10             | абвгд | 10            |
+*------------+----------------+-------+---------------*/

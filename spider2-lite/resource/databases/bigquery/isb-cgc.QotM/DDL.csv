@@ -1,0 +1,134 @@
+table_name,ddl
+1000genomes,"CREATE TABLE `isb-cgc.QotM.1000genomes`
+(
+  reference_name STRING OPTIONS(description=""Reference name.""),
+  start_position INT64 OPTIONS(description=""Start position (0-based). Corresponds to the first base of the string of reference bases.""),
+  end_position INT64 OPTIONS(description=""End position, in 1-based integer coordinates""),
+  reference_bases STRING OPTIONS(description=""Reference bases.""),
+  alternate_bases ARRAY<STRUCT<alt STRING OPTIONS(description=""Alternate base.""), AC INT64 OPTIONS(description=""Total number of alternate alleles in called genotypes""), AF FLOAT64 OPTIONS(description=""Estimated allele frequency in the range (0,1)"")>> OPTIONS(description=""One record for each alternate base (if any).""),
+  names ARRAY<STRING> OPTIONS(description=""Variant names (e.g. RefSNP ID).""),
+  quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.""),
+  filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or PASS indicating the variant has passed all filters.""),
+  call ARRAY<STRUCT<name STRING OPTIONS(description=""Name of the call.""), genotype ARRAY<INT64> OPTIONS(description=""Genotype of the call \""-1\"" is used in cases where the genotype is not called.""), phaseset STRING OPTIONS(description=""Phaseset of the call (if any). \""*\"" is used in cases where the genotype is phased, but no phase set (\""PS\"" in FORMAT) was specified."")>> OPTIONS(description=""One record for each call.""),
+  CIEND ARRAY<INT64> OPTIONS(description=""Confidence interval around END for imprecise variants""),
+  CIPOS ARRAY<INT64> OPTIONS(description=""Confidence interval around POS for imprecise variants""),
+  IMPRECISE BOOL OPTIONS(description=""Imprecise structural variation""),
+  SVLEN ARRAY<INT64> OPTIONS(description=""Difference in length between REF and ALT alleles""),
+  SVTYPE STRING OPTIONS(description=""Type of structural variant""),
+  NS INT64 OPTIONS(description=""Number of samples with data""),
+  AN INT64 OPTIONS(description=""Total number of alleles in called genotypes"")
+)
+OPTIONS(
+  friendly_name=""NOV2018 QUERY OF THE MONTH TABLE"",
+  description=""Data was loaded from 1000 Genome Project on November 2018 for QotM. DNA Variants for the human chromosome 21 data was loaded using Google Genomics API pipeline. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#november-2018"",
+  labels=[(""access"", ""open""), (""data_type"", ""somatic_mutation""), (""source"", ""isb_cgc-qotm""), (""reference_genome_0"", ""hg38""), (""status"", ""deprecated""), (""category"", ""reference_database"")]
+);"
+Reactome,"CREATE TABLE `isb-cgc.QotM.Reactome`
+(
+  string_field_0 STRING OPTIONS(description=""Entrez ID from the NCBI""),
+  string_field_1 STRING OPTIONS(description=""PathwayID""),
+  string_field_2 STRING OPTIONS(description=""Pathway Name"")
+)
+OPTIONS(
+  friendly_name=""FEB2018 QUERY OF THE MONTH TABLE 1"",
+  description=""Data was loaded from Badar Lab on February 2018 for QotM February 2018. Reactome Gene Set Pathway data was loaded using Badar Lab's EnrichmentMap. More details: http://baderlab.org/GeneSets"",
+  labels=[(""category"", ""reference_database""), (""source_0"", ""isb_cgc-qotm""), (""data_type_0"", ""pathway_annotations""), (""access"", ""open""), (""status"", ""deprecated"")]
+);"
+results_1002,"CREATE TABLE `isb-cgc.QotM.results_1002`
+(
+  gene_i STRING OPTIONS(description=""Gene pair #1""),
+  gene_j STRING OPTIONS(description=""Gene pair #2""),
+  Pa INT64 OPTIONS(description=""Number of pairs where gene #1 < gene #2 in group A""),
+  Na INT64 OPTIONS(description=""Total number of pairs for PAAD""),
+  Pb INT64 OPTIONS(description=""Numbers for group B""),
+  Nb INT64 OPTIONS(description=""Total number of pairs for KIRP""),
+  PDiff FLOAT64 OPTIONS(description=""Difference in conditional probabilities"")
+)
+OPTIONS(
+  friendly_name=""MAR2018 QUERY OF THE MONTH TABLE 4"",
+  description=""Data was loaded from TCGA hg38 data and TCGA Biospecimen Data on March 2018. Ranked Hg38 gene expression data was rankend by coefficient of variation then generating a random sample of biospecimen excluding barcodes that don't end in '-A01' was loaded using BigQuery. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#march-2018"",
+  labels=[(""category"", ""reference_database""), (""reference_genome_0"", ""hg38""), (""access"", ""open""), (""data_type_0"", ""gene_expression""), (""status"", ""deprecated""), (""source_0"", ""isb_cgc-qotm"")]
+);"
+WikiPathways_20170425_Annotated,"CREATE TABLE `isb-cgc.QotM.WikiPathways_20170425_Annotated`
+(
+  pathway STRING OPTIONS(description=""Pathway Name""),
+  wikiID STRING OPTIONS(description=""WikiPathways ID""),
+  pathID STRING OPTIONS(description=""Pathway ID""),
+  entrez STRING OPTIONS(description=""Entrez ID from the NCBI""),
+  Symbol STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown)""),
+  Uniprot STRING OPTIONS(description=""Uniprot Identifier from the UniProtKB"")
+)
+OPTIONS(
+  friendly_name=""WIKIPATHWAYS ANNOTATED"",
+  description=""Data was loaded from WikiPathways on May 2017. Pathway annotations were loaded and 'tidied' into BigQuery. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#may-2017"",
+  labels=[(""access"", ""open""), (""status"", ""deprecated""), (""data_type_0"", ""pathway_annotations""), (""source_0"", ""isb_cgc-qotm""), (""category"", ""reference_database"")]
+);"
+paad_kirp_result_check,"CREATE TABLE `isb-cgc.QotM.paad_kirp_result_check`
+(
+  ID STRING OPTIONS(description=""Sample Barcode""),
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg TCGA-OV, etc.""),
+  Phenotype INT64 OPTIONS(description=""Whether the gene is from TCGA-PAAD or from TCGA-KIRP""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is gene name e.g. ACADVL""),
+  Expr FLOAT64 OPTIONS(description=""Fragments Per Kilobase of transcript per Million mapped reads (FPKM) is a simple expression level normalization method. The FPKM normalizes read count based on gene length and the total number of mapped reads. https://docs.gdc.cancer.gov/Encyclopedia/pages/HTSeq-FPKM/""),
+  ERank INT64 OPTIONS(description=""Expression Rank"")
+)
+OPTIONS(
+  friendly_name=""MAR2018 QUERY OF THE MONTH TABLE 2"",
+  description=""Data was loaded from TCGA hg38 data and TCGA Biospecimen Data on March 2018. Ranked Hg38 gene expression data was ranked by coefficient of variation taking a subset with high variance and filtering out long RNA sequences then generating a random sample of biospecimen excluding barcodes that don't end in '-A01' was loaded using BigQuery. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#march-2018"",
+  labels=[(""category"", ""reference_database""), (""reference_genome_0"", ""hg38""), (""access"", ""open""), (""data_type_0"", ""gene_expression""), (""status"", ""deprecated""), (""source_0"", ""isb_cgc-qotm"")]
+);"
+tsp_sim_data,"CREATE TABLE `isb-cgc.QotM.tsp_sim_data`
+(
+  ID STRING OPTIONS(description=""Simulated ID number""),
+  Phenotype INT64 OPTIONS(description=""Simulated program type""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is simulated data e.g. X6""),
+  Expr FLOAT64 OPTIONS(description=""Simulated expression value"")
+)
+OPTIONS(
+  friendly_name=""MAR2018 QUERY OF THE MONTH TABLE 3"",
+  description=""Data was loaded on March 2018. Random Simulated Gene Expression data was loaded using random number loaded in BigQuery for QotM March 2018. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#march-2018"",
+  labels=[(""source_0"", ""isb_cgc-qotm""), (""category"", ""reference_database""), (""status"", ""deprecated""), (""data_type_0"", ""gene_expression""), (""access"", ""open"")]
+);"
+org_Hs_eg_db_v1,"CREATE TABLE `isb-cgc.QotM.org_Hs_eg_db_v1`
+(
+  ID INT64 OPTIONS(description=""Reactome pathway ID (https://reactome.org/)""),
+  Alias STRING OPTIONS(description=""HUGO Alias""),
+  Ensembl STRING OPTIONS(description=""Ensembl ID""),
+  Symbol STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown)""),
+  Entrez STRING OPTIONS(description=""Entrez ID from the NCBI""),
+  OMIM STRING OPTIONS(description=""Phenotype MIM number from the OMIM""),
+  Accession STRING OPTIONS(description=""NCBI Reference Sequence""),
+  UCSC STRING OPTIONS(description=""UCSC ID""),
+  Unigene STRING OPTIONS(description=""UniGene""),
+  Uniprot STRING OPTIONS(description=""Uniprot IDentifier from the UniProtKB"")
+)
+OPTIONS(
+  friendly_name=""FEB2018 QUERY OF THE MONTH TABLE 3"",
+  description=""Data was loaded from multiple sources including NCBI, ENSEMBL, UniProtKB, UCSC and Reactome in Feb 2018 to simplify mapping between Entrez, RefSeq, ENSEMBL, Unigene, Uniprot, UCSC, OMIM Accession identifiers and Reactome pathway IDs."",
+  labels=[(""data_type_0"", ""genome_annotation""), (""access"", ""open""), (""status"", ""deprecated""), (""source_0"", ""isb_cgc-qotm""), (""category"", ""reference_database"")]
+);"
+paad_kirp_random_sample_1002,"CREATE TABLE `isb-cgc.QotM.paad_kirp_random_sample_1002`
+(
+  ID STRING OPTIONS(description=""Sample Barcode""),
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg TCGA-OV, etc.""),
+  Phenotype INT64 OPTIONS(description=""Whether the gene is from TCGA-PAAD""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is gene name e.g. ACADVL""),
+  Expr FLOAT64 OPTIONS(description=""Fragments Per Kilobase of transcript per Million mapped reads (FPKM) is a simple expression level normalization method. The FPKM normalizes read count based on gene length and the total number of mapped reads. https://docs.gdc.cancer.gov/Encyclopedia/pages/HTSeq-FPKM/""),
+  ERank INT64 OPTIONS(description=""Expression Rank"")
+)
+OPTIONS(
+  friendly_name=""MAR2018 QUERY OF THE MONTH TABLE 1"",
+  description=""Data was loaded from TCGA hg38 data and TCGA Biospecimen Data on March 2018. Ranked Hg38 gene expression data was ranked by coefficient of variation taking a subset with high variance and filtering out long RNA sequences then generating a random sample of biospecimen excluding barcodes that don't end in '-A01' was loaded using BigQuery. More details: https://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/QueryOfTheMonthClub.html#march-2018"",
+  labels=[(""category"", ""reference_database""), (""reference_genome_0"", ""hg38""), (""access"", ""open""), (""data_type_0"", ""gene_expression""), (""status"", ""deprecated""), (""source_0"", ""isb_cgc-qotm"")]
+);"
+Reactome_a1,"CREATE TABLE `isb-cgc.QotM.Reactome_a1`
+(
+  entrez STRING OPTIONS(description=""Uniprot Identifier from the UniProtKB""),
+  pathwayID STRING OPTIONS(description=""Pathway ID""),
+  pathwayName STRING OPTIONS(description=""Pathway Name"")
+)
+OPTIONS(
+  friendly_name=""FEB2018 QUERY OF THE MONTH TABLE 2"",
+  description=""Data was loaded from Badar Lab on February 2018 for QotM February 2018. Reactome Gene Set Pathway data was loaded using Badar Lab's EnrichmentMap. More details: http://baderlab.org/GeneSets"",
+  labels=[(""category"", ""reference_database""), (""source_0"", ""isb_cgc-qotm""), (""data_type_0"", ""pathway_annotations""), (""access"", ""open""), (""status"", ""deprecated"")]
+);"

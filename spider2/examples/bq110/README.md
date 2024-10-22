@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.sdoh_hud_pit_homelessness` database to solve this problem.

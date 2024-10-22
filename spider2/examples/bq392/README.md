@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.samples` database to solve this problem.

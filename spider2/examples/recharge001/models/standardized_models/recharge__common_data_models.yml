@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: recharge__line_item_enhanced
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on key revenue, subscription, customer, and product metrics from your billing platform. It’s designed to align with the schema of the `*__line_item_enhanced` model found in Recharge, Recurly, Stripe, Shopify, and Zuora, offering standardized reporting across various billing platforms. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Billing Model Streamlit App](https://fivetran-billing-model.streamlit.app/). Visit the app for more details.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - header_id
+            - line_item_index
+    columns:
+      - name: header_id
+        description: "ID of charge."
+      - name: line_item_id
+        description: "ID of either the charge line item."
+      - name: line_item_index
+        description: "Numerical identifier of the line item within the header object."
+      - name: record_type
+        description: "Either 'header' or 'line_item' to differentiate if the record is originally from the line item table or was created to document information only available at the header level."
+      - name: created_at
+        description: "Date the line item entry was created."
+      - name: header_status
+        description: "Indicates the status of the header. Eg. paid, voided, returned."
+      - name: billing_type
+        description: "Billing type of the charge (e.g., checkout, recurring)."
+      - name: currency
+        description: "Determines the currency in which the checkout took place."
+      - name: product_id
+        description: "ID of the product associated with the line item."
+      - name: product_name
+        description: "Name of the product associated with the line item."
+      - name: product_type
+        description: "Type of the product (e.g., physical, digital)."
+      - name: transaction_type
+        description: "Transaction type of the line item (e.g., subscription, onetime)."
+      - name: quantity
+        description: "Quantity of the product in the line item."
+      - name: unit_amount
+        description: "Unit price of the product."
+      - name: discount_amount
+        description: "Amount of discount applied to the charge."
+      - name: tax_amount
+        description: "Amount of tax applied to the line item."
+      - name: total_amount
+        description: "Total amount for the line item (including tax and discounts)."
+      - name: payment_id
+        description: "ID of the payment associated with the line item."
+      - name: payment_method
+        description: "Method used for payment (e.g., credit card, PayPal)."
+      - name: payment_method_id
+        description: "ID of the payment method."
+      - name: payment_at
+        description: "Date and time of the payment."
+      - name: refund_amount
+        description: "Amount refunded for the charge."
+      - name: subscription_id
+        description: "ID of the subscription (if applicable)."
+      - name: subscription_plan
+        description: "The product title associated with the subscription."
+      - name: subscription_period_started_at
+        description: "Start date of the subscription period (if applicable)."
+      - name: subscription_period_ended_at
+        description: "End date of the subscription period (if applicable)."
+      - name: subscription_status
+        description: "Status of the subscription."
+      - name: customer_id
+        description: "ID of the customer"
+      - name: customer_created_at
+        description: "Date the customer was created in Recharge."
+      - name: customer_level
+        description: "Identifies if the customer is reported at the account or customer level."
+      - name: customer_name
+        description: "Name of the customer."
+      - name: customer_company
+        description: "Company name of the customer."
+      - name: customer_email
+        description: "Email address of the customer."
+      - name: customer_city
+        description: "City of the customer's address."
+      - name: customer_country
+        description: "Country of the customer's address."
+      - name: fee_amount
+        description: "Shipping fees associated with the charge."

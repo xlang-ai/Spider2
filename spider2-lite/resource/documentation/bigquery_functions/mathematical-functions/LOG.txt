@@ -1,0 +1,27 @@
+## LOG
+
+LOG(X [, Y])
+
+**Description**
+
+If only X is present, ` LOG ` is a synonym of ` LN ` . If Y is also present, `
+LOG ` computes the logarithm of X to base Y.
+
+X  |  Y  |  LOG(X, Y)
+---|---|---
+100.0  |  10.0  |  2.0
+` -inf ` |  Any value  |  ` NaN `
+Any value  |  ` +inf ` |  ` NaN `
+` +inf ` |  0.0 < Y < 1.0  |  ` -inf `
+` +inf ` |  Y > 1.0  |  ` +inf `
+X <= 0  |  Any value  |  Error Any value  |  Y <= 0  |  Error Any value  |  1.0  |  Error
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+` INT64 ` |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` NUMERIC ` |  ` NUMERIC ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  `
+FLOAT64 `
+` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 `

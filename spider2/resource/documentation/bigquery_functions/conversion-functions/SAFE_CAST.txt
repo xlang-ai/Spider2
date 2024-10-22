@@ -1,0 +1,32 @@
+## SAFE_CAST
+
+SAFE_CAST(expression AS typename [format_clause])
+
+**Description**
+
+When using ` CAST ` , a query can fail if GoogleSQL is unable to perform the cast. For example, the following query generates an error:
+
+
+SELECT CAST("apple" AS INT64) AS not_a_number;
+
+If you want to protect your queries from these types of errors, you can use `
+SAFE_CAST ` . ` SAFE_CAST ` replaces runtime errors with ` NULL ` s. However,
+during static analysis, impossible casts between two non-castable types still produce an error because the query is invalid.
+
+
+SELECT SAFE_CAST("apple" AS INT64) AS not_a_number;
+
+/*--------------*
+| not_a_number |
++--------------+
+| NULL         |
+*--------------*/
+
+Some casts can include a [ format clause ](/bigquery/docs/reference/standard-
+sql/format-elements#formatting_syntax) , which provides instructions for how to conduct the cast. For example, you could instruct a cast to convert a sequence of bytes to a BASE64-encoded string instead of a UTF-8-encoded string.
+
+The structure of the format clause is unique to each type of cast and more information is available in the section for that cast.
+
+If you are casting from bytes to strings, you can also use the function, [ `
+SAFE_CONVERT_BYTES_TO_STRING ` ](/bigquery/docs/reference/standard-
+sql/string_functions#safe_convert_bytes_to_string) . Any invalid UTF-8 characters are replaced with the unicode replacement character, ` U+FFFD ` .

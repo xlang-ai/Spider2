@@ -1,0 +1,168 @@
+version: 2
+
+models:
+  - name: stg_actor_types
+    description: Actor types of the Danish Parliament
+    columns:
+      - name: actor_type_id
+        description: The unique key for each actor type.
+        tests:
+          - not_null
+          - unique
+  - name: stg_actors
+    description: Actors of the Danish Parliament
+    columns:
+      - name: actor_id
+        description: The unique key for each actor.
+        tests:
+          - not_null
+          - unique
+  - name: stg_case_categories
+    description: A Case Category is a potential subtype of case type.
+    columns:
+      - name: case_category_id
+        description: The unique key for each case category.
+        tests:
+          - not_null
+          - unique
+  - name: stg_case_statuses
+    description: Case Status indicates how far the Case has progressed in its processing.
+    columns:
+      - name: case_status_id
+        description: The unique key for each case status.
+        tests:
+          - not_null
+          - unique
+  - name: stg_case_step_actor
+    description: A Case Category is a potential subtype of case type.
+    columns:
+      - name: case_step_actor_id
+        description: The unique key for each case step and actor interaction.
+        tests:
+          - not_null
+          - unique
+  - name: stg_case_step_statuses
+    description: Indicates the status of the Case Step.
+    columns:
+      - name: case_step_status_id
+        description: The unique key for each case step status.
+        tests:
+          - not_null
+          - unique
+  - name: stg_case_step_types
+    description: Indicates the type of activity - for example, first treatment. Case Step Types are case type specific.
+    columns:
+      - name: case_step_type_id
+        description: The unique key for each case step type.
+        tests:
+          - not_null
+          - unique  
+  - name: stg_case_steps
+    description: A Case Step is an activity in relation to a Case. A case can be associated with several case steps in a business-specific process.
+    columns:
+      - name: case_step_id
+        description: The unique key for each case step.
+        tests:
+          - not_null
+          - unique 
+  - name: stg_case_types
+    description: The types of cases handled in the parliamentary work, according to the rules of procedure of the Folketing (Danish Parliament).
+    columns:
+      - name: case_type_id
+        description: The unique key for each case type.
+        tests:
+          - not_null
+          - unique  
+  - name: stg_cases
+    description: A case is an instance of the case types (see Case Type) that are handled in the parliamentary work and which are described in the rules of procedure of the Folketing (Danish Parliament).
+    columns:
+      - name: case_id
+        description: The unique key for each case.
+        tests:
+          - not_null
+          - unique
+  - name: stg_dates
+    description: A date table prepared for the dimensional modeling
+    columns:
+      - name: date_id
+        description: The unique key for each date.
+        tests:
+          - not_null
+          - unique
+  - name: stg_dates_holidays
+    description: A date table prepared for the dimensional modeling
+    columns:
+      - name: date_holidays_id
+        description: The unique key for each holiday.
+        tests:
+          - not_null
+  - name: stg_individual_votes
+    description: Vote expresses a member's position (for, against, neither for nor against) on a given matter that is the subject of a vote.
+    columns:
+      - name: individual_vote_id
+        description: The unique key for each individual vote.
+        tests:
+          - not_null
+          - unique
+  - name: stg_individual_voting_types
+    description: Voting types expresses a member's position (for, against, neither for nor against) from a number to a string
+    columns:
+      - name: individual_voting_type_id
+        description: The unique key for each individual voting type.
+        tests:
+          - not_null
+          - unique
+  - name: stg_meeting_statuses
+    description: The status of a meeting, one row per meeting status
+    columns:
+      - name: meeting_status_id
+        description: The unique key for each meeting status.
+        tests:
+          - not_null
+          - unique
+  - name: stg_meeting_types
+    description: The types of a meeting, one row per meeting type
+    columns:
+      - name: meeting_type_id
+        description: The unique key for each meeting type.
+        tests:
+          - not_null
+          - unique
+  - name: stg_meetings
+    description: A meeting is a meeting of the Folketing plenum ('Meeting in the hall') or a committee ('Committee meeting'), see Meeting type.
+    columns:
+      - name: meeting_id
+        description: The unique key for each meeting.
+        tests:
+          - not_null
+          - unique
+  - name: stg_periods
+    description: A Period is a date interval that can be named, by its title, code, and type.
+    columns:
+      - name: period_id
+        description: The unique key for each period.
+        tests:
+          - not_null
+          - unique
+  - name: stg_votes
+    description: Voting data with individual votes, including notation of whether a proposal has been adopted or rejected. Please note that error registrations etc. can be seen from the voting comment. 1 row per vote
+    columns:
+      - name: vote_id
+        description: The unique key for each vote.
+        tests:
+          - not_null
+          - unique
+  - name: stg_voting_types
+    description: Type of vote, one row per voting type
+    columns:
+      - name: voting_type_id
+        description: The unique key for each voting type.
+        tests:
+          - not_null
+          - unique
+
+
+
+
+
+          

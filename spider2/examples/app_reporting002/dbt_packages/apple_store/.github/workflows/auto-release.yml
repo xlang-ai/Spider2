@@ -1,0 +1,13 @@
+name: 'auto release'
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  call-workflow-passing-data:
+    if: github.event.pull_request.merged
+    uses: fivetran/dbt_package_automations/.github/workflows/auto-release.yml@main
+    secrets: inherit

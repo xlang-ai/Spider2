@@ -1,0 +1,39 @@
+name: 'google_ads_source_integration_tests'
+version: '0.11.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+  google_ads_schema: google_ads_source_integration_tests_3
+  google_ads_ad_stats_identifier: "ad_stats_data"
+  google_ads_ad_history_identifier: "ad_history_data"
+  google_ads_ad_group_history_identifier: "ad_group_history_data"
+  google_ads_campaign_history_identifier: "campaign_history_data"
+  google_ads_account_history_identifier: "account_history_data"
+  google_ads_keyword_stats_identifier: "keyword_stats_data"
+  google_ads_account_stats_identifier: "account_stats_data"
+  google_ads_ad_group_stats_identifier: "ad_group_stats_data"
+  google_ads_campaign_stats_identifier: "campaign_stats_data"
+  google_ads_ad_group_criterion_history_identifier: "ad_group_criterion_history_data"
+
+  google_ads__account_stats_passthrough_metrics:
+    - name: conversions
+    - name: view_through_conversions
+      alias: view_through_conversions_aliased
+
+seeds:
+  google_ads_source_integration_tests:
+    +column_types:
+      customer_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      ad_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      campaign_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      base_campaign_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      base_ad_group_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      ad_group_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      ad_group_criterion_criterion_id:  "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+      base_adgroup_id: "{{ 'INT64' if target.type == 'bigquery' else 'bigint' }}"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']

@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.new_york_subway` database to solve this problem.

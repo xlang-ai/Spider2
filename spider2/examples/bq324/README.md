@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.idc_v18` database to solve this problem.

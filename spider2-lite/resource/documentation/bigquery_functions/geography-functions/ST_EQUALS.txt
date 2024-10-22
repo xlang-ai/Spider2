@@ -1,0 +1,21 @@
+## ST_EQUALS
+
+ST_EQUALS(geography_1, geography_2)
+
+**Description**
+
+Returns ` TRUE ` if ` geography_1 ` and ` geography_2 ` represent the same
+
+` GEOGRAPHY ` value. More precisely, this means that one of the following conditions holds: \+ ` ST_COVERS(geography_1, geography_2) = TRUE ` and `
+ST_COVERS(geography_2, geography_1) = TRUE ` \+ Both ` geography_1 ` and `
+geography_2 ` are empty.
+
+Therefore, two ` GEOGRAPHY ` s may be equal even if the ordering of points or vertices differ, as long as they still represent the same geometric structure.
+
+**Constraints**
+
+` ST_EQUALS ` is not guaranteed to be a transitive function.
+
+**Return type**
+
+` BOOL `

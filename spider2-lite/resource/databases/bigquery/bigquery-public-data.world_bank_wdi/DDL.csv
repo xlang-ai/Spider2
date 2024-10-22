@@ -1,0 +1,85 @@
+table_name,ddl
+series_summary,"CREATE TABLE `bigquery-public-data.world_bank_wdi.series_summary`
+(
+  series_code STRING OPTIONS(description=""A number or a sequence of related statistical units arranged or occurring in temporal spatial or other order or succession. WDI carries mostly time series.""),
+  topic STRING OPTIONS(description=""The matter dealt with in the context discourse or subject related to the series.""),
+  indicator_name STRING OPTIONS(description=""Given name of a series.""),
+  short_definition STRING OPTIONS(description=""Short statement of the exact meaning of a series.""),
+  long_definition STRING OPTIONS(description=""Extended statement of the exact meaning of a series.""),
+  unit_of_measure STRING OPTIONS(description=""A quantity used as a standard of measurement. Example: Units of time are second minute hour day week month year and decade.""),
+  periodicity STRING OPTIONS(description=""Applies to series recurring at regular intervals. Most of the time this term denotes that interval of recurrence.""),
+  base_period STRING OPTIONS(description=""Base period is the period of time for which data is used as the base of an index number or other ratio have been collected. This period is frequently one of a year but it may be as short as one day or as long as the average of a group of years.""),
+  other_notes STRING OPTIONS(description=""A brief record of facts topics or thoughts written down and used to contextualize the series definition values and other characteristics.""),
+  aggregation_method STRING OPTIONS(description=""Aggregation methods are types of calculations used to group attribute values into a metric for each dimension value. For example for each region one may retrieve the total value of country entries (the sum of the series value for countries belonging to the region).""),
+  limitations_and_exceptions STRING OPTIONS(description=""A limiting rule or circumstance that applies to usage of the series such as the scope of the survey collecting the data or missing years and countries.  It should also note when data are imputed or estimated""),
+  notes_from_original_source STRING OPTIONS(description=""A brief record of facts topics or thoughts written down and used to contextualize the series definition values and other characteristics.""),
+  general_comments STRING OPTIONS(description=""Other notes regarding the series which do not appear in Development relevance or Limitations or exceptions""),
+  source STRING OPTIONS(description=""A place person or organization from which the series comes or can be obtained.""),
+  statistical_concept_and_methodology STRING OPTIONS(description=""The abstract idea general statistical notions or a system of methods used to generate the series.""),
+  development_relevance STRING OPTIONS(description=""The relevance of a series refers to how the indicator’s data may be used to monitor particular aspects of development goals and programs for example the Sustainable Development Goals. The indicator may conclusively measure progress towards a particular objective or may act as a proxy or interpretation of a development aim.""),
+  related_source_links STRING OPTIONS(description=""Internet address of related source page tool or knowledge base.""),
+  other_web_links STRING OPTIONS(description=""Internet addresses of related pages tools or knowledge bases.""),
+  related_indicators STRING OPTIONS(description=""In general indicator that are of interest and related to the specific series.""),
+  license_type STRING OPTIONS(description=""Explains the rights conferred and restrictions imposed by the owner to the users of a series"")
+);"
+country_series_definitions,"CREATE TABLE `bigquery-public-data.world_bank_wdi.country_series_definitions`
+(
+  country_code STRING OPTIONS(description=""""),
+  series_code STRING OPTIONS(description=""""),
+  description STRING OPTIONS(description="""")
+);"
+footnotes,"CREATE TABLE `bigquery-public-data.world_bank_wdi.footnotes`
+(
+  country_code STRING OPTIONS(description=""""),
+  series_code STRING OPTIONS(description=""""),
+  year STRING OPTIONS(description=""""),
+  description STRING OPTIONS(description="""")
+);"
+series_time,"CREATE TABLE `bigquery-public-data.world_bank_wdi.series_time`
+(
+  series_code STRING OPTIONS(description=""""),
+  year INT64 OPTIONS(description=""""),
+  description STRING OPTIONS(description="""")
+);"
+indicators_data,"CREATE TABLE `bigquery-public-data.world_bank_wdi.indicators_data`
+(
+  country_name STRING OPTIONS(description=""""),
+  country_code STRING OPTIONS(description=""""),
+  indicator_name STRING OPTIONS(description=""""),
+  indicator_code STRING OPTIONS(description=""""),
+  value FLOAT64 OPTIONS(description=""""),
+  year INT64 OPTIONS(description="""")
+);"
+country_summary,"CREATE TABLE `bigquery-public-data.world_bank_wdi.country_summary`
+(
+  country_code STRING OPTIONS(description=""A short alphabetic or numeric geographical code representing a specific country or area. In April 2016 WDI has adopted the three digit ISO code to identify countries in its databases.""),
+  short_name STRING OPTIONS(description=""Country name the country's official name as approved by the relevant body (Italy is used as an example): conventional short form (Italy).""),
+  table_name STRING OPTIONS(description=""Country name the country's name as approved by the relevant body (Italy is used as an example): conventional short form (Republic of Italy).""),
+  long_name STRING OPTIONS(description=""Country name the country's name as approved by the relevant body (Italy is used as an example): conventional long form (Republic of Italy).""),
+  two_alpha_code STRING OPTIONS(description=""ISO-2 digit alpha code value of the country. Re: www.iso.org""),
+  currency_unit STRING OPTIONS(description=""Currency unit (such as the dollar euro peso rupee) issued as a coin or banknote a standard unit of value and a unit of account.""),
+  special_notes STRING OPTIONS(description=""Country special notes for data and metadata users.""),
+  region STRING OPTIONS(description=""World Bank region to which a country belongs.""),
+  income_group STRING OPTIONS(description=""World Bank income group to which a country belongs after the country classification is completed every year.""),
+  wb_2_code STRING OPTIONS(description=""World Bank 2 digit code value of the country.""),
+  national_accounts_base_year STRING OPTIONS(description=""Base year is the base or pricing period used for constant price calculations in the country’s national accounts. Price indexes derived from national accounts aggregates such as the implicit deflator for gross domestic product (GDP) express the price level relative to base year prices.""),
+  national_accounts_reference_year STRING OPTIONS(description=""Reference year is the year in which the local currency constant price series of a country is valued. The reference year is usually the same as the base year used to report the constant price series. However when the constant price data are chain linked the base year is changed annually so the data are rescaled to a specific reference year to provide a consistent time series. When the country has not rescaled following a change in base year World Bank staff rescale the data to maintain a longer historical series. To allow for cross-country comparison and data aggregation constant price data reported in World Development Indicators are rescaled to a common reference year (2010) and currency (U.S. dollars).""),
+  sna_price_valuation STRING OPTIONS(description=""SNA price valuation shows whether value added in the national accounts is reported at basic prices (B) or producer prices (P). Producer prices include taxes paid by producers and thus tend to overstate the actual value added in production. However value added can be higher at basic prices than at producer prices in countries with high agricultural subsidies.""),
+  lending_category STRING OPTIONS(description=""World Bank lending category to which a country belongs after the operational guidelines are completed every year.""),
+  other_groups STRING OPTIONS(description=""Other types of grouping approved by the WDI team.""),
+  system_of_national_accounts STRING OPTIONS(description=""System of National Accounts identifies whether a country uses the 1968 1993 or 2008 System of National Accounts (SNA). The 2008 SNA is an update of the 1993 SNA and retains its basic theoretical framework.""),
+  alternative_conversion_factor STRING OPTIONS(description=""Alternative conversion factor identifies the countries and years for which a World Bank–estimated conversion factor has been used in place of the official exchange rate (line rf in the International Monetary Fund’s [IMF] International Financial Statistics). See later in Sources and methods for further discussion of alternative conversion factors.""),
+  ppp_survey_year STRING OPTIONS(description=""Purchasing power parity (PPP) survey year is the latest available survey year for the International Comparison Program’s estimates of PPPs.""),
+  balance_of_payments_manual_in_use STRING OPTIONS(description=""Balance of Payments Manual in use refers to the classification system used to compile and report data on balance of payments. 6 refers to the 6th edition of the IMF’s Balance of Payments Manual (2009).""),
+  external_debt_reporting_status STRING OPTIONS(description=""External debt shows debt reporting status for 2016 data. A indicates that data are as reported P that data are based on reported or collected information but include an element of staff estimation and E that data are World Bank staff estimates.""),
+  system_of_trade STRING OPTIONS(description=""System of trade refers to the United Nations general trade system (G) or special trade system (S). Under the general trade system goods entering directly for domestic consumption and goods entered into customs storage are recorded as imports at arrival. Under the special trade system goods are recorded as imports when declared for domestic consumption whether at time of entry or on withdrawal from customs storage.""),
+  government_accounting_concept STRING OPTIONS(description=""Government finance accounting concept is the accounting basis for reporting central government financial data. For most countries government finance data have been consolidated (C) into one set of accounts capturing all central government fiscal activities. Budgetary central government accounts (B) exclude some central government units.""),
+  imf_data_dissemination_standard STRING OPTIONS(description=""IMF data dissemination standard shows the countries that subscribe to the IMF’s Special Data Dissemination Standard (S) or Enhanced General Data Dissemination System (e-GDDS). S refers to countries that subscribe to the SDDS and have posted data on the Dissemination Standards Bulletin Board at http://dsbb.imf.org. S+ countries must observe additional coverage periodicity and timeliness requirements. e-G refers to countries that subscribe to the e-GDDS.""),
+  latest_population_census STRING OPTIONS(description=""Latest population census shows the most recent year in which a census was conducted and in which at least preliminary results have been released. The preliminary results from the very recent censuses could be reflected in timely revisions if basic data are available such as population by age and sex as well as the detailed definition of counting coverage and completeness.""),
+  latest_household_survey STRING OPTIONS(description=""Latest demographic education or health household survey indicates the household surveys used to compile the demographic education and health data. Detailed information on each survey is provided through the following links:  AIDS Indicator Survey Demographic and Health Survey Health Issues Survey and Malaria Indicator Survey - www.dhsprogram.com; Living Standards Measurement Study -  www.worldbank.org/lsms; Multiple Indicator Cluster Survey - http://mics.unicef.org; Reproductive Health Survey -  www.cdc.gov/reproductivehealth; World Health Survey is available at - www.who.int/healthinfo/survey/en.""),
+  source_of_most_recent_income_and_expenditure_data STRING OPTIONS(description=""Source of most recent income and expenditure data shows household surveys that collect income and expenditure data. Names and detailed information on household surveys can be found on the website of the International Household Survey Network (www.surveynetwork.org). Core Welfare Indicator Questionnaire Surveys (CWIQ) developed by the World Bank measure changes in key social indicators for different population groups—specifically indicators of access utilization and satisfaction with core social and economic services. Expenditure survey/budget surveys (ES/BS) collect detailed information on household consumption as well as on general demographic social and economic characteristics. Integrated household surveys (IHS) collect detailed information on a wide variety of topics including health education economic activities housing and utilities.""),
+  vital_registration_complete STRING OPTIONS(description=""Vital registration complete identifies countries that report at least 90 percent complete registries of vital (birth and death) statistics to the United Nations Statistics Division and are reported in its Population and Vital Statistics Reports. Countries with complete vital statistics registries may have more accurate and more timely demographic indicators than other countries.""),
+  latest_agricultural_census STRING OPTIONS(description=""Latest agricultural census shows the most recent year in which an agricultural census was conducted or planned to be conducted as reported to the Food and Agriculture Organization.""),
+  latest_industrial_data STRING OPTIONS(description=""Latest industrial data show the most recent year for which manufacturing value added data at the three-digit level of the International Standard Industrial Classification (revision 2 or 3) are available in the United Nations Industrial Development Organization database.""),
+  latest_trade_data STRING OPTIONS(description=""Latest trade data show the most recent year for which structure of merchandise trade data from the United Nations Statistics Division’s Commodity Trade (Comtrade) database are available."")
+);"

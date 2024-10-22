@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: cpa_and_roas
+    description: >
+      Aggregated ad spend and attribution data, with calculated metrics for cost per acquisition (CPA) and return on advertising spend (ROAS).
+
+    columns:
+      - name: utm_source
+        description: The source of the traffic.
+        tests:
+          - not_null
+
+      - name: attribution_points
+        description: The total attribution points, using forty-twenty-forty attribution 
+        tests:
+          - not_null
+
+      - name: attribution_revenue
+        description: The total attributed revenue, using forty-twenty-forty attribution 
+        tests:
+          - not_null
+
+      - name: total_spend
+        description: The total amount of money spent on ads in the month.
+        tests:
+          - not_null
+
+      - name: cost_per_acquisition
+        description: The cost per acquisition for the month, calculated as total spend divided by attribution points.
+        tests:
+          - not_null
+
+      - name: return_on_advertising_spend
+        description: The return on advertising spend for the month, calculated as attributed revenue divided by total spend.
+        tests:
+          - not_null

@@ -1,0 +1,10 @@
+database_key: twitter_organic_database
+schema_key: twitter_organic_schema
+
+dbt_versions: ">=1.3.0 <2.0.0"
+
+destination_configurations:
+  databricks:
+    dispatch:
+      - macro_namespace: dbt_utils
+        search_order: [ 'spark_utils', 'dbt_utils' ]

@@ -1,0 +1,34 @@
+## COALESCE
+
+COALESCE(expr[, ...])
+
+**Description**
+
+Returns the value of the first non- ` NULL ` expression, if any, otherwise `
+NULL ` . The remaining expressions aren't evaluated. An input expression can be any type. There may be multiple input expression types. All input expressions must be implicitly coercible to a common [ supertype
+](/bigquery/docs/reference/standard-sql/conversion_rules#supertypes) .
+
+**Return Data Type**
+
+[ Supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) of ` expr ` [, ...].
+
+**Examples**
+
+
+SELECT COALESCE('A', 'B', 'C') as result
+
+/*--------*
+| result |
++--------+
+| A      |
+*--------*/
+
+
+SELECT COALESCE(NULL, 'B', 'C') as result
+
+/*--------*
+| result |
++--------+
+| B      |
+*--------*/

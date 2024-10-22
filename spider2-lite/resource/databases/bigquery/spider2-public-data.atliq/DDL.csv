@@ -1,0 +1,46 @@
+table_name,ddl
+fact_gross_price,"CREATE TABLE `spider2-public-data.atliq.fact_gross_price`
+(
+  gross_price FLOAT64,
+  fiscal_year INT64,
+  product_code STRING
+);"
+fact_sales_monthly,"CREATE TABLE `spider2-public-data.atliq.fact_sales_monthly`
+(
+  fiscal_year INT64,
+  customer_code INT64,
+  product_code STRING,
+  sold_quantity INT64,
+  date DATE
+);"
+fact_pre_invoice_deductions,"CREATE TABLE `spider2-public-data.atliq.fact_pre_invoice_deductions`
+(
+  pre_invoice_discount_pct FLOAT64,
+  fiscal_year INT64,
+  customer_code INT64
+);"
+fact_manufacturing_cost,"CREATE TABLE `spider2-public-data.atliq.fact_manufacturing_cost`
+(
+  manufacturing_cost FLOAT64,
+  cost_year INT64,
+  product_code STRING
+);"
+dim_customer,"CREATE TABLE `spider2-public-data.atliq.dim_customer`
+(
+  market STRING,
+  region STRING,
+  customer STRING,
+  channel STRING,
+  sub_zone STRING,
+  platform STRING,
+  customer_code INT64
+);"
+dim_product,"CREATE TABLE `spider2-public-data.atliq.dim_product`
+(
+  variant STRING,
+  category STRING,
+  segment STRING,
+  division STRING,
+  product STRING,
+  product_code STRING
+);"

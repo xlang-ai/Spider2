@@ -1,0 +1,34 @@
+name: 'apple_store'
+version: '0.4.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+  apple_store:
+    app: "{{ ref('stg_apple_store__app') }}"
+    app_store_device: "{{ ref('stg_apple_store__app_store_device') }}"
+    usage_device: "{{ ref('stg_apple_store__usage_device') }}"
+    downloads_device: "{{ ref('stg_apple_store__downloads_device') }}"
+    app_store_territory: "{{ ref('stg_apple_store__app_store_territory') }}"
+    downloads_territory: "{{ ref('stg_apple_store__downloads_territory') }}"
+    usage_territory: "{{ ref('stg_apple_store__usage_territory') }}"
+    app_store_platform_version: "{{ ref('stg_apple_store__app_store_platform_version') }}"
+    crashes_platform_version: "{{ ref('stg_apple_store__crashes_platform_version') }}"
+    downloads_platform_version: "{{ ref('stg_apple_store__downloads_platform_version') }}"
+    usage_platform_version: "{{ ref('stg_apple_store__usage_platform_version') }}"
+    crashes_app_version: "{{ ref('stg_apple_store__crashes_app_version') }}"
+    usage_app_version: "{{ ref('stg_apple_store__usage_app_version') }}"
+    sales_account: "{{ ref('stg_apple_store__sales_account') }}"
+    sales_subscription_events: "{{ ref('stg_apple_store__sales_subscription_events') }}"
+    sales_subscription_summary: "{{ ref('stg_apple_store__sales_subscription_summary') }}"
+    apple_store_country_codes: "{{ ref('apple_store_country_codes') }}"
+    apple_store__subscription_events:
+    - 'Renew'
+    - 'Cancel'
+    - 'Subscribe'
+
+models:
+  apple_store:
+    materialized: table
+    +schema: apple_store
+    intermediate:
+      +materialized: ephemeral

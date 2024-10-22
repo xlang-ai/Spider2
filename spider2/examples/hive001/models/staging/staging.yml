@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_covid__cases
+    description: |
+      This staging model processes raw COVID-19 case data, converting date, cases, and deaths into appropriate data types.
+      The data is sourced from the `raw_covid__cases` table and provides a cleaned version for further analysis.
+
+    refs:
+      - name: raw_covid__cases
+
+    columns:
+      - name: date_rep
+        description: "The reported date of COVID-19 cases and deaths."
+        tests:
+          - not_null
+
+      - name: cases
+        description: "The number of new COVID-19 cases reported on the given date."
+        tests:
+          - not_null
+
+      - name: deaths
+        description: "The number of new deaths due to COVID-19 reported on the given date."
+        tests:
+          - not_null
+
+      - name: geo_id
+        description: "The geographical identifier representing the country or region reporting the data."
+        tests:
+          - not_null

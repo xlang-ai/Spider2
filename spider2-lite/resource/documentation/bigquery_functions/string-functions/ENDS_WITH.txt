@@ -1,0 +1,29 @@
+## ENDS_WITH
+
+ENDS_WITH(value, suffix)
+
+**Description**
+
+Takes two ` STRING ` or ` BYTES ` values. Returns ` TRUE ` if ` suffix ` is a suffix of ` value ` .
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT ENDS_WITH(item, 'e') as example FROM items;
+
+/*---------*
+| example |
++---------+
+|    True |
+|   False |
+|    True |
+*---------*/

@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: EUR_LOWCOST_BRASS_SUPPLIERS
+    description: |
+      This model identifies low-cost brass part suppliers in Europe by selecting suppliers who provide brass parts of size 15 and have the minimum supply cost. 
+      The data includes supplier details, part details, and region information, ordered by account balance, region, and supplier name.
+
+    sources:
+      - name: TPCH_SF1
+        tables:
+          - name: part
+          - name: supplier
+          - name: partsupp
+          - name: nation
+          - name: region
+
+    columns:
+      - name: p_name
+        description: "The name of the part."
+        tests:
+          - not_null
+
+      - name: p_size
+        description: "The size of the part."
+      
+      - name: p_retailprice
+        description: "The retail price of the part."
+
+      - name: s_acctbal
+        description: "The account balance of the supplier."
+
+      - name: s_name
+        description: "The name of the supplier."
+
+      - name: n_name
+        description: "The name of the nation where the supplier is located."
+
+      - name: p_partkey
+        description: "The unique identifier for the part."
+
+      - name: p_mfgr
+        description: "The manufacturer of the part."
+
+      - name: s_address
+        description: "The supplier's address."
+
+      - name: s_phone
+        description: "The supplier's phone number."
+
+      - name: s_comment
+        description: "Additional comments regarding the supplier."
+
+  - name: UK_Lowcost_Brass_Suppliers
+    description: |
+      This model identifies low-cost brass part suppliers located in the United Kingdom, based on data from the European low-cost brass suppliers. 
+      It includes supplier details, part availability, and pricing information.
+
+    refs:
+      - name: EUR_LOWCOST_BRASS_SUPPLIERS
+
+    sources:
+      - name: TPCH_SF1
+        tables:
+          - name: supplier
+          - name: partsupp
+
+    columns:
+      - name: Part_Name
+        description: "The name of the part supplied."
+
+      - name: RetailPrice
+        description: "The retail price of the part."
+
+      - name: Supplier_Name
+        description: "The name of the supplier."
+
+      - name: Part_Manufacturer
+        description: "The manufacturer of the part."
+
+      - name: SuppAddr
+        description: "The supplier's address."
+
+      - name: Supp_Phone
+        description: "The supplier's phone number."
+
+      - name: Num_Available
+        description: "The number of parts available from the supplier."
+        tests:
+          - not_null

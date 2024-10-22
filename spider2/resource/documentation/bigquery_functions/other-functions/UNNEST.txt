@@ -1,0 +1,131 @@
+## UNNEST
+
+unnest_operator:
+{
+UNNEST( array ) [ as_alias ]
+| array_path [ as_alias ]
+}
+[ WITH OFFSET [ as_alias ] ]
+
+array:
+{ array_expression | array_path }
+
+as_alias:
+[AS] alias
+
+The ` UNNEST ` operator takes an array and returns a table with one row for each element in the array. The output of ` UNNEST ` is one  value table column. For these ` ARRAY ` element types, ` SELECT * ` against the value table column returns multiple columns:
+
+* ` STRUCT `
+
+Input values:
+
+* ` array_expression ` : An expression that produces an array.
+* ` array_path ` : The path to an ` ARRAY ` type.
+
+* In an implicit ` UNNEST ` operation, the path must start with a  range variable  name.
+* In an explicit ` UNNEST ` operation, the path can optionally start with a  range variable  name.
+
+The ` UNNEST ` operation with any  correlated  ` array_path ` must be on the right side of a ` CROSS JOIN ` , ` LEFT JOIN ` , or ` INNER JOIN ` operation.
+
+* ` as_alias ` : If specified, defines the explicit name of the value table column containing the array element values. It can be used to refer to the column elsewhere in the query.
+
+* ` WITH OFFSET ` : ` UNNEST ` destroys the order of elements in the input array. Use this optional clause to return an additional column with the array element indexes, or _offsets_ . Offset counting starts at zero for each row produced by the ` UNNEST ` operation. This column has an optional alias; If the optional alias is not used, the default column name is ` offset ` .
+
+Example:
+
+SELECT * FROM UNNEST ([10,20,30]) as numbers WITH OFFSET;
+
+/*---------+--------*
+| numbers | offset |
++---------+--------+
+| 10      | 0      |
+| 20      | 1      |
+| 30      | 2      |
+*---------+--------*/
+
+You can also use ` UNNEST ` outside of the ` FROM ` clause with the [ ` IN `
+operator ](/bigquery/docs/reference/standard-sql/operators#in_operators) .
+
+For several ways to use ` UNNEST ` , including construction, flattening, and filtering, see [ Work with arrays ](/bigquery/docs/arrays#working_with_arrays) .
+
+To learn more about the ways you can use ` UNNEST ` explicitly and implicitly,
+see  Explicit and implicit ` UNNEST ` .
+
+####  ` UNNEST ` and structs
+
+For an input array of structs, ` UNNEST ` returns a row for each struct, with a separate column for each field in the struct. The alias for each column is the name of the corresponding struct field.
+
+Example:
+
+
+SELECT *
+FROM UNNEST( ARRAY<
+STRUCT<
+x INT64,
+y STRING,
+z STRUCT<a INT64, b INT64>>>[
+(1, 'foo', (10, 11)),
+(3, 'bar', (20, 21))]);
+
+/*---+-----+----------*
+| x | y   | z        |
++---+-----+----------+
+| 1 | foo | {10, 11} |
+| 3 | bar | {20, 21} |
+*---+-----+----------*/
+
+Because the ` UNNEST ` operator returns a  value table  , you can alias `
+UNNEST ` to define a range variable that you can reference elsewhere in the query. If you reference the range variable in the ` SELECT ` list, the query returns a struct containing all of the fields of the original struct in the input table.
+
+Example:
+
+
+SELECT *, struct_value FROM UNNEST( ARRAY<
+STRUCT<
+x INT64,
+y STRING>>[
+(1, 'foo'),
+(3, 'bar')]) AS struct_value;
+
+/*---+-----+--------------*
+| x | y   | struct_value |
++---+-----+--------------+
+| 3 | bar | {3, bar}     |
+| 1 | foo | {1, foo}     |
+*---+-----+--------------*/
+
+####  Explicit and implicit ` UNNEST `
+
+Array unnesting can be either explicit or implicit. To learn more, see the following sections.
+
+**Explicit unnesting**
+
+The ` UNNEST ` keyword is required in explicit unnesting. For example:
+
+
+WITH Coordinates AS (SELECT [1,2] AS position) SELECT results FROM Coordinates, UNNEST(Coordinates.position) AS results;
+
+In explicit unnesting, ` array_expression ` must return an array value but doesn't need to resolve to an array.
+
+**Implicit unnesting**
+
+The ` UNNEST ` keyword is not used in implicit unnesting.
+
+For example:
+
+
+WITH Coordinates AS (SELECT [1,2] AS position) SELECT results FROM Coordinates, Coordinates.position AS results;
+
+**Tables and implicit unnesting**
+
+When you use ` array_path ` with implicit ` UNNEST ` , ` array_path ` must be prepended with the table. For example:
+
+
+WITH Coordinates AS (SELECT [1,2] AS position) SELECT results FROM Coordinates, Coordinates.position AS results;
+
+####  ` UNNEST ` and ` NULL ` values
+
+` UNNEST ` treats ` NULL ` values as follows:
+
+* ` NULL ` and empty arrays produce zero rows.
+* An array containing ` NULL ` values produces rows containing ` NULL ` values.

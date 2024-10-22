@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.geo_openstreetmap` and `bigquery-public-data.worldpop` database to solve this problem.

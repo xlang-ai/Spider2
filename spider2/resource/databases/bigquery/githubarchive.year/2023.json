@@ -1,0 +1,235 @@
+{
+    "table_name": "2023",
+    "table_fullname": "githubarchive.year.2023",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "IssuesEvent",
+            "public": true,
+            "payload": "{\"action\":\"closed\",\"issue\":{\"url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4\",\"repository_url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix\",\"labels_url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4/comments\",\"events_url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4/events\",\"html_url\":\"https://github.com/tstat/raspberry-pi-nix/issues/4\",\"id\":1751170193,\"node_id\":\"I_kwDOHXu6u85oYLyR\",\"number\":4,\"title\":\"Bluetooth is missing\",\"user\":{\"login\":\"lilyball\",\"id\":714,\"node_id\":\"MDQ6VXNlcjcxNA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/714?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/lilyball\",\"html_url\":\"https://github.com/lilyball\",\"followers_url\":\"https://api.github.com/users/lilyball/followers\",\"following_url\":\"https://api.github.com/users/lilyball/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/lilyball/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/lilyball/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/lilyball/subscriptions\",\"organizations_url\":\"https://api.github.com/users/lilyball/orgs\",\"repos_url\":\"https://api.github.com/users/lilyball/repos\",\"events_url\":\"https://api.github.com/users/lilyball/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/lilyball/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[],\"state\":\"closed\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":1,\"created_at\":\"2023-06-11T00:29:49Z\",\"updated_at\":\"2023-06-11T00:39:28Z\",\"closed_at\":\"2023-06-11T00:39:27Z\",\"author_association\":\"NONE\",\"active_lock_reason\":null,\"body\":\"I finally managed to build my existing configuration using `raspberry-pi-nix` instead of `nixos-hardware` and deploy it to my raspberry pi, and rebooted, and now bluetooth is gone. `bluetoothctl` says no default controller available and `rfkill` doesn't list bluetooth.\\r\\n\\r\\nMy configuration uses the following, which AIUI should be sufficient:\\r\\n\\r\\n```nix\\r\\n{\\r\\n  hardware = {\\r\\n    bluetooth.enable = true;\\r\\n    raspberry-pi = {\\r\\n      config.all.base-dt-params = {\\r\\n        # enable autoprobing of bluetooth driver\\r\\n        # https://github.com/raspberrypi/linux/blob/c8c99191e1419062ac8b668956d19e788865912a/arch/arm/boot/dts/overlays/README#L222-L224\\r\\n        krnbt = {\\r\\n          enable = true;\\r\\n          value = \\\"on\\\";\\r\\n        };\\r\\n      };\\r\\n    };\\r\\n  };\\r\\n}\\r\\n```\\r\\n\\r\\nI really don't know very much about the Linux booting process, is there any way to confirm that it is indeed booting through the correct process?\",\"reactions\":{\"url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/tstat/raspberry-pi-nix/issues/4/timeline\",\"performed_via_github_app\":null,\"state_reason\":\"completed\"}}",
+            "repo": {
+                "id": 494647995,
+                "name": "tstat/raspberry-pi-nix",
+                "url": "https://api.github.com/repos/tstat/raspberry-pi-nix"
+            },
+            "actor": {
+                "id": 714,
+                "login": "lilyball",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/714?",
+                "url": "https://api.github.com/users/lilyball"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-06-11 00:39:28+00:00",
+            "id": "29667325336",
+            "other": "{\"actor\":{\"display_login\":\"lilyball\"}}"
+        },
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"ocb-rust\",\"ref_type\":\"branch\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 13339837,
+                "name": "alex/cryptography",
+                "url": "https://api.github.com/repos/alex/cryptography"
+            },
+            "actor": {
+                "id": 772,
+                "login": "alex",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/772?",
+                "url": "https://api.github.com/users/alex"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-09-14 00:02:54+00:00",
+            "id": "31819303190",
+            "other": "{\"actor\":{\"display_login\":\"alex\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":12467679051,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"1bbaea7a5a0fce0f131b2cfbdf287e492ef95f63\",\"before\":\"28ce6219f7a3b8f7247d225c3cde7ed6403e3889\",\"commits\":[{\"sha\":\"1bbaea7a5a0fce0f131b2cfbdf287e492ef95f63\",\"author\":{\"email\":\"031baaf2498d86a0787e99508ff3317ad7871b06@bjhess.com\",\"name\":\"Barry Hess\"},\"message\":\"Archiving from Micro.blog.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/bjhess/micro.bjhess.com/commits/1bbaea7a5a0fce0f131b2cfbdf287e492ef95f63\"}]}",
+            "repo": {
+                "id": 448394831,
+                "name": "bjhess/micro.bjhess.com",
+                "url": "https://api.github.com/repos/bjhess/micro.bjhess.com"
+            },
+            "actor": {
+                "id": 1175,
+                "login": "bjhess",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1175?",
+                "url": "https://api.github.com/users/bjhess"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-02-01 03:45:08+00:00",
+            "id": "26786666538",
+            "other": "{\"actor\":{\"display_login\":\"bjhess\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":12343005267,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/potatosalad/maps-iterator-order\",\"head\":\"cb9d45e4714726689db7a3fd0263313213631fe4\",\"before\":\"3fc439bd1abacab3864fd7c3d2153f9892128ac7\",\"commits\":[{\"sha\":\"cb9d45e4714726689db7a3fd0263313213631fe4\",\"author\":{\"email\":\"6d3570e99fe34c1d1d3adcb14789730d1f80fce1@meta.com\",\"name\":\"Andrew Bennett\"},\"message\":\"Add maps:iterator/2 with ~k and ~K format options for printing ordered maps.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/potatosalad/otp/commits/cb9d45e4714726689db7a3fd0263313213631fe4\"}]}",
+            "repo": {
+                "id": 14218481,
+                "name": "potatosalad/otp",
+                "url": "https://api.github.com/repos/potatosalad/otp"
+            },
+            "actor": {
+                "id": 1804,
+                "login": "potatosalad",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1804?",
+                "url": "https://api.github.com/users/potatosalad"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-19 22:11:07+00:00",
+            "id": "26544271423",
+            "other": "{\"actor\":{\"display_login\":\"potatosalad\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":596785562,\"push_id\":12584821708,\"size\":2,\"distinct_size\":2,\"ref\":\"refs/heads/master\",\"head\":\"ceb0e0431e1b766e485d24b89f6afe83113b793f\",\"before\":\"636deb86488cd93945df6a7a1ec4d26434f25af2\",\"commits\":[{\"sha\":\"8a63cf96deb670e56898ebfd2a039952b5b8b060\",\"author\":{\"email\":\"1f4a0ac7ef55185cad37920eefa58fa6bf4d1c8a@auth0.com\",\"name\":\"Adam Mcgrath\"},\"message\":\"Add DELETE /api/v2/users/{id}/authenticators (#785)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/btakita/node-auth0/commits/8a63cf96deb670e56898ebfd2a039952b5b8b060\"},{\"sha\":\"ceb0e0431e1b766e485d24b89f6afe83113b793f\",\"author\":{\"email\":\"1f4a0ac7ef55185cad37920eefa58fa6bf4d1c8a@auth0.com\",\"name\":\"Adam Mcgrath\"},\"message\":\"Release v3.2.0 (#786)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/btakita/node-auth0/commits/ceb0e0431e1b766e485d24b89f6afe83113b793f\"}]}",
+            "repo": {
+                "id": 596785562,
+                "name": "btakita/node-auth0",
+                "url": "https://api.github.com/repos/btakita/node-auth0"
+            },
+            "actor": {
+                "id": 3664,
+                "login": "btakita",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/3664?",
+                "url": "https://api.github.com/users/btakita"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-02-11 02:09:11+00:00",
+            "id": "27020994958",
+            "other": "{\"actor\":{\"display_login\":\"btakita\"}}"
+        }
+    ]
+}

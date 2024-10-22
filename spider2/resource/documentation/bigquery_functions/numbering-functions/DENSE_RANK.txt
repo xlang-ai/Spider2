@@ -1,0 +1,68 @@
+## DENSE_RANK
+
+DENSE_RANK() OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+ORDER BY expression [ { ASC | DESC }  ] [, ...]
+
+
+**Description**
+
+Returns the ordinal (1-based) rank of each row within the window partition.
+All peer rows receive the same rank value, and the subsequent rank value is incremented by one.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Return Type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH Numbers AS (SELECT 1 as x UNION ALL SELECT 2 UNION ALL SELECT 2 UNION ALL SELECT 5 UNION ALL SELECT 8 UNION ALL SELECT 10 UNION ALL SELECT 10 ) SELECT x,
+DENSE_RANK() OVER (ORDER BY x ASC) AS dense_rank FROM Numbers
+
+/*-------------------------*
+| x          | dense_rank |
++-------------------------+
+| 1          | 1          |
+| 2          | 2          |
+| 2          | 2          |
+| 5          | 3          |
+| 8          | 4          |
+| 10         | 5          |
+| 10         | 5          |
+*-------------------------*/
+
+
+WITH finishers AS (SELECT 'Sophia Liu' as name,
+TIMESTAMP '2016-10-18 2:51:45' as finish_time,
+'F30-34' as division UNION ALL SELECT 'Lisa Stelzner', TIMESTAMP '2016-10-18 2:54:11', 'F35-39'
+UNION ALL SELECT 'Nikki Leith', TIMESTAMP '2016-10-18 2:59:01', 'F30-34'
+UNION ALL SELECT 'Lauren Matthews', TIMESTAMP '2016-10-18 3:01:17', 'F35-39'
+UNION ALL SELECT 'Desiree Berry', TIMESTAMP '2016-10-18 3:05:42', 'F35-39'
+UNION ALL SELECT 'Suzy Slane', TIMESTAMP '2016-10-18 3:06:24', 'F35-39'
+UNION ALL SELECT 'Jen Edwards', TIMESTAMP '2016-10-18 3:06:36', 'F30-34'
+UNION ALL SELECT 'Meghan Lederer', TIMESTAMP '2016-10-18 2:59:01', 'F30-34') SELECT name,
+finish_time,
+division,
+DENSE_RANK() OVER (PARTITION BY division ORDER BY finish_time ASC) AS finish_rank FROM finishers;
+
+/*-----------------+------------------------+----------+-------------*
+| name            | finish_time            | division | finish_rank |
++-----------------+------------------------+----------+-------------+
+| Sophia Liu      | 2016-10-18 09:51:45+00 | F30-34   | 1           |
+| Meghan Lederer  | 2016-10-18 09:59:01+00 | F30-34   | 2           |
+| Nikki Leith     | 2016-10-18 09:59:01+00 | F30-34   | 2           |
+| Jen Edwards     | 2016-10-18 10:06:36+00 | F30-34   | 3           |
+| Lisa Stelzner   | 2016-10-18 09:54:11+00 | F35-39   | 1           |
+| Lauren Matthews | 2016-10-18 10:01:17+00 | F35-39   | 2           |
+| Desiree Berry   | 2016-10-18 10:05:42+00 | F35-39   | 3           |
+| Suzy Slane      | 2016-10-18 10:06:24+00 | F35-39   | 4           |
+*-----------------+------------------------+----------+-------------*/

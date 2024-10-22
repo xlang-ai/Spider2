@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.idc_v18` and `bigquery-public-data.idc_v18_clinical` database to solve this problem.

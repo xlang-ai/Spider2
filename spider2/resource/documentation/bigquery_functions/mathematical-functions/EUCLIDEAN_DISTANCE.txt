@@ -1,0 +1,119 @@
+## EUCLIDEAN_DISTANCE
+
+EUCLIDEAN_DISTANCE(vector1, vector2)
+
+**Description**
+
+Computes the [ Euclidean distance
+](https://en.wikipedia.org/wiki/Euclidean_distance) between two vectors.
+
+**Definitions**
+
+* ` vector1 ` : A vector that is represented by an ` ARRAY<T> ` value or a sparse vector that is represented by an ` ARRAY<STRUCT<dimension,magnitude>> ` value.
+* ` vector2 ` : A vector that is represented by an ` ARRAY<T> ` value or a sparse vector that is represented by an ` ARRAY<STRUCT<dimension,magnitude>> ` value.
+
+**Details**
+
+* ` ARRAY<T> ` can be used to represent a vector. Each zero-based index in this array represents a dimension. The value for each element in this array represents a magnitude.
+
+` T ` can represent the following and must be the same for both vectors:
+
+* ` FLOAT64 `
+
+In the following example vector, there are four dimensions. The magnitude is `
+10.0 ` for dimension ` 0 ` , ` 55.0 ` for dimension ` 1 ` , ` 40.0 ` for dimension ` 2 ` , and ` 34.0 ` for dimension ` 3 ` :
+
+[10.0, 55.0, 40.0, 34.0]
+
+* ` ARRAY<STRUCT<dimension,magnitude>> ` can be used to represent a sparse vector. With a sparse vector, you only need to include dimension-magnitude pairs for non-zero magnitudes. If a magnitude isn't present in the sparse vector, the magnitude is implicitly understood to be zero.
+
+For example, if you have a vector with 10,000 dimensions, but only 10 dimensions have non-zero magnitudes, then the vector is a sparse vector. As a result, it's more efficient to describe a sparse vector by only mentioning its non-zero magnitudes.
+
+In ` ARRAY<STRUCT<dimension,magnitude>> ` , ` STRUCT<dimension,magnitude> `
+represents a dimension-magnitude pair for each non-zero magnitude in a sparse vector. These parts need to be included for each dimension-magnitude pair:
+
+* ` dimension ` : A ` STRING ` or ` INT64 ` value that represents a dimension in a vector.
+
+* ` magnitude ` : A ` FLOAT64 ` value that represents a non-zero magnitude for a specific dimension in a vector.
+
+You don't need to include empty dimension-magnitude pairs in a sparse vector.
+For example, the following sparse vector and non-sparse vector are equivalent:
+
+-- sparse vector ARRAY<STRUCT<INT64, FLOAT64>>
+[(1, 10.0), (2: 30.0), (5, 40.0)]
+
+-- vector ARRAY<FLOAT64>
+[0.0, 10.0, 30.0, 0.0, 0.0, 40.0]
+
+In a sparse vector, dimension-magnitude pairs don't need to be in any particular order. The following sparse vectors are equivalent:
+
+[('a', 10.0), ('b': 30.0), ('d': 40.0)]
+
+[('d': 40.0), ('a', 10.0), ('b': 30.0)]
+
+* Both non-sparse vectors in this function must share the same dimensions, and if they don't, an error is produced.
+
+* A vector can be a zero vector. A vector is a zero vector if it has no dimensions or all dimensions have a magnitude of ` 0 ` , such as ` [] ` or ` [0.0, 0.0] ` .
+
+* An error is produced if a magnitude in a vector is ` NULL ` .
+
+* If a vector is ` NULL ` , ` NULL ` is returned.
+
+**Return type**
+
+` FLOAT64 `
+
+**Examples**
+
+In the following example, non-sparse vectors are used to compute the Euclidean distance:
+
+
+SELECT EUCLIDEAN_DISTANCE([1.0, 2.0], [3.0, 4.0]) AS results;
+
+/*----------*
+| results  |
++----------+
+| 2.828    |
+*----------*/
+
+In the following example, sparse vectors are used to compute the Euclidean distance:
+
+
+SELECT EUCLIDEAN_DISTANCE(
+[(1, 1.0), (2, 2.0)],
+[(2, 4.0), (1, 3.0)]) AS results;
+
+/*----------*
+| results  |
++----------+
+| 2.828    |
+*----------*/
+
+The ordering of magnitudes in a vector doesn't impact the results produced by this function. For example these queries produce the same results even though the magnitudes in each vector is in a different order:
+
+
+SELECT EUCLIDEAN_DISTANCE([1.0, 2.0], [3.0, 4.0]);
+
+
+SELECT EUCLIDEAN_DISTANCE([2.0, 1.0], [4.0, 3.0]);
+
+
+SELECT EUCLIDEAN_DISTANCE([(1, 1.0), (2, 2.0)], [(1, 3.0), (2, 4.0)]) AS results;
+
+
+/*----------*
+| results  |
++----------+
+| 2.828    |
+*----------*/
+
+Both non-sparse vectors must have the same dimensions. If not, an error is produced. In the following example, the first vector has two dimensions and the second vector has three:
+
+
+-- ERROR SELECT EUCLIDEAN_DISTANCE([9.0, 7.0], [8.0, 4.0, 5.0]) AS results;
+
+If you use sparse vectors and you repeat a dimension, an error is produced:
+
+
+-- ERROR SELECT EUCLIDEAN_DISTANCE(
+[(1, 9.0), (2, 7.0), (2, 8.0)], [(1, 8.0), (2, 4.0), (3, 5.0)]) AS results;

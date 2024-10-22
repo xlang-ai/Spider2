@@ -1,0 +1,116 @@
+{
+    "table_name": "CytogenInvValid",
+    "table_fullname": "mitelman-db.prod.CytogenInvValid",
+    "column_names": [
+        "RefNo",
+        "CaseNo",
+        "InvNo",
+        "KaryLength",
+        "KaryShort",
+        "KaryLong",
+        "Message",
+        "Reason",
+        "CytoConvInput"
+    ],
+    "column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "RefNo",
+        "CaseNo",
+        "InvNo",
+        "KaryLength",
+        "KaryShort",
+        "KaryLong",
+        "Message",
+        "Reason",
+        "CytoConvInput"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "reference number",
+        "case number -- usually an intger, but can also be an arbitrary string",
+        "investigation number -- always an integer between 1 and 9",
+        "length of the karyotype description -- can be as long as thousands of characters, but is usually < 30",
+        "short (possibly truncated) karyotype description",
+        "if the karyotype description exceeds a certain length, the full string is in this column, otherwise this field is null",
+        "Indicates if the karyotype has been corrected by the syntax checker",
+        "Error Messages",
+        "A full karyotype value adjusted to work with CytoConverter's tool"
+    ],
+    "sample_rows": [
+        {
+            "RefNo": 17264,
+            "CaseNo": "403",
+            "InvNo": 1,
+            "KaryLength": 256,
+            "KaryShort": "45,XY,der(4)t(4;11)(p15;q21)t(4;11)(q13;q21)t(4;11)(q13;q14),der(5)t(5;17)(q11;q11),del(7)(q22q36),der(9)t(9;15)(q34;q26),r(11)(p11q11),der(15)t(11;15)(q14;p11)t(11;15)(q14;q14),der(16)t(15;16)(q21;q24)t(12;15)(q24;q21),del(17)(q11),der(20)t(4;20)(p15;p11",
+            "KaryLong": "45,XY,der(4)t(4;11)(p15;q21)t(4;11)(q13;q21)t(4;11)(q13;q14),der(5)t(5;17)(q11;q11),del(7)(q22q36),der(9)t(9;15)(q34;q26),r(11)(p11q11),der(15)t(11;15)(q14;p11)t(11;15)(q14;q14),der(16)t(15;16)(q21;q24)t(12;15)(q24;q21),del(17)(q11),der(20)t(4;20)(p15;p11)",
+            "Message": "Original",
+            "Reason": " ",
+            "CytoConvInput": "45,XY,der(4)t(4;11)(p15;q21)t(4;11)(q13;q21)t(4;11)(q13;q14),der(5)t(5;17)(q11;q11),del(7)(q22q36),der(9)t(9;15)(q34;q26),r(11)(p11q11),der(15)t(11;15)(q14;p11)t(11;15)(q14;q14),der(16)t(15;16)(q21;q24)t(12;15)(q24;q21),del(17)(q11),der(20)t(4;20)(p15;p11)"
+        },
+        {
+            "RefNo": 14318,
+            "CaseNo": "6",
+            "InvNo": 3,
+            "KaryLength": 256,
+            "KaryShort": "46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11)/46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11),der(16)t(16;22)(q24;q11",
+            "KaryLong": "46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11)/46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11),der(16)t(16;22)(q24;q11)",
+            "Message": "Has been altered",
+            "Reason": " ",
+            "CytoConvInput": "46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11)/46,XY,der(8)t(8;9)(p22;p24)t(8;22)(q24;q11),der(9)t(8;9)(p21;p24)x2,der(21)t(1;21)(q21;p11),der(22)t(8;22)(q24;q11),der(16)t(16;22)(q24;q11)"
+        },
+        {
+            "RefNo": 11275,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "KaryLength": 0,
+            "KaryShort": " ",
+            "KaryLong": " ",
+            "Message": "Original",
+            "Reason": " ",
+            "CytoConvInput": " "
+        },
+        {
+            "RefNo": 7355,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "KaryLength": 0,
+            "KaryShort": " ",
+            "KaryLong": " ",
+            "Message": "Original",
+            "Reason": " ",
+            "CytoConvInput": " "
+        },
+        {
+            "RefNo": 12035,
+            "CaseNo": "7",
+            "InvNo": 1,
+            "KaryLength": 0,
+            "KaryShort": " ",
+            "KaryLong": " ",
+            "Message": "Original",
+            "Reason": " ",
+            "CytoConvInput": " "
+        }
+    ]
+}

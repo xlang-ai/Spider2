@@ -1,0 +1,43 @@
+## FORMAT_DATETIME
+
+FORMAT_DATETIME(format_string, datetime_expression)
+
+**Description**
+
+Formats a ` DATETIME ` object according to the specified ` format_string ` .
+See [ Supported Format Elements For DATETIME
+](/bigquery/docs/reference/standard-sql/format-
+elements#format_elements_date_time) for a list of format elements that this function supports.
+
+**Return Data Type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT FORMAT_DATETIME("%c", DATETIME "2008-12-25 15:30:00") AS formatted;
+
+/*--------------------------*
+| formatted                |
++--------------------------+
+| Thu Dec 25 15:30:00 2008 |
+*--------------------------*/
+
+
+SELECT FORMAT_DATETIME("%b-%d-%Y", DATETIME "2008-12-25 15:30:00") AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec-25-2008 |
+*-------------*/
+
+
+SELECT FORMAT_DATETIME("%b %Y", DATETIME "2008-12-25 15:30:00") AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec 2008    |
+*-------------*/

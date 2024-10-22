@@ -1,0 +1,25 @@
+## CHARACTER_LENGTH
+
+CHARACTER_LENGTH(value)
+
+**Description**
+
+Synonym for  CHAR_LENGTH  .
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS (SELECT 'абвгд' AS characters)
+
+SELECT characters,
+CHARACTER_LENGTH(characters) AS char_length_example FROM example;
+
+/*------------+---------------------*
+| characters | char_length_example |
++------------+---------------------+
+| абвгд      |                   5 |
+*------------+---------------------*/

@@ -1,0 +1,46 @@
+## ST_DUMP
+
+ST_DUMP(geography[, dimension])
+
+**Description**
+
+Returns an ` ARRAY ` of simple ` GEOGRAPHY ` s where each element is a component of the input ` GEOGRAPHY ` . A simple ` GEOGRAPHY ` consists of a single point, linestring, or polygon. If the input ` GEOGRAPHY ` is simple,
+the result is a single element. When the input ` GEOGRAPHY ` is a collection,
+` ST_DUMP ` returns an ` ARRAY ` with one simple ` GEOGRAPHY ` for each component in the collection.
+
+If ` dimension ` is provided, the function only returns ` GEOGRAPHY ` s of the corresponding dimension. A dimension of -1 is equivalent to omitting `
+dimension ` .
+
+**Return Type**
+
+` ARRAY<GEOGRAPHY> `
+
+**Examples**
+
+The following example shows how ` ST_DUMP ` returns the simple geographies within a complex geography.
+
+
+WITH example AS ( SELECT ST_GEOGFROMTEXT('POINT(0 0)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('MULTIPOINT(0 0, 1 1)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION(POINT(0 0), LINESTRING(1 2, 2 1))')) SELECT geography AS original_geography,
+ST_DUMP(geography) AS dumped_geographies FROM example
+
+/*-------------------------------------+------------------------------------*
+|         original_geographies        |      dumped_geographies            |
++-------------------------------------+------------------------------------+
+| POINT(0 0)                          | [POINT(0 0)]                       |
+| MULTIPOINT(0 0, 1 1)                | [POINT(0 0), POINT(1 1)]           |
+| GEOMETRYCOLLECTION(POINT(0 0),      | [POINT(0 0), LINESTRING(1 2, 2 1)] |
+|   LINESTRING(1 2, 2 1))             |                                    |
+*-------------------------------------+------------------------------------*/
+
+The following example shows how ` ST_DUMP ` with the dimension argument only returns simple geographies of the given dimension.
+
+
+WITH example AS ( SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION(POINT(0 0), LINESTRING(1 2, 2 1))') AS geography) SELECT geography AS original_geography,
+ST_DUMP(geography, 1) AS dumped_geographies FROM example
+
+/*-------------------------------------+------------------------------*
+|         original_geographies        |      dumped_geographies      |
++-------------------------------------+------------------------------+
+| GEOMETRYCOLLECTION(POINT(0 0),      | [LINESTRING(1 2, 2 1)]       |
+|   LINESTRING(1 2, 2 1))             |                              |
+*-------------------------------------+------------------------------*/

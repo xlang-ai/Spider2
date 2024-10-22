@@ -1,0 +1,214 @@
+table_name,ddl
+midyear_population,"CREATE TABLE `bigquery-public-data.census_bureau_international.midyear_population`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  midyear_population INT64 OPTIONS(description=""Both sexes midyear population"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+birth_death_growth_rates,"CREATE TABLE `bigquery-public-data.census_bureau_international.birth_death_growth_rates`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  crude_birth_rate FLOAT64 OPTIONS(description=""Crude birth rate (births per 1,000 population)""),
+  crude_death_rate FLOAT64 OPTIONS(description=""Crude death rate (deaths per 1,000 population)""),
+  net_migration FLOAT64 OPTIONS(description=""Net migration rate (net number of migrants per 1,000 population)""),
+  rate_natural_increase FLOAT64 OPTIONS(description=""Rate of natural increase (percent)""),
+  growth_rate FLOAT64 OPTIONS(description=""Growth rate (percent)"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+country_names_area,"CREATE TABLE `bigquery-public-data.census_bureau_international.country_names_area`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  country_area FLOAT64 OPTIONS(description=""Area in square kilometers"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+midyear_population_agespecific,"CREATE TABLE `bigquery-public-data.census_bureau_international.midyear_population_agespecific`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  sex STRING OPTIONS(description=""Gender""),
+  population INT64 OPTIONS(description=""Total count of individuals""),
+  age INT64 OPTIONS(description=""Age in years"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+midyear_population_5yr_age_sex,"CREATE TABLE `bigquery-public-data.census_bureau_international.midyear_population_5yr_age_sex`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  total_flag STRING OPTIONS(description=""Total flag: \""*\""=Total, all ages; \""A\""=Individual age group""),
+  starting_age INT64 OPTIONS(description=""Starting age (0 to 100)""),
+  age_group_indicator STRING OPTIONS(description=""Age group indicator: \""-\""=5-year age group; \""+\""=open-ended age group""),
+  ending_age INT64 OPTIONS(description=""Ending age (4 to 99; set to 0 if G=\""+\"")""),
+  midyear_population INT64 OPTIONS(description=""Both sexes midyear population in the age group""),
+  midyear_population_male INT64 OPTIONS(description=""Male midyear population in the age group""),
+  midyear_population_female INT64 OPTIONS(description=""Female midyear population in the age group"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+midyear_population_age_sex,"CREATE TABLE `bigquery-public-data.census_bureau_international.midyear_population_age_sex`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  sex STRING OPTIONS(description=""Gender""),
+  max_age INT64 OPTIONS(description=""The last age in the distribution with a value greater than zero""),
+  population_age_0 INT64 OPTIONS(description=""Population at Age 0""),
+  population_age_1 INT64 OPTIONS(description=""Population at Age 1""),
+  population_age_2 INT64 OPTIONS(description=""Population at Age 2""),
+  population_age_3 INT64 OPTIONS(description=""Population at Age 3""),
+  population_age_4 INT64 OPTIONS(description=""Population at Age 4""),
+  population_age_5 INT64 OPTIONS(description=""Population at Age 5""),
+  population_age_6 INT64 OPTIONS(description=""Population at Age 6""),
+  population_age_7 INT64 OPTIONS(description=""Population at Age 7""),
+  population_age_8 INT64 OPTIONS(description=""Population at Age 8""),
+  population_age_9 INT64 OPTIONS(description=""Population at Age 9""),
+  population_age_10 INT64 OPTIONS(description=""Population at Age 10""),
+  population_age_11 INT64 OPTIONS(description=""Population at Age 11""),
+  population_age_12 INT64 OPTIONS(description=""Population at Age 12""),
+  population_age_13 INT64 OPTIONS(description=""Population at Age 13""),
+  population_age_14 INT64 OPTIONS(description=""Population at Age 14""),
+  population_age_15 INT64 OPTIONS(description=""Population at Age 15""),
+  population_age_16 INT64 OPTIONS(description=""Population at Age 16""),
+  population_age_17 INT64 OPTIONS(description=""Population at Age 17""),
+  population_age_18 INT64 OPTIONS(description=""Population at Age 18""),
+  population_age_19 INT64 OPTIONS(description=""Population at Age 19""),
+  population_age_20 INT64 OPTIONS(description=""Population at Age 20""),
+  population_age_21 INT64 OPTIONS(description=""Population at Age 21""),
+  population_age_22 INT64 OPTIONS(description=""Population at Age 22""),
+  population_age_23 INT64 OPTIONS(description=""Population at Age 23""),
+  population_age_24 INT64 OPTIONS(description=""Population at Age 24""),
+  population_age_25 INT64 OPTIONS(description=""Population at Age 25""),
+  population_age_26 INT64 OPTIONS(description=""Population at Age 26""),
+  population_age_27 INT64 OPTIONS(description=""Population at Age 27""),
+  population_age_28 INT64 OPTIONS(description=""Population at Age 28""),
+  population_age_29 INT64 OPTIONS(description=""Population at Age 29""),
+  population_age_30 INT64 OPTIONS(description=""Population at Age 30""),
+  population_age_31 INT64 OPTIONS(description=""Population at Age 31""),
+  population_age_32 INT64 OPTIONS(description=""Population at Age 32""),
+  population_age_33 INT64 OPTIONS(description=""Population at Age 33""),
+  population_age_34 INT64 OPTIONS(description=""Population at Age 34""),
+  population_age_35 INT64 OPTIONS(description=""Population at Age 35""),
+  population_age_36 INT64 OPTIONS(description=""Population at Age 36""),
+  population_age_37 INT64 OPTIONS(description=""Population at Age 37""),
+  population_age_38 INT64 OPTIONS(description=""Population at Age 38""),
+  population_age_39 INT64 OPTIONS(description=""Population at Age 39""),
+  population_age_40 INT64 OPTIONS(description=""Population at Age 40""),
+  population_age_41 INT64 OPTIONS(description=""Population at Age 41""),
+  population_age_42 INT64 OPTIONS(description=""Population at Age 42""),
+  population_age_43 INT64 OPTIONS(description=""Population at Age 43""),
+  population_age_44 INT64 OPTIONS(description=""Population at Age 44""),
+  population_age_45 INT64 OPTIONS(description=""Population at Age 45""),
+  population_age_46 INT64 OPTIONS(description=""Population at Age 46""),
+  population_age_47 INT64 OPTIONS(description=""Population at Age 47""),
+  population_age_48 INT64 OPTIONS(description=""Population at Age 48""),
+  population_age_49 INT64 OPTIONS(description=""Population at Age 49""),
+  population_age_50 INT64 OPTIONS(description=""Population at Age 50""),
+  population_age_51 INT64 OPTIONS(description=""Population at Age 51""),
+  population_age_52 INT64 OPTIONS(description=""Population at Age 52""),
+  population_age_53 INT64 OPTIONS(description=""Population at Age 53""),
+  population_age_54 INT64 OPTIONS(description=""Population at Age 54""),
+  population_age_55 INT64 OPTIONS(description=""Population at Age 55""),
+  population_age_56 INT64 OPTIONS(description=""Population at Age 56""),
+  population_age_57 INT64 OPTIONS(description=""Population at Age 57""),
+  population_age_58 INT64 OPTIONS(description=""Population at Age 58""),
+  population_age_59 INT64 OPTIONS(description=""Population at Age 59""),
+  population_age_60 INT64 OPTIONS(description=""Population at Age 60""),
+  population_age_61 INT64 OPTIONS(description=""Population at Age 61""),
+  population_age_62 INT64 OPTIONS(description=""Population at Age 62""),
+  population_age_63 INT64 OPTIONS(description=""Population at Age 63""),
+  population_age_64 INT64 OPTIONS(description=""Population at Age 64""),
+  population_age_65 INT64 OPTIONS(description=""Population at Age 65""),
+  population_age_66 INT64 OPTIONS(description=""Population at Age 66""),
+  population_age_67 INT64 OPTIONS(description=""Population at Age 67""),
+  population_age_68 INT64 OPTIONS(description=""Population at Age 68""),
+  population_age_69 INT64 OPTIONS(description=""Population at Age 69""),
+  population_age_70 INT64 OPTIONS(description=""Population at Age 70""),
+  population_age_71 INT64 OPTIONS(description=""Population at Age 71""),
+  population_age_72 INT64 OPTIONS(description=""Population at Age 72""),
+  population_age_73 INT64 OPTIONS(description=""Population at Age 73""),
+  population_age_74 INT64 OPTIONS(description=""Population at Age 74""),
+  population_age_75 INT64 OPTIONS(description=""Population at Age 75""),
+  population_age_76 INT64 OPTIONS(description=""Population at Age 76""),
+  population_age_77 INT64 OPTIONS(description=""Population at Age 77""),
+  population_age_78 INT64 OPTIONS(description=""Population at Age 78""),
+  population_age_79 INT64 OPTIONS(description=""Population at Age 79""),
+  population_age_80 INT64 OPTIONS(description=""Population at Age 80""),
+  population_age_81 INT64 OPTIONS(description=""Population at Age 81""),
+  population_age_82 INT64 OPTIONS(description=""Population at Age 82""),
+  population_age_83 INT64 OPTIONS(description=""Population at Age 83""),
+  population_age_84 INT64 OPTIONS(description=""Population at Age 84""),
+  population_age_85 INT64 OPTIONS(description=""Population at Age 85""),
+  population_age_86 INT64 OPTIONS(description=""Population at Age 86""),
+  population_age_87 INT64 OPTIONS(description=""Population at Age 87""),
+  population_age_88 INT64 OPTIONS(description=""Population at Age 88""),
+  population_age_89 INT64 OPTIONS(description=""Population at Age 89""),
+  population_age_90 INT64 OPTIONS(description=""Population at Age 90""),
+  population_age_91 INT64 OPTIONS(description=""Population at Age 91""),
+  population_age_92 INT64 OPTIONS(description=""Population at Age 92""),
+  population_age_93 INT64 OPTIONS(description=""Population at Age 93""),
+  population_age_94 INT64 OPTIONS(description=""Population at Age 94""),
+  population_age_95 INT64 OPTIONS(description=""Population at Age 95""),
+  population_age_96 INT64 OPTIONS(description=""Population at Age 96""),
+  population_age_97 INT64 OPTIONS(description=""Population at Age 97""),
+  population_age_98 INT64 OPTIONS(description=""Population at Age 98""),
+  population_age_99 INT64 OPTIONS(description=""Population at Age 99""),
+  population_age_100 INT64 OPTIONS(description=""Population at Age 100"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+age_specific_fertility_rates,"CREATE TABLE `bigquery-public-data.census_bureau_international.age_specific_fertility_rates`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  fertility_rate_15_19 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 15-19 (births per 1,000 population)""),
+  fertility_rate_20_24 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 20-24 (births per 1,000 population)""),
+  fertility_rate_25_29 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 25-29 (births per 1,000 population)""),
+  fertility_rate_30_34 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 30-34 (births per 1,000 population)""),
+  fertility_rate_35_39 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 35-39 (births per 1,000 population)""),
+  fertility_rate_40_44 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 40-44 (births per 1,000 population)""),
+  fertility_rate_45_49 FLOAT64 OPTIONS(description=""Age specific fertility rate for age 45-49 (births per 1,000 population)""),
+  total_fertility_rate FLOAT64 OPTIONS(description=""Total fertility rate (lifetime births per woman)""),
+  gross_reproduction_rate FLOAT64 OPTIONS(description=""Gross reproduction rate (lifetime female births per woman)""),
+  sex_ratio_at_birth FLOAT64 OPTIONS(description=""Sex ratio at birth (male births per female birth)"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+mortality_life_expectancy,"CREATE TABLE `bigquery-public-data.census_bureau_international.mortality_life_expectancy`
+(
+  country_code STRING NOT NULL OPTIONS(description=""Federal Information Processing Standard (FIPS) country/area code""),
+  country_name STRING OPTIONS(description=""Country or area name""),
+  year INT64 NOT NULL OPTIONS(description=""Year""),
+  infant_mortality FLOAT64 OPTIONS(description=""Both sexes infant mortality rate (infant deaths per 1,000 population)""),
+  infant_mortality_male FLOAT64 OPTIONS(description=""Male infant mortality rate (infant deaths per 1,000 population)""),
+  infant_mortality_female FLOAT64 OPTIONS(description=""Female infant mortality rate (infant deaths per 1,000 population)""),
+  life_expectancy FLOAT64 OPTIONS(description=""Both sexes life expectancy at birth (years)""),
+  life_expectancy_male FLOAT64 OPTIONS(description=""Male life expectancy at birth (years)""),
+  life_expectancy_female FLOAT64 OPTIONS(description=""Female life expectancy at birth (years)""),
+  mortality_rate_under5 FLOAT64 OPTIONS(description=""Both sexes under-5 mortality rate (probability of dying between ages 0 and 5)""),
+  mortality_rate_under5_male FLOAT64 OPTIONS(description=""Male sexes under-5 mortality rate (probability of dying between ages 0 and 5)""),
+  mortality_rate_under5_female FLOAT64 OPTIONS(description=""Female sexes under-5 mortality rate (probability of dying between ages 0 and 5)""),
+  mortality_rate_1to4 FLOAT64 OPTIONS(description=""Both sexes child mortality rate (probability of dying between ages 1 and 4)""),
+  mortality_rate_1to4_male FLOAT64 OPTIONS(description=""Male sexes child mortality rate (probability of dying between ages 1 and 4)""),
+  mortality_rate_1to4_female FLOAT64 OPTIONS(description=""Female sexes child mortality rate (probability of dying between ages 1 and 4)"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"

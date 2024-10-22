@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: |
+      This model creates a dimension table for customer data by joining customer information with employee data to add the support representative's name.
+      The SQL selects customer details from the staging customer table (`stg_customer`) and joins it with the employee table (`stg_employee`) on `employee_id` to include the support representative’s first and last name.
+
+    refs:
+      - name: stg_customer
+      - name: stg_employee
+
+    columns:
+      - name: customer_city
+        description: "The city where the customer is located."
+
+      - name: customer_state
+        description: "The state where the customer is located."
+
+      - name: customer_country
+        description: "The country where the customer is located."
+
+      - name: customer_postal_code
+        description: "The postal code of the customer."
+
+      - name: customer_phone
+        description: "The phone number of the customer."
+
+      - name: customer_fax
+        description: "The fax number of the customer."
+
+      - name: customer_email
+        description: "The email address of the customer."
+
+      - name: employee_id
+        description: "The unique identifier for the employee assigned as the support representative."
+        tests:
+          - not_null
+
+      - name: support_rep_first_name
+        description: "The first name of the support representative assigned to the customer."
+
+      - name: support_rep_last_name
+        description: "The last name of the support representative assigned to the customer."

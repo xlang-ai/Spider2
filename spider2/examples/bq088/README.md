@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.covid19_symptom_search` database to solve this problem.

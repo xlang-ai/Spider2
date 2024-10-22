@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.geo_us_census_places` database to solve this problem.

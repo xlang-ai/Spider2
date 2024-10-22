@@ -1,0 +1,88 @@
+## DATE_BUCKET
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+DATE_BUCKET(date_in_bucket, bucket_width)
+
+
+DATE_BUCKET(date_in_bucket, bucket_width, bucket_origin_date)
+
+**Description**
+
+Gets the lower bound of the date bucket that contains a date.
+
+**Definitions**
+
+* ` date_in_bucket ` : A ` DATE ` value that you can use to look up a date bucket.
+* ` bucket_width ` : An ` INTERVAL ` value that represents the width of a date bucket. A [ single interval ](/bigquery/docs/reference/standard-sql/data-types#single_datetime_part_interval) with [ date parts ](/bigquery/docs/reference/standard-sql/data-types#interval_datetime_parts) is supported.
+* ` bucket_origin_date ` : A ` DATE ` value that represents a point in time. All buckets expand left and right from this point. If this argument is not set, ` 1950-01-01 ` is used by default.
+
+**Return type**
+
+` DATE `
+
+**Examples**
+
+In the following example, the origin is omitted and the default origin, `
+1950-01-01 ` is used. All buckets expand in both directions from the origin,
+and the size of each bucket is two days. The lower bound of the bucket in which ` my_date ` belongs is returned.
+
+
+WITH some_dates AS ( SELECT DATE '1949-12-29' AS my_date UNION ALL SELECT DATE '1949-12-30' UNION ALL SELECT DATE '1949-12-31' UNION ALL SELECT DATE '1950-01-01' UNION ALL SELECT DATE '1950-01-02' UNION ALL SELECT DATE '1950-01-03'
+) SELECT DATE_BUCKET(my_date, INTERVAL 2 DAY) AS bucket_lower_bound FROM some_dates;
+
+/*--------------------+
+| bucket_lower_bound |
++--------------------+
+| 1949-12-28         |
+| 1949-12-30         |
+| 1949-12-30         |
+| 1950-12-01         |
+| 1950-12-01         |
+| 1950-12-03         |
++--------------------*/
+
+-- Some date buckets that originate from 1950-01-01:
+-- + Bucket: ...
+-- + Bucket: [1949-12-28, 1949-12-30)
+-- + Bucket: [1949-12-30, 1950-01-01)
+-- + Origin: [1950-01-01]
+-- + Bucket: [1950-01-01, 1950-01-03)
+-- + Bucket: [1950-01-03, 1950-01-05)
+-- + Bucket: ...
+
+In the following example, the origin has been changed to ` 2000-12-24 ` , and all buckets expand in both directions from this point. The size of each bucket is seven days. The lower bound of the bucket in which ` my_date ` belongs is returned:
+
+
+WITH some_dates AS ( SELECT DATE '2000-12-20' AS my_date UNION ALL SELECT DATE '2000-12-21' UNION ALL SELECT DATE '2000-12-22' UNION ALL SELECT DATE '2000-12-23' UNION ALL SELECT DATE '2000-12-24' UNION ALL SELECT DATE '2000-12-25'
+) SELECT DATE_BUCKET( my_date,
+INTERVAL 7 DAY,
+DATE '2000-12-24') AS bucket_lower_bound FROM some_dates;
+
+/*--------------------+
+| bucket_lower_bound |
++--------------------+
+| 2000-12-17         |
+| 2000-12-17         |
+| 2000-12-17         |
+| 2000-12-17         |
+| 2000-12-24         |
+| 2000-12-24         |
++--------------------*/
+
+-- Some date buckets that originate from 2000-12-24:
+-- + Bucket: ...
+-- + Bucket: [2000-12-10, 2000-12-17)
+-- + Bucket: [2000-12-17, 2000-12-24)
+-- + Origin: [2000-12-24]
+-- + Bucket: [2000-12-24, 2000-12-31)
+-- + Bucket: [2000-12-31, 2000-01-07)
+-- + Bucket: ...

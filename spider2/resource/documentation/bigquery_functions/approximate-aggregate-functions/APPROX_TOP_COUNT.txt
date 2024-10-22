@@ -1,0 +1,49 @@
+## APPROX_TOP_COUNT
+
+APPROX_TOP_COUNT( expression, number )
+
+**Description**
+
+Returns the approximate top elements of ` expression ` as an array of ` STRUCT
+` s. The ` number ` parameter specifies the number of elements returned.
+
+Each ` STRUCT ` contains two fields. The first field (named ` value ` ) contains an input value. The second field (named ` count ` ) contains an `
+INT64 ` specifying the number of times the value was returned.
+
+Returns ` NULL ` if there are zero input rows.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* ` expression ` : Any data type that the ` GROUP BY ` clause supports.
+* ` number ` : ` INT64 ` literal or query parameter.
+
+**Returned Data Types**
+
+` ARRAY<STRUCT> `
+
+**Examples**
+
+
+SELECT APPROX_TOP_COUNT(x, 2) as approx_top_count FROM UNNEST(["apple", "apple", "pear", "pear", "pear", "banana"]) as x;
+
+/*-------------------------*
+| approx_top_count        |
++-------------------------+
+| [{pear, 3}, {apple, 2}] |
+*-------------------------*/
+
+**NULL handling**
+
+` APPROX_TOP_COUNT ` does not ignore ` NULL ` s in the input. For example:
+
+
+SELECT APPROX_TOP_COUNT(x, 2) as approx_top_count FROM UNNEST([NULL, "pear", "pear", "pear", "apple", NULL]) as x;
+
+/*------------------------*
+| approx_top_count       |
++------------------------+
+| [{pear, 3}, {NULL, 2}] |
+*------------------------*/

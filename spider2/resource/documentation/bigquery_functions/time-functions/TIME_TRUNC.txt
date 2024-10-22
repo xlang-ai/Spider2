@@ -1,0 +1,30 @@
+## TIME_TRUNC
+
+TIME_TRUNC(time_expression, time_part)
+
+**Description**
+
+Truncates a ` TIME ` value to the granularity of ` time_part ` . The ` TIME `
+value is always rounded to the beginning of ` time_part ` , which can be one of the following:
+
+* ` MICROSECOND ` : If used, nothing is truncated from the value.
+* ` MILLISECOND ` : The nearest lessor or equal millisecond.
+* ` SECOND ` : The nearest lessor or equal second.
+* ` MINUTE ` : The nearest lessor or equal minute.
+* ` HOUR ` : The nearest lessor or equal hour.
+
+**Return Data Type**
+
+` TIME `
+
+**Example**
+
+
+SELECT TIME "15:30:00" as original,
+TIME_TRUNC(TIME "15:30:00", HOUR) as truncated;
+
+/*----------------------------+------------------------*
+| original                   | truncated              |
++----------------------------+------------------------+
+| 15:30:00                   | 15:00:00               |
+*----------------------------+------------------------*/

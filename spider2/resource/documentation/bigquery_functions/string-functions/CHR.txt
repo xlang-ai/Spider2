@@ -1,0 +1,33 @@
+## CHR
+
+CHR(value)
+
+**Description**
+
+Takes a Unicode [ code point ](https://en.wikipedia.org/wiki/Code_point) and returns the character that matches the code point. Each valid code point should fall within the range of [0, 0xD7FF] and [0xE000, 0x10FFFF]. Returns an empty string if the code point is ` 0 ` . If an invalid Unicode code point is specified, an error is returned.
+
+To work with an array of Unicode code points, see  ` CODE_POINTS_TO_STRING `
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT CHR(65) AS A, CHR(255) AS B, CHR(513) AS C, CHR(1024)  AS D;
+
+/*-------+-------+-------+-------*
+| A     | B     | C     | D     |
++-------+-------+-------+-------+
+| A     | ÿ     | ȁ     | Ѐ     |
+*-------+-------+-------+-------*/
+
+
+SELECT CHR(97) AS A, CHR(0xF9B5) AS B, CHR(0) AS C, CHR(NULL) AS D;
+
+/*-------+-------+-------+-------*
+| A     | B     | C     | D     |
++-------+-------+-------+-------+
+| a     | 例    |       | NULL  |
+*-------+-------+-------+-------*/

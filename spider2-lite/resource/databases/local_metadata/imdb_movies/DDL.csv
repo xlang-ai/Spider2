@@ -1,0 +1,53 @@
+table_name,DDL
+ERD,"CREATE TABLE ERD (
+    table TEXT,
+    column TEXT,
+    Unnamed: 2 REAL,
+    Unnamed: 3 REAL,
+    Unnamed: 4 REAL,
+    Unnamed: 5 REAL,
+    Unnamed: 6 TEXT,
+    Unnamed: 7 REAL,
+    Unnamed: 8 REAL,
+    Unnamed: 9 TEXT,
+    Unnamed: 10 REAL,
+    Unnamed: 11 REAL,
+    Unnamed: 12 TEXT
+);"
+movies,"CREATE TABLE movies (
+    id TEXT,
+    title TEXT,
+    year INTEGER,
+    date_published TIMESTAMP,
+    duration INTEGER,
+    country TEXT,
+    worlwide_gross_income TEXT,
+    languages TEXT,
+    production_company TEXT
+);"
+genre,"CREATE TABLE genre (
+    movie_id TEXT,
+    genre TEXT
+);"
+director_mapping,"CREATE TABLE director_mapping (
+    movie_id TEXT,
+    name_id TEXT
+);"
+role_mapping,"CREATE TABLE role_mapping (
+    movie_id TEXT,
+    name_id TEXT,
+    category TEXT
+);"
+names,"CREATE TABLE names (
+    id TEXT,
+    name TEXT,
+    height REAL,
+    date_of_birth TEXT,
+    known_for_movies TEXT
+);"
+ratings,"CREATE TABLE ratings (
+    movie_id TEXT,
+    avg_rating REAL,
+    total_votes INTEGER,
+    median_rating REAL
+);"

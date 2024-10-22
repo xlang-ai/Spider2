@@ -1,0 +1,98 @@
+## REGEXP_INSTR
+
+REGEXP_INSTR(source_value, regexp [, position[, occurrence, [occurrence_position]]])
+
+**Description**
+
+Returns the lowest 1-based position of a regular expression, ` regexp ` , in `
+source_value ` . ` source_value ` and ` regexp ` must be the same type, either
+` STRING ` or ` BYTES ` .
+
+If ` position ` is specified, the search starts at this position in `
+source_value ` , otherwise it starts at ` 1 ` , which is the beginning of `
+source_value ` . ` position ` is of type ` INT64 ` and must be positive.
+
+If ` occurrence ` is specified, the search returns the position of a specific instance of ` regexp ` in ` source_value ` . If not specified, ` occurrence `
+defaults to ` 1 ` and returns the position of the first occurrence. For `
+occurrence ` > 1, the function searches for the next, non-overlapping occurrence. ` occurrence ` is of type ` INT64 ` and must be positive.
+
+You can optionally use ` occurrence_position ` to specify where a position in relation to an ` occurrence ` starts. Your choices are:
+
+* ` 0 ` : Returns the start position of ` occurrence ` .
+* ` 1 ` : Returns the end position of ` occurrence ` \+ ` 1 ` . If the end of the occurrence is at the end of ` source_value ` , ` LENGTH(source_value) + 1 ` is returned.
+
+Returns ` 0 ` if:
+
+* No match is found.
+* If ` occurrence ` is greater than the number of matches found.
+* If ` position ` is greater than the length of ` source_value ` .
+* The regular expression is empty.
+
+Returns ` NULL ` if:
+
+* ` position ` is ` NULL ` .
+* ` occurrence ` is ` NULL ` .
+
+Returns an error if:
+
+* ` position ` is ` 0 ` or negative.
+* ` occurrence ` is ` 0 ` or negative.
+* ` occurrence_position ` is neither ` 0 ` nor ` 1 ` .
+* The regular expression is invalid.
+* The regular expression has more than one capturing group.
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS ( SELECT 'ab@cd-ef' AS source_value, '@[^-]*' AS regexp UNION ALL SELECT 'ab@d-ef', '@[^-]*' UNION ALL SELECT 'abc@cd-ef', '@[^-]*' UNION ALL SELECT 'abc-ef', '@[^-]*') SELECT source_value, regexp, REGEXP_INSTR(source_value, regexp) AS instr FROM example;
+
+/*--------------+--------+-------*
+| source_value | regexp | instr |
++--------------+--------+-------+
+| ab@cd-ef     | @[^-]* | 3     |
+| ab@d-ef      | @[^-]* | 3     |
+| abc@cd-ef    | @[^-]* | 4     |
+| abc-ef       | @[^-]* | 0     |
+*--------------+--------+-------*/
+
+
+WITH example AS ( SELECT 'a@cd-ef b@cd-ef' AS source_value, '@[^-]*' AS regexp, 1 AS position UNION ALL SELECT 'a@cd-ef b@cd-ef', '@[^-]*', 2 UNION ALL SELECT 'a@cd-ef b@cd-ef', '@[^-]*', 3 UNION ALL SELECT 'a@cd-ef b@cd-ef', '@[^-]*', 4) SELECT source_value, regexp, position,
+REGEXP_INSTR(source_value, regexp, position) AS instr FROM example;
+
+/*-----------------+--------+----------+-------*
+| source_value    | regexp | position | instr |
++-----------------+--------+----------+-------+
+| a@cd-ef b@cd-ef | @[^-]* | 1        | 2     |
+| a@cd-ef b@cd-ef | @[^-]* | 2        | 2     |
+| a@cd-ef b@cd-ef | @[^-]* | 3        | 10    |
+| a@cd-ef b@cd-ef | @[^-]* | 4        | 10    |
+*-----------------+--------+----------+-------*/
+
+
+WITH example AS ( SELECT 'a@cd-ef b@cd-ef c@cd-ef' AS source_value,
+'@[^-]*' AS regexp, 1 AS position, 1 AS occurrence UNION ALL SELECT 'a@cd-ef b@cd-ef c@cd-ef', '@[^-]*', 1, 2 UNION ALL SELECT 'a@cd-ef b@cd-ef c@cd-ef', '@[^-]*', 1, 3) SELECT source_value, regexp, position, occurrence,
+REGEXP_INSTR(source_value, regexp, position, occurrence) AS instr FROM example;
+
+/*-------------------------+--------+----------+------------+-------*
+| source_value            | regexp | position | occurrence | instr |
++-------------------------+--------+----------+------------+-------+
+| a@cd-ef b@cd-ef c@cd-ef | @[^-]* | 1        | 1          | 2     |
+| a@cd-ef b@cd-ef c@cd-ef | @[^-]* | 1        | 2          | 10    |
+| a@cd-ef b@cd-ef c@cd-ef | @[^-]* | 1        | 3          | 18    |
+*-------------------------+--------+----------+------------+-------*/
+
+
+WITH example AS ( SELECT 'a@cd-ef' AS source_value, '@[^-]*' AS regexp,
+1 AS position, 1 AS occurrence, 0 AS o_position UNION ALL SELECT 'a@cd-ef', '@[^-]*', 1, 1, 1) SELECT source_value, regexp, position, occurrence, o_position,
+REGEXP_INSTR(source_value, regexp, position, occurrence, o_position) AS instr FROM example;
+
+/*--------------+--------+----------+------------+------------+-------*
+| source_value | regexp | position | occurrence | o_position | instr |
++--------------+--------+----------+------------+------------+-------+
+| a@cd-ef      | @[^-]* | 1        | 1          | 0          | 2     |
+| a@cd-ef      | @[^-]* | 1        | 1          | 1          | 5     |
+*--------------+--------+----------+------------+------------+-------*/

@@ -1,0 +1,50 @@
+## ST_CENTROID_AGG
+
+ST_CENTROID_AGG(geography)
+
+**Description**
+
+Computes the centroid of the set of input ` GEOGRAPHY ` s as a single point `
+GEOGRAPHY ` .
+
+The _centroid_ over the set of input ` GEOGRAPHY ` s is the weighted average of the centroid of each individual ` GEOGRAPHY ` . Only the ` GEOGRAPHY ` s with the highest dimension present in the input contribute to the centroid of the entire set. For example, if the input contains both ` GEOGRAPHY ` s with lines and ` GEOGRAPHY ` s with only points, ` ST_CENTROID_AGG ` returns the weighted average of the ` GEOGRAPHY ` s with lines, since those have maximal dimension. In this example, ` ST_CENTROID_AGG ` ignores ` GEOGRAPHY ` s with only points when calculating the aggregate centroid.
+
+` ST_CENTROID_AGG ` ignores ` NULL ` input ` GEOGRAPHY ` values.
+
+See  ` ST_CENTROID ` for the non-aggregate version of ` ST_CENTROID_AGG ` and the definition of centroid for an individual ` GEOGRAPHY ` value.
+
+**Return type**
+
+Point ` GEOGRAPHY `
+
+**Example**
+
+The following queries compute the aggregate centroid over a set of ` GEOGRAPHY
+` values. The input to the first query contains only points, and therefore each value contribute to the aggregate centroid. Also notice that `
+ST_CENTROID_AGG ` is _not_ equivalent to calling ` ST_CENTROID ` on the result of ` ST_UNION_AGG ` ; duplicates are removed by the union, unlike `
+ST_CENTROID_AGG ` . The input to the second query has mixed dimensions, and only values with the highest dimension in the set, the lines, affect the aggregate centroid.
+
+
+SELECT ST_CENTROID_AGG(points) AS st_centroid_agg,
+ST_CENTROID(ST_UNION_AGG(points)) AS centroid_of_union FROM UNNEST([ST_GEOGPOINT(1, 5),
+ST_GEOGPOINT(1, 2),
+ST_GEOGPOINT(1, -1),
+ST_GEOGPOINT(1, -1)]) points;
+
+/*---------------------------+-------------------*
+| st_centroid_agg           | centroid_of_union |
++---------------------------+-------------------+
+| POINT(1 1.24961422620969) | POINT(1 2)        |
+*---------------------------+-------------------*/
+
+
+SELECT ST_CENTROID_AGG(points) AS st_centroid_agg FROM UNNEST([ST_GEOGPOINT(50, 26),
+ST_GEOGPOINT(34, 33.3),
+ST_GEOGFROMTEXT('LINESTRING(0 -1, 0 1)'),
+ST_GEOGFROMTEXT('LINESTRING(0 1, 0 3)')]) points;
+
+/*-----------------*
+| st_centroid_agg |
++-----------------+
+| POINT(0 1)      |
+*-----------------*/

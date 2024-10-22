@@ -1,0 +1,103 @@
+## LAX_STRING
+
+LAX_STRING(json_expr)
+
+**Description**
+
+Attempts to convert a JSON value to a SQL ` STRING ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '"name"'
+
+Details:
+
+* If ` json_expr ` is SQL ` NULL ` , the function returns SQL ` NULL ` .
+* See the conversion rules in the next section for additional ` NULL ` handling.
+
+**Conversion rules**
+
+From JSON type  |  To SQL ` STRING `
+---|---
+boolean  |  If the JSON boolean is ` true ` , returns ` 'true' ` . If ` false
+` , returns ` 'false' ` .
+string  |  Returns the JSON string as a ` STRING ` value.
+number  |  Returns the JSON number as a ` STRING ` value.
+other type or null  |  ` NULL `
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+Examples with inputs that are JSON strings:
+
+
+SELECT LAX_STRING(JSON '"purple"') AS result;
+
+/*--------*
+| result |
++--------+
+| purple |
+*--------*/
+
+
+SELECT LAX_STRING(JSON '"10"') AS result;
+
+/*--------*
+| result |
++--------+
+| 10     |
+*--------*/
+
+Examples with inputs that are JSON booleans:
+
+
+SELECT LAX_STRING(JSON 'true') AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+
+SELECT LAX_STRING(JSON 'false') AS result;
+
+/*--------*
+| result |
++--------+
+| false  |
+*--------*/
+
+Examples with inputs that are JSON numbers:
+
+
+SELECT LAX_STRING(JSON '10.0') AS result;
+
+/*--------*
+| result |
++--------+
+| 10     |
+*--------*/
+
+
+SELECT LAX_STRING(JSON '10') AS result;
+
+/*--------*
+| result |
++--------+
+| 10     |
+*--------*/
+
+
+SELECT LAX_STRING(JSON '1e100') AS result;
+
+/*--------*
+| result |
++--------+
+| 1e+100 |
+*--------*/

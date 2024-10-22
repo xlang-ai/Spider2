@@ -1,0 +1,20 @@
+
+version: 2
+
+models:
+  - name: stg_album
+    description: "Contains list of album"
+    columns:
+      - name: album_id
+        description: "Album identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: album_title
+        description: "Title of the album"
+        tests:
+          - not_null
+      - name: artist_id
+        description: "Artist identifier key"
+        tests:
+          - not_null

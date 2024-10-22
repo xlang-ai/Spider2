@@ -1,0 +1,12 @@
+{{
+    fivetran_utils.union_data(
+        table_identifier='page', 
+        database_variable='facebook_pages_database', 
+        schema_variable='facebook_pages_schema', 
+        default_database=target.database,
+        default_schema='facebook_pages',
+        default_variable='page',
+        union_schema_variable='facebook_pages_union_schemas',
+        union_database_variable='facebook_pages_union_databases'
+    )
+}}

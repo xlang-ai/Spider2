@@ -1,0 +1,235 @@
+{
+    "table_name": "202406",
+    "table_fullname": "githubarchive.month.202406",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":676190289,\"push_id\":18726931954,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"8c8ae2ec4658744b8043b2c90f6ed95b6de6a941\",\"before\":\"ebed37c8f889a4173e13990a90aa6f1b1e7eba80\",\"commits\":[{\"sha\":\"8c8ae2ec4658744b8043b2c90f6ed95b6de6a941\",\"author\":{\"email\":\"9d687b172675fa854158b38e535965151807808a@gmail.com\",\"name\":\"Mugundh J B\"},\"message\":\"Time: 19 ms (59.69%), Space: 11.9 MB (83.19%) - LeetHub\",\"distinct\":true,\"url\":\"https://api.github.com/repos/J-B-Mugundh/LeetCode-MySolutions/commits/8c8ae2ec4658744b8043b2c90f6ed95b6de6a941\"}]}",
+            "repo": {
+                "id": 676190289,
+                "name": "J-B-Mugundh/LeetCode-MySolutions",
+                "url": "https://api.github.com/repos/J-B-Mugundh/LeetCode-MySolutions"
+            },
+            "actor": {
+                "id": 98593517,
+                "login": "J-B-Mugundh",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/98593517?",
+                "url": "https://api.github.com/users/J-B-Mugundh"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-06-04 15:47:25+00:00",
+            "id": "38990408155",
+            "other": "{\"actor\":{\"display_login\":\"J-B-Mugundh\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":208818495,\"push_id\":18726272555,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"cf591b7eae87efcb4d3918fb34d8dadf63a2f228\",\"before\":\"79e305a66a7c19ab46f29af3eefbfd3bc288d061\",\"commits\":[{\"sha\":\"cf591b7eae87efcb4d3918fb34d8dadf63a2f228\",\"author\":{\"email\":\"64b2b6d12bfe4baae7dad3d018f8cbf6b0e7a044@deepnight.net\",\"name\":\"Sebastien Benard\"},\"message\":\"Doc\",\"distinct\":true,\"url\":\"https://api.github.com/repos/deepnight/deepnightLibs/commits/cf591b7eae87efcb4d3918fb34d8dadf63a2f228\"}]}",
+            "repo": {
+                "id": 208818495,
+                "name": "deepnight/deepnightLibs",
+                "url": "https://api.github.com/repos/deepnight/deepnightLibs"
+            },
+            "actor": {
+                "id": 1671695,
+                "login": "deepnight",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1671695?",
+                "url": "https://api.github.com/users/deepnight"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-06-04 15:07:59+00:00",
+            "id": "38988975157",
+            "other": "{\"actor\":{\"display_login\":\"deepnight\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"branches/renovate/node-20.x\",\"ref_type\":\"branch\",\"master_branch\":\"main\",\"description\":\"A browser extension that helps organise multiple AWS SSO accounts via custom regex filters\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 615671635,
+                "name": "aaronkik/aws-sso-account-filter",
+                "url": "https://api.github.com/repos/aaronkik/aws-sso-account-filter"
+            },
+            "actor": {
+                "id": 29139614,
+                "login": "renovate[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/29139614?",
+                "url": "https://api.github.com/users/renovate[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-06-04 15:37:16+00:00",
+            "id": "38990062098",
+            "other": "{\"actor\":{\"display_login\":\"renovate\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":810379800,\"push_id\":18726764672,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"dbf464e7227a112d336986bd45815f3230b67eb7\",\"before\":\"36bc6a1331f4d4f5f326466f29ecad8b4d420cce\",\"commits\":[{\"sha\":\"dbf464e7227a112d336986bd45815f3230b67eb7\",\"author\":{\"email\":\"3011a68cc7a0c8417453c15b69b22ba7694d192a@users.noreply.github.com\",\"name\":\"Beom-jin\"},\"message\":\"Update README.md\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Beom-jin/ResNet_repro/commits/dbf464e7227a112d336986bd45815f3230b67eb7\"}]}",
+            "repo": {
+                "id": 810379800,
+                "name": "Beom-jin/ResNet_repro",
+                "url": "https://api.github.com/repos/Beom-jin/ResNet_repro"
+            },
+            "actor": {
+                "id": 87561766,
+                "login": "Beom-jin",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/87561766?",
+                "url": "https://api.github.com/users/Beom-jin"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-06-04 15:36:48+00:00",
+            "id": "38990045039",
+            "other": "{\"actor\":{\"display_login\":\"Beom-jin\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"experimental\",\"ref_type\":\"branch\",\"master_branch\":\"main\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 802674915,
+                "name": "raihanrifandi/lavanderia-inventory-system",
+                "url": "https://api.github.com/repos/raihanrifandi/lavanderia-inventory-system"
+            },
+            "actor": {
+                "id": 112451785,
+                "login": "raihanrifandi",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/112451785?",
+                "url": "https://api.github.com/users/raihanrifandi"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-06-04 15:29:40+00:00",
+            "id": "38989795111",
+            "other": "{\"actor\":{\"display_login\":\"raihanrifandi\"}}"
+        }
+    ]
+}

@@ -1,0 +1,2 @@
+1. Please query `patents-public-data.patents.publications` and `patents-public-data.google_patents_research.publications` tables to solve this problem.
+2. Please complete the file result.csv with your answer.

@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.sdoh_cdc_wonder_natality` and `bigquery-public-data.census_bureau_acs` database to solve this problem.

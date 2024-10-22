@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: billing_data
+    schema: main
+    loaded_at_field: _fivetran_synced_at
+    freshness: # default freshness
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    tables: 
+      - name: claims
+      - name: claim_line
+      - name: claim_diagnosis

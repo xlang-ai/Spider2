@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.fdic_banks`, `bigquery-public-data.census_bureau_acs` database to solve this problem.

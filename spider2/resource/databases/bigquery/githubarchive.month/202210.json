@@ -1,0 +1,235 @@
+{
+    "table_name": "202210",
+    "table_fullname": "githubarchive.month.202210",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{\"forkee\":{\"id\":544596873,\"node_id\":\"R_kgDOIHXjiQ\",\"name\":\"las-rs\",\"full_name\":\"hellosct1/las-rs\",\"private\":false,\"owner\":{\"login\":\"hellosct1\",\"id\":182199,\"node_id\":\"MDQ6VXNlcjE4MjE5OQ==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/182199?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/hellosct1\",\"html_url\":\"https://github.com/hellosct1\",\"followers_url\":\"https://api.github.com/users/hellosct1/followers\",\"following_url\":\"https://api.github.com/users/hellosct1/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/hellosct1/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/hellosct1/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/hellosct1/subscriptions\",\"organizations_url\":\"https://api.github.com/users/hellosct1/orgs\",\"repos_url\":\"https://api.github.com/users/hellosct1/repos\",\"events_url\":\"https://api.github.com/users/hellosct1/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/hellosct1/received_events\",\"type\":\"User\",\"site_admin\":false},\"html_url\":\"https://github.com/hellosct1/las-rs\",\"description\":\"Read and write ASPRS las files, Rust edition.\",\"fork\":true,\"url\":\"https://api.github.com/repos/hellosct1/las-rs\",\"forks_url\":\"https://api.github.com/repos/hellosct1/las-rs/forks\",\"keys_url\":\"https://api.github.com/repos/hellosct1/las-rs/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/hellosct1/las-rs/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/hellosct1/las-rs/teams\",\"hooks_url\":\"https://api.github.com/repos/hellosct1/las-rs/hooks\",\"issue_events_url\":\"https://api.github.com/repos/hellosct1/las-rs/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/hellosct1/las-rs/events\",\"assignees_url\":\"https://api.github.com/repos/hellosct1/las-rs/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/hellosct1/las-rs/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/hellosct1/las-rs/tags\",\"blobs_url\":\"https://api.github.com/repos/hellosct1/las-rs/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/hellosct1/las-rs/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/hellosct1/las-rs/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/hellosct1/las-rs/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/hellosct1/las-rs/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/hellosct1/las-rs/languages\",\"stargazers_url\":\"https://api.github.com/repos/hellosct1/las-rs/stargazers\",\"contributors_url\":\"https://api.github.com/repos/hellosct1/las-rs/contributors\",\"subscribers_url\":\"https://api.github.com/repos/hellosct1/las-rs/subscribers\",\"subscription_url\":\"https://api.github.com/repos/hellosct1/las-rs/subscription\",\"commits_url\":\"https://api.github.com/repos/hellosct1/las-rs/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/hellosct1/las-rs/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/hellosct1/las-rs/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/hellosct1/las-rs/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/hellosct1/las-rs/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/hellosct1/las-rs/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/hellosct1/las-rs/merges\",\"archive_url\":\"https://api.github.com/repos/hellosct1/las-rs/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/hellosct1/las-rs/downloads\",\"issues_url\":\"https://api.github.com/repos/hellosct1/las-rs/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/hellosct1/las-rs/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/hellosct1/las-rs/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/hellosct1/las-rs/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/hellosct1/las-rs/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/hellosct1/las-rs/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/hellosct1/las-rs/deployments\",\"created_at\":\"2022-10-02T21:35:44Z\",\"updated_at\":\"2022-09-17T23:28:45Z\",\"pushed_at\":\"2022-08-18T22:31:46Z\",\"git_url\":\"git://github.com/hellosct1/las-rs.git\",\"ssh_url\":\"git@github.com:hellosct1/las-rs.git\",\"clone_url\":\"https://github.com/hellosct1/las-rs.git\",\"svn_url\":\"https://github.com/hellosct1/las-rs\",\"homepage\":\"\",\"size\":498,\"stargazers_count\":0,\"watchers_count\":0,\"language\":null,\"has_issues\":false,\"has_projects\":true,\"has_downloads\":true,\"has_wiki\":false,\"has_pages\":false,\"forks_count\":0,\"mirror_url\":null,\"archived\":false,\"disabled\":false,\"open_issues_count\":0,\"license\":{\"key\":\"mit\",\"name\":\"MIT License\",\"spdx_id\":\"MIT\",\"url\":\"https://api.github.com/licenses/mit\",\"node_id\":\"MDc6TGljZW5zZTEz\"},\"allow_forking\":true,\"is_template\":false,\"web_commit_signoff_required\":false,\"topics\":[],\"visibility\":\"public\",\"forks\":0,\"open_issues\":0,\"watchers\":0,\"default_branch\":\"main\",\"public\":true}}",
+            "repo": {
+                "id": 35166280,
+                "name": "gadomski/las-rs",
+                "url": "https://api.github.com/repos/gadomski/las-rs"
+            },
+            "actor": {
+                "id": 182199,
+                "login": "hellosct1",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/182199?",
+                "url": "https://api.github.com/users/hellosct1"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-10-02 21:35:45+00:00",
+            "id": "24350373090",
+            "other": "{\"actor\":{\"display_login\":\"hellosct1\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11202365514,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"9eafed9478ae198e7cb52594a8664eedc5ac2dbb\",\"before\":\"dcf69cf774e61e37cc1b1957d87afa5f4b586478\",\"commits\":[{\"sha\":\"9eafed9478ae198e7cb52594a8664eedc5ac2dbb\",\"author\":{\"email\":\"45a66b6802d8ae6ec311f48e29724a511a800dd4@digitalpixies.com\",\"name\":\"Robert Huie\"},\"message\":\"updated logs from sir-spamacus.knights-of.camelot\",\"distinct\":true,\"url\":\"https://api.github.com/repos/digitalpixies/karmasearch/commits/9eafed9478ae198e7cb52594a8664eedc5ac2dbb\"}]}",
+            "repo": {
+                "id": 108327482,
+                "name": "digitalpixies/karmasearch",
+                "url": "https://api.github.com/repos/digitalpixies/karmasearch"
+            },
+            "actor": {
+                "id": 1613149,
+                "login": "digitalpixies",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1613149?",
+                "url": "https://api.github.com/users/digitalpixies"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-10-02 21:32:00+00:00",
+            "id": "24350351930",
+            "other": "{\"actor\":{\"display_login\":\"digitalpixies\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11202039106,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"b1ebc584249ac22527c0c3a02d32bffe18b73a0a\",\"before\":\"e569facd47075e6fc93058c2cc797c7ead6706c8\",\"commits\":[{\"sha\":\"b1ebc584249ac22527c0c3a02d32bffe18b73a0a\",\"author\":{\"email\":\"7541e4a8fa7a53898dab99d4125db4adef095535@wolfman.com\",\"name\":\"Jim Morris\"},\"message\":\"add reset button\",\"distinct\":true,\"url\":\"https://api.github.com/repos/wolfmanjm/kivy-smoothie-host/commits/b1ebc584249ac22527c0c3a02d32bffe18b73a0a\"}]}",
+            "repo": {
+                "id": 89171393,
+                "name": "wolfmanjm/kivy-smoothie-host",
+                "url": "https://api.github.com/repos/wolfmanjm/kivy-smoothie-host"
+            },
+            "actor": {
+                "id": 22263,
+                "login": "wolfmanjm",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/22263?",
+                "url": "https://api.github.com/users/wolfmanjm"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-10-02 20:10:50+00:00",
+            "id": "24349858509",
+            "other": "{\"actor\":{\"display_login\":\"wolfmanjm\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11202011561,\"size\":4,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"5a2fc5036cde4b93076a372c9704c1946f3d59b6\",\"before\":\"9683e9a785454144f5261155f5de1fa9836926ff\",\"commits\":[{\"sha\":\"14a6f68ee02fe11085b4b409e7ce6523ad5bc857\",\"author\":{\"email\":\"a70a1b3e17a179f776160caea44bfd6232853481@otenet.gr\",\"name\":\"Benik\"},\"message\":\"I applied these changes before ElvUI :P\",\"distinct\":false,\"url\":\"https://api.github.com/repos/Benik/BenikUI-TBC/commits/14a6f68ee02fe11085b4b409e7ce6523ad5bc857\"},{\"sha\":\"679ca7de2659419d2ceaf078d16a665e7ed2db67\",\"author\":{\"email\":\"a70a1b3e17a179f776160caea44bfd6232853481@otenet.gr\",\"name\":\"Benik\"},\"message\":\"these too\",\"distinct\":false,\"url\":\"https://api.github.com/repos/Benik/BenikUI-TBC/commits/679ca7de2659419d2ceaf078d16a665e7ed2db67\"},{\"sha\":\"f0eff91b8085ca6d30b4c0d9766ae512b88cc964\",\"author\":{\"email\":\"a70a1b3e17a179f776160caea44bfd6232853481@otenet.gr\",\"name\":\"Benik\"},\"message\":\"v2.01\",\"distinct\":false,\"url\":\"https://api.github.com/repos/Benik/BenikUI-TBC/commits/f0eff91b8085ca6d30b4c0d9766ae512b88cc964\"},{\"sha\":\"5a2fc5036cde4b93076a372c9704c1946f3d59b6\",\"author\":{\"email\":\"a70a1b3e17a179f776160caea44bfd6232853481@otenet.gr\",\"name\":\"Benik\"},\"message\":\"Merge remote-tracking branch 'origin/development'\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Benik/BenikUI-TBC/commits/5a2fc5036cde4b93076a372c9704c1946f3d59b6\"}]}",
+            "repo": {
+                "id": 403374936,
+                "name": "Benik/BenikUI-TBC",
+                "url": "https://api.github.com/repos/Benik/BenikUI-TBC"
+            },
+            "actor": {
+                "id": 1357633,
+                "login": "Benik",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1357633?",
+                "url": "https://api.github.com/users/Benik"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-10-02 20:04:24+00:00",
+            "id": "24349816589",
+            "other": "{\"actor\":{\"display_login\":\"Benik\"}}"
+        },
+        {
+            "type": "IssueCommentEvent",
+            "public": true,
+            "payload": "{\"action\":\"created\",\"issue\":{\"url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382\",\"repository_url\":\"https://api.github.com/repos/horazont/aioxmpp\",\"labels_url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382/comments\",\"events_url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382/events\",\"html_url\":\"https://github.com/horazont/aioxmpp/issues/382\",\"id\":1393648081,\"node_id\":\"I_kwDOAWAd3M5TEWHR\",\"number\":382,\"title\":\"Endless error loop after SM resume error\",\"user\":{\"login\":\"jahrome\",\"id\":165039,\"node_id\":\"MDQ6VXNlcjE2NTAzOQ==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/165039?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/jahrome\",\"html_url\":\"https://github.com/jahrome\",\"followers_url\":\"https://api.github.com/users/jahrome/followers\",\"following_url\":\"https://api.github.com/users/jahrome/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/jahrome/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/jahrome/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/jahrome/subscriptions\",\"organizations_url\":\"https://api.github.com/users/jahrome/orgs\",\"repos_url\":\"https://api.github.com/users/jahrome/repos\",\"events_url\":\"https://api.github.com/users/jahrome/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/jahrome/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[{\"id\":122716547,\"node_id\":\"MDU6TGFiZWwxMjI3MTY1NDc=\",\"url\":\"https://api.github.com/repos/horazont/aioxmpp/labels/bug\",\"name\":\"bug\",\"color\":\"fc2929\",\"default\":true,\"description\":\"Outright bug: e.g. violation of specs, crashes, behaviour contrary to documentation, \u2026.\"}],\"state\":\"open\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":3,\"created_at\":\"2022-10-02T05:28:24Z\",\"updated_at\":\"2022-10-02T21:25:52Z\",\"closed_at\":null,\"author_association\":\"NONE\",\"active_lock_reason\":null,\"body\":\"Hi !\\r\\nAfter several months of smooth operation my (very simple) client code runs into and endless error loop (i suspect it is due to a change on the server side which I don't manage).\\r\\n\\r\\nI enabled some tracing in the code and it occurs after receiving this message from the server:\\r\\n`<failed xmlns='urn:xmpp:sm:3'><error type='cancel'><item-not-found xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/><text xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'>Unknown session</text></error></failed>\\\"\\r\\n`\\r\\n \\r\\nPlease find below the traceback which repeats endlessly until memory exhaustion (runs on a raspberry pi): \\r\\n\\r\\n```\\r\\n2022-10-01 20:41:22,371 [protocol] [ERROR]  unexpected exception while parsing stanza bubbled up through parser. stream so dead.\\r\\nTraceback (most recent call last):\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 583, in validate_contents\\r\\n    obj = self.__get__(instance, type(instance))\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 339, in __get__\\r\\n    raise AttributeError(\\r\\nAttributeError: attribute is unset (<aioxmpp.xso.model.Child object at 0x7f8448b160> on instance of <class 'aioxmpp.nonza.SMFailed'>)\\r\\n\\r\\nThe above exception was the direct cause of the following exception:\\r\\n\\r\\nTraceback (most recent call last):\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/protocol.py\\\", line 487, in _rx_feed\\r\\n    self._parser.feed(blob)\\r\\n  File \\\"/usr/lib/python3.9/xml/sax/expatreader.py\\\", line 217, in feed\\r\\n    self._parser.Parse(data, isFinal)\\r\\n  File \\\"../Modules/pyexpat.c\\\", line 459, in EndElement\\r\\n  File \\\"/usr/lib/python3.9/xml/sax/expatreader.py\\\", line 381, in end_element_ns\\r\\n    self._cont_handler.endElementNS(pair, None)\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xml.py\\\", line 1032, in endElementNS\\r\\n    self._end_element_exception_handling()\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xml.py\\\", line 1018, in _end_element_exception_handling\\r\\n    self.on_exception(exc)\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/protocol.py\\\", line 447, in _rx_exception\\r\\n    raise exc from context\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xml.py\\\", line 1027, in endElementNS\\r\\n    return self._driver.endElementNS(name, qname)\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 2543, in endElementNS\\r\\n    self._send((\\\"end\\\",))\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 2527, in _send\\r\\n    self._dest.send(value)\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 2678, in __call__\\r\\n    cb((yield from cls.parse_events(ev_args, self._ctx)))\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 2103, in parse_events\\r\\n    obj.validate()\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 2368, in validate\\r\\n    descriptor.validate_contents(self)\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 585, in validate_contents\\r\\n    raise ValueError(\\\"missing required member\\\")\\r\\nValueError: missing required member\\r\\n2022-10-01 20:42:22,577 [__init__] [ERROR]  abort() called (invalid in state _State.CLOSED, closing=True)\\r\\n2022-10-01 20:42:22,579 [node] [INFO]  stopping stream\\r\\n2022-10-01 20:42:22,691 [protocol] [INFO]  b\\\"<?xml version='1.0'?><stream:stream id='c5b9c480-95e4-466a-ac6d-652145d22cf7' xmlns:stream='http://etherx.jabber.org/streams' xml:lang='en' xmlns='jabber:client' version='1.0' from='jabber.fr'><stream:features><starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'><required/></starttls></stream:features>\\\"\\r\\n2022-10-01 20:42:22,695 [protocol] [INFO]  <aioxmpp.nonza.StartTLS object at 0x7f804337c0>\\r\\n2022-10-01 20:42:22,741 [protocol] [INFO]  b\\\"<proceed xmlns='urn:ietf:params:xml:ns:xmpp-tls'/>\\\"\\r\\n2022-10-01 20:42:22,856 [security_layer] [INFO]  verifying certificate (preverify=1)\\r\\n2022-10-01 20:42:22,859 [security_layer] [INFO]  verifying certificate (preverify=1)\\r\\n2022-10-01 20:42:22,861 [security_layer] [INFO]  verifying certificate (preverify=1)\\r\\n2022-10-01 20:42:23,047 [protocol] [INFO]  b\\\"<?xml version='1.0'?><stream:stream id='859c67f3-e819-4237-8675-22f197be6f0a' xmlns:stream='http://etherx.jabber.org/streams' xml:lang='en' xmlns='jabber:client' version='1.0' from='jabber.fr'><stream:features><register xmlns='http://jabber.org/features/iq-register'/><mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-sasl'><mechanism>SCRAM-SHA-1</mechanism><mechanism>PLAIN</mechanism></mechanisms></stream:features>\\\"\\r\\n2022-10-01 20:42:23,052 [scram] [INFO]  attempting SCRAM-SHA-1 mechanism (using SCRAMHashInfo(hashfun_name='sha1', quality=1, minimum_iteration_count=4096) hashfun)\\r\\n2022-10-01 20:42:23,055 [protocol] [INFO]  <aioxmpp.nonza.SASLAuth object at 0x7f40087400>\\r\\n2022-10-01 20:42:23,100 [protocol] [INFO]  b\\\"<challenge xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>cj15bzZHNDR3SU9JeU13S2NIaGd5RmRlZjlkZTBmLWYyOTUtNDk2Zi1hYWI1LTJhYTIwYjY0OWQ3ZCxzPU5UTXdPV1UyT0dJdE56ZzNaQzAwTW1JMUxUa3pNMlV0Tnpnek1ETmhZbUV3TnpSayxpPTQwOTY=</challenge>\\\"\\r\\n2022-10-01 20:42:23,117 [protocol] [INFO]  <aioxmpp.nonza.SASLResponse object at 0x7f400872e0>\\r\\n2022-10-01 20:42:23,175 [protocol] [INFO]  b\\\"<success xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>dj1vY1NHZXRqNXM1ZnRTTkcyRWN3KzhvRFNOTGs9</success>\\\"\\r\\n2022-10-01 20:42:23,239 [protocol] [INFO]  b\\\"<?xml version='1.0'?><stream:stream id='4eaa1aa6-1c11-4de3-bd6f-9f9146dae63f' xmlns:stream='http://etherx.jabber.org/streams' xml:lang='en' xmlns='jabber:client' version='1.0' from='jabber.fr'><stream:features><c hash='sha-1' xmlns='http://jabber.org/protocol/caps' node='http://prosody.im' ver='bPUCZvJ0B8Mtg2Mwrf7VVIUqabw='/><csi xmlns='urn:xmpp:csi:0'/><sub xmlns='urn:xmpp:features:pre-approval'/><sm xmlns='urn:xmpp:sm:2'><optional/></sm><sm xmlns='urn:xmpp:sm:3'><optional/></sm><ver xmlns='urn:xmpp:features:rosterver'/><bind xmlns='urn:ietf:params:xml:ns:xmpp-bind'><required/></bind><session xmlns='urn:ietf:params:xml:ns:xmpp-session'><optional/></session></stream:features>\\\"\\r\\n2022-10-01 20:42:23,246 [protocol] [INFO]  <aioxmpp.nonza.SMResume counter=24 previd='U2rXiCdBLY9Q' at 0x7f400dbf10>\\r\\n2022-10-01 20:42:23,291 [protocol] [INFO]  b\\\"<failed xmlns='urn:xmpp:sm:3'><error type='cancel'><item-not-found xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/><text xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'>Unknown session</text></error></failed>\\\"\\r\\n2022-10-01 20:42:23,293 [protocol] [ERROR]  unexpected exception while parsing stanza bubbled up through parser. stream so dead.\\r\\nTraceback (most recent call last):\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/aioxmpp/xso/model.py\\\", line 583, in validate_contents\\r\\n    obj = self.__get__(instance, type(instance))\\r\\n  File \\\"/usr/local/lib/python3.9/dist-packages/\\r\\n```\\r\\n\\r\\nThanks\",\"reactions\":{\"url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382/timeline\",\"performed_via_github_app\":null,\"state_reason\":null},\"comment\":{\"url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/comments/1264736601\",\"html_url\":\"https://github.com/horazont/aioxmpp/issues/382#issuecomment-1264736601\",\"issue_url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/382\",\"id\":1264736601,\"node_id\":\"IC_kwDOAWAd3M5LYllZ\",\"user\":{\"login\":\"horazont\",\"id\":271710,\"node_id\":\"MDQ6VXNlcjI3MTcxMA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/271710?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/horazont\",\"html_url\":\"https://github.com/horazont\",\"followers_url\":\"https://api.github.com/users/horazont/followers\",\"following_url\":\"https://api.github.com/users/horazont/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/horazont/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/horazont/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/horazont/subscriptions\",\"organizations_url\":\"https://api.github.com/users/horazont/orgs\",\"repos_url\":\"https://api.github.com/users/horazont/repos\",\"events_url\":\"https://api.github.com/users/horazont/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/horazont/received_events\",\"type\":\"User\",\"site_admin\":false},\"created_at\":\"2022-10-02T21:25:52Z\",\"updated_at\":\"2022-10-02T21:25:52Z\",\"author_association\":\"OWNER\",\"body\":\"On 2 October 2022 18:04:57 UTC, Jerome Marty ***@***.***> wrote:\\n>Thanks @horazont a lot for the quick response. I believe the server is Prosody as seen in some xml:\\n>`<stream:features><c hash='sha-1' xmlns='http://jabber.org/protocol/caps' node='http://prosody.im' ver='bPUCZvJ0B8Mtg2Mwrf7VVIUqabw='/>`\\n>\\n>I'll be glad to test patches for sure !\\n>\\n\\nAh well spotted.\\n\\nI brought this report upstream to prosody already and will look into a fix to improve resilience in aioxmpp.\\n\",\"reactions\":{\"url\":\"https://api.github.com/repos/horazont/aioxmpp/issues/comments/1264736601/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"performed_via_github_app\":null}}",
+            "repo": {
+                "id": 23076316,
+                "name": "horazont/aioxmpp",
+                "url": "https://api.github.com/repos/horazont/aioxmpp"
+            },
+            "actor": {
+                "id": 271710,
+                "login": "horazont",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/271710?",
+                "url": "https://api.github.com/users/horazont"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-10-02 21:25:53+00:00",
+            "id": "24350317952",
+            "other": "{\"actor\":{\"display_login\":\"horazont\"}}"
+        }
+    ]
+}

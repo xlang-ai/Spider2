@@ -1,0 +1,51 @@
+## PARSE_TIMESTAMP
+
+PARSE_TIMESTAMP(format_string, timestamp_string[, time_zone])
+
+**Description**
+
+Converts a  string representation of a timestamp  to a ` TIMESTAMP ` object.
+
+` format_string ` contains the [ format elements
+](/bigquery/docs/reference/standard-sql/format-
+elements#format_elements_date_time) that define how ` timestamp_string ` is formatted. Each element in ` timestamp_string ` must have a corresponding element in ` format_string ` . The location of each element in ` format_string
+` must match the location of each element in ` timestamp_string ` .
+
+
+-- This works because elements on both sides match.
+SELECT PARSE_TIMESTAMP("%a %b %e %I:%M:%S %Y", "Thu Dec 25 07:30:00 2008");
+
+-- This produces an error because the year element is in different locations.
+SELECT PARSE_TIMESTAMP("%a %b %e %Y %I:%M:%S", "Thu Dec 25 07:30:00 2008");
+
+-- This produces an error because one of the year elements is missing.
+SELECT PARSE_TIMESTAMP("%a %b %e %I:%M:%S", "Thu Dec 25 07:30:00 2008");
+
+-- This works because %c can find all matching elements in timestamp_string.
+SELECT PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008");
+
+The format string fully supports most format elements, except for ` %P ` .
+
+When using ` PARSE_TIMESTAMP ` , keep the following in mind:
+
+* **Unspecified fields.** Any unspecified field is initialized from ` 1970-01-01 00:00:00.0 ` . This initialization value uses the time zone specified by the function's time zone argument, if present. If not, the initialization value uses the default time zone, UTC. For instance, if the year is unspecified then it defaults to ` 1970 ` , and so on.
+* **Case insensitivity.** Names, such as ` Monday ` , ` February ` , and so on, are case insensitive.
+* **Whitespace.** One or more consecutive white spaces in the format string matches zero or more consecutive white spaces in the timestamp string. In addition, leading and trailing white spaces in the timestamp string are always allowed, even if they are not in the format string.
+* **Format precedence.** When two (or more) format elements have overlapping information (for example both ` %F ` and ` %Y ` affect the year), the last one generally overrides any earlier ones, with some exceptions (see the descriptions of ` %s ` , ` %C ` , and ` %y ` ).
+* **Format divergence.** ` %p ` can be used with ` am ` , ` AM ` , ` pm ` , and ` PM ` .
+
+**Return Data Type**
+
+` TIMESTAMP `
+
+**Example**
+
+
+SELECT PARSE_TIMESTAMP("%c", "Thu Dec 25 07:30:00 2008") AS parsed;
+
+-- Display of results may differ, depending upon the environment and time zone where this query was executed.
+/*-------------------------*
+| parsed                  |
++-------------------------+
+| 2008-12-25 07:30:00 UTC |
+*-------------------------*/

@@ -1,0 +1,35 @@
+## ST_DIFFERENCE
+
+ST_DIFFERENCE(geography_1, geography_2)
+
+**Description**
+
+Returns a ` GEOGRAPHY ` that represents the point set difference of `
+geography_1 ` and ` geography_2 ` . Therefore, the result consists of the part of ` geography_1 ` that does not intersect with ` geography_2 ` .
+
+If ` geometry_1 ` is completely contained in ` geometry_2 ` , then `
+ST_DIFFERENCE ` returns an empty ` GEOGRAPHY ` .
+
+**Constraints**
+
+The underlying geometric objects that a GoogleSQL ` GEOGRAPHY ` represents correspond to a _closed_ point set. Therefore, ` ST_DIFFERENCE ` is the closure of the point set difference of ` geography_1 ` and ` geography_2 ` .
+This implies that if ` geography_1 ` and ` geography_2 ` intersect, then a portion of the boundary of ` geography_2 ` could be in the difference.
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Example**
+
+The following query illustrates the difference between ` geog1 ` , a larger polygon ` POLYGON((0 0, 10 0, 10 10, 0 0)) ` and ` geog1 ` , a smaller polygon
+` POLYGON((4 2, 6 2, 8 6, 4 2)) ` that intersects with ` geog1 ` . The result is ` geog1 ` with a hole where ` geog2 ` intersects with it.
+
+
+SELECT ST_DIFFERENCE( ST_GEOGFROMTEXT('POLYGON((0 0, 10 0, 10 10, 0 0))'),
+ST_GEOGFROMTEXT('POLYGON((4 2, 6 2, 8 6, 4 2))') );
+
+/*--------------------------------------------------------*
+| difference_of_geog1_and_geog2                          |
++--------------------------------------------------------+
+| POLYGON((0 0, 10 0, 10 10, 0 0), (8 6, 6 2, 4 2, 8 6)) |
+*--------------------------------------------------------*/

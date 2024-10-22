@@ -1,0 +1,235 @@
+{
+    "table_name": "202310",
+    "table_fullname": "githubarchive.month.202310",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":148018974,\"push_id\":15552127334,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"82751bb52e4a9d564bb6ff09b14f7deb416e0988\",\"before\":\"d91b796e33c0eb00215bd9f89103b3e488565331\",\"commits\":[{\"sha\":\"82751bb52e4a9d564bb6ff09b14f7deb416e0988\",\"author\":{\"email\":\"b1c1d8736f20db3fb6c1c66bb1455ed43909f0d8@silverwind.io\",\"name\":\"silverwind\"},\"message\":\"fix test\",\"distinct\":true,\"url\":\"https://api.github.com/repos/silverwind/rrdir/commits/82751bb52e4a9d564bb6ff09b14f7deb416e0988\"}]}",
+            "repo": {
+                "id": 148018974,
+                "name": "silverwind/rrdir",
+                "url": "https://api.github.com/repos/silverwind/rrdir"
+            },
+            "actor": {
+                "id": 115237,
+                "login": "silverwind",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/115237?",
+                "url": "https://api.github.com/users/silverwind"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-10-25 00:09:07+00:00",
+            "id": "32819412616",
+            "other": "{\"actor\":{\"display_login\":\"silverwind\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"main\",\"ref_type\":\"branch\",\"master_branch\":\"main\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 709563478,
+                "name": "alantoris/clarika",
+                "url": "https://api.github.com/repos/alantoris/clarika"
+            },
+            "actor": {
+                "id": 5482103,
+                "login": "alantoris",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/5482103?",
+                "url": "https://api.github.com/users/alantoris"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-10-25 00:00:43+00:00",
+            "id": "32819300654",
+            "other": "{\"actor\":{\"display_login\":\"alantoris\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":146283505,\"push_id\":15566928992,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"1208ccfe7e38c5366d9c17d7dd03c46ad9f39a85\",\"before\":\"2112c7b604156a220a6d1525c4e6fdc10b5159ad\",\"commits\":[{\"sha\":\"1208ccfe7e38c5366d9c17d7dd03c46ad9f39a85\",\"author\":{\"email\":\"7e1fb0f8d29144c94c1375c9d0176a053b739ee4@gmail.com\",\"name\":\"aleks\"},\"message\":\"feat: add summary of Make Your Bed\",\"distinct\":true,\"url\":\"https://api.github.com/repos/achudars/alekscudars.com/commits/1208ccfe7e38c5366d9c17d7dd03c46ad9f39a85\"}]}",
+            "repo": {
+                "id": 146283505,
+                "name": "achudars/alekscudars.com",
+                "url": "https://api.github.com/repos/achudars/alekscudars.com"
+            },
+            "actor": {
+                "id": 1721454,
+                "login": "achudars",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1721454?",
+                "url": "https://api.github.com/users/achudars"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-10-25 20:58:34+00:00",
+            "id": "32849236711",
+            "other": "{\"actor\":{\"display_login\":\"achudars\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":593852638,\"push_id\":15552354406,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"c9febf64a0fc6c29c4840a4a1d6fe8e07a0bd39c\",\"before\":\"dbe0479bb94897cc09cb5c4e36223b50eb4a968c\",\"commits\":[{\"sha\":\"c9febf64a0fc6c29c4840a4a1d6fe8e07a0bd39c\",\"author\":{\"email\":\"0fcd7142a8f1431619dae2698a5be623bca02e4b@gmail.com\",\"name\":\"Benjamin Helgeson\"},\"message\":\"Fix for CSP issues.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/benjaminhelgeson/dryllama/commits/c9febf64a0fc6c29c4840a4a1d6fe8e07a0bd39c\"}]}",
+            "repo": {
+                "id": 593852638,
+                "name": "benjaminhelgeson/dryllama",
+                "url": "https://api.github.com/repos/benjaminhelgeson/dryllama"
+            },
+            "actor": {
+                "id": 8027463,
+                "login": "benjaminhelgeson",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/8027463?",
+                "url": "https://api.github.com/users/benjaminhelgeson"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-10-25 00:40:55+00:00",
+            "id": "32819829085",
+            "other": "{\"actor\":{\"display_login\":\"benjaminhelgeson\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":639327738,\"push_id\":15552257355,\"size\":2,\"distinct_size\":2,\"ref\":\"refs/heads/main\",\"head\":\"fc08e31260a8f33eff1f49e04fee2388f4230f8d\",\"before\":\"a7ed232674b9263b522693f6c1d20e14aef4dc32\",\"commits\":[{\"sha\":\"38185dfac8b2ca24b4e28b33e051222d689719ea\",\"author\":{\"email\":\"61bda58cb1721784fde5f8d2687208824dc45bba@foxmail.com\",\"name\":\"ashen-23\"},\"message\":\"2023\u5e74 10\u6708 25\u65e5 \u661f\u671f\u4e09 03:27:50 CST\",\"distinct\":true,\"url\":\"https://api.github.com/repos/ashen-23/ashen_boring/commits/38185dfac8b2ca24b4e28b33e051222d689719ea\"},{\"sha\":\"fc08e31260a8f33eff1f49e04fee2388f4230f8d\",\"author\":{\"email\":\"61bda58cb1721784fde5f8d2687208824dc45bba@foxmail.com\",\"name\":\"ashen-23\"},\"message\":\"2023\u5e74 10\u6708 25\u65e5 \u661f\u671f\u4e09 08:27:50 CST\",\"distinct\":true,\"url\":\"https://api.github.com/repos/ashen-23/ashen_boring/commits/fc08e31260a8f33eff1f49e04fee2388f4230f8d\"}]}",
+            "repo": {
+                "id": 639327738,
+                "name": "ashen-23/ashen_boring",
+                "url": "https://api.github.com/repos/ashen-23/ashen_boring"
+            },
+            "actor": {
+                "id": 12229367,
+                "login": "ashen-23",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/12229367?",
+                "url": "https://api.github.com/users/ashen-23"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-10-25 00:27:55+00:00",
+            "id": "32819656514",
+            "other": "{\"actor\":{\"display_login\":\"ashen-23\"}}"
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+## ARRAY_SUBSCRIPT
+
+array_expression[array_subscript_specifier]
+
+array_subscript_specifier:
+{ index | position_keyword(index) }
+
+position_keyword:
+{ OFFSET | SAFE_OFFSET | ORDINAL | SAFE_ORDINAL }
+
+**Note:** The brackets ( ` [] ` ) around ` array_subscript_specifier ` are part of the syntax; they do not represent an optional part.
+
+**Description**
+
+Gets a value from an array at a specific position.
+
+Input values:
+
+* ` array_expression ` : The input array.
+* ` position_keyword(index) ` : Determines where the index for the array should start and how out-of-range indexes are handled. The index is an integer that represents a specific position in the array.
+* ` OFFSET(index) ` : The index starts at zero. Produces an error if the index is out of range. To produce ` NULL ` instead of an error, use ` SAFE_OFFSET(index) ` . This position keyword produces the same result as ` index ` by itself.
+* ` SAFE_OFFSET(index) ` : The index starts at zero. Returns ` NULL ` if the index is out of range.
+* ` ORDINAL(index) ` : The index starts at one. Produces an error if the index is out of range. To produce ` NULL ` instead of an error, use ` SAFE_ORDINAL(index) ` .
+* ` SAFE_ORDINAL(index) ` : The index starts at one. Returns ` NULL ` if the index is out of range.
+* ` index ` : An integer that represents a specific position in the array. If used by itself without a position keyword, the index starts at zero and produces an error if the index is out of range. To produce ` NULL ` instead of an error, use the ` SAFE_OFFSET(index) ` or ` SAFE_ORDINAL(index) ` position keyword.
+
+**Return type**
+
+` T ` where ` array_expression ` is ` ARRAY<T> ` .
+
+**Examples**
+
+In following query, the array subscript operator is used to return values at specific position in ` item_array ` . This query also shows what happens when you reference an index ( ` 6 ` ) in an array that is out of range. If the `
+SAFE ` prefix is included, ` NULL ` is returned, otherwise an error is produced.
+
+
+WITH Items AS (SELECT ["coffee", "tea", "milk"] AS item_array) SELECT item_array,
+item_array[0] AS item_index,
+item_array[OFFSET(0)] AS item_offset,
+item_array[ORDINAL(1)] AS item_ordinal,
+item_array[SAFE_OFFSET(6)] AS item_safe_offset FROM Items
+
+/*---------------------+------------+-------------+--------------+------------------*
+| item_array          | item_index | item_offset | item_ordinal | item_safe_offset |
++---------------------+------------+-------------+--------------+------------------+
+| [coffee, tea, milk] | coffee     | coffee      | coffee       | NULL             |
+*----------------------------------+-------------+--------------+------------------*/
+
+When you reference an index that is out of range in an array, and a positional keyword that begins with ` SAFE ` is not included, an error is produced. For example:
+
+
+WITH Items AS (SELECT ["coffee", "tea", "milk"] AS item_array) SELECT item_array[6] AS item_offset FROM Items
+
+-- Error. Array index 6 is out of bounds.
+
+
+WITH Items AS (SELECT ["coffee", "tea", "milk"] AS item_array) SELECT item_array[OFFSET(6)] AS item_offset FROM Items
+
+-- Error. Array index 6 is out of bounds.

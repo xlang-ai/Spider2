@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.wide_world_importers` database to solve this problem.

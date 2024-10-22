@@ -1,0 +1,325 @@
+table_name,ddl
+KernelLanguages,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelLanguages`
+(
+  Id INT64,
+  Name STRING,
+  DisplayName STRING,
+  IsNotebook BOOL
+);"
+UserFollowers,"CREATE TABLE `spider2-public-data.meta_kaggle.UserFollowers`
+(
+  Id INT64,
+  UserId INT64,
+  FollowingUserId INT64,
+  CreationDate DATE
+);"
+Kernels,"CREATE TABLE `spider2-public-data.meta_kaggle.Kernels`
+(
+  Id INT64,
+  AuthorUserId INT64,
+  CurrentKernelVersionId INT64,
+  ForkParentKernelVersionId INT64,
+  ForumTopicId INT64,
+  FirstKernelVersionId INT64,
+  CreationDate TIMESTAMP,
+  EvaluationDate DATE,
+  MadePublicDate DATE,
+  IsProjectLanguageTemplate BOOL,
+  CurrentUrlSlug STRING,
+  Medal INT64,
+  MedalAwardDate DATE,
+  TotalViews INT64,
+  TotalComments INT64,
+  TotalVotes INT64
+);"
+KernelTags,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelTags`
+(
+  Id INT64,
+  KernelId INT64,
+  TagId INT64
+);"
+Episodes,"CREATE TABLE `spider2-public-data.meta_kaggle.Episodes`
+(
+  Id INT64,
+  Type INT64,
+  CompetitionId INT64,
+  CreateTime TIMESTAMP,
+  EndTime TIMESTAMP
+);"
+Users,"CREATE TABLE `spider2-public-data.meta_kaggle.Users`
+(
+  Id INT64,
+  UserName STRING,
+  DisplayName STRING,
+  RegisterDate STRING,
+  PerformanceTier INT64,
+  Country STRING
+);"
+KernelVersionKernelSources,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelVersionKernelSources`
+(
+  Id INT64,
+  KernelVersionId INT64,
+  SourceKernelVersionId INT64
+);"
+Tags,"CREATE TABLE `spider2-public-data.meta_kaggle.Tags`
+(
+  Id INT64,
+  ParentTagId INT64,
+  Name STRING,
+  Slug STRING,
+  FullPath STRING,
+  Description STRING,
+  DatasetCount INT64,
+  CompetitionCount INT64,
+  KernelCount INT64
+);"
+EpisodeAgents,"CREATE TABLE `spider2-public-data.meta_kaggle.EpisodeAgents`
+(
+  Id INT64,
+  EpisodeId INT64,
+  Index INT64,
+  Reward FLOAT64,
+  State INT64,
+  SubmissionId INT64,
+  InitialConfidence FLOAT64,
+  InitialScore FLOAT64,
+  UpdatedConfidence FLOAT64,
+  UpdatedScore FLOAT64
+);"
+Competitions,"CREATE TABLE `spider2-public-data.meta_kaggle.Competitions`
+(
+  ValidationSetValue STRING,
+  EnableSubmissionModelAttachments BOOL,
+  TotalCompetitors INT64,
+  TotalTeams INT64,
+  CanQualifyTiers BOOL,
+  EnableSubmissionModelHashes BOOL,
+  UserRankMultiplier FLOAT64,
+  RewardType STRING,
+  CompetitionTypeId INT64,
+  NumPrizes INT64,
+  MaxTeamSize INT64,
+  NumScoredSubmissions INT64,
+  ValidationSetName STRING,
+  EvaluationAlgorithmAbbreviation STRING,
+  Slug STRING,
+  HasLeaderboard BOOL,
+  HasKernels BOOL,
+  FinalLeaderboardHasBeenVerified BOOL,
+  ModelSubmissionDeadlineDate TIMESTAMP,
+  EvaluationAlgorithmIsMax BOOL,
+  DeadlineDate TIMESTAMP,
+  TotalSubmissions INT64,
+  EnabledDate TIMESTAMP,
+  OnlyAllowKernelSubmissions BOOL,
+  EvaluationAlgorithmDescription STRING,
+  ProhibitNewEntrantsDeadlineDate TIMESTAMP,
+  HostName STRING,
+  MaxDailySubmissions INT64,
+  OrganizationId FLOAT64,
+  Subtitle STRING,
+  TeamModelDeadlineDate TIMESTAMP,
+  EvaluationAlgorithmName STRING,
+  LeaderboardPercentage INT64,
+  EnableTeamModels BOOL,
+  BanTeamMergers BOOL,
+  Id INT64,
+  RewardQuantity FLOAT64,
+  HostSegmentTitle STRING,
+  TeamMergerDeadlineDate TIMESTAMP,
+  ForumId INT64,
+  ScoreTruncationNumDecimals INT64,
+  Title STRING
+);"
+DatasetVotes,"CREATE TABLE `spider2-public-data.meta_kaggle.DatasetVotes`
+(
+  Id INT64,
+  UserId INT64,
+  DatasetVersionId INT64,
+  VoteDate DATE
+);"
+KernelVersionDatasetSources,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelVersionDatasetSources`
+(
+  Id INT64,
+  KernelVersionId INT64,
+  SourceDatasetVersionId INT64
+);"
+DatasetTags,"CREATE TABLE `spider2-public-data.meta_kaggle.DatasetTags`
+(
+  Id INT64,
+  DatasetId INT64,
+  TagId INT64
+);"
+DatasetTaskSubmissions,"CREATE TABLE `spider2-public-data.meta_kaggle.DatasetTaskSubmissions`
+(
+  Id INT64,
+  DatasetTaskId INT64,
+  SubmittedUserId INT64,
+  CreationDate TIMESTAMP,
+  KernelId INT64,
+  DatasetId INT64,
+  AcceptedDate TIMESTAMP
+);"
+DatasetTasks,"CREATE TABLE `spider2-public-data.meta_kaggle.DatasetTasks`
+(
+  TotalVotes INT64,
+  Subtitle STRING,
+  ForumId STRING,
+  Description STRING,
+  CreationDate TIMESTAMP,
+  OwnerUserId INT64,
+  DatasetId INT64,
+  Deadline TIMESTAMP,
+  Title STRING,
+  Id INT64
+);"
+Datasets,"CREATE TABLE `spider2-public-data.meta_kaggle.Datasets`
+(
+  Id INT64,
+  CreatorUserId INT64,
+  OwnerUserId INT64,
+  OwnerOrganizationId INT64,
+  CurrentDatasetVersionId INT64,
+  CurrentDatasourceVersionId INT64,
+  ForumId INT64,
+  Type STRING,
+  CreationDate TIMESTAMP,
+  LastActivityDate DATE,
+  TotalViews INT64,
+  TotalDownloads INT64,
+  TotalVotes INT64,
+  TotalKernels INT64
+);"
+ForumTopics,"CREATE TABLE `spider2-public-data.meta_kaggle.ForumTopics`
+(
+  TotalReplies INT64,
+  LastCommentDate TIMESTAMP,
+  FirstForumMessageId FLOAT64,
+  IsSticky BOOL,
+  ForumId INT64,
+  Title STRING,
+  TotalMessages INT64,
+  Id INT64,
+  LastForumMessageId FLOAT64,
+  CreationDate TIMESTAMP,
+  TotalViews INT64,
+  KernelId FLOAT64,
+  Score INT64
+);"
+CompetitionTags,"CREATE TABLE `spider2-public-data.meta_kaggle.CompetitionTags`
+(
+  Id INT64,
+  CompetitionId INT64,
+  TagId INT64
+);"
+Datasources,"CREATE TABLE `spider2-public-data.meta_kaggle.Datasources`
+(
+  Id INT64,
+  CreatorUserId INT64,
+  CreationDate TIMESTAMP,
+  Type STRING,
+  CurrentDatasourceVersionId INT64
+);"
+UserAchievements,"CREATE TABLE `spider2-public-data.meta_kaggle.UserAchievements`
+(
+  Id INT64,
+  UserId INT64,
+  AchievementType STRING,
+  Tier INT64,
+  TierAchievementDate DATE,
+  Points INT64,
+  CurrentRanking INT64,
+  HighestRanking INT64,
+  TotalGold INT64,
+  TotalSilver INT64,
+  TotalBronze INT64
+);"
+KernelVersions,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelVersions`
+(
+  LinesUnchangedFromFork FLOAT64,
+  LinesChangedFromFork FLOAT64,
+  LinesDeletedFromFork FLOAT64,
+  LinesUnchangedFromPrevious FLOAT64,
+  TotalLines FLOAT64,
+  IsChange BOOL,
+  VersionNumber FLOAT64,
+  LinesInsertedFromPrevious FLOAT64,
+  EvaluationDate DATE,
+  CreationDate TIMESTAMP,
+  LinesChangedFromPrevious FLOAT64,
+  ScriptId INT64,
+  ScriptLanguageId INT64,
+  ParentScriptVersionId STRING,
+  TotalVotes INT64,
+  AuthorUserId INT64,
+  Title STRING,
+  LinesInsertedFromFork FLOAT64,
+  Id INT64
+);"
+TeamMemberships,"CREATE TABLE `spider2-public-data.meta_kaggle.TeamMemberships`
+(
+  Id INT64,
+  TeamId INT64,
+  UserId INT64,
+  RequestDate DATE
+);"
+UserOrganizations,"CREATE TABLE `spider2-public-data.meta_kaggle.UserOrganizations`
+(
+  Id INT64,
+  UserId INT64,
+  OrganizationId INT64,
+  JoinDate DATE
+);"
+Forums,"CREATE TABLE `spider2-public-data.meta_kaggle.Forums`
+(
+  Id INT64,
+  ParentForumId INT64,
+  Title STRING
+);"
+KernelVersionCompetitionSources,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelVersionCompetitionSources`
+(
+  Id INT64,
+  KernelVersionId INT64,
+  SourceCompetitionId INT64
+);"
+ForumMessages,"CREATE TABLE `spider2-public-data.meta_kaggle.ForumMessages`
+(
+  Id INT64,
+  ForumTopicId INT64,
+  PostUserId INT64,
+  PostDate STRING,
+  ReplyToForumMessageId FLOAT64,
+  Message STRING,
+  RawMarkdown STRING,
+  Medal FLOAT64,
+  MedalAwardDate STRING
+);"
+KernelVotes,"CREATE TABLE `spider2-public-data.meta_kaggle.KernelVotes`
+(
+  Id INT64,
+  UserId INT64,
+  KernelVersionId INT64,
+  VoteDate DATE
+);"
+ForumMessageVotes,"CREATE TABLE `spider2-public-data.meta_kaggle.ForumMessageVotes`
+(
+  Id INT64,
+  ForumMessageId INT64,
+  FromUserId INT64,
+  ToUserId INT64,
+  VoteDate DATE
+);"
+Submissions,"CREATE TABLE `spider2-public-data.meta_kaggle.Submissions`
+(
+  Id INT64,
+  SubmittedUserId INT64,
+  TeamId INT64,
+  SourceKernelVersionId STRING,
+  SubmissionDate DATE,
+  ScoreDate DATE,
+  IsAfterDeadline BOOL,
+  PublicScoreLeaderboardDisplay FLOAT64,
+  PublicScoreFullPrecision FLOAT64,
+  PrivateScoreLeaderboardDisplay FLOAT64,
+  PrivateScoreFullPrecision FLOAT64
+);"

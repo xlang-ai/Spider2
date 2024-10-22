@@ -1,0 +1,235 @@
+{
+    "table_name": "202309",
+    "table_fullname": "githubarchive.month.202309",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":487541305,\"push_id\":14949390846,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"acc044cc1c9be06c2fd2ea20b2fafc11847bb71b\",\"before\":\"93d90cc72b37ad2ec22e149fc1c6e1046a158ed6\",\"commits\":[{\"sha\":\"acc044cc1c9be06c2fd2ea20b2fafc11847bb71b\",\"author\":{\"email\":\"17973dcf2e10b67f63417c88ca4c460b2c9439f2@users.noreply.github.com\",\"name\":\"github-actions\"},\"message\":\"Add/update list\",\"distinct\":true,\"url\":\"https://api.github.com/repos/pandvan/rakuten-m3u-generator/commits/acc044cc1c9be06c2fd2ea20b2fafc11847bb71b\"}]}",
+            "repo": {
+                "id": 487541305,
+                "name": "pandvan/rakuten-m3u-generator",
+                "url": "https://api.github.com/repos/pandvan/rakuten-m3u-generator"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-09-07 01:05:01+00:00",
+            "id": "31653012740",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":500211806,\"push_id\":14949560785,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/actions_branch\",\"head\":\"fe0f08c34429c35afca429e094a65673099ae842\",\"before\":\"01b9350c163b7403c89b1605194eaa3b72d757d6\",\"commits\":[{\"sha\":\"fe0f08c34429c35afca429e094a65673099ae842\",\"author\":{\"email\":\"326b426f9ac7a96ed6baf62f8838565416d27df8@github.com\",\"name\":\"GitHub Actions\"},\"message\":\"Auto Update GitHub stats images\",\"distinct\":true,\"url\":\"https://api.github.com/repos/AaronDewes/GitStats/commits/fe0f08c34429c35afca429e094a65673099ae842\"}]}",
+            "repo": {
+                "id": 500211806,
+                "name": "AaronDewes/GitStats",
+                "url": "https://api.github.com/repos/AaronDewes/GitStats"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-09-07 01:31:41+00:00",
+            "id": "31653331507",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 140876842,
+                "name": "tusharmath/ts-codemod",
+                "url": "https://api.github.com/repos/tusharmath/ts-codemod"
+            },
+            "actor": {
+                "id": 1061012,
+                "login": "icai",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1061012?",
+                "url": "https://api.github.com/users/icai"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-09-07 04:55:43+00:00",
+            "id": "31655832566",
+            "other": "{\"actor\":{\"display_login\":\"icai\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":672506259,\"push_id\":14963116863,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"bf97dc79ddabcd335a0adbc8c1a049dc34da353c\",\"before\":\"d059ee6e9dc4fab1f7a53a55b9c9b2f328f6c0ee\",\"commits\":[{\"sha\":\"bf97dc79ddabcd335a0adbc8c1a049dc34da353c\",\"author\":{\"email\":\"72557534747491230a714f8c97410287fed2f6da@qq.com\",\"name\":\"qirenzhidao\"},\"message\":\"Fri Sep  8 07:30:06 AM CST 2023\",\"distinct\":true,\"url\":\"https://api.github.com/repos/qirenzhidao/tvbox18/commits/bf97dc79ddabcd335a0adbc8c1a049dc34da353c\"}]}",
+            "repo": {
+                "id": 672506259,
+                "name": "qirenzhidao/tvbox18",
+                "url": "https://api.github.com/repos/qirenzhidao/tvbox18"
+            },
+            "actor": {
+                "id": 73569883,
+                "login": "qirenzhidao",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/73569883?",
+                "url": "https://api.github.com/users/qirenzhidao"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-09-07 23:30:11+00:00",
+            "id": "31680860119",
+            "other": "{\"actor\":{\"display_login\":\"qirenzhidao\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":515778624,\"push_id\":14949691176,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"a69745758a700b3406c6aac74f9ff1e3955d3812\",\"before\":\"0815219d14bd667d26be48e3df3dbb02c8d8adaf\",\"commits\":[{\"sha\":\"a69745758a700b3406c6aac74f9ff1e3955d3812\",\"author\":{\"email\":\"390becd4dedc56c8b97de89e035d8db4464e577a@gmail.com\",\"name\":\"Frank Matranga\"},\"message\":\"Don't need extra space\",\"distinct\":true,\"url\":\"https://api.github.com/repos/matrangadev/matrangadev/commits/a69745758a700b3406c6aac74f9ff1e3955d3812\"}]}",
+            "repo": {
+                "id": 515778624,
+                "name": "matrangadev/matrangadev",
+                "url": "https://api.github.com/repos/matrangadev/matrangadev"
+            },
+            "actor": {
+                "id": 8422699,
+                "login": "Apexal",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/8422699?",
+                "url": "https://api.github.com/users/Apexal"
+            },
+            "org": {
+                "id": 85051324,
+                "login": "matrangadev",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/85051324?",
+                "url": "https://api.github.com/orgs/matrangadev"
+            },
+            "created_at": "2023-09-07 01:50:44+00:00",
+            "id": "31653571327",
+            "other": "{\"actor\":{\"display_login\":\"Apexal\"}}"
+        }
+    ]
+}

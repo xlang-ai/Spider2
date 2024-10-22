@@ -1,0 +1,61 @@
+## SUM
+
+WITH DIFFERENTIAL_PRIVACY ...
+SUM( expression,
+[contribution_bounds_per_group => (lower_bound, upper_bound)]
+)
+
+**Description**
+
+Returns the sum of non- ` NULL ` , non- ` NaN ` values in the expression. The final result is an aggregation across privacy unit columns.
+
+This function must be used with the [ ` DIFFERENTIAL_PRIVACY ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#dp_clause) and can support these arguments:
+
+* ` expression ` : The input expression. This can be any numeric input type, such as ` INT64 ` . ` NULL ` values are always ignored.
+* ` contribution_bounds_per_group ` : The  contribution bounds named argument  . Perform clamping per each group separately before performing intermediate grouping on the privacy unit column.
+
+**Return type**
+
+One of the following [ supertypes ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) :
+
+* ` INT64 `
+* ` FLOAT64 `
+
+**Examples**
+
+The following differentially private query gets the sum of items requested.
+Smaller aggregations might not be included. This query references a view called [ ` professors ` ](/bigquery/docs/reference/standard-sql/query-
+syntax#dp_example_tables) .
+
+
+-- With noise, using the epsilon parameter.
+SELECT WITH DIFFERENTIAL_PRIVACY OPTIONS(epsilon=10, delta=.01, max_groups_contributed=1, privacy_unit_column=id) item,
+SUM(quantity, contribution_bounds_per_group => (0,100)) quantity FROM professors GROUP BY item;
+
+-- These results will change each time you run the query.
+-- Smaller aggregations might be removed.
+/*----------+-----------*
+| item     | quantity  |
++----------+-----------+
+| pencil   | 143       |
+| pen      | 59        |
+*----------+-----------*/
+
+
+-- Without noise, using the epsilon parameter.
+-- (this un-noised version is for demonstration only) SELECT WITH DIFFERENTIAL_PRIVACY OPTIONS(epsilon=1e20, delta=.01, max_groups_contributed=1, privacy_unit_column=id) item,
+SUM(quantity) quantity FROM professors GROUP BY item;
+
+-- These results will not change when you run the query.
+/*----------+----------*
+| item     | quantity |
++----------+----------+
+| scissors | 8        |
+| pencil   | 144      |
+| pen      | 58       |
+*----------+----------*/
+
+**Note:** For more information about when and when not to use noise, see [ Use differential privacy ](/bigquery/docs/reference/standard-sql/query-
+syntax#eliminate_noise) .

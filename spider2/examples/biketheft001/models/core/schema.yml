@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: fact_theft_reports
+    description: >
+      This table aggregates both current (daily) and archived theft reports, enriched with geographical data from Berlin districts (LOR).
+      It provides metrics related to theft incidents, such as damage in euros, bike type, crime periods, and details about the crime location.
+
+    columns:
+      - name: record_id
+        description: "The unique identifier for each theft report."
+        tests:
+          - unique
+          - not_null
+
+      - name: damage_euro
+        description: "The estimated damage in euros reported for the theft."
+
+      - name: bike_type
+        description: "The type of bike that was reported stolen."
+
+      - name: crime_period_start_datetime
+        description: "The start date and time of the period during which the theft occurred."
+
+      - name: crime_period_end_datetime
+        description: "The end date and time of the period during which the theft occurred."
+
+      - name: source_type
+        description: "Indicates whether the data comes from the daily reports ('daily') or from the archived reports ('archive')."
+
+      - name: crime_location_bezirk_id
+        description: "The identifier for the district (Bezirk) in Berlin where the theft occurred."
+
+      - name: crime_location_bezirk_name
+        description: "The name of the district (Bezirk) in Berlin where the theft occurred."
+
+      - name: crime_location_pgr_id
+        description: "The identifier for the planning region (PGR) in Berlin where the theft occurred."
+
+      - name: crime_location_pgr_name
+        description: "The name of the planning region (PGR) in Berlin where the theft occurred."
+
+      - name: crime_location_plr_id
+        description: "The identifier for the smaller planning region (PLR) in Berlin where the theft occurred."
+
+      - name: crime_location_plr_name
+        description: "The name of the smaller planning region (PLR) in Berlin where the theft occurred."
+
+      - name: berlin_plr_geometry
+        description: "The geographical geometry data for the smaller planning region (PLR)."
+
+      - name: berlin_plr_geometry_reference_date
+        description: "The date the geographical geometry data for the smaller planning region (PLR) was last updated or referenced."
+
+    tests:
+      - relationships:
+          - from_column: crime_location_plr_id
+            to_column: plr_id
+            model: ref('stg_berlin_lor_geo')

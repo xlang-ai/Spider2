@@ -1,0 +1,69 @@
+## NTH_VALUE
+
+NTH_VALUE (value_expression, constant_integer_expression [{RESPECT | IGNORE} NULLS]) OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+ORDER BY expression [ { ASC | DESC }  ] [, ...]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns the value of ` value_expression ` at the Nth row of the current window frame, where Nth is defined by ` constant_integer_expression ` . Returns NULL if there is no such row.
+
+This function includes ` NULL ` values in the calculation unless ` IGNORE NULLS ` is present. If ` IGNORE NULLS ` is present, the function excludes `
+NULL ` values from the calculation.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Supported Argument Types**
+
+* ` value_expression ` can be any data type that can be returned from an expression.
+* ` constant_integer_expression ` can be any constant expression that returns an integer.
+
+**Return Data Type**
+
+Same type as ` value_expression ` .
+
+**Examples**
+
+
+WITH finishers AS (SELECT 'Sophia Liu' as name,
+TIMESTAMP '2016-10-18 2:51:45' as finish_time,
+'F30-34' as division UNION ALL SELECT 'Lisa Stelzner', TIMESTAMP '2016-10-18 2:54:11', 'F35-39'
+UNION ALL SELECT 'Nikki Leith', TIMESTAMP '2016-10-18 2:59:01', 'F30-34'
+UNION ALL SELECT 'Lauren Matthews', TIMESTAMP '2016-10-18 3:01:17', 'F35-39'
+UNION ALL SELECT 'Desiree Berry', TIMESTAMP '2016-10-18 3:05:42', 'F35-39'
+UNION ALL SELECT 'Suzy Slane', TIMESTAMP '2016-10-18 3:06:24', 'F35-39'
+UNION ALL SELECT 'Jen Edwards', TIMESTAMP '2016-10-18 3:06:36', 'F30-34'
+UNION ALL SELECT 'Meghan Lederer', TIMESTAMP '2016-10-18 3:07:41', 'F30-34'
+UNION ALL SELECT 'Carly Forte', TIMESTAMP '2016-10-18 3:08:58', 'F25-29'
+UNION ALL SELECT 'Lauren Reasoner', TIMESTAMP '2016-10-18 3:10:14', 'F30-34') SELECT name,
+FORMAT_TIMESTAMP('%X', finish_time) AS finish_time,
+division,
+FORMAT_TIMESTAMP('%X', fastest_time) AS fastest_time,
+FORMAT_TIMESTAMP('%X', second_fastest) AS second_fastest FROM ( SELECT name,
+finish_time,
+division,finishers,
+FIRST_VALUE(finish_time) OVER w1 AS fastest_time,
+NTH_VALUE(finish_time, 2) OVER w1 as second_fastest FROM finishers WINDOW w1 AS ( PARTITION BY division ORDER BY finish_time ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING));
+
+/*-----------------+-------------+----------+--------------+----------------*
+| name            | finish_time | division | fastest_time | second_fastest |
++-----------------+-------------+----------+--------------+----------------+
+| Carly Forte     | 03:08:58    | F25-29   | 03:08:58     | NULL           |
+| Sophia Liu      | 02:51:45    | F30-34   | 02:51:45     | 02:59:01       |
+| Nikki Leith     | 02:59:01    | F30-34   | 02:51:45     | 02:59:01       |
+| Jen Edwards     | 03:06:36    | F30-34   | 02:51:45     | 02:59:01       |
+| Meghan Lederer  | 03:07:41    | F30-34   | 02:51:45     | 02:59:01       |
+| Lauren Reasoner | 03:10:14    | F30-34   | 02:51:45     | 02:59:01       |
+| Lisa Stelzner   | 02:54:11    | F35-39   | 02:54:11     | 03:01:17       |
+| Lauren Matthews | 03:01:17    | F35-39   | 02:54:11     | 03:01:17       |
+| Desiree Berry   | 03:05:42    | F35-39   | 02:54:11     | 03:01:17       |
+| Suzy Slane      | 03:06:24    | F35-39   | 02:54:11     | 03:01:17       |
+*-----------------+-------------+----------+--------------+----------------*/

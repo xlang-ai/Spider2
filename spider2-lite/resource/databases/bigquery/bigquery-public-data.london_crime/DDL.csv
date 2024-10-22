@@ -1,0 +1,14 @@
+table_name,ddl
+crime_by_lsoa,"CREATE TABLE `bigquery-public-data.london_crime.crime_by_lsoa`
+(
+  lsoa_code STRING OPTIONS(description=""Lower Layer Super Output Area code according to the Office for National Statistics""),
+  borough STRING OPTIONS(description=""""),
+  major_category STRING OPTIONS(description=""""),
+  minor_category STRING OPTIONS(description=""""),
+  value INT64 OPTIONS(description=""Summary of the number of crimes for the month""),
+  year INT64 OPTIONS(description=""""),
+  month INT64 OPTIONS(description="""")
+)
+OPTIONS(
+  description=""This data counts the number of crimes at two different geographic levels of London (LSOA and borough) by year, according to crime type.  \n\nBelow is a list of the crime types covered (*not available at LSOA level):\n\nMajor Category: Minor Category \n\nBurglary: Burglary in a Dwelling (data to March 2017)\n\nBurglary: Burglary in Other Buildings (data to March 2017)\n\nBurglary:  Burglary - Residential (as of April 2017 Burglary in a Dwelling was changed to this subcategory to take account of certain offences being reclassified from what was the 'Other buildings' category (now Business and Community) into this new category eg. burglaries of shed and outbuildings). The old and new subcategories are therefore not comparable. \n\nBurglary: Burglary - Business and Community (as of April 2017 Burglary in Other Buildings was changed to this subcategory to take account of certain offences being reclassified to what is now the 'Burglary Residential' category. The old and new subcategories are therefore not comparable. \n\nCriminal Damage: Criminal Damage To Dwelling\n\nCriminal Damage: Criminal Damage To Motor Vehicle\n\nCriminal Damage: Criminal Damage To Other Building\n\nCriminal Damage: Other Criminal Damage\n\nDrugs: Drug Trafficking\n\nDrugs: Other Drugs\n\nDrugs: Possession Of Drugs\n\nFraud or Forgery: Counted per Victim*\n\nFraud or Forgery: Other Fraud & Forgery\n\nOther Notifiable Offences: Going Equipped\n\nOther Notifiable Offences: Other Notifiable\n\nRobbery: Business Property\n\nRobbery: Personal Property\n\nSexual Offences: Other Sexual\n\nSexual Offences: Rape\n\nTheft and Handling: Handling Stolen Goods\n\nTheft and Handling: Motor Vehicle Interference & Tampering\n\nTheft and Handling: Other Theft\n\nTheft and Handling: Other Theft Person\n\nTheft and Handling: Theft From Motor Vehicle\n\nTheft and Handling: Theft From Shops\n\nTheft and Handling: Theft/Taking of Pedal Cycle\n\nViolence Against the Person: Assault with Injury\n\nViolence Against the Person: Common Assault\n\nViolence Against the Person: Grievous Bodily Harm\n\nViolence Against the Person: Harassment\n\nViolence Against the Person: Murder\n\nViolence Against the Person: Offensive Weapon\n\nViolence Against the Person: Other violence\n\nViolence Against the Person: Wounding/GBH""
+);"

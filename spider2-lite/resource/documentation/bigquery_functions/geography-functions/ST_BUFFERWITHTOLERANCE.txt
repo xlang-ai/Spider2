@@ -1,0 +1,40 @@
+## ST_BUFFERWITHTOLERANCE
+
+ST_BUFFERWITHTOLERANCE( geography,
+buffer_radius,
+tolerance_meters => tolerance
+[, use_spheroid => boolean_expression]
+[, endcap => endcap_style]
+[, side => line_side])
+
+Returns a ` GEOGRAPHY ` that represents the buffer around the input `
+GEOGRAPHY ` . This function is similar to  ` ST_BUFFER ` , but you provide tolerance instead of segments to determine how much the resulting geography can deviate from the ideal buffer radius.
+
+* ` geography ` : The input ` GEOGRAPHY ` to encircle with the buffer radius.
+* ` buffer_radius ` : ` FLOAT64 ` that represents the radius of the buffer around the input geography. The radius is in meters. Note that polygons contract when buffered with a negative ` buffer_radius ` . Polygon shells and holes that are contracted to a point are discarded.
+* ` tolerance_meters ` : ` FLOAT64 ` specifies a tolerance in meters with which the shape is approximated. Tolerance determines how much a polygon can deviate from the ideal radius. Naming this argument is optional.
+* ` endcap ` : (Optional) ` STRING ` allows you to specify one of two endcap styles: ` ROUND ` and ` FLAT ` . The default value is ` ROUND ` . This option only affects the endcaps of buffered linestrings.
+* ` side ` : (Optional) ` STRING ` allows you to specify one of three possible line styles: ` BOTH ` , ` LEFT ` , and ` RIGHT ` . The default is ` BOTH ` . This option only affects the endcaps of buffered linestrings.
+* ` use_spheroid ` : (Optional) ` BOOL ` determines how this function measures distance. If ` use_spheroid ` is ` FALSE ` , the function measures distance on the surface of a perfect sphere. The ` use_spheroid ` parameter currently only supports the value ` FALSE ` . The default value of ` use_spheroid ` is ` FALSE ` .
+
+**Return type**
+
+Polygon ` GEOGRAPHY `
+
+**Example**
+
+The following example shows the results of ` ST_BUFFERWITHTOLERANCE ` on a point, given two different values for tolerance but with the same buffer radius of ` 100 ` . A buffered point is an approximated circle. When `
+tolerance_meters=25 ` , the tolerance is a large percentage of the buffer radius, and therefore only five segments are used to approximate a circle around the input point. When ` tolerance_meters=1 ` , the tolerance is a much smaller percentage of the buffer radius, and therefore twenty-four edges are used to approximate a circle around the input point.
+
+
+SELECT
+-- tolerance_meters=25, or 25% of the buffer radius.
+ST_NumPoints(ST_BUFFERWITHTOLERANCE(ST_GEOGFROMTEXT('POINT(1 2)'), 100, 25)) AS five_sides,
+-- tolerance_meters=1, or 1% of the buffer radius.
+st_NumPoints(ST_BUFFERWITHTOLERANCE(ST_GEOGFROMTEXT('POINT(100 2)'), 100, 1)) AS twenty_four_sides;
+
+/*------------+-------------------*
+| five_sides | twenty_four_sides |
++------------+-------------------+
+| 6          | 24                |
+*------------+-------------------*/

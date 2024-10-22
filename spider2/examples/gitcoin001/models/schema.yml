@@ -1,0 +1,174 @@
+version: 2
+
+models:
+  - name: allo_applications
+    description: |
+      This model processes raw data from the `raw_allo_applications` table, renaming and transforming key fields such as application ID, project ID, round ID, and metadata details.
+      The SQL first selects all fields from the reference table, then renames fields like `anchorAddress` to `anchor_address`, converts some fields to lowercase, and extracts values from the `metadata` JSON structure (e.g., application recipient and signature).
+
+    refs:
+      - name: raw_allo_applications
+
+    columns:
+      - name: anchor_address
+        description: "The anchor address for the application."
+      
+      - name: chain_id
+        description: "The chain ID where the application is created."
+
+      - name: created_at_block
+        description: "The block at which the application was created."
+
+      - name: created_by_address
+        description: "The address of the creator of the application."
+
+      - name: id
+        description: "The unique ID of the application."
+        tests:
+          - not_null
+          - unique
+
+      - name: metadata
+        description: "The metadata related to the application."
+
+      - name: metadata_application_recipient
+        description: "The recipient of the application extracted from metadata."
+
+      - name: total_amount_donated_in_usd
+        description: "The total amount donated in USD."
+
+      - name: total_donations_count
+        description: "The total number of donations made for the application."
+
+      - name: unique_donors_count
+        description: "The number of unique donors who contributed to the application."
+
+
+  - name: allo_deployments
+    description: Official Allo contract deployments.
+    columns:
+      - name: contract
+        tests: ["is_address_lowercase"]
+
+  - name: allo_donations
+    description: Donations made using Allo v2 protocol. Single on-chain transaction can result in multiple donations.
+    columns:
+      - name: donor_address
+        tests: ["not_null", "is_address_lowercase"]
+      - name: recipient_address
+        tests: ["not_null", "is_address_lowercase"]
+      - name: token_address
+        tests: ["is_address_lowercase"]
+
+  - name: allo_projects
+    description: |
+      This model processes raw project data from the `raw_allo_projects` table, renaming key fields like project ID, metadata details, project type, and addresses.
+      The SQL first selects all fields from the reference table, then renames fields like `anchorAddress` to `anchor_address` and extracts relevant fields from the `metadata` JSON structure (e.g., project description, title, and social media links).
+
+    refs:
+      - name: raw_allo_projects
+
+    columns:
+      - name: anchor_address
+        description: "The anchor address for the project."
+
+      - name: chain_id
+        description: "The chain ID where the project was created."
+
+      - name: created_at_block
+        description: "The block at which the project was created."
+
+      - name: created_by_address
+        description: "The address of the creator of the project."
+
+      - name: id
+        description: "The unique ID of the project."
+        tests:
+          - not_null
+          - unique
+
+      - name: title
+        description: "The title of the project extracted from metadata."
+
+      - name: description
+        description: "The description of the project extracted from metadata."
+
+      - name: project_twitter
+        description: "The project's Twitter handle."
+
+      - name: project_github
+        description: "The project's GitHub repository."
+
+      - name: created_at
+        description: "The timestamp of when the project was created, extracted from metadata."
+
+      - name: project_type
+        description: "The type of the project, such as a grant or donation project."
+
+
+
+
+  - name: allo_rounds
+    description: Grant rounds created using Allo protocol.
+    columns:
+      - name: round_metadata_program_address
+        tests: ["is_address_lowercase"]
+      - name: id
+        tests: ["is_address_lowercase"]
+
+  - name: allo_subscriptions
+    columns:
+      - name: contract_address
+        tests: ["is_address_lowercase"]
+
+  - name: chain_metadata
+    description: Information about chains, on which Allo contracts were deployed.
+
+  - name: gitcoin_passport_scores
+    columns:
+      - name: address
+        tests: ["is_address_lowercase"]
+
+  - name: hypercert_claims
+    description: Hypercert `claims` created and issued by Gitcoin grantees.
+    columns:
+      - name: contract
+        tests: ["is_address_lowercase"]
+      - name: creator
+        tests: ["is_address_lowercase"]
+      - name: ipfs_cid
+        description: Points to hypercert metadata hosted on IPFS. Schema of metadata may vary.
+
+  - name: application_answers
+    description: |
+      This model processes answers submitted for grant applications by extracting answers and associated metadata from the `raw_allo_applications` table.
+      The SQL first unpacks the `metadata` JSON structure using `json_extract_path_text` to extract individual answers, linking them to their respective questions and projects.
+
+    refs:
+      - name: raw_allo_applications
+
+    columns:
+      - name: application_id
+        description: "The unique ID of the application."
+        tests:
+          - not_null
+          - unique
+
+      - name: project_id
+        description: "The unique ID of the project related to the application."
+        tests:
+          - not_null
+
+      - name: question_id
+        description: "The unique ID of the question associated with the application."
+
+      - name: question
+        description: "The text of the question associated with the application."
+
+      - name: answer
+        description: "The response or answer provided by the applicant."
+        tests:
+          - not_null
+
+      - name: round_id
+        description: "The unique ID of the round during which the application was submitted."

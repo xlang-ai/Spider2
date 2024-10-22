@@ -1,0 +1,27 @@
+## ARRAY_CONCAT
+
+ARRAY_CONCAT(array_expression[, ...])
+
+**Description**
+
+Concatenates one or more arrays with the same element type into a single array.
+
+The function returns ` NULL ` if any input argument is ` NULL ` .
+
+**Note:** You can also use the [ || concatenation operator
+](/bigquery/docs/reference/standard-sql/operators) to concatenate arrays.
+
+**Return type**
+
+` ARRAY `
+
+**Examples**
+
+
+SELECT ARRAY_CONCAT([1, 2], [3, 4], [5, 6]) as count_to_six;
+
+/*--------------------------------------------------*
+| count_to_six                                     |
++--------------------------------------------------+
+| [1, 2, 3, 4, 5, 6]                               |
+*--------------------------------------------------*/

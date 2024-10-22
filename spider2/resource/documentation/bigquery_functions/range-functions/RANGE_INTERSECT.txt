@@ -1,0 +1,67 @@
+## RANGE_INTERSECT
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+RANGE_INTERSECT(range_a, range_b)
+
+**Description**
+
+Gets a segment of two ranges that intersect.
+
+**Definitions**
+
+* ` range_a ` : The first ` RANGE<T> ` value.
+* ` range_b ` : The second ` RANGE<T> ` value.
+
+**Details**
+
+Returns ` NULL ` if any input is ` NULL ` .
+
+Produces an error if ` range_a ` and ` range_b ` don't overlap. To return `
+NULL ` instead, add the ` SAFE. ` prefix to the function name.
+
+` T ` must be of the same type for all inputs.
+
+**Return type**
+
+` RANGE<T> `
+
+**Examples**
+
+
+SELECT RANGE_INTERSECT( RANGE<DATE> '[2022-02-01, 2022-09-01)',
+RANGE<DATE> '[2021-06-15, 2022-04-15)') AS results;
+
+/*--------------------------+
+| results                  |
++--------------------------+
+| [2022-02-01, 2022-04-15) |
++--------------------------*/
+
+
+SELECT RANGE_INTERSECT( RANGE<DATE> '[2022-02-01, UNBOUNDED)',
+RANGE<DATE> '[2021-06-15, 2022-04-15)') AS results;
+
+/*--------------------------+
+| results                  |
++--------------------------+
+| [2022-02-01, 2022-04-15) |
++--------------------------*/
+
+
+SELECT RANGE_INTERSECT( RANGE<DATE> '[2022-02-01, UNBOUNDED)',
+RANGE<DATE> '[2021-06-15, UNBOUNDED)') AS results;
+
+/*-------------------------+
+| results                 |
++-------------------------+
+| [2022-02-01, UNBOUNDED) |
++-------------------------*/

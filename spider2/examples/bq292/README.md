@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.usa_names` and `bigquery-public-data.samples` and `bigquery-public-data.hacker_news` and `bigquery-public-data.noaa_gsod` database to solve this problem.

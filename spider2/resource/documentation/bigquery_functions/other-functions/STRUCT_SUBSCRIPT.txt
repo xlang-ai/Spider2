@@ -1,0 +1,52 @@
+## STRUCT_SUBSCRIPT
+
+struct_expression[struct_subscript_specifier]
+
+struct_subscript_specifier:
+{ index | position_keyword(index) }
+
+position_keyword:
+{ OFFSET | ORDINAL }
+
+**Note:** The brackets ( ` [] ` ) around ` struct_subscript_specifier ` are part of the syntax; they do not represent an optional part.
+
+**Description**
+
+Gets the value of a field at a selected position in a struct.
+
+**Input types**
+
+* ` struct_expression ` : The input struct.
+* ` position_keyword(index) ` : Determines where the index for the struct should start and how out-of-range indexes are handled. The index is an integer literal or constant that represents a specific position in the struct.
+* ` OFFSET(index) ` : The index starts at zero. Produces an error if the index is out of range. Produces the same result as ` index ` by itself.
+* ` ORDINAL(index) ` : The index starts at one. Produces an error if the index is out of range.
+* ` index ` : An integer literal or constant that represents a specific position in the struct. If used by itself without a position keyword, the index starts at zero and produces an error if the index is out of range.
+
+**Note:** The struct subscript operator doesn't support ` SAFE ` positional keywords at this time.
+
+**Examples**
+
+In following query, the struct subscript operator is used to return values at specific locations in ` item_struct ` using position keywords. This query also shows what happens when you reference an index ( ` 6 ` ) in an struct that is out of range.
+
+
+WITH Items AS (SELECT STRUCT<INT64, STRING, BOOL>(23, "tea", FALSE) AS item_struct) SELECT item_struct[0] AS field_index,
+item_struct[OFFSET(0)] AS field_offset,
+item_struct[ORDINAL(1)] AS field_ordinal FROM Items
+
+/*-------------+--------------+---------------*
+| field_index | field_offset | field_ordinal |
++-------------+--------------+---------------+
+| 23          | 23           | 23            |
+*-------------+--------------+---------------*/
+
+When you reference an index that is out of range in a struct, an error is produced. For example:
+
+
+WITH Items AS (SELECT STRUCT<INT64, STRING, BOOL>(23, "tea", FALSE) AS item_struct) SELECT item_struct[6] AS field_offset FROM Items
+
+-- Error. Field ordinal 6 is out of bounds in STRUCT
+
+
+WITH Items AS (SELECT STRUCT<INT64, STRING, BOOL>(23, "tea", FALSE) AS item_struct) SELECT item_struct[OFFSET(6)] AS field_offset FROM Items
+
+-- Error. Field ordinal 6 is out of bounds in STRUCT

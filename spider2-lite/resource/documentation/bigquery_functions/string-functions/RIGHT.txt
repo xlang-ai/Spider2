@@ -1,0 +1,42 @@
+## RIGHT
+
+RIGHT(value, length)
+
+**Description**
+
+Returns a ` STRING ` or ` BYTES ` value that consists of the specified number of rightmost characters or bytes from ` value ` . The ` length ` is an ` INT64
+` that specifies the length of the returned value. If ` value ` is ` BYTES ` ,
+` length ` is the number of rightmost bytes to return. If ` value ` is `
+STRING ` , ` length ` is the number of rightmost characters to return.
+
+If ` length ` is 0, an empty ` STRING ` or ` BYTES ` value will be returned.
+If ` length ` is negative, an error will be returned. If ` length ` exceeds the number of characters or bytes from ` value ` , the original ` value ` will be returned.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH examples AS (SELECT 'apple' as example UNION ALL SELECT 'banana' as example UNION ALL SELECT 'абвгд' as example ) SELECT example, RIGHT(example, 3) AS right_example FROM examples;
+
+/*---------+---------------*
+| example | right_example |
++---------+---------------+
+| apple   | ple           |
+| banana  | ana           |
+| абвгд   | вгд           |
+*---------+---------------*/
+
+
+WITH examples AS (SELECT b'apple' as example UNION ALL SELECT b'banana' as example UNION ALL SELECT b'\xab\xcd\xef\xaa\xbb' as example ) SELECT example, RIGHT(example, 3) AS right_example FROM examples;
+
+-- Note that the result of RIGHT is of type BYTES, displayed as a base64-encoded string.
+/*----------+---------------*
+| example  | right_example |
++----------+---------------+
+| YXBwbGU= | cGxl          |
+| YmFuYW5h | YW5h          |
+| q83vqrs= | 76q7          |
+*----------+---------------*/

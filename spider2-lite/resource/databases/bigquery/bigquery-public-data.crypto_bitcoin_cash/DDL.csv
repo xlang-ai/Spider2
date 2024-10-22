@@ -1,0 +1,45 @@
+table_name,ddl
+blocks,"CREATE TABLE `bigquery-public-data.crypto_bitcoin_cash.blocks`
+(
+  `hash` STRING NOT NULL OPTIONS(description=""Hash of this block""),
+  size INT64 OPTIONS(description=""The size of block data in bytes""),
+  stripped_size INT64 OPTIONS(description=""The size of block data in bytes excluding witness data""),
+  weight INT64 OPTIONS(description=""Three times the base size plus the total size. https://github.com/bitcoin/bips/blob/master/bip-0141.mediawiki""),
+  number INT64 NOT NULL OPTIONS(description=""The number of the block""),
+  version INT64 OPTIONS(description=""Protocol version specified in block header""),
+  merkle_root STRING OPTIONS(description=""The root node of a Merkle tree, where leaves are transaction hashes""),
+  timestamp TIMESTAMP NOT NULL OPTIONS(description=""Block creation timestamp specified in block header""),
+  timestamp_month DATE NOT NULL OPTIONS(description=""Month of the block creation timestamp specified in block header""),
+  nonce STRING OPTIONS(description=""Difficulty solution specified in block header""),
+  bits STRING OPTIONS(description=""Difficulty threshold specified in block header""),
+  coinbase_param STRING OPTIONS(description=""Data specified in the coinbase transaction of this block""),
+  transaction_count INT64 OPTIONS(description=""Number of transactions included in this block"")
+)
+PARTITION BY timestamp_month
+OPTIONS(
+  description=""All blocks.\nData is exported using https://github.com/blockchain-etl/bitcoin-etl""
+);"
+transactions,"CREATE TABLE `bigquery-public-data.crypto_bitcoin_cash.transactions`
+(
+  `hash` STRING NOT NULL OPTIONS(description=""The hash of this transaction""),
+  size INT64 OPTIONS(description=""The size of this transaction in bytes""),
+  virtual_size INT64 OPTIONS(description=""The virtual transaction size (differs from size for witness transactions)""),
+  version INT64 OPTIONS(description=""Protocol version specified in block which contained this transaction""),
+  lock_time INT64 OPTIONS(description=""Earliest time that miners can include the transaction in their hashing of the Merkle root to attach it in the latest block of the blockchain""),
+  block_hash STRING NOT NULL OPTIONS(description=""Hash of the block which contains this transaction""),
+  block_number INT64 NOT NULL OPTIONS(description=""Number of the block which contains this transaction""),
+  block_timestamp TIMESTAMP NOT NULL OPTIONS(description=""Timestamp of the block which contains this transaction""),
+  block_timestamp_month DATE NOT NULL OPTIONS(description=""Month of the block which contains this transaction""),
+  input_count INT64 OPTIONS(description=""The number of inputs in the transaction""),
+  output_count INT64 OPTIONS(description=""The number of outputs in the transaction""),
+  input_value NUMERIC OPTIONS(description=""Total value of inputs in the transaction""),
+  output_value NUMERIC OPTIONS(description=""Total value of outputs in the transaction""),
+  is_coinbase BOOL OPTIONS(description=""true if this transaction is a coinbase transaction""),
+  fee NUMERIC OPTIONS(description=""The fee paid by this transaction""),
+  inputs ARRAY<STRUCT<index INT64 NOT NULL OPTIONS(description=""0-indexed number of an input within a transaction""), spent_transaction_hash STRING OPTIONS(description=""The hash of the transaction which contains the output that this input spends""), spent_output_index INT64 OPTIONS(description=""The index of the output this input spends""), script_asm STRING OPTIONS(description=""Symbolic representation of the bitcoin's script language op-codes""), script_hex STRING OPTIONS(description=""Hexadecimal representation of the bitcoin's script language op-codes""), sequence INT64 OPTIONS(description=""A number intended to allow unconfirmed time-locked transactions to be updated before being finalized; not currently used except to disable locktime in a transaction""), required_signatures INT64 OPTIONS(description=""The number of signatures required to authorize the spent output""), type STRING OPTIONS(description=""The address type of the spent output""), addresses ARRAY<STRING> OPTIONS(description=""Addresses which own the spent output""), value NUMERIC OPTIONS(description=""The value in base currency attached to the spent output"")>> OPTIONS(description=""Transaction inputs""),
+  outputs ARRAY<STRUCT<index INT64 NOT NULL OPTIONS(description=""0-indexed number of an output within a transaction used by a later transaction to refer to that specific output""), script_asm STRING OPTIONS(description=""Symbolic representation of the bitcoin's script language op-codes""), script_hex STRING OPTIONS(description=""Hexadecimal representation of the bitcoin's script language op-codes""), required_signatures INT64 OPTIONS(description=""The number of signatures required to authorize spending of this output""), type STRING OPTIONS(description=""The address type of the output""), addresses ARRAY<STRING> OPTIONS(description=""Addresses which own this output""), value NUMERIC OPTIONS(description=""The value in base currency attached to this output"")>> OPTIONS(description=""Transaction outputs"")
+)
+PARTITION BY block_timestamp_month
+OPTIONS(
+  description=""All transactions.\nData is exported using https://github.com/blockchain-etl/bitcoin-etl\n""
+);"

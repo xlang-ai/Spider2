@@ -1,0 +1,2 @@
+1. please query `sample_commits`, `sample_contents`, `sample_files`, `sample_repos`, `languages` in `bigquery-public-data.github_repos` and data in `githubarchive.day` database to solve this problem.
+2. Please fill in the file result.csv with your answer.

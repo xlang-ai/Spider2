@@ -1,0 +1,25 @@
+## DATETIME
+
+1. DATETIME(year, month, day, hour, minute, second) 2. DATETIME(date_expression[, time_expression]) 3. DATETIME(timestamp_expression [, time_zone])
+
+**Description**
+
+1. Constructs a ` DATETIME ` object using ` INT64 ` values representing the year, month, day, hour, minute, and second.
+2. Constructs a ` DATETIME ` object using a DATE object and an optional ` TIME ` object.
+3. Constructs a ` DATETIME ` object using a ` TIMESTAMP ` object. It supports an optional parameter to [ specify a time zone ](/bigquery/docs/reference/standard-sql/timestamp_functions#timezone_definitions) . If no time zone is specified, the default time zone, UTC, is used.
+
+**Return Data Type**
+
+` DATETIME `
+
+**Example**
+
+
+SELECT DATETIME(2008, 12, 25, 05, 30, 00) as datetime_ymdhms,
+DATETIME(TIMESTAMP "2008-12-25 05:30:00+00", "America/Los_Angeles") as datetime_tstz;
+
+/*---------------------+---------------------*
+| datetime_ymdhms     | datetime_tstz       |
++---------------------+---------------------+
+| 2008-12-25T05:30:00 | 2008-12-24T21:30:00 |
+*---------------------+---------------------*/

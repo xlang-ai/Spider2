@@ -1,0 +1,47 @@
+## CODE_POINTS_TO_BYTES
+
+CODE_POINTS_TO_BYTES(ascii_code_points)
+
+**Description**
+
+Takes an array of extended ASCII [ code points
+](https://en.wikipedia.org/wiki/Code_point) as ` ARRAY<INT64> ` and returns `
+BYTES ` .
+
+To convert from ` BYTES ` to an array of code points, see  TO_CODE_POINTS  .
+
+**Return type**
+
+` BYTES `
+
+**Examples**
+
+The following is a basic example using ` CODE_POINTS_TO_BYTES ` .
+
+
+SELECT CODE_POINTS_TO_BYTES([65, 98, 67, 100]) AS bytes;
+
+-- Note that the result of CODE_POINTS_TO_BYTES is of type BYTES, displayed as a base64-encoded string.
+-- In BYTES format, b'AbCd' is the result.
+/*----------*
+| bytes    |
++----------+
+| QWJDZA== |
+*----------*/
+
+The following example uses a rotate-by-13 places (ROT13) algorithm to encode a string.
+
+
+SELECT CODE_POINTS_TO_BYTES(ARRAY_AGG( (SELECT CASE WHEN chr BETWEEN b'a' and b'z'
+THEN TO_CODE_POINTS(b'a')[offset(0)] +
+MOD(code+13-TO_CODE_POINTS(b'a')[offset(0)],26) WHEN chr BETWEEN b'A' and b'Z'
+THEN TO_CODE_POINTS(b'A')[offset(0)] +
+MOD(code+13-TO_CODE_POINTS(b'A')[offset(0)],26) ELSE code END FROM (SELECT code, CODE_POINTS_TO_BYTES([code]) chr) ) ORDER BY OFFSET)) AS encoded_string FROM UNNEST(TO_CODE_POINTS(b'Test String!')) code WITH OFFSET;
+
+-- Note that the result of CODE_POINTS_TO_BYTES is of type BYTES, displayed as a base64-encoded string.
+-- In BYTES format, b'Grfg Fgevat!' is the result.
+/*------------------*
+| encoded_string   |
++------------------+
+| R3JmZyBGZ2V2YXQh |
+*------------------*/

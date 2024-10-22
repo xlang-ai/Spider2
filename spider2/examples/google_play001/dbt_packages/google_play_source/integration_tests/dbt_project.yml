@@ -1,0 +1,40 @@
+name: 'google_play_source_integration_tests'
+version: '0.4.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+  # google_play__using_subscriptions: true # uncomment this line when regenerating docs!
+  # google_play__using_earnings: true # uncomment this line when regenerating docs!
+  google_play_schema: google_play_source_integration_tests_1
+  google_play_source:
+    google_play_stats_installs_app_version_identifier: "stats_installs_app_version"
+    google_play_stats_crashes_app_version_identifier: "stats_crashes_app_version"
+    google_play_stats_ratings_app_version_identifier: "stats_ratings_app_version"
+    google_play_stats_installs_device_identifier: "stats_installs_device"
+    google_play_stats_ratings_device_identifier: "stats_ratings_device"
+    google_play_stats_installs_os_version_identifier: "stats_installs_os_version"
+    google_play_stats_ratings_os_version_identifier: "stats_ratings_os_version"
+    google_play_stats_crashes_os_version_identifier: "stats_crashes_os_version"
+    google_play_stats_installs_country_identifier: "stats_installs_country"
+    google_play_stats_ratings_country_identifier: "stats_ratings_country"
+    google_play_stats_store_performance_country_identifier: "stats_store_performance_country"
+    google_play_stats_store_performance_traffic_source_identifier: "stats_store_performance_traffic_source"
+    google_play_stats_installs_overview_identifier: "stats_installs_overview"
+    google_play_stats_crashes_overview_identifier: "stats_crashes_overview"
+    google_play_stats_ratings_overview_identifier: "stats_ratings_overview"
+    google_play_earnings_identifier: "earnings"
+    google_play_financial_stats_subscriptions_country_identifier: "financial_stats_subscriptions_country"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+
+seeds:
+  google_play_source_integration_tests:
+    stats_installs_overview:
+      +column_types:
+        active_device_installs: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    stats_ratings_app_version:
+      +column_types:
+        app_version_code: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

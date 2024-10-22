@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: dim_listings_hosts
+    description: |
+      This model combines listing information with host details by joining the `dim_listings` and `dim_hosts` tables.
+      It merges the data based on `HOST_ID`, ensuring the most recent `UPDATED_AT` timestamp between the two tables is captured.
+      A surrogate key is generated for each unique combination of `LISTING_ID` and `HOST_ID`.
+
+    refs:
+      - name: dim_listings
+      - name: dim_hosts
+
+    columns:
+      - name: CREATED_AT
+        description: "The date and time when the listing was created."
+
+      - name: UPDATED_AT
+        description: |
+          The most recent update time between the listing and the host. 
+          It takes the greater value of `listings_cte.UPDATED_AT` and `hosts_cte.UPDATED_AT`.
+
+      - name: LISTING_ID
+        description: "The unique identifier for the listing."
+
+      - name: LISTING_NAME
+        description: "The name of the listing, typically used to describe the property."
+
+      - name: ROOM_TYPE
+        description: "The type of room being offered (e.g., entire home, private room, etc.)."
+
+      - name: minimum_nights
+        description: "The minimum number of nights required to book the listing."
+
+      - name: PRICE
+        description: "The price per night for the listing."
+
+      - name: HOST_ID
+        description: "The unique identifier for the host of the listing."
+
+      - name: HOST_NAME
+        description: "The name of the host managing the listing."
+
+      - name: IS_SUPERHOST
+        description: "Indicates whether the host is a 'Superhost', a status awarded for high ratings and performance."
+
+      - name: LISTING_HOST_ID
+        description: |
+          A surrogate key generated for each unique combination of `LISTING_ID` and `HOST_ID`.
+          This key is used to uniquely identify the relationship between a listing and its host.

@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: fct_listings
+    description: "Fact table capturing listings details, including seller information, event data, and pricing details."
+    columns:
+      - name: list_id
+        description: "Unique identifier for the listing."
+        tests:
+          - unique
+          - not_null
+      - name: list_time
+        description: "The timestamp when the listing was created."
+        tests:
+          - not_null
+      - name: cat_group
+        description: "Category group of the event for which the tickets are listed."
+        tests:
+          - not_null
+      - name: cat_name
+        description: "Category name of the event."
+        tests:
+          - not_null
+      - name: event_name
+        description: "Name of the event for which the tickets are listed."
+        tests:
+          - not_null
+      - name: venue_name
+        description: "Name of the venue where the event takes place."
+        tests:
+          - not_null
+      - name: venue_city
+        description: "City where the venue is located."
+        tests:
+          - not_null
+      - name: venue_state
+        description: "State where the venue is located."
+        tests:
+          - not_null
+      - name: start_time
+        description: "The starting time of the event for which the tickets are listed."
+        tests:
+          - not_null
+      - name: seller_username
+        description: "Username of the seller listing the tickets."
+        tests:
+          - not_null
+      - name: seller_name
+        description: "Full name of the seller listing the tickets."
+        tests:
+          - not_null
+      - name: num_tickets
+        description: "The number of tickets available in the listing."
+        tests:
+          - not_null
+      - name: price_per_ticket
+        description: "The price per ticket in the listing."
+        tests:
+          - not_null
+      - name: total_price
+        description: "The total price for the tickets in the listing (price per ticket * number of tickets)."
+        tests:
+          - not_null
+
+    - name: fct_sales
+      description: All sales with details

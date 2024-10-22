@@ -1,0 +1,60 @@
+table_name,ddl
+aircrafts_data,"CREATE TABLE `spider2-public-data.airlines.aircrafts_data`
+(
+  aircraft_code STRING,
+  model STRING,
+  `range` INT64
+);"
+airports_data,"CREATE TABLE `spider2-public-data.airlines.airports_data`
+(
+  airport_code STRING,
+  airport_name STRING,
+  city STRING,
+  coordinates STRING,
+  timezone STRING
+);"
+boarding_passes,"CREATE TABLE `spider2-public-data.airlines.boarding_passes`
+(
+  ticket_no STRING,
+  flight_id INT64,
+  boarding_no INT64,
+  seat_no STRING
+);"
+bookings,"CREATE TABLE `spider2-public-data.airlines.bookings`
+(
+  book_ref STRING,
+  book_date STRING,
+  total_amount INT64
+);"
+tickets,"CREATE TABLE `spider2-public-data.airlines.tickets`
+(
+  ticket_no STRING,
+  book_ref STRING,
+  passenger_id STRING
+);"
+seats,"CREATE TABLE `spider2-public-data.airlines.seats`
+(
+  aircraft_code STRING,
+  seat_no STRING,
+  fare_conditions STRING
+);"
+flights,"CREATE TABLE `spider2-public-data.airlines.flights`
+(
+  flight_id INT64,
+  flight_no STRING,
+  scheduled_departure STRING,
+  scheduled_arrival STRING,
+  departure_airport STRING,
+  arrival_airport STRING,
+  status STRING,
+  aircraft_code STRING,
+  actual_departure STRING,
+  actual_arrival STRING
+);"
+ticket_flights,"CREATE TABLE `spider2-public-data.airlines.ticket_flights`
+(
+  ticket_no STRING,
+  flight_id INT64,
+  fare_conditions STRING,
+  amount INT64
+);"

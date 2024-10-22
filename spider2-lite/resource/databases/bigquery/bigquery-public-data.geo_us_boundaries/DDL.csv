@@ -1,0 +1,248 @@
+table_name,ddl
+coastline,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.coastline`
+(
+  name STRING,
+  coastline_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY name;"
+csa,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.csa`
+(
+  geo_id STRING,
+  csa_code STRING,
+  name STRING,
+  lsad_name STRING,
+  msa_lsad_code STRING,
+  mtfcc_feature_class_code STRING,
+  area_land_meters FLOAT64,
+  area_water_meters FLOAT64,
+  internal_point_lon FLOAT64,
+  internal_point_lat FLOAT64,
+  internal_point_geom GEOGRAPHY,
+  csa_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY name, lsad_name;"
+railways,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.railways`
+(
+  geo_id INT64,
+  full_name STRING,
+  mtfcc_feature_class_code STRING,
+  railway_geom STRING
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY full_name, mtfcc_feature_class_code;"
+cbsa,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.cbsa`
+(
+  geo_id STRING,
+  csa_geo_id STRING,
+  cbsa_fips_code STRING,
+  name STRING,
+  lsad_name STRING,
+  lsad_code STRING,
+  msa_indicator STRING,
+  mtfcc_feature_class_code STRING,
+  area_land_meters FLOAT64,
+  area_water_meters FLOAT64,
+  internal_point_latitude FLOAT64,
+  internal_point_longitude FLOAT64,
+  internal_point_geom GEOGRAPHY,
+  cbsa_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY csa_geo_id, msa_indicator;"
+adjacent_counties,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.adjacent_counties`
+(
+  county STRING,
+  state STRING,
+  county_fips_code STRING,
+  neighbors ARRAY<STRING>,
+  neighbors_state ARRAY<STRING>,
+  neighbors_fips_code ARRAY<STRING>
+);"
+counties,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.counties`
+(
+  geo_id STRING,
+  state_fips_code STRING,
+  county_fips_code STRING,
+  county_gnis_code STRING,
+  county_name STRING,
+  lsad_name STRING,
+  lsad_code STRING,
+  fips_class_code STRING,
+  mtfcc_feature_class_code STRING,
+  csa_fips_code STRING,
+  cbsa_fips_code STRING,
+  met_div_fips_code STRING,
+  functional_status STRING,
+  area_land_meters INT64,
+  area_water_meters INT64,
+  int_point_lat FLOAT64,
+  int_point_lon FLOAT64,
+  int_point_geom GEOGRAPHY,
+  county_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY state_fips_code, county_name, csa_fips_code, cbsa_fips_code;"
+adjacent_states,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.adjacent_states`
+(
+  state STRING,
+  state_name STRING,
+  state_fips_code STRING,
+  neighbors_state ARRAY<STRING>,
+  neighbors_fips_code ARRAY<STRING>
+);"
+metropolitan_divisions,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.metropolitan_divisions`
+(
+  geo_id STRING,
+  csa_code STRING,
+  cbsa_code STRING,
+  metdiv_code STRING,
+  name STRING,
+  lsad_name STRING,
+  lsad_code STRING,
+  mtfcc_feature_class_code STRING,
+  area_land_meters FLOAT64,
+  area_water_meters FLOAT64,
+  internal_point_latitude FLOAT64,
+  internal_point_longitude FLOAT64,
+  internal_point_geom GEOGRAPHY,
+  metdiv_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY name, csa_code, cbsa_code;"
+states,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.states`
+(
+  geo_id STRING,
+  region_code STRING,
+  division_code STRING,
+  state_fips_code STRING,
+  state_gnis_code STRING,
+  state STRING,
+  state_name STRING,
+  lsad_code STRING,
+  mtfcc_feature_class_code STRING,
+  functional_status STRING,
+  area_land_meters INT64,
+  area_water_meters INT64,
+  int_point_lat FLOAT64,
+  int_point_lon FLOAT64,
+  int_point_geom GEOGRAPHY,
+  state_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY state, state_name, region_code, division_code;"
+cnecta,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.cnecta`
+(
+  geo_id STRING,
+  cnecta_fips_code STRING,
+  name STRING,
+  name_lsad STRING,
+  lsad STRING,
+  mtfcc_feature_class_code STRING,
+  area_land_meters INT64,
+  area_water_meters INT64,
+  int_point_lat FLOAT64,
+  int_point_lon FLOAT64,
+  cnecta_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY name_lsad, name, cnecta_fips_code, geo_id;"
+congress_district_116,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.congress_district_116`
+(
+  geo_id STRING,
+  state_fips_code STRING,
+  district_fips_code STRING,
+  lsad_name STRING,
+  lsad_code STRING,
+  congress_session STRING,
+  mtfcc_feature_class_code STRING,
+  functional_status BOOL,
+  area_land_meters INT64,
+  area_water_meters INT64,
+  int_point_lat FLOAT64,
+  int_point_lon FLOAT64,
+  int_point_geom GEOGRAPHY,
+  district_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY state_fips_code, functional_status, lsad_name;"
+zip_codes,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.zip_codes`
+(
+  zip_code STRING,
+  city STRING,
+  county STRING,
+  state_fips_code STRING,
+  state_code STRING,
+  state_name STRING,
+  fips_class_code STRING,
+  mtfcc_feature_class_code STRING,
+  functional_status STRING,
+  area_land_meters FLOAT64,
+  area_water_meters FLOAT64,
+  internal_point_lat FLOAT64,
+  internal_point_lon FLOAT64,
+  internal_point_geom GEOGRAPHY,
+  zip_code_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY zip_code_geom, state_code, state_name, county;"
+nws_forecast_regions,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.nws_forecast_regions`
+(
+  state STRING OPTIONS(description=""""),
+  cwa STRING OPTIONS(description=""""),
+  time_zone STRING OPTIONS(description=""""),
+  fe_area STRING OPTIONS(description=""""),
+  zone STRING OPTIONS(description=""""),
+  name STRING OPTIONS(description=""""),
+  state_zone STRING OPTIONS(description=""""),
+  lon FLOAT64 OPTIONS(description=""""),
+  lat FLOAT64 OPTIONS(description=""""),
+  shortname STRING OPTIONS(description=""""),
+  shape_geometry GEOGRAPHY OPTIONS(description="""")
+);"
+congress_district_115,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.congress_district_115`
+(
+  geo_id STRING,
+  state_fips_code STRING,
+  district_fips_code STRING,
+  lsad_name STRING,
+  lsad_code STRING,
+  congress_session STRING,
+  mtfcc_feature_class_code STRING,
+  functional_status BOOL,
+  area_land_meters INT64,
+  area_water_meters INT64,
+  int_point_lat FLOAT64,
+  int_point_lon FLOAT64,
+  int_point_geom GEOGRAPHY,
+  district_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY state_fips_code, functional_status, lsad_name;"
+urban_areas,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.urban_areas`
+(
+  geo_id STRING,
+  urban_area_code STRING,
+  name STRING,
+  lsad_name STRING,
+  area_lsad_code STRING,
+  mtfcc_feature_class_code STRING,
+  type STRING,
+  functional_status STRING,
+  area_land_meters FLOAT64,
+  area_water_meters FLOAT64,
+  internal_point_lon FLOAT64,
+  internal_point_lat FLOAT64,
+  internal_point_geom GEOGRAPHY,
+  urban_area_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY lsad_name, type;"
+national_outline,"CREATE TABLE `bigquery-public-data.geo_us_boundaries.national_outline`
+(
+  us_outline_geom GEOGRAPHY,
+  aff_geo_id STRING,
+  geo_id STRING,
+  name STRING
+);"

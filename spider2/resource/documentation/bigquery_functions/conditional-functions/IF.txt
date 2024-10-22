@@ -1,0 +1,32 @@
+## IF
+
+IF(expr, true_result, else_result)
+
+**Description**
+
+If ` expr ` evaluates to ` TRUE ` , returns ` true_result ` , else returns the evaluation for ` else_result ` . ` else_result ` isn't evaluated if ` expr `
+evaluates to ` TRUE ` . ` true_result ` isn't evaluated if ` expr ` evaluates to ` FALSE ` or ` NULL ` .
+
+` expr ` must be a boolean expression. ` true_result ` and ` else_result `
+must be coercible to a common [ supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) .
+
+**Return Data Type**
+
+[ Supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) of ` true_result ` and ` else_result ` .
+
+**Example**
+
+
+WITH Numbers AS ( SELECT 10 as A, 20 as B UNION ALL SELECT 50, 30 UNION ALL SELECT 60, 60 ) SELECT A,
+B,
+IF(A < B, 'true', 'false') AS result FROM Numbers
+
+/*------------------*
+| A  | B  | result |
++------------------+
+| 10 | 20 | true   |
+| 50 | 30 | false  |
+| 60 | 60 | false  |
+*------------------*/

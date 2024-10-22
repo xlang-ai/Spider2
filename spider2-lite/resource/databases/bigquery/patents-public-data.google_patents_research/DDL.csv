@@ -1,0 +1,531 @@
+table_name,ddl
+annotations_202101,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202101`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_202004,"CREATE TABLE `patents-public-data.google_patents_research.publications_202004`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202304,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202304`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_202007,"CREATE TABLE `patents-public-data.google_patents_research.publications_202007`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_201909,"CREATE TABLE `patents-public-data.google_patents_research.publications_201909`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202105,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202105`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+annotations_202310,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202310`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_201903,"CREATE TABLE `patents-public-data.google_patents_research.publications_201903`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202310,"CREATE TABLE `patents-public-data.google_patents_research.publications_202310`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_201802,"CREATE TABLE `patents-public-data.google_patents_research.publications_201802`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_201710,"CREATE TABLE `patents-public-data.google_patents_research.publications_201710`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Same as [application_number]""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202101,"CREATE TABLE `patents-public-data.google_patents_research.publications_202101`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202307,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202307`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+annotations_202111,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202111`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_202307,"CREATE TABLE `patents-public-data.google_patents_research.publications_202307`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202208,"CREATE TABLE `patents-public-data.google_patents_research.publications_202208`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202212,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202212`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+annotations_grouped,"CREATE TABLE `patents-public-data.google_patents_research.annotations_grouped`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  max_confidence FLOAT64,
+  max_conf_bucket INT64,
+  sources ARRAY<STRING>,
+  location ARRAY<STRUCT<source STRING, confidence FLOAT64, character_offset_start INT64, character_offset_end INT64>>
+)
+PARTITION BY RANGE_BUCKET(max_conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_201912,"CREATE TABLE `patents-public-data.google_patents_research.publications_201912`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations,"CREATE TABLE `patents-public-data.google_patents_research.annotations`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_202304,"CREATE TABLE `patents-public-data.google_patents_research.publications_202304`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202204,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202204`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+publications_201809,"CREATE TABLE `patents-public-data.google_patents_research.publications_201809`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors. Trained on full text bag of words to predict CPCs using the WSABIE classification model."")
+)
+OPTIONS(
+  description=""""
+);"
+publications_202204,"CREATE TABLE `patents-public-data.google_patents_research.publications_202204`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202111,"CREATE TABLE `patents-public-data.google_patents_research.publications_202111`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications,"CREATE TABLE `patents-public-data.google_patents_research.publications`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202105,"CREATE TABLE `patents-public-data.google_patents_research.publications_202105`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+publications_202212,"CREATE TABLE `patents-public-data.google_patents_research.publications_202212`
+(
+  publication_number STRING OPTIONS(description=""Patent publication number (DOCDB compatible), eg: 'US-7650331-B1'.""),
+  title STRING OPTIONS(description=""The (possibly machine translated) English title.""),
+  title_translated BOOL OPTIONS(description=""True if the title is machine-translated by Google Translate.""),
+  abstract STRING OPTIONS(description=""The (possibly machine translated) English abstract.""),
+  abstract_translated BOOL OPTIONS(description=""True if the abstract is machine-translated by Google Translate.""),
+  cpc ARRAY<STRUCT<code STRING OPTIONS(description=""Classification code""), inventive BOOL OPTIONS(description=""Is this classification inventive/main?""), first BOOL OPTIONS(description=""Is this classification the first/primary?""), tree ARRAY<STRING> OPTIONS(description=""The full classification tree from the root to this code"")>> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes with the hierarchy.""),
+  cpc_low ARRAY<STRING> OPTIONS(description=""The Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  cpc_inventive_low ARRAY<STRING> OPTIONS(description=""The inventive Cooperative Patent Classification (CPC) codes and their parents, in an array for easier querying.""),
+  top_terms ARRAY<STRING> OPTIONS(description=""The top 10 salient terms extracted from this patent's title, abstract, claims and description.""),
+  similar ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Semantically similar documents based on content and metadata.""),
+  url STRING OPTIONS(description=""URL to the patents.google.com page for this patent.""),
+  country STRING OPTIONS(description=""Country name.""),
+  publication_description STRING OPTIONS(description=""Description of the publication type.""),
+  cited_by ARRAY<STRUCT<publication_number STRING OPTIONS(description=""Same as [publication_number]""), application_number STRING OPTIONS(description=""Same as [application_number]""), npl_text STRING OPTIONS(description=""Free-text citation (non-patent literature, etc).""), type STRING OPTIONS(description=""The type of reference (see parent field for values).""), category STRING OPTIONS(description=""The category of reference (see parent field for values).""), filing_date INT64 OPTIONS(description=""The filing date."")>> OPTIONS(description=""Publications that cite this publication.""),
+  embedding_v1 ARRAY<FLOAT64> OPTIONS(description=""(Version 1) Machine-learned vector embedding based on document contents and metadata, where two documents that have similar technical content have a high dot product score of their embedding vectors."")
+);"
+annotations_202208,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202208`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"
+annotations_202007,"CREATE TABLE `patents-public-data.google_patents_research.annotations_202007`
+(
+  publication_number STRING,
+  ocid INT64,
+  preferred_name STRING,
+  domain STRING,
+  source STRING,
+  confidence FLOAT64,
+  character_offset_start INT64,
+  character_offset_end INT64,
+  inchi STRING,
+  inchi_key STRING,
+  smiles STRING,
+  conf_bucket INT64
+)
+PARTITION BY RANGE_BUCKET(conf_bucket, GENERATE_ARRAY(0, 1000, 10))
+CLUSTER BY publication_number, domain;"

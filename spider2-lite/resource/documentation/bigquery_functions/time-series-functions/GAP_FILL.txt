@@ -1,0 +1,439 @@
+## GAP_FILL
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+GAP_FILL ( TABLE time_series_table,
+time_series_column,
+bucket_width,
+[, partitioning_columns=>value]
+[, value_columns=>value ]
+[, origin=>value]
+[, ignore_null_values=>value]
+)
+
+
+GAP_FILL ( (time_series_subquery),
+time_series_column,
+bucket_width,
+[, partitioning_columns=>values]
+[, value_columns=>value ]
+[, origin=>value]
+[, ignore_null_values=>value]
+)
+
+**Description**
+
+Finds and fills gaps in a time series.
+
+**Definitions**
+
+* ` time_series_table ` : The name of the table that contains the time series data.
+* ` time_series_subquery ` : The subquery that contains the time series data.
+* ` time_series_column ` : The name of the column in ` time_series_table ` or ` time_series_subquery ` that contains the time points of the time series data. This column must represent a ` DATE ` , ` DATETIME ` , or ` TIMESTAMP ` type.
+* ` bucket_width ` : The ` INTERVAL ` value that represents the selected width of the time buckets. The interval can represent a ` DATE ` , ` DATETIME ` , or ` TIMESTAMP ` type.
+* ` partitioning_columns ` : An ` ARRAY<STRING> ` optional named argument. Represents an array of zero or more column names used to partition data into individual time series (time series identity). This has the same column type requirements as the ` PARTITION BY ` clause.
+* ` value_columns ` : An ` ARRAY<STRUCT<STRING, STRING>> ` optional named argument. Represents an array of column name and gap-filling method pairs in this format:
+
+[(column_name, gap_filling_method), ...]
+
+* ` column_name ` : A ` STRING ` value that represents a valid column from ` time_series_table ` . A column name can only be used once in ` value_columns ` .
+
+* ` gap_filling_method ` : A ` STRING ` value that can be one of the following gap-filling methods:
+
+* ` null ` (default): Fill in missing values with ` NULL ` values.
+
+* ` linear ` : Fill in missing values using linear interpolation. So, when a new value is added, it's based on a linear slope for a specific time bucket. When this method is used, ` column_name ` must be a numeric data type.
+
+* ` locf ` : Fill in missing values by carrying the last observed value forward. So, when a new value is added, it's based on the previous value.
+
+* ` origin ` : A ` DATE ` , ` DATETIME ` or ` TIMESTAMP ` optional named argument. Represents a point in time from which all time buckets expand in each direction.
+
+If ` origin ` is not provided, the data type for ` time_series_column ` is assumed, and the corresponding default value is used:
+
+* ` DATE '1950-01-01' `
+* ` DATETIME '1950-01-01 00:00:00' `
+* ` TIMESTAMP '1950-01-01 00:00:00' `
+* ` ignore_null_values ` : A ` BOOL ` optional named argument. Indicates whether the function ignores ` NULL ` values in the input data when performing gap filling. By default, this value is ` TRUE ` .
+
+* If ` TRUE ` (default), ` NULL ` values are skipped during gap filling.
+
+* ` null ` is the gap-filling method for a column: If a value in a column is ` NULL ` , the output is ` NULL ` for that column.
+
+* ` locf ` or ` linear ` is the gap-filling method for a column: The previous or next non- ` NULL ` value is used. The side effect of this is that output value columns are never ` NULL ` , except for the edges.
+
+* If ` FALSE ` , ` NULL ` values are included during gap filling.
+
+* ` null ` is the gap-filling method for a column: If a value in a column is ` NULL ` , the output is ` NULL ` for that column.
+
+* ` locf ` is the gap-filling method for a column: If the previous value in that column is ` NULL ` , the output is ` NULL ` for that column.
+
+* ` linear ` is the gap-filling method for a column: If either of the endpoints in that column is ` NULL ` , the output is ` NULL ` for that column.
+
+**Details**
+
+Sometimes the fixed time intervals produced by time bucket functions have gaps, either due to irregular sampling intervals or an event that caused data loss for some time period. This can cause irregularities in reporting. For example, a plot with irregular intervals might have visible discontinuity. You can use the ` GAP_FILL ` function to employ various gap-filling methods to fill in those missing data points.
+
+` time_series_column ` and ` origin ` must be of the same data type.
+
+**Return type**
+
+` TABLE `
+
+**Examples**
+
+In the following query, the ` locf ` gap-filling method is applied to gaps:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'locf')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | 74     |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | 78     |
+| 2023-11-01T09:38:00 | 78     |
++---------------------+--------*/
+
+In the following query, the ` linear ` gap-filling method is applied to gaps:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'linear')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | 75     |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | 78     |
+| 2023-11-01T09:38:00 | 80     |
++---------------------+--------*/
+
+In the following query, the ` null ` gap-filling method is applied to gaps:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'null')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | NULL   |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | 78     |
+| 2023-11-01T09:38:00 | NULL   |
++---------------------+--------*/
+
+In the following query, ` NULL ` values in the input data are ignored by default:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', NULL, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'linear')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | 75     |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | 78     |
+| 2023-11-01T09:38:00 | 80     |
++---------------------+--------*/
+
+In the following query, ` NULL ` values in the input data are not ignored,
+using the ` ignore_null_values ` argument:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', NULL, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'linear')
+],
+ignore_null_values => FALSE ) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | 75     |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | NULL   |
+| 2023-11-01T09:38:00 | NULL   |
++---------------------+--------*/
+
+In the following query, when the ` value_columns ` argument is not passed in,
+the ` null ` gap-filling method is used on all columns:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 79, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE ) ORDER BY time;
+
+/*---------------------+-----------+--------+----------+
+| time                | device_id | signal | state    |
++---------------------+-----------+--------+----------+
+| 2023-11-01T09:35:00 | NULL      | NULL   | NULL     |
+| 2023-11-01T09:36:00 | 2         | 77     | ACTIVE   |
+| 2023-11-01T09:37:00 | 3         | 79     | ACTIVE   |
+| 2023-11-01T09:38:00 | NULL      | NULL   | NULL     |
++---------------------+-----------+--------+----------*/
+
+In the following query, rows (buckets) are added for gaps that are found:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:35:39', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:37:39', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:38:00', 77, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:40:00', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'locf')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:36:00 | 74     |
+| 2023-11-01T09:37:00 | 74     |
+| 2023-11-01T09:38:00 | 74     |
+| 2023-11-01T09:39:00 | 77     |
+| 2023-11-01T09:40:00 | 77     |
++---------------------+--------*/
+
+In the following query, data is condensed when it fits in the same bucket and has the same values:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:35:39', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:60', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 77, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:37:20', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'locf')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:36:00 | 74     |
+| 2023-11-01T09:37:00 | 77     |
++---------------------+--------*/
+
+In the following query, gap filling is applied to partitions:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(2, DATETIME '2023-11-01 09:35:07', 87, 'ACTIVE'),
+STRUCT(1, DATETIME '2023-11-01 09:35:26', 82, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:35:39', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:07', 88, 'ACTIVE'),
+STRUCT(1, DATETIME '2023-11-01 09:36:26', 82, 'ACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:37:07', 88, 'ACTIVE'),
+STRUCT(1, DATETIME '2023-11-01 09:37:28', 80, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:39', 77, 'ACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:38:07', 86, 'ACTIVE'),
+STRUCT(1, DATETIME '2023-11-01 09:38:26', 81, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:38:39', 77, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+partitioning_columns => ['device_id'],
+value_columns => [
+('signal', 'locf')
+]
+) ORDER BY device_id;
+
+/*---------------------+-----------+--------+
+| time                | device_id | signal |
++---------------------+-----------+--------+
+| 2023-11-01T09:36:00 | 1         | 82     |
+| 2023-11-01T09:37:00 | 1         | 82     |
+| 2023-11-01T09:38:00 | 1         | 80     |
+| 2023-11-01T09:36:00 | 2         | 87     |
+| 2023-11-01T09:37:00 | 2         | 88     |
+| 2023-11-01T09:38:00 | 2         | 88     |
+| 2023-11-01T09:36:00 | 3         | 74     |
+| 2023-11-01T09:37:00 | 3         | 74     |
+| 2023-11-01T09:38:00 | 3         | 77     |
++---------------------+-----------+--------*/
+
+In the following query, gap filling is applied to multiple columns, and each column uses a different gap-filling method:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'ACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'INACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:38:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:39:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'linear'),
+('state', 'locf')
+]
+) ORDER BY time;
+
+/*---------------------+--------+----------+
+| time                | signal | state    |
++---------------------+--------+----------+
+| 2023-11-01T09:35:00 | 75     | ACTIVE   |
+| 2023-11-01T09:36:00 | 77     | INACTIVE |
+| 2023-11-01T09:37:00 | 78     | INACTIVE |
+| 2023-11-01T09:38:00 | 78     | ACTIVE   |
+| 2023-11-01T09:39:00 | 80     | ACTIVE   |
++---------------------+--------+----------*/
+
+In the following query, the point of origin is changed in the gap-filling results to a custom origin, using the ` origin ` argument:
+
+
+CREATE TEMP TABLE device_data AS SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'ACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'INACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:38:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:39:01', 80, 'ACTIVE')
+]);
+
+SELECT *
+FROM GAP_FILL( TABLE device_data,
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'null')
+],
+origin => DATETIME '2023-11-01 09:30:01'
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:34:01 | 74     |
+| 2023-11-01T09:35:01 | NULL   |
+| 2023-11-01T09:36:01 | NULL   |
+| 2023-11-01T09:37:01 | NULL   |
+| 2023-11-01T09:38:01 | NULL   |
+| 2023-11-01T09:39:01 | 80     |
++---------------------+--------*/
+
+In the following query, a subquery is passed into the function instead of a table:
+
+
+SELECT *
+FROM GAP_FILL( ( SELECT * FROM UNNEST( ARRAY<STRUCT<device_id INT64, time DATETIME, signal INT64, state STRING>>[
+STRUCT(1, DATETIME '2023-11-01 09:34:01', 74, 'INACTIVE'),
+STRUCT(2, DATETIME '2023-11-01 09:36:00', 77, 'ACTIVE'),
+STRUCT(3, DATETIME '2023-11-01 09:37:00', 78, 'ACTIVE'),
+STRUCT(4, DATETIME '2023-11-01 09:38:01', 80, 'ACTIVE')
+]) ),
+ts_column => 'time',
+bucket_width => INTERVAL 1 MINUTE,
+value_columns => [
+('signal', 'linear')
+]
+) ORDER BY time;
+
+/*---------------------+--------+
+| time                | signal |
++---------------------+--------+
+| 2023-11-01T09:35:00 | 75     |
+| 2023-11-01T09:36:00 | 77     |
+| 2023-11-01T09:37:00 | 78     |
+| 2023-11-01T09:38:00 | 80     |
++---------------------+--------*/

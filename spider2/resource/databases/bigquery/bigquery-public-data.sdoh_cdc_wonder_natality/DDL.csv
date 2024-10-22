@@ -1,0 +1,125 @@
+table_name,ddl
+county_natality,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_abnormal_conditions,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_abnormal_conditions`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Abnormal_Conditions_Checked_Desc STRING OPTIONS(description=""Abnormal Conditions Checked""),
+  Abnormal_Conditions_Checked_YN INT64 OPTIONS(description=""Abnormal Conditions Checked Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_congenital_abnormalities,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_congenital_abnormalities`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Congenital_Abnormality_Checked_Desc STRING OPTIONS(description=""Congenital Anomalies Checked""),
+  Congenital_Abnormality_Checked_YN INT64 OPTIONS(description=""Congenital Anomalies Checked Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_payment,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_payment`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Source_of_Payment STRING OPTIONS(description=""Source of Payment for Delivery""),
+  Source_of_Payment_Code INT64 OPTIONS(description=""Source of Payment for Delivery Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_father_race,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_father_race`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Fathers_Single_Race STRING OPTIONS(description=""Father's Single Race 6""),
+  Fathers_Single_Race_Code STRING OPTIONS(description=""Father's Single Race 6 Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_maternal_morbidity,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_maternal_morbidity`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Maternal_Morbidity_Desc STRING OPTIONS(description=""Maternal Morbidity Checked""),
+  Maternal_Morbidity_YN INT64 OPTIONS(description=""Maternal Morbidity Checked Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"
+county_natality_by_mother_race,"CREATE TABLE `bigquery-public-data.sdoh_cdc_wonder_natality.county_natality_by_mother_race`
+(
+  Year DATE OPTIONS(description=""Year""),
+  County_of_Residence STRING OPTIONS(description=""County of Residence""),
+  County_of_Residence_FIPS STRING OPTIONS(description=""County of Residence Code""),
+  Mothers_Single_Race STRING OPTIONS(description=""Mother's Single Race 6""),
+  Mothers_Single_Race_Code STRING OPTIONS(description=""Mother's Single Race 6 Code""),
+  Births INT64 OPTIONS(description=""Number of Births""),
+  Ave_Age_of_Mother FLOAT64 OPTIONS(description=""Average Age of Mother (years)""),
+  Ave_OE_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average OE Gestational Age (weeks)""),
+  Ave_LMP_Gestational_Age_Wks FLOAT64 OPTIONS(description=""Average LMP Gestational Age (weeks)""),
+  Ave_Birth_Weight_gms FLOAT64 OPTIONS(description=""Average Birth Weight (grams)""),
+  Ave_Pre_pregnancy_BMI FLOAT64 OPTIONS(description=""Average Pre-pregnancy BMI""),
+  Ave_Number_of_Prenatal_Wks FLOAT64 OPTIONS(description=""Average Number of Prenatal Visits"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"

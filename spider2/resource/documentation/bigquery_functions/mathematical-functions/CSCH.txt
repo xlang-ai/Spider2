@@ -1,0 +1,33 @@
+## CSCH
+
+CSCH(X)
+
+**Description**
+
+Computes the hyperbolic cosecant of the input angle, which is in radians. ` X
+` can be any data type that [ coerces to ` FLOAT64 `
+](/bigquery/docs/reference/standard-sql/conversion_rules#conversion_rules) .
+Supports the ` SAFE. ` prefix.
+
+X  |  CSCH(X)
+---|---
+` +inf ` |  ` 0 `
+` -inf ` |  ` 0 `
+` NaN ` |  ` NaN `
+` 0 ` |  ` Error `
+` NULL ` |  ` NULL `
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+SELECT CSCH(0.5) AS a, CSCH(-2) AS b, SAFE.CSCH(0) AS c;
+
+/*----------------+----------------+------*
+| a              | b              | c    |
++----------------+----------------+------+
+| 1.919034751334 | -0.27572056477 | NULL |
+*----------------+----------------+------*/

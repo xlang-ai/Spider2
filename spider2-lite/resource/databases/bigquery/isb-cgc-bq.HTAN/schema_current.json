@@ -1,0 +1,126 @@
+{
+    "table_name": "schema_current",
+    "table_fullname": "isb-cgc-bq.HTAN.schema_current",
+    "column_names": [
+        "Attribute",
+        "Description",
+        "Valid_Values",
+        "DependsOn",
+        "Properties",
+        "Required",
+        "Parent",
+        "DependsOn_Component",
+        "Source",
+        "Validation_Rules"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "Attribute",
+        "Description",
+        "Valid_Values",
+        "DependsOn",
+        "Properties",
+        "Required",
+        "Parent",
+        "DependsOn_Component",
+        "Source",
+        "Validation_Rules"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "Key characteristic X of the assay, related protocol, or downstream data that we want to record as metadata feature.",
+        "Provide a definition or a reference containing the definition of attribute X. Preferably provide a source ontology link or code in addition to the definition. Leave blank if the final description is pending.",
+        "The range of attribute X: the values that can be assigned to attribute X; these values can include/be other attributes (i.e. listed in the 'Attribute' columns) themselves. Comma separated. If none provided any non-null value is valid for attribute X.",
+        "Important characteristics, if any, of attribute X that need to be recorded as metadata features given attribute X is specified. These characteristics could be attributes or properties of attributes (i.e. they are listed in the 'Attribute' column and/or under the 'Properties' column). Comma separated.",
+        "Properties specific to a particular attribute; note that properties could be attributes themselves (i.e. listed under the 'Attributes' column).",
+        "Indicate if specifying value for attribute X is mandatory or optional by default. Set to TRUE or FALSE. If TRUE, a data contributor must provide a value for attribute X (e.g. one of the valid values in 'Valid Values', if any are specified). If FALSE, a data contributor may select between 'Not Applicable' or 'Not Specified' as a value for attribute X. Note that an attribute may not be required by default (i.e. 'Required' is set to FALSE), but it could be required by virtue of being an attribute of another required attribute (e.g. see ERCC).",
+        "Parent class of this attribute - i.e. where to 'hook' this attribute into an existing schema. Note that this assumes a single existing schema/a single json-ld schema context; if we need to support classes/attributes/properties defined across multiple schemas/json-ld contexts we'd need to add a schema/context column that specifies the context of each attribute, if different from the context of the attribute's parent.",
+        "Each component is a high level ontology class in which entities/objects are categorized/componentized; a component is an entity on its own that needs to be defined in the schema",
+        "The source for the description of the term, usually an URI. Ontologies can be used as sources. E.g. Library Construction Method has source: http://purl.obolibrary.org/obo/OBI_0000711",
+        "What type of data is allowed in the Valid Values column. Only relevant if Valid Values are not present in the row. E.g. string, list, integer"
+    ],
+    "sample_rows": [
+        {
+            "Attribute": "scRNA-seq Level 1",
+            "Description": "Single-cell RNA-seq [EFO_0008913]",
+            "Valid_Values": null,
+            "DependsOn": "Component, Filename, File Format, HTAN Parent Biospecimen ID, HTAN Data File ID, Nucleic Acid Source, Cryopreserved Cells in Sample, Single Cell Isolation Method, Dissociation Method, Library Construction Method, Read Indicator, Read1, Read2, End Bias, Reverse Transcription Primer, Spike In, Sequencing Platform, Total Number of Input Cells, Input Cells and Nuclei, Library Preparation Days from Index, Single Cell Dissociation Days from Index, Sequencing Library Construction Days from Index, Nucleic Acid Capture Days from Index, Protocol Link, Technical Replicate Group",
+            "Properties": null,
+            "Required": "FALSE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": "Biospecimen",
+            "Source": "http://www.ebi.ac.uk/efo/EFO_0008913",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Bulk RNA-seq Level 1",
+            "Description": "Bulk RNA-seq [EFO_0003738]",
+            "Valid_Values": null,
+            "DependsOn": "Component, Filename, File Format, HTAN Parent Biospecimen ID, HTAN Data File ID, Library Layout, Read Indicator, Nucleic Acid Source, Micro-region Seq Platform, ROI Tag, Sequencing Platform, Sequencing Batch ID, Read Length, Library Selection Method, Library Preparation Kit Name, Library Preparation Kit Vendor, Library Preparation Kit Version, Library Preparation Days from Index, Spike In, Adapter Name, Adapter Sequence, Base Caller Name, Base Caller Version, Flow Cell Barcode, Fragment Maximum Length, Fragment Mean Length, Fragment Minimum Length, Fragment Standard Deviation Length, Lane Number, Library Strand, Multiplex Barcode, Size Selection Range, Target Depth, To Trim Adapter Sequence, Transcript Integrity Number, RIN, DV200, Adapter Content, Basic Statistics, Encoding, Kmer Content, Overrepresented Sequences, Per Base N Content, Per Base Sequence Content, Per Base Sequence Quality, Per Sequence GC Content, Per Sequence Quality Score, Per Tile Sequence Quality, Percent GC Content, Sequence Duplication Levels, Sequence Length Distribution, Total Reads, QC Workflow Type, QC Workflow Version, QC Workflow Link",
+            "Properties": null,
+            "Required": "FALSE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": "Biospecimen",
+            "Source": "http://www.ebi.ac.uk/efo/EFO_0003738",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Feature barcoding",
+            "Description": "A method for adding extra channels of information to cells by running single-cell gene expression in parallel with other assays [https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/feature-bc]",
+            "Valid_Values": null,
+            "DependsOn": "Feature Reference Id",
+            "Properties": null,
+            "Required": "FALSE",
+            "Parent": "scRNA-seq Level 1",
+            "DependsOn_Component": null,
+            "Source": "https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/feature-bc",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Analyte Biospecimen Type",
+            "Description": "A molecular derivative (I.e. RNA / DNA / Protein Lysate) obtained from a specimen",
+            "Valid_Values": null,
+            "DependsOn": "Analyte Type, Fixation Duration, Slide Charge Type, Section Thickness Value, Sectioning Days from Index, Shipping Condition Type, Ischemic Time, Ischemic Temperature",
+            "Properties": null,
+            "Required": "FALSE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cadsr.cancer.gov/onedata/dmdirect/NIH/NCI/CO/CDEDD?filter=CDEDD.ITEM_ID=2513915&version=2.0",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Total Volume",
+            "Description": "Numeric value for the total amount of sample or specimen",
+            "Valid_Values": null,
+            "DependsOn": "Total Volume Unit",
+            "Properties": null,
+            "Required": "FALSE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cadsr.cancer.gov/onedata/dmdirect/NIH/NCI/CO/CDEDD?filter=CDEDD.ITEM_ID=3005019&version=1.0",
+            "Validation_Rules": null
+        }
+    ]
+}

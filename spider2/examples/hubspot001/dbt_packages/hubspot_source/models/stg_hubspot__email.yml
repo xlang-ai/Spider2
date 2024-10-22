@@ -1,0 +1,293 @@
+version: 2
+
+models:
+
+  - name: stg_hubspot__email_event_bounce
+    description: Each record represents a BOUNCE email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: bounce_category
+        description: |
+              The best-guess of the type of bounce encountered. 
+              If an appropriate category couldn't be determined, this property is omitted. See below for the possible values. 
+              Note that this is a derived value, and may be modified at any time to improve the accuracy of classification.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: returned_response
+        description: The full response from the recipient's email server.
+      - name: returned_status
+        description: The status code returned from the recipient's email server.
+
+  - name: stg_hubspot__email_event_click
+    description: Each record represents a CLICK email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: browser
+        description: '{{ doc("email_event_browser") }}'
+      - name: click_url
+        description: The URL within the message that the recipient clicked.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: geo_location
+        description: '{{ doc("email_event_location") }}'
+      - name: ip_address
+        description: '{{ doc("email_event_ip_address") }}'
+      - name: referer_url
+        description: The URL of the webpage that linked to the URL clicked. Whether this is provided, and what its value is, is determined by the recipient's email client.
+      - name: user_agent
+        description: '{{ doc("email_event_user_agent") }}'
+
+  - name: stg_hubspot__email_event_deferred
+    description: Each record represents a DEFERRED email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: attempt_number
+        description: The delivery attempt number.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: returned_response
+        description: The full response from the recipient's email server.
+
+  - name: stg_hubspot__email_event_delivered
+    description: Each record represents a DELIVERED email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: returned_response
+        description: The full response from the recipient's email server.
+      - name: smtp_id
+        description: An ID attached to the message by HubSpot.
+
+  - name: stg_hubspot__email_event_dropped
+    description: Each record represents a DROPPED email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: bcc_emails
+        description: The 'bcc' field of the email message.
+      - name: cc_emails
+        description: The 'cc' field of the email message.
+      - name: drop_message
+        description: The raw message describing why the email message was dropped. This will usually provide additional details beyond 'dropReason'.
+      - name: drop_reason
+        description: The reason why the email message was dropped. See below for the possible values.
+      - name: email_subject
+        description: The subject line of the email message.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: from_email
+        description: The 'from' field of the email message.
+      - name: reply_to_email
+        description: The 'reply-to' field of the email message.
+
+  - name: stg_hubspot__email_event_forward
+    description: Each record represents a FORWARD email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: browser
+        description: '{{ doc("email_event_browser") }}'
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: geo_location
+        description: '{{ doc("email_event_location") }}'
+      - name: ip_address
+        description: '{{ doc("email_event_ip_address") }}'
+      - name: user_agent
+        description: '{{ doc("email_event_user_agent") }}'
+
+  - name: stg_hubspot__email_event_open
+    description: Each record represents a OPEN email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: browser
+        description: '{{ doc("email_event_browser") }}'
+      - name: duration_open
+        description: If provided and nonzero, the approximate number of milliseconds the user had opened the email.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: geo_location
+        description: '{{ doc("email_event_location") }}'
+      - name: ip_address
+        description: '{{ doc("email_event_ip_address") }}'
+      - name: user_agent
+        description: '{{ doc("email_event_user_agent") }}'
+
+  - name: stg_hubspot__email_event_print
+    description: Each record represents a PRINT email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: browser
+        description: '{{ doc("email_event_browser") }}'
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: geo_location
+        description: '{{ doc("email_event_location") }}'
+      - name: ip_address
+        description: '{{ doc("email_event_ip_address") }}'
+      - name: user_agent
+        description: '{{ doc("email_event_user_agent") }}'
+
+  - name: stg_hubspot__email_event_sent
+    description: Each record represents a SENT email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: bcc_emails
+        description: The 'cc' field of the email message.
+      - name: cc_emails
+        description: The 'bcc' field of the email message.
+      - name: email_subject
+        description: The subject line of the email message.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: from_email
+        description: The 'from' field of the email message.
+      - name: reply_to_email
+        description: The 'reply-to' field of the email message.
+
+  - name: stg_hubspot__email_event_spam_report
+    description: Each record represents a SPAM_REPORT email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: ip_address
+        description: '{{ doc("email_event_ip_address") }}'
+      - name: user_agent
+        description: '{{ doc("email_event_user_agent") }}'
+
+  - name: stg_hubspot__email_event_status_change
+    description: Each record represents a STATUS_CHANGE email event in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: change_source
+        description: The source of the subscription change. 
+
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: is_bounced
+        description: | 
+              A HubSpot employee explicitly initiated the status change to block messages to the recipient. 
+              (Note this usage has been deprecated in favor of dropping messages with a 'dropReason' of BLOCKED_ADDRESS.)
+
+      - name: requested_by_email
+        description: The email address of the person requesting the change on behalf of the recipient. If not applicable, this property is omitted.
+      - name: subscription_status
+        description: |
+              The recipient's portal subscription status. 
+              Note that if this is 'UNSUBSCRIBED', the property 'subscriptions' is not necessarily an empty array, nor are all 
+              subscriptions contained in it necessarily going to have their statuses set to 'UNSUBSCRIBED'.)
+
+      - name: subscriptions
+        description: |
+              An array of JSON objects representing the status of subscriptions for the recipient. 
+              Each JSON subscription object is comprised of the properties: 'id', 'status'.
+
+  - name: stg_hubspot__email_event
+    description: Each record represents an email event in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: app_id
+        description: The ID of the app that sent the email.
+      - name: caused_by_event_id
+        description: The event ID which uniquely identifies the event which directly caused this event. If not applicable, this property is omitted.
+      - name: caused_timestamp
+        description: The timestamp of the event that caused this event.
+      - name: created_timestamp
+        description: The created timestamp of the event.
+      - name: email_campaign_id
+        description: The ID of the related email campaign.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        description: The type of event.
+      - name: is_filtered_event
+        description: A boolean representing whether the event has been filtered out of reporting based on customer reports settings or not.
+      - name: obsoleted_by_event_id
+        description: The event ID which uniquely identifies the follow-on event which makes this current event obsolete. If not applicable, this property is omitted.
+      - name: obsoleted_timestamp
+        description: The timestamp of the event that made the current event obsolete.
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+      - name: recipient_email_address
+        description: The email address of the contact related to the event.
+      - name: sent_by_event_id
+        description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
+      - name: sent_timestamp
+        description: The timestamp of the SENT event related to this event.
+
+  - name: stg_hubspot__email_campaign
+    description: Each record represents an email campaign in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: app_id
+        description: The app ID.
+      - name: app_name
+        description: The app name.
+      - name: content_id
+        description: The ID of the content.
+      - name: email_campaign_id
+        description: The ID of the email campaign.
+        tests:
+          - unique
+          - not_null
+      - name: email_campaign_name
+        description: The name of the email campaign.
+      - name: email_campaign_sub_type
+        description: The email campaign sub-type.
+      - name: email_campaign_subject
+        description: The subject of the email campaign.
+      - name: email_campaign_type
+        description: The email campaign type.
+      - name: num_included
+        description: The number of messages included as part of the email campaign.
+      - name: num_queued
+        description: The number of messages queued as part of the email campaign.

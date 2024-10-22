@@ -1,0 +1,59 @@
+## TO_CODE_POINTS
+
+TO_CODE_POINTS(value)
+
+**Description**
+
+Takes a ` STRING ` or ` BYTES ` value and returns an array of ` INT64 ` values that represent code points or extended ASCII character values.
+
+* If ` value ` is a ` STRING ` , each element in the returned array represents a [ code point ](https://en.wikipedia.org/wiki/Code_point) . Each code point falls within the range of [0, 0xD7FF] and [0xE000, 0x10FFFF].
+* If ` value ` is ` BYTES ` , each element in the array is an extended ASCII character value in the range of [0, 255].
+
+To convert from an array of code points to a ` STRING ` or ` BYTES ` , see CODE_POINTS_TO_STRING  or  CODE_POINTS_TO_BYTES  .
+
+**Return type**
+
+` ARRAY<INT64> `
+
+**Examples**
+
+The following example gets the code points for each element in an array of words.
+
+
+SELECT word, TO_CODE_POINTS(word) AS code_points FROM UNNEST(['foo', 'bar', 'baz', 'giraffe', 'llama']) AS word;
+
+/*---------+------------------------------------*
+| word    | code_points                        |
++---------+------------------------------------+
+| foo     | [102, 111, 111]                    |
+| bar     | [98, 97, 114]                      |
+| baz     | [98, 97, 122]                      |
+| giraffe | [103, 105, 114, 97, 102, 102, 101] |
+| llama   | [108, 108, 97, 109, 97]            |
+*---------+------------------------------------*/
+
+The following example converts integer representations of ` BYTES ` to their corresponding ASCII character values.
+
+
+SELECT word, TO_CODE_POINTS(word) AS bytes_value_as_integer FROM UNNEST([b'\x00\x01\x10\xff', b'\x66\x6f\x6f']) AS word;
+
+/*------------------+------------------------*
+| word             | bytes_value_as_integer |
++------------------+------------------------+
+| \x00\x01\x10\xff | [0, 1, 16, 255]        |
+| foo              | [102, 111, 111]        |
+*------------------+------------------------*/
+
+The following example demonstrates the difference between a ` BYTES ` result and a ` STRING ` result.
+
+
+SELECT TO_CODE_POINTS(b'Ā') AS b_result, TO_CODE_POINTS('Ā') AS s_result;
+
+/*------------+----------*
+| b_result   | s_result |
++------------+----------+
+| [196, 128] | [256]    |
+*------------+----------*/
+
+Notice that the character, Ā, is represented as a two-byte Unicode sequence.
+As a result, the ` BYTES ` version of ` TO_CODE_POINTS ` returns an array with two elements, while the ` STRING ` version returns an array with a single element.

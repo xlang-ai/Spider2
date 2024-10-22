@@ -1,0 +1,16 @@
+## ST_SNAPTOGRID
+
+ST_SNAPTOGRID(geography_expression, grid_size)
+
+**Description**
+
+Returns the input ` GEOGRAPHY ` , where each vertex has been snapped to a longitude/latitude grid. The grid size is determined by the ` grid_size `
+parameter which is given in degrees.
+
+**Constraints**
+
+Arbitrary grid sizes are not supported. The ` grid_size ` parameter is rounded so that it is of the form ` 10^n ` , where ` -10 < n < 0 ` .
+
+**Return type**
+
+` GEOGRAPHY `

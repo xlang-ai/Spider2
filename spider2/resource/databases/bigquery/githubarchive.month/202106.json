@@ -1,0 +1,235 @@
+{
+    "table_name": "202106",
+    "table_fullname": "githubarchive.month.202106",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"test-branch-22890\",\"ref_type\":\"branch\",\"master_branch\":\"main\",\"description\":\"This repo is for demonstration purposes only.\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 372962343,
+                "name": "ptarjan/Spoon-Knife",
+                "url": "https://api.github.com/repos/ptarjan/Spoon-Knife"
+            },
+            "actor": {
+                "id": 40143,
+                "login": "ptarjan",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/40143?",
+                "url": "https://api.github.com/users/ptarjan"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-06-03 08:25:41+00:00",
+            "id": "16624972426",
+            "other": "{\"actor\":{\"display_login\":\"ptarjan\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7250263359,\"size\":6,\"distinct_size\":0,\"ref\":\"refs/heads/master\",\"head\":\"7d4f890aa92a1d961c5a048486adf9195427e940\",\"before\":\"68d40388f356587726ea7db83f87846dfaecf9d9\",\"commits\":[{\"sha\":\"59db83bc5980871a6e21bdfba02c7c9f56bbd45b\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"clang/API: reject null string in timer_start()\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/59db83bc5980871a6e21bdfba02c7c9f56bbd45b\"},{\"sha\":\"626c631e89bbb8cb96c6511a36a15afc015fbdd7\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"clang/'Logic error': zero-init oldbase array\\n\\nunrelative() must not have garbage structs.\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/626c631e89bbb8cb96c6511a36a15afc015fbdd7\"},{\"sha\":\"d1238856a86be4cc477b6cbadfd9291a995affdb\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"clang/'Logic error': has_profiling() may not set forceit\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/d1238856a86be4cc477b6cbadfd9291a995affdb\"},{\"sha\":\"68cb51ab0adfe5b7df5457e33fb9f2e26b8dcc71\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"fixup! vim-patch:8.2.2776: :mksession uses current value of 'splitbelow' and 'splitright' (#14398)\\n\\ntab_firstwin can be NULL.\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/68cb51ab0adfe5b7df5457e33fb9f2e26b8dcc71\"},{\"sha\":\"6a2f1b1740e01f9cd35ec174a41bda6f49f44f2b\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"clang/'Logic error': assert get_decor_provider(id, true) returns nonnull\\n\\nnvim_set_decoration_provider() has undefined behavior (if not crash)\\nif get_decor_provider() returns NULL.\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/6a2f1b1740e01f9cd35ec174a41bda6f49f44f2b\"},{\"sha\":\"7d4f890aa92a1d961c5a048486adf9195427e940\",\"author\":{\"name\":\"Jan Edmund Lazo\",\"email\":\"d38b244e0ae5adac0f14bbde16ea4c0d718c9f52@mail.utoronto.ca\"},\"message\":\"Merge pull request #14710 from janlazo/clang-warnings\\n\\nReduce clang warnings\",\"distinct\":false,\"url\":\"https://api.github.com/repos/agriffis/neovim/commits/7d4f890aa92a1d961c5a048486adf9195427e940\"}]}",
+            "repo": {
+                "id": 173468211,
+                "name": "agriffis/neovim",
+                "url": "https://api.github.com/repos/agriffis/neovim"
+            },
+            "actor": {
+                "id": 50637,
+                "login": "agriffis",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/50637?",
+                "url": "https://api.github.com/users/agriffis"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-06-03 08:00:15+00:00",
+            "id": "16624613008",
+            "other": "{\"actor\":{\"display_login\":\"agriffis\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7250273160,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"741bb70fb22c04faf5f2b6d1149cea711a8a9929\",\"before\":\"ac68ef43eaba00f63ef9910f2dde6d28d93d336b\",\"commits\":[{\"sha\":\"741bb70fb22c04faf5f2b6d1149cea711a8a9929\",\"author\":{\"name\":\"Slandais\",\"email\":\"b28c34212032e5480f0e4edf351525aa865d2684@gmail.com\"},\"message\":\"Update contact.md\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Slandais/slandais.github.io/commits/741bb70fb22c04faf5f2b6d1149cea711a8a9929\"}]}",
+            "repo": {
+                "id": 371024229,
+                "name": "Slandais/slandais.github.io",
+                "url": "https://api.github.com/repos/Slandais/slandais.github.io"
+            },
+            "actor": {
+                "id": 307813,
+                "login": "Slandais",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/307813?",
+                "url": "https://api.github.com/users/Slandais"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-06-03 08:01:39+00:00",
+            "id": "16624632968",
+            "other": "{\"actor\":{\"display_login\":\"Slandais\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7250644998,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/yumi\",\"head\":\"918f78b2f93d8b092f7156bec03da4f5bd313d61\",\"before\":\"63d6208316fc8a2d13a892f4e64294ac29888b4c\",\"commits\":[{\"sha\":\"918f78b2f93d8b092f7156bec03da4f5bd313d61\",\"author\":{\"name\":\"ZdenekM\",\"email\":\"af6babbda61a9735a19c480520fddb7b836b7bb8@fit.vutbr.cz\"},\"message\":\"urdf added\",\"distinct\":true,\"url\":\"https://api.github.com/repos/ZdenekM/arcor2/commits/918f78b2f93d8b092f7156bec03da4f5bd313d61\"}]}",
+            "repo": {
+                "id": 231372531,
+                "name": "ZdenekM/arcor2",
+                "url": "https://api.github.com/repos/ZdenekM/arcor2"
+            },
+            "actor": {
+                "id": 1199396,
+                "login": "ZdenekM",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1199396?",
+                "url": "https://api.github.com/users/ZdenekM"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-06-03 08:56:22+00:00",
+            "id": "16625416887",
+            "other": "{\"actor\":{\"display_login\":\"ZdenekM\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7248704532,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"fdd39cc35e23f69e878ed7c52bf668b6e97dc461\",\"before\":\"900764ab3bd7e54a220ee67acde152d411cd6641\",\"commits\":[{\"sha\":\"fdd39cc35e23f69e878ed7c52bf668b6e97dc461\",\"author\":{\"name\":\"quevia\",\"email\":\"88b7dd971c838b6485774242824540c5b3ad9c8d@users.noreply.github.com\"},\"message\":\"Update README.md\",\"distinct\":true,\"url\":\"https://api.github.com/repos/quevia/CSFN/commits/fdd39cc35e23f69e878ed7c52bf668b6e97dc461\"}]}",
+            "repo": {
+                "id": 372366969,
+                "name": "quevia/CSFN",
+                "url": "https://api.github.com/repos/quevia/CSFN"
+            },
+            "actor": {
+                "id": 54385221,
+                "login": "quevia",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/54385221?",
+                "url": "https://api.github.com/users/quevia"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-06-03 02:03:47+00:00",
+            "id": "16621444882",
+            "other": "{\"actor\":{\"display_login\":\"quevia\"}}"
+        }
+    ]
+}

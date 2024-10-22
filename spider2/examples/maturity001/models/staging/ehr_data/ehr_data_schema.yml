@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: stg_doc_specialties
+    decription: staging model for doctor specialties table in the EHR system
+    columns:
+      - name: specialty_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_doctors
+    decription: staging model for doctors table in the EHR system
+    columns:
+      - name: doctor_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_patients
+    decription: staging model for patients table in the EHR system
+    columns:
+      - name: patient_id
+        description: primary key
+        tests:
+          - unique
+          - not_null
+

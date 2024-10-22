@@ -1,0 +1,26 @@
+## REVERSE
+
+REVERSE(value)
+
+**Description**
+
+Returns the reverse of the input ` STRING ` or ` BYTES ` .
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH example AS ( SELECT 'foo' AS sample_string, b'bar' AS sample_bytes UNION ALL SELECT 'абвгд' AS sample_string, b'123' AS sample_bytes ) SELECT sample_string,
+REVERSE(sample_string) AS reverse_string,
+sample_bytes,
+REVERSE(sample_bytes) AS reverse_bytes FROM example;
+
+/*---------------+----------------+--------------+---------------*
+| sample_string | reverse_string | sample_bytes | reverse_bytes |
++---------------+----------------+--------------+---------------+
+| foo           | oof            | bar          | rab           |
+| абвгд         | дгвба          | 123          | 321           |
+*---------------+----------------+--------------+---------------*/

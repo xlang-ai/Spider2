@@ -1,0 +1,25 @@
+## CHAR_LENGTH
+
+CHAR_LENGTH(value)
+
+**Description**
+
+Gets the number of characters in a ` STRING ` value.
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS (SELECT 'абвгд' AS characters)
+
+SELECT characters,
+CHAR_LENGTH(characters) AS char_length_example FROM example;
+
+/*------------+---------------------*
+| characters | char_length_example |
++------------+---------------------+
+| абвгд      |                   5 |
+*------------+---------------------*/

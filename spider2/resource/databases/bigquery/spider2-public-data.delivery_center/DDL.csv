@@ -1,0 +1,81 @@
+table_name,ddl
+channels,"CREATE TABLE `spider2-public-data.delivery_center.channels`
+(
+  channel_id INT64,
+  channel_name STRING,
+  channel_type STRING
+);"
+orders,"CREATE TABLE `spider2-public-data.delivery_center.orders`
+(
+  order_id INT64,
+  store_id INT64,
+  channel_id INT64,
+  payment_order_id INT64,
+  delivery_order_id INT64,
+  order_status STRING,
+  order_amount FLOAT64,
+  order_delivery_fee FLOAT64,
+  order_delivery_cost FLOAT64,
+  order_created_hour INT64,
+  order_created_minute INT64,
+  order_created_day INT64,
+  order_created_month INT64,
+  order_created_year INT64,
+  order_moment_created STRING,
+  order_moment_accepted STRING,
+  order_moment_ready STRING,
+  order_moment_collected STRING,
+  order_moment_in_expedition STRING,
+  order_moment_delivering STRING,
+  order_moment_delivered STRING,
+  order_moment_finished STRING,
+  order_metric_collected_time FLOAT64,
+  order_metric_paused_time FLOAT64,
+  order_metric_production_time FLOAT64,
+  order_metric_walking_time FLOAT64,
+  order_metric_expediton_speed_time FLOAT64,
+  order_metric_transit_time FLOAT64,
+  order_metric_cycle_time FLOAT64
+);"
+payments,"CREATE TABLE `spider2-public-data.delivery_center.payments`
+(
+  payment_id INT64,
+  payment_order_id INT64,
+  payment_amount FLOAT64,
+  payment_fee FLOAT64,
+  payment_method STRING,
+  payment_status STRING
+);"
+stores,"CREATE TABLE `spider2-public-data.delivery_center.stores`
+(
+  store_id INT64,
+  hub_id INT64,
+  store_name STRING,
+  store_segment STRING,
+  store_plan_price FLOAT64,
+  store_latitude FLOAT64,
+  store_longitude FLOAT64
+);"
+hubs,"CREATE TABLE `spider2-public-data.delivery_center.hubs`
+(
+  hub_id INT64,
+  hub_name STRING,
+  hub_city STRING,
+  hub_state STRING,
+  hub_latitude FLOAT64,
+  hub_longitude FLOAT64
+);"
+drivers,"CREATE TABLE `spider2-public-data.delivery_center.drivers`
+(
+  driver_id INT64,
+  driver_modal STRING,
+  driver_type STRING
+);"
+deliveries,"CREATE TABLE `spider2-public-data.delivery_center.deliveries`
+(
+  delivery_id INT64,
+  delivery_order_id INT64,
+  driver_id FLOAT64,
+  delivery_distance_meters FLOAT64,
+  delivery_status STRING
+);"

@@ -1,0 +1,27 @@
+## LENGTH
+
+LENGTH(value)
+
+**Description**
+
+Returns the length of the ` STRING ` or ` BYTES ` value. The returned value is in characters for ` STRING ` arguments and in bytes for the ` BYTES `
+argument.
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS (SELECT 'абвгд' AS characters)
+
+SELECT characters,
+LENGTH(characters) AS string_example,
+LENGTH(CAST(characters AS BYTES)) AS bytes_example FROM example;
+
+/*------------+----------------+---------------*
+| characters | string_example | bytes_example |
++------------+----------------+---------------+
+| абвгд      |              5 |            10 |
+*------------+----------------+---------------*/

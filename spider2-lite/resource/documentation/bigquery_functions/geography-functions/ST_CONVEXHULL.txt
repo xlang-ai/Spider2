@@ -1,0 +1,34 @@
+## ST_CONVEXHULL
+
+ST_CONVEXHULL(geography_expression)
+
+**Description**
+
+Returns the convex hull for the input ` GEOGRAPHY ` . The convex hull is the smallest convex ` GEOGRAPHY ` that covers the input. A ` GEOGRAPHY ` is convex if for every pair of points in the ` GEOGRAPHY ` , the geodesic edge connecting the points are also contained in the same ` GEOGRAPHY ` .
+
+In most cases, the convex hull consists of a single polygon. Notable edge cases include the following:
+
+* The convex hull of a single point is also a point.
+* The convex hull of two or more collinear points is a linestring as long as that linestring is convex.
+* If the input ` GEOGRAPHY ` spans more than a hemisphere, the convex hull is the full globe. This includes any input that contains a pair of antipodal points.
+* ` ST_CONVEXHULL ` returns ` NULL ` if the input is either ` NULL ` or the empty ` GEOGRAPHY ` .
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Examples**
+
+The convex hull returned by ` ST_CONVEXHULL ` can be a point, linestring, or a polygon, depending on the input.
+
+
+WITH Geographies AS (SELECT ST_GEOGFROMTEXT('POINT(1 1)') AS g UNION ALL SELECT ST_GEOGFROMTEXT('LINESTRING(1 1, 2 2)') AS g UNION ALL SELECT ST_GEOGFROMTEXT('MULTIPOINT(2 11, 4 12, 0 15, 1 9, 1 12)') AS g) SELECT g AS input_geography,
+ST_CONVEXHULL(g) AS convex_hull FROM Geographies;
+
+/*-----------------------------------------+--------------------------------------------------------*
+|             input_geography             |                      convex_hull                       |
++-----------------------------------------+--------------------------------------------------------+
+| POINT(1 1)                              | POINT(0.999999999999943 1)                             |
+| LINESTRING(1 1, 2 2)                    | LINESTRING(2 2, 1.49988573656168 1.5000570914792, 1 1) |
+| MULTIPOINT(1 9, 4 12, 2 11, 1 12, 0 15) | POLYGON((1 9, 4 12, 0 15, 1 9))                        |
+*-----------------------------------------+--------------------------------------------------------*/

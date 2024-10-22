@@ -1,0 +1,235 @@
+{
+    "table_name": "202110",
+    "table_fullname": "githubarchive.month.202110",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8210967553,\"size\":9,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"d9bb1b86872924a5882a6986ad53f1ee48f54ccf\",\"before\":\"d1dd0be66b46810d796996ae65a84855e61ac8b3\",\"commits\":[{\"sha\":\"a461c5accb2d208c903d0938c657969f23539f51\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"chore: Update devDependencies\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/a461c5accb2d208c903d0938c657969f23539f51\"},{\"sha\":\"48b9c6cfd511c2cac4513c4b8523a79b7dcab1de\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"chore: Minor-upgrade node-fetch\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/48b9c6cfd511c2cac4513c4b8523a79b7dcab1de\"},{\"sha\":\"8fefc332a95ce221fe489a00ffa2c09a5164ddd4\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"chore: Major-upgrade joi\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/8fefc332a95ce221fe489a00ffa2c09a5164ddd4\"},{\"sha\":\"3b2dfa905e1f57ae1871e81c866ca8b81c84753b\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"chore: Update joi version\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/3b2dfa905e1f57ae1871e81c866ca8b81c84753b\"},{\"sha\":\"8b5b6efc99b6e4c94c0a9039a39f92282466691e\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"Merge branch 'master' into dep/joi\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/8b5b6efc99b6e4c94c0a9039a39f92282466691e\"},{\"sha\":\"c4b15498e85db8bc582c770b245f6e9f3f28b58a\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"feat: Move joi to peerDependencies\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/c4b15498e85db8bc582c770b245f6e9f3f28b58a\"},{\"sha\":\"67f375b6cddb55e94856ba3fd318c110b62edd25\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"doc: Update README\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/67f375b6cddb55e94856ba3fd318c110b62edd25\"},{\"sha\":\"8dfc55b893f2318d6b299153ec91491f6949cbe4\",\"author\":{\"name\":\"koooge\",\"email\":\"aef9ec14909f3384e41431e6bd1d5895dcf51ea1@gmail.com\"},\"message\":\"doc: Update doc\\n\\nSigned-off-by: koooge <koooooge@gmail.com>\",\"distinct\":false,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/8dfc55b893f2318d6b299153ec91491f6949cbe4\"},{\"sha\":\"d9bb1b86872924a5882a6986ad53f1ee48f54ccf\",\"author\":{\"name\":\"Vance Lucas\",\"email\":\"35a12a6d507aa4a62960e6d4c2936c198a03083c@vancelucas.com\"},\"message\":\"Merge pull request #570 from vlucas/dep/joi\\n\\nBREAKING CHANGE: Move Joi to peerDependencies\",\"distinct\":true,\"url\":\"https://api.github.com/repos/vlucas/frisby/commits/d9bb1b86872924a5882a6986ad53f1ee48f54ccf\"}]}",
+            "repo": {
+                "id": 3530869,
+                "name": "vlucas/frisby",
+                "url": "https://api.github.com/repos/vlucas/frisby"
+            },
+            "actor": {
+                "id": 187,
+                "login": "vlucas",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/187?",
+                "url": "https://api.github.com/users/vlucas"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-10-22 00:16:04+00:00",
+            "id": "18546973705",
+            "other": "{\"actor\":{\"display_login\":\"vlucas\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8211450114,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"e8945b06ef7646c09a6ead20191f5443296545d6\",\"before\":\"75aa610c412a7deeadbe816648d74b7a10805fd7\",\"commits\":[{\"sha\":\"e8945b06ef7646c09a6ead20191f5443296545d6\",\"author\":{\"name\":\"Mark Cornick\",\"email\":\"f1b5a91d4d6ad523f2610114591c007e75d15084@markcornick.com\"},\"message\":\"Brew formula update for genpw version v4.2.3\",\"distinct\":true,\"url\":\"https://api.github.com/repos/markcornick/homebrew-tap/commits/e8945b06ef7646c09a6ead20191f5443296545d6\"}]}",
+            "repo": {
+                "id": 411736609,
+                "name": "markcornick/homebrew-tap",
+                "url": "https://api.github.com/repos/markcornick/homebrew-tap"
+            },
+            "actor": {
+                "id": 302,
+                "login": "markcornick",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/302?",
+                "url": "https://api.github.com/users/markcornick"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-10-22 02:16:27+00:00",
+            "id": "18547919298",
+            "other": "{\"actor\":{\"display_login\":\"markcornick\"}}"
+        },
+        {
+            "type": "ReleaseEvent",
+            "public": true,
+            "payload": "{\"action\":\"published\",\"release\":{\"url\":\"https://api.github.com/repos/markcornick/genpw/releases/51833645\",\"assets_url\":\"https://api.github.com/repos/markcornick/genpw/releases/51833645/assets\",\"upload_url\":\"https://uploads.github.com/repos/markcornick/genpw/releases/51833645/assets{?name,label}\",\"html_url\":\"https://github.com/markcornick/genpw/releases/tag/v4.2.3\",\"id\":51833645,\"author\":{\"login\":\"markcornick\",\"id\":302,\"node_id\":\"MDQ6VXNlcjMwMg==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/302?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/markcornick\",\"html_url\":\"https://github.com/markcornick\",\"followers_url\":\"https://api.github.com/users/markcornick/followers\",\"following_url\":\"https://api.github.com/users/markcornick/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/markcornick/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/markcornick/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/markcornick/subscriptions\",\"organizations_url\":\"https://api.github.com/users/markcornick/orgs\",\"repos_url\":\"https://api.github.com/users/markcornick/repos\",\"events_url\":\"https://api.github.com/users/markcornick/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/markcornick/received_events\",\"type\":\"User\",\"site_admin\":false},\"node_id\":\"RE_kwDOGIqYZ84DFust\",\"tag_name\":\"v4.2.3\",\"target_commitish\":\"main\",\"name\":\"v4.2.3\",\"draft\":false,\"prerelease\":false,\"created_at\":\"2021-10-22T02:05:22Z\",\"published_at\":\"2021-10-22T02:16:17Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/markcornick/genpw/tarball/v4.2.3\",\"zipball_url\":\"https://api.github.com/repos/markcornick/genpw/zipball/v4.2.3\",\"body\":\"## Changelog\\n\\n0b515c0cc44852536543983a617e47802a32695a: build: add mkdocs plugins to workflow (@markcornick)\\n2a1d012157791b2855789a70571de6d612e54e84: build: add workflow to generate docs (@markcornick)\\n9fcc6efe6a10bdb617b6e4b3fd9ab060bfa4c90a: build: fetch-depth: 0 on mkdocs checkout (@markcornick)\\n8dce28663cccbe659a4032da503de1b6577ae7ab: build: fix missing install action in mkdocs workflow (@markcornick)\\nb3d777c988deca61e9f062f447a115358e287f2e: build: remove GO386=softfloat (@markcornick)\\n996d49c840afcd3add2a646be2c6d73af4e6a6fe: build: remove obsolete v3 goreleaser config (@markcornick)\\n0aa50f3f70c0530721e558d52b49db21e2ed63f3: build: rollback pipenv setup (@markcornick)\\n674c191df51f46109ea60623ce4cb79bc81646f5: build: run goreleaser action on PRs (@markcornick)\\ne9e7c50b9f692899ae9636ad8f6676c79e717368: build: use pipenv for mkdocs and plugins (@markcornick)\\n536d410d1a84205862ef6ad442ba20cd2452068f: build: use plain old requirements.txt for mkdocs (@markcornick)\\ned8358917b3059484c9fb38ccdbba28ea1e44849: bump: version 4.2.2 \u2192 4.2.3 (@markcornick)\\nb65772406f2beec27dcece0f1e233a1453a6be32: chore: ignore mkdocs' site build directory (@markcornick)\\nc0cc163d448f3d16e426f78bdc9ba85dccd1298a: fix: sign RPM and DEB packages (#1) (@markcornick)\\n7b626bfe16ab2046f8d6c732c8cc55cf2d8ffb01: refactor: small changes to cmd.go (@markcornick)\\n\\n\\n## Docker images\\n\\n- `docker pull markcornick/genpw:v4.2.3`\\n- `docker pull markcornick/genpw:v4`\\n- `docker pull markcornick/genpw:v4.2`\\n- `docker pull ghcr.io/markcornick/genpw:v4.2.3`\\n- `docker pull ghcr.io/markcornick/genpw:v4`\\n- `docker pull ghcr.io/markcornick/genpw:v4.2`\\n\",\"mentions_count\":1,\"mentions\":[{\"avatar_url\":\"https://avatars.githubusercontent.com/u/302?v=4\",\"login\":\"markcornick\",\"profile_name\":\"Mark Cornick\",\"profile_url\":\"https://github.com/markcornick\",\"avatar_user_actor\":true}],\"short_description_html\":\"<h2>Changelog</h2>\\n<p><a class=\\\"commit-link\\\" data-hovercard-type=\\\"commit\\\" data-hovercard-url=\\\"https://github.com/markcornick/genpw/commit/0b515c0cc44852536543983a617e47802a32695a/hovercard\\\" href=\\\"https://github.com/markcornick/genpw/commit/0b515c0cc44852536543983a617e47802a32695a\\\"><tt>0b515c0</tt></a>: build: add mkdocs plugins to workflow (<a class=\\\"user-mention\\\" data-hovercard-type=\\\"user\\\" data-hovercard-url=\\\"/users/markcornick/hovercard\\\" data-octo-click=\\\"hovercard-link-click\\\" data-octo-dimensions=\\\"link_type:self\\\" href=\\\"https://github.com/markcornick\\\">@markcornick</a>)<br>\\n<a class=\\\"commit-link\\\" data-hovercard-type=\\\"commit\\\" data-hovercard-url=\\\"https://github.com/markcornick/genpw/commit/2a1d012157791b2855789a70571de6d612e54e84/hovercard\\\" href=\\\"https://github.com/markcornick/genpw/commit/2a1d012157791b2855789a70571de6d612e54e84\\\"><tt>2a1d012</tt></a>: build: add workflow to generate docs (<a class=\\\"user-mention\\\" data-hovercard-type=\\\"user\\\" data-hovercard-url=\\\"/users/markcornick/hovercard\\\" data-octo-click=\\\"hovercard-link-click\\\" data-octo-dimensions=\\\"link_type:self\\\" href=\\\"https://github.com/markcornick\\\">@markcornick</a>)<br>\\n<a class=\\\"commit-link\\\" data-hovercard-type=\\\"commit\\\" data-hovercard-url=\\\"https://github.com/markcornick/genpw/commit/9fcc6efe6a10bdb617b6e4b3fd9ab060bfa4c90a/hovercard\\\" href=\\\"https://github.com/markcornick/genpw/commit/9fcc6efe6a10bdb617b6e4b3fd9ab060bfa4c90a\\\"><tt>9fcc6ef</tt></a>: build: fetch-depth: 0 on mkdocs checkout (<a class=\\\"user-mention\\\" data-hovercard-type=\\\"user\\\" data-hovercard-url=\\\"/users/markcornick/hovercard\\\" data-octo-click=\\\"hovercard-link-click\\\" data-octo-dimensions=\\\"link_type:self\\\" href=\\\"https://github.com/markcornick\\\">@markcornick</a>)<br>\\n<a class=\\\"commit-link\\\" data-hovercard-type=\\\"commit\\\" data-hovercard-url=\\\"https://github.com/markcornick/genpw/commit/8dce28663cccbe659a4032da503de1b6577ae7ab/hovercard\\\" href=\\\"https://github.com/markcornick/genpw/commit/8dce28663cccbe659a4032da503de1b6577ae7ab\\\"><tt>8\u2026</tt></a></p>\",\"is_short_description_html_truncated\":true}}",
+            "repo": {
+                "id": 411736167,
+                "name": "markcornick/genpw",
+                "url": "https://api.github.com/repos/markcornick/genpw"
+            },
+            "actor": {
+                "id": 302,
+                "login": "markcornick",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/302?",
+                "url": "https://api.github.com/users/markcornick"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-10-22 02:16:17+00:00",
+            "id": "18547917991",
+            "other": "{\"actor\":{\"display_login\":\"markcornick\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8211170479,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"e6ac7d72e2b9f3727600b024140ca96bffcaf5a0\",\"before\":\"39060c7e0f493fba8c8bd64aa87cd3c2c9ab8502\",\"commits\":[{\"sha\":\"e6ac7d72e2b9f3727600b024140ca96bffcaf5a0\",\"author\":{\"name\":\"Mark Cornick\",\"email\":\"f1b5a91d4d6ad523f2610114591c007e75d15084@markcornick.com\"},\"message\":\"Add Jack DeJohnette\",\"distinct\":true,\"url\":\"https://api.github.com/repos/markcornick/markcornick.github.io/commits/e6ac7d72e2b9f3727600b024140ca96bffcaf5a0\"}]}",
+            "repo": {
+                "id": 411833058,
+                "name": "markcornick/markcornick.github.io",
+                "url": "https://api.github.com/repos/markcornick/markcornick.github.io"
+            },
+            "actor": {
+                "id": 302,
+                "login": "markcornick",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/302?",
+                "url": "https://api.github.com/users/markcornick"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-10-22 01:06:24+00:00",
+            "id": "18547381351",
+            "other": "{\"actor\":{\"display_login\":\"markcornick\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8211405044,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"ed8358917b3059484c9fb38ccdbba28ea1e44849\",\"before\":\"c0cc163d448f3d16e426f78bdc9ba85dccd1298a\",\"commits\":[{\"sha\":\"ed8358917b3059484c9fb38ccdbba28ea1e44849\",\"author\":{\"name\":\"Mark Cornick\",\"email\":\"f1b5a91d4d6ad523f2610114591c007e75d15084@markcornick.com\"},\"message\":\"bump: version 4.2.2 \u2192 4.2.3\",\"distinct\":true,\"url\":\"https://api.github.com/repos/markcornick/genpw/commits/ed8358917b3059484c9fb38ccdbba28ea1e44849\"}]}",
+            "repo": {
+                "id": 411736167,
+                "name": "markcornick/genpw",
+                "url": "https://api.github.com/repos/markcornick/genpw"
+            },
+            "actor": {
+                "id": 302,
+                "login": "markcornick",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/302?",
+                "url": "https://api.github.com/users/markcornick"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-10-22 02:05:27+00:00",
+            "id": "18547828272",
+            "other": "{\"actor\":{\"display_login\":\"markcornick\"}}"
+        }
+    ]
+}

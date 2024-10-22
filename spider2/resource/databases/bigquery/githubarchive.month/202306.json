@@ -1,0 +1,235 @@
+{
+    "table_name": "202306",
+    "table_fullname": "githubarchive.month.202306",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":651671563,\"push_id\":13933037965,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"e3b63262934132daecf9677bc9062002c5e0be14\",\"before\":\"dc41e64aa7efd2192bd50342482cd1b776184d43\",\"commits\":[{\"sha\":\"e3b63262934132daecf9677bc9062002c5e0be14\",\"author\":{\"email\":\"c3819630fe14bbc6577d10ac82a58493d9711252@users.noreply.github.com\",\"name\":\"carloskirui17\"},\"message\":\"done\",\"distinct\":true,\"url\":\"https://api.github.com/repos/carloskirui17/my-personal-portfolio/commits/e3b63262934132daecf9677bc9062002c5e0be14\"}]}",
+            "repo": {
+                "id": 651671563,
+                "name": "carloskirui17/my-personal-portfolio",
+                "url": "https://api.github.com/repos/carloskirui17/my-personal-portfolio"
+            },
+            "actor": {
+                "id": 129453813,
+                "login": "carloskirui17",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/129453813?",
+                "url": "https://api.github.com/users/carloskirui17"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-06-09 20:29:57+00:00",
+            "id": "29656318834",
+            "other": "{\"actor\":{\"display_login\":\"carloskirui17\"}}"
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{\"forkee\":{\"id\":651696899,\"node_id\":\"R_kgDOJtgbAw\",\"name\":\"yasm\",\"full_name\":\"gondow/yasm\",\"private\":false,\"owner\":{\"login\":\"gondow\",\"id\":7510305,\"node_id\":\"MDQ6VXNlcjc1MTAzMDU=\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/7510305?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/gondow\",\"html_url\":\"https://github.com/gondow\",\"followers_url\":\"https://api.github.com/users/gondow/followers\",\"following_url\":\"https://api.github.com/users/gondow/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/gondow/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/gondow/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/gondow/subscriptions\",\"organizations_url\":\"https://api.github.com/users/gondow/orgs\",\"repos_url\":\"https://api.github.com/users/gondow/repos\",\"events_url\":\"https://api.github.com/users/gondow/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/gondow/received_events\",\"type\":\"User\",\"site_admin\":false},\"html_url\":\"https://github.com/gondow/yasm\",\"description\":\"Yasm Assembler mainline development tree\",\"fork\":true,\"url\":\"https://api.github.com/repos/gondow/yasm\",\"forks_url\":\"https://api.github.com/repos/gondow/yasm/forks\",\"keys_url\":\"https://api.github.com/repos/gondow/yasm/keys{/key_id}\",\"collaborators_url\":\"https://api.github.com/repos/gondow/yasm/collaborators{/collaborator}\",\"teams_url\":\"https://api.github.com/repos/gondow/yasm/teams\",\"hooks_url\":\"https://api.github.com/repos/gondow/yasm/hooks\",\"issue_events_url\":\"https://api.github.com/repos/gondow/yasm/issues/events{/number}\",\"events_url\":\"https://api.github.com/repos/gondow/yasm/events\",\"assignees_url\":\"https://api.github.com/repos/gondow/yasm/assignees{/user}\",\"branches_url\":\"https://api.github.com/repos/gondow/yasm/branches{/branch}\",\"tags_url\":\"https://api.github.com/repos/gondow/yasm/tags\",\"blobs_url\":\"https://api.github.com/repos/gondow/yasm/git/blobs{/sha}\",\"git_tags_url\":\"https://api.github.com/repos/gondow/yasm/git/tags{/sha}\",\"git_refs_url\":\"https://api.github.com/repos/gondow/yasm/git/refs{/sha}\",\"trees_url\":\"https://api.github.com/repos/gondow/yasm/git/trees{/sha}\",\"statuses_url\":\"https://api.github.com/repos/gondow/yasm/statuses/{sha}\",\"languages_url\":\"https://api.github.com/repos/gondow/yasm/languages\",\"stargazers_url\":\"https://api.github.com/repos/gondow/yasm/stargazers\",\"contributors_url\":\"https://api.github.com/repos/gondow/yasm/contributors\",\"subscribers_url\":\"https://api.github.com/repos/gondow/yasm/subscribers\",\"subscription_url\":\"https://api.github.com/repos/gondow/yasm/subscription\",\"commits_url\":\"https://api.github.com/repos/gondow/yasm/commits{/sha}\",\"git_commits_url\":\"https://api.github.com/repos/gondow/yasm/git/commits{/sha}\",\"comments_url\":\"https://api.github.com/repos/gondow/yasm/comments{/number}\",\"issue_comment_url\":\"https://api.github.com/repos/gondow/yasm/issues/comments{/number}\",\"contents_url\":\"https://api.github.com/repos/gondow/yasm/contents/{+path}\",\"compare_url\":\"https://api.github.com/repos/gondow/yasm/compare/{base}...{head}\",\"merges_url\":\"https://api.github.com/repos/gondow/yasm/merges\",\"archive_url\":\"https://api.github.com/repos/gondow/yasm/{archive_format}{/ref}\",\"downloads_url\":\"https://api.github.com/repos/gondow/yasm/downloads\",\"issues_url\":\"https://api.github.com/repos/gondow/yasm/issues{/number}\",\"pulls_url\":\"https://api.github.com/repos/gondow/yasm/pulls{/number}\",\"milestones_url\":\"https://api.github.com/repos/gondow/yasm/milestones{/number}\",\"notifications_url\":\"https://api.github.com/repos/gondow/yasm/notifications{?since,all,participating}\",\"labels_url\":\"https://api.github.com/repos/gondow/yasm/labels{/name}\",\"releases_url\":\"https://api.github.com/repos/gondow/yasm/releases{/id}\",\"deployments_url\":\"https://api.github.com/repos/gondow/yasm/deployments\",\"created_at\":\"2023-06-09T20:59:32Z\",\"updated_at\":\"2023-06-09T20:59:33Z\",\"pushed_at\":\"2023-05-28T00:25:37Z\",\"git_url\":\"git://github.com/gondow/yasm.git\",\"ssh_url\":\"git@github.com:gondow/yasm.git\",\"clone_url\":\"https://github.com/gondow/yasm.git\",\"svn_url\":\"https://github.com/gondow/yasm\",\"homepage\":\"http://yasm.tortall.net/\",\"size\":28007,\"stargazers_count\":0,\"watchers_count\":0,\"language\":null,\"has_issues\":false,\"has_projects\":true,\"has_downloads\":true,\"has_wiki\":true,\"has_pages\":false,\"has_discussions\":false,\"forks_count\":0,\"mirror_url\":null,\"archived\":false,\"disabled\":false,\"open_issues_count\":0,\"license\":null,\"allow_forking\":true,\"is_template\":false,\"web_commit_signoff_required\":false,\"topics\":[],\"visibility\":\"public\",\"forks\":0,\"open_issues\":0,\"watchers\":0,\"default_branch\":\"main\",\"public\":true}}",
+            "repo": {
+                "id": 1416677,
+                "name": "yasm/yasm",
+                "url": "https://api.github.com/repos/yasm/yasm"
+            },
+            "actor": {
+                "id": 7510305,
+                "login": "gondow",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/7510305?",
+                "url": "https://api.github.com/users/gondow"
+            },
+            "org": {
+                "id": 640268,
+                "login": "yasm",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/640268?",
+                "url": "https://api.github.com/orgs/yasm"
+            },
+            "created_at": "2023-06-09 20:59:33+00:00",
+            "id": "29656757498",
+            "other": "{\"actor\":{\"display_login\":\"gondow\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":367249301,\"push_id\":13923623353,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/refactor-documentations\",\"head\":\"156543cd79b7c0ac0984b6800d4d5ef5282ec0f4\",\"before\":\"eed0b65d65d795c6264f2abccf6e1c7edf6970b7\",\"commits\":[{\"sha\":\"156543cd79b7c0ac0984b6800d4d5ef5282ec0f4\",\"author\":{\"email\":\"d39ff8e69bc934d27c6a0ca6ba26ad27d2e36f8b@minio.io\",\"name\":\"Bala.FA\"},\"message\":\"refactor documentation\\n\\nSigned-off-by: Bala.FA <bala@minio.io>\",\"distinct\":true,\"url\":\"https://api.github.com/repos/balamurugana/directpv/commits/156543cd79b7c0ac0984b6800d4d5ef5282ec0f4\"}]}",
+            "repo": {
+                "id": 367249301,
+                "name": "balamurugana/directpv",
+                "url": "https://api.github.com/repos/balamurugana/directpv"
+            },
+            "actor": {
+                "id": 629407,
+                "login": "balamurugana",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/629407?",
+                "url": "https://api.github.com/users/balamurugana"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-06-09 04:46:59+00:00",
+            "id": "29637096629",
+            "other": "{\"actor\":{\"display_login\":\"balamurugana\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":597475159,\"push_id\":13932958782,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"9cda3c0c2b0bd74e11c9d8f0f610c19a011ebe6e\",\"before\":\"a0e390bb9e8a360d8920ec7f7e506489d0cf45c8\",\"commits\":[{\"sha\":\"9cda3c0c2b0bd74e11c9d8f0f610c19a011ebe6e\",\"author\":{\"email\":\"3eeb437e8eafd7e2797db3fba2bb3b56cb17c377@users.noreply.github.com\",\"name\":\"Austin Rooks\"},\"message\":\"favorite and unfavorite recipe\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Austionian/fishy-edge/commits/9cda3c0c2b0bd74e11c9d8f0f610c19a011ebe6e\"}]}",
+            "repo": {
+                "id": 597475159,
+                "name": "Austionian/fishy-edge",
+                "url": "https://api.github.com/repos/Austionian/fishy-edge"
+            },
+            "actor": {
+                "id": 12260975,
+                "login": "Austionian",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/12260975?",
+                "url": "https://api.github.com/users/Austionian"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-06-09 20:19:29+00:00",
+            "id": "29656161306",
+            "other": "{\"actor\":{\"display_login\":\"Austionian\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":627636050,\"push_id\":13922451808,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"438af96d3093e8a25c5671732e9312bc70ab96f3\",\"before\":\"4cc51178185cbda3d3d0d9416d0c3dcf76ea6981\",\"commits\":[{\"sha\":\"438af96d3093e8a25c5671732e9312bc70ab96f3\",\"author\":{\"email\":\"9bfc7f4982f362919c14c8f773bf571ac92cd70e@users.noreply.github.com\",\"name\":\"aneesha719\"},\"message\":\"added link to figure 2.5\",\"distinct\":true,\"url\":\"https://api.github.com/repos/aneesha719/M4R-code/commits/438af96d3093e8a25c5671732e9312bc70ab96f3\"}]}",
+            "repo": {
+                "id": 627636050,
+                "name": "aneesha719/M4R-code",
+                "url": "https://api.github.com/repos/aneesha719/M4R-code"
+            },
+            "actor": {
+                "id": 115432866,
+                "login": "aneesha719",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/115432866?",
+                "url": "https://api.github.com/users/aneesha719"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-06-09 01:30:41+00:00",
+            "id": "29634850853",
+            "other": "{\"actor\":{\"display_login\":\"aneesha719\"}}"
+        }
+    ]
+}

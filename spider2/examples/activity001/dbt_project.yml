@@ -1,0 +1,35 @@
+
+# Project Name
+name: dbt_activity_schema_integration_tests
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'activity'
+
+config-version: 2
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  +materialized: table
+
+vars:
+  dbt_activity_schema:
+    included_columns:
+      - activity_id
+      - entity_uuid
+      - ts
+      - revenue_impact
+    column_mappings:
+      customer: entity_uuid
+      anonymous_customer_id: anonymous_entity_uuid
+
+seeds:
+  dbt_activity_schema_integration_tests:
+    +column_types:
+      ACTIVITY_REPEATED_AT: TIMESTAMP

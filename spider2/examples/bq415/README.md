@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.1000_genomes_phase_3` database to solve this problem.

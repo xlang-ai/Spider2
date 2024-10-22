@@ -1,0 +1,2 @@
+1. please query `bigquery-public-data.census_bureau_acs`,`bigquery-public-data.fec`,`bigquery-public-data.hud_zipcode_crosswalk` and `bigquery-public-data.geo_census_tracts` database to solve this problem.
+2. Please complete the file result.csv with your answer.

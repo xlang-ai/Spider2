@@ -1,0 +1,24 @@
+## CAST
+
+CAST(expression AS typename [format_clause])
+
+**Description**
+
+Cast syntax is used in a query to indicate that the result type of an expression should be converted to some other type.
+
+When using ` CAST ` , a query can fail if GoogleSQL is unable to perform the cast. If you want to protect your queries from these types of errors, you can use  SAFE_CAST  .
+
+Casts between supported types that do not successfully map from the original value to the target domain produce runtime errors. For example, casting `
+BYTES ` to ` STRING ` where the byte sequence is not valid UTF-8 results in a runtime error.
+
+Some casts can include a [ format clause ](/bigquery/docs/reference/standard-
+sql/format-elements#formatting_syntax) , which provides instructions for how to conduct the cast. For example, you could instruct a cast to convert a sequence of bytes to a BASE64-encoded string instead of a UTF-8-encoded string.
+
+The structure of the format clause is unique to each type of cast and more information is available in the section for that cast.
+
+**Examples**
+
+The following query results in ` "true" ` if ` x ` is ` 1 ` , ` "false" ` for any other non- ` NULL ` value, and ` NULL ` if ` x ` is ` NULL ` .
+
+
+CAST(x=1 AS STRING)

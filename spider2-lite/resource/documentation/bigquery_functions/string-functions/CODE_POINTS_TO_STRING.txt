@@ -1,0 +1,69 @@
+## CODE_POINTS_TO_STRING
+
+CODE_POINTS_TO_STRING(unicode_code_points)
+
+**Description**
+
+Takes an array of Unicode [ code points
+](https://en.wikipedia.org/wiki/Code_point) as ` ARRAY<INT64> ` and returns a
+` STRING ` .
+
+To convert from a string to an array of code points, see  TO_CODE_POINTS  .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+The following are basic examples using ` CODE_POINTS_TO_STRING ` .
+
+
+SELECT CODE_POINTS_TO_STRING([65, 255, 513, 1024]) AS string;
+
+/*--------*
+| string |
++--------+
+| AÿȁЀ   |
+*--------*/
+
+
+SELECT CODE_POINTS_TO_STRING([97, 0, 0xF9B5]) AS string;
+
+/*--------*
+| string |
++--------+
+| a例    |
+*--------*/
+
+
+SELECT CODE_POINTS_TO_STRING([65, 255, NULL, 1024]) AS string;
+
+/*--------*
+| string |
++--------+
+| NULL   |
+*--------*/
+
+The following example computes the frequency of letters in a set of words.
+
+
+WITH Words AS ( SELECT word FROM UNNEST(['foo', 'bar', 'baz', 'giraffe', 'llama']) AS word ) SELECT CODE_POINTS_TO_STRING([code_point]) AS letter,
+COUNT(*) AS letter_count FROM Words,
+UNNEST(TO_CODE_POINTS(word)) AS code_point GROUP BY 1 ORDER BY 2 DESC;
+
+/*--------+--------------*
+| letter | letter_count |
++--------+--------------+
+| a      | 5            |
+| f      | 3            |
+| r      | 2            |
+| b      | 2            |
+| l      | 2            |
+| o      | 2            |
+| g      | 1            |
+| z      | 1            |
+| e      | 1            |
+| m      | 1            |
+| i      | 1            |
+*--------+--------------*/

@@ -1,0 +1,40 @@
+## RTRIM
+
+RTRIM(value1[, value2])
+
+**Description**
+
+Identical to  TRIM  , but only removes trailing characters.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH items AS (SELECT '***apple***' as item UNION ALL SELECT '***banana***' as item UNION ALL SELECT '***orange***' as item)
+
+SELECT RTRIM(item, '*') as example FROM items;
+
+/*-----------*
+| example   |
++-----------+
+| ***apple  |
+| ***banana |
+| ***orange |
+*-----------*/
+
+
+WITH items AS (SELECT 'applexxx' as item UNION ALL SELECT 'bananayyy' as item UNION ALL SELECT 'orangezzz' as item UNION ALL SELECT 'pearxyz' as item)
+
+SELECT RTRIM(item, 'xyz') as example FROM items;
+
+/*---------*
+| example |
++---------+
+| apple   |
+| banana  |
+| orange  |
+| pear    |
+*---------*/

@@ -1,0 +1,168 @@
+version: 2
+
+models:
+  - name: twilio__number_overview
+    description: 
+      This model aggregates messaging information for each phone number, providing insights into total messages, inbound and outbound message counts, message statuses, and associated costs. It helps analyze messaging activity at the phone number level.
+    columns:
+      - name: phone_number
+        description: The phone number used for messaging interactions.
+        tests:
+          - unique
+          - not_null
+      - name: total_outbound_messages
+        description: The total number of outbound messages sent from this phone number.
+      - name: total_inbound_messages
+        description: The total number of inbound messages received by this phone number.
+      - name: total_accepted_messages
+        description: The total number of messages that were accepted for delivery by the carrier for this phone number.
+      - name: total_scheduled_messages
+        description: The total number of messages scheduled for future delivery for this phone number.
+      - name: total_canceled_messages
+        description: The total number of messages that were canceled before delivery for this phone number.
+      - name: total_queued_messages
+        description: The total number of messages queued for delivery for this phone number.
+      - name: total_sending_messages
+        description: The total number of messages currently in the sending process for this phone number.
+      - name: total_sent_messages
+        description: The total number of messages successfully sent from this phone number.
+      - name: total_failed_messages
+        description: The total number of messages that failed to send from this phone number.
+      - name: total_delivered_messages
+        description: The total number of messages successfully delivered to the recipient for this phone number.
+      - name: total_undelivered_messages
+        description: The total number of messages that could not be delivered to the recipient for this phone number.
+      - name: total_receiving_messages
+        description: The total number of messages currently being received by this phone number.
+      - name: total_received_messages
+        description: The total number of messages successfully received by this phone number.
+      - name: total_read_messages
+        description: The total number of messages that were read by the recipient for this phone number.
+      - name: total_messages
+        description: The total number of messages (both inbound and outbound) associated with this phone number.
+      - name: total_spend
+        description: The total cost incurred for all messaging activities associated with this phone number.
+
+  - name: twilio__message_enhanced
+    description: 
+      This model provides detailed information for each message sent or received, enhancing the original data with metrics such as message content, status, delivery details, and associated costs. It helps track and analyze individual message performance.
+    columns:
+      - name: message_id
+        description: The unique identifier for the message.
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: The unique identifier of the account associated with the message.
+      - name: body
+        description: The content of the message.
+      - name: num_characters
+        description: The total number of characters in the message body.
+      - name: num_words
+        description: The total number of words in the message body.
+      - name: created_at
+        description: The timestamp when the message was created.
+      - name: timestamp_sent
+        description: The timestamp indicating when the message was sent.
+      - name: date_day
+        description: The day when the message was sent.
+      - name: date_week
+        description: The week during which the message was sent.
+      - name: date_month
+        description: The month during which the message was sent.
+      - name: direction
+        description: The direction of the message, such as inbound or outbound.
+      - name: error_code
+        description: The error code associated with the message, if any.
+      - name: error_message
+        description: The error message associated with a failed or undelivered message, if applicable.
+      - name: phone_number
+        description: The phone number that sent or received the message.
+      - name: messaging_service_id
+        description: The unique identifier of the messaging service used for this message.
+      - name: num_media
+        description: The number of media files (e.g., images, videos) included in the message.
+      - name: num_segments
+        description: The number of segments the message was split into if it exceeded the character limit for a single SMS.
+      - name: price
+        description: The cost of sending or receiving the message.
+      - name: price_unit
+        description: The currency unit for the message cost.
+      - name: status
+        description: The status of the message, such as accepted, sent, delivered, or failed.
+      - name: updated_at
+        description: The timestamp indicating when the message status was last updated.
+      - name: friendly_name
+        description: A human-readable descriptive name for the messaging service.
+      - name: inbound_method
+        description: The HTTP method Twilio uses to send requests to the inbound request URL.
+      - name: us_app_to_person_registered
+        description: Specifies whether US App-to-Person (A2P) routing is enabled for inbound messages.
+      - name: use_inbound_webhook_on_number
+        description: Specifies whether to use inbound webhooks for handling incoming messages.
+      - name: use_case
+        description: The intended use case for the messaging service.
+
+  - name: twilio__account_overview
+    description: 
+      This model provides aggregate data on messaging activity per account, including message counts, statuses, and total spend. It helps track messaging performance and costs at the account level.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - date_day
+    columns:
+      - name: account_id
+        description: The unique identifier for the account.
+        tests:
+          - not_null
+      - name: account_name
+        description: The friendly name associated with the account.
+      - name: account_status
+        description: The current status of the account (e.g., active, suspended).
+      - name: account_type
+        description: The type of account, such as business or personal.
+      - name: date_day
+        description: The specific day on which the messaging activity occurred.
+        tests:
+          - not_null
+      - name: date_week
+        description: The week in which the messaging activity occurred.
+      - name: date_month
+        description: The month in which the messaging activity occurred.
+      - name: total_outbound_messages
+        description: The total number of outbound messages sent by this account.
+      - name: total_inbound_messages
+        description: The total number of inbound messages received by this account.
+      - name: total_accepted_messages
+        description: The total number of messages that were accepted for delivery by the carrier.
+      - name: total_scheduled_messages
+        description: The total number of messages scheduled for future delivery.
+      - name: total_canceled_messages
+        description: The total number of messages that were canceled before delivery.
+      - name: total_queued_messages
+        description: The total number of messages queued for delivery.
+      - name: total_sending_messages
+        description: The total number of messages currently being sent.
+      - name: total_sent_messages
+        description: The total number of messages successfully sent by this account.
+      - name: total_failed_messages
+        description: The total number of messages that failed to send.
+      - name: total_delivered_messages
+        description: The total number of messages successfully delivered to recipients.
+      - name: total_undelivered_messages
+        description: The total number of messages that could not be delivered.
+      - name: total_receiving_messages
+        description: The total number of messages currently being received.
+      - name: total_received_messages
+        description: The total number of messages successfully received.
+      - name: total_read_messages
+        description: The total number of messages that were read by the recipient.
+      - name: total_messages
+        description: The total number of messages (both inbound and outbound) for this account.
+      - name: total_messages_spend
+        description: The total cost incurred by this account for messaging activities.
+      - name: price_unit
+        description: The currency unit in which the message cost is measured.
+      - name: total_account_spend
+        description: The total spend by the account across all Twilio resources used.

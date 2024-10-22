@@ -1,0 +1,1 @@
+1. please query `isb-cgc.TCGA_bioclin_v0` and `isb-cgc.TCGA_hg38_data_v0` database to solve this problem.

@@ -1,0 +1,280 @@
+table_name,ddl
+posts_answers,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_answers`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id INT64,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+users,"CREATE TABLE `bigquery-public-data.stackoverflow.users`
+(
+  id INT64,
+  display_name STRING,
+  about_me STRING,
+  age STRING,
+  creation_date TIMESTAMP,
+  last_access_date TIMESTAMP,
+  location STRING,
+  reputation INT64,
+  up_votes INT64,
+  down_votes INT64,
+  views INT64,
+  profile_image_url STRING,
+  website_url STRING
+);"
+posts_orphaned_tag_wiki,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_orphaned_tag_wiki`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+posts_tag_wiki,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_tag_wiki`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+stackoverflow_posts,"CREATE TABLE `bigquery-public-data.stackoverflow.stackoverflow_posts`
+(
+  id INT64 NOT NULL,
+  title STRING,
+  body STRING,
+  accepted_answer_id INT64,
+  answer_count INT64,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count INT64,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id INT64,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count INT64
+)
+OPTIONS(
+  description=""Don't use this table - use posts_* instead""
+);"
+posts_questions,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_questions`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id INT64,
+  answer_count INT64,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count INT64,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count INT64
+);"
+comments,"CREATE TABLE `bigquery-public-data.stackoverflow.comments`
+(
+  id INT64,
+  text STRING,
+  creation_date TIMESTAMP,
+  post_id INT64,
+  user_id INT64,
+  user_display_name STRING,
+  score INT64
+);"
+posts_tag_wiki_excerpt,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_tag_wiki_excerpt`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+posts_wiki_placeholder,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_wiki_placeholder`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date STRING,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+posts_privilege_wiki,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_privilege_wiki`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date STRING,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"
+post_history,"CREATE TABLE `bigquery-public-data.stackoverflow.post_history`
+(
+  id INT64,
+  creation_date TIMESTAMP,
+  post_id INT64,
+  post_history_type_id INT64,
+  revision_guid STRING,
+  user_id INT64,
+  text STRING,
+  comment STRING
+);"
+badges,"CREATE TABLE `bigquery-public-data.stackoverflow.badges`
+(
+  id INT64,
+  name STRING,
+  date TIMESTAMP,
+  user_id INT64,
+  class INT64,
+  tag_based BOOL
+);"
+post_links,"CREATE TABLE `bigquery-public-data.stackoverflow.post_links`
+(
+  id INT64,
+  creation_date TIMESTAMP,
+  link_type_id INT64,
+  post_id INT64,
+  related_post_id INT64
+);"
+tags,"CREATE TABLE `bigquery-public-data.stackoverflow.tags`
+(
+  id INT64,
+  tag_name STRING,
+  count INT64,
+  excerpt_post_id INT64,
+  wiki_post_id INT64
+);"
+votes,"CREATE TABLE `bigquery-public-data.stackoverflow.votes`
+(
+  id INT64,
+  creation_date TIMESTAMP,
+  post_id INT64,
+  vote_type_id INT64
+);"
+posts_moderator_nomination,"CREATE TABLE `bigquery-public-data.stackoverflow.posts_moderator_nomination`
+(
+  id INT64,
+  title STRING,
+  body STRING,
+  accepted_answer_id STRING,
+  answer_count STRING,
+  comment_count INT64,
+  community_owned_date TIMESTAMP,
+  creation_date TIMESTAMP,
+  favorite_count STRING,
+  last_activity_date TIMESTAMP,
+  last_edit_date TIMESTAMP,
+  last_editor_display_name STRING,
+  last_editor_user_id INT64,
+  owner_display_name STRING,
+  owner_user_id INT64,
+  parent_id STRING,
+  post_type_id INT64,
+  score INT64,
+  tags STRING,
+  view_count STRING
+);"

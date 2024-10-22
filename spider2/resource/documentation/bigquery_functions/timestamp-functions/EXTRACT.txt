@@ -1,0 +1,89 @@
+## EXTRACT
+
+EXTRACT(part FROM timestamp_expression [AT TIME ZONE time_zone])
+
+**Description**
+
+Returns a value that corresponds to the specified ` part ` from a supplied `
+timestamp_expression ` . This function supports an optional ` time_zone `
+parameter. See  Time zone definitions  for information on how to specify a time zone.
+
+Allowed ` part ` values are:
+
+* ` MICROSECOND `
+* ` MILLISECOND `
+* ` SECOND `
+* ` MINUTE `
+* ` HOUR `
+* ` DAYOFWEEK ` : Returns values in the range [1,7] with Sunday as the first day of of the week.
+* ` DAY `
+* ` DAYOFYEAR `
+* ` WEEK ` : Returns the week number of the date in the range [0, 53]. Weeks begin with Sunday, and dates prior to the first Sunday of the year are in week 0.
+* ` WEEK(<WEEKDAY>) ` : Returns the week number of ` timestamp_expression ` in the range [0, 53]. Weeks begin on ` WEEKDAY ` . ` datetime ` s prior to the first ` WEEKDAY ` of the year are in week 0. Valid values for ` WEEKDAY ` are ` SUNDAY ` , ` MONDAY ` , ` TUESDAY ` , ` WEDNESDAY ` , ` THURSDAY ` , ` FRIDAY ` , and ` SATURDAY ` .
+* ` ISOWEEK ` : Returns the [ ISO 8601 week ](https://en.wikipedia.org/wiki/ISO_week_date) number of the ` datetime_expression ` . ` ISOWEEK ` s begin on Monday. Return values are in the range [1, 53]. The first ` ISOWEEK ` of each ISO year begins on the Monday before the first Thursday of the Gregorian calendar year.
+* ` MONTH `
+* ` QUARTER `
+* ` YEAR `
+* ` ISOYEAR ` : Returns the [ ISO 8601 ](https://en.wikipedia.org/wiki/ISO_8601) week-numbering year, which is the Gregorian calendar year containing the Thursday of the week to which ` date_expression ` belongs.
+* ` DATE `
+* ` DATETIME `
+* ` TIME `
+
+Returned values truncate lower order time periods. For example, when extracting seconds, ` EXTRACT ` truncates the millisecond and microsecond values.
+
+**Return Data Type**
+
+` INT64 ` , except in the following cases:
+
+* If ` part ` is ` DATE ` , the function returns a ` DATE ` object.
+
+**Examples**
+
+In the following example, ` EXTRACT ` returns a value corresponding to the `
+DAY ` time part.
+
+
+WITH Input AS (SELECT TIMESTAMP("2008-12-25 05:30:00+00") AS timestamp_value) SELECT EXTRACT(DAY FROM timestamp_value AT TIME ZONE "UTC") AS the_day_utc,
+EXTRACT(DAY FROM timestamp_value AT TIME ZONE "America/Los_Angeles") AS the_day_california FROM Input
+
+/*-------------+--------------------*
+| the_day_utc | the_day_california |
++-------------+--------------------+
+| 25          | 24                 |
+*-------------+--------------------*/
+
+In the following example, ` EXTRACT ` returns values corresponding to different time parts from a column of type ` TIMESTAMP ` .
+
+
+WITH Timestamps AS ( SELECT TIMESTAMP("2005-01-03 12:34:56+00") AS timestamp_value UNION ALL SELECT TIMESTAMP("2007-12-31 12:00:00+00") UNION ALL SELECT TIMESTAMP("2009-01-01 12:00:00+00") UNION ALL SELECT TIMESTAMP("2009-12-31 12:00:00+00") UNION ALL SELECT TIMESTAMP("2017-01-02 12:00:00+00") UNION ALL SELECT TIMESTAMP("2017-05-26 12:00:00+00") ) SELECT timestamp_value,
+EXTRACT(ISOYEAR FROM timestamp_value) AS isoyear,
+EXTRACT(ISOWEEK FROM timestamp_value) AS isoweek,
+EXTRACT(YEAR FROM timestamp_value) AS year,
+EXTRACT(WEEK FROM timestamp_value) AS week FROM Timestamps ORDER BY timestamp_value;
+
+-- Display of results may differ, depending upon the environment and time zone where this query was executed.
+/*-------------------------+---------+---------+------+------*
+| timestamp_value         | isoyear | isoweek | year | week |
++-------------------------+---------+---------+------+------+
+| 2005-01-03 12:34:56 UTC | 2005    | 1       | 2005 | 1    |
+| 2007-12-31 12:00:00 UTC | 2008    | 1       | 2007 | 52   |
+| 2009-01-01 12:00:00 UTC | 2009    | 1       | 2009 | 0    |
+| 2009-12-31 12:00:00 UTC | 2009    | 53      | 2009 | 52   |
+| 2017-01-02 12:00:00 UTC | 2017    | 1       | 2017 | 1    |
+| 2017-05-26 12:00:00 UTC | 2017    | 21      | 2017 | 21   |
+*-------------------------+---------+---------+------+------*/
+
+In the following example, ` timestamp_expression ` falls on a Monday. `
+EXTRACT ` calculates the first column using weeks that begin on Sunday, and it calculates the second column using weeks that begin on Monday.
+
+
+WITH table AS (SELECT TIMESTAMP("2017-11-05 00:00:00+00") AS timestamp_value) SELECT timestamp_value,
+EXTRACT(WEEK(SUNDAY) FROM timestamp_value) AS week_sunday,
+EXTRACT(WEEK(MONDAY) FROM timestamp_value) AS week_monday FROM table;
+
+-- Display of results may differ, depending upon the environment and time zone where this query was executed.
+/*-------------------------+-------------+---------------*
+| timestamp_value         | week_sunday | week_monday   |
++-------------------------+-------------+---------------+
+| 2017-11-05 00:00:00 UTC | 45          | 44            |
+*-------------------------+-------------+---------------*/

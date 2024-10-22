@@ -1,0 +1,56 @@
+name: 'shopify_source'
+version: '0.12.1'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  shopify_source:
+    +schema: stg_shopify
+    +materialized: view
+    stg_shopify__metafield:
+      +materialized: table
+
+vars:
+  shopify_source:
+    customer_source: "{{ source('shopify','customer') }}"
+    order_line_refund_source: "{{ source('shopify','order_line_refund') }}"
+    order_line_source: "{{ source('shopify','order_line') }}"
+    order_source: "{{ source('shopify','order') }}"
+    product_source: "{{ source('shopify','product') }}"
+    product_variant_source: "{{ source('shopify','product_variant') }}"
+    transaction_source: "{{ source('shopify','transaction') }}"
+    refund_source: "{{ source('shopify','refund') }}"
+    order_adjustment_source: "{{ source('shopify','order_adjustment') }}"
+    
+    abandoned_checkout_source: "{{ source('shopify','abandoned_checkout') }}"
+    collection_product_source: "{{ source('shopify','collection_product') }}"
+    collection_source: "{{ source('shopify','collection') }}" 
+    customer_tag_source: "{{ source('shopify','customer_tag') }}"
+    discount_code_source: "{{ source('shopify','discount_code') }}"
+    fulfillment_source: "{{ source('shopify','fulfillment') }}"
+    inventory_item_source: "{{ source('shopify','inventory_item') }}"
+    inventory_level_source: "{{ source('shopify','inventory_level') }}"
+    location_source: "{{ source('shopify','location') }}"
+    metafield_source: "{{ source('shopify','metafield') }}"
+    order_note_attribute_source: "{{ source('shopify','order_note_attribute') }}"
+    order_shipping_line_source: "{{ source('shopify','order_shipping_line') }}"
+    order_shipping_tax_line_source: "{{ source('shopify','order_shipping_tax_line') }}"
+    order_tag_source: "{{ source('shopify','order_tag') }}"
+    order_url_tag_source: "{{ source('shopify','order_url_tag') }}"
+    price_rule_source: "{{ source('shopify','price_rule') }}"
+    product_image_source: "{{ source('shopify','product_image') }}"
+    product_tag_source: "{{ source('shopify','product_tag') }}"
+    shop_source: "{{ source('shopify','shop') }}" 
+    tender_transaction_source: "{{ source('shopify','tender_transaction') }}"
+    abandoned_checkout_discount_code_source: "{{ source('shopify','abandoned_checkout_discount_code') }}" 
+    order_discount_code_source: "{{ source('shopify','order_discount_code') }}" 
+    abandoned_checkout_shipping_line_source: "{{ source('shopify', 'abandoned_checkout_shipping_line') }}"
+    fulfillment_event_source: "{{ source('shopify', 'fulfillment_event') }}"
+    tax_line_source: "{{ source('shopify', 'tax_line') }}"
+
+    customer_pass_through_columns: []
+    order_line_refund_pass_through_columns: []
+    order_line_pass_through_columns: []
+    order_pass_through_columns: []
+    product_pass_through_columns: []
+    product_variant_pass_through_columns: []
+    transaction_pass_through_columns: []

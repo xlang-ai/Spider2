@@ -1,0 +1,161 @@
+table_name,ddl
+full_201510,"CREATE TABLE `fh-bigquery.hackernews.full_201510`
+(
+  `by` STRING,
+  score INT64,
+  time INT64,
+  title STRING,
+  type STRING,
+  url STRING,
+  text STRING,
+  parent INT64,
+  deleted BOOL,
+  dead BOOL,
+  descendants INT64,
+  id INT64,
+  ranking INT64
+);"
+comments,"CREATE TABLE `fh-bigquery.hackernews.comments`
+(
+  id INT64,
+  `by` STRING,
+  author STRING,
+  time INT64,
+  time_ts TIMESTAMP,
+  text STRING,
+  parent INT64,
+  deleted BOOL,
+  dead BOOL,
+  ranking INT64
+)
+OPTIONS(
+  description=""abandoned, use https://bigquery.cloud.google.com/table/bigquery-public-data:hacker_news.full?tab=details instead""
+);"
+stories,"CREATE TABLE `fh-bigquery.hackernews.stories`
+(
+  id INT64,
+  `by` STRING,
+  score INT64,
+  time INT64,
+  time_ts TIMESTAMP,
+  title STRING,
+  url STRING,
+  text STRING,
+  deleted BOOL,
+  dead BOOL,
+  descendants INT64,
+  author STRING
+)
+OPTIONS(
+  description=""Now updated daily, see https://medium.com/@hoffa/hacker-news-on-bigquery-now-with-daily-updates-so-what-are-the-top-domains-963d3c68b2e2""
+);"
+comments_convolution,"CREATE TABLE `fh-bigquery.hackernews.comments_convolution`
+(
+  title STRING,
+  url STRING,
+  text STRING,
+  dead BOOL,
+  `by` STRING,
+  score INT64,
+  time INT64,
+  timestamp TIMESTAMP,
+  type STRING,
+  id INT64,
+  parent INT64,
+  descendants INT64,
+  ranking INT64,
+  deleted BOOL,
+  month DATE,
+  level INT64,
+  post_id INT64
+)
+PARTITION BY month
+CLUSTER BY id;"
+full_partition_extra,"CREATE TABLE `fh-bigquery.hackernews.full_partition_extra`
+(
+  `by` STRING,
+  score INT64,
+  time INT64,
+  timestamp TIMESTAMP,
+  title STRING,
+  type STRING,
+  url STRING,
+  text STRING,
+  parent INT64,
+  deleted BOOL,
+  dead BOOL,
+  descendants INT64,
+  id INT64,
+  ranking INT64,
+  month DATE,
+  tags ARRAY<STRING>,
+  level INT64,
+  post_id INT64
+)
+PARTITION BY month
+CLUSTER BY type, score
+OPTIONS(
+  description=""CREATE OR REPLACE TABLE `fh-bigquery.hackernews.full_partition_extra` \nPARTITION BY month\nCLUSTER BY type, score\nAS\n\nSELECT * EXCEPT(parent_info), parent_info.*\nFROM (\n  SELECT *\n  , DATE(TIMESTAMP_TRUNC(timestamp, MONTH)) month\n  , IF((\n    parent IN (\n      SELECT id\n      FROM `bigquery-public-data.hacker_news.full`  \n      WHERE parent IS null\n    )), STRUCT(0 AS level, parent AS post_id), null) parent_info\n  , ARRAY((SELECT \""\"" LIMIT 0)) tags \n  FROM `bigquery-public-data.hacker_news.full` \n)""
+);"
+full_partitioned,"CREATE TABLE `fh-bigquery.hackernews.full_partitioned`
+(
+  title STRING,
+  url STRING,
+  text STRING,
+  dead BOOL,
+  `by` STRING,
+  score INT64,
+  time INT64,
+  timestamp TIMESTAMP,
+  type STRING,
+  id INT64,
+  parent INT64,
+  descendants INT64,
+  ranking INT64,
+  deleted BOOL,
+  month DATE
+)
+PARTITION BY month
+CLUSTER BY type;"
+commentsV2,"CREATE TABLE `fh-bigquery.hackernews.commentsV2`
+(
+  title STRING,
+  url STRING,
+  text STRING,
+  dead BOOL,
+  `by` STRING,
+  score INT64,
+  time INT64,
+  timestamp TIMESTAMP,
+  type STRING,
+  id INT64,
+  parent INT64,
+  descendants INT64,
+  ranking INT64,
+  deleted BOOL,
+  level INT64,
+  story_id INT64,
+  fake_date DATE
+)
+PARTITION BY fake_date
+CLUSTER BY id;"
+storiesV2,"CREATE TABLE `fh-bigquery.hackernews.storiesV2`
+(
+  title STRING,
+  url STRING,
+  text STRING,
+  dead BOOL,
+  `by` STRING,
+  score INT64,
+  time INT64,
+  timestamp TIMESTAMP,
+  type STRING,
+  id INT64,
+  parent INT64,
+  descendants INT64,
+  ranking INT64,
+  deleted BOOL,
+  fake_date DATE
+)
+PARTITION BY fake_date
+CLUSTER BY id;"

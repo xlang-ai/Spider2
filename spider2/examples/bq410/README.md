@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.geo_us_boundaries` and `bigquery-public-data.census_bureau_acs` and `spider2-public-data.cyclistic` database to solve this problem.

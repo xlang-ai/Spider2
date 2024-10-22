@@ -1,0 +1,32 @@
+## COTH
+
+COTH(X)
+
+**Description**
+
+Computes the hyperbolic cotangent for the angle of ` X ` , where ` X ` is specified in radians. ` X ` can be any data type that [ coerces to ` FLOAT64 `
+](/bigquery/docs/reference/standard-sql/conversion_rules#conversion_rules) .
+Supports the ` SAFE. ` prefix.
+
+X  |  COTH(X)
+---|---
+` +inf ` |  ` 1 `
+` -inf ` |  ` -1 `
+` NaN ` |  ` NaN `
+` 0 ` |  ` Error `
+` NULL ` |  ` NULL `
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+SELECT COTH(1) AS a, SAFE.COTH(0) AS b;
+
+/*----------------+------*
+| a              | b    |
++----------------+------+
+| 1.313035285499 | NULL |
+*----------------+------*/

@@ -1,0 +1,157 @@
+table_name,ddl
+311_service_requests,"CREATE TABLE `bigquery-public-data.austin_311.311_service_requests`
+(
+  unique_key STRING OPTIONS(description=""The service request tracking number.""),
+  complaint_description STRING OPTIONS(description=""Service request type""),
+  source STRING OPTIONS(description=""Contact method Service request was received from. Mass entry requests are submitted by dept. in groups after work is completed.""),
+  status STRING OPTIONS(description=""Service request status. Duplicate statuses indicate that issue had previously been reported recently.""),
+  status_change_date TIMESTAMP OPTIONS(description=""Date of last Service request status change. Status changes occur when service request moves from one status to another. I.E. new to open, open to closed.""),
+  created_date TIMESTAMP OPTIONS(description=""Date Service request was created.""),
+  last_update_date TIMESTAMP OPTIONS(description=""Date Service request was updated. Last date Service request received updates. Updates may include creation, status changes, or changes to data in Service request.""),
+  close_date TIMESTAMP OPTIONS(description=""Date Service request was closed.""),
+  incident_address STRING OPTIONS(description=""Service location of Service request.""),
+  street_number STRING OPTIONS(description=""Parsed location information. Street number.""),
+  street_name STRING OPTIONS(description=""Parsed location information. Street name.""),
+  city STRING OPTIONS(description=""Parsed location information. City.""),
+  incident_zip INT64 OPTIONS(description=""Parsed location information. Zip code.""),
+  county STRING OPTIONS(description=""Parsed location information. County.""),
+  state_plane_x_coordinate STRING OPTIONS(description=""State plane X coordinate.""),
+  state_plane_y_coordinate FLOAT64 OPTIONS(description=""State plane Y coordinate.""),
+  latitude FLOAT64 OPTIONS(description=""Service request location latitude coordinate.""),
+  longitude FLOAT64 OPTIONS(description=""Service request location longitude coordinate.""),
+  location STRING OPTIONS(description=""Service request location latitude and longitude coordinates.""),
+  council_district_code INT64 OPTIONS(description=""Council district corresponding to Service request location. Locations outside of the City of Austin jurisdiction will not have a council district.""),
+  map_page STRING OPTIONS(description=""Service request location corresponding map page.""),
+  map_tile STRING OPTIONS(description=""Service request location corresponding map tile."")
+);"
+waste_and_diversion,"CREATE TABLE `bigquery-public-data.austin_waste.waste_and_diversion`
+(
+  load_id INT64,
+  report_date DATE,
+  load_type STRING,
+  load_time TIMESTAMP,
+  load_weight FLOAT64,
+  dropoff_site STRING,
+  route_type STRING,
+  route_number STRING
+)
+OPTIONS(
+  description=""Austin waste and diversion""
+);"
+incidents_2011,"CREATE TABLE `bigquery-public-data.austin_incidents.incidents_2011`
+(
+  unique_key INT64 OPTIONS(description=""The unique incident number for this accident.""),
+  descript STRING OPTIONS(description=""""),
+  date DATE OPTIONS(description=""""),
+  time TIME OPTIONS(description=""""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+incidents_2008,"CREATE TABLE `bigquery-public-data.austin_incidents.incidents_2008`
+(
+  unique_key INT64 OPTIONS(description=""The unique incident number for this accident.""),
+  descript STRING OPTIONS(description=""""),
+  date DATE OPTIONS(description=""""),
+  time TIME OPTIONS(description=""""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+incidents_2016,"CREATE TABLE `bigquery-public-data.austin_incidents.incidents_2016`
+(
+  unique_key INT64 OPTIONS(description=""The unique incident number for this accident.""),
+  descript STRING OPTIONS(description=""""),
+  date DATE OPTIONS(description=""""),
+  time TIME OPTIONS(description=""""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+incidents_2009,"CREATE TABLE `bigquery-public-data.austin_incidents.incidents_2009`
+(
+  unique_key INT64 OPTIONS(description=""The unique incident number for this accident.""),
+  descript STRING OPTIONS(description=""""),
+  date DATE OPTIONS(description=""""),
+  time TIME OPTIONS(description=""""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+incidents_2010,"CREATE TABLE `bigquery-public-data.austin_incidents.incidents_2010`
+(
+  unique_key INT64 OPTIONS(description=""The unique incident number for this accident.""),
+  descript STRING OPTIONS(description=""""),
+  date DATE OPTIONS(description=""""),
+  time TIME OPTIONS(description=""""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+crime,"CREATE TABLE `bigquery-public-data.austin_crime.crime`
+(
+  unique_key INT64 OPTIONS(description=""Unique identifier for the record.""),
+  address STRING OPTIONS(description=""Full address where the incident occurred.""),
+  census_tract FLOAT64 OPTIONS(description=""""),
+  clearance_date TIMESTAMP OPTIONS(description=""""),
+  clearance_status STRING OPTIONS(description=""""),
+  council_district_code INT64 OPTIONS(description=""Indicates the council district code where the incident occurred.""),
+  description STRING OPTIONS(description=""The subcategory of the primary description.""),
+  district STRING OPTIONS(description=""Indicates the police district where the incident occurred.""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""""),
+  location_description STRING OPTIONS(description=""Description of the location where the incident occurred.""),
+  primary_type STRING OPTIONS(description=""The primary description of the NIBRS/UCR code.""),
+  timestamp TIMESTAMP OPTIONS(description=""Time when the incident occurred. This is sometimes a best estimate.""),
+  x_coordinate INT64 OPTIONS(description=""The x coordinate of the location where the incident occurred""),
+  y_coordinate INT64 OPTIONS(description=""The y coordinate of the location where the incident occurred""),
+  year INT64 OPTIONS(description=""Indicates the year in which the incident occurred.""),
+  zipcode STRING OPTIONS(description=""Indicates the zipcode where the incident occurred."")
+)
+OPTIONS(
+  description=""Austin Crime table""
+);"
+bikeshare_stations,"CREATE TABLE `bigquery-public-data.austin_bikeshare.bikeshare_stations`
+(
+  station_id INT64,
+  name STRING,
+  status STRING,
+  address STRING,
+  alternate_name STRING,
+  city_asset_number INT64,
+  property_type STRING,
+  number_of_docks INT64,
+  power_type STRING,
+  footprint_length INT64,
+  footprint_width FLOAT64,
+  notes STRING,
+  council_district INT64,
+  modified_date TIMESTAMP
+)
+OPTIONS(
+  description=""Austin Bikeshare Stations table""
+);"
+bikeshare_trips,"CREATE TABLE `bigquery-public-data.austin_bikeshare.bikeshare_trips`
+(
+  trip_id STRING OPTIONS(description=""Numeric ID of bike trip""),
+  subscriber_type STRING OPTIONS(description=""Type of the Subscriber""),
+  bike_id STRING OPTIONS(description=""ID of bike used""),
+  bike_type STRING OPTIONS(description=""Type of bike used""),
+  start_time TIMESTAMP OPTIONS(description=""Start timestamp of trip""),
+  start_station_id INT64 OPTIONS(description=""Numeric reference for start station""),
+  start_station_name STRING OPTIONS(description=""Station name for start station""),
+  end_station_id STRING OPTIONS(description=""Numeric reference for end station""),
+  end_station_name STRING OPTIONS(description=""Station name for end station""),
+  duration_minutes INT64 OPTIONS(description=""Time of trip in minutes"")
+);"

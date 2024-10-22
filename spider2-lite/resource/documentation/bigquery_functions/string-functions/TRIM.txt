@@ -1,0 +1,94 @@
+## TRIM
+
+TRIM(value_to_trim[, set_of_characters_to_remove])
+
+**Description**
+
+Takes a ` STRING ` or ` BYTES ` value to trim.
+
+If the value to trim is a ` STRING ` , removes from this value all leading and trailing Unicode code points in ` set_of_characters_to_remove ` . The set of code points is optional. If it is not specified, all whitespace characters are removed from the beginning and end of the value to trim.
+
+If the value to trim is ` BYTES ` , removes from this value all leading and trailing bytes in ` set_of_characters_to_remove ` . The set of bytes is required.
+
+**Return type**
+
+* ` STRING ` if ` value_to_trim ` is a ` STRING ` value.
+* ` BYTES ` if ` value_to_trim ` is a ` BYTES ` value.
+
+**Examples**
+
+In the following example, all leading and trailing whitespace characters are removed from ` item ` because ` set_of_characters_to_remove ` is not specified.
+
+
+WITH items AS (SELECT '   apple   ' as item UNION ALL SELECT '   banana   ' as item UNION ALL SELECT '   orange   ' as item)
+
+SELECT CONCAT('#', TRIM(item), '#') as example FROM items;
+
+/*----------*
+| example  |
++----------+
+| #apple#  |
+| #banana# |
+| #orange# |
+*----------*/
+
+In the following example, all leading and trailing ` * ` characters are removed from ` item ` .
+
+
+WITH items AS (SELECT '***apple***' as item UNION ALL SELECT '***banana***' as item UNION ALL SELECT '***orange***' as item)
+
+SELECT TRIM(item, '*') as example FROM items;
+
+/*---------*
+| example |
++---------+
+| apple   |
+| banana  |
+| orange  |
+*---------*/
+
+In the following example, all leading and trailing ` x ` , ` y ` , and ` z `
+characters are removed from ` item ` .
+
+
+WITH items AS (SELECT 'xxxapplexxx' as item UNION ALL SELECT 'yyybananayyy' as item UNION ALL SELECT 'zzzorangezzz' as item UNION ALL SELECT 'xyzpearxyz' as item)
+
+SELECT TRIM(item, 'xyz') as example FROM items;
+
+/*---------*
+| example |
++---------+
+| apple   |
+| banana  |
+| orange  |
+| pear    |
+*---------*/
+
+In the following example, examine how ` TRIM ` interprets characters as Unicode code-points. If your trailing character set contains a combining diacritic mark over a particular letter, ` TRIM ` might strip the same diacritic mark from a different letter.
+
+
+SELECT TRIM('abaW̊', 'Y̊') AS a,
+TRIM('W̊aba', 'Y̊') AS b,
+TRIM('abaŪ̊', 'Y̊') AS c,
+TRIM('Ū̊aba', 'Y̊') AS d;
+
+/*------+------+------+------*
+| a    | b    | c    | d    |
++------+------+------+------+
+| abaW | W̊aba | abaŪ | Ūaba |
+*------+------+------+------*/
+
+In the following example, all leading and trailing ` b'n' ` , ` b'a' ` , `
+b'\xab' ` bytes are removed from ` item ` .
+
+
+WITH items AS ( SELECT b'apple' as item UNION ALL SELECT b'banana' as item UNION ALL SELECT b'\xab\xcd\xef\xaa\xbb' as item ) SELECT item, TRIM(item, b'na\xab') AS examples FROM items;
+
+-- Note that the result of TRIM is of type BYTES, displayed as a base64-encoded string.
+/*----------------------+------------------*
+| item                 | example          |
++----------------------+------------------+
+| YXBwbGU=             | cHBsZQ==         |
+| YmFuYW5h             | Yg==             |
+| q83vqrs=             | ze+quw==         |
+*----------------------+------------------*/

@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: recharge__charge_line_item_history
+    description: 
+      Each record represents a detailed line item that contributes to the final charges for a given `charge_id`. These line items include specific charges, refunds, discounts, shipping fees, and taxes. The data is collected from multiple sources, such as charge line items, discounts, shipping lines, tax lines, and refund records, and consolidated into a unified table. This table serves as a historical record of all the line items associated with a charge, including the total amount and itemized details.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - charge_row_num
+    columns:
+      - name: charge_id
+        description: 
+          A unique identifier for the charge associated with this line item. It links to the main charge record, consolidating all related line items under the same charge. Each `charge_id` can have multiple associated line items such as products, taxes, or discounts.
+        tests:
+          - not_null
+      - name: charge_row_num
+        description: 
+          A unique row number assigned to each line item for a given `charge_id`. It ensures that each line item is uniquely identifiable within the context of a single charge, even when there are multiple items of the same type.
+      - name: source_index
+        description: 
+          The primary key `index` carried over from the source data (such as charge line items, discounts, or tax lines). This index provides a link back to the original record in its source table.
+      - name: charge_created_at
+        description: 
+          The date and time when the charge was initially created. This timestamp reflects when the transaction was initiated, providing a timeline for when charges were incurred.
+      - name: customer_id
+        description: 
+          A unique identifier for the customer associated with this charge. This ID links the charge and its line items to the specific customer who made the purchase.
+      - name: address_id
+        description: 
+          The unique identifier for the address associated with this charge. This ID helps track the shipping or billing address related to the charge.
+      - name: amount
+        description: 
+          The amount charged or refunded for this line item. This value is determined based on the line item type, and it can represent a product price, a discount, a tax, or a refund.
+      - name: title
+        description: 
+          The descriptive title of the line item. This could be the name of the product being charged, a discount code, shipping type, or the name of the tax applied.
+      - name: line_item_type
+        description: 
+          The type of the line item. Possible values include:'charge line' (product or service being charged), 'discount' (discount applied), 'shipping' (shipping costs), 'tax' (taxes applied), and 'refund' (refund applied).

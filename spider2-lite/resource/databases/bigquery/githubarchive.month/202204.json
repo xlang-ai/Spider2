@@ -1,0 +1,235 @@
+{
+    "table_name": "202204",
+    "table_fullname": "githubarchive.month.202204",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9702488064,\"size\":3,\"distinct_size\":3,\"ref\":\"refs/heads/main\",\"head\":\"fdff27432ddb2e4514c0d1f07fa2dc68b5c98758\",\"before\":\"16bf77e15f7c6b872f69f19588f51a4fa02fec11\",\"commits\":[{\"sha\":\"39ceffb2d30a15e997f91b324d38a30fbd92d165\",\"author\":{\"email\":\"1e19293b6513edd627c71e0a9d9a51a792b73457@gmail.com\",\"name\":\"Andrey \\\"MOU\\\" Larionov\"},\"message\":\"Add Obsidian and restic\",\"distinct\":true,\"url\":\"https://api.github.com/repos/mou/nix-home/commits/39ceffb2d30a15e997f91b324d38a30fbd92d165\"},{\"sha\":\"5eeb9e5ce09a6291fcece1275e3889c5c50fa498\",\"author\":{\"email\":\"1e19293b6513edd627c71e0a9d9a51a792b73457@gmail.com\",\"name\":\"Andrey \\\"MOU\\\" Larionov\"},\"message\":\"Make alejandra follow nixpkgs\",\"distinct\":true,\"url\":\"https://api.github.com/repos/mou/nix-home/commits/5eeb9e5ce09a6291fcece1275e3889c5c50fa498\"},{\"sha\":\"fdff27432ddb2e4514c0d1f07fa2dc68b5c98758\",\"author\":{\"email\":\"1e19293b6513edd627c71e0a9d9a51a792b73457@gmail.com\",\"name\":\"Andrey \\\"MOU\\\" Larionov\"},\"message\":\"Major versions update and refactoring\\n\\nUpdated nixpkgs (for neovim 0.7 mostly)\\nRefactored homeconfiguration: extracted git, vim and zsh\\ndefinitions\\nSwitching from Packer nvim plugin manager to\\nplugins statically installed from nixpkgs\",\"distinct\":true,\"url\":\"https://api.github.com/repos/mou/nix-home/commits/fdff27432ddb2e4514c0d1f07fa2dc68b5c98758\"}]}",
+            "repo": {
+                "id": 447997665,
+                "name": "mou/nix-home",
+                "url": "https://api.github.com/repos/mou/nix-home"
+            },
+            "actor": {
+                "id": 74853,
+                "login": "mou",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/74853?",
+                "url": "https://api.github.com/users/mou"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-04-24 00:37:03+00:00",
+            "id": "21435655029",
+            "other": "{\"actor\":{\"display_login\":\"mou\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9702431923,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"5b5274355162d9a00e22054599ce17f4037282d6\",\"before\":\"42b10b359e10645f7a509a68d06f6bbada68a130\",\"commits\":[{\"sha\":\"5b5274355162d9a00e22054599ce17f4037282d6\",\"author\":{\"email\":\"8f30638756f52e0d8db19c3acc3e60b6ffa5cda0@users.noreply.github.com\",\"name\":\"narze's bot\"},\"message\":\"Update README.md\",\"distinct\":true,\"url\":\"https://api.github.com/repos/narze/narze/commits/5b5274355162d9a00e22054599ce17f4037282d6\"}]}",
+            "repo": {
+                "id": 280306538,
+                "name": "narze/narze",
+                "url": "https://api.github.com/repos/narze/narze"
+            },
+            "actor": {
+                "id": 248741,
+                "login": "narze",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/248741?",
+                "url": "https://api.github.com/users/narze"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-04-24 00:16:29+00:00",
+            "id": "21435571724",
+            "other": "{\"actor\":{\"display_login\":\"narze\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9702513677,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"e4255212effc2865fbdfc77b637e7b43a2fa0b97\",\"before\":\"4ad68468023d84fb147582b814fa64f06702936c\",\"commits\":[{\"sha\":\"e4255212effc2865fbdfc77b637e7b43a2fa0b97\",\"author\":{\"email\":\"0dd3b2b543b2f6b8088a380a4630055b9d93ca32@datto.com\",\"name\":\"Philipp Heckel\"},\"message\":\"Fix #220, Action \\\"view\\\" with \\\"clear=true\\\"\",\"distinct\":true,\"url\":\"https://api.github.com/repos/binwiederhier/ntfy-android/commits/e4255212effc2865fbdfc77b637e7b43a2fa0b97\"}]}",
+            "repo": {
+                "id": 421237780,
+                "name": "binwiederhier/ntfy-android",
+                "url": "https://api.github.com/repos/binwiederhier/ntfy-android"
+            },
+            "actor": {
+                "id": 664597,
+                "login": "binwiederhier",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/664597?",
+                "url": "https://api.github.com/users/binwiederhier"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-04-24 00:46:58+00:00",
+            "id": "21435691116",
+            "other": "{\"actor\":{\"display_login\":\"binwiederhier\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9702589797,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/snyk-fix-31bcc39a4aadac478648d8456d69395a\",\"head\":\"c64fa4be21c3a3964d3314c9279ae7d5d27e350d\",\"before\":\"638428f6f08524afc3936998920c70c1af0bd2d0\",\"commits\":[{\"sha\":\"c64fa4be21c3a3964d3314c9279ae7d5d27e350d\",\"author\":{\"email\":\"6524ae312692b75c8ed05087d0aa3c757ac39348@snyk.io\",\"name\":\"snyk-bot\"},\"message\":\"fix: run/system-package/Dockerfile to reduce vulnerabilities\\n\\nThe following vulnerabilities are fixed with an upgrade:\\n- https://snyk.io/vuln/SNYK-ALPINE313-BUSYBOX-2440609\\n- https://snyk.io/vuln/SNYK-ALPINE313-BUSYBOX-2440609\\n- https://snyk.io/vuln/SNYK-ALPINE313-OPENSSL-2426334\\n- https://snyk.io/vuln/SNYK-ALPINE313-OPENSSL-2426334\\n- https://snyk.io/vuln/SNYK-ALPINE313-ZLIB-2434418\",\"distinct\":true,\"url\":\"https://api.github.com/repos/aqualen/nodejs-docs-samples/commits/c64fa4be21c3a3964d3314c9279ae7d5d27e350d\"}]}",
+            "repo": {
+                "id": 372253262,
+                "name": "aqualen/nodejs-docs-samples",
+                "url": "https://api.github.com/repos/aqualen/nodejs-docs-samples"
+            },
+            "actor": {
+                "id": 31650,
+                "login": "aqualen",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/31650?",
+                "url": "https://api.github.com/users/aqualen"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-04-24 01:15:18+00:00",
+            "id": "21435800402",
+            "other": "{\"actor\":{\"display_login\":\"aqualen\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9702681005,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"19b9ab08e9bf0a10cc8cfe983f0e2ba7b8cc0727\",\"before\":\"2a49ef66e49e48ac2fe31cf6945669de910447e0\",\"commits\":[{\"sha\":\"19b9ab08e9bf0a10cc8cfe983f0e2ba7b8cc0727\",\"author\":{\"email\":\"17973dcf2e10b67f63417c88ca4c460b2c9439f2@users.noreply.github.com\",\"name\":\"readme-bot\"},\"message\":\"Updated with Dev Metrics\",\"distinct\":true,\"url\":\"https://api.github.com/repos/takuan-osho/takuan-osho/commits/19b9ab08e9bf0a10cc8cfe983f0e2ba7b8cc0727\"}]}",
+            "repo": {
+                "id": 285999562,
+                "name": "takuan-osho/takuan-osho",
+                "url": "https://api.github.com/repos/takuan-osho/takuan-osho"
+            },
+            "actor": {
+                "id": 1075965,
+                "login": "takuan-osho",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1075965?",
+                "url": "https://api.github.com/users/takuan-osho"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-04-24 01:50:35+00:00",
+            "id": "21435937420",
+            "other": "{\"actor\":{\"display_login\":\"takuan-osho\"}}"
+        }
+    ]
+}

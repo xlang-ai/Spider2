@@ -1,0 +1,43 @@
+table_name,ddl
+dict,"CREATE TABLE `bigquery-public-data.open_images.dict`
+(
+  label_name STRING,
+  label_display_name STRING
+);"
+images,"CREATE TABLE `bigquery-public-data.open_images.images`
+(
+  image_id STRING,
+  subset STRING,
+  original_url STRING,
+  original_landing_url STRING,
+  license STRING,
+  author_profile_url STRING,
+  author STRING,
+  title STRING,
+  original_size INT64,
+  original_md5 STRING,
+  thumbnail_300k_url STRING
+);"
+annotations_bbox,"CREATE TABLE `bigquery-public-data.open_images.annotations_bbox`
+(
+  image_id STRING,
+  source STRING,
+  label_name STRING,
+  confidence FLOAT64,
+  x_min FLOAT64,
+  x_max FLOAT64,
+  y_min FLOAT64,
+  y_max FLOAT64,
+  is_occluded BOOL,
+  is_truncated BOOL,
+  is_group_of BOOL,
+  is_depiction BOOL,
+  is_inside BOOL
+);"
+labels,"CREATE TABLE `bigquery-public-data.open_images.labels`
+(
+  image_id STRING,
+  source STRING,
+  label_name STRING,
+  confidence FLOAT64
+);"

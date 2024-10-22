@@ -1,0 +1,235 @@
+{
+    "table_name": "202112",
+    "table_fullname": "githubarchive.month.202112",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "IssueCommentEvent",
+            "public": true,
+            "payload": "{\"action\":\"created\",\"issue\":{\"url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9\",\"repository_url\":\"https://api.github.com/repos/xbder/develop-common-case\",\"labels_url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9/comments\",\"events_url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9/events\",\"html_url\":\"https://github.com/xbder/develop-common-case/pull/9\",\"id\":649181100,\"node_id\":\"MDExOlB1bGxSZXF1ZXN0NDQyODY0OTk0\",\"number\":9,\"title\":\"build(deps): bump log4j-core from 2.7 to 2.13.2 in /elasticsearch\",\"user\":{\"login\":\"dependabot[bot]\",\"id\":49699333,\"node_id\":\"MDM6Qm90NDk2OTkzMzM=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/29110?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dependabot%5Bbot%5D\",\"html_url\":\"https://github.com/apps/dependabot\",\"followers_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/received_events\",\"type\":\"Bot\",\"site_admin\":false},\"labels\":[{\"id\":1653818790,\"node_id\":\"MDU6TGFiZWwxNjUzODE4Nzkw\",\"url\":\"https://api.github.com/repos/xbder/develop-common-case/labels/dependencies\",\"name\":\"dependencies\",\"color\":\"0366d6\",\"default\":false,\"description\":\"Pull requests that update a dependency file\"}],\"state\":\"open\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":1,\"created_at\":\"2020-07-01T18:14:26Z\",\"updated_at\":\"2021-12-10T01:04:52Z\",\"closed_at\":null,\"author_association\":\"NONE\",\"active_lock_reason\":null,\"draft\":false,\"pull_request\":{\"url\":\"https://api.github.com/repos/xbder/develop-common-case/pulls/9\",\"html_url\":\"https://github.com/xbder/develop-common-case/pull/9\",\"diff_url\":\"https://github.com/xbder/develop-common-case/pull/9.diff\",\"patch_url\":\"https://github.com/xbder/develop-common-case/pull/9.patch\",\"merged_at\":null},\"body\":\"Bumps log4j-core from 2.7 to 2.13.2.\\n\\n\\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=org.apache.logging.log4j:log4j-core&package-manager=maven&previous-version=2.7&new-version=2.13.2)](https://help.github.com/articles/configuring-automated-security-fixes)\\n\\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\\n\\n[//]: # (dependabot-automerge-start)\\n[//]: # (dependabot-automerge-end)\\n\\n---\\n\\n<details>\\n<summary>Dependabot commands and options</summary>\\n<br />\\n\\nYou can trigger Dependabot actions by commenting on this PR:\\n- `@dependabot rebase` will rebase this PR\\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\\n- `@dependabot merge` will merge this PR after your CI passes on it\\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\\n- `@dependabot reopen` will reopen this PR if it is closed\\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\\n\\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/xbder/develop-common-case/network/alerts).\\n\\n</details>\",\"reactions\":{\"url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9/timeline\",\"performed_via_github_app\":null},\"comment\":{\"url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/comments/990472047\",\"html_url\":\"https://github.com/xbder/develop-common-case/pull/9#issuecomment-990472047\",\"issue_url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/9\",\"id\":990472047,\"node_id\":\"IC_kwDOCP7bRc47CWdv\",\"user\":{\"login\":\"dependabot[bot]\",\"id\":49699333,\"node_id\":\"MDM6Qm90NDk2OTkzMzM=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/29110?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/dependabot%5Bbot%5D\",\"html_url\":\"https://github.com/apps/dependabot\",\"followers_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/dependabot%5Bbot%5D/received_events\",\"type\":\"Bot\",\"site_admin\":false},\"created_at\":\"2021-12-10T01:04:51Z\",\"updated_at\":\"2021-12-10T01:04:51Z\",\"author_association\":\"NONE\",\"body\":\"Superseded by #32.\",\"reactions\":{\"url\":\"https://api.github.com/repos/xbder/develop-common-case/issues/comments/990472047/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"performed_via_github_app\":null}}",
+            "repo": {
+                "id": 150920005,
+                "name": "xbder/develop-common-case",
+                "url": "https://api.github.com/repos/xbder/develop-common-case"
+            },
+            "actor": {
+                "id": 49699333,
+                "login": "dependabot[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/49699333?",
+                "url": "https://api.github.com/users/dependabot[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-12-10 01:04:52+00:00",
+            "id": "19268646752",
+            "other": "{\"actor\":{\"display_login\":\"dependabot\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8585352280,\"size\":2,\"distinct_size\":2,\"ref\":\"refs/heads/feat/ProductPage\",\"head\":\"b58149a63e43549e04220554f97fe6fa0c5657fe\",\"before\":\"85ad524b3e3041278ea2b6f6d19ec8587563d992\",\"commits\":[{\"sha\":\"6483f43569eeceeeb90ebbb01394513431c0d118\",\"author\":{\"email\":\"e0c92b308c8a0355a341d6e49f67232c93adf2db@gmail.com\",\"name\":\"Jo\u00e3o Bispo\"},\"message\":\"feat: add modal with cart items\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Viviane-Queiroz/dev-shop/commits/6483f43569eeceeeb90ebbb01394513431c0d118\"},{\"sha\":\"b58149a63e43549e04220554f97fe6fa0c5657fe\",\"author\":{\"email\":\"e0c92b308c8a0355a341d6e49f67232c93adf2db@gmail.com\",\"name\":\"Jo\u00e3o Bispo\"},\"message\":\"feat: add components that show cart item\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Viviane-Queiroz/dev-shop/commits/b58149a63e43549e04220554f97fe6fa0c5657fe\"}]}",
+            "repo": {
+                "id": 430913951,
+                "name": "Viviane-Queiroz/dev-shop",
+                "url": "https://api.github.com/repos/Viviane-Queiroz/dev-shop"
+            },
+            "actor": {
+                "id": 43768058,
+                "login": "joaobispo2077",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/43768058?",
+                "url": "https://api.github.com/users/joaobispo2077"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-12-10 01:08:35+00:00",
+            "id": "19268692466",
+            "other": "{\"actor\":{\"display_login\":\"joaobispo2077\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8586088121,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"a9ef6102c3c4ac30e635a588bf56cb9cf4e4b8ce\",\"before\":\"606c90d106484bf5ce81f2d1ca03674b681b8ec8\",\"commits\":[{\"sha\":\"a9ef6102c3c4ac30e635a588bf56cb9cf4e4b8ce\",\"author\":{\"email\":\"b2cfcbc5f455c73b488fd239b06f8268a77edf0b@users.noreply.github.com\",\"name\":\"zsxs2\"},\"message\":\"Update data.js\",\"distinct\":true,\"url\":\"https://api.github.com/repos/zsxs2/zs/commits/a9ef6102c3c4ac30e635a588bf56cb9cf4e4b8ce\"}]}",
+            "repo": {
+                "id": 145559185,
+                "name": "zsxs2/zs",
+                "url": "https://api.github.com/repos/zsxs2/zs"
+            },
+            "actor": {
+                "id": 42575254,
+                "login": "zsxs2",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/42575254?",
+                "url": "https://api.github.com/users/zsxs2"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-12-10 03:36:49+00:00",
+            "id": "19270168209",
+            "other": "{\"actor\":{\"display_login\":\"zsxs2\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":8586105924,\"size\":8,\"distinct_size\":8,\"ref\":\"refs/heads/main\",\"head\":\"fd7e84dd903ee14949bc85916f31294dc53c5e04\",\"before\":\"edbfe8e472799d00e8c839a4c9fe4cd6ec448f95\",\"commits\":[{\"sha\":\"ffa3a40eea20d13e7fb74dfa08dd25a351cfb839\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/ffa3a40eea20d13e7fb74dfa08dd25a351cfb839\"},{\"sha\":\"2abbd567741b848713e91bb95d3cce5672c842f3\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"add\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/2abbd567741b848713e91bb95d3cce5672c842f3\"},{\"sha\":\"4628e0ae8edbdbb0682d901890ef9bedd745c4ad\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update style.css\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/4628e0ae8edbdbb0682d901890ef9bedd745c4ad\"},{\"sha\":\"2ff7d79e41ac8a686bb05c919c5472ca057d1a22\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/2ff7d79e41ac8a686bb05c919c5472ca057d1a22\"},{\"sha\":\"c18baf93e6cf9aac2fd550c489876bdf92f90e9c\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/c18baf93e6cf9aac2fd550c489876bdf92f90e9c\"},{\"sha\":\"b3c113baa01aefe9b76a8b4150bfe95ffa5da8a3\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/b3c113baa01aefe9b76a8b4150bfe95ffa5da8a3\"},{\"sha\":\"1bd12513fb057123b78e7067b92f8583a2be5622\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/1bd12513fb057123b78e7067b92f8583a2be5622\"},{\"sha\":\"fd7e84dd903ee14949bc85916f31294dc53c5e04\",\"author\":{\"email\":\"d64b0d5d03416d2de2a11c4e7234e27c4f0fc12d@users.noreply.github.com\",\"name\":\"he55\"},\"message\":\"Update page.html\",\"distinct\":true,\"url\":\"https://api.github.com/repos/he55/test/commits/fd7e84dd903ee14949bc85916f31294dc53c5e04\"}]}",
+            "repo": {
+                "id": 436125685,
+                "name": "he55/test",
+                "url": "https://api.github.com/repos/he55/test"
+            },
+            "actor": {
+                "id": 40764272,
+                "login": "he55",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/40764272?",
+                "url": "https://api.github.com/users/he55"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-12-10 03:41:02+00:00",
+            "id": "19270199873",
+            "other": "{\"actor\":{\"display_login\":\"he55\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"master\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":\"@genee/rest\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 435644479,
+                "name": "iamfat/rest",
+                "url": "https://api.github.com/repos/iamfat/rest"
+            },
+            "actor": {
+                "id": 724105,
+                "login": "iamfat",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/724105?",
+                "url": "https://api.github.com/users/iamfat"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-12-10 03:59:46+00:00",
+            "id": "19270339259",
+            "other": "{\"actor\":{\"display_login\":\"iamfat\"}}"
+        }
+    ]
+}

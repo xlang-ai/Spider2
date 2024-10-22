@@ -1,0 +1,36 @@
+## EXTRACT
+
+EXTRACT(part FROM time_expression)
+
+**Description**
+
+Returns a value that corresponds to the specified ` part ` from a supplied `
+time_expression ` .
+
+Allowed ` part ` values are:
+
+* ` MICROSECOND `
+* ` MILLISECOND `
+* ` SECOND `
+* ` MINUTE `
+* ` HOUR `
+
+Returned values truncate lower order time periods. For example, when extracting seconds, ` EXTRACT ` truncates the millisecond and microsecond values.
+
+**Return Data Type**
+
+` INT64 `
+
+**Example**
+
+In the following example, ` EXTRACT ` returns a value corresponding to the `
+HOUR ` time part.
+
+
+SELECT EXTRACT(HOUR FROM TIME "15:30:00") as hour;
+
+/*------------------*
+| hour             |
++------------------+
+| 15               |
+*------------------*/

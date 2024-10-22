@@ -1,0 +1,21 @@
+## TABLESAMPLE
+
+TABLESAMPLE SYSTEM ( percent PERCENT )
+
+**Description**
+
+You can use the ` TABLESAMPLE ` operator to select a random sample of a dataset. This operator is useful when you're working with tables that have large amounts of data and you don't need precise answers.
+
+Sampling returns a variety of records while avoiding the costs associated with scanning and processing an entire table. Each execution of the query might return different results because each execution processes an independently computed sample. GoogleSQL doesn't cache the results of queries that include a
+` TABLESAMPLE ` clause.
+
+Replace ` percent ` with the percentage of the dataset that you want to include in the results. The value must be between ` 0 ` and ` 100 ` . The value can be a literal value or a query parameter. It cannot be a variable.
+
+For more information, see [ Table sampling ](/bigquery/docs/table-sampling) .
+
+**Example**
+
+The following query selects approximately 10% of a table's data:
+
+
+SELECT * FROM dataset.my_table TABLESAMPLE SYSTEM (10 PERCENT)

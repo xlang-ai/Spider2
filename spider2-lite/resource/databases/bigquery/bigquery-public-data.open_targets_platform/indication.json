@@ -1,0 +1,128 @@
+{
+    "table_name": "indication",
+    "table_fullname": "bigquery-public-data.open_targets_platform.indication",
+    "column_names": [
+        "id",
+        "indications",
+        "approvedIndications",
+        "indicationCount"
+    ],
+    "column_types": [
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRUCT<disease STRING, efoName STRING, references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>, maxPhaseForIndication FLOAT64>>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "INT64"
+    ],
+    "nested_column_names": [
+        "id",
+        "indications",
+        "indications.list",
+        "indications.list.element",
+        "indications.list.element.disease",
+        "indications.list.element.efoName",
+        "indications.list.element.references",
+        "indications.list.element.references.list",
+        "indications.list.element.references.list.element",
+        "indications.list.element.references.list.element.source",
+        "indications.list.element.references.list.element.ids",
+        "indications.list.element.references.list.element.ids.list",
+        "indications.list.element.references.list.element.ids.list.element",
+        "indications.list.element.maxPhaseForIndication",
+        "approvedIndications",
+        "approvedIndications.list",
+        "approvedIndications.list.element",
+        "indicationCount"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRUCT<disease STRING, efoName STRING, references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>, maxPhaseForIndication FLOAT64>>>>",
+        "ARRAY<STRUCT<element STRUCT<disease STRING, efoName STRING, references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>, maxPhaseForIndication FLOAT64>>>",
+        "STRUCT<disease STRING, efoName STRING, references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>, maxPhaseForIndication FLOAT64>",
+        "STRING",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>",
+        "ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>>>",
+        "STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "FLOAT64",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "INT64"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": "CHEMBL500826",
+            "indications": {
+                "list": "[{'element': {'disease': 'EFO_1001888', 'efoName': 'eye infection', 'references': {'list': array([{'element': {'source': 'ATC', 'ids': {'list': array([{'element': 'S01AX10'}], dtype=object)}}}],\n       dtype=object)}, 'maxPhaseForIndication': 2.0}}                                                                                                                                             ]"
+            },
+            "approvedIndications": {
+                "list": "[]"
+            },
+            "indicationCount": 1
+        },
+        {
+            "id": "CHEMBL3989504",
+            "indications": {
+                "list": "[{'element': {'disease': 'EFO_0000771', 'efoName': 'bacterial disease', 'references': {'list': array([{'element': {'source': 'ATC', 'ids': {'list': array([{'element': 'J01MA21'}], dtype=object)}}}],\n       dtype=object)}, 'maxPhaseForIndication': 2.0}}                                                                                                                                                 ]"
+            },
+            "approvedIndications": {
+                "list": "[]"
+            },
+            "indicationCount": 1
+        },
+        {
+            "id": "CHEMBL36633",
+            "indications": {
+                "list": "[{'element': {'disease': 'EFO_0003888', 'efoName': 'attention deficit hyperactivity disorder', 'references': {'list': array([{'element': {'source': 'ATC', 'ids': {'list': array([{'element': 'N06BX07'}], dtype=object)}}}],\n       dtype=object)}, 'maxPhaseForIndication': 2.0}}                                                                                                                                                                        ]"
+            },
+            "approvedIndications": {
+                "list": "[]"
+            },
+            "indicationCount": 1
+        },
+        {
+            "id": "CHEMBL3989705",
+            "indications": {
+                "list": "[{'element': {'disease': 'EFO_1001888', 'efoName': 'eye infection', 'references': {'list': array([{'element': {'source': 'ATC', 'ids': {'list': array([{'element': 'S01AX10'}], dtype=object)}}}],\n       dtype=object)}, 'maxPhaseForIndication': 2.0}}                                                                                                                                             ]"
+            },
+            "approvedIndications": {
+                "list": "[]"
+            },
+            "indicationCount": 1
+        },
+        {
+            "id": "CHEMBL3989444",
+            "indications": {
+                "list": "[{'element': {'disease': 'EFO_0000319', 'efoName': 'cardiovascular disease', 'references': {'list': array([{'element': {'source': 'ATC', 'ids': {'list': array([{'element': 'C04AX24'}], dtype=object)}}}],\n       dtype=object)}, 'maxPhaseForIndication': 2.0}}                                                                                                                                                      ]"
+            },
+            "approvedIndications": {
+                "list": "[]"
+            },
+            "indicationCount": 1
+        }
+    ]
+}

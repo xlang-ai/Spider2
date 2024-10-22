@@ -1,0 +1,43 @@
+## FORMAT_DATE
+
+FORMAT_DATE(format_string, date_expr)
+
+**Description**
+
+Formats the ` date_expr ` according to the specified ` format_string ` .
+
+See [ Supported Format Elements For DATE ](/bigquery/docs/reference/standard-
+sql/format-elements#format_elements_date_time) for a list of format elements that this function supports.
+
+**Return Data Type**
+
+STRING
+
+**Examples**
+
+
+SELECT FORMAT_DATE('%x', DATE '2008-12-25') AS US_format;
+
+/*------------*
+| US_format  |
++------------+
+| 12/25/08   |
+*------------*/
+
+
+SELECT FORMAT_DATE('%b-%d-%Y', DATE '2008-12-25') AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec-25-2008 |
+*-------------*/
+
+
+SELECT FORMAT_DATE('%b %Y', DATE '2008-12-25') AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec 2008    |
+*-------------*/

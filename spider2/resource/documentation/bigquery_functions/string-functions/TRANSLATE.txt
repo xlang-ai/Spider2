@@ -1,0 +1,29 @@
+## TRANSLATE
+
+TRANSLATE(expression, source_characters, target_characters)
+
+**Description**
+
+In ` expression ` , replaces each character in ` source_characters ` with the corresponding character in ` target_characters ` . All inputs must be the same type, either ` STRING ` or ` BYTES ` .
+
+* Each character in ` expression ` is translated at most once.
+* A character in ` expression ` that is not present in ` source_characters ` is left unchanged in ` expression ` .
+* A character in ` source_characters ` without a corresponding character in ` target_characters ` is omitted from the result.
+* A duplicate character in ` source_characters ` results in an error.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH example AS ( SELECT 'This is a cookie' AS expression, 'sco' AS source_characters, 'zku' AS target_characters UNION ALL SELECT 'A coaster' AS expression, 'co' AS source_characters, 'k' as target_characters ) SELECT expression, source_characters, target_characters, TRANSLATE(expression,
+source_characters, target_characters) AS translate FROM example;
+
+/*------------------+-------------------+-------------------+------------------*
+| expression       | source_characters | target_characters | translate        |
++------------------+-------------------+-------------------+------------------+
+| This is a cookie | sco               | zku               | Thiz iz a kuukie |
+| A coaster        | co                | k                 | A kaster         |
+*------------------+-------------------+-------------------+------------------*/

@@ -1,0 +1,126 @@
+{
+    "table_name": "sample_contents",
+    "table_fullname": "bigquery-public-data.github_repos.sample_contents",
+    "column_names": [
+        "id",
+        "size",
+        "content",
+        "binary",
+        "copies",
+        "sample_repo_name",
+        "sample_ref",
+        "sample_path",
+        "sample_mode",
+        "sample_symlink_target"
+    ],
+    "column_types": [
+        "STRING",
+        "INT64",
+        "STRING",
+        "BOOL",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "id",
+        "size",
+        "content",
+        "binary",
+        "copies",
+        "sample_repo_name",
+        "sample_ref",
+        "sample_path",
+        "sample_mode",
+        "sample_symlink_target"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "INT64",
+        "STRING",
+        "BOOL",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": "ec5498fa77873ce8988563c174ee83592da4f602",
+            "size": 2519,
+            "content": "#include <stdarg.h>\n\n/* confdata.c */\nP(conf_parse,void,(const char *name));\nP(conf_read,int,(const char *name));\nP(conf_read_simple,int,(const char *name, int));\nP(conf_reset,void,(int));\nP(conf_write_defconfig,int,(const char *name));\nP(conf_write,int,(const char *name));\nP(conf_write_autoconf,int,(void));\nP(conf_get_changed,bool,(void));\nP(conf_set_changed_callback, void,(void (*fn)(void)));\nP(conf_set_message_callback, void,(void (*fn)(const char *fmt, va_list ap)));\n\n/* menu.c */\nP(rootmenu,struct menu,);\n\nP(menu_is_visible, bool, (struct menu *menu));\nP(menu_has_prompt, bool, (struct menu *menu));\nP(menu_get_prompt,const char *,(struct menu *menu));\nP(menu_get_root_menu,struct menu *,(struct menu *menu));\nP(menu_get_parent_menu,struct menu *,(struct menu *menu));\nP(menu_has_help,bool,(struct menu *menu));\nP(menu_get_help,const char *,(struct menu *menu));\nP(get_symbol_str, void, (struct gstr *r, struct symbol *sym, struct list_head\n\t\t\t *head));\nP(get_relations_str, struct gstr, (struct symbol **sym_arr, struct list_head\n\t\t\t\t   *head));\nP(menu_get_ext_help,void,(struct menu *menu, struct gstr *help));\n\n/* symbol.c */\nP(symbol_hash,struct symbol *,[SYMBOL_HASHSIZE]);\n\nP(sym_lookup,struct symbol *,(const char *name, int flags));\nP(sym_find,struct symbol *,(const char *name));\nP(sym_expand_string_value,const char *,(const char *in));\nP(sym_escape_string_value, const char *,(const char *in));\nP(sym_re_search,struct symbol **,(const char *pattern));\nP(sym_type_name,const char *,(enum symbol_type type));\nP(sym_calc_value,void,(struct symbol *sym));\nP(sym_get_type,enum symbol_type,(struct symbol *sym));\nP(sym_tristate_within_range,bool,(struct symbol *sym,tristate tri));\nP(sym_set_tristate_value,bool,(struct symbol *sym,tristate tri));\nP(sym_toggle_tristate_value,tristate,(struct symbol *sym));\nP(sym_string_valid,bool,(struct symbol *sym, const char *newval));\nP(sym_string_within_range,bool,(struct symbol *sym, const char *str));\nP(sym_set_string_value,bool,(struct symbol *sym, const char *newval));\nP(sym_is_changable,bool,(struct symbol *sym));\nP(sym_get_choice_prop,struct property *,(struct symbol *sym));\nP(sym_get_default_prop,struct property *,(struct symbol *sym));\nP(sym_get_string_value,const char *,(struct symbol *sym));\n\nP(prop_get_type_name,const char *,(enum prop_type type));\n\n/* expr.c */\nP(expr_compare_type,int,(enum expr_type t1, enum expr_type t2));\nP(expr_print,void,(struct expr *e, void (*fn)(void *, struct symbol *, const char *), void *data, int prevtoken));\n",
+            "binary": false,
+            "copies": 256,
+            "sample_repo_name": "pd2-linux/tina",
+            "sample_ref": "refs/heads/master",
+            "sample_path": "scripts/config/lkc_proto.h",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "b5c74057bf99cc2b3b2a642c796f15699075b422",
+            "size": 1480,
+            "content": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n    <head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n        <title>CSS Grid Layout Test: '::first-letter' from inline grid container ancestors does not apply to grid items</title>\n        <link rel=\"author\" title=\"Manuel Rego Casasnovas\" href=\"mailto:rego@igalia.com\" />\n        <link rel=\"help\" href=\"http://www.w3.org/TR/css-grid-1/#grid-containers\" title=\"3.1 Establishing Grid Containers\" />\n        <link rel=\"help\" href=\"http://www.w3.org/TR/css3-selectors/#first-letter\" title=\"7.2. The ::first-letter pseudo-element\" />\n        <link rel=\"match\" href=\"reference/grid-text-green-margin-no-collapse-ref.xht\" />\n        <meta name=\"assert\" content=\"This test checks that '::first-letter' pseudo-element is ignored in grid items when applied to an inline grid container ancestors.\" />\n        <style type=\"text/css\"><![CDATA[\n            .inline-grid {\n                display: inline-grid;\n                color: green;\n            }\n\n            body::first-letter {\n                color: red;\n            }\n        ]]></style>\n    </head>\n    <body>\n        <div class=\"inline-grid\">\n            <div>\n                <p>This text should be <strong>green</strong> and body and paragraph margins should <strong>not collapse</strong>.</p>\n            </div>\n        </div>\n    </body>\n</html>",
+            "binary": false,
+            "copies": 256,
+            "sample_repo_name": "servo/servo",
+            "sample_ref": "refs/heads/master",
+            "sample_path": "tests/wpt/css-tests/css-grid-1_dev/xhtml1/grid-inline-first-letter-002.xht",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "a26559c82455d8794aa8f4d144beb510e54d95d5",
+            "size": 1603,
+            "content": "#objdump: -dr --prefix-addresses --show-raw-insn -mmips:isa32r2 -M gpr-names=numeric,hwr-names=mips64r2\n#name: MIPS HWR disassembly (mips64r2)\n#as: -32 -mips32r2\n#source: hwr-names.s\n\n# Check objdump's handling of -M hwr-names=foo options.\n\n.*: +file format .*mips.*\n\nDisassembly of section .text:\n0+0000 <[^>]*> 7c00003b \trdhwr\t\\$0,hwr_cpunum\n0+0004 <[^>]*> 7c00083b \trdhwr\t\\$0,hwr_synci_step\n0+0008 <[^>]*> 7c00103b \trdhwr\t\\$0,hwr_cc\n0+000c <[^>]*> 7c00183b \trdhwr\t\\$0,hwr_ccres\n0+0010 <[^>]*> 7c00203b \trdhwr\t\\$0,\\$4\n0+0014 <[^>]*> 7c00283b \trdhwr\t\\$0,\\$5\n0+0018 <[^>]*> 7c00303b \trdhwr\t\\$0,\\$6\n0+001c <[^>]*> 7c00383b \trdhwr\t\\$0,\\$7\n0+0020 <[^>]*> 7c00403b \trdhwr\t\\$0,\\$8\n0+0024 <[^>]*> 7c00483b \trdhwr\t\\$0,\\$9\n0+0028 <[^>]*> 7c00503b \trdhwr\t\\$0,\\$10\n0+002c <[^>]*> 7c00583b \trdhwr\t\\$0,\\$11\n0+0030 <[^>]*> 7c00603b \trdhwr\t\\$0,\\$12\n0+0034 <[^>]*> 7c00683b \trdhwr\t\\$0,\\$13\n0+0038 <[^>]*> 7c00703b \trdhwr\t\\$0,\\$14\n0+003c <[^>]*> 7c00783b \trdhwr\t\\$0,\\$15\n0+0040 <[^>]*> 7c00803b \trdhwr\t\\$0,\\$16\n0+0044 <[^>]*> 7c00883b \trdhwr\t\\$0,\\$17\n0+0048 <[^>]*> 7c00903b \trdhwr\t\\$0,\\$18\n0+004c <[^>]*> 7c00983b \trdhwr\t\\$0,\\$19\n0+0050 <[^>]*> 7c00a03b \trdhwr\t\\$0,\\$20\n0+0054 <[^>]*> 7c00a83b \trdhwr\t\\$0,\\$21\n0+0058 <[^>]*> 7c00b03b \trdhwr\t\\$0,\\$22\n0+005c <[^>]*> 7c00b83b \trdhwr\t\\$0,\\$23\n0+0060 <[^>]*> 7c00c03b \trdhwr\t\\$0,\\$24\n0+0064 <[^>]*> 7c00c83b \trdhwr\t\\$0,\\$25\n0+0068 <[^>]*> 7c00d03b \trdhwr\t\\$0,\\$26\n0+006c <[^>]*> 7c00d83b \trdhwr\t\\$0,\\$27\n0+0070 <[^>]*> 7c00e03b \trdhwr\t\\$0,\\$28\n0+0074 <[^>]*> 7c00e83b \trdhwr\t\\$0,\\$29\n0+0078 <[^>]*> 7c00f03b \trdhwr\t\\$0,\\$30\n0+007c <[^>]*> 7c00f83b \trdhwr\t\\$0,\\$31\n\t\\.\\.\\.\n",
+            "binary": false,
+            "copies": 256,
+            "sample_repo_name": "autc04/Retro68",
+            "sample_ref": "refs/heads/master",
+            "sample_path": "binutils/gas/testsuite/gas/mips/hwr-names-mips64r2.d",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "967e43e9bae6c379a1b9e9f4a2cc11fa016e602e",
+            "size": 4003,
+            "content": "/////////////////////////////////////////////////////////////////////////////\n// Name:        joystick.cpp\n// Purpose:     wxJoystick class\n// Author:      David Webster\n// Modified by:\n// Created:     10/09/99\n// RCS-ID:      $Id: joystick.cpp,v 1.8 2005/07/21 17:00:01 ABX Exp $\n// Copyright:   (c) David Webster\n// Licence:     wxWindows licence\n/////////////////////////////////////////////////////////////////////////////\n\n//\n// For compilers that support precompilation, includes \"wx.h\".\n//\n#include \"wx/wxprec.h\"\n\n#include \"wx/defs.h\"\n\n#if wxUSE_JOYSTICK\n\n#include \"wx/string.h\"\n#define INCL_PM\n#define INCL_DOS\n#include \"wx/os2/private.h\"\n\n#define NO_JOYGETPOSEX\n\n#include <wx/window.h>\n#include <wx/joystick.h>\n\nIMPLEMENT_DYNAMIC_CLASS(wxJoystick, wxObject)\n\n// Attributes\n////////////////////////////////////////////////////////////////////////////\n\nwxPoint wxJoystick::GetPosition() const\n{\n    // TODO\n    return wxPoint(0, 0);\n}\n\nint wxJoystick::GetZPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetButtonState() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetPOVPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetPOVCTSPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetRudderPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetUPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetVPosition() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetMovementThreshold() const\n{\n    // TODO\n    return 0;\n}\n\nvoid wxJoystick::SetMovementThreshold(int WXUNUSED(threshold))\n{\n    // TODO\n}\n\n// Capabilities\n////////////////////////////////////////////////////////////////////////////\n\nbool wxJoystick::IsOk() const\n{\n    // TODO\n    return false;\n}\n\nint wxJoystick::GetNumberJoysticks() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetManufacturerId() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetProductId() const\n{\n    // TODO\n    return 0;\n}\n\nwxString wxJoystick::GetProductName() const\n{\n    // TODO\n    return wxString(\"\");\n}\n\nint wxJoystick::GetXMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetYMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetZMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetXMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetYMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetZMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetNumberButtons() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetNumberAxes() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetMaxButtons() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetMaxAxes() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetPollingMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetPollingMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetRudderMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetRudderMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetUMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetUMax() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetVMin() const\n{\n    // TODO\n    return 0;\n}\n\nint wxJoystick::GetVMax() const\n{\n    // TODO\n    return 0;\n}\n\nbool wxJoystick::HasRudder() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasZ() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasU() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasV() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasPOV() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasPOV4Dir() const\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::HasPOVCTS() const\n{\n    // TODO\n    return false;\n}\n\n// Operations\n////////////////////////////////////////////////////////////////////////////\n\nbool wxJoystick::SetCapture(wxWindow* WXUNUSED(win), int WXUNUSED(pollingFreq))\n{\n    // TODO\n    return false;\n}\n\nbool wxJoystick::ReleaseCapture()\n{\n    // TODO\n    return false;\n}\n#endif  // wxUSE_JOYSTICK\n",
+            "binary": false,
+            "copies": 1,
+            "sample_repo_name": "SickheadGames/Torsion",
+            "sample_ref": "refs/heads/master",
+            "sample_path": "code/wxWidgets/src/os2/joystick.cpp",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "f66f6ee35c8138d410ceee8a480f3ae1428b8b94",
+            "size": 644,
+            "content": "{\n  \"name\": \"postcss-font-normalize\",\n  \"version\": \"0.0.0\",\n  \"description\": \"PostCSS plugin to normalize font-family\",\n  \"keywords\": [\n    \"postcss\",\n    \"css\",\n    \"postcss-plugin\",\n    \"font-family\"\n  ],\n  \"author\": \"iahu <iahu1988@gmail.com>\",\n  \"license\": \"MIT\",\n  \"repository\": \"https://github.com/iahu/postcss-font-normalize\",\n  \"bugs\": {\n    \"url\": \"https://github.com/iahu/postcss-font-normalize/issues\"\n  },\n  \"homepage\": \"https://github.com/iahu/postcss-font-normalize\",\n  \"dependencies\": {\n    \"postcss\": \"^5.0.14\"\n  },\n  \"devDependencies\": {\n    \"ava\": \"^0.9.1\",\n    \"eslint\": \"^1.10.3\"\n  },\n  \"scripts\": {\n    \"test\": \"ava\"\n  }\n}\n",
+            "binary": false,
+            "copies": 1,
+            "sample_repo_name": "iahu/postcss-font-normalize",
+            "sample_ref": "refs/heads/master",
+            "sample_path": "package.json",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        }
+    ]
+}

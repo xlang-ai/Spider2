@@ -1,0 +1,62 @@
+{
+    "sample_rows": [
+        {
+            "POI_ID": "08f269606d84474b0383b1e7e8c016f0",
+            "ADDRESS_ID": "addressId/98b58eaa8ec6d4166d2e181b221bdc78",
+            "RELATIONSHIP_TYPE": "Overlaps",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "POI_ID": "08f268cda876e7840399de7cbe47424a",
+            "ADDRESS_ID": "addressId/b68bf965318c97738ef54e952fdb7d3e",
+            "RELATIONSHIP_TYPE": "Overlaps",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "POI_ID": "08f283409da358d9038afebdd8a48370",
+            "ADDRESS_ID": "addressId/cfe743ff143eb73171361acd2c67b640",
+            "RELATIONSHIP_TYPE": "Overlaps",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "POI_ID": "08f44ac08654024c03d93bb8f3f122fd",
+            "ADDRESS_ID": "addressId/f7b067ec19a8c4e0d252a3534be6c2cd",
+            "RELATIONSHIP_TYPE": "Overlaps",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        },
+        {
+            "POI_ID": "08f4413390635c1903c4104e6338a78f",
+            "ADDRESS_ID": "addressId/24274acb391d5356cf97a99ee9da08bb",
+            "RELATIONSHIP_TYPE": "Overlaps",
+            "RELATIONSHIP_START_DATE": null,
+            "RELATIONSHIP_END_DATE": null
+        }
+    ],
+    "table_name": "POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS",
+    "table_fullname": "US_ADDRESSES__POI.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS",
+    "column_names": [
+        "POI_ID",
+        "RELATIONSHIP_TYPE",
+        "RELATIONSHIP_START_DATE",
+        "RELATIONSHIP_END_DATE",
+        "ADDRESS_ID"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "DATE",
+        "DATE",
+        "TEXT"
+    ],
+    "description": [
+        "A unique identifier for a point of interest (such as a park, a branch of a fast food chain, a hotel, etc.) based on its description and location. It is joinable to the point_of_interest_index table.",
+        "Relationship between the two places. We use 'Overlaps' to indicate that the POI_ID is a subpart of the ADDRESS_ID (e.g., relationship of an apartment to an apartment building, as there could be several points of interest at the same address, especially if the data is lacking accurate unit information).",
+        "The date from which a given relationship is valid. For example, if the NAME of a place at a given POI_ID changed on 2023-04-01, then  relationship_start_date of 2023-04-01 is assigned. However, currently, all the values in this column are NULL since it only contains most recent characteristics with no historical changes.",
+        "The date from which a given relationship is valid. For example, if the NAME of a place at a given POI_ID changed on 2023-04-01, then relationship_end_date of 2023-03-31 is assigned to the NAME for that POI_ID. However, currently, all the values in this column are NULL since it only contains most recent characteristics with no historical changes.",
+        "A unique identifier for an address based on street address that is joinable to the us_addresses table."
+    ]
+}

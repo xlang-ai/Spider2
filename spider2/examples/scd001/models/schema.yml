@@ -1,0 +1,214 @@
+version: 2
+
+models:
+  - name: dim_contacts
+    description: >
+      This table has basic information about a contact, as well as some derived facts of a contact's 
+      activity with the JaffleGaggle platform
+    columns:  
+      - name: user_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+      - name: email
+        tests:
+            - unique
+            - not_null
+      - name: corporate_domain
+        description: Extracted email domain from the user's email, only if not a personal email
+      - name: gaggle_id
+        description: Foreign key to gaggles
+
+  - name: rpt_corporate_accounts
+    description: > 
+      This table has basic information about an account, including certain metrics about their users.
+      
+      For suffixes:
+        - '*_corporate' corresponds to users that have the corporate email for their JaffleGaggle
+        account
+        - '*_associated' means ALL of the users that are in gaggles with associated with this account,
+        including those users that have a corporate domain
+        - This model aggregates corporate account metrics by gaggle (group), calculating statistics related to users, events, and orders for accounts with corporate email associations. It identifies key users such as the first user, the most active user, and the user with the most orders.
+  
+    refs:
+      - name: fct_jafflegaggle
+      - name: dim_contacts
+      - name: merged_company_domain
+
+    columns:
+      - name: corporate_email
+        description: >
+          The corporate email associated with the gaggle or the merged corporate email domain if applicable.
+
+      - name: number_of_gaggles
+        description: >
+          The number of gaggles (groups) associated with the corporate email.
+
+      - name: number_of_users_corporate
+        description: >
+          The total number of users linked to corporate emails in the associated gaggles.
+
+      - name: number_of_events_corporate
+        description: >
+          The total number of events attended by corporate email-associated users.
+
+      - name: first_event_corporate
+        description: >
+          The date of the first event attended by corporate email-associated users.
+
+      - name: most_recent_event_corporate
+        description: >
+          The date of the most recent event attended by corporate email-associated users.
+
+      - name: number_of_orders_corporate
+        description: >
+          The total number of orders made by corporate email-associated users.
+
+      - name: first_order_corporate
+        description: >
+          The date of the first order made by corporate email-associated users.
+
+      - name: most_recent_order_corporate
+        description: >
+          The date of the most recent order made by corporate email-associated users.
+
+      - name: number_of_users_associated
+        description: >
+          The total number of users associated with the corporate email, including both corporate and non-corporate users.
+
+      - name: number_of_events_associated
+        description: >
+          The total number of events attended by all users associated with the corporate email, including both corporate and non-corporate users.
+
+      - name: first_event_associated
+        description: >
+          The date of the first event attended by any user associated with the corporate email.
+
+      - name: most_recent_event_associated
+        description: >
+          The date of the most recent event attended by any user associated with the corporate email.
+
+      - name: number_of_orders_associated
+        description: >
+          The total number of orders made by all users associated with the corporate email, including both corporate and non-corporate users.
+
+      - name: first_order_associated
+        description: >
+          The date of the first order made by any user associated with the corporate email.
+
+      - name: most_recent_order_associated
+        description: >
+          The date of the most recent order made by any user associated with the corporate email.
+
+      - name: first_user_id
+        description: >
+          The user ID of the first user associated with the corporate email.
+
+      - name: most_active_user_id
+        description: >
+          The user ID of the most active user based on event participation associated with the corporate email.
+
+      - name: most_orders_user_id
+        description: >
+          The user ID of the user who placed the most orders associated with the corporate email.
+
+
+  - name: fct_jafflegaggle
+    description: >
+      This model provides aggregated facts related to gaggles (groups) and their users, combining total and corporate-specific metrics. It joins information from contacts, gaggles, and corporate email domains to calculate various statistics like event participation, order information, and more for both general and corporate-specific users.
+
+    refs:
+      - name: dim_contacts
+      - name: stg_gaggles
+      - name: merged_company_domain
+
+    columns:
+      - name: gaggle_id
+        description: >
+          Unique identifier for the gaggle (group).
+        tests:
+          - unique
+          - not_null
+
+      - name: gaggle_name
+        description: >
+          The name of the gaggle (group).
+
+      - name: created_at
+        description: >
+          The timestamp when the gaggle was created.
+        tests:
+          - not_null
+
+      - name: first_event
+        description: >
+          The date of the first event attended by any user in the gaggle.
+
+      - name: most_recent_event
+        description: >
+          The date of the most recent event attended by any user in the gaggle.
+
+      - name: number_of_events
+        description: >
+          The total number of events attended by all users in the gaggle.
+
+      - name: number_of_users
+        description: >
+          The total number of users in the gaggle.
+
+      - name: first_order
+        description: >
+          The date of the first order made by any user in the gaggle.
+
+      - name: most_recent_order
+        description: >
+          The date of the most recent order made by any user in the gaggle.
+
+      - name: number_of_orders
+        description: >
+          The total number of orders made by all users in the gaggle.
+
+      - name: corporate_email
+        description: >
+          The corporate email associated with the gaggle (if available). If multiple corporate emails are associated, it prioritizes the merged company domain.
+
+      - name: first_event_corporate
+        description: >
+          The date of the first event attended by corporate email-associated users in the gaggle.
+
+      - name: most_recent_event_corporate
+        description: >
+          The date of the most recent event attended by corporate email-associated users in the gaggle.
+
+      - name: number_of_events_corporate
+        description: >
+          The total number of events attended by corporate email-associated users in the gaggle.
+
+      - name: number_of_users_corporate
+        description: >
+          The total number of users associated with corporate emails in the gaggle.
+
+      - name: first_order_corporate
+        description: >
+          The date of the first order made by corporate email-associated users in the gaggle.
+
+      - name: most_recent_order_corporate
+        description: >
+          The date of the most recent order made by corporate email-associated users in the gaggle.
+
+      - name: number_of_orders_corporate
+        description: >
+          The total number of orders made by corporate email-associated users in the gaggle.
+
+
+sources:
+  - name: main
+    schema: main      
+
+    tables:
+      - name: merged_company_domain
+      - name: raw_event
+      - name: raw_user
+      - name: merged_user
+      - name: raw_gaggle

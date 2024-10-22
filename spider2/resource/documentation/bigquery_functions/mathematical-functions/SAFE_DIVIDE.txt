@@ -1,0 +1,22 @@
+## SAFE_DIVIDE
+
+SAFE_DIVIDE(X, Y)
+
+**Description**
+
+Equivalent to the division operator ( ` X / Y ` ), but returns ` NULL ` if an error occurs, such as a division by zero error.
+
+X  |  Y  |  SAFE_DIVIDE(X, Y)
+---|---|---
+20  |  4  |  5 0  |  20  |  ` 0 `
+20  |  0  |  ` NULL `
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+` INT64 ` |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` NUMERIC ` |  ` NUMERIC ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  `
+FLOAT64 `
+` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 `

@@ -1,0 +1,67 @@
+version: 2
+
+
+models:
+  - name: base_google_sheets__original_comedies
+    description: Current and upcoming COMEDIES for original streaming television programming on Netflix.
+
+  - name: base_google_sheets__original_dramas
+    description: Current and upcoming DRAMAS for original streaming television programming on Netflix.
+
+  - name: base_google_sheets__original_docuseries
+    description: Current and upcoming DOCUSERIES for original streaming television programming on Netflix.
+
+  - name: stg_google_sheets__original_categories
+    description: Netflix original program categories and their 1:1 mapping with category IDs.
+
+models:
+  - name: stg_google_sheets__originals_unioned
+    description: >
+      This model combines Netflix original programs across different genres (comedies, docuseries, dramas), standardizes their fields, and cleans up the premiere dates. It pulls data from multiple Google Sheets sources, unifies them, and formats key fields for further analysis.
+
+    columns:
+      - name: title
+        description: >
+          The title of the Netflix original program, cleaned up from the source to remove any extra characters or symbols.
+
+      - name: genre
+        description: >
+          The genre of the Netflix original program (e.g., Comedy, Drama, Docuseries).
+
+      - name: category_id
+        description: >
+          The category ID corresponding to the Netflix original program's genre.
+
+      - name: seasons
+        description: >
+          The total number of seasons the program has, pulled from the source data.
+
+      - name: runtime
+        description: >
+          The runtime of the Netflix original program in minutes.
+
+      - name: renewal_status
+        description: >
+          The renewal status of the program (e.g., renewed, canceled), sourced from the `status` field in the original dataset.
+
+      - name: premiere_date
+        description: >
+          The premiere date of the Netflix original program, cleaned and formatted as a proper `DATE` field from the messy raw data. This is derived by extracting and standardizing the day, month, and year from the original premiere data.
+
+      - name: premiere_year
+        description: >
+          The year in which the program premiered or is scheduled to premiere.
+
+      - name: premiere_month
+        description: >
+          The month (as a two-digit number) in which the program premiered or is scheduled to premiere.
+
+      - name: premiere_day
+        description: >
+          The day (as a two-digit number) in which the program premiered or is scheduled to premiere.
+
+      - name: updated_at_utc
+        description: >
+          The timestamp indicating when the program data was last updated, typically reflecting when the data was ingested from Google Sheets.
+        tests:
+          - not_null

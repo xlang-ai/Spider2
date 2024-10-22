@@ -1,0 +1,113 @@
+table_name,ddl
+blocks,"CREATE TABLE `spider2-public-data.crypto_ethereum.blocks`
+(
+  timestamp TIMESTAMP,
+  number INT64,
+  `hash` STRING,
+  parent_hash STRING,
+  nonce STRING,
+  sha3_uncles STRING,
+  logs_bloom STRING,
+  transactions_root STRING,
+  state_root STRING,
+  receipts_root STRING,
+  miner STRING,
+  difficulty NUMERIC,
+  total_difficulty NUMERIC,
+  size INT64,
+  extra_data STRING,
+  gas_limit INT64,
+  gas_used INT64,
+  transaction_count INT64,
+  base_fee_per_gas INT64,
+  withdrawals_root STRING,
+  withdrawals ARRAY<STRUCT<index INT64, validator_index INT64, address STRING, amount STRING>>,
+  blob_gas_used INT64,
+  excess_blob_gas INT64
+);"
+contracts,"CREATE TABLE `spider2-public-data.crypto_ethereum.contracts`
+(
+  address STRING,
+  bytecode STRING,
+  function_sighashes ARRAY<STRING>,
+  is_erc20 BOOL,
+  is_erc721 BOOL,
+  block_timestamp TIMESTAMP,
+  block_number INT64,
+  block_hash STRING
+);"
+traces,"CREATE TABLE `spider2-public-data.crypto_ethereum.traces`
+(
+  transaction_hash STRING,
+  transaction_index INT64,
+  from_address STRING,
+  to_address STRING,
+  value NUMERIC,
+  input STRING,
+  output STRING,
+  trace_type STRING,
+  call_type STRING,
+  reward_type STRING,
+  gas INT64,
+  gas_used INT64,
+  subtraces INT64,
+  trace_address STRING,
+  error STRING,
+  status INT64,
+  block_timestamp TIMESTAMP,
+  block_number INT64,
+  block_hash STRING,
+  trace_id STRING
+);"
+token_transfers,"CREATE TABLE `spider2-public-data.crypto_ethereum.token_transfers`
+(
+  token_address STRING,
+  from_address STRING,
+  to_address STRING,
+  value STRING,
+  transaction_hash STRING,
+  log_index INT64,
+  block_timestamp TIMESTAMP,
+  block_number INT64,
+  block_hash STRING
+);"
+transactions,"CREATE TABLE `spider2-public-data.crypto_ethereum.transactions`
+(
+  `hash` STRING,
+  nonce INT64,
+  transaction_index INT64,
+  from_address STRING,
+  to_address STRING,
+  value NUMERIC,
+  gas INT64,
+  gas_price INT64,
+  input STRING,
+  receipt_cumulative_gas_used INT64,
+  receipt_gas_used INT64,
+  receipt_contract_address STRING,
+  receipt_root STRING,
+  receipt_status INT64,
+  block_timestamp TIMESTAMP,
+  block_number INT64,
+  block_hash STRING,
+  max_fee_per_gas INT64,
+  max_priority_fee_per_gas INT64,
+  transaction_type INT64,
+  receipt_effective_gas_price INT64,
+  max_fee_per_blob_gas INT64,
+  blob_versioned_hashes ARRAY<STRING>,
+  receipt_blob_gas_price INT64,
+  receipt_blob_gas_used INT64
+);"
+logs,"CREATE TABLE `spider2-public-data.crypto_ethereum.logs`
+(
+  log_index INT64,
+  transaction_hash STRING,
+  transaction_index INT64,
+  address STRING,
+  data STRING,
+  topics ARRAY<STRING>,
+  block_timestamp TIMESTAMP,
+  block_number INT64,
+  block_hash STRING
+);"

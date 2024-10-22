@@ -1,0 +1,32 @@
+## ST_GEOGFROMGEOJSON
+
+ST_GEOGFROMGEOJSON(geojson_string [, make_valid => constant_expression])
+
+**Description**
+
+Returns a ` GEOGRAPHY ` value that corresponds to the input [ GeoJSON
+](https://en.wikipedia.org/wiki/GeoJSON) representation.
+
+` ST_GEOGFROMGEOJSON ` accepts input that is [ RFC 7946
+](https://tools.ietf.org/html/rfc7946) compliant.
+
+If the parameter ` make_valid ` is set to ` TRUE ` , the function attempts to repair polygons that don't conform to [ Open Geospatial Consortium
+](https://www.ogc.org/standards/sfa) semantics. This parameter uses named argument syntax, and should be specified using ` make_valid => argument_value
+` syntax.
+
+A GoogleSQL ` GEOGRAPHY ` has spherical geodesic edges, whereas a GeoJSON `
+Geometry ` object explicitly has planar edges. To convert between these two types of edges, GoogleSQL adds additional points to the line where necessary so that the resulting sequence of edges remains within 10 meters of the original edge.
+
+See  ` ST_ASGEOJSON ` to format a ` GEOGRAPHY ` as GeoJSON.
+
+**Constraints**
+
+The JSON input is subject to the following constraints:
+
+* ` ST_GEOGFROMGEOJSON ` only accepts JSON geometry fragments and cannot be used to ingest a whole JSON document.
+* The input JSON fragment must consist of a GeoJSON geometry type, which includes ` Point ` , ` MultiPoint ` , ` LineString ` , ` MultiLineString ` , ` Polygon ` , ` MultiPolygon ` , and ` GeometryCollection ` . Any other GeoJSON type such as ` Feature ` or ` FeatureCollection ` will result in an error.
+* A position in the ` coordinates ` member of a GeoJSON geometry type must consist of exactly two elements. The first is the longitude and the second is the latitude. Therefore, ` ST_GEOGFROMGEOJSON ` does not support the optional third element for a position in the ` coordinates ` member.
+
+**Return type**
+
+` GEOGRAPHY `

@@ -1,0 +1,41 @@
+## ST_BUFFER
+
+ST_BUFFER( geography,
+buffer_radius
+[, num_seg_quarter_circle => num_segments]
+[, use_spheroid => boolean_expression]
+[, endcap => endcap_style]
+[, side => line_side])
+
+**Description**
+
+Returns a ` GEOGRAPHY ` that represents the buffer around the input `
+GEOGRAPHY ` . This function is similar to  ` ST_BUFFERWITHTOLERANCE ` , but you specify the number of segments instead of providing tolerance to determine how much the resulting geography can deviate from the ideal buffer radius.
+
+* ` geography ` : The input ` GEOGRAPHY ` to encircle with the buffer radius.
+* ` buffer_radius ` : ` FLOAT64 ` that represents the radius of the buffer around the input geography. The radius is in meters. Note that polygons contract when buffered with a negative ` buffer_radius ` . Polygon shells and holes that are contracted to a point are discarded.
+* ` num_seg_quarter_circle ` : (Optional) ` FLOAT64 ` specifies the number of segments that are used to approximate a quarter circle. The default value is ` 8.0 ` . Naming this argument is optional.
+* ` endcap ` : (Optional) ` STRING ` allows you to specify one of two endcap styles: ` ROUND ` and ` FLAT ` . The default value is ` ROUND ` . This option only affects the endcaps of buffered linestrings.
+* ` side ` : (Optional) ` STRING ` allows you to specify one of three possibilities for lines: ` BOTH ` , ` LEFT ` , and ` RIGHT ` . The default is ` BOTH ` . This option only affects how linestrings are buffered.
+* ` use_spheroid ` : (Optional) ` BOOL ` determines how this function measures distance. If ` use_spheroid ` is ` FALSE ` , the function measures distance on the surface of a perfect sphere. The ` use_spheroid ` parameter currently only supports the value ` FALSE ` . The default value of ` use_spheroid ` is ` FALSE ` .
+
+**Return type**
+
+Polygon ` GEOGRAPHY `
+
+**Example**
+
+The following example shows the result of ` ST_BUFFER ` on a point. A buffered point is an approximated circle. When ` num_seg_quarter_circle = 2 ` , there are two line segments in a quarter circle, and therefore the buffered circle has eight sides and  ` ST_NUMPOINTS ` returns nine vertices. When `
+num_seg_quarter_circle = 8 ` , there are eight line segments in a quarter circle, and therefore the buffered circle has thirty-two sides and  `
+ST_NUMPOINTS ` returns thirty-three vertices.
+
+
+SELECT
+-- num_seg_quarter_circle=2 ST_NUMPOINTS(ST_BUFFER(ST_GEOGFROMTEXT('POINT(1 2)'), 50, 2)) AS eight_sides,
+-- num_seg_quarter_circle=8, since 8 is the default ST_NUMPOINTS(ST_BUFFER(ST_GEOGFROMTEXT('POINT(100 2)'), 50)) AS thirty_two_sides;
+
+/*-------------+------------------*
+| eight_sides | thirty_two_sides |
++-------------+------------------+
+| 9           | 33               |
+*-------------+------------------*/

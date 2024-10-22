@@ -1,0 +1,58 @@
+## NET.REG_DOMAIN
+
+NET.REG_DOMAIN(url)
+
+**Description**
+
+Takes a URL as a string and returns the registered or registrable domain (the public suffix  plus one preceding label), as a string. For best results, URL values should comply with the format as defined by [ RFC 3986
+](https://tools.ietf.org/html/rfc3986#appendix-A) . If the URL value does not comply with RFC 3986 formatting, this function makes a best effort to parse the input and return a relevant result.
+
+This function returns ` NULL ` if any of the following is true:
+
+* It cannot parse the host from the input;
+* The parsed host contains adjacent dots in the middle (not leading or trailing);
+* The parsed host does not contain any public suffix;
+* The parsed host contains only a public suffix without any preceding label.
+
+Before looking up the public suffix, this function temporarily normalizes the host by converting uppercase English letters to lowercase and encoding all non-ASCII characters with [ Punycode ](https://en.wikipedia.org/wiki/Punycode) . The function then returns the registered or registerable domain as part of the original host instead of the normalized host.
+
+**Note:** The function does not perform [ Unicode normalization
+](https://en.wikipedia.org/wiki/Unicode_equivalence) .  **Note:** The public suffix data at [ publicsuffix.org ](https://publicsuffix.org/list/) also contains private domains. This function does not treat a private domain as a public suffix. For example, if ` us.com ` is a private domain in the public suffix data, ` NET.REG_DOMAIN("foo.us.com") ` returns ` us.com ` (the public suffix ` com ` plus the preceding label ` us ` ) rather than ` foo.us.com `
+(the private domain ` us.com ` plus the preceding label ` foo ` ).  **Note:**
+The public suffix data may change over time. Consequently, input that produces a ` NULL ` result now may produce a non- ` NULL ` value in the future.
+
+**Return Data Type**
+
+` STRING `
+
+**Example**
+
+
+SELECT FORMAT("%T", input) AS input,
+description,
+FORMAT("%T", NET.HOST(input)) AS host,
+FORMAT("%T", NET.PUBLIC_SUFFIX(input)) AS suffix,
+FORMAT("%T", NET.REG_DOMAIN(input)) AS domain FROM ( SELECT "" AS input, "invalid input" AS description UNION ALL SELECT "http://abc.xyz", "standard URL"
+UNION ALL SELECT "//user:password@a.b:80/path?query",
+"standard URL with relative scheme, port, path and query, but no public suffix"
+UNION ALL SELECT "https://[::1]:80", "standard URL with IPv6 host"
+UNION ALL SELECT "http://例子.卷筒纸.中国", "standard URL with internationalized domain name"
+UNION ALL SELECT "    www.Example.Co.UK    ",
+"non-standard URL with spaces, upper case letters, and without scheme"
+UNION ALL SELECT "mailto:?to=&subject=&body=", "URI rather than URL--unsupported"
+);
+
+input  |  description  |  host  |  suffix  |  domain
+---|---|---|---|---
+""  |  invalid input  |  NULL  |  NULL  |  NULL
+"http://abc.xyz"  |  standard URL  |  "abc.xyz"  |  "xyz"  |  "abc.xyz"
+"//user:password@a.b:80/path?query"  |  standard URL with relative scheme,
+port, path and query, but no public suffix  |  "a.b"  |  NULL  |  NULL
+"https://[::1]:80"  |  standard URL with IPv6 host  |  "[::1]"  |  NULL  |
+NULL
+"http://例子.卷筒纸.中国"  |  standard URL with internationalized domain name  |
+"例子.卷筒纸.中国"  |  "中国"  |  "卷筒纸.中国"
+" www.Example.Co.UK "  |  non-standard URL with spaces, upper case letters,
+and without scheme  |  "www.Example.Co.UK"  |  "Co.UK"  |  "Example.Co.UK"
+"mailto:?to=&subject=&body="  |  URI rather than URL--unsupported  |  "mailto"
+|  NULL  |  NULL

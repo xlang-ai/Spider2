@@ -1,0 +1,447 @@
+version: 2
+
+models:
+  - name: shopify_holistic_reporting__customer_enhanced
+    description: >
+      Table consolidating customers and their information and activity metrics from across all platforms. A full outer join is performed in order to union 
+      together users who may not exist in both sources, and personal information is coalesced to consolidate as much information as possible. Includes any custom 
+      columns specified in passthrough variables for both Shopify and Klaviyo.
+
+      For **Klaviyo** metrics: Counts of instances of triggered events and sums of the numeric value (i.e. revenue) associated with events (total vs organic/not attributed 
+      to flows or campaigns) will be pivoted out into columns, as configured by the klaviyo__count_metrics and klaviyo__sum_revenue_metricsvariables, respectively. 
+      See the Klaviyo dbt_project.yml file for the default metrics used. These columns will be prefixed with total_count_, total_sum_revenue_ (organic + attributed), and organic_sum_revenue_ 
+      (not attributed to a campaign or flow).
+
+      Columns that come _only_ from one source will be prefixed with that source name (ie klaviyo_)
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - email
+            - klaviyo_source_relation
+            - shopify_source_relation
+    columns:
+      - name: shopify_source_relation
+        description: >
+          The source where this Shopify data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: klaviyo_source_relation
+        description: >
+          The source where this Klaviyo data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: shopify_has_accepted_marketing
+        description: Whether the customer has consented to receive marketing material via email.
+      - name: shopify_customer_first_created_at
+        description: The date and time when the customer account first associated with this email was created.
+      - name: shopify_customer_last_created_at
+        description: The date and time when the customer account first associated with this email was created.
+      - name: klaviyo_person_first_created_at
+        description: Timestamp of when the person's profile was first created. 
+      - name: klaviyo_person_last_created_at
+        description: Timestamp of when the person's profile was last created.
+      - name: shopify_customer_last_updated_at
+        description: Timestamp of when the shopify customer was last updated.
+      - name: last_updated_at
+        description: Timestamp of when the person profile was last updated.
+      - name: shopify_default_address_id
+        description: The default address for the customer. 
+      - name: email
+        description: The unique email address of the customer.
+      - name: full_name
+        description: The customer's full name.
+      - name: shopify_customer_ids
+        description: A comma-separated aggregated list of Shopify IDs for the customer.
+      - name: shopify_lifetime_count_orders
+        description: The number of orders associated with this customer.
+      - name: phone_number
+        description: The unique phone number (E.164 format) for this customer.
+      - name: shopify_account_state
+        description: The state of the customer's account with a shop.
+      - name: shopify_is_tax_exempt
+        description: Whether the customer is exempt from paying taxes on their order. If true, then taxes won't be applied to an order at checkout. If false, then taxes will be applied at checkout.
+      - name: shopify_last_updated_at
+        description: The date and time when the customer information was last updated.
+      - name: is_shopify_email_verified
+        description: Whether the customer has verified their email address.
+      - name: shopify_first_order_at
+        description: The timestamp the customer completed their first order.
+      - name: shopify_last_order_at
+        description: The timestamp the customer completed their most recent order.
+      - name: customer_tags
+        description: A string aggregated list of all tags associated with a customer.
+      - name: note
+        description: A note about the customer.
+      - name: currency
+        description: The three-letter code for the shop currency.
+      - name: marketing_consent_state
+        description: >
+          Field indicating if the customer has consented to receive marketing material via email. Coalescing of the new `email_marketing_consent_state`
+          field and the deprecated `accepts_marketing` field. Records with the old field will be marked with '(legacy)'.
+      - name: marketing_consent_updated_at
+        description: The date and time when the customer consented to receive marketing material by email. If no date is provided, then the date and time when the consent information was sent is used.
+      - name: shopify_average_order_value
+        description: The average order value for the customer.
+      - name: shopify_lifetime_total_spent
+        description: The total amount of money that the customer has spent on orders across their order history.
+      - name: shopify_lifetime_total_refunded
+        description: The total amount of money that the customer has been refunded on orders across their order history.
+      - name: shopify_lifetime_total_amount
+        description: The total amount of money (minus refunds) that the customer has spent across their order history.
+      - name: klaviyo_persons_id
+        description: >
+          Unique ID of the user if you use your own unique identifier. Otherwise, Klaviyo 
+          recommends using the email as the primary key. 
+      - name: klaviyo_address_1
+        description: First line of the person's address.
+      - name: klaviyo_address_2
+        description: Second line of the person's address.
+      - name: klaviyo_city
+        description: City they live in.
+      - name: klaviyo_country
+        description: Country they live in.
+      - name: klaviyo_zip
+        description: Postal code where they live.
+      - name: klaviyo_person_created_at
+        description: Timestamp of when the person's profile was created in Klaviyo.
+      - name: klaviyo_latitude
+        description: Latitude of the person's location. 
+      - name: klaviyo_longitude
+        description: Longitude of the person's location. 
+      - name: klaviyo_organization
+        description: Business organization they belong to. 
+      - name: klaviyo_region
+        description: Region or state they live in.
+      - name: klaviyo_timezone
+        description: Timezone they are situated in.
+      - name: klaviyo_title
+        description: Title at their business or organization.
+      - name: klaviyo_person_updated_at
+        description: Timestamp of when the person profile was last updated. 
+      - name: klaviyo_count_total_campaigns
+        description: Count of the number of campaigns this person has interacted with.
+      - name: klaviyo_count_total_flows
+        description: Count of the number of flows this person has interacted with.
+      - name: klaviyo_first_event_at
+        description: Timestamp of when the user first triggered an event (not limited to campaign and flow interactions).
+      - name: klaviyo_last_event_at
+        description: Timestamp of when the user last triggered an event (not limited to campaign and flow interactions).
+      - name: klaviyo_first_campaign_touch_at
+        description: Timestamp of when the user first interacted with a campaign.  
+      - name: klaviyo_last_campaign_touch_at
+        description: Timestamp of when the user last interacted with a campaign.  
+      - name: klaviyo_first_flow_touch_at
+        description: Timestamp of when the user first interacted with a flow.
+      - name: klaviyo_last_flow_touch_at
+        description: Timestamp of when the user last interacted with a flow.
+
+  - name: shopify_holistic_reporting__daily_customer_metrics
+    description: >
+      Table that aggregates Shopify and Klaviyo metrics to the day-customer-campaign or day-customer-flow grain (but note that if a user interacts 
+      with 2 different variations of a flow/campaign somehow, they will have 2 records).  Also note that non-attributed (to Klaviyo at least)
+      orders and interactions (someone with null campaign_id/flow_id) are included in this table. 
+
+      For **Klaviyo**: **Counts** of the instances of the events, as well as **sums** of the numeric value associated 
+      with events (i.e. revenue) will be pivoted out into columns, as configured by the `klaviyo__count_metrics` and `klaviyo__sum_revenue_metrics`
+      variables, respectively. See the dbt_project.yml file for the default metrics used. 
+      These columns will be prefixed with `count_` and `sum_revenue_`.
+
+      Note that 0-activity days will not appear. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date_day
+            - email
+            - klaviyo_source_relation
+            - shopify_source_relation
+            - campaign_id
+            - flow_id
+            - variation_id
+    columns:
+      - name: date_day
+        description: Day on which the customer performed these activities. 
+      - name: email 
+        description: Email address of the customer. 
+      - name: campaign_id
+        description: Foreign key referencing the CAMPAIGN attributed with these metrics (by the package's attribution model).
+      - name: flow_id
+        description: Foreign key referencing the FLOW attributed with these metrics (by the package's attribution model).
+      - name: campaign_name
+        description: Name of the attributed campaign. If not specified, this will default to the subject of the campaign.
+      - name: flow_name
+        description: Name of the attributed flow. 
+      - name: variation_id
+        description: > 
+          Unique ID of the attributed flow or campaign variation group. 
+          This does not map onto another table. 
+      - name: klaviyo_first_event_at
+        description: Timestamp of the first interaction between this campaign/flow and a person on this day.
+      - name: klaviyo_last_event_at
+        description: Timestamp of the last interaction between this campaign/flow and a person on this day.
+      - name: campaign_subject_line
+        description: Email subject line of the Klaviyo campaign.
+      - name: campaign_type
+        description: Type of campaign. 
+      - name: shopify_source_relation
+        description: >
+          The source where this Shopify data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: klaviyo_source_relation
+        description: >
+          The source where this Klaviyo data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: shopify_total_orders
+        description: Total number of orders the customer placed on this day, associated with this campaign or flow. Includes canceled orders.
+      - name: shopify_total_price
+        description: Total adjusted price the customer paid on this day, associated with this campaign or flow, in shop currency.
+      - name: shopify_count_line_items
+        description: The count of order line items the customer placed.
+      - name: shopify_total_line_items_price
+        description: The sum of all line item prices in the shop currency.
+      - name: shopify_total_discounts
+        description: The sum of discounts applied to the customer's orders, in shop currency. 
+      - name: shopify_total_tax
+        description: The sum of taxes paid by the customer. 
+      - name: shopify_total_shipping_cost
+        description: The sum of shipping costs paid. 
+      - name: shopify_total_refund_subtotal
+        description: Total amount refunded by the customer. Note that that `date_day` will be when the order was created, not refunded.
+      - name: shopify_total_refund_tax
+        description: Total tax applied to the customer's refunds.
+      - name: shopify_count_cancelled_orders
+        description: The count of orders that the customer made on this day and canceled. 
+      - name: shopify_count_products
+        description: The count of distinct products (based on distinct `product_ids`) that the customer purchased. 
+      - name: shopify_count_product_variants
+        description: The count of distinct products variants that the customer purchased. 
+      - name: shopify_sum_quantity
+        description: The total quantity of items that the customer purchased. 
+      - name: shopify_total_order_adjustment_amount
+        description: The total amount of adjustments made to the customer's orders. 
+      - name: shopify_total_order_adjustment_tax_amount
+        description: The total amount of taxes applied to adjustments made to the customer's orders.
+
+  - name: shopify_holistic_reporting__orders_attribution
+    description: >
+      Table of Shopify orders, enriched with a last-touch attribution model associating orders (as conversions) to campaigns or flows in Klaviyo. 
+
+      By default, the package performs attribution [in line with Klaviyo](https://help.klaviyo.com/hc/en-us/articles/115005248128). 
+      It considers email opens and clicks, and SMS opens as the events eligible to be credited with orders. 
+      This attribution-eligibility can be configured by the `klaviyo__eligible_attribution_events` variable. 
+
+      Similar to the Klaviyo app, the package by default considers the conversion period/lookback window for email events to 
+      be 120 hours (5 days) and 24 hours for SMS events. These can be configured through the 
+      `klaviyo__email_attribution_lookback` and `klaviyo__sms_attribution_lookback` variables, respectively (in integer-hours).
+
+      Refer to the Klaviyo package [README](https://github.com/fivetran/dbt_klaviyo#attribution-lookback-window) for more details.
+
+      Materialized incrementally by default.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_id
+            - shopify_source_relation
+    columns:
+      - name: app_id
+        description: The ID of the app that created the order.
+      - name: billing_address_address_1
+        description: The street address of the billing address.
+      - name: billing_address_address_2
+        description: An optional additional field for the street address of the billing address.
+      - name: billing_address_city
+        description: The city, town, or village of the billing address.
+      - name: billing_address_company
+        description: The company of the person associated with the billing address.
+      - name: billing_address_country
+        description: The name of the country of the billing address.
+      - name: billing_address_country_code
+        description: The two-letter code (ISO 3166-1 format) for the country of the billing address.
+      - name: billing_address_first_name
+        description: The first name of the person associated with the payment method.
+      - name: billing_address_last_name
+        description: The last name of the person associated with the payment method.
+      - name: billing_address_latitude
+        description: The latitude of the billing address.
+      - name: billing_address_longitude
+        description: The longitude of the billing address.
+      - name: billing_address_name
+        description: The full name of the person associated with the payment method.
+      - name: billing_address_phone
+        description: The phone number at the billing address.
+      - name: billing_address_province
+        description: The name of the region (province, state, prefecture, …) of the billing address.
+      - name: billing_address_province_code
+        description: The two-letter abbreviation of the region of the billing address.
+      - name: billing_address_zip
+        description: The postal code (zip, postcode, Eircode, …) of the billing address.
+      - name: browser_ip
+        description: The IP address of the browser used by the customer when they placed the order.
+      - name: has_buyer_accepted_marketing
+        description: Whether the customer consented to receive email updates from the shop.
+      - name: cancel_reason
+        description: The reason why the order was canceled.
+      - name: cancelled_timestamp
+        description: The date and time when the order was canceled.
+      - name: cart_token
+        description: The ID of the cart that's associated with the order.
+      - name: closed_timestamp
+        description: The date and time when the order was closed.
+      - name: created_timestamp
+        description: The autogenerated date and time when the order was created in Shopify.
+      - name: currency
+        description: The three-letter code for the shop currency.
+      - name: customer_id
+        description: The ID of the order's customer.
+      - name: email
+        description: The customer's email address.
+      - name: financial_status
+        description: The status of payments associated with the order. Can only be set when the order is created
+      - name: fulfillment_status
+        description: The order's status in terms of fulfilled line items.
+      - name: order_id
+        description: The ID of the order, used for API purposes. This is different from the order_number property, which is the ID used by the shop owner and customer.
+      - name: landing_site_base_url
+        description: The URL for the page where the buyer landed when they entered the shop.
+      - name: location_id
+        description: The ID of the physical location where the order was processed.
+      - name: name
+        description: The order name, generated by combining the order_number property with the order prefix and suffix that are set in the merchant's general settings.
+      - name: note
+        description: An optional note that a shop owner can attach to the order.
+      - name: number
+        description: The order's position in the shop's count of orders. Numbers are sequential and start at 1.
+      - name: order_number
+        description: The order 's position in the shop's count of orders starting at 1001. Order numbers are sequential and start at 1001.
+      - name: processed_timestamp
+        description: The date and time when an order was processed. This value is the date that appears on your orders and that's used in the analytic reports.
+      - name: processing_method
+        description: How the payment was processed.
+      - name: referring_site
+        description: The website where the customer clicked a link to the shop.
+      - name: shipping_address_address_1
+        description: The street address of the shipping address.
+      - name: shipping_address_address_2
+        description: An optional additional field for the street address of the shipping address.
+      - name: shipping_address_city
+        description: The city, town, or village of the shipping address.
+      - name: shipping_address_company
+        description: The company of the person associated with the shipping address.
+      - name: shipping_address_country
+        description: The name of the country of the shipping address.
+      - name: shipping_address_country_code
+        description: The two-letter code (ISO 3166-1 format) for the country of the shipping address.
+      - name: shipping_address_first_name
+        description: The first name of the person associated with the shipping address.
+      - name: shipping_address_last_name
+        description: The last name of the person associated with the shipping address.
+      - name: shipping_address_latitude
+        description: The latitude of the shipping address.
+      - name: shipping_address_longitude
+        description: The longitude of the shipping address.
+      - name: shipping_address_name
+        description: The full name of the person associated with the payment method.
+      - name: shipping_address_phone
+        description: The phone number at the shipping address.
+      - name: shipping_address_province
+        description: The name of the region (province, state, prefecture, …) of the shipping address.
+      - name: shipping_address_province_code
+        description: The two-letter abbreviation of the region of the shipping address.
+      - name: shipping_address_zip
+        description: The postal code (zip, postcode, Eircode, …) of the shipping address.
+      - name: source_name
+        description: Where the order originated. Can be set only during order creation, and is not writeable afterwards.
+      - name: subtotal_price
+        description: The price of the order in the shop currency after discounts but before shipping, taxes, and tips.
+      - name: has_taxes_included
+        description: Whether taxes are included in the order subtotal.
+      - name: is_test_order
+        description: Whether this is a test order.
+      - name: token
+        description: A unique token for the order.
+      - name: total_discounts
+        description: The total discounts applied to the price of the order in the shop currency.
+      - name: total_line_items_price
+        description: The sum of all line item prices in the shop currency.
+      - name: total_price
+        description: The sum of all line item prices, discounts, shipping, taxes, and tips in the shop currency. Must be positive.
+      - name: total_tax
+        description: The sum of all the taxes applied to the order in th shop currency. Must be positive).
+      - name: total_weight
+        description: The sum of all line item weights in grams.
+      - name: updated_timestamp
+        description: The date and time (ISO 8601 format) when the order was last modified.
+      - name: user_id
+        description: The ID of the user logged into Shopify POS who processed the order, if applicable.
+      - name: line_item_count
+        description: Number of line items included in the order.
+      - name: customer_order_seq_number
+        description: The sequential number of the order as it relates to the customer
+      - name: new_vs_repeat
+        description: Whether the order was a new or repeat order for the customer.
+      - name: shipping_cost
+        description: The shipping cost of the order.
+      - name: order_adjustment_amount
+        description: Total adjustment amount applied to the order.
+      - name: order_adjustment_tax_amount
+        description: Total tax applied to the adjustment on the order.
+      - name: refund_subtotal
+        description: Total refund amount applied to the order.
+      - name: refund_total_tax
+        description: Total tax applied to the refund on the order.
+      - name: order_adjusted_total
+        description: >
+          Order total adjusted for refunds and other adjustments. The calculation used for this field is as follows:
+          total price listed on the original order (including shipping costs and discounts) + adjustments + adjustments tax - total refunds - refunds tax
+          The order_adjusted_total will equate to the total sales - refunds listed within the transactions table for the order (after currency exchange).
+      - name: index
+        description: Field representing the index of the order line in relation to the order.
+      - name: pre_tax_price
+        description: The pre tax price of the order line.
+      - name: checkout_token
+        description: The checkout token applied to the order.
+      - name: total_shipping_price_set
+        description: The total shipping price set to the order.
+      - name: last_touch_campaign_id
+        description: The Klaviyo campaign that the order has been attributed to by the package. 
+      - name: last_touch_flow_id
+        description: The Klaviyo flow that the order has been attributed to by the package. 
+      - name: last_touch_variation_id
+        description: > 
+          Unique ID of the attributed Klaviyo flow or campaign variation group. 
+          This does not map onto another table. 
+      - name: last_touch_campaign_name
+        description: Name of the attributed Klaviyo campaign.
+      - name: last_touch_campaign_subject_line
+        description: Email subject line of the attributed Klaviyo campaign.
+      - name: last_touch_flow_name
+        description: Name of the attributed Klaviyo flow.
+      - name: last_touch_campaign_type
+        description: Type of Klaviyo campaign that the order is attributed to. 
+      - name: last_touch_event_id
+        description: Unique Klaviyo event id of the interaction the customer had with the campaign or flow.
+      - name: last_touch_event_occurred_at
+        description: Timestamp of when the customer interacted with the attributed campaign/flow.
+      - name: last_touch_event_type 
+        description: >
+          Type of interaction that the customer had with the campaign or flow. Will be one of the event types specified by the `klaviyo__eligible_attribution_events` variable. 
+          By default, this is just email opens, email clicks, and sms opens.
+      - name: last_touch_integration_name
+        description: Name of the platform that tracked the campaign/flow interaction (either Klaviyo, the API, or another integration).
+      - name: last_touch_integration_category
+        description: Use-case category of the platform that sent the campaign/flow interaction event.
+      - name: shopify_source_relation
+        description: >
+          The source where this Shopify data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: klaviyo_source_relation
+        description: >
+          The source where Klaviyo campaign/flow data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioning together multiple
+          sources, this will be an empty string.
+      - name: count_interactions_with_campaign
+        description: The count of distinct attributable events the customer had with the campaign throughout the attribution window.
+      - name: count_interactions_with_flow
+        description: The count of distinct attributable events the customer had with the flow throughout the attribution window.

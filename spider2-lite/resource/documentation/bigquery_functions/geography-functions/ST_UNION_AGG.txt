@@ -1,0 +1,30 @@
+## ST_UNION_AGG
+
+ST_UNION_AGG(geography)
+
+**Description**
+
+Returns a ` GEOGRAPHY ` that represents the point set union of all input `
+GEOGRAPHY ` s.
+
+` ST_UNION_AGG ` ignores ` NULL ` input ` GEOGRAPHY ` values.
+
+See  ` ST_UNION ` for the non-aggregate version of ` ST_UNION_AGG ` .
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Example**
+
+
+SELECT ST_UNION_AGG(items) AS results FROM UNNEST([
+ST_GEOGFROMTEXT('LINESTRING(-122.12 47.67, -122.19 47.69)'),
+ST_GEOGFROMTEXT('LINESTRING(-122.12 47.67, -100.19 47.69)'),
+ST_GEOGFROMTEXT('LINESTRING(-122.12 47.67, -122.19 47.69)')]) as items;
+
+/*---------------------------------------------------------*
+| results                                                 |
++---------------------------------------------------------+
+| LINESTRING(-100.19 47.69, -122.12 47.67, -122.19 47.69) |
+*---------------------------------------------------------*/

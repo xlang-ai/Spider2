@@ -1,0 +1,235 @@
+{
+    "table_name": "201307",
+    "table_fullname": "githubarchive.month.201307",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{}",
+            "repo": {
+                "id": 3774328,
+                "name": "wrk",
+                "url": "https://github.com/wg/wrk"
+            },
+            "actor": {
+                "id": null,
+                "login": "DrOctogon",
+                "gravatar_id": "dd5ff8f2028aeac3fe512f56ebc8063c",
+                "avatar_url": null,
+                "url": null
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2013-07-29 17:36:25+00:00",
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"Modern HTTP benchmarking tool\",\"homepage\":\"\",\"watchers\":1547,\"stargazers\":1547,\"forks\":77,\"fork\":false,\"size\":284,\"owner\":\"wg\",\"private\":false,\"open_issues\":5,\"has_issues\":true,\"has_downloads\":true,\"has_wiki\":true,\"language\":\"C\",\"created_at\":\"2012-03-20T04:12:28-07:00\",\"pushed_at\":\"2013-06-30T07:13:52-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"Tyler Krebs\",\"company\":\"AppScale Systems\",\"blog\":\"www.appscale.com\",\"location\":\"Santa Barbara, CA\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/DrOctogon/wrk\"}"
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{}",
+            "repo": {
+                "id": 9104262,
+                "name": "n2o",
+                "url": "https://github.com/5HT/n2o"
+            },
+            "actor": {
+                "id": null,
+                "login": "voxoz",
+                "gravatar_id": "4aa472ccb9794c08a0923d527ab8d086",
+                "avatar_url": null,
+                "url": null
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2013-07-18 12:23:27+00:00",
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"Erlang Web Framework on WebSockets\",\"homepage\":\"http://synrc.com/framework/web\",\"watchers\":244,\"stargazers\":244,\"forks\":42,\"fork\":false,\"size\":1908,\"owner\":\"5HT\",\"private\":false,\"open_issues\":0,\"has_issues\":true,\"has_downloads\":true,\"has_wiki\":true,\"language\":\"Erlang\",\"created_at\":\"2013-03-29T11:34:40-07:00\",\"pushed_at\":\"2013-07-16T17:15:11-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"Organization\",\"name\":\"Erlang PaaS\",\"blog\":\"http://voxoz.com\",\"location\":\"Praha, Czech Republic\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/voxoz/n2o\"}"
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{}",
+            "repo": {
+                "id": 96298,
+                "name": "r18n",
+                "url": "https://github.com/ai/r18n"
+            },
+            "actor": {
+                "id": null,
+                "login": "kirs",
+                "gravatar_id": "ab074ca0a48f06ab110c374fc7db258e",
+                "avatar_url": null,
+                "url": null
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2013-07-24 23:07:11+00:00",
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"I18n tool to translate your Ruby application.\",\"homepage\":\"\",\"watchers\":371,\"stargazers\":371,\"forks\":55,\"fork\":false,\"size\":272,\"owner\":\"ai\",\"private\":false,\"open_issues\":5,\"has_issues\":true,\"has_downloads\":false,\"has_wiki\":false,\"language\":\"Ruby\",\"created_at\":\"2008-12-24T03:15:15-08:00\",\"pushed_at\":\"2013-05-13T06:46:10-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"Kir Shatrov\",\"company\":\"\",\"blog\":\"\",\"location\":\"Helsinki, Finland\",\"email\":\"206417cbf125b7bab6402ef77db554b11bf8c38a@me.com\"},\"url\":\"https://github.com/kirs/r18n\"}"
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{}",
+            "repo": {
+                "id": 36502,
+                "name": "git",
+                "url": "https://github.com/git/git"
+            },
+            "actor": {
+                "id": null,
+                "login": "richiepreece",
+                "gravatar_id": "1414946e05fef7879d73e8ab9e64fb32",
+                "avatar_url": null,
+                "url": null
+            },
+            "org": {
+                "id": null,
+                "login": "git",
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2013-07-19 05:15:55+00:00",
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"Git Source Code Mirror - This is a publish-only repository and all pull requests are ignored. Please follow Documentation/SubmittingPatches procedure for any of your improvements.\",\"homepage\":\"This is a publish-only repository and all pull requests are ignored. Please follow Documentation/SubmittingPatches procedure for any of your improvements.\",\"watchers\":4291,\"stargazers\":4291,\"forks\":1850,\"fork\":false,\"size\":73095,\"owner\":\"git\",\"private\":false,\"open_issues\":13,\"has_issues\":false,\"has_downloads\":true,\"has_wiki\":false,\"language\":\"C\",\"created_at\":\"2008-07-23T07:21:26-07:00\",\"pushed_at\":\"2013-07-18T17:40:29-07:00\",\"master_branch\":\"master\",\"organization\":\"git\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"Richie Preece\",\"company\":\"Minetrocity\",\"blog\":\"http://resume.richiepreece.com\",\"location\":\"Logan, Ut\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/richiepreece/git\"}"
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{}",
+            "repo": {
+                "id": 36502,
+                "name": "git",
+                "url": "https://github.com/git/git"
+            },
+            "actor": {
+                "id": null,
+                "login": "wanderanimrod",
+                "gravatar_id": "7ffa4f4e0638fc4766821a0b6d255b44",
+                "avatar_url": null,
+                "url": null
+            },
+            "org": {
+                "id": null,
+                "login": "git",
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2013-08-01 11:44:53+00:00",
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"Git Source Code Mirror - This is a publish-only repository and all pull requests are ignored. Please follow Documentation/SubmittingPatches procedure for any of your improvements.\",\"homepage\":\"This is a publish-only repository and all pull requests are ignored. Please follow Documentation/SubmittingPatches procedure for any of your improvements.\",\"watchers\":4357,\"stargazers\":4357,\"forks\":1912,\"fork\":false,\"size\":74720,\"owner\":\"git\",\"private\":false,\"open_issues\":14,\"has_issues\":false,\"has_downloads\":true,\"has_wiki\":false,\"language\":\"C\",\"created_at\":\"2008-07-23T07:21:26-07:00\",\"pushed_at\":\"2013-07-31T17:47:48-07:00\",\"master_branch\":\"master\",\"organization\":\"git\"},\"actor_attributes\":{\"type\":\"User\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/wanderanimrod/git\"}"
+        }
+    ]
+}

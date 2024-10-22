@@ -1,0 +1,286 @@
+{
+    "table_name": "qualitative_measurements",
+    "table_fullname": "bigquery-public-data.idc_v14.qualitative_measurements",
+    "column_names": [
+        "PatientID",
+        "SOPInstanceUID",
+        "measurementGroup_number",
+        "segmentationInstanceUID",
+        "segmentationSegmentNumber",
+        "sourceSegmentedSeriesUID",
+        "trackingIdentifier",
+        "trackingUniqueIdentifier",
+        "Quantity",
+        "Value",
+        "finding",
+        "findingSite"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING",
+        "ARRAY<INT64>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>"
+    ],
+    "nested_column_names": [
+        "PatientID",
+        "SOPInstanceUID",
+        "measurementGroup_number",
+        "segmentationInstanceUID",
+        "segmentationSegmentNumber",
+        "sourceSegmentedSeriesUID",
+        "trackingIdentifier",
+        "trackingUniqueIdentifier",
+        "Quantity",
+        "Quantity.CodeValue",
+        "Quantity.CodingSchemeDesignator",
+        "Quantity.CodeMeaning",
+        "Value",
+        "Value.CodeValue",
+        "Value.CodingSchemeDesignator",
+        "Value.CodingSchemeVersion",
+        "Value.CodeMeaning",
+        "finding",
+        "finding.CodeValue",
+        "finding.CodingSchemeDesignator",
+        "finding.CodingSchemeVersion",
+        "finding.CodeMeaning",
+        "findingSite",
+        "findingSite.CodeValue",
+        "findingSite.CodingSchemeDesignator",
+        "findingSite.CodingSchemeVersion",
+        "findingSite.CodeMeaning"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "INT64",
+        "STRING",
+        "ARRAY<INT64>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<CodeValue STRING, CodingSchemeDesignator STRING, CodingSchemeVersion STRING, CodeMeaning STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        "Measurement group number corresponding to the measurement groups within the TID 1500 report, starting from 0.",
+        "SOPInstanceUID of the segmentation object defining the region of interest corresponding to the measurement.",
+        "SegmentNumber of the segment within the segmentation object referenced by segmentationInstanceUID defining the region of interest corresponding to the measurement.",
+        "SeriesInstanceUID corresponding to the image series over which the measurement was done.",
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Tracking Identifier\" (e.g., row 2 in TID 1411)",
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Tracking Unique Identifier\" (e.g., row 3 in TID 1411)",
+        "Value of the concept code corresponding to TID 1500 Measurement group row where VT is CODE.",
+        null,
+        null,
+        null,
+        "Value corresponding to the concept listed in the Quantity field.",
+        null,
+        null,
+        null,
+        null,
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Finding\" (e.g., row 3b in TID 1411)",
+        null,
+        null,
+        null,
+        null,
+        "Value of the TID 1500 Measurement group row corresponding to the concept \"Finding Site\" (e.g., row 2 in TID 1419)",
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "PatientID": "LIDC-IDRI-0195",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.13575.1553296386.508",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.13574.1553296384.506484",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.826829446346820089862659555750",
+            "trackingIdentifier": "Nodule 2",
+            "trackingUniqueIdentifier": "2.25.49948428706731301775959877445375928653891476338694618048664",
+            "Quantity": {
+                "CodeValue": "C62175",
+                "CodingSchemeDesignator": "NCIt",
+                "CodeMeaning": "Lobular Pattern"
+            },
+            "Value": {
+                "CodeValue": "002",
+                "CodingSchemeDesignator": "99LIDCQIICR",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "2 out of 5"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0546",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.36490.1553320705.651",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.36489.1553320701.210403",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.204802250386343794613980417281",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.16004265061515691700856472739027870655844811969415709190632",
+            "Quantity": {
+                "CodeValue": "C62175",
+                "CodingSchemeDesignator": "NCIt",
+                "CodeMeaning": "Lobular Pattern"
+            },
+            "Value": {
+                "CodeValue": "002",
+                "CodingSchemeDesignator": "99LIDCQIICR",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "2 out of 5"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0555",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.37110.1553321329.688",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.37109.1553321326.228802",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.163994693532965040247348251579",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.68305657466571708410725778385789148823348983267530782838878",
+            "Quantity": {
+                "CodeValue": "C28749",
+                "CodingSchemeDesignator": "NCIt",
+                "CodeMeaning": "Spiculation"
+            },
+            "Value": {
+                "CodeValue": "002",
+                "CodingSchemeDesignator": "99LIDCQIICR",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "2 out of 5"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0555",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.37110.1553321329.688",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.37109.1553321326.228802",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.163994693532965040247348251579",
+            "trackingIdentifier": "Nodule 1",
+            "trackingUniqueIdentifier": "2.25.68305657466571708410725778385789148823348983267530782838878",
+            "Quantity": {
+                "CodeValue": "C62175",
+                "CodingSchemeDesignator": "NCIt",
+                "CodeMeaning": "Lobular Pattern"
+            },
+            "Value": {
+                "CodeValue": "002",
+                "CodingSchemeDesignator": "99LIDCQIICR",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "2 out of 5"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        },
+        {
+            "PatientID": "LIDC-IDRI-0577",
+            "SOPInstanceUID": "1.2.276.0.7230010.3.1.4.0.38511.1553322657.452",
+            "measurementGroup_number": 0,
+            "segmentationInstanceUID": "1.2.276.0.7230010.3.1.4.0.38510.1553322655.396152",
+            "segmentationSegmentNumber": "[1]",
+            "sourceSegmentedSeriesUID": "1.3.6.1.4.1.14519.5.2.1.6279.6001.323132750133803288886848693067",
+            "trackingIdentifier": "Nodule 2",
+            "trackingUniqueIdentifier": "2.25.10901243004622237317342502958336268900155100069420000735507",
+            "Quantity": {
+                "CodeValue": "C62175",
+                "CodingSchemeDesignator": "NCIt",
+                "CodeMeaning": "Lobular Pattern"
+            },
+            "Value": {
+                "CodeValue": "002",
+                "CodingSchemeDesignator": "99LIDCQIICR",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "2 out of 5"
+            },
+            "finding": {
+                "CodeValue": "M-03010",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Nodule"
+            },
+            "findingSite": {
+                "CodeValue": "T-28000",
+                "CodingSchemeDesignator": "SRT",
+                "CodingSchemeVersion": null,
+                "CodeMeaning": "Lung"
+            }
+        }
+    ]
+}

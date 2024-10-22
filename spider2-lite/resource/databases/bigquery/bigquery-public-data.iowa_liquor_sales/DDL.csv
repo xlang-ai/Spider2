@@ -1,0 +1,31 @@
+table_name,ddl
+sales,"CREATE TABLE `bigquery-public-data.iowa_liquor_sales.sales`
+(
+  invoice_and_item_number STRING OPTIONS(description=""Concatenated invoice and line number associated with the liquor order. This provides a unique identifier for the individual liquor products included in the store order.""),
+  date DATE OPTIONS(description=""Date of order""),
+  store_number STRING OPTIONS(description=""Unique number assigned to the store who ordered the liquor.""),
+  store_name STRING OPTIONS(description=""Name of store who ordered the liquor.""),
+  address STRING OPTIONS(description=""Address of store who ordered the liquor.""),
+  city STRING OPTIONS(description=""City where the store who ordered the liquor is located""),
+  zip_code STRING OPTIONS(description=""Zip code where the store who ordered the liquor is located""),
+  store_location GEOGRAPHY OPTIONS(description=""Location of store who ordered the liquor. The Address, City, State and Zip Code are geocoded to provide geographic coordinates. Accuracy of geocoding is dependent on how well the address is interpreted and the completeness of the reference data used.""),
+  county_number STRING OPTIONS(description=""Iowa county number for the county where store who ordered the liquor is located""),
+  county STRING OPTIONS(description=""County where the store who ordered the liquor is located""),
+  category STRING OPTIONS(description=""Category code associated with the liquor ordered""),
+  category_name STRING OPTIONS(description=""Category of the liquor ordered.""),
+  vendor_number STRING OPTIONS(description=""The vendor number of the company for the brand of liquor ordered""),
+  vendor_name STRING OPTIONS(description=""The vendor name of the company for the brand of liquor ordered""),
+  item_number STRING OPTIONS(description=""Item number for the individual liquor product ordered.""),
+  item_description STRING OPTIONS(description=""Description of the individual liquor product ordered.""),
+  pack INT64 OPTIONS(description=""The number of bottles in a case for the liquor ordered""),
+  bottle_volume_ml INT64 OPTIONS(description=""Volume of each liquor bottle ordered in milliliters.""),
+  state_bottle_cost FLOAT64 OPTIONS(description=""The amount that Alcoholic Beverages Division paid for each bottle of liquor ordered""),
+  state_bottle_retail FLOAT64 OPTIONS(description=""The amount the store paid for each bottle of liquor ordered""),
+  bottles_sold INT64 OPTIONS(description=""The number of bottles of liquor ordered by the store""),
+  sale_dollars FLOAT64 OPTIONS(description=""Total cost of liquor order (number of bottles multiplied by the state bottle retail)""),
+  volume_sold_liters FLOAT64 OPTIONS(description=""Total volume of liquor ordered in liters. (i.e. (Bottle Volume (ml) x Bottles Sold)/1,000)\""""),
+  volume_sold_gallons FLOAT64 OPTIONS(description=""Total volume of liquor ordered in gallons. (i.e. (Bottle Volume (ml) x Bottles Sold)/3785.411784)\"""")
+)
+OPTIONS(
+  description=""Sales Dataset""
+);"

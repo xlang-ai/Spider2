@@ -1,0 +1,31 @@
+## UNIX_SECONDS
+
+UNIX_SECONDS(timestamp_expression)
+
+**Description**
+
+Returns the number of seconds since ` 1970-01-01 00:00:00 UTC ` . Truncates higher levels of precision by rounding down to the beginning of the second.
+
+**Return Data Type**
+
+` INT64 `
+
+**Examples**
+
+
+SELECT UNIX_SECONDS(TIMESTAMP "2008-12-25 15:30:00+00") AS seconds;
+
+/*------------*
+| seconds    |
++------------+
+| 1230219000 |
+*------------*/
+
+
+SELECT UNIX_SECONDS(TIMESTAMP "1970-01-01 00:00:01.8+00") AS seconds;
+
+/*------------*
+| seconds    |
++------------+
+| 1          |
+*------------*/

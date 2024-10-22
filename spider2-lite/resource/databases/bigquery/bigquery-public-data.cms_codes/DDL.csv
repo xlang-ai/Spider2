@@ -1,0 +1,80 @@
+table_name,ddl
+icd10_procedures_2019,"CREATE TABLE `bigquery-public-data.cms_codes.icd10_procedures_2019`
+(
+  order_number STRING OPTIONS(description=""Unique identifier that makes it easier for users to communicate a range of codes""),
+  pcs_code STRING OPTIONS(description=""Procedure code""),
+  is_header_code BOOL OPTIONS(description=""TRUE - The code is a “header” code and not valid for HIPAA-covered transactions. FALSE - The code is valid for submission for HIPAA-covered transactions.""),
+  short_description STRING OPTIONS(description=""Short text description of the procedure""),
+  long_description STRING OPTIONS(description=""Full text description of the procedure"")
+);"
+hcpcs,"CREATE TABLE `bigquery-public-data.cms_codes.hcpcs`
+(
+  HCPC STRING,
+  SEQNUM STRING,
+  RECID INT64,
+  LONG_DESCRIPTION STRING,
+  SHORT_DESCRIPTION STRING,
+  PRICE1 STRING,
+  PRICE2 STRING,
+  PRICE3 STRING,
+  PRICE4 STRING,
+  MULT_PI STRING,
+  CIM1 STRING,
+  CIM2 STRING,
+  CIM3 STRING,
+  MCM1 FLOAT64,
+  MCM2 INT64,
+  MCM3 STRING,
+  STATUTE STRING,
+  LABCERT1 STRING,
+  LABCERT2 STRING,
+  LABCERT3 STRING,
+  LABCERT4 STRING,
+  LABCERT5 STRING,
+  LABCERT6 STRING,
+  LABCERT7 STRING,
+  LABCERT8 STRING,
+  XREF1 STRING,
+  XREF2 STRING,
+  XREF3 STRING,
+  XREF4 STRING,
+  XREF5 STRING,
+  COV STRING,
+  ASC_GRP STRING,
+  ASC_DT STRING,
+  OPPS STRING,
+  OPPS_PI STRING,
+  OPPS_DT STRING,
+  PROCNOTE STRING,
+  BETOS STRING,
+  TOS1 STRING,
+  TOS2 STRING,
+  TOS3 STRING,
+  TOS4 STRING,
+  TOS5 STRING,
+  ANEST_BU STRING,
+  ADD_DT STRING,
+  ACT_EFF_DT STRING,
+  TERM_DT STRING,
+  ACTION_CD BOOL
+);"
+icd9_diagnoses,"CREATE TABLE `bigquery-public-data.cms_codes.icd9_diagnoses`
+(
+  DIAGNOSIS_CODE STRING,
+  LONG_DESCRIPTION STRING,
+  SHORT_DESCRIPTION STRING
+);"
+icd10_diagnoses_2019,"CREATE TABLE `bigquery-public-data.cms_codes.icd10_diagnoses_2019`
+(
+  order_number STRING OPTIONS(description=""Unique header code that makes it easier for users to communicate a range of codes""),
+  cm_code STRING OPTIONS(description=""Diagnosis code""),
+  is_header_code BOOL OPTIONS(description=""TRUE -  The code is a “header” code and not valid for HIPAA-covered transactions. FALSE - The code is valid for submission for HIPAA-covered transactions.""),
+  short_description STRING OPTIONS(description=""Short text description of the diagnosis""),
+  long_description STRING OPTIONS(description=""Full text description of the diagnosis"")
+);"
+icd9_procedures,"CREATE TABLE `bigquery-public-data.cms_codes.icd9_procedures`
+(
+  PROCEDURE_CODE STRING,
+  LONG_DESCRIPTION STRING,
+  SHORT_DESCRIPTION STRING
+);"

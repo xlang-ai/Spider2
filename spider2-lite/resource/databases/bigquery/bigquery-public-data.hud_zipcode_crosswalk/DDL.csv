@@ -1,0 +1,37 @@
+table_name,ddl
+zipcode_to_census_tracts,"CREATE TABLE `bigquery-public-data.hud_zipcode_crosswalk.zipcode_to_census_tracts`
+(
+  zip_code STRING OPTIONS(description=""5 digit USPS Zip Code.""),
+  census_tract_geoid STRING OPTIONS(description=""11 digit unique 2000 or 2010 Census tract GEOID consisting of state FIPS + county FIPS + tract code. The decimal is implied and leading and trailing zeros have been preserved. These can map to multiple USPS ZIPs. Maps to 'geo_id' in tables with Census Tract data""),
+  residential_ratio NUMERIC OPTIONS(description=""The ratio of residential addresses in the ZIP – Tract part to the total number of residential addresses in the entire ZIP.""),
+  business_ratio NUMERIC OPTIONS(description=""\tThe ratio of business addresses in the ZIP – Tractpart to the total number of business addresses in the entire ZIP.""),
+  other_ratio NUMERIC OPTIONS(description=""The ratio of other addresses in the ZIP – Tractpart to the total number of business addresses in the entire ZIP.""),
+  total_ratio NUMERIC OPTIONS(description=""The ratio of all addresses in the ZIP – Tractpart to the total number of business addresses in the entire ZIP."")
+)
+CLUSTER BY census_tract_geoid, zip_code
+OPTIONS(
+  description=""USPS ZIP code crosswalk to census tract.\nThis file is not 1-1; please use ratio columns when splitting to tracts.\n\nThis is ZIP CODE, not ZCTA.\nDo not join ZIP CODE directly to ZCTA census tables.\n\nThis cross reference table is supplied by US HUD.\nhttps://www.huduser.gov/portal/datasets/usps_crosswalk.html\n\n\n\""One of the many challenges that researchers and practitioners face is the difficulty of relating United States Postal Service (USPS) ZIP codes to Census Bureau geographies. There are valuable data available only at the ZIP code level that, when combined with demographic data tabulated at various Census geography levels, could open up new avenues of exploration.\n\nWhile some acceptable methods of combining ZIP codes and Census geography exist, they have limitations. To provide additional avenues for merging these data, PD&R has released the HUD-USPS Crosswalk Files. These unique files are derived from data in the quarterly USPS Vacancy Data. They originate directly from the USPS; are updated quarterly, making them highly responsive to changes in ZIP code configurations; and reflect the locations of both business and residential addresses.\""""
+);"
+zip_to_county,"CREATE TABLE `bigquery-public-data.hud_zipcode_crosswalk.zip_to_county`
+(
+  zip_code STRING OPTIONS(description=""5 digit USPS Zip Code.""),
+  county_geoid STRING OPTIONS(description=""5 digit unique 2000 or 2010 Census County GEOID consisting of state FIPS + county FIPS. These can map to multiple USPS ZIPs. Maps to 'geo_id' in tables with county data""),
+  residential_ratio NUMERIC OPTIONS(description=""The ratio of residential addresses in the ZIP - County part to the total number of residential addresses in the entire ZIP.""),
+  business_ratio NUMERIC OPTIONS(description=""The ratio of business addresses in the ZIP - County part to the total number of business addresses in the entire ZIP.""),
+  other_ratio NUMERIC OPTIONS(description=""The ratio of other addresses in the ZIP - County part to the total number of business addresses in the entire ZIP.""),
+  total_ratio NUMERIC OPTIONS(description=""The ratio of all addresses in the ZIP - County part to the total number of business addresses in the entire ZIP."")
+)
+CLUSTER BY zip_code, county_geoid;"
+census_tracts_to_zipcode,"CREATE TABLE `bigquery-public-data.hud_zipcode_crosswalk.census_tracts_to_zipcode`
+(
+  census_tract_geoid STRING OPTIONS(description=""11 digit unique 2000 or 2010 Census tract GEOID consisting of state FIPS + county FIPS + tract code. The decimal is implied and leading and trailing zeros have been preserved. These can map to multiple USPS ZIPs. Maps to 'geo_id' in tables with Census Tract data""),
+  zip_code STRING OPTIONS(description=""5 digit USPS Zip Code.""),
+  residential_ratio NUMERIC OPTIONS(description=""The ratio of residential addresses in the Tract-ZIP part to the total number of residential addresses in the entire Tract.""),
+  business_ratio NUMERIC OPTIONS(description=""The ratio of business addresses in the Tract-ZIP part to the total number of business addresses in the entire Tract.""),
+  other_ratio NUMERIC OPTIONS(description=""The ratio of other addresses in the Tract-ZIP part to the total number of other addresses in the entire Tract.""),
+  total_ratio NUMERIC OPTIONS(description=""The ratio of all addresses in the Tract-ZIP part to the total number of all types of addresses in the entire Tract."")
+)
+CLUSTER BY census_tract_geoid, zip_code
+OPTIONS(
+  description=""Census tract crosswalk to USPS ZIP code.\nThis file is not 1-1; please use ratio columns when aggregating to zips.\n\nThis is ZIP CODE, not ZCTA.\nDo not join ZIP CODE directly to ZCTA census tables.\n\nThis cross reference table is supplied by US HUD.\nhttps://www.huduser.gov/portal/datasets/usps_crosswalk.html\n\n\n\""One of the many challenges that researchers and practitioners face is the difficulty of relating United States Postal Service (USPS) ZIP codes to Census Bureau geographies. There are valuable data available only at the ZIP code level that, when combined with demographic data tabulated at various Census geography levels, could open up new avenues of exploration.\n\nWhile some acceptable methods of combining ZIP codes and Census geography exist, they have limitations. To provide additional avenues for merging these data, PD&R has released the HUD-USPS Crosswalk Files. These unique files are derived from data in the quarterly USPS Vacancy Data. They originate directly from the USPS; are updated quarterly, making them highly responsive to changes in ZIP code configurations; and reflect the locations of both business and residential addresses.\""""
+);"

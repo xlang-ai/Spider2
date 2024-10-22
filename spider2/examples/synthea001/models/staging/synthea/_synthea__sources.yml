@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: synthea
+    schema: "{% if var('seed_source') %}{{ target.schema ~ '_synthea_seeds' }}{% else %}{{ target.schema ~ '_synthea' }}{% endif %}"
+    tables:
+      - name: allergies
+      - name: careplans
+      - name: claims_transactions
+      - name: claims
+      - name: conditions
+      - name: devices
+      - name: encounters
+      - name: imaging_studies
+      - name: immunizations
+      - name: medications
+      - name: observations
+      - name: organizations
+      - name: patients
+      - name: payer_transitions
+      - name: payers
+      - name: procedures
+      - name: providers
+      - name: supplies
+      

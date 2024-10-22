@@ -1,0 +1,312 @@
+version: 2
+
+models:
+  - name: stg_intercom__admin
+    description: Table containing information related to admins. Admins are the teammate accounts that have access to a workspace.
+    columns:
+      - name: admin_id
+        description: The unique identifier representing the admin.
+        tests:
+          - not_null
+          - unique
+      - name: job_title
+        description: The admin job title.
+      - name: name
+        description: The name of the admin.
+      - name: _fivetran_deleted
+        description: Boolean indicating whether the contact is deleted.
+
+  - name: stg_intercom__company_history
+    description: Table containing historical information about companies which have been created within Intercom.
+    columns:
+      - name: company_id
+        description: The unique identifier representing the Intercom defined company.
+        tests:
+          - not_null
+      - name: company_name
+        description: The name of the company.
+      - name: website
+        description: The website associated with the company.
+      - name: industry
+        description: The defined industry the company operates in.
+      - name: created_at
+        description: The time the company was created.
+      - name: updated_at
+        description: The time the company was last updated at.
+      - name: user_count
+        description: The total count of users associated with the company.
+      - name: session_count
+        description: The total count of conversation sessions associated with the company.
+      - name: monthly_spend
+        description: How much revenue the company generates for your business.
+      - name: plan_id
+        description: Unique identifier representing the company plan.
+      - name: plan_name
+        description: The name of the plan you have associated with the company.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__company_tag_history
+    loaded_at_field: _fivetran_synced
+    description: Mapping table for tags associated with companies.
+    columns: 
+      - name: company_id
+        description: The unique identifier related to the company.
+        tests:
+          - not_null
+      - name: company_updated_at
+        description: The date the company was last updated at.
+      - name: tag_id
+        description: The unique identifier related to the tag.
+        tests:
+          - not_null
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__contact_company_history
+    description: Mapping table for contacts associated with companies.
+    columns:
+      - name: company_id
+        description: The unique identifier related to the company.
+        tests:
+          - not_null
+      - name: contact_id
+        description: The unique identifier related to the contact.
+        tests:
+          - not_null
+      - name: contact_updated_at
+        description: The time the contact was last updated at.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__contact_history
+    description: Table which provides historical details on contacts within Intercom.
+    columns:
+      - name: contact_id
+        description: The unique identifier for the contact which is given by Intercom.
+        tests: 
+          - not_null
+      - name: admin_id
+        description: The unique identifier representing the admin which has been assigned ownership of the contact.
+      - name: created_at
+        description: The time when the contact was created within Intercom.
+      - name: updated_at
+        description: The time when the contact was last updated.
+      - name: signed_up_at
+        description: The time the contact signed up.
+      - name: contact_name
+        description: The name of the contact.
+      - name: contact_role
+        description: The role of the contact (will either be user or lead).
+      - name: contact_email
+        description: The contacts email.
+      - name: last_replied_at
+        description: The time when the contact last messaged in.
+      - name: last_contacted_at
+        description: The time when the contact was last messaged.
+      - name: last_email_clicked_at
+        description: The time when the contact last clicked a link in an email.
+      - name: last_email_opened_at
+        description: The time when a contact last opened an email.
+      - name: is_unsubscribed_from_emails
+        description: Boolean indicating whether the contact has unsubscribed from emails.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__contact_tag_history
+    loaded_at_field: _fivetran_synced
+    description: Mapping table for tags associated with contacts.
+    columns: 
+      - name: contact_id
+        description: The unique identifier related to the contact.
+        tests:
+          - not_null
+      - name: contact_updated_at
+        description: The date the contact was last updated at.
+      - name: tag_id
+        description: The unique identifier related to the tag.
+        tests:
+          - not_null
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__conversation_contact_history
+    description: Mapping table for contacts associated with a conversation.
+    columns:
+      - name: contact_id
+        description: The unique identifier for the contact.
+        tests:
+          - not_null
+      - name: conversation_id
+        description: The unique identifier for the conversation.
+        tests:
+          - not_null
+      - name: conversation_updated_at
+        description: Time the conversation was last updated at.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__conversation_history
+    description: Table containing the historical records of each conversation. Conversations are created when a contact replies to an outbound message, or when one admin directly sends a message to a single contact.
+    columns:
+      - name: conversation_id
+        description: The id representing the conversation.
+        tests:
+          - not_null
+      - name: created_at
+        description: The time the conversation was created.
+      - name: assignee_id
+        description: The id of the user assigned to the conversation. If it is not assigned to a user it will return null.
+      - name: assignee_type
+        description: The type of user the conversation is assigned to. If it is not assigned to a user it will return null.
+      - name: conversation_rating_value
+        description: An optional field for the customer to rate the conversation which will be between 1 and 5.
+      - name: conversation_rating_remark
+        description: An optional field to add a remark to correspond to the number rating.
+      - name: first_contact_reply_created_at
+        description: Time of the first text conversation part from a contact.
+      - name: first_contact_reply_type
+        description: The type of communication in which the first contact reply was.
+      - name: is_read
+        description: Boolean indicating whether the conversation message has been read.
+      - name: source_author_id
+        description: id of the individual who authored the first message.
+      - name: source_author_type
+        description: The type of individual who authored the first message.
+      - name: source_delivered_as
+        description: How the conversation was initially delivered to the responder.
+      - name: source_type
+        description: The type of conversation. This includes conversation, push, facebook, twitter and email.
+      - name: source_subject
+        description: The subject of the conversation created by the initiator.
+      - name: state
+        description: The current state of the conversation (open or close).
+      - name: updated_at
+        description: The date the conversation was last updated at.
+      - name: waiting_since
+        description: The last time a contact responded to an admin. The time a customer started waiting for a response. Set to null if the last reply is from an admin.
+      - name: snoozed_until
+        description: If set, this is the time in the future when this conversation will be marked as open.
+      - name: sla_name
+        description: The name of the SLA as given by the teammate when it was created.
+      - name: sla_status
+        description: One of “hit”, ”missed”, or “cancelled”.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__conversation_part_history
+    description: Table containing data related to the individual parts of a single conversation. 
+    columns:
+      - name: conversation_part_id
+        description: The id representing the conversation part.
+        tests:
+          - not_null
+      - name: part_type
+        description: The type of conversation part.
+      - name: conversation_id
+        description: The id representing the parent conversation.
+      - name: author_id
+        description: The id representing the individual that sent the message.
+      - name: author_type
+        description: The type of individual that sent the message (user, admin, or bot).
+      - name: created_at
+        description: The time the conversation part was created.
+        tests:
+          - not_null
+      - name: assigned_to_id
+        description: The id of the admin that was assigned the conversation by this conversation_part (null if there has been no change in assignment).
+      - name: assigned_to_type
+        description: The type of the individual which the conversation part is assigned.
+      - name: conversation_updated_at
+        description: The time the parent conversation was last updated at.
+      - name: updated_at
+        description: The time the conversation part was last updated at.
+      - name: body
+        description: Optional field that contains the body of the conversation part. Typically only populated for comment and assignment part_types.
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+
+  - name: stg_intercom__conversation_tag_history
+    description: Mapping table for tags associated with conversations.
+    columns: 
+      - name: conversation_id
+        description: The unique identifier related to the conversation.
+        tests:
+          - not_null
+      - name: tag_id
+        description: The unique identifier related to the tag.
+        tests:
+          - not_null
+      - name: _fivetran_active
+        description: Boolean to identify an active record.
+      - name: _fivetran_start
+        description: Timestamp to record the time that a record is ingested by Fivetran. This value may not be identical to the time the record was created in the source system.
+      - name: _fivetran_end
+        description: Timestamp to record the time when a record became inactive in the source system.
+      
+  - name: stg_intercom__tag
+    description: Table consisting of tags which allow you to label your contacts, companies, or conversations.
+    columns: 
+      - name: tag_id
+        description: The unique identifier related to the tag.
+      - name: name
+        description: The name of the tag.
+      - name: _fivetran_deleted
+        description: Boolean indicating whether the contact is deleted.
+
+  - name: stg_intercom__team_admin
+    description: Mapping table for admins associated with teams.
+    columns: 
+      - name: team_id
+        description: The unique identifier of the team.
+        tests:
+          - not_null
+      - name: admin_id 
+        description: The unique identifier of the admin associate with the team.
+      - name: _fivetran_deleted
+        description: Boolean indicating whether the contact is deleted.
+
+  - name: stg_intercom__team
+    description: Table containing teams which are made up of groups of admin in Intercom.
+    columns: 
+      - name: team_id
+        description: The unique identifier of the team.
+        tests:
+          - not_null
+          - unique
+      - name: name 
+        description: The name of the team.
+      - name: _fivetran_deleted
+        description: Boolean indicating whether the contact is deleted.

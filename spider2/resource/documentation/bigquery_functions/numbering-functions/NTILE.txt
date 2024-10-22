@@ -1,0 +1,52 @@
+## NTILE
+
+NTILE(constant_integer_expression) OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+ORDER BY expression [ { ASC | DESC }  ] [, ...]
+
+
+**Description**
+
+This function divides the rows into ` constant_integer_expression ` buckets based on row ordering and returns the 1-based bucket number that is assigned to each row. The number of rows in the buckets can differ by at most 1. The remainder values (the remainder of number of rows divided by buckets) are distributed one for each bucket, starting with bucket 1. If `
+constant_integer_expression ` evaluates to NULL, 0 or negative, an error is provided.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Return Type**
+
+` INT64 `
+
+**Example**
+
+
+WITH finishers AS (SELECT 'Sophia Liu' as name,
+TIMESTAMP '2016-10-18 2:51:45' as finish_time,
+'F30-34' as division UNION ALL SELECT 'Lisa Stelzner', TIMESTAMP '2016-10-18 2:54:11', 'F35-39'
+UNION ALL SELECT 'Nikki Leith', TIMESTAMP '2016-10-18 2:59:01', 'F30-34'
+UNION ALL SELECT 'Lauren Matthews', TIMESTAMP '2016-10-18 3:01:17', 'F35-39'
+UNION ALL SELECT 'Desiree Berry', TIMESTAMP '2016-10-18 3:05:42', 'F35-39'
+UNION ALL SELECT 'Suzy Slane', TIMESTAMP '2016-10-18 3:06:24', 'F35-39'
+UNION ALL SELECT 'Jen Edwards', TIMESTAMP '2016-10-18 3:06:36', 'F30-34'
+UNION ALL SELECT 'Meghan Lederer', TIMESTAMP '2016-10-18 2:59:01', 'F30-34') SELECT name,
+finish_time,
+division,
+NTILE(3) OVER (PARTITION BY division ORDER BY finish_time ASC) AS finish_rank FROM finishers;
+
+/*-----------------+------------------------+----------+-------------*
+| name            | finish_time            | division | finish_rank |
++-----------------+------------------------+----------+-------------+
+| Sophia Liu      | 2016-10-18 09:51:45+00 | F30-34   | 1           |
+| Meghan Lederer  | 2016-10-18 09:59:01+00 | F30-34   | 1           |
+| Nikki Leith     | 2016-10-18 09:59:01+00 | F30-34   | 2           |
+| Jen Edwards     | 2016-10-18 10:06:36+00 | F30-34   | 3           |
+| Lisa Stelzner   | 2016-10-18 09:54:11+00 | F35-39   | 1           |
+| Lauren Matthews | 2016-10-18 10:01:17+00 | F35-39   | 1           |
+| Desiree Berry   | 2016-10-18 10:05:42+00 | F35-39   | 2           |
+| Suzy Slane      | 2016-10-18 10:06:24+00 | F35-39   | 3           |
+*-----------------+------------------------+----------+-------------*/

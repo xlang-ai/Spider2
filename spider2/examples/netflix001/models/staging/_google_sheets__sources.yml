@@ -1,0 +1,15 @@
+version: 2
+
+# config file for source data living in google sheets
+# the data lands in google sheets after being scraped from wikipedia each day
+
+sources:
+  - name: google_sheets # name of the source - imp. for calling in sql files when using source('source-name', 'table-name') function
+    description: replica of source data that originated from netflix originals wikipedia page
+    schema: main      
+
+    tables:
+      - name: GOOGLE_SHEETS__ORIGINAL_CATEGORIES
+      - name: GOOGLE_SHEETS__ORIGINAL_COMEDIES
+      - name: GOOGLE_SHEETS__ORIGINAL_DRAMAS
+      - name: GOOGLE_SHEETS__ORIGINAL_DOCUSERIES

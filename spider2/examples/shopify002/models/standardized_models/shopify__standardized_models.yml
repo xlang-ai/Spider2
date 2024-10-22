@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: shopify__line_item_enhanced
+    description: This model constructs a comprehensive, denormalized analytical table that enables reporting on key revenue, customer, and product metrics from your billing platform. It’s designed to align with the schema of the `*__line_item_enhanced` model found in Shopify, Recharge, Stripe, Zuora, and Recurly, offering standardized reporting across various billing platforms. To see the kinds of insights this model can generate, explore example visualizations in the [Fivetran Billing Model Streamlit App](https://fivetran-billing-model.streamlit.app/). Visit the app for more details.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - header_id
+            - line_item_id
+            - source_relation
+    columns:
+      - name: header_id
+        description: Id of corresponding order.
+      - name: line_item_id
+        description: Order line item id.
+      - name: line_item_index
+        description: Unique index of each line item id for each order.
+      - name: record_type
+        description: header or line_item
+      - name: created_at
+        description: When the order was created
+      - name: header_status
+        description: Status of the order.
+      - name: billing_type
+        description: NA for Shopify.
+      - name: currency
+        description: Currency used in the order.
+      - name: product_id
+        description: Product ID
+      - name: product_name
+        description: Product name
+      - name: product_type
+        description: Product type
+      - name: transaction_type
+        description: Transaction type (Charge, Refund, etc)
+      - name: quantity
+        description: The number of units of this line item.
+      - name: unit_amount
+        description: Amount per unit, or the price.
+      - name: discount_amount
+        description: The discount amount associated with this order.
+      - name: tax_amount
+        description: The tax amount associated with this order.
+      - name: total_amount
+        description: Order total
+      - name: payment_id
+        description: Transaction ID
+      - name: payment_method
+        description: Transaction gateway for Shopify ('gift card', 'shopify payments', etc)
+      - name: payment_method_id
+        description: Shopify does not have a particular payment_method_id, therefore all records will be null.
+      - name: payment_at
+        description: Transaction processed timestamp
+      - name: fee_amount
+        description: The total shipping fee associated with the order.
+      - name: refund_amount
+        description: Refund amount associated with this order.
+      - name: subscription_id
+        description: Shopify does not include subscriptions, therefore all records will be null.
+      - name: subscription_plan
+        description: Shopify does not include subscriptions, therefore all records will be null.
+      - name: subscription_period_started_at
+        description: Shopify does not include subscriptions, therefore all records will be null.
+      - name: subscription_period_ended_at
+        description: Shopify does not include subscriptions, therefore all records will be null.
+      - name: subscription_status
+        description: Shopify does not include subscriptions, therefore all records will be null.
+      - name: customer_id
+        description: Customer associated with this order.
+      - name: customer_created_at
+        description: The date and time when the customer was created.
+      - name: customer_level
+        description: Whether 'account' or 'customer'. For Shopify, the level is 'customer'.
+      - name: customer_name
+        description: Customer name
+      - name: customer_company
+        description: Associated customer's company noted on the shipping address if applicable.
+      - name: customer_email
+        description: Customer email
+      - name: customer_city
+        description: Customer's shipping address city
+      - name: customer_country
+        description: Customer's shipping address country
+      - name: source_relation
+        description: The source of the record if the unioning functionality is being used. If not this field will be empty.

@@ -1,0 +1,49 @@
+## DECLARE
+
+DECLARE variable_name[, ...] [variable_type] [DEFAULT expression];
+
+` variable_name ` must be a valid identifier, and ` variable_type ` is any GoogleSQL [ type ](/bigquery/docs/reference/standard-sql/data-types) .
+
+**Description**
+
+Declares a variable of the specified type. If the ` DEFAULT ` clause is specified, the variable is initialized with the value of the expression; if no
+` DEFAULT ` clause is present, the variable is initialized with the value `
+NULL ` .
+
+If ` [variable_type] ` is omitted then a ` DEFAULT ` clause must be specified.
+The variable’s type will be inferred by the type of the expression in the `
+DEFAULT ` clause.
+
+Variable declarations must appear before other procedural statements, or at the start of a ` BEGIN ` block. Variable names are case-insensitive.
+
+Multiple variable names can appear in a single ` DECLARE ` statement, but only one ` variable_type ` and ` expression ` .
+
+It is an error to declare a variable with the same name as a variable declared earlier in the current block or in a containing block.
+
+If the ` DEFAULT ` clause is present, the value of the expression must be coercible to the specified type. The expression may reference other variables declared previously within the same block or a containing block.
+
+GoogleSQL also supports [ system variables ](/bigquery/docs/reference/system-
+variables) . You do not need to declare system variables, but you can set any of them that are not marked read-only. You can reference system variables in queries.
+
+**Examples**
+
+The following example initializes the variable ` x ` as an ` INT64 ` with the value ` NULL ` .
+
+
+DECLARE x INT64;
+
+The following example initializes the variable ` d ` as a ` DATE ` object with the value of the current date.
+
+
+DECLARE d DATE DEFAULT CURRENT_DATE();
+
+The following example initializes the variables ` x ` , ` y ` , and ` z ` as `
+INT64 ` with the value 0.
+
+
+DECLARE x, y, z INT64 DEFAULT 0;
+
+The following example declares a variable named ` item ` corresponding to an arbitrary item in the ` schema1.products ` table. The type of ` item ` is inferred from the table schema.
+
+
+DECLARE item DEFAULT (SELECT item FROM schema1.products LIMIT 1);

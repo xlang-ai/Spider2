@@ -1,0 +1,431 @@
+table_name,ddl
+home_game,"CREATE TABLE `spider2-public-data.baseball.home_game`
+(
+  games INT64,
+  span_last DATE,
+  park_id STRING,
+  span_first DATE,
+  league_id STRING,
+  openings INT64,
+  team_id STRING,
+  attendance INT64,
+  year INT64
+);"
+fielding_postseason,"CREATE TABLE `spider2-public-data.baseball.fielding_postseason`
+(
+  cs INT64,
+  sb INT64,
+  tp INT64,
+  e INT64,
+  po INT64,
+  gs INT64,
+  g INT64,
+  league_id STRING,
+  inn_outs INT64,
+  pos STRING,
+  dp INT64,
+  a INT64,
+  team_id STRING,
+  year INT64,
+  pb INT64,
+  round STRING,
+  player_id STRING
+);"
+team_franchise,"CREATE TABLE `spider2-public-data.baseball.team_franchise`
+(
+  na_assoc STRING,
+  active BOOL,
+  franchise_name STRING,
+  franchise_id STRING
+);"
+hall_of_fame,"CREATE TABLE `spider2-public-data.baseball.hall_of_fame`
+(
+  inducted BOOL,
+  needed_note STRING,
+  needed INT64,
+  votes INT64,
+  ballots INT64,
+  category STRING,
+  player_id STRING,
+  yearid INT64,
+  votedby STRING
+);"
+salary,"CREATE TABLE `spider2-public-data.baseball.salary`
+(
+  salary INT64,
+  player_id STRING,
+  league_id STRING,
+  team_id STRING,
+  year INT64
+);"
+team_half,"CREATE TABLE `spider2-public-data.baseball.team_half`
+(
+  l INT64,
+  w INT64,
+  rank INT64,
+  div_win BOOL,
+  div_id STRING,
+  half INT64,
+  g INT64,
+  league_id STRING,
+  team_id STRING,
+  year INT64
+);"
+manager_award,"CREATE TABLE `spider2-public-data.baseball.manager_award`
+(
+  notes STRING,
+  award_id STRING,
+  tie BOOL,
+  league_id STRING,
+  year INT64,
+  player_id STRING
+);"
+pitching_postseason,"CREATE TABLE `spider2-public-data.baseball.pitching_postseason`
+(
+  sh INT64,
+  r INT64,
+  gf INT64,
+  bk INT64,
+  ibb INT64,
+  era FLOAT64,
+  g INT64,
+  bb INT64,
+  sf INT64,
+  wp INT64,
+  team_id STRING,
+  hr INT64,
+  h INT64,
+  year INT64,
+  hbp INT64,
+  ipouts INT64,
+  bfp INT64,
+  so INT64,
+  g_idp INT64,
+  sv INT64,
+  w INT64,
+  gs INT64,
+  sho INT64,
+  l INT64,
+  league_id STRING,
+  cg INT64,
+  baopp STRING,
+  er INT64,
+  round STRING,
+  player_id STRING
+);"
+postseason,"CREATE TABLE `spider2-public-data.baseball.postseason`
+(
+  ties INT64,
+  losses INT64,
+  league_id_loser STRING,
+  wins INT64,
+  team_id_winner STRING,
+  league_id_winner STRING,
+  year INT64,
+  team_id_loser STRING,
+  round STRING
+);"
+batting_postseason,"CREATE TABLE `spider2-public-data.baseball.batting_postseason`
+(
+  g_idp INT64,
+  sf INT64,
+  ibb INT64,
+  bb INT64,
+  cs INT64,
+  sh INT64,
+  so INT64,
+  sb INT64,
+  hbp INT64,
+  rbi INT64,
+  hr INT64,
+  r INT64,
+  double INT64,
+  ab INT64,
+  g INT64,
+  league_id STRING,
+  player_id STRING,
+  h INT64,
+  round STRING,
+  team_id STRING,
+  triple INT64,
+  year INT64
+);"
+batting,"CREATE TABLE `spider2-public-data.baseball.batting`
+(
+  g_idp INT64,
+  sf INT64,
+  ibb INT64,
+  bb INT64,
+  cs INT64,
+  sh INT64,
+  so INT64,
+  sb INT64,
+  hbp INT64,
+  rbi INT64,
+  hr INT64,
+  h INT64,
+  r INT64,
+  double INT64,
+  ab INT64,
+  g INT64,
+  league_id STRING,
+  team_id STRING,
+  triple INT64,
+  year INT64,
+  stint INT64,
+  player_id STRING
+);"
+manager_award_vote,"CREATE TABLE `spider2-public-data.baseball.manager_award_vote`
+(
+  votes_first INT64,
+  points_max INT64,
+  player_id STRING,
+  award_id STRING,
+  league_id STRING,
+  points_won INT64,
+  year INT64
+);"
+college,"CREATE TABLE `spider2-public-data.baseball.college`
+(
+  country STRING,
+  state STRING,
+  name_full STRING,
+  city STRING,
+  college_id STRING
+);"
+all_star,"CREATE TABLE `spider2-public-data.baseball.all_star`
+(
+  starting_pos INT64,
+  gp INT64,
+  league_id STRING,
+  team_id STRING,
+  game_num INT64,
+  year INT64,
+  game_id STRING,
+  player_id STRING
+);"
+park,"CREATE TABLE `spider2-public-data.baseball.park`
+(
+  country STRING,
+  state STRING,
+  city STRING,
+  park_alias STRING,
+  park_name STRING,
+  park_id STRING
+);"
+player_college,"CREATE TABLE `spider2-public-data.baseball.player_college`
+(
+  year INT64,
+  college_id STRING,
+  player_id STRING
+);"
+manager_half,"CREATE TABLE `spider2-public-data.baseball.manager_half`
+(
+  rank INT64,
+  l INT64,
+  w INT64,
+  half INT64,
+  g INT64,
+  inseason INT64,
+  league_id STRING,
+  team_id STRING,
+  year INT64,
+  player_id STRING
+);"
+appearances,"CREATE TABLE `spider2-public-data.baseball.appearances`
+(
+  g_dh STRING,
+  g_pr STRING,
+  g_of INT64,
+  g_lf INT64,
+  g_ss INT64,
+  g_3b INT64,
+  g_2b INT64,
+  g_all INT64,
+  g_batting INT64,
+  g_1b INT64,
+  g_p INT64,
+  g_c INT64,
+  gs STRING,
+  g_ph STRING,
+  g_cf INT64,
+  player_id STRING,
+  g_defense INT64,
+  team_id STRING,
+  league_id STRING,
+  g_rf INT64,
+  year INT64
+);"
+fielding,"CREATE TABLE `spider2-public-data.baseball.fielding`
+(
+  zr STRING,
+  cs STRING,
+  sb STRING,
+  wp STRING,
+  pb INT64,
+  e INT64,
+  po INT64,
+  stint INT64,
+  gs STRING,
+  g INT64,
+  league_id STRING,
+  inn_outs STRING,
+  pos STRING,
+  dp INT64,
+  a INT64,
+  team_id STRING,
+  year INT64,
+  player_id STRING
+);"
+player,"CREATE TABLE `spider2-public-data.baseball.player`
+(
+  bbref_id STRING,
+  retro_id STRING,
+  final_game DATE,
+  throws STRING,
+  name_given STRING,
+  death_city STRING,
+  death_state STRING,
+  bats STRING,
+  death_country STRING,
+  death_day INT64,
+  weight INT64,
+  death_year INT64,
+  birth_state STRING,
+  birth_city STRING,
+  death_month INT64,
+  birth_day INT64,
+  debut DATE,
+  birth_month INT64,
+  height INT64,
+  player_id STRING,
+  name_last STRING,
+  birth_year INT64,
+  birth_country STRING,
+  name_first STRING
+);"
+fielding_outfield,"CREATE TABLE `spider2-public-data.baseball.fielding_outfield`
+(
+  gcf INT64,
+  glf INT64,
+  year INT64,
+  stint INT64,
+  grf INT64,
+  player_id STRING
+);"
+team,"CREATE TABLE `spider2-public-data.baseball.team`
+(
+  bpf INT64,
+  team_id_br STRING,
+  name STRING,
+  fp FLOAT64,
+  lg_win BOOL,
+  ws_win BOOL,
+  dp INT64,
+  e INT64,
+  cg INT64,
+  soa INT64,
+  attendance INT64,
+  hra INT64,
+  ipouts INT64,
+  bba INT64,
+  sv INT64,
+  sho INT64,
+  g INT64,
+  era FLOAT64,
+  er INT64,
+  ra INT64,
+  park STRING,
+  sf INT64,
+  cs INT64,
+  sb INT64,
+  so INT64,
+  ghome INT64,
+  bb INT64,
+  h INT64,
+  ha INT64,
+  ab INT64,
+  rank INT64,
+  team_id STRING,
+  hr INT64,
+  wc_win BOOL,
+  double INT64,
+  team_id_lahman45 STRING,
+  year INT64,
+  hbp INT64,
+  div_win BOOL,
+  l INT64,
+  w INT64,
+  team_id_retro STRING,
+  r INT64,
+  league_id STRING,
+  triple INT64,
+  div_id STRING,
+  ppf INT64,
+  franchise_id STRING
+);"
+player_award,"CREATE TABLE `spider2-public-data.baseball.player_award`
+(
+  notes STRING,
+  award_id STRING,
+  tie BOOL,
+  league_id STRING,
+  year INT64,
+  player_id STRING
+);"
+manager,"CREATE TABLE `spider2-public-data.baseball.manager`
+(
+  plyr_mgr BOOL,
+  rank INT64,
+  l INT64,
+  w INT64,
+  g INT64,
+  inseason INT64,
+  league_id STRING,
+  team_id STRING,
+  year INT64,
+  player_id STRING
+);"
+pitching,"CREATE TABLE `spider2-public-data.baseball.pitching`
+(
+  sh STRING,
+  r INT64,
+  gf INT64,
+  bk INT64,
+  ibb STRING,
+  stint INT64,
+  era FLOAT64,
+  g INT64,
+  bb INT64,
+  sf STRING,
+  wp INT64,
+  team_id STRING,
+  hr INT64,
+  h INT64,
+  year INT64,
+  hbp INT64,
+  ipouts INT64,
+  bfp INT64,
+  so INT64,
+  g_idp STRING,
+  sv INT64,
+  w INT64,
+  gs INT64,
+  sho INT64,
+  l INT64,
+  league_id STRING,
+  cg INT64,
+  baopp FLOAT64,
+  er INT64,
+  player_id STRING
+);"
+player_award_vote,"CREATE TABLE `spider2-public-data.baseball.player_award_vote`
+(
+  votes_first FLOAT64,
+  points_max INT64,
+  player_id STRING,
+  award_id STRING,
+  league_id STRING,
+  points_won FLOAT64,
+  year INT64
+);"

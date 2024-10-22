@@ -1,0 +1,109 @@
+## STRING_AGG
+
+STRING_AGG(
+[ DISTINCT ]
+expression [, delimiter]
+[ ORDER BY key [ { ASC | DESC } ] [, ... ] ]
+[ LIMIT n ]
+)
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns a value (either ` STRING ` or ` BYTES ` ) obtained by concatenating non- ` NULL ` values. Returns ` NULL ` if there are zero input rows or `
+expression ` evaluates to ` NULL ` for all rows.
+
+If a ` delimiter ` is specified, concatenated values are separated by that delimiter; otherwise, a comma is used as a delimiter.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+If this function is used with the ` OVER ` clause, it's part of a window function call. In a window function call, aggregate function clauses can't be used. To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Supported Argument Types**
+
+Either ` STRING ` or ` BYTES ` .
+
+**Return Data Types**
+
+Either ` STRING ` or ` BYTES ` .
+
+**Examples**
+
+
+SELECT STRING_AGG(fruit) AS string_agg FROM UNNEST(["apple", NULL, "pear", "banana", "pear"]) AS fruit;
+
+/*------------------------*
+| string_agg             |
++------------------------+
+| apple,pear,banana,pear |
+*------------------------*/
+
+
+SELECT STRING_AGG(fruit, " & ") AS string_agg FROM UNNEST(["apple", "pear", "banana", "pear"]) AS fruit;
+
+/*------------------------------*
+| string_agg                   |
++------------------------------+
+| apple & pear & banana & pear |
+*------------------------------*/
+
+
+SELECT STRING_AGG(DISTINCT fruit, " & ") AS string_agg FROM UNNEST(["apple", "pear", "banana", "pear"]) AS fruit;
+
+/*-----------------------*
+| string_agg            |
++-----------------------+
+| apple & pear & banana |
+*-----------------------*/
+
+
+SELECT STRING_AGG(fruit, " & " ORDER BY LENGTH(fruit)) AS string_agg FROM UNNEST(["apple", "pear", "banana", "pear"]) AS fruit;
+
+/*------------------------------*
+| string_agg                   |
++------------------------------+
+| pear & pear & apple & banana |
+*------------------------------*/
+
+
+SELECT STRING_AGG(fruit, " & " LIMIT 2) AS string_agg FROM UNNEST(["apple", "pear", "banana", "pear"]) AS fruit;
+
+/*--------------*
+| string_agg   |
++--------------+
+| apple & pear |
+*--------------*/
+
+
+SELECT STRING_AGG(DISTINCT fruit, " & " ORDER BY fruit DESC LIMIT 2) AS string_agg FROM UNNEST(["apple", "pear", "banana", "pear"]) AS fruit;
+
+/*---------------*
+| string_agg    |
++---------------+
+| pear & banana |
+*---------------*/
+
+
+SELECT fruit,
+STRING_AGG(fruit, " & ") OVER (ORDER BY LENGTH(fruit)) AS string_agg FROM UNNEST(["apple", NULL, "pear", "banana", "pear"]) AS fruit;
+
+/*--------+------------------------------*
+| fruit  | string_agg                   |
++--------+------------------------------+
+| NULL   | NULL                         |
+| pear   | pear & pear                  |
+| pear   | pear & pear                  |
+| apple  | pear & pear & apple          |
+| banana | pear & pear & apple & banana |
+*--------+------------------------------*/

@@ -1,0 +1,83 @@
+## TEXT_ANALYZE
+
+TEXT_ANALYZE( text
+[, analyzer=>{ 'LOG_ANALYZER' | 'NO_OP_ANALYZER' | 'PATTERN_ANALYZER' }]
+[, analyzer_options=>analyzer_options_values]
+)
+
+**Description**
+
+Extracts terms (tokens) from text and converts them into a tokenized document.
+
+**Definitions**
+
+* ` text ` : ` STRING ` value that represents the input text to tokenize.
+* ` analyzer ` : Optional mandatory-named argument that determines which analyzer to use to convert ` text ` into an array of terms (tokens). This can be:
+
+* ` 'LOG_ANALYZER' ` (default): Breaks the input into terms when delimiters are encountered and then normalizes the terms. If ` analyzer ` isn't specified, this is used by default. For more information, see [ ` LOG_ANALYZER ` text analyzer ](/bigquery/docs/reference/standard-sql/text-analysis#log_analyzer) .
+
+* ` 'NO_OP_ANALYZER' ` : Extracts the text as a single term (token), but doesn't apply normalization. For more information, see [ ` NO_OP_ANALYZER ` text analyzer ](/bigquery/docs/reference/standard-sql/text-analysis#no_op_analyzer) .
+
+* ` 'PATTERN_ANALYZER' ` : Breaks the input into terms that match a regular expression. For more information, see [ ` PATTERN_ANALYZER ` text analyzer ](/bigquery/docs/reference/standard-sql/text-analysis#pattern_analyzer) .
+
+* ` analyzer_options ` : Optional mandatory named argument that takes a list of text analysis rules as a JSON-formatted ` STRING ` . For more information, see [ Text analyzer options ](/bigquery/docs/reference/standard-sql/text-analysis#text_analyzer_options) .
+
+**Details**
+
+There is no guarantee on the order of the tokens produced by this function.
+
+If no analyzer is specified, the ` LOG_ANALYZER ` analyzer is used by default.
+
+**Return type**
+
+` ARRAY<STRING> `
+
+**Examples**
+
+The following query uses the default text analyzer, [ ` LOG_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#log_analyzer) , with the input text:
+
+
+SELECT TEXT_ANALYZE('I like pie, you like-pie, they like 2 PIEs.') AS results
+
+/*--------------------------------------------------------------------------*
+| results                                                                  |
++--------------------------------------------------------------------------+
+| ['i', 'like', 'pie', 'you', 'like', 'pie', 'they', 'like', '2', 'pies' ] |
+*--------------------------------------------------------------------------*/
+
+The following query uses the [ ` NO_OP_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#no_op_analyzer) text analyzer with the input text:
+
+
+SELECT TEXT_ANALYZE(
+'I like pie, you like-pie, they like 2 PIEs.',
+analyzer=>'NO_OP_ANALYZER'
+) AS results
+
+/*-----------------------------------------------*
+| results                                       |
++-----------------------------------------------+
+| 'I like pie, you like-pie, they like 2 PIEs.' |
+*-----------------------------------------------*/
+
+The following query uses the [ ` PATTERN_ANALYZER `
+](/bigquery/docs/reference/standard-sql/text-analysis#pattern_analyzer) text analyzer with the input text:
+
+
+SELECT TEXT_ANALYZE(
+'I like pie, you like-pie, they like 2 PIEs.',
+analyzer=>'PATTERN_ANALYZER'
+) AS results
+
+/*----------------------------------------------------------------*
+| results                                                        |
++----------------------------------------------------------------+
+| ['like', 'pie', 'you', 'like', 'pie', 'they', 'like', 'pies' ] |
+*----------------------------------------------------------------*/
+
+For additional examples that include analyzer options, see [ Text analysis
+](/bigquery/docs/reference/standard-sql/text-analysis) .
+
+For helpful analyzer recipes that you can use to enhance analyzer-supported queries, see [ Search with text analyzers ](/bigquery/docs/text-analysis-
+search) .

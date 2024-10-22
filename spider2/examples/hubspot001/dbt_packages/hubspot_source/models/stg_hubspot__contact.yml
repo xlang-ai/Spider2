@@ -1,0 +1,129 @@
+version: 2
+
+models:
+  - name: stg_hubspot__contact_list_member
+    description: Each record represents a 'link' between a contact and a contact list.
+    columns:
+      - name: is_contact_list_member_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: added_timestamp
+        description: The timestamp a contact was added to a list.
+      - name: contact_id
+        description: The ID of the related contact.
+      - name: contact_list_id
+        description: The ID of the related contact list.
+
+  - name: stg_hubspot__contact_list
+    description: Each record represents a contact list in Hubspot.
+    columns:
+      - name: is_contact_list_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: contact_list_id
+        description: The ID of the contact list.
+        tests:
+          - unique
+          - not_null
+      - name: contact_list_name
+        description: The name of the contact list.
+      - name: created_timestamp
+        description: A timestamp of the time the list was created.
+      - name: is_deletable
+        description: If this is false, this is a system list and cannot be deleted.
+      - name: is_dynamic
+        description: Whether the contact list is dynamic.
+      - name: metadata_error
+        description: Any errors that happened the last time the list was processed.
+      - name: metadata_last_processing_state_change_at
+        description: A timestamp of the last time that the processing state changed.
+      - name: metadata_last_size_change_at
+        description: A timestamp of the last time that the size of the list changed.
+      - name: metadata_processing
+        description: |
+              One of DONE, REFRESHING, INITIALIZING, or PROCESSING. 
+              DONE indicates the list has finished processing, any other value indicates that list membership is being evaluated.
+      - name: metadata_size
+        description: The approximate number of contacts in the list.
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+      - name: updated_timestamp
+        description: A timestamp of the time that the list was last modified.
+
+  - name: stg_hubspot__contact_property_history
+    description: Each record represents a change to contact record in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: change_source
+        description: '{{ doc("history_source") }}'
+      - name: change_source_id
+        description: '{{ doc("history_source_id") }}'
+      - name: change_timestamp
+        description: '{{ doc("history_timestamp") }}'
+      - name: contact_id
+        description: The ID of the related contact record.
+      - name: field_name
+        description: '{{ doc("history_name") }}'
+      - name: new_value
+        description: '{{ doc("history_value") }}'
+
+  - name: stg_hubspot__contact_merge_audit
+    description: Each record contains a contact merge event and the contacts effected by the merge.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: canonical_vid
+        description: The contact ID of the contact which the vid_to_merge contact was merged into.
+      - name: contact_id
+        description: The ID of the contact.
+      - name: entity_id
+        description: The ID of the related entity.
+      - name: first_name
+        description: The contact's first name.
+      - name: last_name
+        description: The contact's last name.
+      - name: num_properties_moved
+        description: The number of properties which were removed from the merged contact.
+      - name: timestamp_at
+        description: Timestamp of when the contacts were merged.
+      - name: user_id
+        description: The ID of the user.
+      - name: vid_to_merge
+        description: The ID of the contact which was merged.
+
+  - name: stg_hubspot__contact
+    description: Each record represents a contact in Hubspot.
+    columns:
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: contact_id
+        description: The ID of the contact.
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: The email address of the contact.
+      - name: contact_company
+        description: The name of the contact's company.
+      - name: first_name
+        description: The contact's first name.
+      - name: last_name
+        description: The contact's last name.
+      - name: email
+        description: The contact's email.
+      - name: created_date
+        description: The date that the contact was created in your HubSpot account.
+      - name: job_title
+        description: The contact's job title.
+      - name: company_annual_revenue
+        description: The contact's annual company revenue.
+      - name: calculated_merged_vids
+        description: >
+          List of mappings representing contact IDs that have been merged into the contact at hand.
+          Format: <merged_contact_id>:<merged_at_in_epoch_time>;<second_merged_contact_id>:<merged_at_in_epoch_time>
+          This field has replaced the `CONTACT_MERGE_AUDIT` table, which was deprecated by the Hubspot v3 CRM API.

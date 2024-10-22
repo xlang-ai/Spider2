@@ -1,0 +1,22 @@
+## UNICODE
+
+UNICODE(value)
+
+**Description**
+
+Returns the Unicode [ code point ](https://en.wikipedia.org/wiki/Code_point) for the first character in ` value ` . Returns ` 0 ` if ` value ` is empty, or if the resulting Unicode code point is ` 0 ` .
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+SELECT UNICODE('âbcd') as A, UNICODE('â') as B, UNICODE('') as C, UNICODE(NULL) as D;
+
+/*-------+-------+-------+-------*
+| A     | B     | C     | D     |
++-------+-------+-------+-------+
+| 226   | 226   | 0     | NULL  |
+*-------+-------+-------+-------*/

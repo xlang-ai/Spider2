@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.noaa_hurricanes` database to solve this problem.

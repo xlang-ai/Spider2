@@ -1,0 +1,205 @@
+{
+    "table_name": "20110215",
+    "table_fullname": "githubarchive.day.20110215",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "https://developer.github.com/v3/activity/events/types/",
+        "Always true for this dataset since only public activity is recorded.",
+        "Event payload in JSON format",
+        "Repository associated with the event",
+        "Numeric ID of the GitHub repository",
+        "Repository name",
+        "Repository URL",
+        "Actor generating the event",
+        "Numeric ID of the GitHub actor",
+        "Actor's GitHub login",
+        "Actor's Gravatar ID",
+        "Actor's Gravatar URL",
+        "Actor's profile URL",
+        "GitHub org of the associated repo",
+        "Numeric ID of the GitHub org",
+        "Org's GitHub login",
+        "Org's Gravatar ID",
+        "Org's Gravatar URL",
+        "Org's profile URL",
+        "Timestamp of associated event",
+        "Unique event ID",
+        "Unknown fields in JSON format"
+    ],
+    "sample_rows": [
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"repo\":\"xaviershay/enki\",\"actor\":\"hrktk\",\"actor_gravatar\":\"cfc503b85fe381e246925f51de6071f7\",\"action\":\"started\"}",
+            "repo": {
+                "id": 8986,
+                "name": "xaviershay/enki",
+                "url": "https://api.github.dev/repos/xaviershay/enki"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": null,
+            "created_at": "2011-02-15 21:42:58+00:00",
+            "id": "1133960054",
+            "other": null
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{\"repo\":\"Elv22/Tukui\",\"actor\":\"jerkbait\",\"forkee\":1369122,\"actor_gravatar\":\"08f1beb4fad3595186dc1ed71b04d8e0\"}",
+            "repo": {
+                "id": 1007501,
+                "name": "Elv22/Tukui",
+                "url": "https://api.github.dev/repos/Elv22/Tukui"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": null,
+            "created_at": "2011-02-15 11:49:10+00:00",
+            "id": "1132940770",
+            "other": null
+        },
+        {
+            "type": "ForkEvent",
+            "public": true,
+            "payload": "{\"repo\":\"Elv22/Tukui\",\"actor\":\"jerkbait\",\"forkee\":1369058,\"actor_gravatar\":\"08f1beb4fad3595186dc1ed71b04d8e0\"}",
+            "repo": {
+                "id": 1007501,
+                "name": "Elv22/Tukui",
+                "url": "https://api.github.dev/repos/Elv22/Tukui"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": null,
+            "created_at": "2011-02-15 11:28:38+00:00",
+            "id": "1132921329",
+            "other": null
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"17390675ffca78974c4daf215778817fe4b32933\",\"d659c10e27d52b00987b65e85d99bce5480adcae@mezcalito\",\"jQuery : added autocompletion for Tumblr URL\",\"Nico Prat\"]],\"repo\":\"lianis/tumblree\",\"actor\":\"nicoprat\",\"ref\":\"refs/heads/master\",\"size\":1,\"head\":\"17390675ffca78974c4daf215778817fe4b32933\",\"actor_gravatar\":\"02dc1f1df1b512b989f12ba47707064d\",\"push_id\":24841650}",
+            "repo": {
+                "id": 1361620,
+                "name": "lianis/tumblree",
+                "url": "https://api.github.dev/repos/lianis/tumblree"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": null,
+            "created_at": "2011-02-15 18:29:25+00:00",
+            "id": "1133557993",
+            "other": null
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"repo\":\"nathansmith/960-Grid-System\",\"actor\":\"hrktk\",\"actor_gravatar\":\"cfc503b85fe381e246925f51de6071f7\",\"action\":\"started\"}",
+            "repo": {
+                "id": 443222,
+                "name": "nathansmith/960-Grid-System",
+                "url": "https://api.github.dev/repos/nathansmith/960-Grid-System"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": null,
+            "created_at": "2011-02-15 21:45:17+00:00",
+            "id": "1133964185",
+            "other": null
+        }
+    ]
+}

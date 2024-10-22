@@ -1,0 +1,102 @@
+{
+    "sample_rows": [
+        {
+            "PERMID_SECURITY_ID": "8589975674",
+            "PRIMARY_TICKER": "EVN",
+            "SECURITY_NAME": "EATON VANCE MUNICIPAL INCOME CLOSED FUND",
+            "ASSET_CLASS": "Other",
+            "PRIMARY_EXCHANGE_CODE": "NYQ",
+            "PRIMARY_EXCHANGE_NAME": "NYSE CONSOLIDATED",
+            "SECURITY_STATUS": "Active",
+            "GLOBAL_TICKERS": "[\n  \"EVN\",\n  \"XEVNX\"\n]",
+            "EXCHANGE_CODE": "[\n  \"NAS\",\n  \"NYQ\"\n]",
+            "PERMID_QUOTE_ID": "[\n  \"55835369644\",\n  \"55839104515\"\n]"
+        },
+        {
+            "PERMID_SECURITY_ID": "8589959375",
+            "PRIMARY_TICKER": "LENb",
+            "SECURITY_NAME": "LENNAR ORD SHS CLASS B",
+            "ASSET_CLASS": "Ordinary Shares",
+            "PRIMARY_EXCHANGE_CODE": "ISS",
+            "PRIMARY_EXCHANGE_NAME": "ISE when trading NYSE and AMEX Stocks",
+            "SECURITY_STATUS": "Active",
+            "GLOBAL_TICKERS": "[\n  \"LENB*\",\n  \"LENb\",\n  \"LNN0\"\n]",
+            "EXCHANGE_CODE": "[\n  \"FRA\",\n  \"ISS\",\n  \"MEX\"\n]",
+            "PERMID_QUOTE_ID": "[\n  \"21627275840\",\n  \"21736829361\",\n  \"55836192793\"\n]"
+        },
+        {
+            "PERMID_SECURITY_ID": "18040205046",
+            "PRIMARY_TICKER": "XFSLX",
+            "SECURITY_NAME": "FIRST EAGLE SENIOR LOAN FUND",
+            "ASSET_CLASS": "Other",
+            "PRIMARY_EXCHANGE_CODE": "NAS",
+            "PRIMARY_EXCHANGE_NAME": "NASDAQ CAPITAL MARKET",
+            "SECURITY_STATUS": "Inactive",
+            "GLOBAL_TICKERS": "[\n  \"TSLF\",\n  \"XFSLX\"\n]",
+            "EXCHANGE_CODE": "[\n  \"NAS\",\n  \"WCB\"\n]",
+            "PERMID_QUOTE_ID": "[\n  \"21529763349\",\n  \"21529826402\"\n]"
+        },
+        {
+            "PERMID_SECURITY_ID": "8590935543",
+            "PRIMARY_TICKER": "TIF*",
+            "SECURITY_NAME": "TIFFANY ORD SHS",
+            "ASSET_CLASS": "Ordinary Shares",
+            "PRIMARY_EXCHANGE_CODE": "MXQ",
+            "PRIMARY_EXCHANGE_NAME": null,
+            "SECURITY_STATUS": "Inactive",
+            "GLOBAL_TICKERS": "[\n  \"0LFD\",\n  \"0LFDl\",\n  \"TIF*\"\n]",
+            "EXCHANGE_CODE": "[\n  \"BCO\",\n  \"LSE\",\n  \"MXQ\"\n]",
+            "PERMID_QUOTE_ID": "[\n  \"21633621402\",\n  \"21634297966\",\n  \"21667705791\"\n]"
+        },
+        {
+            "PERMID_SECURITY_ID": "8590923465",
+            "PRIMARY_TICKER": "RWSl",
+            "SECURITY_NAME": "RWS HOLDINGS ORD SHS",
+            "ASSET_CLASS": "Ordinary Shares",
+            "PRIMARY_EXCHANGE_CODE": "BCO",
+            "PRIMARY_EXCHANGE_NAME": "BATS CHI-X Trade Reporting",
+            "SECURITY_STATUS": "Active",
+            "GLOBAL_TICKERS": "[\n  \"RWJ\",\n  \"RWSl\"\n]",
+            "EXCHANGE_CODE": "[\n  \"BCO\",\n  \"TDG\"\n]",
+            "PERMID_QUOTE_ID": "[\n  \"21475037440\",\n  \"21538768765\"\n]"
+        }
+    ],
+    "table_name": "PERMID_SECURITY_INDEX",
+    "table_fullname": "FINANCE__ECONOMICS.CYBERSYN.PERMID_SECURITY_INDEX",
+    "column_names": [
+        "ASSET_CLASS",
+        "EXCHANGE_CODE",
+        "PRIMARY_TICKER",
+        "SECURITY_NAME",
+        "PRIMARY_EXCHANGE_CODE",
+        "SECURITY_STATUS",
+        "GLOBAL_TICKERS",
+        "PERMID_SECURITY_ID",
+        "PRIMARY_EXCHANGE_NAME",
+        "PERMID_QUOTE_ID"
+    ],
+    "column_types": [
+        "TEXT",
+        "ARRAY",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "ARRAY",
+        "TEXT",
+        "TEXT",
+        "ARRAY"
+    ],
+    "description": [
+        "Broad-based class of the asset, such as 'Ordinary Shares', 'Depositary Receipts', etc.",
+        "An array of codes representing the exchanges where the security is traded. An empty array means that exchange information is not available.",
+        "The ticker for the primary trading venue of a security. If a security trades on multiple exchanges or has numerous tickers, an attempt is made to select the ticker from the home market.",
+        "Name of the security.",
+        "The exchange code for the primary trading venue of a security.",
+        "Status of the security, i.e. 'Active' or 'Inactive'. An active security is a security that has active quotes and an inactive security has no active quotes. This status changes over time.",
+        "An array of ticker symbols under which the security may be traded globally on all exchanges.",
+        "PermID for the security.",
+        "The exchange name for the primary trading venue of a security.",
+        "An array of PermIDs for the quotes for each exchange where the security is traded. An empty array means that quote information is not available."
+    ]
+}

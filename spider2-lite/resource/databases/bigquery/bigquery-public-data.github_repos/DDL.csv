@@ -1,0 +1,71 @@
+table_name,ddl
+sample_commits,"CREATE TABLE `bigquery-public-data.github_repos.sample_commits`
+(
+  commit STRING,
+  tree STRING,
+  parent ARRAY<STRING>,
+  author STRUCT<name STRING, email STRING, time_sec INT64, tz_offset INT64, date TIMESTAMP>,
+  committer STRUCT<name STRING, email STRING, time_sec INT64, tz_offset INT64, date TIMESTAMP>,
+  subject STRING,
+  message STRING,
+  trailer ARRAY<STRUCT<key STRING, value STRING, email STRING>>,
+  difference ARRAY<STRUCT<old_mode INT64, new_mode INT64, old_path STRING, new_path STRING, old_sha1 STRING, new_sha1 STRING, old_repo STRING, new_repo STRING>>,
+  difference_truncated BOOL,
+  repo_name STRING,
+  encoding STRING
+)
+OPTIONS(
+  description=""Sample of [bigquery-public-data:github_repos.commits] table.\n\nSELECT *\nFROM FLATTEN([bigquery-public-data:github_repos.commits], repo_name)\nWHERE repo_name IN (\n    'tensorflow/tensorflow',\n    'facebook/react',\n    'twbs/bootstrap',\n    'apple/swift',\n    'Microsoft/vscode',\n    'torvalds/linux')""
+);"
+licenses,"CREATE TABLE `bigquery-public-data.github_repos.licenses`
+(
+  repo_name STRING,
+  license STRING
+)
+OPTIONS(
+  description=""Open source license SPDX code for each repository as detected by https://developer.github.com/v3/licenses/""
+);"
+sample_repos,"CREATE TABLE `bigquery-public-data.github_repos.sample_repos`
+(
+  repo_name STRING,
+  watch_count INT64
+)
+OPTIONS(
+  description=""Top 400k GitHub repositories with more than 2 stars received during Jan-May 2016.\n\nThis set is used to select entries for sample_files and sample_contents.\n\nSELECT\n    repo_name,\n    COUNT(*) watch_count\nFROM\n  [githubarchive:month.201605],\n  [githubarchive:month.201604],\n  [githubarchive:month.201603],\n  [githubarchive:month.201602],\n  [githubarchive:month.201601]\nWHERE type=\""WatchEvent\""\nGROUP BY 1\nHAVING watch_count >= 2\nORDER BY watch_count DESC\nLIMIT 400000""
+);"
+sample_contents,"CREATE TABLE `bigquery-public-data.github_repos.sample_contents`
+(
+  id STRING,
+  size INT64,
+  content STRING,
+  binary BOOL,
+  copies INT64,
+  sample_repo_name STRING,
+  sample_ref STRING,
+  sample_path STRING,
+  sample_mode INT64,
+  sample_symlink_target STRING
+)
+OPTIONS(
+  description=""Randomly sampled 10% of text file contents from [bigquery-public-data:github_repos.contents].\n\nThis sample set can be joined to [bigquery-public-data:github_repos.sample_files] on the id column.\n\nSELECT\n    c.id id,\n    FIRST(c.size) size,\n    FIRST(c.content) content,\n    FIRST(c.binary) binary,\n    FIRST(c.copies) copies,\n    FIRST(f.repo_name) sample_repo_name,\n    FIRST(f.ref) sample_ref,\n    FIRST(f.path) sample_path,\n    FIRST(f.mode) sample_mode,\n    FIRST(f.symlink_target) sample_symlink_target\nFROM [bigquery-public-data:github_repos.sample_files] f\nJOIN (\n    SELECT * \n    FROM [bigquery-public-data:github_repos.contents] \n    WHERE RAND() < 0.1\n  ) c\nON f.id = c.id\nGROUP BY 1""
+);"
+sample_files,"CREATE TABLE `bigquery-public-data.github_repos.sample_files`
+(
+  repo_name STRING,
+  ref STRING,
+  path STRING,
+  mode INT64,
+  id STRING,
+  symlink_target STRING
+)
+OPTIONS(
+  description=""Sampled file metadata for files at HEAD, from the top 400k repositories listed in sample_repos.\n\nThis is a reduced data set from [bigquery-public-data:github_repos.files] to support query experimentation with lower IO costs.\n\nSELECT * \nFROM [bigquery-public-data:github_repos.files]\nWHERE repo_name IN (\n    SELECT repo_name\n    FROM [bigquery-public-data:github_repos.sample_repos]\n    )""
+);"
+languages,"CREATE TABLE `bigquery-public-data.github_repos.languages`
+(
+  repo_name STRING,
+  language ARRAY<STRUCT<name STRING, bytes INT64>>
+)
+OPTIONS(
+  description=""Programming languages by repository as reported by GitHub's https://developer.github.com/v3/repos/#list-languages API""
+);"

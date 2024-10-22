@@ -1,0 +1,126 @@
+table_name,ddl
+station_complexes,"CREATE TABLE `bigquery-public-data.new_york_subway.station_complexes`
+(
+  complex_id STRING,
+  complex_name STRING
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY complex_name, complex_id;"
+station_entrances,"CREATE TABLE `bigquery-public-data.new_york_subway.station_entrances`
+(
+  division STRING,
+  line STRING,
+  station_name STRING,
+  station_lat FLOAT64,
+  station_lon FLOAT64,
+  route_1 STRING,
+  route_2 STRING,
+  route_3 STRING,
+  route_4 STRING,
+  route_5 STRING,
+  route_6 STRING,
+  route_7 STRING,
+  route_8 STRING,
+  route_9 STRING,
+  route_10 STRING,
+  route_11 STRING,
+  entrance_type STRING,
+  staff STRING,
+  staff_hours STRING,
+  ada_notes STRING,
+  free_crossover BOOL,
+  north_south_street STRING,
+  east_west_street STRING,
+  corner STRING,
+  entrance_lat FLOAT64,
+  entrance_lon FLOAT64,
+  entry BOOL,
+  exit_only BOOL,
+  vending BOOL,
+  ada_compliant BOOL,
+  station_geom GEOGRAPHY,
+  entrance_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY station_name, ada_compliant, corner, division;"
+trips,"CREATE TABLE `bigquery-public-data.new_york_subway.trips`
+(
+  route_id STRING,
+  service_id STRING,
+  trip_id STRING,
+  trip_headsign STRING,
+  direction_id STRING,
+  block_id STRING,
+  shape_id STRING
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY route_id, trip_id, trip_headsign, shape_id;"
+geo_nyc_borough_boundaries,"CREATE TABLE `bigquery-public-data.new_york_subway.geo_nyc_borough_boundaries`
+(
+  borough_code STRING,
+  borough_name STRING,
+  borough_area FLOAT64,
+  borough_len FLOAT64,
+  borough_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY borough_name, borough_code, borough_geom;"
+subway_ridership_2013_present,"CREATE TABLE `bigquery-public-data.new_york_subway.subway_ridership_2013_present`
+(
+  station_name STRING,
+  routes STRING,
+  ridership_2013 INT64,
+  ridership_2014 INT64,
+  ridership_2015 INT64,
+  ridership_2016 INT64,
+  ridership_2017 INT64,
+  ridership_2018 INT64,
+  change_2018_raw INT64,
+  change_2018_percent FLOAT64,
+  rank_ridership_2018 INT64
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY station_name, routes;"
+stop_times,"CREATE TABLE `bigquery-public-data.new_york_subway.stop_times`
+(
+  trip_id STRING,
+  arrival_time STRING,
+  departure_time STRING,
+  stop_id STRING,
+  stop_sequence STRING,
+  stop_headsign STRING,
+  pickup_type STRING,
+  dropoff_type STRING,
+  shape_dist_traveled STRING
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY trip_id, stop_id;"
+routes,"CREATE TABLE `bigquery-public-data.new_york_subway.routes`
+(
+  route_id STRING,
+  route_short_name STRING,
+  route_long_name STRING,
+  route_describe STRING,
+  route_type STRING
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY route_id, route_short_name, route_type;"
+stations,"CREATE TABLE `bigquery-public-data.new_york_subway.stations`
+(
+  station_id STRING,
+  complex_id STRING,
+  gtfs_stop_id STRING,
+  division STRING,
+  line STRING,
+  station_name STRING,
+  borough_name STRING,
+  daytime_routes STRING,
+  structure STRING,
+  north_direction_label STRING,
+  south_direction_label STRING,
+  station_lat FLOAT64,
+  station_lon FLOAT64,
+  station_geom GEOGRAPHY
+)
+PARTITION BY DATE(_PARTITIONTIME)
+CLUSTER BY line, station_name, station_geom;"

@@ -1,0 +1,88 @@
+name: 🐞 Bug
+description: Report a bug or an issue you've found within the dbt package
+title: "[Bug] <title>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for using the Fivetran dbt package and for taking the time to fill out this bug report. Your contributions help improve this package for the entire community of users!
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: textarea
+    attributes:
+      label: Describe the issue
+      description: A concise description of the problem you're experiencing. Also, please provide the steps to reproduce the issue if applicable.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant error log or model output
+      description: |
+        If applicable, provide the relevant error log or describe the problematic model output.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: dbt Project configurations
+      description: Please provide the variables and any other project specific configurations from your `dbt_project.yml`.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Package versions
+      description: Please provide the contents of your `packages.yml`.
+    validations:
+      required: true
+  - type: dropdown
+    id: database
+    attributes:
+      label: What database are you using dbt with?
+      multiple: true
+      options:
+        - postgres
+        - redshift
+        - snowflake
+        - bigquery
+        - databricks
+        - other (mention it in "Additional Context")
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: dbt Version
+      description: Run `dbt --version` in your CLI or dbt cloud environment and copy the contents. Additionally, if you are using Fivetran dbt Transformations, provide the contents of the `dbtVersion` configuration in your `deployment.yml`.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional Context
+      description: |
+        Links? References? Anything that will give us more context about the issue you are encountering!
+
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Are you willing to open a PR to help address this issue?
+      description: Our team will assess this issue and let you know if we will add it to a future sprint. However, if you would like to expedite the solution, we encourage you to contribute to the package via a PR. Our team will then work with you to approve and merge your contributions as soon as possible.
+      options:
+        - label: Yes.
+        - label: Yes, but I will need assistance and will schedule time during our [office hours](https://calendly.com/fivetran-solutions-team/fivetran-solutions-team-office-hours) for guidance
+        - label: No.
+          required: false

@@ -1,0 +1,106 @@
+{
+    "table_name": "miRNAseq_hg38_gdc_r14",
+    "table_fullname": "isb-cgc-bq.TCGA_versioned.miRNAseq_hg38_gdc_r14",
+    "column_names": [
+        "project_short_name",
+        "case_barcode",
+        "sample_barcode",
+        "aliquot_barcode",
+        "mirna_id",
+        "read_count",
+        "reads_per_million_miRNA_mapped",
+        "cross_mapped"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "project_short_name",
+        "case_barcode",
+        "sample_barcode",
+        "aliquot_barcode",
+        "mirna_id",
+        "read_count",
+        "reads_per_million_miRNA_mapped",
+        "cross_mapped"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "STRING"
+    ],
+    "description": [
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc",
+        "Original TCGA case barcode, eg TCGA-DX-A8BN",
+        "TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries",
+        "TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-28",
+        "Unique miRNA id (aka symbol), eg hsa-mir-21  --  relevant reference information can be found in the isb-cgc:genome_reference dataset in the tables miRBase_v21 and miRBase_v21_hsa_gff3",
+        "Number of reads that were mapped to this mirna_id",
+        "Read count normalized by total reads mapped divided by 1 million",
+        "A short isomiR read may map exactly to mature strands whose sequences are similar but not identical, when the read sequence does not capture the bases that distinguish these miRNAs (e.g. hsa-mir-30a at 6q13 and hsa-mir-30e at 1p34.2, which differ at position 18). We report such a <line_feed> read as cross-mapped, and we increment the read count for each MIMAT that it mapped to. Either Y or N -- fewer than 2% are Y"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-101-1",
+            "read_count": 199,
+            "reads_per_million_miRNA_mapped": 57.207991,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-6516",
+            "read_count": 1,
+            "reads_per_million_miRNA_mapped": 0.287477,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-3679",
+            "read_count": 4,
+            "reads_per_million_miRNA_mapped": 1.149909,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-3130-1",
+            "read_count": 72,
+            "reads_per_million_miRNA_mapped": 20.698369,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-4758",
+            "read_count": 6,
+            "reads_per_million_miRNA_mapped": 1.724864,
+            "cross_mapped": "N"
+        }
+    ]
+}

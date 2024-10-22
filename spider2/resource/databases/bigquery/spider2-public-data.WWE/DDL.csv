@@ -1,0 +1,66 @@
+table_name,ddl
+Tables,"CREATE TABLE `spider2-public-data.WWE.Tables`
+(
+  url STRING,
+  html STRING,
+  id INT64
+);"
+Locations,"CREATE TABLE `spider2-public-data.WWE.Locations`
+(
+  name STRING,
+  id INT64
+);"
+Events,"CREATE TABLE `spider2-public-data.WWE.Events`
+(
+  name STRING,
+  id INT64
+);"
+Promotions,"CREATE TABLE `spider2-public-data.WWE.Promotions`
+(
+  name STRING,
+  id INT64
+);"
+sqlite_sequence,"CREATE TABLE `spider2-public-data.WWE.sqlite_sequence`
+(
+  seq INT64,
+  name STRING
+);"
+Match_Types,"CREATE TABLE `spider2-public-data.WWE.Match_Types`
+(
+  name STRING,
+  id INT64
+);"
+Wrestlers,"CREATE TABLE `spider2-public-data.WWE.Wrestlers`
+(
+  id INT64,
+  name STRING
+);"
+Belts,"CREATE TABLE `spider2-public-data.WWE.Belts`
+(
+  name STRING,
+  id INT64
+);"
+Cards,"CREATE TABLE `spider2-public-data.WWE.Cards`
+(
+  info_html STRING,
+  url STRING,
+  event_id INT64,
+  match_html STRING,
+  event_date DATE,
+  location_id INT64,
+  promotion_id INT64,
+  table_id INT64,
+  id INT64
+);"
+Matches,"CREATE TABLE `spider2-public-data.WWE.Matches`
+(
+  id INT64,
+  card_id INT64,
+  winner_id INT64,
+  win_type STRING,
+  loser_id INT64,
+  match_type_id INT64,
+  duration STRING,
+  title_id INT64,
+  title_change INT64
+);"

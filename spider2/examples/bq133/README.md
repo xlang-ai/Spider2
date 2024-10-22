@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.covid19_jhu_csse` and `bigquery-public-data.world_bank_global_population` database to solve this problem.

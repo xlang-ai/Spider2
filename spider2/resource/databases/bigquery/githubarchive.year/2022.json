@@ -1,0 +1,235 @@
+{
+    "table_name": "2022",
+    "table_fullname": "githubarchive.year.2022",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"docs/contributing\",\"ref_type\":\"branch\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 425080580,
+                "name": "ncdc/kcp",
+                "url": "https://api.github.com/repos/ncdc/kcp"
+            },
+            "actor": {
+                "id": 354,
+                "login": "ncdc",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/354?",
+                "url": "https://api.github.com/users/ncdc"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-03-02 14:56:57+00:00",
+            "id": "20543490366",
+            "other": "{\"actor\":{\"display_login\":\"ncdc\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9224476501,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/include-errors\",\"head\":\"d7c37729958cb4d26ea28fee46b17722b673eb7d\",\"before\":\"bcb1c6687b45821978f2b51d73cd17d4b2a3379f\",\"commits\":[{\"sha\":\"d7c37729958cb4d26ea28fee46b17722b673eb7d\",\"author\":{\"email\":\"c6b8ccae81959b703a3c5b891dc0348e596f496d@gmail.com\",\"name\":\"Jon Bracy\"},\"message\":\"Always ensure correct includes before processing the request\",\"distinct\":true,\"url\":\"https://api.github.com/repos/waratuman/standardapi/commits/d7c37729958cb4d26ea28fee46b17722b673eb7d\"}]}",
+            "repo": {
+                "id": 40029637,
+                "name": "waratuman/standardapi",
+                "url": "https://api.github.com/repos/waratuman/standardapi"
+            },
+            "actor": {
+                "id": 716,
+                "login": "malomalo",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/716?",
+                "url": "https://api.github.com/users/malomalo"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-02-28 15:44:36+00:00",
+            "id": "20499947451",
+            "other": "{\"actor\":{\"display_login\":\"malomalo\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":9854284316,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"bb8f48b8a4b48cfbb8cdd4a22ef13e7539f0c457\",\"before\":\"e7f55c83bb5a239369d7678bc1fc1e7fbda5c47c\",\"commits\":[{\"sha\":\"bb8f48b8a4b48cfbb8cdd4a22ef13e7539f0c457\",\"author\":{\"email\":\"1c358da00a777d4e9898c1280ab801e2df165188@users.noreply.github.com\",\"name\":\"dependabot[bot]\"},\"message\":\"Build(deps): Bump Microsoft.NET.Test.Sdk from 17.1.0 to 17.2.0\\n\\nBumps [Microsoft.NET.Test.Sdk](https://github.com/microsoft/vstest) from 17.1.0 to 17.2.0.\\n- [Release notes](https://github.com/microsoft/vstest/releases)\\n- [Commits](https://github.com/microsoft/vstest/compare/v17.1.0...v17.2.0)\\n\\n---\\nupdated-dependencies:\\n- dependency-name: Microsoft.NET.Test.Sdk\\n  dependency-type: direct:production\\n  update-type: version-update:semver-minor\\n...\\n\\nSigned-off-by: dependabot[bot] <support@github.com>\",\"distinct\":true,\"url\":\"https://api.github.com/repos/bgianfo/pr-dash/commits/bb8f48b8a4b48cfbb8cdd4a22ef13e7539f0c457\"}]}",
+            "repo": {
+                "id": 212944092,
+                "name": "bgianfo/pr-dash",
+                "url": "https://api.github.com/repos/bgianfo/pr-dash"
+            },
+            "actor": {
+                "id": 1212,
+                "login": "bgianfo",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1212?",
+                "url": "https://api.github.com/users/bgianfo"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-05-11 13:53:20+00:00",
+            "id": "21733442644",
+            "other": "{\"actor\":{\"display_login\":\"bgianfo\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11947368574,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"fa72a704d68b4b77cccb25a6dd683984f7ddd6e4\",\"before\":\"ba72d7c8c902feff555fadaac46505c91db774c7\",\"commits\":[{\"sha\":\"fa72a704d68b4b77cccb25a6dd683984f7ddd6e4\",\"author\":{\"email\":\"e46ea5f5612e523fb121e582b4f1d5f41d4e9f8c@innoq.com\",\"name\":\"Stefan Tilkov\"},\"message\":\"Day 9 Part 1\",\"distinct\":true,\"url\":\"https://api.github.com/repos/stilkov/aoc2022/commits/fa72a704d68b4b77cccb25a6dd683984f7ddd6e4\"}]}",
+            "repo": {
+                "id": 573168989,
+                "name": "stilkov/aoc2022",
+                "url": "https://api.github.com/repos/stilkov/aoc2022"
+            },
+            "actor": {
+                "id": 1868,
+                "login": "stilkov",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1868?",
+                "url": "https://api.github.com/users/stilkov"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-12-09 23:22:33+00:00",
+            "id": "25788320315",
+            "other": "{\"actor\":{\"display_login\":\"stilkov\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":10813693677,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"99164a454f819c7090d369719d78f75934a6ae88\",\"before\":\"88e9dddbceccfcead704a5f50765e1cc51352203\",\"commits\":[{\"sha\":\"99164a454f819c7090d369719d78f75934a6ae88\",\"author\":{\"email\":\"326b426f9ac7a96ed6baf62f8838565416d27df8@users.noreply.github.com\",\"name\":\"Automated\"},\"message\":\"Latest data: Wed 24 Aug 2022 02:14:34 AM UTC\",\"distinct\":true,\"url\":\"https://api.github.com/repos/danp/nspoweroutages/commits/99164a454f819c7090d369719d78f75934a6ae88\"}]}",
+            "repo": {
+                "id": 324650197,
+                "name": "danp/nspoweroutages",
+                "url": "https://api.github.com/repos/danp/nspoweroutages"
+            },
+            "actor": {
+                "id": 2182,
+                "login": "danp",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/2182?",
+                "url": "https://api.github.com/users/danp"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-08-24 02:14:35+00:00",
+            "id": "23601177468",
+            "other": "{\"actor\":{\"display_login\":\"danp\"}}"
+        }
+    ]
+}

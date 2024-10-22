@@ -1,0 +1,259 @@
+table_name,ddl
+1000_genomes_phase_3_optimized_schema_variants_20150220,"CREATE TABLE `bigquery-public-data.human_genome_variants.1000_genomes_phase_3_optimized_schema_variants_20150220`
+(
+  reference_name STRING OPTIONS(description=""Reference name.""),
+  start_position INT64 OPTIONS(description=""Start position (0-based). Corresponds to the first base of the string of reference bases.""),
+  end_position INT64 OPTIONS(description=""End position (0-based). Corresponds to the first base after the last base in the reference allele.""),
+  reference_bases STRING OPTIONS(description=""Reference bases.""),
+  alternate_bases ARRAY<STRUCT<alt STRING OPTIONS(description=""Alternate base.""), AC INT64 OPTIONS(description=""Total number of alternate alleles in called genotypes""), AF FLOAT64 OPTIONS(description=""Estimated allele frequency in the range (0,1)""), EAS_AF FLOAT64 OPTIONS(description=""Allele frequency in the EAS populations calculated from AC and AN, in the range (0,1)""), EUR_AF FLOAT64 OPTIONS(description=""Allele frequency in the EUR populations calculated from AC and AN, in the range (0,1)""), AFR_AF FLOAT64 OPTIONS(description=""Allele frequency in the AFR populations calculated from AC and AN, in the range (0,1)""), AMR_AF FLOAT64 OPTIONS(description=""Allele frequency in the AMR populations calculated from AC and AN, in the range (0,1)""), SAS_AF FLOAT64 OPTIONS(description=""Allele frequency in the SAS populations calculated from AC and AN, in the range (0,1)"")>> OPTIONS(description=""One record for each alternate base (if any).""),
+  names ARRAY<STRING> OPTIONS(description=""Variant names (e.g. RefSNP ID).""),
+  quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.""),
+  filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or \""PASS\"" indicating the variant has passed all filters.""),
+  CIEND ARRAY<INT64> OPTIONS(description=""Confidence interval around END for imprecise variants""),
+  CIPOS ARRAY<INT64> OPTIONS(description=""Confidence interval around POS for imprecise variants""),
+  CS STRING OPTIONS(description=""Source call set.""),
+  IMPRECISE BOOL OPTIONS(description=""Imprecise structural variation""),
+  MC ARRAY<STRING> OPTIONS(description=""Merged calls.""),
+  MEINFO ARRAY<STRING> OPTIONS(description=""Mobile element info of the form NAME,START,END<POLARITY; If there is only 5' OR 3' support for this call, will be NULL NULL for START and END""),
+  MEND INT64 OPTIONS(description=""Mitochondrial end coordinate of inserted sequence""),
+  MLEN INT64 OPTIONS(description=""Estimated length of mitochondrial insert""),
+  MSTART INT64 OPTIONS(description=""Mitochondrial start coordinate of inserted sequence""),
+  SVLEN ARRAY<INT64> OPTIONS(description=""SV length. It is only calculated for structural variation MEIs. For other types of SVs; one may calculate the SV length by INFO:END-START+1, or by finding the difference between lengthes of REF and ALT alleles""),
+  SVTYPE STRING OPTIONS(description=""Type of structural variant""),
+  TSD STRING OPTIONS(description=""Precise Target Site Duplication for bases, if unknown, value will be NULL""),
+  NS INT64 OPTIONS(description=""Number of samples with data""),
+  AN INT64 OPTIONS(description=""Total number of alleles in called genotypes""),
+  DP INT64 OPTIONS(description=""Total read depth; only low coverage data were counted towards the DP, exome data were not used""),
+  AA STRING OPTIONS(description=""Ancestral Allele. Format: AA|REF|ALT|IndelType. AA: Ancestral allele, REF:Reference Allele, ALT:Alternate Allele, IndelType:Type of Indel (REF, ALT and IndelType are only defined for indels)""),
+  VT ARRAY<STRING> OPTIONS(description=""indicates what type of variant the line represents""),
+  EX_TARGET BOOL OPTIONS(description=""indicates whether a variant is within the exon pull down target boundaries""),
+  MULTI_ALLELIC BOOL OPTIONS(description=""indicates whether a site is multi-allelic""),
+  OLD_VARIANT STRING,
+  partition_date_please_ignore DATE OPTIONS(description=""Column required by BigQuery partitioning/clustering logic. See https://cloud.google.com/bigquery/docs/clustered-tables""),
+  hom_ref_call ARRAY<STRING> OPTIONS(description=""Call names that are homozygous reference (i.e. all call.genotype fields are \""0\"").""),
+  no_call ARRAY<STRING> OPTIONS(description=""Call names that do not have a genotype called (i.e. all call.genotype fields are \""-1\"").""),
+  call ARRAY<STRUCT<name STRING OPTIONS(description=""Name of the call.""), genotype ARRAY<INT64> OPTIONS(description=""Genotype of the call. \""-1\"" is used in cases where the genotype is not called.""), phaseset STRING OPTIONS(description=""Phaseset of the call (if any). \""*\"" is used in cases where the genotype is phased, but no phase set (\""PS\"" in FORMAT) was specified.""), CN INT64 OPTIONS(description=""Copy number genotype for imprecise events""), CNL ARRAY<FLOAT64> OPTIONS(description=""Copy number likelihoods with no frequency prior""), CNP ARRAY<FLOAT64> OPTIONS(description=""Copy number likelihoods""), CNQ FLOAT64 OPTIONS(description=""Copy number genotype quality for imprecise events""), GP ARRAY<FLOAT64> OPTIONS(description=""Genotype likelihoods""), GQ INT64 OPTIONS(description=""Genotype Quality""), FT STRING OPTIONS(description=""Per-sample genotype filter""), PL ARRAY<INT64> OPTIONS(description=""Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification"")>> OPTIONS(description=""One record for each call."")
+)
+PARTITION BY partition_date_please_ignore
+CLUSTER BY reference_name, start_position, end_position
+OPTIONS(
+  description=""This is the same table as 1000_genomes_phase_3_variants_20150220, except that samples that are homozygous reference or have not been called are compacted into the new \""hom_ref_call\"" and \""no_call\"" columns, respectively. Note that the FORMAT fields for such samples have been dropped.\n\nThis makes the table more compact and also makes certain types of queries (e.g. computing allele frequencies) easier to write.""
+);"
+1000_genomes_sample_info,"CREATE TABLE `bigquery-public-data.human_genome_variants.1000_genomes_sample_info`
+(
+  Sample STRING OPTIONS(description=""Sample ID""),
+  Family_ID STRING OPTIONS(description=""Family ID""),
+  Population STRING OPTIONS(description=""3 letter population code""),
+  Population_Description STRING OPTIONS(description=""Description of Population""),
+  Gender STRING OPTIONS(description=""Gender""),
+  Relationship STRING OPTIONS(description=""Relationship to other members of the family""),
+  Unexpected_Parent_Child STRING OPTIONS(description=""sample id for unexpected parent child relationships""),
+  Non_Paternity STRING OPTIONS(description=""sample ids for annotated non paternal relationships""),
+  Siblings STRING OPTIONS(description=""sample ids for any siblings""),
+  Grandparents STRING OPTIONS(description=""sample ids for any grand parents""),
+  Avuncular STRING OPTIONS(description=""sample ids for any avuncular relationships""),
+  Half_Siblings STRING OPTIONS(description=""sample ids for any half siblings""),
+  Unknown_Second_Order STRING OPTIONS(description=""sample ids for any unknown second order relations""),
+  Third_Order STRING OPTIONS(description=""sample ids for any third order cryptic relations. As mentioned above, this analysis was not as widely run as the other relatedness analyses and as such there may still be unannotated third order relations in the set""),
+  In_Low_Coverage_Pilot BOOL OPTIONS(description=""The sample is in the low coverage pilot experiment""),
+  LC_Pilot_Platforms STRING OPTIONS(description=""low coverage pilot sequencing platforms ""),
+  LC_Pilot_Centers STRING OPTIONS(description=""low coverage pilot sequencing centers""),
+  In_High_Coverage_Pilot BOOL OPTIONS(description=""The sample is in the high coverage pilot""),
+  HC_Pilot_Platforms STRING OPTIONS(description=""high coverage sequencing platforms""),
+  HC_Pilot_Centers STRING OPTIONS(description=""high coverage sequencing centers""),
+  In_Exon_Targetted_Pilot BOOL OPTIONS(description=""The Sample is in the exon targetted pilot experiment""),
+  ET_Pilot_Platforms STRING OPTIONS(description=""exon targetted sequencing platforms,""),
+  ET_Pilot_Centers STRING OPTIONS(description=""exon targetted sequencing centers,""),
+  Has_Sequence_in_Phase1 BOOL OPTIONS(description=""Has sequence low coverage sequence in the 20101123.sequence.index file or exome sequence in the 20110522 sequence index file""),
+  Phase1_LC_Platform STRING OPTIONS(description=""phase1 low coverage sequencing platforms""),
+  Phase1_LC_Centers STRING OPTIONS(description=""phase1 low coverage sequencing centers""),
+  Phase1_E_Platform STRING OPTIONS(description=""phase1 exome sequencing platforms""),
+  Phase1_E_Centers STRING OPTIONS(description=""phase1 exome sequencing centers""),
+  In_Phase1_Integrated_Variant_Set BOOL OPTIONS(description=""The sample is genotyped in the phase1 integrated call set on autosomes and chrX""),
+  Has_Phase1_chrY_SNPS BOOL OPTIONS(description=""The sample is genotyped in the chrY phase1 snp set""),
+  Has_phase1_chrY_Deletions BOOL OPTIONS(description=""The sample is genotyepd in the chrY phase1 deletions""),
+  Has_phase1_chrMT_SNPs BOOL OPTIONS(description=""The sample is genotyped in the phase1 chrMT snps""),
+  Main_project_LC_Centers STRING OPTIONS(description=""low coverage sequencing centers for final sequencing round""),
+  Main_project_LC_platform STRING OPTIONS(description=""low coverage sequencing platform for final sequencing round""),
+  Total_LC_Sequence FLOAT64 OPTIONS(description=""The total amount of low coverage sequence available""),
+  LC_Non_Duplicated_Aligned_Coverage FLOAT64 OPTIONS(description=""The non duplicated aligned coverage for the low coverage sequence data.  This was calculated using the ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/alignment_indices/20130502.low_coverage.alignment.index.bas.gz file, the (mapped bases - duplicated bases) was summed for each sample and divided by 2.75GB and rounded to 2dp""),
+  Main_Project_E_Centers STRING OPTIONS(description=""Exome sequencing centers for the final sequencing round""),
+  Main_Project_E_Platform STRING OPTIONS(description=""Exome sequencing platform for the final sequencing round""),
+  Total_Exome_Sequence FLOAT64 OPTIONS(description=""The total amount of exome sequence available""),
+  X_Targets_Covered_to_20x_or_greater FLOAT64 OPTIONS(description=""The percentage of targets covered to 20x or greater as calculated by the picard function CalculateHsMetrics using these targets ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/exome_pull_down_targets_phases1_and_2/20120518.consensus.annotation.bed""),
+  VerifyBam_E_Omni_Free FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_E_Affy_Free FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_E_Omni_Chip FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_E_Affy_Chip FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_LC_Omni_Free FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_LC_Affy_Free FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_LC_Omni_Chip FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  VerifyBam_LC_Affy_Chip FLOAT64 OPTIONS(description=""Value from UMich's VerifyBamID BAM QC program http://genome.sph.umich.edu/wiki/VerifyBamID.  The Free measures use a statistical model based on the haplotypes discovered by the chip. The Chip measure considers the genotypes available for that individual from that chip. We use greater than 3% as a cut off for our our low coverage samples and greater than 3.5% for our exome samples.""),
+  LC_Indel_Ratio FLOAT64 OPTIONS(description=""Both Indel ratios are the ratio of insertions to deletions found in that sample using a quick test (based on samtools). If the ratio is higher than 5 the sample is withdrawn.""),
+  E_Indel_Ratio FLOAT64 OPTIONS(description=""Both Indel ratios are the ratio of insertions to deletions found in that sample using a quick test (based on samtools). If the ratio is higher than 5 the sample is withdrawn.""),
+  LC_Passed_QC BOOL OPTIONS(description=""These are binary flags showing if the sample passed QC, All samples which have passed QC have bam files. Only samples which have both exome and low coverage data are found under ftp/data and listed in the standard alignment index. The small number of other samples are found in ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/phase3_EX_or_LC_only_alignment/""),
+  E_Passed_QC BOOL OPTIONS(description=""These are binary flags showing if the sample passed QC, All samples which have passed QC have bam files. Only samples which have both exome and low coverage data are found under ftp/data and listed in the standard alignment index. The small number of other samples are found in ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/phase3_EX_or_LC_only_alignment/""),
+  In_Final_Phase_Variant_Calling BOOL OPTIONS(description=""Any sample which has both LC and E QC passed bams is in the final analysis set""),
+  Has_Omni_Genotypes BOOL OPTIONS(description=""Omni Genotypes in ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20120131_omni_genotypes_and_intensities/Omni25_genotypes_2141_samples.b37.vcf.gz   ""),
+  Has_Axiom_Genotypes BOOL OPTIONS(description=""Axiom Genotypes in ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20110210_Affymetrix_Axiom/Affymetrix_Axiom_DB_2010_v4_b37.vcf.gz         ""),
+  Has_Affy_6_0_Genotypes BOOL OPTIONS(description=""Affy 6.0 Genotypes in  ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20121128_corriel_p3_sample_genotypes/""),
+  Has_Exome_LOF_Genotypes BOOL OPTIONS(description=""ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20121009_broad_exome_chip/ALL.wgs.broad_exome_lof_indel_v2.20121009.snps_and_indels.snpchip.genotypes.vcf.gz""),
+  EBV_Coverage FLOAT64 OPTIONS(description=""This was calculated by looking at the alignment of the data to NC_007605 in the low coverage bam files and using that to calculate coverage   ""),
+  DNA_Source_from_Coriell STRING OPTIONS(description=""This was the annotated DNA Source from Coriell     ""),
+  Has_Sequence_from_Blood_in_Index BOOL OPTIONS(description=""In the later stages of the project some populations has multiple study ids, one to indicate sequencing from blood. This data for each sample has not been treated independently in the alignment process but when there is both LCL and Blood sourced data they are both together in single bams""),
+  Super_Population STRING OPTIONS(description=""From ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/20131219.superpopulations.tsv""),
+  Super_Population_Description STRING OPTIONS(description=""From ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/20131219.superpopulations.tsv"")
+)
+OPTIONS(
+  description=""Source: \nhttp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/20130606_sample_info.txt\n\nDescription:\nhttp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/README_20130606_sample_info\n\nFor more information see https://cloud.google.com/genomics/docs/public-datasets/1000-genomes""
+);"
+simons_genome_diversity_project_sample_variants,"CREATE TABLE `bigquery-public-data.human_genome_variants.simons_genome_diversity_project_sample_variants`
+(
+  reference_name STRING OPTIONS(description=""Reference name.""),
+  start_position INT64 OPTIONS(description=""Start position (0-based). Corresponds to the first base of the string of reference bases.""),
+  end_position INT64 OPTIONS(description=""End position (0-based). Corresponds to the first base after the last base in the reference allele.""),
+  reference_bases STRING OPTIONS(description=""Reference bases.""),
+  alternate_bases ARRAY<STRUCT<alt STRING OPTIONS(description=""Alternate base.""), AC INT64 OPTIONS(description=""Allele count in genotypes, for each ALT allele, in the same order as listed""), AF FLOAT64 OPTIONS(description=""Allele Frequency, for each ALT allele, in the same order as listed""), MLEAC INT64 OPTIONS(description=""Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed""), MLEAF FLOAT64 OPTIONS(description=""Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT allele, in the same order as listed"")>> OPTIONS(description=""One record for each alternate base (if any).""),
+  names ARRAY<STRING> OPTIONS(description=""Variant names (e.g. RefSNP ID).""),
+  quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.""),
+  filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or \""PASS\"" indicating the variant has passed all filters.""),
+  call ARRAY<STRUCT<name STRING OPTIONS(description=""Name of the call.""), genotype ARRAY<INT64> OPTIONS(description=""Genotype of the call. \""-1\"" is used in cases where the genotype is not called.""), phaseset STRING OPTIONS(description=""Phaseset of the call (if any). \""*\"" is used in cases where the genotype is phased, but no phase set (\""PS\"" in FORMAT) was specified.""), AD ARRAY<INT64> OPTIONS(description=""Allelic depths for the ref and alt alleles in the order listed""), DP INT64 OPTIONS(description=""Approximate read depth (reads with MQ=255 or with bad mates are filtered)""), GQ INT64 OPTIONS(description=""Genotype Quality""), PL ARRAY<INT64> OPTIONS(description=""Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification""), FL STRING OPTIONS(description=""filter level in range 0-9 or no value (non-integer: N,?) with zero being least reliable; to threshold at FL=n, use all levels n-9""), quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.\nNote: this field has been copied from QUAL field from individual VCF files."")>> OPTIONS(description=""One record for each call.""),
+  AN INT64 OPTIONS(description=""Total number of alleles in called genotypes""),
+  BaseCounts ARRAY<INT64> OPTIONS(description=""Counts of each base""),
+  BaseQRankSum FLOAT64 OPTIONS(description=""Z-score from Wilcoxon rank sum test of Alt Vs. Ref base qualities""),
+  DB BOOL OPTIONS(description=""dbSNP Membership""),
+  DP INT64 OPTIONS(description=""Approximate read depth; some reads may have been filtered""),
+  DS BOOL OPTIONS(description=""Were any of the samples downsampled?""),
+  Dels FLOAT64 OPTIONS(description=""Fraction of Reads Containing Spanning Deletions""),
+  FS FLOAT64 OPTIONS(description=""Phred-scaled p-value using Fisher's exact test to detect strand bias""),
+  GC FLOAT64 OPTIONS(description=""GC content around the variant (see docs for window size details)""),
+  HaplotypeScore FLOAT64 OPTIONS(description=""Consistency of the site with at most two segregating haplotypes""),
+  InbreedingCoeff FLOAT64 OPTIONS(description=""Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hardy-Weinberg expectation""),
+  MQ FLOAT64 OPTIONS(description=""RMS Mapping Quality""),
+  MQ0 INT64 OPTIONS(description=""Total Mapping Quality Zero Reads""),
+  MQRankSum FLOAT64 OPTIONS(description=""Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities""),
+  QD FLOAT64 OPTIONS(description=""Variant Confidence/Quality by Depth""),
+  RPA ARRAY<INT64> OPTIONS(description=""Number of times tandem repeat unit is repeated, for each allele (including reference)""),
+  RU STRING OPTIONS(description=""Tandem repeat unit (bases)""),
+  ReadPosRankSum FLOAT64 OPTIONS(description=""Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias""),
+  STR BOOL OPTIONS(description=""Variant is a short tandem repeat""),
+  partition_date_please_ignore DATE OPTIONS(description=""Column required by BigQuery partitioning/clustering logic. See https://cloud.google.com/bigquery/docs/clustered-tables"")
+)
+PARTITION BY partition_date_please_ignore
+CLUSTER BY reference_name, start_position, end_position
+OPTIONS(
+  description=""VCF files from [1] loaded using Variant Transforms v0.4.2 [2].\nSee http://www.nature.com/nature/journal/v538/n7624/full/nature18964.html and https://cloud.google.com/genomics/docs/public-datasets/simons for more details about the dataset.\n\n[1] https://sharehost.hms.harvard.edu/genetics/reich_lab/sgdp/vcf_variants/\n[2] https://github.com/googlegenomics/gcp-variant-transforms/""
+);"
+simons_genome_diversity_project_sample_attributes,"CREATE TABLE `bigquery-public-data.human_genome_variants.simons_genome_diversity_project_sample_attributes`
+(
+  era_id STRING,
+  population STRING,
+  region STRING,
+  country STRING,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  sex STRING,
+  dna_source STRING,
+  illumina_id STRING,
+  ena_checklist STRING,
+  ena_spot_count INT64,
+  ena_base_count INT64,
+  ena_first_public DATE,
+  ena_last_update DATE,
+  town STRING,
+  id_from_vcf STRING
+)
+OPTIONS(
+  description=""For more information see http://www.nature.com/nature/journal/v538/n7624/full/nature18964.html and https://cloud.google.com/genomics/docs/public-datasets/simons""
+);"
+simons_genome_diversity_project_sample_metadata,"CREATE TABLE `bigquery-public-data.human_genome_variants.simons_genome_diversity_project_sample_metadata`
+(
+  Panel STRING,
+  SGDP_ID STRING,
+  Population_ID STRING,
+  Region STRING,
+  Country STRING,
+  Contributor STRING,
+  Gender STRING,
+  Latitude FLOAT64,
+  Longitude FLOAT64,
+  Coverage INT64,
+  HetRateAuto FLOAT64
+)
+OPTIONS(
+  description=""Source:\nhttp://simonsfoundation.s3.amazonaws.com/share/SCDA/datasets/10_24_2014_SGDP_metainformation_update.txt\n\nFor more information see http://www.nature.com/nature/journal/v538/n7624/full/nature18964.html and https://cloud.google.com/genomics/docs/public-datasets/simons""
+);"
+1000_genomes_phase_3_variants_20150220,"CREATE TABLE `bigquery-public-data.human_genome_variants.1000_genomes_phase_3_variants_20150220`
+(
+  reference_name STRING OPTIONS(description=""Reference name.""),
+  start_position INT64 OPTIONS(description=""Start position (0-based). Corresponds to the first base of the string of reference bases.""),
+  end_position INT64 OPTIONS(description=""End position (0-based). Corresponds to the first base after the last base in the reference allele.""),
+  reference_bases STRING OPTIONS(description=""Reference bases.""),
+  alternate_bases ARRAY<STRUCT<alt STRING OPTIONS(description=""Alternate base.""), AC INT64 OPTIONS(description=""Total number of alternate alleles in called genotypes""), AF FLOAT64 OPTIONS(description=""Estimated allele frequency in the range (0,1)""), EAS_AF FLOAT64 OPTIONS(description=""Allele frequency in the EAS populations calculated from AC and AN, in the range (0,1)""), EUR_AF FLOAT64 OPTIONS(description=""Allele frequency in the EUR populations calculated from AC and AN, in the range (0,1)""), AFR_AF FLOAT64 OPTIONS(description=""Allele frequency in the AFR populations calculated from AC and AN, in the range (0,1)""), AMR_AF FLOAT64 OPTIONS(description=""Allele frequency in the AMR populations calculated from AC and AN, in the range (0,1)""), SAS_AF FLOAT64 OPTIONS(description=""Allele frequency in the SAS populations calculated from AC and AN, in the range (0,1)"")>> OPTIONS(description=""One record for each alternate base (if any).""),
+  names ARRAY<STRING> OPTIONS(description=""Variant names (e.g. RefSNP ID).""),
+  quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.""),
+  filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or \""PASS\"" indicating the variant has passed all filters.""),
+  call ARRAY<STRUCT<name STRING OPTIONS(description=""Name of the call.""), genotype ARRAY<INT64> OPTIONS(description=""Genotype of the call. \""-1\"" is used in cases where the genotype is not called.""), phaseset STRING OPTIONS(description=""Phaseset of the call (if any). \""*\"" is used in cases where the genotype is phased, but no phase set (\""PS\"" in FORMAT) was specified.""), CN INT64 OPTIONS(description=""Copy number genotype for imprecise events""), CNL ARRAY<FLOAT64> OPTIONS(description=""Copy number likelihoods with no frequency prior""), CNP ARRAY<FLOAT64> OPTIONS(description=""Copy number likelihoods""), CNQ FLOAT64 OPTIONS(description=""Copy number genotype quality for imprecise events""), GP ARRAY<FLOAT64> OPTIONS(description=""Genotype likelihoods""), GQ INT64 OPTIONS(description=""Genotype Quality""), FT STRING OPTIONS(description=""Per-sample genotype filter""), PL ARRAY<INT64> OPTIONS(description=""Normalized, Phred-scaled likelihoods for genotypes as defined in the VCF specification"")>> OPTIONS(description=""One record for each call.""),
+  CIEND ARRAY<INT64> OPTIONS(description=""Confidence interval around END for imprecise variants""),
+  CIPOS ARRAY<INT64> OPTIONS(description=""Confidence interval around POS for imprecise variants""),
+  CS STRING OPTIONS(description=""Source call set.""),
+  IMPRECISE BOOL OPTIONS(description=""Imprecise structural variation""),
+  MC ARRAY<STRING> OPTIONS(description=""Merged calls.""),
+  MEINFO ARRAY<STRING> OPTIONS(description=""Mobile element info of the form NAME,START,END<POLARITY; If there is only 5' OR 3' support for this call, will be NULL NULL for START and END""),
+  MEND INT64 OPTIONS(description=""Mitochondrial end coordinate of inserted sequence""),
+  MLEN INT64 OPTIONS(description=""Estimated length of mitochondrial insert""),
+  MSTART INT64 OPTIONS(description=""Mitochondrial start coordinate of inserted sequence""),
+  SVLEN ARRAY<INT64> OPTIONS(description=""SV length. It is only calculated for structural variation MEIs. For other types of SVs; one may calculate the SV length by INFO:END-START+1, or by finding the difference between lengthes of REF and ALT alleles""),
+  SVTYPE STRING OPTIONS(description=""Type of structural variant""),
+  TSD STRING OPTIONS(description=""Precise Target Site Duplication for bases, if unknown, value will be NULL""),
+  NS INT64 OPTIONS(description=""Number of samples with data""),
+  AN INT64 OPTIONS(description=""Total number of alleles in called genotypes""),
+  DP INT64 OPTIONS(description=""Total read depth; only low coverage data were counted towards the DP, exome data were not used""),
+  AA STRING OPTIONS(description=""Ancestral Allele. Format: AA|REF|ALT|IndelType. AA: Ancestral allele, REF:Reference Allele, ALT:Alternate Allele, IndelType:Type of Indel (REF, ALT and IndelType are only defined for indels)""),
+  VT ARRAY<STRING> OPTIONS(description=""indicates what type of variant the line represents""),
+  EX_TARGET BOOL OPTIONS(description=""indicates whether a variant is within the exon pull down target boundaries""),
+  MULTI_ALLELIC BOOL OPTIONS(description=""indicates whether a site is multi-allelic""),
+  OLD_VARIANT STRING,
+  partition_date_please_ignore DATE OPTIONS(description=""Column required by BigQuery partitioning/clustering logic. See https://cloud.google.com/bigquery/docs/clustered-tables"")
+)
+PARTITION BY partition_date_please_ignore
+CLUSTER BY reference_name, start_position, end_position
+OPTIONS(
+  description=""1000 genomes (phase 3) VCF files from [1] loaded using Variant Transforms v0.4.2 [2].\nSee ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/README_phase3_callset_20150220 and https://cloud.google.com/genomics/docs/public-datasets/1000-genomes for more details about the dataset.\n\n[1] ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/release/20130502/\n[2] https://github.com/googlegenomics/gcp-variant-transforms""
+);"
+1000_genomes_pedigree,"CREATE TABLE `bigquery-public-data.human_genome_variants.1000_genomes_pedigree`
+(
+  Family_ID STRING,
+  Individual_ID STRING,
+  Paternal_ID STRING,
+  Maternal_ID STRING,
+  Gender INT64,
+  Phenotype INT64,
+  Population STRING,
+  Relationship STRING,
+  Siblings STRING,
+  Second_Order STRING,
+  Third_Order STRING,
+  Other_Comments STRING
+)
+OPTIONS(
+  description=""Source:\nhttp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/20130606_g1k.ped\n\nDescription:\nhttp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/working/20130606_sample_info/README_20130606_sample_info\n\nFor more information see https://cloud.google.com/genomics/docs/public-datasets/1000-genomes""
+);"
+platinum_genomes_deepvariant_variants_20180823,"CREATE TABLE `bigquery-public-data.human_genome_variants.platinum_genomes_deepvariant_variants_20180823`
+(
+  reference_name STRING OPTIONS(description=""Reference name.""),
+  start_position INT64 OPTIONS(description=""Start position (0-based). Corresponds to the first base of the string of reference bases.""),
+  end_position INT64 OPTIONS(description=""End position (0-based). Corresponds to the first base after the last base in the reference allele.""),
+  reference_bases STRING OPTIONS(description=""Reference bases.""),
+  alternate_bases ARRAY<STRUCT<alt STRING OPTIONS(description=""Alternate base."")>> OPTIONS(description=""One record for each alternate base (if any).""),
+  names ARRAY<STRING> OPTIONS(description=""Variant names (e.g. RefSNP ID).""),
+  quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.""),
+  filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or \""PASS\"" indicating the variant has passed all filters.""),
+  call ARRAY<STRUCT<name STRING OPTIONS(description=""Name of the call.""), genotype ARRAY<INT64> OPTIONS(description=""Genotype of the call. \""-1\"" is used in cases where the genotype is not called.""), phaseset STRING OPTIONS(description=""Phaseset of the call (if any). \""*\"" is used in cases where the genotype is phased, but no phase set (\""PS\"" in FORMAT) was specified.""), GQ INT64 OPTIONS(description=""Conditional genotype quality""), DP INT64 OPTIONS(description=""Read depth""), MIN_DP INT64 OPTIONS(description=""Minimum DP observed within the GVCF block.""), AD ARRAY<INT64> OPTIONS(description=""Read depth for each allele""), VAF ARRAY<FLOAT64> OPTIONS(description=""Variant allele fractions.""), GL ARRAY<FLOAT64> OPTIONS(description=""Genotype likelihoods""), PL ARRAY<INT64> OPTIONS(description=""Phred-scaled genotype likelihoods rounded to the closest integer""), quality FLOAT64 OPTIONS(description=""Phred-scaled quality score (-10log10 prob(call is wrong)). Higher values imply better quality.\nNote: this field has been copied from QUAL field from individual VCF files.""), filter ARRAY<STRING> OPTIONS(description=""List of failed filters (if any) or \""PASS\"" indicating the variant has passed all filters.\nNote: this field has been copied from FILTER field from individual VCF files."")>> OPTIONS(description=""One record for each call.""),
+  partition_date_please_ignore DATE OPTIONS(description=""Column required by BigQuery partitioning/clustering logic. See https://cloud.google.com/bigquery/docs/clustered-tables"")
+)
+PARTITION BY partition_date_please_ignore
+CLUSTER BY reference_name, start_position, end_position
+OPTIONS(
+  description=""This dataset comprises the 6 member CEPH pedigree 1463. See http://www.illumina.com/platinumgenomes/ and https://cloud.google.com/genomics/docs/public-datasets/illumina-platinum-genomes for details.\n\nThe BAM files from these samples were retrieved from the European Nucleotide Archive (ENA) accession PRJEB3381 and variants were called using DeepVariant [1] v0.7.0. The VCF files were loaded using GCP Variant Transforms v0.4.2 [2]. The raw VCF files are available in https://console.cloud.google.com/storage/browser/genomics-public-data/platinum-genomes/vcf_deepvariant/0.7.0/ \n\n[1] https://github.com/google/deepvariant\n[2] https://github.com/googlegenomics/gcp-variant-transforms""
+);"

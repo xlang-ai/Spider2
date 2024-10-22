@@ -1,0 +1,235 @@
+{
+    "table_name": "202007",
+    "table_fullname": "githubarchive.month.202007",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"master\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":\"My GitHub profile.\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 279029373,
+                "name": "henrik/henrik",
+                "url": "https://api.github.com/repos/henrik/henrik"
+            },
+            "actor": {
+                "id": 216,
+                "login": "henrik",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/216?",
+                "url": "https://api.github.com/users/henrik"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-07-12 09:10:00+00:00",
+            "id": "12880943256",
+            "other": "{\"actor\":{\"display_login\":\"henrik\"}}"
+        },
+        {
+            "type": "IssuesEvent",
+            "public": true,
+            "payload": "{\"action\":\"closed\",\"issue\":{\"url\":\"https://api.github.com/repos/JJ/raku-test-ecosystem/issues/3\",\"repository_url\":\"https://api.github.com/repos/JJ/raku-test-ecosystem\",\"labels_url\":\"https://api.github.com/repos/JJ/raku-test-ecosystem/issues/3/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/JJ/raku-test-ecosystem/issues/3/comments\",\"events_url\":\"https://api.github.com/repos/JJ/raku-test-ecosystem/issues/3/events\",\"html_url\":\"https://github.com/JJ/raku-test-ecosystem/issues/3\",\"id\":656704801,\"node_id\":\"MDU6SXNzdWU2NTY3MDQ4MDE=\",\"number\":3,\"title\":\"Change to new alpine containers\",\"user\":{\"login\":\"JJ\",\"id\":500,\"node_id\":\"MDQ6VXNlcjUwMA==\",\"avatar_url\":\"https://avatars3.githubusercontent.com/u/500?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/JJ\",\"html_url\":\"https://github.com/JJ\",\"followers_url\":\"https://api.github.com/users/JJ/followers\",\"following_url\":\"https://api.github.com/users/JJ/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/JJ/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/JJ/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/JJ/subscriptions\",\"organizations_url\":\"https://api.github.com/users/JJ/orgs\",\"repos_url\":\"https://api.github.com/users/JJ/repos\",\"events_url\":\"https://api.github.com/users/JJ/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/JJ/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[],\"state\":\"closed\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":0,\"created_at\":\"2020-07-14T15:32:57Z\",\"updated_at\":\"2020-07-14T15:56:07Z\",\"closed_at\":\"2020-07-14T15:56:07Z\",\"author_association\":\"OWNER\",\"active_lock_reason\":null,\"body\":\"Which have changed a lot since then.\"}}",
+            "repo": {
+                "id": 172315413,
+                "name": "JJ/raku-test-ecosystem",
+                "url": "https://api.github.com/repos/JJ/raku-test-ecosystem"
+            },
+            "actor": {
+                "id": 500,
+                "login": "JJ",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/500?",
+                "url": "https://api.github.com/users/JJ"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-07-14 15:56:07+00:00",
+            "id": "12902001946",
+            "other": "{\"actor\":{\"display_login\":\"JJ\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":5330851609,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"dfa4b7d61002285487cfdb6e6c8c43b15fc4efb4\",\"before\":\"49408ae9266252d466344593fe7a6f17db8f5314\",\"commits\":[{\"sha\":\"dfa4b7d61002285487cfdb6e6c8c43b15fc4efb4\",\"author\":{\"name\":\"Bryce Mecum\",\"email\":\"c2e3d33bb5930f6606d4646107b1d43f071a1180@gmail.com\"},\"message\":\"Update for July 5\",\"distinct\":true,\"url\":\"https://api.github.com/repos/amoeba/2020-yukon-forecasting/commits/dfa4b7d61002285487cfdb6e6c8c43b15fc4efb4\"}]}",
+            "repo": {
+                "id": 259212703,
+                "name": "amoeba/2020-yukon-forecasting",
+                "url": "https://api.github.com/repos/amoeba/2020-yukon-forecasting"
+            },
+            "actor": {
+                "id": 563,
+                "login": "amoeba",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/563?",
+                "url": "https://api.github.com/users/amoeba"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-07-06 09:25:56+00:00",
+            "id": "12822212722",
+            "other": "{\"actor\":{\"display_login\":\"amoeba\"}}"
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 197998526,
+                "name": "hoanhan101/algo",
+                "url": "https://api.github.com/repos/hoanhan101/algo"
+            },
+            "actor": {
+                "id": 632,
+                "login": "rubenlozano",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/632?",
+                "url": "https://api.github.com/users/rubenlozano"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-07-03 03:14:24+00:00",
+            "id": "12804093842",
+            "other": "{\"actor\":{\"display_login\":\"rubenlozano\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":5368145804,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"57254c76d52e4f8c1641760bddb363071addc937\",\"before\":\"fe684a2ae3a6e55f485b7284076db5b3e8968a17\",\"commits\":[{\"sha\":\"57254c76d52e4f8c1641760bddb363071addc937\",\"author\":{\"name\":\"Anton Ageev\",\"email\":\"42dd7e3fd5f2ae2f57047a8f5c8c82ef9512642b@gmail.com\"},\"message\":\"Renamed to \\\"OctoKlipper Next\\\".\\nReformat `octoklipper-next/__init__.py`.\\nReload configuration on `SAVE_CONFIG` G-code command.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/antage/octoklipper-next/commits/57254c76d52e4f8c1641760bddb363071addc937\"}]}",
+            "repo": {
+                "id": 226693864,
+                "name": "antage/octoklipper-next",
+                "url": "https://api.github.com/repos/antage/octoklipper-next"
+            },
+            "actor": {
+                "id": 1032,
+                "login": "antage",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1032?",
+                "url": "https://api.github.com/users/antage"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-07-13 20:49:37+00:00",
+            "id": "12893055493",
+            "other": "{\"actor\":{\"display_login\":\"antage\"}}"
+        }
+    ]
+}

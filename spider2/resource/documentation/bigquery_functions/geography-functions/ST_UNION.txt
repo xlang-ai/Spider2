@@ -1,0 +1,38 @@
+## ST_UNION
+
+ST_UNION(geography_1, geography_2)
+
+
+ST_UNION(array_of_geography)
+
+**Description**
+
+Returns a ` GEOGRAPHY ` that represents the point set union of all input `
+GEOGRAPHY ` s.
+
+` ST_UNION ` comes in two variants. For the first variant, input must be two `
+GEOGRAPHY ` s. For the second, the input is an ` ARRAY ` of type ` GEOGRAPHY `
+.
+
+For the first variant of ` ST_UNION ` , if an input ` GEOGRAPHY ` is ` NULL `
+, ` ST_UNION ` returns ` NULL ` . For the second variant, if the input ` ARRAY
+` value is ` NULL ` , ` ST_UNION ` returns ` NULL ` . For a non- ` NULL `
+input ` ARRAY ` , the union is computed and ` NULL ` elements are ignored so that they do not affect the output.
+
+See  ` ST_UNION_AGG ` for the aggregate version of ` ST_UNION ` .
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Example**
+
+
+SELECT ST_UNION( ST_GEOGFROMTEXT('LINESTRING(-122.12 47.67, -122.19 47.69)'),
+ST_GEOGFROMTEXT('LINESTRING(-122.12 47.67, -100.19 47.69)') ) AS results
+
+/*---------------------------------------------------------*
+| results                                                 |
++---------------------------------------------------------+
+| LINESTRING(-100.19 47.69, -122.12 47.67, -122.19 47.69) |
+*---------------------------------------------------------*/

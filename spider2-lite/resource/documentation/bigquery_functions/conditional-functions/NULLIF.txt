@@ -1,0 +1,39 @@
+## NULLIF
+
+NULLIF(expr, expr_to_match)
+
+**Description**
+
+Returns ` NULL ` if ` expr = expr_to_match ` evaluates to ` TRUE ` , otherwise returns ` expr ` .
+
+` expr ` and ` expr_to_match ` must be implicitly coercible to a common [
+supertype ](/bigquery/docs/reference/standard-sql/conversion_rules#supertypes)
+, and must be comparable.
+
+This expression supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return Data Type**
+
+[ Supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) of ` expr ` and ` expr_to_match ` .
+
+**Example**
+
+
+SELECT NULLIF(0, 0) as result
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+
+SELECT NULLIF(10, 0) as result
+
+/*--------*
+| result |
++--------+
+| 10     |
+*--------*/

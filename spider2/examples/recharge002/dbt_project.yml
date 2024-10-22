@@ -1,0 +1,119 @@
+
+name: 'recharge'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'recharge'
+
+vars:
+  recharge_source:
+    recharge_schema: main
+    recharge_address_identifier: "address_data"
+    recharge_address_discounts_identifier: "address_discounts_data"
+    recharge_address_shipping_line_identifier: "address_shipping_line_data"
+    recharge_charge_identifier: "charge_data"
+    recharge_charge_discount_identifier: "charge_discount_data"
+    recharge_charge_line_item_identifier: "charge_line_item_data"
+    recharge_charge_order_attribute_identifier: "charge_order_attribute_data"
+    recharge_charge_shipping_line_identifier: "charge_shipping_line_data"
+    recharge_charge_tax_line_identifier: "charge_tax_line_data"
+    recharge_checkout_identifier: "checkout_data"
+    recharge_customer_identifier: "customer_data"
+    recharge_discount_identifier: "discount_data"
+    recharge_one_time_product_identifier: "one_time_product_data"
+    order: "{{ ref('order_data') }}" # Comment out for generating docs -- Uncomment this before sending to buildkite.
+    # recharge_order_identifier: "order_data" # Uncomment for generating docs -- Comment this out before sending to buildkite.
+    recharge_orders_identifier: "orders_data"
+    recharge_order_line_item_identifier: "order_line_item_data"
+    recharge_subscription_identifier: "subscription_data"
+    recharge_subscription_history_identifier: "subscription_history_data"
+
+  recharge:
+    address: "{{ ref('stg_recharge__address') }}"
+    address_discounts: "{{ ref('stg_recharge__address_discounts') }}"
+    address_shipping_line: "{{ ref('stg_recharge__address_shipping_line') }}"
+    charge: "{{ ref('stg_recharge__charge') }}"
+    charge_discount: "{{ ref('stg_recharge__charge_discount') }}"
+    charge_line_item: "{{ ref('stg_recharge__charge_line_item') }}"
+    charge_order_attribute: "{{ ref('stg_recharge__charge_order_attribute') }}"
+    charge_tax_line: "{{ ref('stg_recharge__charge_tax_line') }}"
+    charge_shipping_line: "{{ ref('stg_recharge__charge_shipping_line') }}"
+    checkout: "{{ ref('stg_recharge__checkout') }}"
+    customer: "{{ ref('stg_recharge__customer') }}"
+    discount: "{{ ref('stg_recharge__discount') }}"
+    one_time_product: "{{ ref('stg_recharge__one_time_product') }}"
+    order: "{{ ref('stg_recharge__order') }}"
+    order_line_item: "{{ ref('stg_recharge__order_line_item') }}"
+    product: "{{ ref('stg_recharge__product') }}"
+    subscription: "{{ ref('stg_recharge__subscription') }}"
+    subscription_history: "{{ ref('stg_recharge__subscription_history') }}"
+    
+    recharge__address_passthrough_columns: [] 
+    recharge__charge_passthrough_columns: [] 
+    recharge__charge_line_item_passthrough_columns: []
+    recharge__checkout_passthrough_columns: [] 
+    recharge__order_passthrough_columns: [] 
+    recharge__order_line_passthrough_columns: [] 
+    recharge__subscription_passthrough_columns: [] 
+    recharge__subscription_history_passthrough_columns: []
+
+models:
+  recharge:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral
+      int_recharge__calendar_spine:
+        +materialized: table
+
+
+seeds:
+  +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+  recharge:
+    +column_types:
+      _FIVETRAN_SYNCED: "timestamp"
+      CANCELLED_AT: "timestamp"
+      CREATED_AT: "timestamp"
+      PROCESSED_AT: "timestamp"
+      NEXT_CHARGE_SCHEDULED_AT: "timestamp"
+      SCHEDULED_AT: "timestamp"
+      SUBTOTAL_PRICE: "float"
+      TOTAL_PRICE: string
+      UPDATED_AT: "timestamp"
+      ID: bigint
+      ADDRESS_ID: bigint
+      CHARGE_ID: bigint
+      CUSTOMER_ID: bigint
+      DISCOUNT_ID: bigint
+      EXTERNAL_PRODUCT_ID_ECOMMERCE: bigint
+      EXTERNAL_VARIANT_ID_ECOMMERCE: bigint
+      SUBSCRIPTION_ID: bigint
+      COMPANY: string
+    charge_data:
+      +column_types:
+        LAST_CHARGE_ATTEMPT_DATE: "timestamp"
+        RETRY_DATE: "timestamp"
+    charge_discount_data:
+      +column_types:
+        VALUE: "float"
+    checkout_data:
+      +column_types:
+        COMPLETED_AT: "timestamp"
+    customer_data:
+      +column_types:
+        FIRST_CHARGE_PROCESSED_AT: "timestamp"
+    discount_data:
+      +column_types:
+        APPLIES_TO_ID: bigint
+        ENDS_AT: "timestamp"
+        STARTS_AT: "timestamp"
+    order_data:
+      +column_types:
+        SHIPPED_DATE: "timestamp"
+        SHIPPING_DATE: "timestamp"
+    orders_data:
+      +column_types:
+        SHIPPED_DATE: "timestamp"
+        SHIPPING_DATE: "timestamp"
+
+

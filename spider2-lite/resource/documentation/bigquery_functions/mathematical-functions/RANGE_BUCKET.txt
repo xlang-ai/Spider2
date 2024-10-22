@@ -1,0 +1,80 @@
+## RANGE_BUCKET
+
+RANGE_BUCKET(point, boundaries_array)
+
+**Description**
+
+` RANGE_BUCKET ` scans through a sorted array and returns the 0-based position of the point's upper bound. This can be useful if you need to group your data to build partitions, histograms, business-defined rules, and more.
+
+` RANGE_BUCKET ` follows these rules:
+
+* If the point exists in the array, returns the index of the next larger value.
+
+RANGE_BUCKET(20, [0, 10, 20, 30, 40]) -- 3 is return value RANGE_BUCKET(20, [0, 10, 20, 20, 40, 40]) -- 4 is return value
+
+* If the point does not exist in the array, but it falls between two values, returns the index of the larger value.
+
+RANGE_BUCKET(25, [0, 10, 20, 30, 40]) -- 3 is return value
+
+* If the point is smaller than the first value in the array, returns 0.
+
+RANGE_BUCKET(-10, [5, 10, 20, 30, 40]) -- 0 is return value
+
+* If the point is greater than or equal to the last value in the array, returns the length of the array.
+
+RANGE_BUCKET(80, [0, 10, 20, 30, 40]) -- 5 is return value
+
+* If the array is empty, returns 0.
+
+RANGE_BUCKET(80, []) -- 0 is return value
+
+* If the point is ` NULL ` or ` NaN ` , returns ` NULL ` .
+
+RANGE_BUCKET(NULL, [0, 10, 20, 30, 40]) -- NULL is return value
+
+* The data type for the point and array must be compatible.
+
+RANGE_BUCKET('a', ['a', 'b', 'c', 'd']) -- 1 is return value RANGE_BUCKET(1.2, [1, 1.2, 1.4, 1.6]) -- 2 is return value RANGE_BUCKET(1.2, [1, 2, 4, 6]) -- execution failure
+
+Execution failure occurs when:
+
+* The array has a ` NaN ` or ` NULL ` value in it.
+
+RANGE_BUCKET(80, [NULL, 10, 20, 30, 40]) -- execution failure
+
+* The array is not sorted in ascending order.
+
+RANGE_BUCKET(30, [10, 30, 20, 40, 50]) -- execution failure
+
+**Parameters**
+
+* ` point ` : A generic value.
+* ` boundaries_array ` : A generic array of values.
+
+**Note:** The data type for ` point ` and the element type of `
+boundaries_array ` must be equivalent. The data type must be [ comparable
+](/bigquery/docs/reference/standard-sql/data-types#data_type_properties) .
+
+**Return Value**
+
+` INT64 `
+
+**Examples**
+
+In a table called ` students ` , check to see how many records would exist in each ` age_group ` bucket, based on a student's age:
+
+* age_group 0 (age < 10)
+* age_group 1 (age >= 10, age < 20)
+* age_group 2 (age >= 20, age < 30)
+* age_group 3 (age >= 30)
+
+
+WITH students AS ( SELECT 9 AS age UNION ALL SELECT 20 AS age UNION ALL SELECT 25 AS age UNION ALL SELECT 31 AS age UNION ALL SELECT 32 AS age UNION ALL SELECT 33 AS age ) SELECT RANGE_BUCKET(age, [10, 20, 30]) AS age_group, COUNT(*) AS count FROM students GROUP BY 1
+
+/*--------------+-------*
+| age_group    | count |
++--------------+-------+
+| 0            | 1     |
+| 2            | 2     |
+| 3            | 3     |
+*--------------+-------*/

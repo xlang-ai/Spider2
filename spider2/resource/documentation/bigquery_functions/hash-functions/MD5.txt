@@ -1,0 +1,29 @@
+## MD5
+
+MD5(input)
+
+**Description**
+
+Computes the hash of the input using the [ MD5 algorithm
+](https://en.wikipedia.org/wiki/MD5) . The input can either be ` STRING ` or `
+BYTES ` . The string version treats the input as an array of bytes.
+
+This function returns 16 bytes.
+
+**Warning:** MD5 is no longer considered secure. For increased security use another hashing function.
+
+**Return type**
+
+` BYTES `
+
+**Example**
+
+
+SELECT MD5("Hello World") as md5;
+
+-- Note that the result of MD5 is of type BYTES, displayed as a base64-encoded string.
+/*--------------------------*
+| md5                      |
++--------------------------+
+| sQqNsWTgdUEFt6mb5y4/5Q== |
+*--------------------------*/

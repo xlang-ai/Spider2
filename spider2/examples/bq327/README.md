@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.world_bank_intl_debt` database to solve this problem.

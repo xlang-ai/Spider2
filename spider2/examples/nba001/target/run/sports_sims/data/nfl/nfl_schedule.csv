@@ -1,0 +1,13 @@
+
+    
+    
+    
+    create table "nba"."main"."nfl_schedule" ("id" integer,"Week" integer,"Day" text,"Date" date,"VisTm" text,"HomeTm" text)
+  ;
+    -- dbt seed --
+    
+          COPY "nba"."main"."nfl_schedule" FROM '/Users/leifangyu/workspace/Spider2-C/evaluation_examples/dbt/source/dbt_nba/data/nfl/nfl_schedule.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  

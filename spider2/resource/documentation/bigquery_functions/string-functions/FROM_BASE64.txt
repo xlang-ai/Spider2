@@ -1,0 +1,42 @@
+## FROM_BASE64
+
+FROM_BASE64(string_expr)
+
+**Description**
+
+Converts the base64-encoded input ` string_expr ` into ` BYTES ` format. To convert ` BYTES ` to a base64-encoded ` STRING ` , use [TO_BASE64][string-
+link-to-base64].
+
+There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding.
+See [ RFC 4648 ](https://tools.ietf.org/html/rfc4648#section-4) for details.
+This function expects the alphabet ` [A-Za-z0-9+/=] ` .
+
+**Return type**
+
+` BYTES `
+
+**Example**
+
+
+SELECT FROM_BASE64('/+A=') AS byte_data;
+
+-- Note that the result of FROM_BASE64 is of type BYTES, displayed as a base64-encoded string.
+/*-----------*
+| byte_data |
++-----------+
+| /+A=      |
+*-----------*/
+
+To work with an encoding using a different base64 alphabet, you might need to compose ` FROM_BASE64 ` with the ` REPLACE ` function. For instance, the `
+base64url ` url-safe and filename-safe encoding commonly used in web programming uses ` -_= ` as the last characters rather than ` +/= ` . To decode a ` base64url ` -encoded string, replace ` - ` and ` _ ` with ` + ` and
+` / ` respectively.
+
+
+SELECT FROM_BASE64(REPLACE(REPLACE('_-A=', '-', '+'), '_', '/')) AS binary;
+
+-- Note that the result of FROM_BASE64 is of type BYTES, displayed as a base64-encoded string.
+/*--------*
+| binary |
++--------+
+| /+A=   |
+*--------*/

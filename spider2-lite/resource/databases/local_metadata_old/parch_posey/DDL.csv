@@ -1,0 +1,42 @@
+table_name,DDL
+accounts,"CREATE TABLE accounts (
+    id INTEGER (9),
+    name TEXT,
+    website TEXT,
+    lat DECIMAL(11,8),
+    long DECIMAL(11,8),
+    primary_poc TEXT,
+    sales_rep_id INTEGER (9)
+);"
+orders,"CREATE TABLE orders (
+    id INTEGER (9),
+    account_id INTEGER (9),
+    occurred_at TIMESTAMP,
+    standard_qty INTEGER (10),
+    gloss_qty INTEGER (10),
+    poster_qty INTEGER (10),
+    total INTEGER (10),
+    standard_amt_usd DECIMAL(12,2),
+    gloss_amt_usd DECIMAL(12,2),
+    poster_amt_usd DECIMAL(12,2),
+    total_amt_usd DECIMAL(12,2)
+);"
+region,"CREATE TABLE region (
+    id INTEGER (9),
+    name TEXT
+);"
+sales_reps,"CREATE TABLE sales_reps (
+    id INTEGER (9),
+    name TEXT,
+    region_id INTEGER (9)
+);"
+web_events,"CREATE TABLE web_events (
+    id INTEGER (9),
+    account_id INTEGER (9),
+    occurred_at TIMESTAMP,
+    channel TEXT
+);"
+sqlite_sequence,"CREATE TABLE sqlite_sequence (
+    name ,
+    seq 
+);"

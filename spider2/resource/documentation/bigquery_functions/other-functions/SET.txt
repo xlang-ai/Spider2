@@ -1,0 +1,46 @@
+## SET
+
+**Syntax**
+
+
+SET variable_name = expression;
+
+
+SET (variable_name[, ...]) = (expression[, ...]);
+
+**Description**
+
+Sets a variable to have the value of the provided expression, or sets multiple variables at the same time based on the result of multiple expressions.
+
+The ` SET ` statement may appear anywhere within a multi-statement query.
+
+**Examples**
+
+The following example sets the variable ` x ` to have the value 5.
+
+
+SET x = 5;
+
+The following example sets the variable ` a ` to have the value 4, ` b ` to have the value 'foo', and the variable ` c ` to have the value ` false ` .
+
+
+SET (a, b, c) = (1 + 3, 'foo', false);
+
+The following example assigns the result of a query to multiple variables.
+First, it declares two variables, ` target_word ` and ` corpus_count ` ; next,
+it assigns the results of a [ ` SELECT AS STRUCT ` query
+](/bigquery/docs/reference/standard-sql/query-syntax#select_modifiers) to the two variables. The result of the query is a single row containing a ` STRUCT `
+with two fields; the first element is assigned to the first variable, and the second element is assigned to the second variable.
+
+
+DECLARE target_word STRING DEFAULT 'methinks';
+DECLARE corpus_count, word_count INT64;
+
+SET (corpus_count, word_count) = ( SELECT AS STRUCT COUNT(DISTINCT corpus), SUM(word_count) FROM bigquery-public-data.samples.shakespeare WHERE LOWER(word) = target_word );
+
+SELECT FORMAT('Found %d occurrences of "%s" across %d Shakespeare works',
+word_count, target_word, corpus_count) AS result;
+
+This statement list outputs the following string:
+
+Found 151 occurrences of "methinks" across 38 Shakespeare works

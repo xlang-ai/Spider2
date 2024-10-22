@@ -1,0 +1,45 @@
+## ROUND
+
+ROUND(X [, N [, rounding_mode]])
+
+**Description**
+
+If only X is present, rounds X to the nearest integer. If N is present, rounds X to N decimal places after the decimal point. If N is negative, rounds off digits to the left of the decimal point. Rounds halfway cases away from zero.
+Generates an error if overflow occurs.
+
+If X is a ` NUMERIC ` or ` BIGNUMERIC ` type, then you can explicitly set `
+rounding_mode ` to one of the following:
+
+* [ ` "ROUND_HALF_AWAY_FROM_ZERO" ` ](https://en.wikipedia.org/wiki/Rounding#Rounding_half_away_from_zero) : (Default) Rounds halfway cases away from zero.
+* [ ` "ROUND_HALF_EVEN" ` ](https://en.wikipedia.org/wiki/Rounding#Rounding_half_to_even) : Rounds halfway cases towards the nearest even digit.
+
+If you set the ` rounding_mode ` and X is not a ` NUMERIC ` or ` BIGNUMERIC `
+type, then the function generates an error.
+
+Expression  |  Return Value
+---|---
+` ROUND(2.0) ` |  2.0
+` ROUND(2.3) ` |  2.0
+` ROUND(2.8) ` |  3.0
+` ROUND(2.5) ` |  3.0
+` ROUND(-2.3) ` |  -2.0
+` ROUND(-2.8) ` |  -3.0
+` ROUND(-2.5) ` |  -3.0
+` ROUND(0) ` |  0
+` ROUND(+inf) ` |  ` +inf `
+` ROUND(-inf) ` |  ` -inf `
+` ROUND(NaN) ` |  ` NaN `
+` ROUND(123.7, -1) ` |  120.0
+` ROUND(1.235, 2) ` |  1.24
+` ROUND(NUMERIC "2.25", 1, "ROUND_HALF_EVEN") ` |  2.2
+` ROUND(NUMERIC "2.35", 1, "ROUND_HALF_EVEN") ` |  2.4
+` ROUND(NUMERIC "2.251", 1, "ROUND_HALF_EVEN") ` |  2.3
+` ROUND(NUMERIC "-2.5", 0, "ROUND_HALF_EVEN") ` |  -2
+` ROUND(NUMERIC "2.5", 0, "ROUND_HALF_AWAY_FROM_ZERO") ` |  3
+` ROUND(NUMERIC "-2.5", 0, "ROUND_HALF_AWAY_FROM_ZERO") ` |  -3
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+OUTPUT  |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `

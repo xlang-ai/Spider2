@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.crypto_ethereum_classic` database to solve this problem.

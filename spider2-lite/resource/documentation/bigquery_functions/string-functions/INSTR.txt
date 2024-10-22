@@ -1,0 +1,61 @@
+## INSTR
+
+INSTR(value, subvalue[, position[, occurrence]])
+
+**Description**
+
+Returns the lowest 1-based position of ` subvalue ` in ` value ` . ` value `
+and ` subvalue ` must be the same type, either ` STRING ` or ` BYTES ` .
+
+If ` position ` is specified, the search starts at this position in ` value `
+, otherwise it starts at ` 1 ` , which is the beginning of ` value ` . If `
+position ` is negative, the function searches backwards from the end of `
+value ` , with ` -1 ` indicating the last character. ` position ` is of type `
+INT64 ` and cannot be ` 0 ` .
+
+If ` occurrence ` is specified, the search returns the position of a specific instance of ` subvalue ` in ` value ` . If not specified, ` occurrence `
+defaults to ` 1 ` and returns the position of the first occurrence. For `
+occurrence ` > ` 1 ` , the function includes overlapping occurrences. `
+occurrence ` is of type ` INT64 ` and must be positive.
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+Returns ` 0 ` if:
+
+* No match is found.
+* If ` occurrence ` is greater than the number of matches found.
+* If ` position ` is greater than the length of ` value ` .
+
+Returns ` NULL ` if:
+
+* Any input argument is ` NULL ` .
+
+Returns an error if:
+
+* ` position ` is ` 0 ` .
+* ` occurrence ` is ` 0 ` or negative.
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH example AS (SELECT 'banana' as value, 'an' as subvalue, 1 as position, 1 as occurrence UNION ALL SELECT 'banana' as value, 'an' as subvalue, 1 as position, 2 as occurrence UNION ALL SELECT 'banana' as value, 'an' as subvalue, 1 as position, 3 as occurrence UNION ALL SELECT 'banana' as value, 'an' as subvalue, 3 as position, 1 as occurrence UNION ALL SELECT 'banana' as value, 'an' as subvalue, -1 as position, 1 as occurrence UNION ALL SELECT 'banana' as value, 'an' as subvalue, -3 as position, 1 as occurrence UNION ALL SELECT 'banana' as value, 'ann' as subvalue, 1 as position, 1 as occurrence UNION ALL SELECT 'helloooo' as value, 'oo' as subvalue, 1 as position, 1 as occurrence UNION ALL SELECT 'helloooo' as value, 'oo' as subvalue, 1 as position, 2 as occurrence ) SELECT value, subvalue, position, occurrence, INSTR(value,
+subvalue, position, occurrence) AS instr FROM example;
+
+/*--------------+--------------+----------+------------+-------*
+| value        | subvalue     | position | occurrence | instr |
++--------------+--------------+----------+------------+-------+
+| banana       | an           | 1        | 1          | 2     |
+| banana       | an           | 1        | 2          | 4     |
+| banana       | an           | 1        | 3          | 0     |
+| banana       | an           | 3        | 1          | 4     |
+| banana       | an           | -1       | 1          | 4     |
+| banana       | an           | -3       | 1          | 4     |
+| banana       | ann          | 1        | 1          | 0     |
+| helloooo     | oo           | 1        | 1          | 5     |
+| helloooo     | oo           | 1        | 2          | 6     |
+*--------------+--------------+----------+------------+-------*/

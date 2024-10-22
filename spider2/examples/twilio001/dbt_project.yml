@@ -1,0 +1,32 @@
+name: 'twilio' 
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'twilio'
+
+vars:
+  twilio_schema: main
+  twilio_source:
+    twilio_account_history_identifier:  "twilio_account_history_data"
+    twilio_address_identifier:  "twilio_address_data"
+    twilio_incoming_phone_number_identifier:  "twilio_incoming_phone_number_data"
+    twilio_messaging_service_identifier:  "twilio_messaging_service_data"
+    twilio_outgoing_caller_id_identifier:   "twilio_outgoing_caller_id_data"
+    twilio_usage_record_identifier:   "twilio_usage_record_data"
+    twilio_call_identifier:   "twilio_call_data"
+    twilio_message_identifier:   "twilio_message_data"
+
+  twilio:
+    account_history: "{{ ref('stg_twilio__account_history' )}}"
+    address: "{{ ref('stg_twilio__address' )}}"
+    call: "{{ ref('stg_twilio__call' )}}"
+    incoming_phone_number: "{{ ref('stg_twilio__incoming_phone_number' )}}"
+    message: "{{ ref('stg_twilio__message' )}}"
+    messaging_service: "{{ ref('stg_twilio__messaging_service' )}}"
+    outgoing_caller_id: "{{ ref('stg_twilio__outgoing_caller_id' )}}"
+    usage_record: "{{ ref('stg_twilio__usage_record' )}}"
+
+models:
+  twilio:
+    +materialized: table

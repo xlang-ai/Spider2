@@ -1,0 +1,259 @@
+## CONTAINS_SUBSTR
+
+CONTAINS_SUBSTR(expression, search_value_literal[, json_scope=>json_scope_value])
+
+json_scope_value:
+{ 'JSON_VALUES' | 'JSON_KEYS' | 'JSON_KEYS_AND_VALUES' }
+
+**Description**
+
+Performs a normalized, case-insensitive search to see if a value exists as a substring in an expression. Returns ` TRUE ` if the value exists, otherwise returns ` FALSE ` .
+
+Before values are compared, they are  normalized and case folded with ` NFKC `
+normalization  . Wildcard searches are not supported.
+
+**Arguments**
+
+* ` search_value_literal ` : The value to search for. It must be a ` STRING ` literal or a ` STRING ` constant expression.
+* ` expression ` : The data to search over. The expression can be a column or table reference. A table reference is evaluated as a ` STRUCT ` whose fields are the columns of the table. A column reference is evaluated as one the following data types:
+
+* ` STRING `
+* ` INT64 `
+* ` BOOL `
+* ` NUMERIC `
+* ` BIGNUMERIC `
+* ` TIMESTAMP `
+* ` TIME `
+* ` DATE `
+* ` DATETIME `
+* ` ARRAY `
+* ` STRUCT `
+
+When the expression is evaluated, the result is cast to a ` STRING ` , and then the function looks for the search value in the result.
+
+You can perform a cross-field search on an expression that evaluates to a `
+STRUCT ` or ` ARRAY ` . If the expression evaluates to a ` STRUCT ` , the cross-field search is recursive and includes all subfields inside the ` STRUCT
+` .
+
+In a cross-field search, each field and subfield is individually converted to a string and searched for the value. The function returns ` TRUE ` if at least one field includes the search value; otherwise, if at least one field is `
+NULL ` , it returns ` NULL ` ; otherwise, if the search value is not found and all fields are non- ` NULL ` , it returns ` FALSE ` .
+
+If the expression is ` NULL ` , the return value is ` NULL ` .
+
+* ` json_scope ` : This optional [ mandatory-named argument ](/bigquery/docs/reference/standard-sql/functions-reference#named_arguments) takes one of the following values to indicate the scope of ` JSON ` data to be searched. It has no effect if ` expression ` is not ` JSON ` or does not contain a ` JSON ` field.
+
+* ` 'JSON_VALUES' ` : Only the ` JSON ` values are searched. If ` json_scope ` is not provided, this is used by default.
+* ` 'JSON_KEYS' ` : Only the ` JSON ` keys are searched.
+* ` 'JSON_KEYS_AND_VALUES' ` : The ` JSON ` keys and values are searched.
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+The following query returns ` TRUE ` because this case-insensitive match was found: ` blue house ` and ` Blue house ` .
+
+
+SELECT CONTAINS_SUBSTR('the blue house', 'Blue house') AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+The following query returns ` TRUE ` similar to the above example, but in this case the search value is a constant expression with CONCAT function.
+
+
+SELECT CONTAINS_SUBSTR('the blue house', CONCAT('Blue ', 'house')) AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+The following query returns ` FALSE ` because ` blue ` was not found in ` the red house ` .
+
+
+SELECT CONTAINS_SUBSTR('the red house', 'blue') AS result;
+
+/*--------*
+| result |
++--------+
+| false  |
+*--------*/
+
+The following query returns ` TRUE ` because ` Ⅸ ` and ` IX ` represent the same normalized value.
+
+
+SELECT '\u2168 day' AS a, 'IX' AS b, CONTAINS_SUBSTR('\u2168', 'IX') AS result;
+
+/*----------------------*
+| a      | b  | result |
++----------------------+
+| Ⅸ day | IX | true   |
+*----------------------*/
+
+The following query returns ` TRUE ` because ` 35 ` was found inside a `
+STRUCT ` field.
+
+
+SELECT CONTAINS_SUBSTR((23, 35, 41), '35') AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+The following query returns ` TRUE ` because ` jk ` was found during a recursive search inside a ` STRUCT ` .
+
+
+SELECT CONTAINS_SUBSTR(('abc', ['def', 'ghi', 'jkl'], 'mno'), 'jk');
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+The following query returns ` TRUE ` because ` NULL ` s are ignored when a match is found found inside a ` STRUCT ` or ` ARRAY ` .
+
+
+SELECT CONTAINS_SUBSTR((23, NULL, 41), '41') AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+The following query returns ` NULL ` because a ` NULL ` existed in a ` STRUCT
+` that did not result in a match.
+
+
+SELECT CONTAINS_SUBSTR((23, NULL, 41), '35') AS result;
+
+/*--------*
+| result |
++--------+
+| null   |
+*--------*/
+
+In the following query, an error is thrown because the search value cannot be a literal ` NULL ` .
+
+
+SELECT CONTAINS_SUBSTR('hello', NULL) AS result;
+-- Throws an error
+
+The following examples reference a table called ` Recipes ` that you can emulate with a ` WITH ` clause like this:
+
+
+WITH Recipes AS (SELECT 'Blueberry pancakes' as Breakfast, 'Egg salad sandwich' as Lunch, 'Potato dumplings' as Dinner UNION ALL SELECT 'Potato pancakes', 'Toasted cheese sandwich', 'Beef stroganoff' UNION ALL SELECT 'Ham scramble', 'Steak avocado salad', 'Tomato pasta' UNION ALL SELECT 'Avocado toast', 'Tomato soup', 'Blueberry salmon' UNION ALL SELECT 'Corned beef hash', 'Lentil potato soup', 'Glazed ham') SELECT * FROM Recipes;
+
+/*-------------------+-------------------------+------------------*
+| Breakfast         | Lunch                   | Dinner           |
++-------------------+-------------------------+------------------+
+| Bluberry pancakes | Egg salad sandwich      | Potato dumplings |
+| Potato pancakes   | Toasted cheese sandwich | Beef stroganoff  |
+| Ham scramble      | Steak avocado salad     | Tomato pasta     |
+| Avocado toast     | Tomato soup             | Blueberry samon  |
+| Corned beef hash  | Lentil potato soup      | Glazed ham       |
+*-------------------+-------------------------+------------------*/
+
+The following query searches across all columns of the ` Recipes ` table for the value ` toast ` and returns the rows that contain this value.
+
+
+SELECT * FROM Recipes WHERE CONTAINS_SUBSTR(Recipes, 'toast');
+
+/*-------------------+-------------------------+------------------*
+| Breakfast         | Lunch                   | Dinner           |
++-------------------+-------------------------+------------------+
+| Potato pancakes   | Toasted cheese sandwich | Beef stroganoff  |
+| Avocado toast     | Tomato soup             | Blueberry samon  |
+*-------------------+-------------------------+------------------*/
+
+The following query searches the ` Lunch ` and ` Dinner ` columns of the `
+Recipe ` table for the value ` potato ` and returns the row if either column contains this value.
+
+
+SELECT * FROM Recipes WHERE CONTAINS_SUBSTR((Lunch, Dinner), 'potato');
+
+/*-------------------+-------------------------+------------------*
+| Breakfast         | Lunch                   | Dinner           |
++-------------------+-------------------------+------------------+
+| Bluberry pancakes | Egg salad sandwich      | Potato dumplings |
+| Corned beef hash  | Lentil potato soup      | Glazed ham       |
+*-------------------+-------------------------+------------------*/
+
+The following query searches across all columns of the ` Recipes ` table except for the ` Lunch ` and ` Dinner ` columns. It returns the rows of any columns other than ` Lunch ` or ` Dinner ` that contain the value ` potato ` .
+
+
+SELECT *
+FROM Recipes WHERE CONTAINS_SUBSTR( (SELECT AS STRUCT Recipes.* EXCEPT (Lunch, Dinner)),
+'potato'
+);
+
+/*-------------------+-------------------------+------------------*
+| Breakfast         | Lunch                   | Dinner           |
++-------------------+-------------------------+------------------+
+| Potato pancakes   | Toasted cheese sandwich | Beef stroganoff  |
+*-------------------+-------------------------+------------------*/
+
+The following query searches for the value ` lunch ` in the JSON `
+{"lunch":"soup"} ` and returns ` FALSE ` because the default ` json_scope ` is
+` "JSON_VALUES" ` , and ` lunch ` is a ` JSON ` key, not a ` JSON ` value.
+
+
+SELECT CONTAINS_SUBSTR(JSON '{"lunch":"soup"}',"lunch") AS result;
+
+/*--------*
+| result |
++--------+
+| FALSE  |
+*--------*/
+
+The following query searches for the value ` lunch ` in the values of the JSON
+` {"lunch":"soup"} ` and returns ` FALSE ` because ` lunch ` is a ` JSON `
+key, not a ` JSON ` value.
+
+
+SELECT CONTAINS_SUBSTR(JSON '{"lunch":"soup"}',
+"lunch",
+json_scope=>"JSON_VALUES") AS result;
+
+/*--------*
+| result |
++--------+
+| FALSE  |
+*--------*/
+
+The following query searches for the value ` lunch ` in the keys and values of the JSON ` {"lunch":"soup"} ` and returns ` TRUE ` because ` lunch ` is a `
+JSON ` key.
+
+
+SELECT CONTAINS_SUBSTR(JSON '{"lunch":"soup"}',
+"lunch",
+json_scope=>"JSON_KEYS_AND_VALUES") AS result;
+
+/*--------*
+| result |
++--------+
+| TRUE   |
+*--------*/
+
+The following query searches for the value ` lunch ` in the keys of the JSON `
+{"lunch":"soup"} ` and returns ` TRUE ` because ` lunch ` is a ` JSON ` key.
+
+
+SELECT CONTAINS_SUBSTR(JSON '{"lunch":"soup"}',
+"lunch",
+json_scope=>"JSON_KEYS") AS result;
+
+/*--------*
+| result |
++--------+
+| TRUE   |
+*--------*/

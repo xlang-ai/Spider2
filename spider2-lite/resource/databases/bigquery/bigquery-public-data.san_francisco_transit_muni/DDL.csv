@@ -1,0 +1,159 @@
+table_name,ddl
+calendar,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.calendar`
+(
+  service_id STRING OPTIONS(description=""Unique identifier for a set of dates when service is available for one or more routes""),
+  service_desc STRING OPTIONS(description=""Text description of service category""),
+  sunday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  monday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  tuesday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  wednesday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  thursday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  friday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  saturday BOOL OPTIONS(description=""Indicates whether the service is valid for all Sundays operating on the agency is using normal schedules and fare categories""),
+  exceptions DATE OPTIONS(description=""Specifies a particular date when this service is not available. This is typically during holidays, special events, etc. If applicable, the operating service for the day is indicated in replacement_service. Format for the date is YYYY-MM-DD""),
+  exception_type BOOL OPTIONS(description=""Indicates whether service is available on the date specified in the exceptions field. The following are valid values for this field:  - TRUE: Service will be operating during the date listed in the column exceptions -  FALSE: Service will not be operating during the date listed in the column exceptions"")
+);"
+stop_monitoring,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.stop_monitoring`
+(
+  time_recorded TIMESTAMP OPTIONS(description=""The timestamp of the real-time update from the particular vehicle.""),
+  stop_id STRING OPTIONS(description=""Unique reference for the stop being monitored. Maps to stop_id in the stops table""),
+  stop_name STRING OPTIONS(description=""Full text name of the stop being monitored. Maps to stop_name in the stops table""),
+  route_id STRING OPTIONS(description=""Unique reference for the route on which the vehicle is traveling. Maps to route_id in the routes table""),
+  direction STRING OPTIONS(description=""Indicates the direction of travel for a trip. The following values are valid: - O: Outbound travel - I: Inbound travel  This field is not used in routing, but instead provides a way to separate trips by direction""),
+  trip_date DATE OPTIONS(description=""The service date for the trip the vehicle is serving.""),
+  trip_id STRING OPTIONS(description=""Unique reference for the trip that the vehicle is traveling. Maps to trip_id in the trips table""),
+  route_long_name STRING OPTIONS(description=""Contains the full name of a route. This name is generally more descriptive than the name from route_short_name and often includes the route's destination or stop. Maps to route_long_name in routes table""),
+  vehicle_location_lat FLOAT64 OPTIONS(description=""The latitude of the vehicle's location at the time when time_recorded indicates""),
+  vehicle_location_lon FLOAT64 OPTIONS(description=""The longitude of the vehicle's location at the time when time_recorded indicates""),
+  vehicle_location GEOGRAPHY OPTIONS(description=""The geographic representation of the vehicle's location at the time indicated in the time_recorded column""),
+  vehicle_id STRING OPTIONS(description=""The unique identifier of the vehicle to be monitored.""),
+  vehicle_at_stop BOOL OPTIONS(description=""Determines if the vehicle is at the monitored stop during the time_recorded. TRUE if vehicle is at the stop""),
+  aimed_arrival_time TIMESTAMP OPTIONS(description=""Vehicle's expected arrival time""),
+  aimed_departure_time TIMESTAMP OPTIONS(description=""Vehicle's expected departure time"")
+);"
+shapes,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.shapes`
+(
+  shape_id STRING OPTIONS(description=""Uniquely identifies each shape""),
+  shape_point_sequence INT64 OPTIONS(description=""Associates the latitude and longitude of a shape point with its sequence order along the shape. The values for shape_pt_sequence must increase throughout the trip but don't need to be consecutive.""),
+  shape_point_lat FLOAT64 OPTIONS(description=""Associates a shape point's latitude with a shape ID.""),
+  shape_point_lon FLOAT64 OPTIONS(description=""Associates a shape point's longitude with a shape ID.""),
+  shape_point_geom GEOGRAPHY OPTIONS(description=""Geographic representation of the points latitude and longitude""),
+  shape_distance_traveled FLOAT64 OPTIONS(description=""Provides the actual distance traveled along the shape from the first shape point to the point specified in this record. This information allows the trip planner to determine how much of the shape to draw when they show part of a trip on the map. The values used for shape_dist_traveled must increase along with shape_pt_sequence: they can't be used to show reverse travel along a route."")
+);"
+stops,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.stops`
+(
+  stop_id STRING OPTIONS(description=""Unique identifier for each stop""),
+  stop_name STRING OPTIONS(description=""Full text name of the  transit stop""),
+  stop_lat FLOAT64 OPTIONS(description=""Latitude of the stop""),
+  stop_lon FLOAT64 OPTIONS(description=""Longitude of the stop""),
+  stop_geom GEOGRAPHY OPTIONS(description=""Geographic representation of the stop's position"")
+);"
+trips,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.trips`
+(
+  trip_id STRING OPTIONS(description=""Unique identifier for each trip""),
+  route_id STRING OPTIONS(description=""Unique identifier for each route. A single route will have multiple trips""),
+  direction STRING OPTIONS(description=""\""Indicates the direction of travel for a trip. The following values are valid:   -  O: Outbound travel -  I: Inbound travel  This field is not used in routing, but instead provides a way to separate trips by direction\""""),
+  block_id STRING OPTIONS(description=""Identifies the block to which the trip belongs. A block consists of a single trip or many sequential trips made with the same vehicle. The trips are grouped into a block by the use of a shared service day andblock_id. A block_id can include trips with different service days, which then makes distinct blocks. For more details, see: https://developers.google.com/transit/gtfs/reference/#example-showing-blocks-and-service-day""),
+  service_category STRING OPTIONS(description=""Indicates the type of service for this trip""),
+  trip_headsign STRING OPTIONS(description=""Contains the text that appears on signage that identifies the trip's destination to riders. Use this field to distinguish between different patterns of service on the same route.""),
+  shape_id STRING OPTIONS(description=""Unique identifier for the geospatial shape that describes the vehicle travel for a trip along individual points. Use to JOIN with the shapes available in the shapes table""),
+  trip_shape GEOGRAPHY OPTIONS(description=""Geographical representation of the trip's entire route."")
+);"
+vehicle_monitoring,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.vehicle_monitoring`
+(
+  time_recorded TIMESTAMP OPTIONS(description=""The timestamp of the last real-time update from the particular vehicle.""),
+  route_id STRING OPTIONS(description=""Unique reference for the route on which the vehicle is traveling. Maps to route_id in the routes table""),
+  direction STRING OPTIONS(description=""Indicates the direction of travel for a trip. The following values are valid:   -  O: Outbound travel -  I: Inbound travel  This field is not used in routing, but instead provides a way to separate trips by direction""),
+  trip_date DATE OPTIONS(description=""The service date for the trip the vehicle is serving.""),
+  trip_id STRING OPTIONS(description=""Unique reference for the trip that the vehicle is traveling. Maps to trip_id in the trips table""),
+  route_long_name STRING OPTIONS(description=""Contains the full name of a route. This name is generally more descriptive than the name from route_short_name and often includes the route's destination or stop. Maps to route_long_name in routes table""),
+  vehicle_location_lat FLOAT64 OPTIONS(description=""The latitude of the vehicle's location at the time when time_recorded indicates""),
+  vehicle_location_lon FLOAT64 OPTIONS(description=""The longitude of the vehicle's location at the time when time_recorded indicates""),
+  vehicle_location GEOGRAPHY OPTIONS(description=""The geographic representation of the vehicle's location at the time indicated in the time_recorded column""),
+  vehicle_id STRING OPTIONS(description=""The unique identifier of the vehicle to be monitored.""),
+  next_stop_id STRING OPTIONS(description=""Unique reference for the stop being monitored. Maps to stop_id in the stops table""),
+  next_stop_name STRING OPTIONS(description=""Full text name of the stop being monitored. Maps to stop_name in the stops table""),
+  next_stop_expected_arrival_time TIMESTAMP OPTIONS(description=""Estimated arrival time at the next stop""),
+  next_stop_aimed_arrival_time TIMESTAMP OPTIONS(description=""Aimed arrival time at the next stop""),
+  next_stop_expected_departure_time TIMESTAMP OPTIONS(description=""Estimated departure time from the next stop""),
+  next_stop_aimed_departure_time TIMESTAMP OPTIONS(description=""Aimed departure time from the next stop""),
+  onward_stop_id_1 STRING OPTIONS(description=""Unique reference for onward stop 1. Maps to stop_id in the stops table""),
+  onward_stop_name_1 STRING OPTIONS(description=""Full text name of onward stop 1. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_1 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 1""),
+  onward_stop_aimed_arrival_time_1 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 1""),
+  onward_stop_aimed_departure_time_1 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 1""),
+  onward_stop_id_2 STRING OPTIONS(description=""Unique reference for onward stop 2. Maps to stop_id in the stops table""),
+  onward_stop_name_2 STRING OPTIONS(description=""Full text name of onward stop 2. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_2 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 2""),
+  onward_stop_aimed_arrival_time_2 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 2""),
+  onward_stop_aimed_departure_time_2 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 2""),
+  onward_stop_id_3 STRING OPTIONS(description=""Unique reference for onward stop 3. Maps to stop_id in the stops table""),
+  onward_stop_name_3 STRING OPTIONS(description=""Full text name of onward stop 3. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_3 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 3""),
+  onward_stop_aimed_arrival_time_3 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 3""),
+  onward_stop_aimed_departure_time_3 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 3""),
+  onward_stop_id_4 STRING OPTIONS(description=""Unique reference for onward stop 4. Maps to stop_id in the stops table""),
+  onward_stop_name_4 STRING OPTIONS(description=""Full text name of onward stop 4. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_4 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 4""),
+  onward_stop_aimed_arrival_time_4 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 4""),
+  onward_stop_aimed_departure_time_4 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 4""),
+  onward_stop_id_5 STRING OPTIONS(description=""Unique reference for onward stop 5. Maps to stop_id in the stops table""),
+  onward_stop_name_5 STRING OPTIONS(description=""Full text name of onward stop 5. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_5 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 5""),
+  onward_stop_aimed_arrival_time_5 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 5""),
+  onward_stop_aimed_departure_time_5 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 5""),
+  onward_stop_id_6 STRING OPTIONS(description=""Unique reference for onward stop 6. Maps to stop_id in the stops table""),
+  onward_stop_name_6 STRING OPTIONS(description=""Full text name of onward stop 6. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_6 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 6""),
+  onward_stop_aimed_arrival_time_6 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 6""),
+  onward_stop_aimed_departure_time_6 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 6""),
+  onward_stop_id_7 STRING OPTIONS(description=""Unique reference for onward stop 7. Maps to stop_id in the stops table""),
+  onward_stop_name_7 STRING OPTIONS(description=""Full text name of onward stop 7. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_7 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 7""),
+  onward_stop_aimed_arrival_time_7 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 7""),
+  onward_stop_aimed_departure_time_7 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 7""),
+  onward_stop_id_8 STRING OPTIONS(description=""Unique reference for onward stop 8. Maps to stop_id in the stops table""),
+  onward_stop_name_8 STRING OPTIONS(description=""Full text name of onward stop 8. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_8 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 8""),
+  onward_stop_aimed_arrival_time_8 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 8""),
+  onward_stop_aimed_departure_time_8 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 8""),
+  onward_stop_id_9 STRING OPTIONS(description=""Unique reference for onward stop 9. Maps to stop_id in the stops table""),
+  onward_stop_name_9 STRING OPTIONS(description=""Full text name of onward stop 9. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_9 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 9""),
+  onward_stop_aimed_arrival_time_9 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 9""),
+  onward_stop_aimed_departure_time_9 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 9""),
+  onward_stop_id_10 STRING OPTIONS(description=""Unique reference for onward stop 10. Maps to stop_id in the stops table""),
+  onward_stop_name_10 STRING OPTIONS(description=""Full text name of onward stop 10. Maps to stop_name in the stops table""),
+  onward_stop_expected_arrival_time_10 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 10""),
+  onward_stop_aimed_arrival_time_10 TIMESTAMP OPTIONS(description=""Estimated arrival time at onward stop 10""),
+  onward_stop_aimed_departure_time_10 TIMESTAMP OPTIONS(description=""Aimed departure time from onward stop 10"")
+);"
+fares,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.fares`
+(
+  fare_id STRING OPTIONS(description=""Unique identifier a fare class.""),
+  rider_id STRING OPTIONS(description=""Unique identifier a rider category. Rider categories are used to assign different pricing to different groups of individuals""),
+  rider_desc STRING OPTIONS(description=""Text description of the rider category""),
+  price NUMERIC OPTIONS(description=""Contains the fare price, in USD""),
+  payment_method STRING OPTIONS(description=""Indicates when the fare must be paid. The following are valid values for this field: -  during: Indicates the fare is paid when riders board -  before: Indicates fare must be paid before riders board""),
+  transfers_permitted STRING OPTIONS(description=""Specifies the number of transfers permitted on this fare.  -  0: No transfers are permitted on this fare. -  1: One transfer is permitted on this fare. -  2: Two transfers are permitted on this fare. -  NULL: Unlimited transfers are permitted on this fare.""),
+  transfer_duration INT64 OPTIONS(description=""Specifies the length of time, in seconds, before a transfer expires. When used with a transfers_permitted value of 0, the transfer_duration field indicates how long a ticket is valid for a fare where no transfers are allowed."")
+);"
+stop_times,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.stop_times`
+(
+  stop_id INT64 OPTIONS(description=""Identifies the serviced stop. Multiple routes can use the same stop.""),
+  trip_id INT64 OPTIONS(description=""Identifies a trip. Multiple trips can have the same stop""),
+  stop_sequence INT64 OPTIONS(description=""Identifies the order of the stops for a particular trip. The values for stop_sequence must increase throughout the trip but do not need to be consecutive.""),
+  arrival_time TIME OPTIONS(description=""Specifies the scheduled arrival time at a specific stop for a specific trip on a route.""),
+  arrives_next_day BOOL OPTIONS(description=""Several routes begin before midnight, with service continuing throughout the night. This variable specifies whether arrival_time occurs after midnight the day after the scheduled day.  This is useful for identifying routes that begin one day and end the next day""),
+  departure_time TIME OPTIONS(description=""Specifies the scheduled departure time at a specific stop for a specific trip on a route.""),
+  departs_next_day BOOL OPTIONS(description=""Several routes begin before midnight, with service continuing throughout the night. This variable specifies whether departure_time occurs after midnight the day after the scheduled day.  This is useful for identifying routes that begin one day and end the next day""),
+  dropoff_type STRING OPTIONS(description=""\""Indicates whether riders are dropped off at a stop as part of the normal schedule or whether a drop off at the stop isn't available. Available options:  -  regular -  none -  phone (indicates must phone agency to arrange drop off) -  driver (indicates must coordinate with driver to arrange drop off)\""""),
+  exact_timepoint BOOL OPTIONS(description=""Indicates if the specified arrival and departure times for a stop are strictly adhered to by the transit vehicle, or if they're instead approximate or interpolated times."")
+);"
+routes,"CREATE TABLE `bigquery-public-data.san_francisco_transit_muni.routes`
+(
+  route_id STRING OPTIONS(description=""Unique identifier for each route. A single route will have multiple trips""),
+  route_short_name STRING OPTIONS(description=""Contains the short name of a route. This is a short, abstract identifier like 32, 100X, or Green that riders use to identify a route, but which doesn't give any indication of what places the route serves.""),
+  route_long_name STRING OPTIONS(description=""Contains the full name of a route. This name is generally more descriptive than the name from route_short_name and often includes the route's destination or stop.""),
+  route_type STRING OPTIONS(description=""\""Describes the type of transportation used on a route. The following are valid values for this field:  -  light_rail: Streetcar or light rail. Used for any light rail or street-level system within a metropolitan area. -  subway: Subway or metro. Used for any underground rail system within a metropolitan area. -  rail: Used for intercity or long-distance travel. -  bus: Used for short- and long-distance bus routes. -  ferry: Used for short- and long-distance boat service. -  cable_car: Used for street-level cable cars where the cable runs beneath the car. -  tram: Gondola or suspended cable car. Typically used for aerial cable cars where the car is suspended from the cable. -  funicular: Used for any rail system that moves on steep inclines with a cable traction system.\"""")
+);"

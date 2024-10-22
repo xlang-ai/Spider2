@@ -1,0 +1,132 @@
+{
+    "table_name": "imaging_channel_metadata_r3",
+    "table_fullname": "isb-cgc-bq.HTAN_versioned.imaging_channel_metadata_r3",
+    "column_names": [
+        "HTAN_Center",
+        "Imaging_Assay_Type",
+        "HTAN_Image_File_ID",
+        "image_synapseID",
+        "image_filename",
+        "Channel_Metadata_Filename",
+        "metadata_synapse_file_path",
+        "metadata_synapseID",
+        "lineNum",
+        "channel_attributes"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "ARRAY<STRUCT<attributeName STRING, attributeValue STRING>>"
+    ],
+    "nested_column_names": [
+        "HTAN_Center",
+        "Imaging_Assay_Type",
+        "HTAN_Image_File_ID",
+        "image_synapseID",
+        "image_filename",
+        "Channel_Metadata_Filename",
+        "metadata_synapse_file_path",
+        "metadata_synapseID",
+        "lineNum",
+        "channel_attributes",
+        "channel_attributes.attributeName",
+        "channel_attributes.attributeValue"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "ARRAY<STRUCT<attributeName STRING, attributeValue STRING>>",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "Name of HTAN Center e.g. HTAN HTAPP",
+        "Type of imaging assay",
+        "Self-identifier for imaging data file - HTAN ID of this file HTAN ID SOP (eg HTANx_yyy_zzz)",
+        "Synapse ID of image entity",
+        "Name of image file",
+        "Name of channel metadata file",
+        "Synapse file path of channel metadata file",
+        "Synapse ID of channel metadata file",
+        "Row number of channel metadata file",
+        null,
+        "Name of channel attribute",
+        "Channel attribute value"
+    ],
+    "sample_rows": [
+        {
+            "HTAN_Center": "HTAN HMS",
+            "Imaging_Assay_Type": "t-CyCIF",
+            "HTAN_Image_File_ID": "HTA7_1_1001",
+            "image_synapseID": "syn25882990",
+            "image_filename": "imaging_level_2/MEL202106/MEL01-1-3.ome.tif",
+            "Channel_Metadata_Filename": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapse_file_path": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapseID": "syn26560282",
+            "lineNum": 1,
+            "channel_attributes": "[{'attributeName': '\\ufeffChannel ID', 'attributeValue': 'Channel:0:0'}\n {'attributeName': 'Channel Name', 'attributeValue': 'DNA'}\n {'attributeName': 'Channel Passed QC', 'attributeValue': 'Yes'}\n {'attributeName': 'Cycle Number', 'attributeValue': '1'}\n {'attributeName': 'Sub Cycle Number', 'attributeValue': ''}\n {'attributeName': 'Target Name', 'attributeValue': 'DNA'}\n {'attributeName': 'Antibody Name', 'attributeValue': ''}\n {'attributeName': 'Antibody Role', 'attributeValue': ''}\n {'attributeName': 'RRID identifier', 'attributeValue': 'AB_10626776'}\n {'attributeName': 'Fluorophore', 'attributeValue': 'Hoechst 33342'}\n {'attributeName': 'Clone', 'attributeValue': ''}\n {'attributeName': 'Lot', 'attributeValue': ''}\n {'attributeName': 'Vendor', 'attributeValue': 'Cell Signaling Technology'}\n {'attributeName': 'Catalog Number', 'attributeValue': '4082S'}\n {'attributeName': 'Excitation Wavelength', 'attributeValue': '395'}\n {'attributeName': 'Emission Wavelength', 'attributeValue': '438'}\n {'attributeName': 'Excitation Bandwidth', 'attributeValue': '25'}\n {'attributeName': 'Emission Bandwidth', 'attributeValue': '26'}\n {'attributeName': 'Metal Isotope Element', 'attributeValue': ''}\n {'attributeName': 'Metal Isotope Mass', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Upper Strand', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Lower Strand', 'attributeValue': ''}\n {'attributeName': 'Dilution', 'attributeValue': '1:5000'}\n {'attributeName': 'Concentration', 'attributeValue': ''}]"
+        },
+        {
+            "HTAN_Center": "HTAN HMS",
+            "Imaging_Assay_Type": "t-CyCIF",
+            "HTAN_Image_File_ID": "HTA7_1_1001",
+            "image_synapseID": "syn25882990",
+            "image_filename": "imaging_level_2/MEL202106/MEL01-1-3.ome.tif",
+            "Channel_Metadata_Filename": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapse_file_path": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapseID": "syn26560282",
+            "lineNum": 2,
+            "channel_attributes": "[{'attributeName': '\\ufeffChannel ID', 'attributeValue': 'Channel:0:1'}\n {'attributeName': 'Channel Name', 'attributeValue': 'HHLA2'}\n {'attributeName': 'Channel Passed QC', 'attributeValue': 'Yes'}\n {'attributeName': 'Cycle Number', 'attributeValue': '1'}\n {'attributeName': 'Sub Cycle Number', 'attributeValue': ''}\n {'attributeName': 'Target Name', 'attributeValue': 'HHLA2'}\n {'attributeName': 'Antibody Name', 'attributeValue': 'HHLA2'}\n {'attributeName': 'Antibody Role', 'attributeValue': 'Primary'}\n {'attributeName': 'RRID identifier', 'attributeValue': 'AB_2876363'}\n {'attributeName': 'Fluorophore', 'attributeValue': ''}\n {'attributeName': 'Clone', 'attributeValue': ''}\n {'attributeName': 'Lot', 'attributeValue': ''}\n {'attributeName': 'Vendor', 'attributeValue': 'Abcam'}\n {'attributeName': 'Catalog Number', 'attributeValue': 'ab214327'}\n {'attributeName': 'Excitation Wavelength', 'attributeValue': '485'}\n {'attributeName': 'Emission Wavelength', 'attributeValue': '522'}\n {'attributeName': 'Excitation Bandwidth', 'attributeValue': '25'}\n {'attributeName': 'Emission Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Metal Isotope Element', 'attributeValue': ''}\n {'attributeName': 'Metal Isotope Mass', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Upper Strand', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Lower Strand', 'attributeValue': ''}\n {'attributeName': 'Dilution', 'attributeValue': '1:100'}\n {'attributeName': 'Concentration', 'attributeValue': ''}]"
+        },
+        {
+            "HTAN_Center": "HTAN HMS",
+            "Imaging_Assay_Type": "t-CyCIF",
+            "HTAN_Image_File_ID": "HTA7_1_1001",
+            "image_synapseID": "syn25882990",
+            "image_filename": "imaging_level_2/MEL202106/MEL01-1-3.ome.tif",
+            "Channel_Metadata_Filename": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapse_file_path": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapseID": "syn26560282",
+            "lineNum": 3,
+            "channel_attributes": "[{'attributeName': '\\ufeffChannel ID', 'attributeValue': 'Channel:0:1'}\n {'attributeName': 'Channel Name', 'attributeValue': 'HHLA2'}\n {'attributeName': 'Channel Passed QC', 'attributeValue': 'Yes'}\n {'attributeName': 'Cycle Number', 'attributeValue': '1'}\n {'attributeName': 'Sub Cycle Number', 'attributeValue': ''}\n {'attributeName': 'Target Name', 'attributeValue': 'Rabbit IgG'}\n {'attributeName': 'Antibody Name', 'attributeValue': 'Donkey anti-Rabbit IgG-AF488'}\n {'attributeName': 'Antibody Role', 'attributeValue': 'Secondary'}\n {'attributeName': 'RRID identifier', 'attributeValue': 'AB_2535792'}\n {'attributeName': 'Fluorophore', 'attributeValue': 'Alexa Fluor 488'}\n {'attributeName': 'Clone', 'attributeValue': ''}\n {'attributeName': 'Lot', 'attributeValue': ''}\n {'attributeName': 'Vendor', 'attributeValue': 'Thermo Fisher Scientific'}\n {'attributeName': 'Catalog Number', 'attributeValue': 'A21206'}\n {'attributeName': 'Excitation Wavelength', 'attributeValue': '485'}\n {'attributeName': 'Emission Wavelength', 'attributeValue': '522'}\n {'attributeName': 'Excitation Bandwidth', 'attributeValue': '25'}\n {'attributeName': 'Emission Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Metal Isotope Element', 'attributeValue': ''}\n {'attributeName': 'Metal Isotope Mass', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Upper Strand', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Lower Strand', 'attributeValue': ''}\n {'attributeName': 'Dilution', 'attributeValue': '1:2000'}\n {'attributeName': 'Concentration', 'attributeValue': ''}]"
+        },
+        {
+            "HTAN_Center": "HTAN HMS",
+            "Imaging_Assay_Type": "t-CyCIF",
+            "HTAN_Image_File_ID": "HTA7_1_1001",
+            "image_synapseID": "syn25882990",
+            "image_filename": "imaging_level_2/MEL202106/MEL01-1-3.ome.tif",
+            "Channel_Metadata_Filename": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapse_file_path": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapseID": "syn26560282",
+            "lineNum": 4,
+            "channel_attributes": "[{'attributeName': '\\ufeffChannel ID', 'attributeValue': 'Channel:0:2'}\n {'attributeName': 'Channel Name', 'attributeValue': 'Chymase'}\n {'attributeName': 'Channel Passed QC', 'attributeValue': 'Yes'}\n {'attributeName': 'Cycle Number', 'attributeValue': '1'}\n {'attributeName': 'Sub Cycle Number', 'attributeValue': ''}\n {'attributeName': 'Target Name', 'attributeValue': 'Chymase'}\n {'attributeName': 'Antibody Name', 'attributeValue': 'Chymase'}\n {'attributeName': 'Antibody Role', 'attributeValue': 'Primary'}\n {'attributeName': 'RRID identifier', 'attributeValue': 'AB_10863662'}\n {'attributeName': 'Fluorophore', 'attributeValue': ''}\n {'attributeName': 'Clone', 'attributeValue': ''}\n {'attributeName': 'Lot', 'attributeValue': ''}\n {'attributeName': 'Vendor', 'attributeValue': 'Abcam'}\n {'attributeName': 'Catalog Number', 'attributeValue': 'ab111239'}\n {'attributeName': 'Excitation Wavelength', 'attributeValue': '555'}\n {'attributeName': 'Emission Wavelength', 'attributeValue': '590'}\n {'attributeName': 'Excitation Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Emission Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Metal Isotope Element', 'attributeValue': ''}\n {'attributeName': 'Metal Isotope Mass', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Upper Strand', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Lower Strand', 'attributeValue': ''}\n {'attributeName': 'Dilution', 'attributeValue': '1:200'}\n {'attributeName': 'Concentration', 'attributeValue': ''}]"
+        },
+        {
+            "HTAN_Center": "HTAN HMS",
+            "Imaging_Assay_Type": "t-CyCIF",
+            "HTAN_Image_File_ID": "HTA7_1_1001",
+            "image_synapseID": "syn25882990",
+            "image_filename": "imaging_level_2/MEL202106/MEL01-1-3.ome.tif",
+            "Channel_Metadata_Filename": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapse_file_path": "imaging_level_2/MEL202106/ZM-147-PCA19C-16-5.csv",
+            "metadata_synapseID": "syn26560282",
+            "lineNum": 5,
+            "channel_attributes": "[{'attributeName': '\\ufeffChannel ID', 'attributeValue': 'Channel:0:2'}\n {'attributeName': 'Channel Name', 'attributeValue': 'Chymase'}\n {'attributeName': 'Channel Passed QC', 'attributeValue': 'Yes'}\n {'attributeName': 'Cycle Number', 'attributeValue': '1'}\n {'attributeName': 'Sub Cycle Number', 'attributeValue': ''}\n {'attributeName': 'Target Name', 'attributeValue': 'Goat IgG'}\n {'attributeName': 'Antibody Name', 'attributeValue': 'Donkey anti-Goat IgG-AF555'}\n {'attributeName': 'Antibody Role', 'attributeValue': 'Secondary'}\n {'attributeName': 'RRID identifier', 'attributeValue': 'AB_2535853'}\n {'attributeName': 'Fluorophore', 'attributeValue': 'Alexa Fluor 555'}\n {'attributeName': 'Clone', 'attributeValue': ''}\n {'attributeName': 'Lot', 'attributeValue': ''}\n {'attributeName': 'Vendor', 'attributeValue': 'Thermo Fisher Scientific'}\n {'attributeName': 'Catalog Number', 'attributeValue': 'A-21432'}\n {'attributeName': 'Excitation Wavelength', 'attributeValue': '555'}\n {'attributeName': 'Emission Wavelength', 'attributeValue': '590'}\n {'attributeName': 'Excitation Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Emission Bandwidth', 'attributeValue': '20'}\n {'attributeName': 'Metal Isotope Element', 'attributeValue': ''}\n {'attributeName': 'Metal Isotope Mass', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Upper Strand', 'attributeValue': ''}\n {'attributeName': 'Oligo Barcode Lower Strand', 'attributeValue': ''}\n {'attributeName': 'Dilution', 'attributeValue': '1:2000'}\n {'attributeName': 'Concentration', 'attributeValue': ''}]"
+        }
+    ]
+}

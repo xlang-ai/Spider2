@@ -1,0 +1,77 @@
+## FLOAT64
+
+FLOAT64(json_expr[, wide_number_mode=>{ 'exact' | 'round' }])
+
+**Description**
+
+Converts a JSON number to a SQL ` FLOAT64 ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '9.8'
+
+If the JSON value is not a number, an error is produced. If the expression is a SQL ` NULL ` , the function returns SQL ` NULL ` .
+
+* ` wide_number_mode ` : Optional mandatory-named argument, which defines what happens with a number that cannot be represented as a ` FLOAT64 ` without loss of precision. This argument accepts one of the two case-sensitive values:
+
+* ` exact ` : The function fails if the result cannot be represented as a ` FLOAT64 ` without loss of precision.
+* ` round ` (default): The numeric value stored in JSON will be rounded to ` FLOAT64 ` . If such rounding is not possible, the function fails.
+
+**Return type**
+
+` FLOAT64 `
+
+**Examples**
+
+
+SELECT FLOAT64(JSON '9.8') AS velocity;
+
+/*----------*
+| velocity |
++----------+
+| 9.8      |
+*----------*/
+
+
+SELECT FLOAT64(JSON_QUERY(JSON '{"vo2_max": 39.1, "age": 18}', "$.vo2_max")) AS vo2_max;
+
+/*---------*
+| vo2_max |
++---------+
+| 39.1    |
+*---------*/
+
+
+SELECT FLOAT64(JSON '18446744073709551615', wide_number_mode=>'round') as result;
+
+/*------------------------*
+| result                 |
++------------------------+
+| 1.8446744073709552e+19 |
+*------------------------*/
+
+
+SELECT FLOAT64(JSON '18446744073709551615') as result;
+
+/*------------------------*
+| result                 |
++------------------------+
+| 1.8446744073709552e+19 |
+*------------------------*/
+
+The following examples show how invalid requests are handled:
+
+
+-- An error is thrown if JSON is not of type FLOAT64.
+SELECT FLOAT64(JSON '"strawberry"') AS result;
+SELECT FLOAT64(JSON 'null') AS result;
+
+-- An error is thrown because `wide_number_mode` is case-sensitive and not "exact" or "round".
+SELECT FLOAT64(JSON '123.4', wide_number_mode=>'EXACT') as result;
+SELECT FLOAT64(JSON '123.4', wide_number_mode=>'exac') as result;
+
+-- An error is thrown because the number cannot be converted to DOUBLE without loss of precision SELECT FLOAT64(JSON '18446744073709551615', wide_number_mode=>'exact') as result;
+
+-- Returns a SQL NULL SELECT SAFE.FLOAT64(JSON '"strawberry"') AS result;

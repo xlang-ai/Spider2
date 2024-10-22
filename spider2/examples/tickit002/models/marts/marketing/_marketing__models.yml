@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: dim_events
+    description: "Dimension table that provides details on events, including event name, venue, category, and time-related information."
+    columns:
+      - name: event_id
+        description: "Unique identifier for the event."
+        tests:
+          - unique
+          - not_null
+      - name: event_name
+        description: "Name of the event."
+        tests:
+          - not_null
+      - name: start_time
+        description: "The starting time of the event."
+        tests:
+          - not_null
+      - name: venue_name
+        description: "Name of the venue where the event takes place."
+        tests:
+          - not_null
+      - name: venue_city
+        description: "City where the venue is located."
+        tests:
+          - not_null
+      - name: venue_state
+        description: "State where the venue is located."
+        tests:
+          - not_null
+      - name: venue_seats
+        description: "The seating capacity of the venue."
+        tests:
+          - not_null
+      - name: cat_group
+        description: "Category group to which the event belongs."
+      - name: cat_name
+        description: "Category name of the event."
+      - name: cat_desc
+        description: "Description of the category of the event."
+      - name: week
+        description: "The week of the year in which the event occurs."
+        tests:
+          - not_null
+      - name: qtr
+        description: "The quarter of the year in which the event occurs."
+        tests:
+          - not_null
+      - name: holiday
+        description: "Indicates if the event occurs on a holiday."
+        tests:
+          - not_null
+
+    - name: dim_non_buyers
+      description: All non-buyers, based on sales history

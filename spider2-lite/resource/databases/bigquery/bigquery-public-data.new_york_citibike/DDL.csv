@@ -1,0 +1,41 @@
+table_name,ddl
+citibike_stations,"CREATE TABLE `bigquery-public-data.new_york_citibike.citibike_stations`
+(
+  station_id STRING NOT NULL OPTIONS(description=""Unique identifier of a station.""),
+  name STRING OPTIONS(description=""Public name of the station.""),
+  short_name STRING OPTIONS(description=""Short name or other type of identifier, as used by the data publisher.""),
+  latitude FLOAT64 OPTIONS(description=""The latitude of station. The field value must be a valid WGS 84 latitude in decimal degrees format.""),
+  longitude FLOAT64 OPTIONS(description=""The longitude of station. The field value must be a valid WGS 84 latitude in decimal degrees format.""),
+  region_id INT64 OPTIONS(description=""ID of the region where station is located.""),
+  rental_methods STRING OPTIONS(description=""Array of enumerables containing the payment methods accepted at this station.""),
+  capacity INT64 OPTIONS(description=""ANumber of total docking points installed at this station, both available and unavailable.""),
+  eightd_has_key_dispenser BOOL OPTIONS(description=""""),
+  num_bikes_available INT64 OPTIONS(description=""Number of bikes available for rental.""),
+  num_bikes_disabled INT64 OPTIONS(description=""Number of disabled bikes at the station.""),
+  num_docks_available INT64 OPTIONS(description=""Number of docks accepting bike returns.""),
+  num_docks_disabled INT64 OPTIONS(description=""Number of empty but disabled dock points at the station.""),
+  is_installed BOOL OPTIONS(description=""Is the station currently on the street?""),
+  is_renting BOOL OPTIONS(description=""Is the station currently renting bikes?""),
+  is_returning BOOL OPTIONS(description=""Is the station accepting bike returns?""),
+  eightd_has_available_keys BOOL OPTIONS(description=""""),
+  last_reported TIMESTAMP OPTIONS(description=""Timestamp indicating the last time this station reported its status to the backend, in NYC local time."")
+);"
+citibike_trips,"CREATE TABLE `bigquery-public-data.new_york_citibike.citibike_trips`
+(
+  tripduration INT64 OPTIONS(description=""Trip Duration (in seconds)""),
+  starttime DATETIME OPTIONS(description=""Start Time, in NYC local time.""),
+  stoptime DATETIME OPTIONS(description=""Stop Time, in NYC local time.""),
+  start_station_id INT64 OPTIONS(description=""Start Station ID""),
+  start_station_name STRING OPTIONS(description=""Start Station Name""),
+  start_station_latitude FLOAT64 OPTIONS(description=""Start Station Latitude""),
+  start_station_longitude FLOAT64 OPTIONS(description=""Start Station Longitude""),
+  end_station_id INT64 OPTIONS(description=""End Station ID""),
+  end_station_name STRING OPTIONS(description=""End Station Name""),
+  end_station_latitude FLOAT64 OPTIONS(description=""End Station Latitude""),
+  end_station_longitude FLOAT64 OPTIONS(description=""End Station Longitude""),
+  bikeid INT64 OPTIONS(description=""Bike ID""),
+  usertype STRING OPTIONS(description=""User Type (Customer = 24-hour pass or 7-day pass user, Subscriber = Annual Member)""),
+  birth_year INT64 OPTIONS(description=""Year of Birth""),
+  gender STRING OPTIONS(description=""Gender (unknown, male, female)""),
+  customer_plan STRING OPTIONS(description=""The name of the plan that determines the rate charged for the trip"")
+);"

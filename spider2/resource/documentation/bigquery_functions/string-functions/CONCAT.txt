@@ -1,0 +1,56 @@
+## CONCAT
+
+CONCAT(value1[, ...])
+
+**Description**
+
+Concatenates one or more values into a single result. All values must be `
+BYTES ` or data types that can be cast to ` STRING ` .
+
+The function returns ` NULL ` if any input argument is ` NULL ` .
+
+**Note:** You can also use the [ || concatenation operator
+](/bigquery/docs/reference/standard-sql/operators) to concatenate values into a string.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+SELECT CONCAT('T.P.', ' ', 'Bar') as author;
+
+/*---------------------*
+| author              |
++---------------------+
+| T.P. Bar            |
+*---------------------*/
+
+
+SELECT CONCAT('Summer', ' ', 1923) as release_date;
+
+/*---------------------*
+| release_date        |
++---------------------+
+| Summer 1923         |
+*---------------------*/
+
+
+With Employees AS (SELECT
+'John' AS first_name,
+'Doe' AS last_name UNION ALL SELECT
+'Jane' AS first_name,
+'Smith' AS last_name UNION ALL SELECT
+'Joe' AS first_name,
+'Jackson' AS last_name)
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM Employees;
+
+/*---------------------*
+| full_name           |
++---------------------+
+| John Doe            |
+| Jane Smith          |
+| Joe Jackson         |
+*---------------------*/

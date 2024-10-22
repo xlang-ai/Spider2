@@ -1,0 +1,45 @@
+## CURRENT_TIMESTAMP
+
+CURRENT_TIMESTAMP()
+
+
+CURRENT_TIMESTAMP
+
+**Description**
+
+Returns the current date and time as a timestamp object. The timestamp is continuous, non-ambiguous, has exactly 60 seconds per minute and does not repeat values over the leap second. Parentheses are optional.
+
+This function handles leap seconds by smearing them across a window of 20 hours around the inserted leap second.
+
+The current date and time is recorded at the start of the query statement which contains this function, not when this specific function is evaluated.
+
+**Supported Input Types**
+
+Not applicable
+
+**Result Data Type**
+
+` TIMESTAMP `
+
+**Examples**
+
+
+SELECT CURRENT_TIMESTAMP() AS now;
+
+/*--------------------------------*
+| now                            |
++--------------------------------+
+| 2020-06-02 23:57:12.120174 UTC |
+*--------------------------------*/
+
+When a column named ` current_timestamp ` is present, the column name and the function call without parentheses are ambiguous. To ensure the function call,
+add parentheses; to ensure the column name, qualify it with its [ range variable ](/bigquery/docs/reference/standard-sql/query-syntax#range_variables) . For example, the following query selects the function in the ` now ` column and the table column in the ` current_timestamp ` column.
+
+
+WITH t AS (SELECT 'column value' AS `current_timestamp`) SELECT current_timestamp() AS now, t.current_timestamp FROM t;
+
+/*--------------------------------+-------------------*
+| now                            | current_timestamp |
++--------------------------------+-------------------+
+| 2020-06-02 23:57:12.120174 UTC | column value      |
+*--------------------------------+-------------------*/

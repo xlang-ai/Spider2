@@ -1,0 +1,235 @@
+{
+    "table_name": "202108",
+    "table_fullname": "githubarchive.month.202108",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7706283143,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"ca01307e3f3f11df169c449ef5d3bc19646497e5\",\"before\":\"73f1da9451a456c7c656c291e9f7306579fbe37f\",\"commits\":[{\"sha\":\"ca01307e3f3f11df169c449ef5d3bc19646497e5\",\"author\":{\"name\":\"Dave Baskind\",\"email\":\"bfcdf3e6ca6cef45543bfbb57509c92aec9a39fb@picketstudio.com\"},\"message\":\"Playing with RandomGens\",\"distinct\":true,\"url\":\"https://api.github.com/repos/dvbsknd/learn-you-a-haskell/commits/ca01307e3f3f11df169c449ef5d3bc19646497e5\"}]}",
+            "repo": {
+                "id": 290046483,
+                "name": "dvbsknd/learn-you-a-haskell",
+                "url": "https://api.github.com/repos/dvbsknd/learn-you-a-haskell"
+            },
+            "actor": {
+                "id": 1005395,
+                "login": "dvbsknd",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1005395?",
+                "url": "https://api.github.com/users/dvbsknd"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-08-12 00:09:05+00:00",
+            "id": "17532308933",
+            "other": "{\"actor\":{\"display_login\":\"dvbsknd\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7706468738,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/develop\",\"head\":\"d9484e3eed55ff22723c6cfeca7da9cee5afb2e9\",\"before\":\"ef6c46abb229533ffa9c0cb10ab44db0d0ca78b8\",\"commits\":[{\"sha\":\"d9484e3eed55ff22723c6cfeca7da9cee5afb2e9\",\"author\":{\"name\":\"hc-roswell\",\"email\":\"c958a06960f257a420e44a8bb20cf1c8bff21a61@users.noreply.github.com\"},\"message\":\"Feat/bambuser2 (#83)\\n\\n* chore(app): remove facebook test event code\\r\\n\\r\\n* feat(app): add google site verification code\\r\\n\\r\\n* refactor(app): facebook view content event\\r\\n\\r\\n* fix(app): revert the checkout url that was pulled in from .env\\r\\n\\r\\n* feat(app): bambuser script and show id env variables\\r\\n\\r\\n* feat(app): checkout to take into account being inside an iframe\\r\\n\\r\\n* feat(app): bambuser show modules\\r\\n\\r\\n* feat(app): wip commit to prevent loss\\r\\n\\r\\n* feat(app): misc clean up\\r\\n\\r\\n* refactor(app): temporary commit before client review\\r\\n\\r\\n* refactor(app): update extesion\\r\\n\\r\\n* refactor(app): wip commit before experiments\\r\\n\\r\\n* test(app): temporary commit for Joseph\\r\\n\\r\\n* refactor(app): usefactory\\r\\n\\r\\n* fix(app): typo\\r\\n\\r\\n* feat(app): usefactory product with variant names\\r\\n\\r\\n* chore(app): cleanup\\r\\n\\r\\n* feat(app): add bambuser specific checkout routines\\r\\n\\r\\n* feat(app): alternative bambuser checkout routines\\r\\n\\r\\n* feat(app): disable line item update\\r\\n\\r\\n* refactor(app): colors and sizes\\r\\n\\r\\n* feat(app): only provide bb factory with the selected variant\\r\\n\\r\\n* fix(app): missing type\\r\\n\\r\\n* fix(app): type mismatch\\r\\n\\r\\n* fix(app): object is possibly 'null'\\r\\n\\r\\n* fix(app): type error\\r\\n\\r\\n* fix(app): trigger deployment\\r\\n\\r\\n* chore(app): console.log error\\r\\n\\r\\n* fix(app): resolve empty cart add to cart error\\r\\n\\r\\n* fix(app): returns the correct checkout object\\r\\n\\r\\n* fix(app): incompatible hook type\\r\\n\\r\\n* fix(app): add check to the fetched cart while checkout\\r\\n\\r\\n* feat(app): externalized optional bambuser slug and autoplay\\r\\n\\r\\n* feat(app): bambuser to take in cta copy and autoplay option\\r\\n\\r\\n* feat(app): add bambuser to matching page slug\\r\\n\\r\\n* feat(app): add autoplay bambuser unit to /collections/summer-splash-sale\\r\\n\\r\\n* feat(app): add json-ld for bambuser scraper\\r\\n\\r\\n* fix(app): set webpack5 to false, fix next build error\\r\\n\\r\\n* fix(app): fix algolia type errors\\r\\n\\r\\n* fix(app): move FB trigger to AnalyticsProvider\\r\\n\\r\\n* feat(app): add utilities for converting shopify IDs\\r\\n\\r\\n* chore(app): remove unused modules\\r\\n\\r\\n* refactor(app): change to named export\\r\\n\\r\\n* feat(app): json-ld tweaks\\r\\n\\r\\n* feat(app): finalize bambuser\\r\\n\\r\\n* fix(app): bambuser clean-up\\r\\n\\r\\n* feat(sanity): add bambuserLiveSettings\\r\\n\\r\\n* feat(app): implement live CTA bambuser label\\r\\n\\r\\n* feat(app): autoplay live bambuser\\r\\n\\r\\n* fix(sanity): fix CTA previews\\r\\n\\r\\n* chore(sanity): update sanity\\r\\n\\r\\n* fix(sanity): fix CTA previews (2)\\r\\n\\r\\nCo-authored-by: Joseph Thomas <joseph@good-idea.studio>\",\"distinct\":true,\"url\":\"https://api.github.com/repos/good-idea/spinellikilcollin.com/commits/d9484e3eed55ff22723c6cfeca7da9cee5afb2e9\"}]}",
+            "repo": {
+                "id": 183692040,
+                "name": "good-idea/spinellikilcollin.com",
+                "url": "https://api.github.com/repos/good-idea/spinellikilcollin.com"
+            },
+            "actor": {
+                "id": 11514928,
+                "login": "good-idea",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/11514928?",
+                "url": "https://api.github.com/users/good-idea"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-08-12 00:50:55+00:00",
+            "id": "17532715534",
+            "other": "{\"actor\":{\"display_login\":\"good-idea\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7706240589,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"e0403ebc6104ce24fcdc9a9a88bd99b0bf9e7151\",\"before\":\"6b143eb39f556770b4ed7d835fb4c823bd01f9bf\",\"commits\":[{\"sha\":\"e0403ebc6104ce24fcdc9a9a88bd99b0bf9e7151\",\"author\":{\"name\":\"Zachary Churchill\",\"email\":\"17f9d94c0600d58e62e43323547cf5bce1a21315@gmail.com\"},\"message\":\"cute bell thing\",\"distinct\":true,\"url\":\"https://api.github.com/repos/goolord/dotfiles/commits/e0403ebc6104ce24fcdc9a9a88bd99b0bf9e7151\"}]}",
+            "repo": {
+                "id": 136987105,
+                "name": "goolord/dotfiles",
+                "url": "https://api.github.com/repos/goolord/dotfiles"
+            },
+            "actor": {
+                "id": 24906808,
+                "login": "goolord",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/24906808?",
+                "url": "https://api.github.com/users/goolord"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-08-12 00:00:09+00:00",
+            "id": "17532217228",
+            "other": "{\"actor\":{\"display_login\":\"goolord\"}}"
+        },
+        {
+            "type": "CommitCommentEvent",
+            "public": true,
+            "payload": "{\"comment\":{\"url\":\"https://api.github.com/repos/imurs34/userstudy_c2/comments/54760673\",\"html_url\":\"https://github.com/imurs34/userstudy_c2/commit/58c2fd534ce43ad994c512a4c234062ca2d26f17#commitcomment-54760673\",\"id\":54760673,\"node_id\":\"MDEzOkNvbW1pdENvbW1lbnQ1NDc2MDY3Mw==\",\"user\":{\"login\":\"vercel[bot]\",\"id\":35613825,\"node_id\":\"MDM6Qm90MzU2MTM4MjU=\",\"avatar_url\":\"https://avatars.githubusercontent.com/in/8329?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/vercel%5Bbot%5D\",\"html_url\":\"https://github.com/apps/vercel\",\"followers_url\":\"https://api.github.com/users/vercel%5Bbot%5D/followers\",\"following_url\":\"https://api.github.com/users/vercel%5Bbot%5D/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/vercel%5Bbot%5D/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/vercel%5Bbot%5D/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/vercel%5Bbot%5D/subscriptions\",\"organizations_url\":\"https://api.github.com/users/vercel%5Bbot%5D/orgs\",\"repos_url\":\"https://api.github.com/users/vercel%5Bbot%5D/repos\",\"events_url\":\"https://api.github.com/users/vercel%5Bbot%5D/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/vercel%5Bbot%5D/received_events\",\"type\":\"Bot\",\"site_admin\":false},\"position\":null,\"line\":null,\"path\":null,\"commit_id\":\"58c2fd534ce43ad994c512a4c234062ca2d26f17\",\"created_at\":\"2021-08-12T00:59:38Z\",\"updated_at\":\"2021-08-12T00:59:38Z\",\"author_association\":\"NONE\",\"body\":\"Successfully deployed to the following URLs:\\n\\n* [userstudy-c2-git-main-fitvid.vercel.app](https://userstudy-c2-git-main-fitvid.vercel.app)  \\n* [userstudy-c2-fitvid.vercel.app](https://userstudy-c2-fitvid.vercel.app)  \\n* [userstudy-c2.vercel.app](https://userstudy-c2.vercel.app)\"}}",
+            "repo": {
+                "id": 394603435,
+                "name": "imurs34/userstudy_c2",
+                "url": "https://api.github.com/repos/imurs34/userstudy_c2"
+            },
+            "actor": {
+                "id": 35613825,
+                "login": "vercel[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/35613825?",
+                "url": "https://api.github.com/users/vercel[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-08-12 00:59:38+00:00",
+            "id": "17532795196",
+            "other": "{\"actor\":{\"display_login\":\"vercel\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7706378628,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/output\",\"head\":\"3f7b59ed17c7ac2f5671e74104afe5df324aede9\",\"before\":\"dffa5361d8aaee40f1233321d313acf057ffff98\",\"commits\":[{\"sha\":\"3f7b59ed17c7ac2f5671e74104afe5df324aede9\",\"author\":{\"name\":\"github-actions[bot]\",\"email\":\"17973dcf2e10b67f63417c88ca4c460b2c9439f2@users.noreply.github.com\"},\"message\":\"Deploy to GitHub pages\",\"distinct\":true,\"url\":\"https://api.github.com/repos/vitorquadros/vitorquadros/commits/3f7b59ed17c7ac2f5671e74104afe5df324aede9\"}]}",
+            "repo": {
+                "id": 342695224,
+                "name": "vitorquadros/vitorquadros",
+                "url": "https://api.github.com/repos/vitorquadros/vitorquadros"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-08-12 00:30:09+00:00",
+            "id": "17532525410",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        }
+    ]
+}

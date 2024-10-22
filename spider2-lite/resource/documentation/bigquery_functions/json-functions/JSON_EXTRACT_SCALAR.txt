@@ -1,0 +1,85 @@
+## JSON_EXTRACT_SCALAR
+
+JSON_EXTRACT_SCALAR(json_string_expr[, json_path])
+
+
+JSON_EXTRACT_SCALAR(json_expr[, json_path])
+
+**Description**
+
+Extracts a JSON scalar value and converts it to a SQL ` STRING ` value. In addition, this function:
+
+* Removes the outermost quotes and unescapes the return values.
+* Returns a SQL ` NULL ` if a non-scalar value is selected.
+* Uses single quotes and brackets to escape invalid  JSONPath  characters in JSON keys. For example: ` ['a.b'] ` .
+
+Arguments:
+
+* ` json_string_expr ` : A JSON-formatted string. For example:
+
+'{"name": "Jane", "age": "6"}'
+
+* ` json_expr ` : JSON. For example:
+
+JSON '{"name": "Jane", "age": "6"}'
+
+* ` json_path ` : The  JSONPath  . This identifies the data that you want to obtain from the input. If this optional parameter is not provided, then the JSONPath ` $ ` symbol is applied, which means that all of the data is analyzed.
+
+If ` json_path ` returns a JSON ` null ` or a non-scalar value (in other words, if ` json_path ` refers to an object or an array), then a SQL ` NULL `
+is returned.
+
+There are differences between the JSON-formatted string and JSON input types.
+For details, see  Differences between the JSON and JSON-formatted STRING types .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+In the following example, ` age ` is extracted.
+
+
+SELECT JSON_EXTRACT_SCALAR(JSON '{"name": "Jakob", "age": "6" }', '$.age') AS scalar_age;
+
+/*------------*
+| scalar_age |
++------------+
+| 6          |
+*------------*/
+
+The following example compares how results are returned for the ` JSON_EXTRACT
+` and ` JSON_EXTRACT_SCALAR ` functions.
+
+
+SELECT JSON_EXTRACT('{"name": "Jakob", "age": "6" }', '$.name') AS json_name,
+JSON_EXTRACT_SCALAR('{"name": "Jakob", "age": "6" }', '$.name') AS scalar_name,
+JSON_EXTRACT('{"name": "Jakob", "age": "6" }', '$.age') AS json_age,
+JSON_EXTRACT_SCALAR('{"name": "Jakob", "age": "6" }', '$.age') AS scalar_age;
+
+/*-----------+-------------+----------+------------*
+| json_name | scalar_name | json_age | scalar_age |
++-----------+-------------+----------+------------+
+| "Jakob"   | Jakob       | "6"      | 6          |
+*-----------+-------------+----------+------------*/
+
+
+SELECT JSON_EXTRACT('{"fruits": ["apple", "banana"]}', '$.fruits') AS json_extract,
+JSON_EXTRACT_SCALAR('{"fruits": ["apple", "banana"]}', '$.fruits') AS json_extract_scalar;
+
+/*--------------------+---------------------*
+| json_extract       | json_extract_scalar |
++--------------------+---------------------+
+| ["apple","banana"] | NULL                |
+*--------------------+---------------------*/
+
+In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using single quotes and brackets, ` [' '] ` . For example:
+
+
+SELECT JSON_EXTRACT_SCALAR('{"a.b": {"c": "world"}}', "$['a.b'].c") AS hello;
+
+/*-------*
+| hello |
++-------+
+| world |
+*-------*/

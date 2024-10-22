@@ -1,0 +1,228 @@
+## PIVOT
+
+FROM from_item[, ...] pivot_operator
+
+pivot_operator:
+PIVOT( aggregate_function_call [as_alias][, ...]
+FOR input_column IN ( pivot_column [as_alias][, ...] ) ) [AS alias]
+
+as_alias:
+[AS] alias
+
+The ` PIVOT ` operator rotates rows into columns, using aggregation. ` PIVOT `
+is part of the ` FROM ` clause.
+
+* ` PIVOT ` can be used to modify any table expression.
+* Combining ` PIVOT ` with ` FOR SYSTEM_TIME AS OF ` is not allowed, although users may use ` PIVOT ` against a subquery input which itself uses ` FOR SYSTEM_TIME AS OF ` .
+* A ` WITH OFFSET ` clause immediately preceding the ` PIVOT ` operator is not allowed.
+
+Conceptual example:
+
+
+-- Before PIVOT is used to rotate sales and quarter into Q1, Q2, Q3, Q4 columns:
+/*---------+-------+---------+------*
+| product | sales | quarter | year |
++---------+-------+---------+------|
+| Kale    | 51    | Q1      | 2020 |
+| Kale    | 23    | Q2      | 2020 |
+| Kale    | 45    | Q3      | 2020 |
+| Kale    | 3     | Q4      | 2020 |
+| Kale    | 70    | Q1      | 2021 |
+| Kale    | 85    | Q2      | 2021 |
+| Apple   | 77    | Q1      | 2020 |
+| Apple   | 0     | Q2      | 2020 |
+| Apple   | 1     | Q1      | 2021 |
+*---------+-------+---------+------*/
+
+-- After PIVOT is used to rotate sales and quarter into Q1, Q2, Q3, Q4 columns:
+/*---------+------+----+------+------+------*
+| product | year | Q1 | Q2   | Q3   | Q4   |
++---------+------+----+------+------+------+
+| Apple   | 2020 | 77 | 0    | NULL | NULL |
+| Apple   | 2021 | 1  | NULL | NULL | NULL |
+| Kale    | 2020 | 51 | 23   | 45   | 3    |
+| Kale    | 2021 | 70 | 85   | NULL | NULL |
+*---------+------+----+------+------+------*/
+
+**Definitions**
+
+Top-level definitions:
+
+* ` from_item ` : The table or subquery on which to perform a pivot operation. The ` from_item ` must  follow these rules  .
+* ` pivot_operator ` : The pivot operation to perform on a ` from_item ` .
+* ` alias ` : An alias to use for an item in the query.
+
+` pivot_operator ` definitions:
+
+* ` aggregate_function_call ` : An aggregate function call that aggregates all input rows such that ` input_column ` matches a particular value in ` pivot_column ` . Each aggregation corresponding to a different ` pivot_column ` value produces a different column in the output.  Follow these rules  when creating an aggregate function call.
+* ` input_column ` : Takes a column and retrieves the row values for the column,  following these rules  .
+* ` pivot_column ` : A pivot column to create for each aggregate function call. If an alias is not provided, a default alias is created. A pivot column value type must match the value type in ` input_column ` so that the values can be compared. It is possible to have a value in ` pivot_column ` that doesn't match a value in ` input_column ` . Must be a constant and  follow these rules  .
+
+**Rules**
+
+Rules for a ` from_item ` passed to ` PIVOT ` :
+
+* The ` from_item ` may consist of any table or subquery result.
+* The ` from_item ` may not produce a value table.
+* The ` from_item ` may not be a subquery using ` SELECT AS STRUCT ` .
+
+Rules for ` aggregate_function_call ` :
+
+* Must be an aggregate function. For example, ` SUM ` .
+* You may reference columns in a table passed to ` PIVOT ` , as well as correlated columns, but may not access columns defined by the ` PIVOT ` clause itself.
+* A table passed to ` PIVOT ` may be accessed through its alias if one is provided.
+* You can only use an aggregate function that takes one argument.
+* Except for ` COUNT ` , you can only use aggregate functions that ignore ` NULL ` inputs.
+* If you are using ` COUNT ` , you can use ` * ` as an argument.
+
+Rules for ` input_column ` :
+
+* May access columns from the input table, as well as correlated columns, not columns defined by the ` PIVOT ` clause, itself.
+* Evaluated against each row in the input table; aggregate and window function calls are prohibited.
+* Non-determinism is okay.
+* The type must be groupable.
+* The input table may be accessed through its alias if one is provided.
+
+Rules for ` pivot_column ` :
+
+* A ` pivot_column ` must be a constant.
+* Named constants, such as variables, are not supported.
+* Query parameters are not supported.
+* If a name is desired for a named constant or query parameter, specify it explicitly with an alias.
+* Corner cases exist where a distinct ` pivot_column ` s can end up with the same default column names. For example, an input column might contain both a ` NULL ` value and the string literal ` "NULL" ` . When this happens, multiple pivot columns are created with the same name. To avoid this situation, use aliases for pivot column names.
+* If a ` pivot_column ` doesn't specify an alias, a column name is constructed as follows:
+
+From  |  To  |  Example
+---|---|---
+NULL  |  NULL  |  Input: NULL Output: "NULL"
+
+` INT64 `
+` NUMERIC `
+` BIGNUMERIC `
+|  The number in string format with the following rules:
+
+* Positive numbers are preceded with ` _ ` .
+* Negative numbers are preceded with ` minus_ ` .
+* A decimal point is replaced with ` _point_ ` .
+
+|  Input: 1 Output: _1
+
+* * *
+
+Input: -1 Output: minus_1
+
+* * *
+
+Input: 1.0 Output: _1_point_0
+
+BOOL  |  ` TRUE ` or ` FALSE ` .  |  Input: TRUE Output: TRUE
+
+* * *
+
+Input: FALSE Output: FALSE
+
+STRING  |  The string value.  |  Input: "PlayerName"
+Output: PlayerName
+
+DATE  |  The date in ` _YYYY_MM_DD ` format.  |  Input: DATE '2013-11-25'
+Output: _2013_11_25
+
+ENUM  |  The name of the enumeration constant.  |  Input: COLOR.RED Output: RED
+
+STRUCT  |  A string formed by computing the ` pivot_column ` name for each field and joining the results together with an underscore. The following rules apply:
+
+* If the field is named: ` <field_name>_<pivot_column_name_for_field_name> ` .
+* If the field is unnamed: ` <pivot_column_name_for_field_name> ` .
+
+` <pivot_column_name_for_field_name> ` is determined by applying the rules in this table, recursively. If no rule is available for any ` STRUCT ` field, the entire pivot column is unnamed.
+
+Due to implicit type coercion from the ` IN ` list values to the type of `
+<value-expression> ` , field names must be present in ` input_column ` to have an effect on the names of the pivot columns.
+
+|  Input: STRUCT("one", "two") Output: one_two
+
+* * *
+
+Input: STRUCT("one" AS a, "two" AS b) Output: one_a_two_b
+
+All other data types  |  Not supported. You must provide an alias.  |
+
+**Examples**
+
+The following examples reference a table called ` Produce ` that looks like this:
+
+
+WITH Produce AS ( SELECT 'Kale' as product, 51 as sales, 'Q1' as quarter, 2020 as year UNION ALL SELECT 'Kale', 23, 'Q2', 2020 UNION ALL SELECT 'Kale', 45, 'Q3', 2020 UNION ALL SELECT 'Kale', 3, 'Q4', 2020 UNION ALL SELECT 'Kale', 70, 'Q1', 2021 UNION ALL SELECT 'Kale', 85, 'Q2', 2021 UNION ALL SELECT 'Apple', 77, 'Q1', 2020 UNION ALL SELECT 'Apple', 0, 'Q2', 2020 UNION ALL SELECT 'Apple', 1, 'Q1', 2021) SELECT * FROM Produce
+
+/*---------+-------+---------+------*
+| product | sales | quarter | year |
++---------+-------+---------+------|
+| Kale    | 51    | Q1      | 2020 |
+| Kale    | 23    | Q2      | 2020 |
+| Kale    | 45    | Q3      | 2020 |
+| Kale    | 3     | Q4      | 2020 |
+| Kale    | 70    | Q1      | 2021 |
+| Kale    | 85    | Q2      | 2021 |
+| Apple   | 77    | Q1      | 2020 |
+| Apple   | 0     | Q2      | 2020 |
+| Apple   | 1     | Q1      | 2021 |
+*---------+-------+---------+------*/
+
+With the ` PIVOT ` operator, the rows in the ` quarter ` column are rotated into these new columns: ` Q1 ` , ` Q2 ` , ` Q3 ` , ` Q4 ` . The aggregate function ` SUM ` is implicitly grouped by all unaggregated columns other than the ` pivot_column ` : ` product ` and ` year ` .
+
+
+SELECT * FROM Produce PIVOT(SUM(sales) FOR quarter IN ('Q1', 'Q2', 'Q3', 'Q4'))
+
+/*---------+------+----+------+------+------*
+| product | year | Q1 | Q2   | Q3   | Q4   |
++---------+------+----+------+------+------+
+| Apple   | 2020 | 77 | 0    | NULL | NULL |
+| Apple   | 2021 | 1  | NULL | NULL | NULL |
+| Kale    | 2020 | 51 | 23   | 45   | 3    |
+| Kale    | 2021 | 70 | 85   | NULL | NULL |
+*---------+------+----+------+------+------*/
+
+If you don't include ` year ` , then ` SUM ` is grouped only by ` product ` .
+
+
+SELECT * FROM (SELECT product, sales, quarter FROM Produce) PIVOT(SUM(sales) FOR quarter IN ('Q1', 'Q2', 'Q3', 'Q4'))
+
+/*---------+-----+-----+------+------*
+| product | Q1  | Q2  | Q3   | Q4   |
++---------+-----+-----+------+------+
+| Apple   | 78  | 0   | NULL | NULL |
+| Kale    | 121 | 108 | 45   | 3    |
+*---------+-----+-----+------+------*/
+
+You can select a subset of values in the ` pivot_column ` :
+
+
+SELECT * FROM (SELECT product, sales, quarter FROM Produce) PIVOT(SUM(sales) FOR quarter IN ('Q1', 'Q2', 'Q3'))
+
+/*---------+-----+-----+------*
+| product | Q1  | Q2  | Q3   |
++---------+-----+-----+------+
+| Apple   | 78  | 0   | NULL |
+| Kale    | 121 | 108 | 45   |
+*---------+-----+-----+------*/
+
+
+SELECT * FROM (SELECT sales, quarter FROM Produce) PIVOT(SUM(sales) FOR quarter IN ('Q1', 'Q2', 'Q3'))
+
+/*-----+-----+----*
+| Q1  | Q2  | Q3 |
++-----+-----+----+
+| 199 | 108 | 45 |
+*-----+-----+----*/
+
+You can include multiple aggregation functions in the ` PIVOT ` . In this case, you must specify an alias for each aggregation. These aliases are used to construct the column names in the resulting table.
+
+
+SELECT * FROM (SELECT product, sales, quarter FROM Produce) PIVOT(SUM(sales) total_sales, COUNT(*) num_records FOR quarter IN ('Q1', 'Q2'))
+
+/*--------+----------------+----------------+----------------+----------------*
+|product | total_sales_Q1 | num_records_Q1 | total_sales_Q2 | num_records_Q2 |
++--------+----------------+----------------+----------------+----------------+
+| Kale   | 121            | 2              | 108            | 2              |
+| Apple  | 78             | 2              | 0              | 1              |
+*--------+----------------+----------------+----------------+----------------*/

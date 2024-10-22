@@ -1,0 +1,34 @@
+## LOGICAL_OR
+
+LOGICAL_OR( expression )
+
+**Description**
+
+Returns the logical OR of all non- ` NULL ` expressions. Returns ` NULL ` if there are zero input rows or ` expression ` evaluates to ` NULL ` for all rows.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+**Supported Argument Types**
+
+` BOOL `
+
+**Return Data Types**
+
+` BOOL `
+
+**Examples**
+
+` LOGICAL_OR ` returns ` TRUE ` because at least one of the values in the array is less than 3.
+
+
+SELECT LOGICAL_OR(x < 3) AS logical_or FROM UNNEST([1, 2, 4]) AS x;
+
+/*------------*
+| logical_or |
++------------+
+| TRUE       |
+*------------*/

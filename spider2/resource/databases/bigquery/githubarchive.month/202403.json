@@ -1,0 +1,235 @@
+{
+    "table_name": "202403",
+    "table_fullname": "githubarchive.month.202403",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"M\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 748705432,
+                "name": "HusseinEisa/HR",
+                "url": "https://api.github.com/repos/HusseinEisa/HR"
+            },
+            "actor": {
+                "id": 115652225,
+                "login": "HusseinEisa",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/115652225?",
+                "url": "https://api.github.com/users/HusseinEisa"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-03-05 21:01:36+00:00",
+            "id": "36275920294",
+            "other": "{\"actor\":{\"display_login\":\"HusseinEisa\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":758129026,\"push_id\":17403357765,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"caa413cb23238b1b36ba308c73abe7f332ea8a4a\",\"before\":\"cd50e92bec23b44fc2b2273925ef66dfb9d3b26a\",\"commits\":[{\"sha\":\"caa413cb23238b1b36ba308c73abe7f332ea8a4a\",\"author\":{\"email\":\"4c6fb796f1bbb0267e0a2ff3450dd69113cce5bb@gmail.com\",\"name\":\"David Szepesvari\"},\"message\":\"Fix some uniform integrator bugs.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/aa14k/adaptive_time/commits/caa413cb23238b1b36ba308c73abe7f332ea8a4a\"}]}",
+            "repo": {
+                "id": 758129026,
+                "name": "aa14k/adaptive_time",
+                "url": "https://api.github.com/repos/aa14k/adaptive_time"
+            },
+            "actor": {
+                "id": 1126774,
+                "login": "szepi1991",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1126774?",
+                "url": "https://api.github.com/users/szepi1991"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-03-05 21:53:54+00:00",
+            "id": "36277170507",
+            "other": "{\"actor\":{\"display_login\":\"szepi1991\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":575873587,\"push_id\":17402890218,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"fdbcfd721e036c191f1e78fc7fc7886ffa4c447e\",\"before\":\"fe8179e9c2f7622cb3240c0dc442fbaa8bb5d965\",\"commits\":[{\"sha\":\"fdbcfd721e036c191f1e78fc7fc7886ffa4c447e\",\"author\":{\"email\":\"ac66eb1ac84136cd1a822be8ad10de7d092b0414@alchemyviewer.org\",\"name\":\"Rye Mutt\"},\"message\":\"Make pref floater reuse instance again since crashes have been fixed finally\",\"distinct\":true,\"url\":\"https://api.github.com/repos/AlchemyViewer/AlchemyNext/commits/fdbcfd721e036c191f1e78fc7fc7886ffa4c447e\"}]}",
+            "repo": {
+                "id": 575873587,
+                "name": "AlchemyViewer/AlchemyNext",
+                "url": "https://api.github.com/repos/AlchemyViewer/AlchemyNext"
+            },
+            "actor": {
+                "id": 343176,
+                "login": "RyeMutt",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/343176?",
+                "url": "https://api.github.com/users/RyeMutt"
+            },
+            "org": {
+                "id": 7538457,
+                "login": "AlchemyViewer",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/7538457?",
+                "url": "https://api.github.com/orgs/AlchemyViewer"
+            },
+            "created_at": "2024-03-05 21:13:24+00:00",
+            "id": "36276213425",
+            "other": "{\"actor\":{\"display_login\":\"RyeMutt\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"dependabot/npm_and_yarn/website/types/react-dom-18.2.20\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":\"\ud83c\udf70 \u4e07\u7269\u7686\u53ef RSS | Everything is RSSible\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 143773244,
+                "name": "HenryQW/RSSHub",
+                "url": "https://api.github.com/repos/HenryQW/RSSHub"
+            },
+            "actor": {
+                "id": 49699333,
+                "login": "dependabot[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/49699333?",
+                "url": "https://api.github.com/users/dependabot[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-03-05 21:26:14+00:00",
+            "id": "36276529871",
+            "other": "{\"actor\":{\"display_login\":\"dependabot\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":767765745,\"push_id\":17403105176,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"48f35876bc5051fb5348a926544f3ecc392fe718\",\"before\":\"10ee51f4367bacaab152fc0a4556973c31849973\",\"commits\":[{\"sha\":\"48f35876bc5051fb5348a926544f3ecc392fe718\",\"author\":{\"email\":\"206bfaa16d66331194f73ec199904faf60f430ad@users.noreply.github.com\",\"name\":\"weslayer\"},\"message\":\"Update README.md\",\"distinct\":true,\"url\":\"https://api.github.com/repos/weslayer/weslayer/commits/48f35876bc5051fb5348a926544f3ecc392fe718\"}]}",
+            "repo": {
+                "id": 767765745,
+                "name": "weslayer/weslayer",
+                "url": "https://api.github.com/repos/weslayer/weslayer"
+            },
+            "actor": {
+                "id": 113883042,
+                "login": "weslayer",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/113883042?",
+                "url": "https://api.github.com/users/weslayer"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-03-05 21:31:16+00:00",
+            "id": "36276650946",
+            "other": "{\"actor\":{\"display_login\":\"weslayer\"}}"
+        }
+    ]
+}

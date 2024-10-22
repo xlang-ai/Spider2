@@ -1,0 +1,35 @@
+table_name,DDL
+skills_dim,"CREATE TABLE skills_dim (
+    skill_id INTEGER,
+    skills TEXT,
+    type TEXT
+);"
+job_postings_fact,"CREATE TABLE job_postings_fact (
+    job_id INTEGER,
+    company_id INTEGER,
+    job_title_short TEXT,
+    job_title TEXT,
+    job_location TEXT,
+    job_via TEXT,
+    job_schedule_type TEXT,
+    job_work_from_home BOOLEAN,
+    search_location TEXT,
+    job_posted_date TIMESTAMP,
+    job_no_degree_mention BOOLEAN,
+    job_health_insurance BOOLEAN,
+    job_country TEXT,
+    salary_rate TEXT,
+    salary_year_avg NUMERIC,
+    salary_hour_avg NUMERIC
+);"
+skills_job_dim,"CREATE TABLE skills_job_dim (
+    job_id INTEGER,
+    skill_id INTEGER
+);"
+company,"CREATE TABLE company (
+    company_id INTEGER,
+    name TEXT,
+    link TEXT,
+    link_google TEXT,
+    thumbnail TEXT
+);"

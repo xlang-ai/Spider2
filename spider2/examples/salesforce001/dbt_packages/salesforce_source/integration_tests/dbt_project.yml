@@ -1,0 +1,178 @@
+name: 'salesforce_source_integration_tests'
+version: '1.1.0'
+
+config-version: 2
+
+profile: 'integration_tests'
+
+models:
+  +schema: "salesforce_source_{{ var('directed_schema','dev') }}"
+
+vars:
+  salesforce_source:
+    salesforce_schema: salesforce_source_integrations_tests_3
+    salesforce_history_schema: salesforce_source_integrations_tests_3
+
+    salesforce_account_identifier: "sf_account_data"
+    salesforce_opportunity_identifier: "sf_opportunity_data"
+    salesforce_user_identifier: "sf_user_data"
+    salesforce_user_role_identifier: "sf_user_role_data"
+    salesforce_contact_identifier: "sf_contact_data"
+    salesforce_lead_identifier: "sf_lead_data"
+    salesforce_task_identifier: "sf_task_data"
+    salesforce_event_identifier: "sf_event_data"
+    salesforce_product_2_identifier: "sf_product_2_data"
+    salesforce_order_identifier: "sf_order_data"
+    salesforce_opportunity_line_item_identifier: "sf_opportunity_line_item_data"
+
+    ##history mode identifiers
+    salesforce_account_history_identifier: "sf_account_history_data"
+    salesforce_contact_history_identifier: "sf_contact_history_data"
+    salesforce_opportunity_history_identifier: "sf_opportunity_history_data"
+
+    salesforce__account_history_enabled: false
+    salesforce__contact_history_enabled: false
+    salesforce__opportunity_history_enabled: false
+
+seeds:
+  salesforce_source_integration_tests:
+    +quote_columns: "{{ true if target.type in ('redshift', 'postgres') else false }}"
+    +column_types:
+      _fivetran_synced: timestamp
+      _fivetran_active: boolean
+      _fivetran_start: timestamp
+      _fivetran_end: timestamp
+    sf_account_data:
+      +column_types:
+        last_activity_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        annual_revenue: float
+        billing_latitude: float
+        billing_longitude: float
+        shipping_latitude: float
+        shipping_longitude: float
+    sf_opportunity_data:
+      +column_types:
+        close_date: timestamp
+        created_date: timestamp
+        last_activity_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        amount: float
+        probability: float
+    sf_user_data:
+      +column_types:
+        last_login_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        offline_trial_expiration_date: timestamp
+        latitude: float
+        longitude: float
+    sf_contact_data:
+      +column_types:
+        birthdate: timestamp
+        created_date: timestamp
+        email_bounced_date: timestamp
+        last_activity_date: timestamp
+        last_curequest_date: timestamp
+        last_cuupdate_date: timestamp
+        last_modified_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_lead_data:
+      +column_types:
+        converted_date: timestamp
+        created_date: timestamp
+        email_bounced_date: timestamp
+        last_activity_date: timestamp
+        last_modified_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_task_data:
+      +column_types:
+        activity_date: timestamp
+        completed_date_time: timestamp
+        created_date: timestamp
+        last_modified_date: timestamp
+        recurrence_end_date_only: timestamp
+        recurrence_start_date_only: timestamp
+        reminder_date_time: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_event_data:
+      +column_types:
+        activity_date: timestamp
+        activity_date_time: timestamp
+        created_date: timestamp
+        end_date: timestamp
+        end_date_time: timestamp
+        last_modified_date   : timestamp
+        recurrence_2_pattern_start_date   : timestamp
+        recurrence_end_date_only: timestamp
+        recurrence_start_date_time: timestamp
+        reminder_date_time: timestamp
+        start_date_time: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_product_2_data:
+      +column_types:
+        created_date: timestamp
+        last_modified_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_order_data:
+      +column_types:
+        activated_date: timestamp
+        created_date: timestamp
+        effective_date: timestamp
+        end_date: timestamp
+        last_modified_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+    sf_opportunity_line_item_data:
+      +column_types:
+        created_date: timestamp
+        last_modified_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        service_date: timestamp
+        system_modstamp: timestamp
+        is_deleted: boolean
+
+    sf_account_history_data:
+      +column_types:
+        annual_revenue: float
+        last_activity_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        is_deleted: boolean
+    sf_contact_history_data:
+      +column_types:
+        birthdate: timestamp 
+        last_activity_date: timestamp 
+        last_modified_date: timestamp 
+        last_viewed_date: timestamp
+        is_deleted: boolean
+    sf_opportunity_history_data:
+      +column_types:
+        close_date: timestamp
+        created_date: timestamp
+        last_activity_date: timestamp
+        last_referenced_date: timestamp
+        last_viewed_date: timestamp
+        amount: float
+        expected_revenue: float
+        is_deleted: boolean
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']

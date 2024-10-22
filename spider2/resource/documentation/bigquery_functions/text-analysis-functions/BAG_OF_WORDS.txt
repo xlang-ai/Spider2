@@ -1,0 +1,34 @@
+## BAG_OF_WORDS
+
+BAG_OF_WORDS(tokenized_document)
+
+**Definition**
+
+Gets the frequency of each term (token) in a tokenized document.
+
+**Definitions**
+
+* ` tokenized_document ` : ` ARRAY<STRING> ` value that represents a document that has been tokenized. A tokenized document is a collection of terms (tokens), which are used for text analysis.
+
+**Return type**
+
+` ARRAY<STRUCT<term STRING, count INT64>> `
+
+Definitions:
+
+* ` term ` : A unique term in the tokenized document.
+* ` count ` : The number of times the term was found in the tokenized document.
+
+**Examples**
+
+The following query produces terms and their frequencies in two tokenized documents:
+
+
+WITH ExampleTable AS ( SELECT 1 AS id, ['I', 'like', 'pie', 'pie', 'pie', NULL] AS f UNION ALL SELECT 2 AS id, ['yum', 'yum', 'pie', NULL] AS f ) SELECT id, BAG_OF_WORDS(f) AS results FROM ExampleTable ORDER BY id;
+
+/*----+------------------------------------------------*
+| id | results                                        |
++----+------------------------------------------------+
+| 1  | [(null, 1), ('I', 1), ('like', 1), ('pie', 3)] |
+| 2  | [(null, 1), ('pie', 1), ('yum', 2)]            |
+*----+------------------------------------------------*/

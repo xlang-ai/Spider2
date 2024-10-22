@@ -1,0 +1,129 @@
+## COUNT
+
+1\.
+
+
+COUNT(*)
+[OVER over_clause]
+
+2\.
+
+
+COUNT(
+[ DISTINCT ]
+expression )
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+1. Returns the number of rows in the input.
+2. Returns the number of rows with ` expression ` evaluated to any value other than ` NULL ` .
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+This function with DISTINCT supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+` COUNT ` can be used with differential privacy. For more information, see [
+Differentially private aggregate functions
+](/bigquery/docs/reference/standard-sql/aggregate-dp-functions) .
+
+**Supported Argument Types**
+
+` expression ` can be any data type. If ` DISTINCT ` is present, ` expression
+` can only be a data type that is [ groupable
+](/bigquery/docs/reference/standard-sql/data-types#data_type_properties) .
+
+**Return Data Types**
+
+INT64
+
+**Examples**
+
+You can use the ` COUNT ` function to return the number of rows in a table or the number of distinct values of an expression. For example:
+
+
+SELECT COUNT(*) AS count_star,
+COUNT(DISTINCT x) AS count_dist_x FROM UNNEST([1, 4, 4, 5]) AS x;
+
+/*------------+--------------*
+| count_star | count_dist_x |
++------------+--------------+
+| 4          | 3            |
+*------------+--------------*/
+
+
+SELECT x,
+COUNT(*) OVER (PARTITION BY MOD(x, 3)) AS count_star,
+COUNT(DISTINCT x) OVER (PARTITION BY MOD(x, 3)) AS count_dist_x FROM UNNEST([1, 4, 4, 5]) AS x;
+
+/*------+------------+--------------*
+| x    | count_star | count_dist_x |
++------+------------+--------------+
+| 1    | 3          | 2            |
+| 4    | 3          | 2            |
+| 4    | 3          | 2            |
+| 5    | 1          | 1            |
+*------+------------+--------------*/
+
+
+SELECT x,
+COUNT(*) OVER (PARTITION BY MOD(x, 3)) AS count_star,
+COUNT(x) OVER (PARTITION BY MOD(x, 3)) AS count_x FROM UNNEST([1, 4, NULL, 4, 5]) AS x;
+
+/*------+------------+---------*
+| x    | count_star | count_x |
++------+------------+---------+
+| NULL | 1          | 0       |
+| 1    | 3          | 3       |
+| 4    | 3          | 3       |
+| 4    | 3          | 3       |
+| 5    | 1          | 1       |
+*------+------------+---------*/
+
+If you want to count the number of distinct values of an expression for which a certain condition is satisfied, this is one recipe that you can use:
+
+
+COUNT(DISTINCT IF(condition, expression, NULL))
+
+Here, ` IF ` will return the value of ` expression ` if ` condition ` is `
+TRUE ` , or ` NULL ` otherwise. The surrounding ` COUNT(DISTINCT ...) ` will ignore the ` NULL ` values, so it will count only the distinct values of `
+expression ` for which ` condition ` is ` TRUE ` .
+
+For example, to count the number of distinct positive values of ` x ` :
+
+
+SELECT COUNT(DISTINCT IF(x > 0, x, NULL)) AS distinct_positive FROM UNNEST([1, -2, 4, 1, -5, 4, 1, 3, -6, 1]) AS x;
+
+/*-------------------*
+| distinct_positive |
++-------------------+
+| 3                 |
+*-------------------*/
+
+Or to count the number of distinct dates on which a certain kind of event occurred:
+
+
+WITH Events AS ( SELECT DATE '2021-01-01' AS event_date, 'SUCCESS' AS event_type UNION ALL SELECT DATE '2021-01-02' AS event_date, 'SUCCESS' AS event_type UNION ALL SELECT DATE '2021-01-02' AS event_date, 'FAILURE' AS event_type UNION ALL SELECT DATE '2021-01-03' AS event_date, 'SUCCESS' AS event_type UNION ALL SELECT DATE '2021-01-04' AS event_date, 'FAILURE' AS event_type UNION ALL SELECT DATE '2021-01-04' AS event_date, 'FAILURE' AS event_type ) SELECT COUNT(DISTINCT IF(event_type = 'FAILURE', event_date, NULL)) AS distinct_dates_with_failures FROM Events;
+
+/*------------------------------*
+| distinct_dates_with_failures |
++------------------------------+
+| 2                            |
+*------------------------------*/

@@ -1,0 +1,31 @@
+## LOWER
+
+LOWER(value)
+
+**Description**
+
+For ` STRING ` arguments, returns the original string with all alphabetic characters in lowercase. Mapping between lowercase and uppercase is done according to the [ Unicode Character Database ](http://unicode.org/ucd/) without taking into account language-specific mappings.
+
+For ` BYTES ` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH items AS (SELECT
+'FOO' as item UNION ALL SELECT
+'BAR' as item UNION ALL SELECT
+'BAZ' as item)
+
+SELECT LOWER(item) AS example FROM items;
+
+/*---------*
+| example |
++---------+
+| foo     |
+| bar     |
+| baz     |
+*---------*/

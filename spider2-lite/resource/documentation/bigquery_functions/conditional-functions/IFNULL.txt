@@ -1,0 +1,38 @@
+## IFNULL
+
+IFNULL(expr, null_result)
+
+**Description**
+
+If ` expr ` evaluates to ` NULL ` , returns ` null_result ` . Otherwise,
+returns ` expr ` . If ` expr ` doesn't evaluate to ` NULL ` , ` null_result `
+isn't evaluated.
+
+` expr ` and ` null_result ` can be any type and must be implicitly coercible to a common [ supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) . Synonym for ` COALESCE(expr, null_result) `
+.
+
+**Return Data Type**
+
+[ Supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) of ` expr ` or ` null_result ` .
+
+**Examples**
+
+
+SELECT IFNULL(NULL, 0) as result
+
+/*--------*
+| result |
++--------+
+| 0      |
+*--------*/
+
+
+SELECT IFNULL(10, 0) as result
+
+/*--------*
+| result |
++--------+
+| 10     |
+*--------*/

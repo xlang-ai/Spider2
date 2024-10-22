@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.human_genome_variants` database to solve this problem.

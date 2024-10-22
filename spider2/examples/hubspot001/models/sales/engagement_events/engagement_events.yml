@@ -1,0 +1,171 @@
+version: 2
+
+models:
+
+  - name: hubspot__engagement_calls
+    description: Each record represents a CALL engagement event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.
+          
+  - name: hubspot__engagement_emails
+    description: Each record represents an EMAIL engagement event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.
+
+  - name: hubspot__engagement_meetings
+    description: Each record represents a MEETING engagement event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.
+
+  - name: hubspot__engagement_notes
+    description: Each record represents a NOTE engagement event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: note
+        description: The body of the note. The body has a limit of 65536 characters.
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.
+
+  - name: hubspot__engagement_tasks
+    description: Each record represents a TASK engagement event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: engagement_id
+        description: The ID of the engagement.
+        tests:
+          - not_null
+          - unique
+
+      - name: is_active
+        description: Whether the engagement is currently being shown in the UI.
+
+      - name: created_timestamp
+        description: A timestamp representing when the engagement was created.
+
+      - name: occurred_timestamp
+        description: A timestamp in representing the time that the engagement should appear in the timeline.
+
+      - name: owner_id
+        description: The ID of the engagement's owner.
+
+      - name: contact_ids
+        description: List of contacts related to the engagement.
+
+      - name: deal_ids
+        description: List of deals related to the engagement.
+
+      - name: company_ids
+        description: List of companies related to the engagement.

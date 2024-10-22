@@ -1,0 +1,104 @@
+table_name,ddl
+order_payments,"CREATE TABLE `spider2-public-data.E_commerce.order_payments`
+(
+  order_id STRING,
+  payment_sequential INT64,
+  payment_type STRING,
+  payment_installments INT64,
+  payment_value FLOAT64
+);"
+order_items,"CREATE TABLE `spider2-public-data.E_commerce.order_items`
+(
+  order_id STRING,
+  order_item_id INT64,
+  product_id STRING,
+  seller_id STRING,
+  shipping_limit_date TIMESTAMP,
+  price FLOAT64,
+  freight_value FLOAT64
+);"
+sellers,"CREATE TABLE `spider2-public-data.E_commerce.sellers`
+(
+  seller_id STRING,
+  seller_zip_code_prefix INT64,
+  seller_city STRING,
+  seller_state STRING
+);"
+geolocation,"CREATE TABLE `spider2-public-data.E_commerce.geolocation`
+(
+  geolocation_zip_code_prefix INT64,
+  geolocation_lat FLOAT64,
+  geolocation_lng FLOAT64,
+  geolocation_city STRING,
+  geolocation_state STRING
+);"
+products,"CREATE TABLE `spider2-public-data.E_commerce.products`
+(
+  product_id STRING,
+  product_category_name STRING,
+  product_name_lenght FLOAT64,
+  product_description_lenght FLOAT64,
+  product_photos_qty FLOAT64,
+  product_weight_g FLOAT64,
+  product_length_cm FLOAT64,
+  product_height_cm FLOAT64,
+  product_width_cm FLOAT64
+);"
+orders,"CREATE TABLE `spider2-public-data.E_commerce.orders`
+(
+  order_id STRING,
+  customer_id STRING,
+  order_status STRING,
+  order_purchase_timestamp TIMESTAMP,
+  order_approved_at TIMESTAMP,
+  order_delivered_carrier_date TIMESTAMP,
+  order_delivered_customer_date TIMESTAMP,
+  order_estimated_delivery_date TIMESTAMP
+);"
+leads_closed,"CREATE TABLE `spider2-public-data.E_commerce.leads_closed`
+(
+  mql_id STRING,
+  seller_id STRING,
+  sdr_id STRING,
+  sr_id STRING,
+  won_date TIMESTAMP,
+  business_segment STRING,
+  lead_type STRING,
+  lead_behaviour_profile STRING,
+  has_company FLOAT64,
+  has_gtin FLOAT64,
+  average_stock STRING,
+  business_type STRING,
+  declared_product_catalog_size FLOAT64,
+  declared_monthly_revenue FLOAT64
+);"
+product_category_name_translation,"CREATE TABLE `spider2-public-data.E_commerce.product_category_name_translation`
+(
+  product_category_name_english STRING,
+  product_category_name STRING
+);"
+customers,"CREATE TABLE `spider2-public-data.E_commerce.customers`
+(
+  customer_id STRING,
+  customer_unique_id STRING,
+  customer_zip_code_prefix INT64,
+  customer_city STRING,
+  customer_state STRING
+);"
+leads_qualified,"CREATE TABLE `spider2-public-data.E_commerce.leads_qualified`
+(
+  mql_id STRING,
+  first_contact_date DATE,
+  landing_page_id STRING,
+  origin STRING
+);"
+order_reviews,"CREATE TABLE `spider2-public-data.E_commerce.order_reviews`
+(
+  review_answer_timestamp TIMESTAMP,
+  review_id STRING,
+  review_score INT64,
+  review_comment_message STRING,
+  review_comment_title STRING,
+  review_creation_date TIMESTAMP,
+  order_id STRING
+);"

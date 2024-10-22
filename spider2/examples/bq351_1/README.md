@@ -1,0 +1,1 @@
+1. please query `open-targets-prod.platform` database to solve this problem.

@@ -1,0 +1,635 @@
+
+version: 2
+
+models:
+  - name: stg_recharge__address
+    description: Table of all addresses, an address represents a shipping address. Each customer can have multiple addresses, subscriptions are a child object of an address.
+    columns:
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: first_name
+        description: The customer's first name.
+      - name: last_name
+        description: The customer's last name.
+      - name: address_created_at
+        description: The date and time the customer address was recorded.
+      - name: address_updated_at
+        description: The date and time of when the customer's address record was last updated.
+      - name: address_line_1
+        description: The first line of the customer's address.
+      - name: address_line_2
+        description: Any additional address information associated with the customer.
+      - name: city
+        description: The city associated with the customer.
+      - name: province
+        description: The province or state name associated with the customer.
+      - name: zip
+        description: The zip or post code associated with the customer.
+      - name: country_code
+        description: The country code associated with the address.
+      - name: company
+        description: The company name associated with the customer.
+      - name: phone
+        description: The phone number associated with the customer.
+
+  - name: stg_recharge__address_discounts
+    description: Table of all addresses and corresponding associated shipping information.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - address_id
+            - index
+    columns:
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent address_id.
+      - name: discount_id
+        description: "{{ doc('discount_id') }}"
+
+  - name: stg_recharge__address_shipping_line
+    description: Table of all addresses and corresponding associated shipping information.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - address_id
+            - index
+    columns:
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent address_id.
+      - name: price
+        description: The price of the shipping amount.
+      - name: code
+        description: The type of the shipping, can contain geographical shipping information. 
+      - name: title
+        description: The type of shipping consignment.
+
+  - name: stg_recharge__charge
+    description: Table of all charges (financial transactions) linked to the purchase of an item. A charge is linked to a corresponding order, an order is created once the corresponding charge is successful.
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: customer_hash
+        description: The hash of the customer associated with the charge.
+      - name: email
+        description: The email address of the customer.
+      - name: charge_created_at
+        description: Date and time when the charge was created.
+      - name: charge_type
+        description: "{{ doc('type') }}"
+      - name: charge_status
+        description: "{{ doc('charge_status') }}"
+      - name: charge_updated_at
+        description: Date and time when the charge was last updated.
+      - name: note
+        description: Shows the next order in sequence.
+      - name: subtotal_price
+        description: The combined price of all line_items without taxes and shipping.
+      - name: tags
+        description: A comma-separated list of tags on the charge.
+      - name: error
+        description: Error reason as sentence text (typically returned directly from the payment processor - e.g. "customer needs to update credit card").
+      - name: external_variant_id_not_found
+        description: Indicates if Recharge was able to find the external_variant_id_ecommerce from the charge.
+      - name: tax_lines
+        description: An array of tax lines that apply to the charge.
+      - name: total_discounts
+        description: The sum of the discounts applied to the charge.
+      - name: total_line_items_price
+        description: The sum of all the prices of all the items in the charge.
+      - name: total_tax
+        description: The total tax due associated with the charge.
+      - name: total_price
+        description: The sum of all the prices of all the items in the charge, taxes and discounts included (must be positive).
+      - name: total_refunds
+        description: The sum of all refunds that were applied to the charge.
+      - name: total_weight_grams
+        description: The total weight of all items in the charge in grams.
+      - name: charge_scheduled_at
+        description: The date time of when the associated charge is/was scheduled to process.
+      - name: charge_processed_at
+        description: Date and time when the charge was processed.
+      - name: payment_processor
+        description: The payment processor used on the charge.
+      - name: external_transaction_id_payment_processor
+        description: The unique alphanumeric identifier of the transaction.
+      - name: external_order_id_ecommerce
+        description: The unique numeric identifier within your external ecommerce platform for the charge.
+      - name: orders_count
+        description: The number of orders generated from this charge (Will be >1 for prepaid).
+      - name: has_uncommitted_changes
+        description: Specifies whether the charge is scheduled for regeneration (if the subscription is related to the charge was updated in the last 5 seconds using "commit_update":false).
+      - name: retry_date
+        description: The date when the next attempt will be placed.
+      - name: error_type
+        description: Structured reason why the charge failed such as customer_needs_to_updated_card.
+      - name: times_retried
+        description: Shows how many times an attempt to charge was placed.
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: client_details_browser_ip
+        description: The IP address of the buyer detected in checkout.
+      - name: client_details_user_agent
+        description: The user agent detected during checkout.
+
+  - name: stg_recharge__charge_discount
+    description: Table of all charge discount codes.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - index
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent charge_id.
+      - name: discount_id
+        description: The ID of the discount associated with the charge.
+      - name: code
+        description: The code used to apply the discount.
+      - name: discount_value
+        description: The discounted value to be applied.
+      - name: value_type
+        description: Possible values - FIXED_AMOUNT, PERCENTAGE, SHIPPING
+
+  - name: stg_recharge__charge_line_item
+    description: Table of all charge line items, each containing information about a distinct purchase item.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - index
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent charge_id.
+      - name: vendor
+        description: The name of the seller.
+      - name: title
+        description: The product title that links to your external ecommerce platform.
+      - name: variant_title
+        description: The name of the product variant.
+      - name: sku
+        description: The SKU (stock keeping unit) of the product associated with the charge's line item.
+      - name: grams
+        description: The weight of the charge's line item in grams.
+      - name: quantity
+        description: The quantity of the line_item.
+      - name: total_price
+        description: The total price of the line_item including tax.
+      - name: unit_price
+        description: The unit price of the line_item.
+      - name: tax_due
+        description: The total tax due associated with the line_item.
+      - name: taxable
+        description: A boolean indicating if the line_item is taxable or non-taxable.
+      - name: taxable_amount
+        description: The taxable revenue associated with the line_item.
+      - name: unit_price_includes_tax
+        description: A boolean indicator if tax is included in the price of an item.
+      - name: external_product_id_ecommerce
+        description: The product ID that links to your external ecommerce platform.
+      - name: external_variant_id_ecommerce
+        description: The variant ID that links to your external ecommerce platform.
+      - name: purchase_item_id
+        description: The subscription or onetime ID associated with the line_item.
+      - name: purchase_item_type
+        description: Possible values are SUBSCRIPTION, ONETIME.
+
+  - name: stg_recharge__charge_order_attribute
+    description: Table of notes associated to their corresponding charges.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - index
+    
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent charge_id.
+      - name: order_attribute
+        description: An array of name-value pairs of order attributes on the charge.
+
+  - name: stg_recharge__charge_shipping_line
+    description: Table of all shipping information associated to their corresponding charges.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - index
+    
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent charge_id.
+      - name: price
+        description: The price of th shipping line of a charge.
+      - name: code
+        description: The code associated with the shipping line of a charge.
+      - name: title
+        description: The title of the shipping line.
+
+  - name: stg_recharge__charge_tax_line
+    description: Table of tax line information associated to their corresponding charges.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - index
+    
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent charge_id.
+      - name: price
+        description: The total tax associated with the listed jurisdiction.
+      - name: rate
+        description: The tax rate associated with the listed jurisdiction.
+      - name: title
+        description: The title/name of the taxing jurisdiction.
+
+  - name: stg_recharge__checkout
+    description: checkouts
+    columns:
+      - name: checkout_id
+        description: Unique token for the Checkout
+        tests:
+          - unique
+          - not_null
+      - name: charge_id
+        description: ID for the Charge resulting from processing the Checkout.
+      - name: buyer_accepts_marketing
+        description: Boolean if the buyer accept marketing, newsletters etc.
+      - name: checkout_completed_at
+        description: Timestamp for when the Checkout was processed.
+      - name: checkout_created_at
+        description: Timestamp for when the Checkout was created.
+      - name: currency
+        description: Currency of the Checkout.
+      - name: discount_code
+        description: Discount code to be used on the checkout, e.g. “DISCOUNT20”.
+      - name: email
+        description: Email address for the customer.
+      - name: external_checkout_id
+        description: Represents the external cart token.
+      - name: external_checkout_source
+        description: Represents the source for external_checkout_id.
+      - name: external_transaction_id_payment_processor
+        description: Transaction ID of the external payment processor.
+      - name: order_attributes
+        description: Structured custom notes.
+      - name: phone
+        description: Customer phone number.
+      - name: requires_shipping
+        description: Boolean if the Checkout contains items that require shipping.
+      - name: subtotal_price
+        description: Value of the Checkout minus shipping and tax.
+      - name: taxes_included
+        description: Boolean if the tax is included in the price of the items.
+      - name: total_price
+        description: Full price of the Checkout including shipping and tax.
+      - name: total_tax
+        description: Tax charged on the Checkout.
+      - name: checkout_updated_at
+        description: Timestamp for the latest Checkout update.
+
+  - name: stg_recharge__customer
+    description: Table of all customer details holding account and billing information. Email is unique on the customer, no two customers for a store can have the same email.
+    columns:
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: customer_hash
+        description: The unique string identifier used in a customer portal link.
+      - name: external_customer_id_ecommerce
+        description: External platform's identifier for the customer.
+      - name: email
+        description: The email address of the customer.
+      - name: first_name
+        description: The customer's first name.
+      - name: last_name
+        description: The customer's last name.
+      - name: customer_created_at
+        description: The date and time when the customer was created.
+      - name: customer_updated_at
+        description: The date and time when the customer was last updated.
+      - name: first_charge_processed_at
+        description: Date when first charge was processed for the customer.
+      - name: subscriptions_active_count
+        description: The number of active subscriptions associated with the customer.
+      - name: subscriptions_total_count
+        description: The total number of subscriptions associated with the customer.
+      - name: has_valid_payment_method
+        description: Boolean indicating if the payment value is valid.
+      - name: has_payment_method_in_dunning
+        description: Boolean indicating if the customer has a credit card in dunning.
+      - name: tax_exempt
+        description: Boolean indicating if the customer is tax exempt.
+
+  - name: stg_recharge__discount
+    description: Table of discounts that can be applied to a checkout, or that can be directly applied to an address.
+    columns:
+      - name: discount_id
+        description: Unique numeric identifier for the discount in Recharge.
+        tests:
+          - unique
+          - not_null
+      - name: discount_created_at
+        description: The date and time when the discount was created.
+      - name: discount_updated_at
+        description: The date and time when the discount was last updated.
+      - name: discount_starts_at
+        description: The date when the discount becomes active.
+      - name: discount_ends_at
+        description: The expiration time of the discount, past this time the discount can no longer be redeemed, once the time of the discount has passed the status of the discount will go from 'active' to 'disabled'.
+      - name: code
+        description: The code used to apply the discount.
+      - name: value
+        description: The discounted value to be applied.
+      - name: status
+        description: The status of the discount. Possible values are ENABLED, DISABLED, or FULLY_DISABLED.
+      - name: usage_limits
+        description: An integer indicating how many times the discount can been used.
+      - name: applies_to
+        description: Indicates where the discount applies.
+      - name: applies_to_resource
+        description: An indicator of the type of resource which applies_to_id refers.
+      - name: applies_to_id
+        description: A list of ids of the type indicated in applies_to_resource for which the discount can be applied.
+      - name: applies_to_product_type
+        description: Indicates which product types the discount applies to.
+      - name: minimum_order_amount
+        description: The minimum cart subtotal needed for the discount to be applicable. `duration` has to be `single_use` and the discount must apply to the entire order.
+
+  - name: stg_recharge__one_time_product
+    description: Table of all one-times which represent non-recurring line items on a queued charges.
+    columns:
+      - name: one_time_product_id
+        description: The unique numeric identifier for the onetime purchase.
+        tests:
+          - unique
+          - not_null
+      - name: address_id
+        description: The unique identifier of the address. Cannot be used with `next_charge_scheduled_at`.
+      - name: customer_id
+        description: Unique numeric identifier for the customer the onetime purchase is tied to.
+      - name: is_deleted
+        description: Boolean indicating if the onetime is deleted.
+      - name: one_time_created_at
+        description: The time the onetime item was first created.
+      - name: one_time_updated_at
+        description: The time the onetime item was last updated.
+      - name: one_time_next_charge_scheduled_at
+        description: Date of the onetime purchase execution.
+      - name: product_title
+        description: The name of the product in a shop's catalog.
+      - name: variant_title
+        description: The name of the variant in a shop's catalog.
+      - name: price
+        description: The price of the item before discounts, taxes, or shipping have been applied.
+      - name: quantity
+        description: The number of items in the onetime purchase.
+      - name: external_product_id_ecommerce
+        description: The product ID that links to your external ecommerce platform.
+      - name: external_variant_id_ecommerce
+        description: The variant ID that links to your external ecommerce platform.
+      - name: sku
+        description: The unique identifier of the item in fulfillment.
+
+  - name: stg_recharge__order
+    description: Table of all orders after a charge is successfully processed.
+    columns:
+      - name: order_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: external_order_id_ecommerce
+        description: Unique numeric identifier within your external ecommerce platform for the order.
+      - name: external_order_number_ecommerce
+        description: The unique order number within your external ecommerce platform.
+      - name: customer_id
+        description: The unique numeric identifier of the customer.
+      - name: email
+        description: The email address of the customer.
+      - name: order_created_at
+        description: The date and time when the order was created.
+      - name: order_status
+        description: The status of the order. Possible values are SUCCESS, ERROR, QUEUED, or CANCELLED
+      - name: order_updated_at
+        description: The date and time when the order was last updated.
+      - name: charge_id
+        description: The unique numeric identifier of the charge.
+      - name: transaction_id
+        description: The unique alphanumeric identifier of the transaction.
+      - name: charge_status
+        description: "{{ doc('charge_status') }}"
+      - name: is_prepaid
+        description: Boolean indicating if the Order is prepaid.
+      - name: order_total_price
+        description: The total amount due of the Order.
+      - name: order_type
+        description: "{{ doc('type') }}"
+      - name: order_processed_at
+        description: The date and time when the order was submitted. 
+      - name: order_scheduled_at
+        description: The date and time when the order will be shipped.
+      - name: order_shipped_date
+        description: The date when the order will be processed.
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: is_deleted
+        description: Boolean indicating if the order (record) is deleted.
+
+  - name: stg_recharge__order_line_item
+    description: Table of all order line items. Each line containing information about an item in the order.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - order_id
+            - index
+    columns:
+      - name: order_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: index
+        description: A unique numeric row produced for every concurrent order_id.
+      - name: external_product_id_ecommerce
+        description: The unique numeric identifier for your external ecommerce platform product in the fulfillment.
+      - name: external_variant_id_ecommerce
+        description: Unique numeric identifier of the product variant in your external ecommerce platform.
+      - name: order_line_item_title
+        description: The title of the product.
+      - name: product_variant_title
+        description: The title of the product variant.
+      - name: sku
+        description: A unique identifier of the item in the fulfillment.
+      - name: quantity
+        description: The number of products that were purchased.
+      - name: grams
+        description: Weight in grams of the item.
+      - name: total_price
+        description: The total price of the line_item including tax.
+      - name: unit_price
+        description: The unit price of the line_item.
+      - name: tax_due
+        description: The total tax due associated with the line_item.
+      - name: taxable
+        description: A boolean indicating if the line_item is taxable or non-taxable.
+      - name: taxable_amount
+        description: The taxable revenue associated with the line_item.
+      - name: unit_price_includes_tax
+        description: A boolean indicator if tax is included in the price of an item.
+      - name: purchase_item_id
+        description: The subscription or onetime ID associated with the line_item.
+      - name: purchase_item_type
+        description: Possible values are SUBSCRIPTION, ONETIME.
+
+  - name: stg_recharge__subscription
+    description: Table of all subscriptions for the merchant. Subscriptions are individual items a customer receives on a recurring basis.
+    columns:
+      - name: subscription_id
+        description: "{{ doc('subscription_id') }}"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: subscription_created_at
+        description: The date and time when the subscription was created.
+      - name: product_title
+        description: The name of the product in a shop's catalog.
+      - name: variant_title
+        description: The name of the variant in a shop's catalog.
+      - name: sku
+        description: A unique identifier of the item in fulfillment.
+      - name: price
+        description: The price of the item before discounts, taxes, or shipping have been applied.
+      - name: quantity
+        description: The number of items in the subscription.
+      - name: subscription_status
+        description: The status of the subscription; active = the subscription is active, cancelled = the subscription has been cancelled, expired = the subscription has expired - this occurs when the maximum number of charges for product have been reached.
+      - name: subscription_next_charge_scheduled_at
+        description: Date of the next charge for the subscription.
+      - name: charge_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each charge.
+      - name: expire_after_specific_number_of_charges
+        description: Set the number of charges until subscription expires.
+      - name: order_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each order, e.g. order_interval_unit = 'month' and order_interval frequency = 3 indicates an order every 3 months.
+      - name: order_interval_unit
+        description: The frequency with which a subscription should have the order created with (valid values are “day”, “week”, and “month”).
+      - name: order_day_of_month
+        description: The set day of the month order is created. Default is that there isn’t a strict day of the month when the order is created.
+      - name: order_day_of_week
+        description: The set day of the week order is created. Default is that there isn’t a strict day of the week order is created.
+      - name: subscription_updated_at
+        description: The date and time when the subscription was created.
+      - name: external_product_id_ecommerce
+        description: Unique numeric identifier of the product in your external ecommerce platform.
+      - name: external_variant_id_ecommerce
+        description: Unique numeric identifier of the product variant in your external ecommerce platform.
+      - name: subscription_cancelled_at
+        description: The date and time when the subscription was cancelled.
+      - name: cancellation_reason
+        description: Reason provided for cancellation.
+      - name: cancellation_reason_comments
+        description: Additional comment for cancellation.
+        
+  - name: stg_recharge__subscription_history
+    description: History table that builds over time. Does not capture history prior to connecting Fivetran.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - subscription_id
+            - subscription_updated_at
+    columns:
+      - name: subscription_id
+        description: "{{ doc('subscription_id') }}"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: subscription_created_at
+        description: The date and time the subscription was created.
+      - name: external_product_id_ecommerce
+        description: An object containing the product id as it appears in external platforms.
+      - name: product_title
+        description: The name of the product in a store’s catalog.
+      - name: external_variant_id_ecommerce
+        description: An object containing the variant id as it appears in external platforms.
+      - name: variant_title
+        description: The name of the variant in a shop’s catalog.
+      - name: sku
+        description: A unique identifier of the item in the fulfillment. In cases where SKU is blank, it will be dynamically pulled whenever it is used.
+      - name: price
+        description: The price of the item before discounts, taxes, or shipping have been applied.
+      - name: quantity
+        description: The number of items in the subscription.
+      - name: subscription_status
+        description: The status of the subscription.
+      - name: charge_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each Charge. For example, order_interval_unit=month and charge_interval_frequency=3, indicate charge every 3 months.
+      - name: order_interval_unit
+        description: The frequency unit used to determine when a subscription’s order is created.
+      - name: order_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each order.
+      - name: order_day_of_month
+        description: The set day of the month order is created. Default is that there isn’t a strict day of the month when the order is created.
+      - name: order_day_of_week
+        description: The set day of the week order is created. Default is that there isn’t a strict day of the week order is created.
+      - name: expire_after_specific_number_of_charges
+        description: Set number of charges until subscription expires.
+      - name: subscription_updated_at
+        description: The date time at which the purchase_item record was last updated.
+      - name: subscription_next_charge_scheduled_at
+        description: Date of the next charge for the subscription.
+      - name: subscription_cancelled_at
+        description: The date and time the subscription was cancelled.
+      - name: cancellation_reason
+        description: Reason provided for cancellation.
+      - name: cancellation_reason_comments
+        description: Additional comment for cancellation.
+      - name: is_most_recent_record
+        description: Boolean indicating whether record was the most recent instance.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"

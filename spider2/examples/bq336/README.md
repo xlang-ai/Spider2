@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.crypto_bitcoin` database to solve this problem.

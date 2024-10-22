@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.crypto_dash` database to solve this problem.

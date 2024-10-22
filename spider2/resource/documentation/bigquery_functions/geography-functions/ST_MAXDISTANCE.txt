@@ -1,0 +1,20 @@
+## ST_MAXDISTANCE
+
+ST_MAXDISTANCE(geography_1, geography_2[, use_spheroid])
+
+Returns the longest distance in meters between two non-empty ` GEOGRAPHY ` s;
+that is, the distance between two vertices where the first vertex is in the first ` GEOGRAPHY ` , and the second vertex is in the second ` GEOGRAPHY ` .
+If ` geography_1 ` and ` geography_2 ` are the same ` GEOGRAPHY ` , the function returns the distance between the two most distant vertices in that `
+GEOGRAPHY ` .
+
+If either of the input ` GEOGRAPHY ` s is empty, ` ST_MAXDISTANCE ` returns `
+NULL ` .
+
+The optional ` use_spheroid ` parameter determines how this function measures distance. If ` use_spheroid ` is ` FALSE ` , the function measures distance on the surface of a perfect sphere.
+
+The ` use_spheroid ` parameter currently only supports the value ` FALSE ` .
+The default value of ` use_spheroid ` is ` FALSE ` .
+
+**Return type**
+
+` FLOAT64 `

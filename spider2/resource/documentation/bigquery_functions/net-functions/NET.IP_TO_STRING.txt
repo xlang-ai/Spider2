@@ -1,0 +1,32 @@
+## NET.IP_TO_STRING
+
+NET.IP_TO_STRING(addr_bin)
+
+**Description** Converts an IPv4 or IPv6 address from binary (BYTES) format in network byte order to text (STRING) format.
+
+If the input is 4 bytes, this function returns an IPv4 address as a STRING. If the input is 16 bytes, it returns an IPv6 address as a STRING.
+
+If this function receives a ` NULL ` input, it returns ` NULL ` . If the input has a length different from 4 or 16, an ` OUT_OF_RANGE ` error occurs.
+
+**Return Data Type**
+
+STRING
+
+**Example**
+
+
+SELECT FORMAT("%T", x) AS addr_bin, NET.IP_TO_STRING(x) AS ip_to_string FROM UNNEST([
+b"0123",
+b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01",
+b"0123456789@ABCDE",
+b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xc0\x00\x02\x80"
+]) AS x;
+
+/*---------------------------------------------------------------------------------------------------------------*
+| addr_bin                                                            | ip_to_string                            |
++---------------------------------------------------------------------------------------------------------------+
+| b"0123"                                                             | 48.49.50.51                             |
+| b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01" | ::1                                     |
+| b"0123456789@ABCDE"                                                 | 3031:3233:3435:3637:3839:4041:4243:4445 |
+| b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xc0\x00\x02\x80" | ::ffff:192.0.2.128                      |
+*---------------------------------------------------------------------------------------------------------------*/

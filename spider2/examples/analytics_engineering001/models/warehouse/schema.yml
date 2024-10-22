@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: dim_customer
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: fact_purchase_order
+    description: "Fact table capturing detailed purchase order information, including product details, employee, customer, and supplier associations."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for the customer associated with the purchase order."
+        tests:
+          - not_null
+      - name: employee_id
+        description: "Unique identifier for the employee responsible for creating the purchase order."
+        tests:
+          - not_null
+      - name: purchase_order_id
+        description: "Unique identifier for the purchase order."
+        tests:
+          - not_null
+          - unique
+      - name: product_id
+        description: "Unique identifier for the product associated with the purchase order."
+        tests:
+          - not_null
+      - name: quantity
+        description: "The number of units of the product in the purchase order."
+        tests:
+          - not_null
+      - name: unit_cost
+        description: "The cost per unit of the product in the purchase order."
+      - name: date_received
+        description: "The date the product was received."
+      - name: posted_to_inventory
+        description: "Indicator if the product has been posted to inventory."
+      - name: inventory_id
+        description: "Unique identifier for the inventory record."
+      - name: supplier_id
+        description: "Unique identifier for the supplier of the product."
+      - name: created_by
+        description: "Employee ID of the person who created the purchase order."
+      - name: submitted_date
+        description: "The date the purchase order was submitted for approval."
+      - name: creation_date
+        description: "The date the purchase order was created."
+        tests:
+          - not_null
+      - name: status_id
+        description: "The current status of the purchase order."
+      - name: expected_date
+        description: "The expected delivery date of the purchase order."
+      - name: shipping_fee
+        description: "The shipping fee associated with the purchase order."
+      - name: taxes
+        description: "The taxes applied to the purchase order."
+      - name: payment_date
+        description: "The date the payment for the purchase order was made."
+      - name: payment_amount
+        description: "The amount paid for the purchase order."
+      - name: payment_method
+        description: "The method of payment for the purchase order."
+      - name: notes
+        description: "Additional notes related to the purchase order."
+      - name: approved_by
+        description: "Employee ID of the person who approved the purchase order."
+      - name: approved_date
+        description: "The date the purchase order was approved."
+      - name: submitted_by
+        description: "Employee ID of the person who submitted the purchase order."
+      - name: insertion_timestamp
+        description: "Timestamp of when the record was inserted into the fact table."

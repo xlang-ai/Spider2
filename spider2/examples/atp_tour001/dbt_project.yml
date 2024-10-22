@@ -1,0 +1,54 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'dbt_atp_tour'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'dbt_atp_tour'
+
+vars:
+  dbt_date_format: '%Y-%m-%d'
+  dbt_time_format: '%H:%M:%S%z'
+  dbt_datetime_format: '{{ var("dbt_date_format") }} {{ var("dbt_time_format") }}'
+  dbt_timezone: 'Pacific/Auckland'
+  dbt_current_date: '{{ run_started_at.astimezone(modules.pytz.timezone(var("dbt_timezone"))).strftime(var("dbt_date_format")) }}'
+  dbt_current_datetime: '{{ run_started_at.astimezone(modules.pytz.timezone(var("dbt_timezone"))).strftime(var("dbt_datetime_format")) }}'
+
+  calendar_start_date: '1800-01-01'
+  calendar_end_date: '{{ var("dbt_current_date") }}'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+
+seeds:
+  dbt_atp_tour:
+    +schema: lookup
+    +docs:
+      node_color: "black"
+
+models:
+  dbt_atp_tour:
+    # Config indicated by + and applies to all files under models/example/
+    +materialized: table
+    staging:
+      +materialized: view
+
+    mart:
+      +materialized: table

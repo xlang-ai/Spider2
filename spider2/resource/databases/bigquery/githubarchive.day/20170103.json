@@ -1,0 +1,205 @@
+{
+    "table_name": "20170103",
+    "table_fullname": "githubarchive.day.20170103",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "https://developer.github.com/v3/activity/events/types/",
+        "Always true for this dataset since only public activity is recorded.",
+        "Event payload in JSON format",
+        "Repository associated with the event",
+        "Numeric ID of the GitHub repository",
+        "Repository name",
+        "Repository URL",
+        "Actor generating the event",
+        "Numeric ID of the GitHub actor",
+        "Actor's GitHub login",
+        "Actor's Gravatar ID",
+        "Actor's Gravatar URL",
+        "Actor's profile URL",
+        "GitHub org of the associated repo",
+        "Numeric ID of the GitHub org",
+        "Org's GitHub login",
+        "Org's Gravatar ID",
+        "Org's Gravatar URL",
+        "Org's profile URL",
+        "Timestamp of associated event",
+        "Unique event ID",
+        "Unknown fields in JSON format"
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":1481480202,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/a\",\"head\":\"cd13584b6e7718a33451a01e91402f5f95df5efe\",\"before\":\"f1e5d320cb5269269dd35d2dbc7225c955e9548d\",\"commits\":[{\"sha\":\"cd13584b6e7718a33451a01e91402f5f95df5efe\",\"author\":{\"name\":\"9os\",\"email\":\"ed1e370d6ff67feec6e64d1f15478c3f58d497b8@gmail.com\"},\"message\":\"Add files via upload\",\"distinct\":true,\"url\":\"https://api.github.com/repos/9os/a/commits/cd13584b6e7718a33451a01e91402f5f95df5efe\"}]}",
+            "repo": {
+                "id": 77313351,
+                "name": "9os/a",
+                "url": "https://api.github.com/repos/9os/a"
+            },
+            "actor": {
+                "id": 24760800,
+                "login": "9os",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/24760800?",
+                "url": "https://api.github.com/users/9os"
+            },
+            "org": null,
+            "created_at": "2017-01-03 11:27:12+00:00",
+            "id": "5094448097",
+            "other": "{\"actor\":{\"display_login\":\"9os\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":null,\"ref_type\":\"repository\",\"master_branch\":\"master\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 77894189,
+                "name": "OYQ/-",
+                "url": "https://api.github.com/repos/OYQ/-"
+            },
+            "actor": {
+                "id": 16029650,
+                "login": "OYQ",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/16029650?",
+                "url": "https://api.github.com/users/OYQ"
+            },
+            "org": null,
+            "created_at": "2017-01-03 07:30:16+00:00",
+            "id": "5093621858",
+            "other": "{\"actor\":{\"display_login\":\"OYQ\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":1481136560,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/gh-pages\",\"head\":\"2b8eaf1251e25f37912235c25bf68e02b0e2c5e4\",\"before\":\"245fea5dd777933f6620a349e6f531b5ba8ca393\",\"commits\":[{\"sha\":\"2b8eaf1251e25f37912235c25bf68e02b0e2c5e4\",\"author\":{\"name\":\"bryc\",\"email\":\"b45f4216b867f741f932d0eadc36fc7f13191f03@gmail.com\"},\"message\":\"hello\",\"distinct\":true,\"url\":\"https://api.github.com/repos/bryc/x/commits/2b8eaf1251e25f37912235c25bf68e02b0e2c5e4\"}]}",
+            "repo": {
+                "id": 77888772,
+                "name": "bryc/x",
+                "url": "https://api.github.com/repos/bryc/x"
+            },
+            "actor": {
+                "id": 1408749,
+                "login": "bryc",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1408749?",
+                "url": "https://api.github.com/users/bryc"
+            },
+            "org": null,
+            "created_at": "2017-01-03 06:15:25+00:00",
+            "id": "5093463682",
+            "other": "{\"actor\":{\"display_login\":\"bryc\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":1481278748,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"c6ef4a0972150f6e74712625bb3fa0790f390e42\",\"before\":\"97c116bed16268cbc017f9b625399a2f9fce22e9\",\"commits\":[{\"sha\":\"c6ef4a0972150f6e74712625bb3fa0790f390e42\",\"author\":{\"name\":\"changzhenghao\",\"email\":\"07cccde97e7725ae2eb5a58b8d4e3007a8d2e582@gmail.com\"},\"message\":\"add lr_string implemention\",\"distinct\":true,\"url\":\"https://api.github.com/repos/czh/lr/commits/c6ef4a0972150f6e74712625bb3fa0790f390e42\"}]}",
+            "repo": {
+                "id": 77892134,
+                "name": "czh/lr",
+                "url": "https://api.github.com/repos/czh/lr"
+            },
+            "actor": {
+                "id": 1582112,
+                "login": "czh",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1582112?",
+                "url": "https://api.github.com/users/czh"
+            },
+            "org": null,
+            "created_at": "2017-01-03 08:55:00+00:00",
+            "id": "5093851199",
+            "other": "{\"actor\":{\"display_login\":\"czh\"}}"
+        },
+        {
+            "type": "IssuesEvent",
+            "public": true,
+            "payload": "{\"action\":\"closed\",\"issue\":{\"url\":\"https://api.github.com/repos/wch/R6/issues/109\",\"repository_url\":\"https://api.github.com/repos/wch/R6\",\"labels_url\":\"https://api.github.com/repos/wch/R6/issues/109/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/wch/R6/issues/109/comments\",\"events_url\":\"https://api.github.com/repos/wch/R6/issues/109/events\",\"html_url\":\"https://github.com/wch/R6/issues/109\",\"id\":198263866,\"number\":109,\"title\":\"access private member from other instances of the same class\",\"user\":{\"login\":\"guolinke\",\"id\":16040950,\"avatar_url\":\"https://avatars.githubusercontent.com/u/16040950?v=3\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/guolinke\",\"html_url\":\"https://github.com/guolinke\",\"followers_url\":\"https://api.github.com/users/guolinke/followers\",\"following_url\":\"https://api.github.com/users/guolinke/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/guolinke/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/guolinke/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/guolinke/subscriptions\",\"organizations_url\":\"https://api.github.com/users/guolinke/orgs\",\"repos_url\":\"https://api.github.com/users/guolinke/repos\",\"events_url\":\"https://api.github.com/users/guolinke/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/guolinke/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[],\"state\":\"closed\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":1,\"created_at\":\"2017-01-01T11:00:47Z\",\"updated_at\":\"2017-01-03T18:03:04Z\",\"closed_at\":\"2017-01-03T18:03:04Z\",\"body\":\"example code:\\r\\n```\\r\\ntest <- R6Class(\\\"Test\\\",\\r\\n    public = list(\\r\\n                a = 10,\\r\\n                fun = function(other){\\r\\n                    other$c \\r\\n                },\\r\\n                setc = function(c){\\r\\n                    private$c <- c\\r\\n                },\\r\\n                getc = function(){\\r\\n                    private$c\\r\\n                }\\r\\n            ),\\r\\n    private = list( c = 20 ) \\r\\n)\\r\\n\\r\\nx <- test$new()\\r\\ny <- test$new()\\r\\ny$setc(100)\\r\\ny$getc()\\r\\nx$fun(y)\\r\\n```\\r\\n\\r\\nfor ```x$fun(y)``` it should return ```100```, but it is ```NULL``` now.\\r\\n\\r\\nIs there any way that I can access private member from other instances of the same class?\"}}",
+            "repo": {
+                "id": 19521307,
+                "name": "wch/R6",
+                "url": "https://api.github.com/repos/wch/R6"
+            },
+            "actor": {
+                "id": 86978,
+                "login": "wch",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/86978?",
+                "url": "https://api.github.com/users/wch"
+            },
+            "org": null,
+            "created_at": "2017-01-03 18:03:05+00:00",
+            "id": "5096390789",
+            "other": "{\"actor\":{\"display_login\":\"wch\"}}"
+        }
+    ]
+}

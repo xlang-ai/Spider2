@@ -1,0 +1,41 @@
+## KEYS.KEYSET_TO_JSON
+
+KEYS.KEYSET_TO_JSON(keyset)
+
+**Description**
+
+Returns a JSON ` STRING ` representation of the input ` keyset ` . The returned JSON ` STRING ` is compatible with the definition of the [
+google.crypto.tink.Keyset
+](https://github.com/google/tink/blob/master/proto/tink.proto) protocol buffer message. You can convert the JSON ` STRING ` representation back to ` BYTES `
+using ` KEYS.KEYSET_FROM_JSON ` .
+
+**Return Data Type**
+
+` STRING `
+
+**Example**
+
+The following query returns a new ` 'AEAD_AES_GCM_256' ` keyset as a JSON-
+formatted ` STRING ` .
+
+
+SELECT KEYS.KEYSET_TO_JSON(KEYS.NEW_KEYSET('AEAD_AES_GCM_256'));
+
+The result is a ` STRING ` like the following.
+
+
+{
+"key":[
+{
+"keyData":{
+"keyMaterialType":"SYMMETRIC",
+"typeUrl":"type.googleapis.com/google.crypto.tink.AesGcmKey",
+"value":"GiD80Z8kL6AP3iSNHhqseZGAIvq7TVQzClT7FQy8YwK3OQ=="
+},
+"keyId":3101427138,
+"outputPrefixType":"TINK",
+"status":"ENABLED"
+}
+],
+"primaryKeyId":3101427138
+}

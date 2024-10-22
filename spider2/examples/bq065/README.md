@@ -1,0 +1,1 @@
+1. please query `public-data-finance.crypto_band` database to solve this problem.

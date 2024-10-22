@@ -1,0 +1,245 @@
+version: 2
+
+sources:
+  - name: salesforce_history
+    schema: "{{ var('salesforce_history_schema', 'salesforce_history') }}" # you will need to customize if your schema name is not salesforce
+    database: "{% if target.type != 'spark'%}{{ var('salesforce_history_database', target.database) }}{% endif %}"
+    loader: fivetran
+    loaded_at_field: _fivetran_synced
+    freshness:
+      warn_after: {count: 24, period: hour}
+      error_after: {count: 48, period: hour}
+
+    tables:
+      - name: account
+        identifier: "{{ var('salesforce_account_history_identifier', 'account')}}"
+        description: Represents historical records of individual accounts, which are organizations or people involved with your business (such as customers, competitors, and partners).
+        loaded_at_field: _fivetran_synced
+        config:
+          enabled: "{{ var('salesforce__account_history_enabled', False) }}"
+        columns:
+          - name: id
+            description: The unique, system-generated ID assigned during creation.
+          - name: _fivetran_active 
+            description: true if it is the currently active record. false if it is a historical version of the record. Only one version of the record can be true.
+          - name: _fivetran_start
+            description: The time when the record was first created or modified in the source, based on a timestamp value in the source table that monotonically increases over time with data change or update.
+          - name: _fivetran_end
+            description: The time until which the record was active minus epsilon, where epsilon is the smallest time difference that can be stored in the timestamp type value.
+          - name: _fivetran_synced
+            description: The time at which fivetran last synced this record.
+          - name: account_number
+            description: Account number assigned to this account (not the unique, system-generated ID assigned during creation).
+          - name: account_source
+            description: The source of the account record. For example, Advertisement, Data.com, or Trade Show.
+          - name: annual_revenue
+            description: Estimated annual revenue of the account.
+          - name: billing_city
+            description: Details for the billing address of this account.
+          - name: billing_country
+            description: Details for the billing address of this account.
+          - name: billing_postal_code
+            description: Details for the billing address of this account.
+          - name: billing_state
+            description: Details for the billing address of this account.
+          - name: billing_street
+            description: Street address for the billing address of this account.
+          - name: description 
+            description: Text description of the account.
+          - name: industry
+            description: An industry associated with this account.
+          - name: is_deleted
+            description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false).
+          - name: last_activity_date
+            description: Value is one of the following, whichever is the most recent.
+          - name: last_referenced_date
+            description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+          - name: last_viewed_date
+            description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+          - name: master_record_id
+            description: If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or has not been deleted, the value is null.
+          - name: name
+            description: Required. Name of the account.
+          - name: number_of_employees
+            description: Number of employees working at the company represented by this account.
+          - name: owner_id
+            description: The ID of the user who currently owns this account.
+          - name: ownership
+            description: Ownership type for the account, for example Private, Public, or Subsidiary.
+          - name: parent_id
+            description: ID of the parent object, if any.
+          - name: rating
+            description: The account’s prospect rating, for example Hot, Warm, or Cold.
+          - name: record_type_id
+            description: ID of the record type assigned to this object.
+          - name: shipping_city
+            description: Details of the shipping address for this account.
+          - name: shipping_country
+            description: Details of the shipping address for this account. Country.
+          - name: shipping_postal_code
+            description: Details of the shipping address for this account. Postal code.
+          - name: shipping_state
+            description: Details of the shipping address for this account. State.
+          - name: shipping_street
+            description: The street address of the shipping address for this account. 
+          - name: type
+            description: Type of account, for example, Customer, Competitor, or Partner.
+          - name: website
+            description: The website of this account.
+
+      - name: contact
+        identifier: "{{ var('salesforce_contact_history_identifier', 'contact')}}"
+        description: Represents the historical record of contacts, which are people associated with an account.
+        loaded_at_field: _fivetran_synced
+        config:
+          enabled: "{{ var('salesforce__contact_history_enabled', False) }}"
+        columns:
+          - name: id
+            description: The unique, system-generated ID assigned during creation.
+          - name: _fivetran_active 
+            description: true if it is the currently active record. false if it is a historical version of the record. Only one version of the record can be true.
+          - name: _fivetran_start
+            description: The time when the record was first created or modified in the source, based on a timestamp value in the source table that monotonically increases over time with data change or update.
+          - name: _fivetran_end
+            description: The time until which the record was active minus epsilon, where epsilon is the smallest time difference that can be stored in the timestamp type value.
+          - name: _fivetran_synced
+            description: The time at which fivetran last synced this record.
+          - name: account_id
+            description: ID of the account that’s the parent of this contact.
+          - name: description
+            description: A description of the contact. Label is Contact Description up to 32 KB.
+          - name: email
+            description: The contact’s email address.
+          - name: first_name
+            description:  The contact’s first name up to 40 characters.
+          - name: home_phone
+            description: The contact’s home telephone number.
+          - name: individual_id
+            description: ID of the data privacy record associated with this contact. This field is available if Data Protection and Privacy is enabled. This is a relationship field.
+          - name: is_deleted
+            description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.
+          - name: last_activity_date
+            description:  > 
+              Value is the most recent of either:
+              Due date of the most recent event logged against the record.
+              Due date of the most recently closed task associated with the record.
+          - name: last_modified_by_id
+            description: Last Modified By ID
+          - name: last_modified_date
+            description: Last Modified Date 
+          - name: last_name
+            description: Required. Last name of the contact up to 80 characters. 
+          - name: last_referenced_date
+            description: The timestamp when the current user last accessed this record, a record related to this record, or a list view. 
+          - name: last_viewed_date
+            description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+          - name: lead_source
+            description: The lead’s source.
+          - name: mailing_city
+            description: City mailing address details. 
+          - name: mailing_country
+            description: Country mailing address details. 
+          - name: mailing_postal_code
+            description: Postal code mailing address details.
+          - name: mailing_state
+            description: State mailing address details.
+          - name: mailing_street
+            description: Street mailing address details.
+          - name: master_record_id
+            description: >
+              If this record was deleted as the result of a merge, this field contains the ID of the record that remains. If this record was deleted for any other reason, or has not been deleted, the value is null.
+              This is a relationship field.
+          - name: mobile_phone
+            description: Contact’s mobile phone number.
+          - name: name
+            description: Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces.
+          - name: owner_id
+            description: >
+              The ID of the owner of the account associated with this contact.
+              This is a relationship field.
+          - name: phone
+            description: Telephone number for the contact. Label is Business Phone.
+          - name: reports_to_id
+            description: > 
+              This field doesn’t appear if IsPersonAccount is true.
+              This is a relationship field.
+          - name: title
+            description: Title
+
+      - name: opportunity
+        identifier: "{{ var('salesforce_opportunity_history_identifier', 'opportunity')}}"
+        description: Represents historical records of opportunities, which are sales or pending deals.
+        loaded_at_field: _fivetran_synced
+        config:
+          enabled: "{{ var('salesforce__opportunity_history_enabled', False) }}"
+        columns:
+          - name: id
+            description: The unique, system-generated ID assigned during creation.
+          - name: _fivetran_active 
+            description: true if it is the currently active record. false if it is a historical version of the record. Only one version of the record can be true.
+          - name: _fivetran_start
+            description: The time when the record was first created or modified in the source, based on a timestamp value in the source table that monotonically increases over time with data change or update.
+          - name: _fivetran_end
+            description: The time until which the record was active minus epsilon, where epsilon is the smallest time difference that can be stored in the timestamp type value.
+          - name: _fivetran_synced
+            description: The time at which fivetran last synced this record.
+          - name: account_id
+            description: ID of the account associated with this opportunity.
+          - name: amount
+            description: Estimated total sale amount. For opportunities with products, the amount is the sum of the related products.
+          - name: campaign_id
+            description: ID of a related Campaign. This field is defined only for those organizations that have the campaign feature Campaigns enabled.
+          - name: close_date
+            description: Required. Date when the opportunity is expected to close.
+          - name: created_date
+            description: Date when the opportunity is was created.
+          - name: description
+            description: Text description of the opportunity.
+          - name: expected_revenue
+            description: Read-only field that is equal to the product of the opportunity Amount field and the Probability.
+          - name: fiscal
+            description: If fiscal years are not enabled, the name of the fiscal quarter or period in which the opportunity CloseDate falls.
+          - name: fiscal_quarter
+            description: Represents the fiscal quarter. Valid values are 1, 2, 3, or 4.
+          - name: fiscal_year
+            description: Represents the fiscal year, for example, 2006.
+          - name: forecast_category
+            description: Restricted picklist field.
+          - name: forecast_category_name
+            description: The name of the forecast category.
+          - name: has_open_activity
+            description: Indicates whether an opportunity has an open event or task (true) or not (false).
+          - name: has_opportunity_line_item
+            description: Read-only field that indicates whether the opportunity has associated line items. A value of true means that Opportunity line items have been created for the opportunity.
+          - name: has_overdue_task
+            description: Indicates whether an opportunity has an overdue task (true) or not (false).
+          - name: is_closed
+            description: True, if Stage Name Label is Closed.
+          - name: is_deleted
+            description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false).
+          - name: is_won
+            description: True, if Stage Name Label is Won.
+          - name: last_activity_date
+            description: Value is one of the following, whichever is the most recent:Due date of the most recent event logged against the record or Due date of the most recently closed task associated with the record.
+          - name: last_referenced_date
+            description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+          - name: last_viewed_date
+            description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+          - name: lead_source
+            description: Source of this opportunity, such as Advertisement or Trade Show.
+          - name: name
+            description: Required. A name for this opportunity.
+          - name: next_step
+            description: Description of next task in closing opportunity.
+          - name: owner_id
+            description: ID of the User who has been assigned to work this opportunity.
+          - name: probability
+            description: Percentage of estimated confidence in closing the opportunity.
+          - name: record_type_id
+            description: ID of the record type assigned to this object.
+          - name: stage_name
+            description: Required. Current stage of this record. The StageName field controls several other fields on an opportunity.
+          - name: synced_quote_id
+            description: The ID of the Quote that syncs with the opportunity.
+          - name: type
+            description: Type of opportunity. For example, Existing Business or New Business.
