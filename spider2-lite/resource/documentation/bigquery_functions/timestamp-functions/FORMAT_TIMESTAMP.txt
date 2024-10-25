@@ -1,0 +1,53 @@
+## FORMAT_TIMESTAMP
+
+FORMAT_TIMESTAMP(format_string, timestamp[, time_zone])
+
+**Description**
+
+Formats a timestamp according to the specified ` format_string ` .
+
+See [ Format elements for date and time parts
+](/bigquery/docs/reference/standard-sql/format-
+elements#format_elements_date_time) for a list of format elements that this function supports.
+
+**Return Data Type**
+
+` STRING `
+
+**Example**
+
+
+SELECT FORMAT_TIMESTAMP("%c", TIMESTAMP "2050-12-25 15:30:55+00", "UTC") AS formatted;
+
+/*--------------------------*
+| formatted                |
++--------------------------+
+| Sun Dec 25 15:30:55 2050 |
+*--------------------------*/
+
+
+SELECT FORMAT_TIMESTAMP("%b-%d-%Y", TIMESTAMP "2050-12-25 15:30:55+00") AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec-25-2050 |
+*-------------*/
+
+
+SELECT FORMAT_TIMESTAMP("%b %Y", TIMESTAMP "2050-12-25 15:30:55+00") AS formatted;
+
+/*-------------*
+| formatted   |
++-------------+
+| Dec 2050    |
+*-------------*/
+
+
+SELECT FORMAT_TIMESTAMP("%Y-%m-%dT%H:%M:%SZ", TIMESTAMP "2050-12-25 15:30:55", "UTC") AS formatted;
+
+/*+---------------------*
+|      formatted       |
++----------------------+
+| 2050-12-25T15:30:55Z |
+*----------------------*/

@@ -1,0 +1,235 @@
+{
+    "table_name": "201111",
+    "table_fullname": "githubarchive.month.201111",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"name\":\"Joe Nelson\",\"blog\":\"begriffsschrift.com\",\"type\":\"User\",\"public_repos\":6,\"avatar_url\":\"https://secure.gravatar.com/avatar/42e06848cffd2f0d06957672c6ea9966?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"followers\":6,\"bio\":null,\"email\":null,\"company\":null,\"gravatar_id\":\"42e06848cffd2f0d06957672c6ea9966\",\"url\":\"https://api.github.com/users/begriffsschrift\",\"public_gists\":0,\"login\":\"begriffsschrift\",\"html_url\":\"https://github.com/begriffsschrift\",\"location\":null,\"hireable\":false,\"following\":2,\"id\":911911,\"created_at\":\"2011-07-13T05:11:18Z\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 636,
+                "login": "qerub",
+                "gravatar_id": "a19281bdbc5f08539cdef3d6636f7c4d",
+                "avatar_url": "https://secure.gravatar.com/avatar/a19281bdbc5f08539cdef3d6636f7c4d?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/qerub"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2011-11-12 17:01:39+00:00",
+            "id": "1498307260",
+            "other": null
+        },
+        {
+            "type": "GistEvent",
+            "public": true,
+            "payload": "{\"action\":\"create\",\"gist\":{\"user\":null,\"updated_at\":\"2011-11-13T22:22:30Z\",\"files\":{},\"comments\":0,\"url\":\"https://api.github.com/gists/1362830\",\"public\":true,\"html_url\":\"https://gist.github.com/1362830\",\"description\":null,\"git_pull_url\":\"git://gist.github.com/1362830.git\",\"git_push_url\":\"git@gist.github.com:1362830.git\",\"id\":\"1362830\",\"created_at\":\"2011-11-13T22:22:30Z\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": "https://secure.gravatar.com/avatar/?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2011-11-13 22:22:31+00:00",
+            "id": "1498447256",
+            "other": null
+        },
+        {
+            "type": "GistEvent",
+            "public": true,
+            "payload": "{\"action\":\"create\",\"gist\":{\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/7455fbe2cde016f6cd36b4352be52eaf?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"gravatar_id\":\"7455fbe2cde016f6cd36b4352be52eaf\",\"url\":\"https://api.github.com/users/kentfredric\",\"login\":\"kentfredric\",\"id\":44790},\"updated_at\":\"2011-11-04T03:45:47Z\",\"files\":{},\"comments\":0,\"url\":\"https://api.github.com/gists/1338616\",\"public\":true,\"html_url\":\"https://gist.github.com/1338616\",\"description\":\"\",\"git_pull_url\":\"git://gist.github.com/1338616.git\",\"git_push_url\":\"git@gist.github.com:1338616.git\",\"id\":\"1338616\",\"created_at\":\"2011-11-04T03:45:47Z\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 44790,
+                "login": "kentfredric",
+                "gravatar_id": "7455fbe2cde016f6cd36b4352be52eaf",
+                "avatar_url": "https://secure.gravatar.com/avatar/7455fbe2cde016f6cd36b4352be52eaf?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/kentfredric"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2011-11-04 03:45:48+00:00",
+            "id": "1496562490",
+            "other": null
+        },
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"name\":\"Steve Klabnik\",\"blog\":\"http://steveklabnik.com/\",\"type\":\"User\",\"avatar_url\":\"https://secure.gravatar.com/avatar/233c279c012ebac792aaa805f966cbc7?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"public_repos\":38,\"bio\":\"I do general freelance web work, mostly of the 'Here's the website we'd like, please implement the back end' kind.\",\"followers\":221,\"email\":\"steve@steveklabnik.com\",\"company\":null,\"gravatar_id\":\"233c279c012ebac792aaa805f966cbc7\",\"url\":\"https://api.github.com/users/steveklabnik\",\"public_gists\":63,\"login\":\"steveklabnik\",\"html_url\":\"https://github.com/steveklabnik\",\"location\":\"Pittsburgh, PA\",\"hireable\":true,\"following\":127,\"id\":27786,\"created_at\":\"2008-10-06T17:40:28Z\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 338316,
+                "login": "daffl",
+                "gravatar_id": "087a707aed50a4293715a9ffffa6bef9",
+                "avatar_url": "https://secure.gravatar.com/avatar/087a707aed50a4293715a9ffffa6bef9?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/daffl"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2011-11-17 17:18:27+00:00",
+            "id": "1499424566",
+            "other": null
+        },
+        {
+            "type": "FollowEvent",
+            "public": true,
+            "payload": "{\"target\":{\"created_at\":\"2011-10-01T08:15:46Z\",\"public_repos\":0,\"type\":\"User\",\"gravatar_id\":\"97b3a09a1b8ed8e836c6b273bbf92bc5\",\"followers\":1,\"id\":1094504,\"public_gists\":0,\"html_url\":\"https://github.com/Rooman\",\"url\":\"https://api.github.com/users/Rooman\",\"login\":\"Rooman\",\"following\":0,\"avatar_url\":\"https://secure.gravatar.com/avatar/97b3a09a1b8ed8e836c6b273bbf92bc5?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\"}}",
+            "repo": {
+                "id": null,
+                "name": "/",
+                "url": "https://api.github.dev/repos//"
+            },
+            "actor": {
+                "id": 1222268,
+                "login": "RudenkoM",
+                "gravatar_id": "a96691a6c2c74636788557fb17fc5f62",
+                "avatar_url": "https://secure.gravatar.com/avatar/a96691a6c2c74636788557fb17fc5f62?d=http://github.dev%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+                "url": "https://api.github.dev/users/RudenkoM"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2011-11-26 19:47:36+00:00",
+            "id": "1501238785",
+            "other": null
+        }
+    ]
+}

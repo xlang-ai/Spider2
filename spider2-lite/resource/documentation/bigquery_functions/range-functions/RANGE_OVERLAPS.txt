@@ -1,0 +1,76 @@
+## RANGE_OVERLAPS
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+RANGE_OVERLAPS(range_a, range_b)
+
+**Description**
+
+Checks if two ranges overlap.
+
+**Definitions**
+
+* ` range_a ` : The first ` RANGE<T> ` value.
+* ` range_b ` : The second ` RANGE<T> ` value.
+
+**Details**
+
+Returns ` TRUE ` if a part of ` range_a ` intersects with ` range_b ` ,
+otherwise returns ` FALSE ` .
+
+` T ` must be of the same type for all inputs.
+
+To get the part of the range that overlaps, use the  ` RANGE_INTERSECT `
+function.
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+In the following query, the first and second ranges overlap between `
+2022-02-01 ` and ` 2022-04-15 ` :
+
+
+SELECT RANGE_OVERLAPS( RANGE<DATE> '[2022-02-01, 2022-09-01)',
+RANGE<DATE> '[2021-06-15, 2022-04-15)') AS results;
+
+/*---------+
+| results |
++---------+
+| TRUE    |
++---------*/
+
+In the following query, the first and second ranges don't overlap:
+
+
+SELECT RANGE_OVERLAPS( RANGE<DATE> '[2020-02-01, 2020-09-01)',
+RANGE<DATE> '[2021-06-15, 2022-04-15)') AS results;
+
+/*---------+
+| results |
++---------+
+| FALSE   |
++---------*/
+
+In the following query, the first and second ranges overlap between `
+2022-02-01 ` and ` UNBOUNDED ` :
+
+
+SELECT RANGE_OVERLAPS( RANGE<DATE> '[2022-02-01, UNBOUNDED)',
+RANGE<DATE> '[2021-06-15, UNBOUNDED)') AS results;
+
+/*---------+
+| results |
++---------+
+| TRUE    |
++---------*/

@@ -1,0 +1,19 @@
+## ST_LENGTH
+
+ST_LENGTH(geography_expression[, use_spheroid])
+
+**Description**
+
+Returns the total length in meters of the lines in the input ` GEOGRAPHY ` .
+
+If ` geography_expression ` is a point or a polygon, returns zero. If `
+geography_expression ` is a collection, returns the length of the lines in the collection; if the collection does not contain lines, returns zero.
+
+The optional ` use_spheroid ` parameter determines how this function measures distance. If ` use_spheroid ` is ` FALSE ` , the function measures distance on the surface of a perfect sphere.
+
+The ` use_spheroid ` parameter currently only supports the value ` FALSE ` .
+The default value of ` use_spheroid ` is ` FALSE ` .
+
+**Return type**
+
+` FLOAT64 `

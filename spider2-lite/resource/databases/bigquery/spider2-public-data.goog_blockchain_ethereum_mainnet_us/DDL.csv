@@ -1,0 +1,96 @@
+table_name,ddl
+blocks,"CREATE TABLE `spider2-public-data.goog_blockchain_ethereum_mainnet_us.blocks`
+(
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  parent_hash STRING,
+  size INT64,
+  extra_data STRING,
+  gas_limit INT64,
+  gas_used INT64,
+  base_fee_per_gas INT64,
+  mix_hash STRING,
+  nonce STRING,
+  difficulty BIGNUMERIC,
+  total_difficulty BIGNUMERIC,
+  miner STRING,
+  sha3_uncles STRING,
+  transaction_count INT64,
+  transactions_root STRING,
+  receipts_root STRING,
+  state_root STRING,
+  logs_bloom STRING,
+  withdrawals_root STRING,
+  withdrawals ARRAY<STRUCT<index INT64, validator_index INT64, address STRING, amount BIGNUMERIC, amount_lossless STRING>>
+);"
+transactions,"CREATE TABLE `spider2-public-data.goog_blockchain_ethereum_mainnet_us.transactions`
+(
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_hash STRING,
+  transaction_index INT64,
+  nonce INT64,
+  from_address STRING,
+  to_address STRING,
+  value BIGNUMERIC,
+  value_lossless STRING,
+  gas INT64,
+  gas_price INT64,
+  input STRING,
+  max_fee_per_gas INT64,
+  max_priority_fee_per_gas INT64,
+  transaction_type INT64,
+  chain_id INT64,
+  access_list ARRAY<STRUCT<address STRING, storage_keys ARRAY<STRING>>>,
+  r STRING,
+  s STRING,
+  v STRING,
+  y_parity STRING
+);"
+logs,"CREATE TABLE `spider2-public-data.goog_blockchain_ethereum_mainnet_us.logs`
+(
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_hash STRING,
+  transaction_index INT64,
+  log_index INT64,
+  address STRING,
+  data STRING,
+  topics ARRAY<STRING>,
+  removed BOOL
+);"
+receipts,"CREATE TABLE `spider2-public-data.goog_blockchain_ethereum_mainnet_us.receipts`
+(
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_hash STRING,
+  transaction_index INT64,
+  from_address STRING,
+  to_address STRING,
+  contract_address STRING,
+  cumulative_gas_used INT64,
+  gas_used INT64,
+  effective_gas_price INT64,
+  logs_bloom STRING,
+  root STRING,
+  status INT64
+);"
+decoded_events,"CREATE TABLE `spider2-public-data.goog_blockchain_ethereum_mainnet_us.decoded_events`
+(
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_hash STRING,
+  transaction_index INT64,
+  log_index INT64,
+  address STRING,
+  event_hash STRING,
+  event_signature STRING,
+  topics ARRAY<STRING>,
+  args JSON,
+  removed BOOL
+);"

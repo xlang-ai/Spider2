@@ -1,0 +1,89 @@
+table_name,ddl
+order_payments,"CREATE TABLE `spider2-public-data.electronic_sales.order_payments`
+(
+  index INT64,
+  order_id STRING,
+  payment_sequential INT64,
+  payment_type STRING,
+  payment_installments INT64,
+  payment_value FLOAT64
+);"
+order_items,"CREATE TABLE `spider2-public-data.electronic_sales.order_items`
+(
+  freight_value FLOAT64,
+  price FLOAT64,
+  shipping_limit_date TIMESTAMP,
+  seller_id STRING,
+  order_id STRING,
+  product_id STRING,
+  order_item_id INT64,
+  index INT64
+);"
+sellers,"CREATE TABLE `spider2-public-data.electronic_sales.sellers`
+(
+  seller_state STRING,
+  seller_city STRING,
+  seller_id STRING,
+  seller_zip_code_prefix INT64,
+  index INT64
+);"
+geolocation,"CREATE TABLE `spider2-public-data.electronic_sales.geolocation`
+(
+  geolocation_state STRING,
+  geolocation_lng FLOAT64,
+  geolocation_zip_code_prefix INT64,
+  geolocation_city STRING,
+  geolocation_lat FLOAT64,
+  index INT64
+);"
+products,"CREATE TABLE `spider2-public-data.electronic_sales.products`
+(
+  index INT64,
+  product_id STRING,
+  product_category_name STRING,
+  product_name_lenght FLOAT64,
+  product_description_lenght FLOAT64,
+  product_photos_qty FLOAT64,
+  product_weight_g FLOAT64,
+  product_length_cm FLOAT64,
+  product_height_cm FLOAT64,
+  product_width_cm FLOAT64
+);"
+orders,"CREATE TABLE `spider2-public-data.electronic_sales.orders`
+(
+  order_estimated_delivery_date TIMESTAMP,
+  order_delivered_customer_date TIMESTAMP,
+  order_delivered_carrier_date TIMESTAMP,
+  order_approved_at TIMESTAMP,
+  order_purchase_timestamp TIMESTAMP,
+  order_id STRING,
+  order_status STRING,
+  customer_id STRING,
+  index INT64
+);"
+product_category_name_translation,"CREATE TABLE `spider2-public-data.electronic_sales.product_category_name_translation`
+(
+  index INT64,
+  product_category_name STRING,
+  product_category_name_english STRING
+);"
+customers,"CREATE TABLE `spider2-public-data.electronic_sales.customers`
+(
+  index INT64,
+  customer_id STRING,
+  customer_unique_id STRING,
+  customer_zip_code_prefix INT64,
+  customer_city STRING,
+  customer_state STRING
+);"
+order_reviews,"CREATE TABLE `spider2-public-data.electronic_sales.order_reviews`
+(
+  review_answer_timestamp TIMESTAMP,
+  review_comment_title STRING,
+  review_creation_date TIMESTAMP,
+  order_id STRING,
+  review_comment_message STRING,
+  review_score INT64,
+  review_id STRING,
+  index INT64
+);"

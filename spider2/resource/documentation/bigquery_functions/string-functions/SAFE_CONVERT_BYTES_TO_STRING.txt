@@ -1,0 +1,18 @@
+## SAFE_CONVERT_BYTES_TO_STRING
+
+SAFE_CONVERT_BYTES_TO_STRING(value)
+
+**Description**
+
+Converts a sequence of ` BYTES ` to a ` STRING ` . Any invalid UTF-8 characters are replaced with the Unicode replacement character, ` U+FFFD ` .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+The following statement returns the Unicode replacement character, �.
+
+
+SELECT SAFE_CONVERT_BYTES_TO_STRING(b'\xc2') as safe_convert;

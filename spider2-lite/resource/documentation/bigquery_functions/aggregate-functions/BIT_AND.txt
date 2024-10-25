@@ -1,0 +1,29 @@
+## BIT_AND
+
+BIT_AND( expression )
+
+**Description**
+
+Performs a bitwise AND operation on ` expression ` and returns the result.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* INT64
+
+**Returned Data Types**
+
+INT64
+
+**Examples**
+
+
+SELECT BIT_AND(x) as bit_and FROM UNNEST([0xF001, 0x00A1]) as x;
+
+/*---------*
+| bit_and |
++---------+
+| 1       |
+*---------*/

@@ -1,0 +1,88 @@
+## AVG
+
+AVG(
+[ DISTINCT ]
+expression )
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns the average of non- ` NULL ` values in an aggregated group.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+If this function is used with the ` OVER ` clause, it's part of a window function call. In a window function call, aggregate function clauses can't be used. To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+` AVG ` can be used with differential privacy. For more information, see [
+Differentially private aggregate functions
+](/bigquery/docs/reference/standard-sql/aggregate-dp-functions) .
+
+Caveats:
+
+* If the aggregated group is empty or the argument is ` NULL ` for all rows in the group, returns ` NULL ` .
+* If the argument is ` NaN ` for any row in the group, returns ` NaN ` .
+* If the argument is ` [+|-]Infinity ` for any row in the group, returns either ` [+|-]Infinity ` or ` NaN ` .
+* If there is numeric overflow, produces an error.
+* If a [ floating-point type ](/bigquery/docs/reference/standard-sql/data-types#floating_point_types) is returned, the result is [ non-deterministic ](/bigquery/docs/reference/standard-sql/data-types#floating-point-semantics) , which means you might receive a different result each time you use this function.
+
+**Supported Argument Types**
+
+* Any numeric input type
+* ` INTERVAL `
+
+**Returned Data Types**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 ` |  `
+INTERVAL `
+---|---|---|---|---|---
+OUTPUT  |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 ` |  `
+INTERVAL `
+
+**Examples**
+
+
+SELECT AVG(x) as avg FROM UNNEST([0, 2, 4, 4, 5]) as x;
+
+/*-----*
+| avg |
++-----+
+| 3   |
+*-----*/
+
+
+SELECT AVG(DISTINCT x) AS avg FROM UNNEST([0, 2, 4, 4, 5]) AS x;
+
+/*------*
+| avg  |
++------+
+| 2.75 |
+*------*/
+
+
+SELECT x,
+AVG(x) OVER (ORDER BY x ROWS BETWEEN 1 PRECEDING AND CURRENT ROW) AS avg FROM UNNEST([0, 2, NULL, 4, 4, 5]) AS x;
+
+/*------+------*
+| x    | avg  |
++------+------+
+| NULL | NULL |
+| 0    | 0    |
+| 2    | 1    |
+| 4    | 3    |
+| 4    | 4    |
+| 5    | 4.5  |
+*------+------*/

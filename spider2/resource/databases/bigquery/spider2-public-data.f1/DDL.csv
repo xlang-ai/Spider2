@@ -1,0 +1,330 @@
+table_name,ddl
+liveries,"CREATE TABLE `spider2-public-data.f1.liveries`
+(
+  constructor_ref STRING,
+  start_year INT64,
+  end_year FLOAT64,
+  primary_hex_code STRING
+);"
+results,"CREATE TABLE `spider2-public-data.f1.results`
+(
+  result_id INT64,
+  race_id INT64,
+  driver_id INT64,
+  constructor_id INT64,
+  number FLOAT64,
+  grid INT64,
+  position FLOAT64,
+  position_text STRING,
+  position_order INT64,
+  points FLOAT64,
+  laps INT64,
+  time STRING,
+  milliseconds FLOAT64,
+  fastest_lap FLOAT64,
+  rank FLOAT64,
+  fastest_lap_time STRING,
+  fastest_lap_speed STRING,
+  status_id INT64
+);"
+constructors_ext,"CREATE TABLE `spider2-public-data.f1.constructors_ext`
+(
+  constructor_id INT64,
+  constructor_ref STRING,
+  name STRING,
+  nationality STRING,
+  url STRING,
+  short_name STRING
+);"
+team_driver_ranks,"CREATE TABLE `spider2-public-data.f1.team_driver_ranks`
+(
+  year INT64,
+  constructor_id INT64,
+  constructor_ref STRING,
+  driver_id INT64,
+  driver_ref STRING,
+  team_driver_rank INT64
+);"
+drivers_ext,"CREATE TABLE `spider2-public-data.f1.drivers_ext`
+(
+  driver_id INT64,
+  driver_ref STRING,
+  number FLOAT64,
+  code STRING,
+  forename STRING,
+  surname STRING,
+  full_name STRING,
+  dob STRING,
+  nationality STRING,
+  url STRING
+);"
+qualifying,"CREATE TABLE `spider2-public-data.f1.qualifying`
+(
+  qualify_id INT64,
+  race_id INT64,
+  driver_id INT64,
+  constructor_id INT64,
+  number INT64,
+  position INT64,
+  q1 STRING,
+  q2 STRING,
+  q3 STRING
+);"
+tdr_overrides,"CREATE TABLE `spider2-public-data.f1.tdr_overrides`
+(
+  year INT64,
+  constructor_ref STRING,
+  driver_ref STRING,
+  team_driver_rank INT64
+);"
+constructor_results,"CREATE TABLE `spider2-public-data.f1.constructor_results`
+(
+  constructor_results_id INT64,
+  race_id INT64,
+  constructor_id INT64,
+  points FLOAT64,
+  status STRING
+);"
+lap_times_ext,"CREATE TABLE `spider2-public-data.f1.lap_times_ext`
+(
+  race_id INT64,
+  driver_id INT64,
+  lap INT64,
+  position INT64,
+  time STRING,
+  milliseconds INT64,
+  seconds FLOAT64,
+  running_milliseconds INT64
+);"
+driver_standings,"CREATE TABLE `spider2-public-data.f1.driver_standings`
+(
+  driver_standings_id INT64,
+  race_id INT64,
+  driver_id INT64,
+  points FLOAT64,
+  position INT64,
+  position_text STRING,
+  wins INT64
+);"
+circuits_ext,"CREATE TABLE `spider2-public-data.f1.circuits_ext`
+(
+  circuit_id INT64,
+  circuit_ref STRING,
+  name STRING,
+  location STRING,
+  country STRING,
+  lat FLOAT64,
+  lng FLOAT64,
+  alt INT64,
+  url STRING,
+  last_race_year INT64,
+  number_of_races INT64
+);"
+status,"CREATE TABLE `spider2-public-data.f1.status`
+(
+  status_id INT64,
+  status STRING
+);"
+driver_standings_ext,"CREATE TABLE `spider2-public-data.f1.driver_standings_ext`
+(
+  driver_standings_id INT64,
+  race_id INT64,
+  driver_id INT64,
+  points FLOAT64,
+  position INT64,
+  position_text STRING,
+  wins INT64
+);"
+retirements,"CREATE TABLE `spider2-public-data.f1.retirements`
+(
+  race_id INT64,
+  driver_id INT64,
+  lap INT64,
+  position_order INT64,
+  status_id INT64,
+  retirement_type STRING
+);"
+short_grand_prix_names,"CREATE TABLE `spider2-public-data.f1.short_grand_prix_names`
+(
+  full_name STRING,
+  short_name STRING
+);"
+constructor_standings,"CREATE TABLE `spider2-public-data.f1.constructor_standings`
+(
+  constructor_standings_id INT64,
+  race_id INT64,
+  constructor_id INT64,
+  points FLOAT64,
+  position INT64,
+  position_text STRING,
+  wins INT64
+);"
+races,"CREATE TABLE `spider2-public-data.f1.races`
+(
+  race_id INT64,
+  year INT64,
+  round INT64,
+  circuit_id INT64,
+  name STRING,
+  date STRING,
+  time STRING,
+  url STRING,
+  fp1_date STRING,
+  fp1_time STRING,
+  fp2_date STRING,
+  fp2_time STRING,
+  fp3_date STRING,
+  fp3_time STRING,
+  quali_date STRING,
+  quali_time STRING,
+  sprint_date STRING,
+  sprint_time STRING
+);"
+pit_stops,"CREATE TABLE `spider2-public-data.f1.pit_stops`
+(
+  race_id INT64,
+  driver_id INT64,
+  stop INT64,
+  lap INT64,
+  time STRING,
+  duration STRING,
+  milliseconds INT64,
+  seconds FLOAT64
+);"
+short_constructor_names,"CREATE TABLE `spider2-public-data.f1.short_constructor_names`
+(
+  constructor_ref STRING,
+  short_name STRING
+);"
+lap_time_stats,"CREATE TABLE `spider2-public-data.f1.lap_time_stats`
+(
+  race_id INT64,
+  driver_id INT64,
+  avg_milliseconds FLOAT64,
+  avg_seconds FLOAT64,
+  stdev_milliseconds FLOAT64,
+  stdev_seconds FLOAT64
+);"
+drives,"CREATE TABLE `spider2-public-data.f1.drives`
+(
+  year INT64,
+  driver_id INT64,
+  drive_id INT64,
+  constructor_id INT64,
+  first_round INT64,
+  last_round INT64,
+  is_first_drive_of_season INT64,
+  is_final_drive_of_season INT64
+);"
+sprint_results,"CREATE TABLE `spider2-public-data.f1.sprint_results`
+(
+  result_id INT64,
+  race_id INT64,
+  driver_id INT64,
+  constructor_id INT64,
+  number INT64,
+  grid INT64,
+  position FLOAT64,
+  position_text STRING,
+  position_order INT64,
+  points FLOAT64,
+  laps INT64,
+  time STRING,
+  milliseconds FLOAT64,
+  fastest_lap FLOAT64,
+  fastest_lap_time STRING,
+  fastest_lap_speed INT64,
+  status_id INT64
+);"
+overtakes,"CREATE TABLE `spider2-public-data.f1.overtakes`
+(
+  race_id INT64,
+  overtaking_driver_id INT64,
+  lap INT64,
+  current_position INT64,
+  previous_position INT64,
+  overtaken_driver_id INT64,
+  overtake_type STRING,
+  overtake_desc STRING
+);"
+lap_positions,"CREATE TABLE `spider2-public-data.f1.lap_positions`
+(
+  race_id INT64,
+  driver_id INT64,
+  lap INT64,
+  position INT64,
+  lap_type STRING
+);"
+lap_times,"CREATE TABLE `spider2-public-data.f1.lap_times`
+(
+  race_id INT64,
+  driver_id INT64,
+  lap INT64,
+  position INT64,
+  time STRING,
+  milliseconds INT64,
+  seconds FLOAT64
+);"
+drivers,"CREATE TABLE `spider2-public-data.f1.drivers`
+(
+  driver_id INT64,
+  driver_ref STRING,
+  number FLOAT64,
+  code STRING,
+  forename STRING,
+  surname STRING,
+  full_name STRING,
+  dob STRING,
+  nationality STRING,
+  url STRING
+);"
+seasons,"CREATE TABLE `spider2-public-data.f1.seasons`
+(
+  year INT64,
+  url STRING
+);"
+circuits,"CREATE TABLE `spider2-public-data.f1.circuits`
+(
+  circuit_id INT64,
+  circuit_ref STRING,
+  name STRING,
+  location STRING,
+  country STRING,
+  lat FLOAT64,
+  lng FLOAT64,
+  alt INT64,
+  url STRING
+);"
+constructors,"CREATE TABLE `spider2-public-data.f1.constructors`
+(
+  constructor_id INT64,
+  constructor_ref STRING,
+  name STRING,
+  nationality STRING,
+  url STRING
+);"
+races_ext,"CREATE TABLE `spider2-public-data.f1.races_ext`
+(
+  race_id INT64,
+  year INT64,
+  round INT64,
+  circuit_id INT64,
+  name STRING,
+  date STRING,
+  time STRING,
+  url STRING,
+  fp1_date STRING,
+  fp1_time STRING,
+  fp2_date STRING,
+  fp2_time STRING,
+  fp3_date STRING,
+  fp3_time STRING,
+  quali_date STRING,
+  quali_time STRING,
+  sprint_date STRING,
+  sprint_time STRING,
+  is_pit_data_available INT64,
+  short_name STRING,
+  has_sprint INT64,
+  max_points INT64
+);"

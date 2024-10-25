@@ -1,0 +1,102 @@
+table_name,ddl
+block_events,"CREATE TABLE `spider2-public-data.crypto_band.block_events`
+(
+  block_height INT64,
+  block_timestamp STRING,
+  block_timestamp_truncated TIMESTAMP,
+  event_type STRING,
+  block_event_type STRING,
+  attributes ARRAY<STRUCT<key STRING, value STRING>>
+);"
+blocks,"CREATE TABLE `spider2-public-data.crypto_band.blocks`
+(
+  block_height INT64,
+  block_timestamp STRING,
+  block_timestamp_truncated TIMESTAMP,
+  block_hash STRING,
+  proposer_address STRING,
+  last_commit_hash STRING,
+  data_hash STRING,
+  validators_hash STRING,
+  next_validators_hash STRING,
+  consensus_hash STRING,
+  app_hash STRING,
+  last_results_hash STRING,
+  evidence_hash STRING,
+  signatures ARRAY<STRUCT<block_id_flag INT64, validator_address STRING, timestamp TIMESTAMP, signatures STRUCT<block_id_flag INT64, validator_address STRING, timestamp TIMESTAMP, signature STRING>>>
+);"
+messages,"CREATE TABLE `spider2-public-data.crypto_band.messages`
+(
+  block_height INT64,
+  block_timestamp STRING,
+  block_timestamp_truncated TIMESTAMP,
+  txhash STRING,
+  message_type STRING,
+  oracle_Activate STRUCT<validator STRING>,
+  oracle_AddReporter STRUCT<reporter STRING, validator STRING>,
+  oracle_CreateDataSource STRUCT<executable BYTES, description STRING, name STRING, sender STRING, owner STRING>,
+  oracle_CreateOracleScript STRUCT<sender STRING, schema STRING, description STRING, name STRING, code BYTES, owner STRING>,
+  oracle_EditDataSource STRUCT<sender STRING, executable STRING, description STRING, name STRING, owner STRING, data_source_id INT64>,
+  oracle_EditOracleScript STRUCT<sender STRING, source_code_url STRING, schema STRING, description STRING, name STRING, code BYTES, owner STRING, oracle_script_id INT64>,
+  oracle_Report STRUCT<validator STRING, reporter STRING, raw_reports ARRAY<STRUCT<exit_code INT64, data STRING, external_id INT64>>, request_id INT64>,
+  oracle_Request STRUCT<sender STRING, ask_count INT64, calldata STRING, min_count INT64, oracle_script_id INT64>,
+  cosmos_sdk_MsgDelegate STRUCT<amount STRUCT<amount INT64, denom STRING>, validator_address STRING, delegator_address STRING>,
+  cosmos_sdk_MsgEditValidator STRUCT<commission_rate STRING, address STRING, min_self_delegation STRING, description STRUCT<details STRING, security_contact STRING, website STRING, identity STRING, moniker STRING>>,
+  cosmos_sdk_MsgMultiSend STRUCT<outputs ARRAY<STRUCT<coins ARRAY<STRUCT<amount INT64, denom STRING>>, address STRING>>, inputs ARRAY<STRUCT<coins ARRAY<STRUCT<amount INT64, denom STRING>>, address STRING>>>,
+  cosmos_sdk_MsgSend STRUCT<to_address STRING, amount ARRAY<STRUCT<amount INT64, denom STRING>>, from_address STRING>,
+  oracle_RemoveReporter STRUCT<validator STRING, reporter STRING>,
+  cosmos_sdk_MsgBeginRedelegate STRUCT<delegator_address STRING, validator_src_address STRING, validator_dst_address STRING, amount STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgCreateValidator STRUCT<description STRUCT<moniker STRING, identity STRING, website STRING, security_contact STRING, details STRING>, commission STRUCT<rate STRING, max_rate STRING, max_change_rate STRING>, min_self_delegation INT64, delegator_address STRING, validator_address STRING, pubkey STRING, value STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgDeposit STRUCT<proposal_id INT64, depositor STRING, amount STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgFundCommunityPool STRUCT<depositor STRING, amount STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgModifyWithdrawAddress STRUCT<delegator_address STRING, withdraw_address STRING>,
+  cosmos_sdk_MsgSubmitEvidence STRUCT<submitter STRING, evidence STRING>,
+  cosmos_sdk_MsgSubmitProposal STRUCT<content STRING, proposer STRING, initial_deposit STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgUndelegate STRUCT<delegator_address STRING, validator_address STRING, amount STRUCT<amount INT64, denom STRING>>,
+  cosmos_sdk_MsgUnjail STRUCT<address STRING>,
+  cosmos_sdk_MsgVerifyInvariant STRUCT<sender STRING, invariant_module_name STRING, invariant_route STRING>,
+  cosmos_sdk_MsgVote STRUCT<proposal_id INT64, voter STRING, option INT64>,
+  cosmos_sdk_MsgWithdrawDelegationReward STRUCT<delegator_address STRING, validator_address STRING>,
+  cosmos_sdk_MsgWithdrawValidatorCommission STRUCT<validator_address STRING>
+);"
+transactions,"CREATE TABLE `spider2-public-data.crypto_band.transactions`
+(
+  block_height INT64,
+  block_timestamp STRING,
+  block_timestamp_truncated TIMESTAMP,
+  txhash STRING,
+  transaction_type STRING,
+  gas_wanted NUMERIC,
+  gas_used NUMERIC,
+  sender STRING,
+  fee STRUCT<amount ARRAY<STRUCT<amount INT64, denom STRING>>, gas INT64>,
+  memo STRING
+);"
+oracle_requests,"CREATE TABLE `spider2-public-data.crypto_band.oracle_requests`
+(
+  block_height INT64,
+  block_timestamp STRING,
+  block_timestamp_truncated TIMESTAMP,
+  oracle_request_id INT64,
+  request STRUCT<oracle_script_id INT64, calldata STRING, requested_validators ARRAY<STRING>, min_count INT64, request_height INT64, request_time TIMESTAMP, raw_requests ARRAY<STRUCT<external_id INT64, data_source_id INT64, calldata STRING>>>,
+  reports ARRAY<STRUCT<raw_reports ARRAY<STRUCT<exit_code INT64, data BYTES, external_id INT64>>, in_before_resolve BOOL, validator STRING>>,
+  result STRUCT<request_packet_data STRUCT<oracle_script_id INT64, calldata STRING, ask_count INT64, min_count INT64>, response_packet_data STRUCT<request_id INT64, ans_count INT64, request_time INT64, resolve_time INT64, resolve_status INT64, result STRING>>,
+  decoded_result STRUCT<calldata STRING, result STRING>,
+  oracle_script STRUCT<owner STRING, name STRING, description STRING, filename STRING, schema STRING, source_code_url STRING>
+);"
+errors,"CREATE TABLE `spider2-public-data.crypto_band.errors`
+(
+  tableRow STRING,
+  errors STRING
+);"
+logs,"CREATE TABLE `spider2-public-data.crypto_band.logs`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_timestamp_truncated TIMESTAMP,
+  txhash STRING,
+  log_index INT64,
+  msg_index INT64,
+  log STRING,
+  events ARRAY<STRUCT<type STRING, attributes ARRAY<STRUCT<key STRING, value STRING>>>>
+);"

@@ -1,0 +1,38 @@
+## DATETIME_SUB
+
+DATETIME_SUB(datetime_expression, INTERVAL int64_expression part)
+
+**Description**
+
+Subtracts ` int64_expression ` units of ` part ` from the ` DATETIME ` .
+
+` DATETIME_SUB ` supports the following values for ` part ` :
+
+* ` MICROSECOND `
+* ` MILLISECOND `
+* ` SECOND `
+* ` MINUTE `
+* ` HOUR `
+* ` DAY `
+* ` WEEK ` . Equivalent to 7 ` DAY ` s.
+* ` MONTH `
+* ` QUARTER `
+* ` YEAR `
+
+Special handling is required for ` MONTH ` , ` QUARTER ` , and ` YEAR ` parts when the date is at (or near) the last day of the month. If the resulting month has fewer days than the original ` DATETIME ` 's day, then the result day is the last day of the new month.
+
+**Return Data Type**
+
+` DATETIME `
+
+**Example**
+
+
+SELECT DATETIME "2008-12-25 15:30:00" as original_date,
+DATETIME_SUB(DATETIME "2008-12-25 15:30:00", INTERVAL 10 MINUTE) as earlier;
+
+/*-----------------------------+------------------------*
+| original_date               | earlier                |
++-----------------------------+------------------------+
+| 2008-12-25T15:30:00         | 2008-12-25T15:20:00    |
+*-----------------------------+------------------------*/

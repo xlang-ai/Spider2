@@ -1,0 +1,19 @@
+table_name,ddl
+snap_enrollment,"CREATE TABLE `bigquery-public-data.sdoh_snap_enrollment.snap_enrollment`
+(
+  GeoDesc STRING OPTIONS(description=""Substate/Region with Program""),
+  SNAP_PA_Participation_Persons INT64 OPTIONS(description=""SNAP All Persons Public Assistance Participation""),
+  SNAP_NPA_Participation_Persons INT64 OPTIONS(description=""SNAP All Persons Non-Public Assistance Participation""),
+  SNAP_All_Participation_Persons INT64 OPTIONS(description=""Calc: SNAP Total PA and Non-PA People""),
+  SNAP_PA_Participation_Households INT64 OPTIONS(description=""SNAP All Households Public Assistance Participation""),
+  SNAP_NPA_Participation_Households INT64 OPTIONS(description=""SNAP All Households Non-Public Assistance Participation""),
+  SNAP_All_Participation_Households INT64 OPTIONS(description=""Calc: SNAP Total PA and Non-PA Households""),
+  SNAP_All_Issuance INT64 OPTIONS(description=""SNAP All Total Actual PA & Non-PA Issuance""),
+  Date DATE OPTIONS(description=""Data of Enrollment Data""),
+  FIPS STRING OPTIONS(description=""County FIPS Designation""),
+  SubCounty STRING OPTIONS(description=""SubCounty Assigned Number""),
+  Program STRING OPTIONS(description=""Program Abbreviation"")
+)
+OPTIONS(
+  labels=[(""freebqcovid"", """")]
+);"

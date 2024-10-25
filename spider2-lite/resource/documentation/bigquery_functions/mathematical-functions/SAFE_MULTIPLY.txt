@@ -1,0 +1,21 @@
+## SAFE_MULTIPLY
+
+SAFE_MULTIPLY(X, Y)
+
+**Description**
+
+Equivalent to the multiplication operator ( ` * ` ), but returns ` NULL ` if overflow occurs.
+
+X  |  Y  |  SAFE_MULTIPLY(X, Y)
+---|---|---
+20  |  4  |  80
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+` INT64 ` |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` NUMERIC ` |  ` NUMERIC ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  `
+FLOAT64 `
+` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 `

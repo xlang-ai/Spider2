@@ -1,0 +1,26 @@
+## ST_POINTN
+
+ST_POINTN(linestring_geography, index)
+
+**Description**
+
+Returns the Nth point of a linestring geography as a point geography, where N is the index. The index is 1-based. Negative values are counted backwards from the end of the linestring, so that -1 is the last point. Returns an error if the input is not a linestring, if the input is empty, or if there is no vertex at the given index. Use the ` SAFE ` prefix to obtain ` NULL ` for invalid input instead of an error.
+
+**Return Type**
+
+Point ` GEOGRAPHY `
+
+**Example**
+
+The following example uses ` ST_POINTN ` ,  ` ST_STARTPOINT ` and  `
+ST_ENDPOINT ` to extract points from a linestring.
+
+
+WITH linestring AS ( SELECT ST_GEOGFROMTEXT('LINESTRING(1 1, 2 1, 3 2, 3 3)') g ) SELECT ST_POINTN(g, 1) AS first, ST_POINTN(g, -1) AS last,
+ST_POINTN(g, 2) AS second, ST_POINTN(g, -2) AS second_to_last FROM linestring;
+
+/*--------------+--------------+--------------+----------------*
+| first        | last         | second       | second_to_last |
++--------------+--------------+--------------+----------------+
+| POINT(1 1)   | POINT(3 3)   | POINT(2 1)   | POINT(3 2)     |
+*--------------+--------------+--------------+----------------*/

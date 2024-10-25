@@ -1,0 +1,86 @@
+## JSON_ARRAY
+
+JSON_ARRAY([value][, ...])
+
+**Description**
+
+Creates a JSON array from zero or more SQL values.
+
+Arguments:
+
+* ` value ` : A  JSON encoding-supported  value to add to a JSON array.
+
+**Return type**
+
+` JSON `
+
+**Examples**
+
+You can create an empty JSON array. For example:
+
+
+SELECT JSON_ARRAY() AS json_data
+
+/*-----------*
+| json_data |
++-----------+
+| []        |
+*-----------*/
+
+The following query creates a JSON array with one value in it:
+
+
+SELECT JSON_ARRAY(10) AS json_data
+
+/*-----------*
+| json_data |
++-----------+
+| [10]      |
+*-----------*/
+
+You can create a JSON array with an empty JSON array in it. For example:
+
+
+SELECT JSON_ARRAY([]) AS json_data
+
+/*-----------*
+| json_data |
++-----------+
+| [[]]      |
+*-----------*/
+
+
+SELECT JSON_ARRAY(10, 'foo', NULL) AS json_data
+
+/*-----------------*
+| json_data       |
++-----------------+
+| [10,"foo",null] |
+*-----------------*/
+
+
+SELECT JSON_ARRAY(STRUCT(10 AS a, 'foo' AS b)) AS json_data
+
+/*----------------------*
+| json_data            |
++----------------------+
+| [{"a":10,"b":"foo"}] |
+*----------------------*/
+
+
+SELECT JSON_ARRAY(10, ['foo', 'bar'], [20, 30]) AS json_data
+
+/*----------------------------*
+| json_data                  |
++----------------------------+
+| [10,["foo","bar"],[20,30]] |
+*----------------------------*/
+
+
+SELECT JSON_ARRAY(10, [JSON '20', JSON '"foo"']) AS json_data
+
+/*-----------------*
+| json_data       |
++-----------------+
+| [10,[20,"foo"]] |
+*-----------------*/

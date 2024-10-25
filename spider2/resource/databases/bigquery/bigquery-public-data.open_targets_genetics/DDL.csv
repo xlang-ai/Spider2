@@ -1,0 +1,369 @@
+table_name,ddl
+studies_overlap,"CREATE TABLE `bigquery-public-data.open_targets_genetics.studies_overlap`
+(
+  A_study_id STRING,
+  A_chrom STRING,
+  A_pos INT64,
+  A_ref STRING,
+  A_alt STRING,
+  B_study_id STRING,
+  B_chrom STRING,
+  B_pos INT64,
+  B_ref STRING,
+  B_alt STRING,
+  A_distinct INT64,
+  AB_overlap INT64,
+  B_distinct INT64
+)
+OPTIONS(
+  description=""Study Overlap index""
+);"
+locus2gene,"CREATE TABLE `bigquery-public-data.open_targets_genetics.locus2gene`
+(
+  study_id STRING,
+  chrom STRING,
+  pos INT64,
+  ref STRING,
+  alt STRING,
+  gene_id STRING,
+  training_clf STRING,
+  training_gs STRING,
+  training_fold STRING,
+  y_proba_dist_foot FLOAT64,
+  y_proba_dist_tss FLOAT64,
+  y_proba_full_model FLOAT64,
+  y_proba_logi_distance FLOAT64,
+  y_proba_logi_interaction FLOAT64,
+  y_proba_logi_molecularQTL FLOAT64,
+  y_proba_logi_pathogenicity FLOAT64,
+  y_proba_logo_distance FLOAT64,
+  y_proba_logo_interaction FLOAT64,
+  y_proba_logo_molecularQTL FLOAT64,
+  y_proba_logo_pathogenicity FLOAT64
+)
+OPTIONS(
+  description=""Locus to gene index""
+);"
+variant_gene,"CREATE TABLE `bigquery-public-data.open_targets_genetics.variant_gene`
+(
+  chr_id STRING,
+  position INT64,
+  ref_allele STRING,
+  alt_allele STRING,
+  gene_id STRING,
+  feature STRING,
+  type_id STRING,
+  source_id STRING,
+  fpred_labels STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  fpred_scores STRUCT<list ARRAY<STRUCT<element FLOAT64 NOT NULL>>> NOT NULL,
+  fpred_max_label STRING,
+  fpred_max_score FLOAT64,
+  qtl_beta FLOAT64,
+  qtl_se FLOAT64,
+  qtl_pval FLOAT64,
+  qtl_score FLOAT64,
+  interval_score FLOAT64,
+  qtl_score_q FLOAT64,
+  interval_score_q FLOAT64,
+  d INT64,
+  distance_score FLOAT64,
+  distance_score_q FLOAT64
+)
+OPTIONS(
+  description=""Variant to gene index""
+);"
+ot_release,"CREATE TABLE `bigquery-public-data.open_targets_genetics.ot_release`
+(
+  release STRING
+);"
+variants,"CREATE TABLE `bigquery-public-data.open_targets_genetics.variants`
+(
+  chr_id STRING,
+  position INT64,
+  ref_allele STRING,
+  alt_allele STRING,
+  chr_id_b37 STRING,
+  position_b37 INT64,
+  rs_id STRING,
+  most_severe_consequence STRING,
+  cadd STRUCT<raw FLOAT64, phred FLOAT64>,
+  af STRUCT<gnomad_afr FLOAT64, gnomad_amr FLOAT64, gnomad_asj FLOAT64, gnomad_eas FLOAT64, gnomad_fin FLOAT64, gnomad_nfe FLOAT64, gnomad_nfe_est FLOAT64, gnomad_nfe_nwe FLOAT64, gnomad_nfe_onf FLOAT64, gnomad_nfe_seu FLOAT64, gnomad_oth FLOAT64>,
+  gene_id_any_distance INT64,
+  gene_id_any STRING,
+  gene_id_prot_coding_distance INT64,
+  gene_id_prot_coding STRING
+)
+OPTIONS(
+  description=""Variant index""
+);"
+variant_disease_coloc,"CREATE TABLE `bigquery-public-data.open_targets_genetics.variant_disease_coloc`
+(
+  coloc_n_vars INT64,
+  coloc_h0 FLOAT64,
+  coloc_h1 FLOAT64,
+  coloc_h2 FLOAT64,
+  coloc_h3 FLOAT64,
+  coloc_h4 FLOAT64,
+  left_type STRING,
+  left_study STRING,
+  left_chrom STRING,
+  left_pos INT64,
+  left_ref STRING,
+  left_alt STRING,
+  right_type STRING,
+  right_study STRING,
+  right_bio_feature STRING,
+  right_phenotype STRING,
+  right_chrom STRING,
+  right_pos INT64,
+  right_ref STRING,
+  right_alt STRING,
+  coloc_h4_h3 FLOAT64,
+  coloc_log2_h4_h3 FLOAT64,
+  is_flipped BOOL,
+  right_gene_id STRING,
+  left_var_right_study_beta FLOAT64,
+  left_var_right_study_se FLOAT64,
+  left_var_right_study_pval FLOAT64,
+  left_var_right_isCC BOOL
+)
+OPTIONS(
+  description=""Variant to study-trait index colocalisation analysis""
+);"
+variant_disease_credset,"CREATE TABLE `bigquery-public-data.open_targets_genetics.variant_disease_credset`
+(
+  bio_feature STRING,
+  gene_id STRING,
+  is95_credset BOOL,
+  is99_credset BOOL,
+  lead_alt STRING,
+  lead_chrom STRING,
+  lead_pos INT64,
+  lead_ref STRING,
+  lead_variant_id STRING,
+  logABF FLOAT64,
+  multisignal_method STRING,
+  phenotype_id STRING,
+  postprob FLOAT64,
+  postprob_cumsum FLOAT64,
+  study_id STRING,
+  tag_alt STRING,
+  tag_beta FLOAT64,
+  tag_beta_cond FLOAT64,
+  tag_chrom STRING,
+  tag_pos INT64,
+  tag_pval FLOAT64,
+  tag_pval_cond FLOAT64,
+  tag_ref STRING,
+  tag_se FLOAT64,
+  tag_se_cond FLOAT64,
+  tag_variant_id STRING,
+  type STRING
+)
+OPTIONS(
+  description=""Variant to study-trait index credible set""
+);"
+sa_molecular_trait,"CREATE TABLE `bigquery-public-data.open_targets_genetics.sa_molecular_trait`
+(
+  type_id STRING,
+  study_id STRING,
+  phenotype_id STRING,
+  gene_id STRING,
+  chrom STRING,
+  pos INT64,
+  ref STRING,
+  alt STRING,
+  beta FLOAT64,
+  se FLOAT64,
+  pval FLOAT64,
+  n_total INT64,
+  n_cases INT64,
+  eaf FLOAT64,
+  mac INT64,
+  mac_cases INT64,
+  num_tests INT64,
+  info FLOAT64,
+  is_cc BOOL,
+  bio_feature STRING
+)
+OPTIONS(
+  description=""Summary stats Molecular Trait pval 0.05 cut-off""
+);"
+variant_disease,"CREATE TABLE `bigquery-public-data.open_targets_genetics.variant_disease`
+(
+  study_id STRING,
+  lead_chrom STRING,
+  lead_pos INT64,
+  lead_ref STRING,
+  lead_alt STRING,
+  direction STRING,
+  beta FLOAT64,
+  beta_ci_lower FLOAT64,
+  beta_ci_upper FLOAT64,
+  odds_ratio FLOAT64,
+  oddsr_ci_lower FLOAT64,
+  oddsr_ci_upper FLOAT64,
+  pval_mantissa FLOAT64,
+  pval_exponent INT64,
+  pval FLOAT64,
+  ancestry_initial STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  ancestry_replication STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  n_cases INT64,
+  n_initial INT64,
+  n_replication INT64,
+  pmid STRING,
+  pub_author STRING,
+  pub_date STRING,
+  pub_journal STRING,
+  pub_title STRING,
+  has_sumstats BOOL,
+  num_assoc_loci INT64,
+  source STRING,
+  trait_reported STRING,
+  trait_efos STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  trait_category STRING NOT NULL,
+  tag_chrom STRING,
+  tag_pos INT64,
+  tag_ref STRING,
+  tag_alt STRING,
+  overall_r2 FLOAT64,
+  pics_95perc_credset BOOL,
+  AFR_1000G_prop FLOAT64,
+  AMR_1000G_prop FLOAT64,
+  EAS_1000G_prop FLOAT64,
+  EUR_1000G_prop FLOAT64,
+  SAS_1000G_prop FLOAT64,
+  log10_ABF FLOAT64,
+  posterior_prob FLOAT64
+)
+OPTIONS(
+  description=""Variant to study-trait index""
+);"
+disease_variant_gene,"CREATE TABLE `bigquery-public-data.open_targets_genetics.disease_variant_gene`
+(
+  study_id STRING,
+  source STRING,
+  pmid STRING,
+  pub_date STRING,
+  pub_journal STRING,
+  pub_title STRING,
+  pub_author STRING,
+  has_sumstats BOOL,
+  trait_reported STRING,
+  trait_efos STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  ancestry_initial STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  ancestry_replication STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  n_initial INT64,
+  n_replication INT64,
+  n_cases INT64,
+  trait_category STRING,
+  num_assoc_loci INT64,
+  lead_chrom STRING,
+  lead_pos INT64,
+  lead_ref STRING,
+  lead_alt STRING,
+  tag_chrom STRING,
+  tag_pos INT64,
+  tag_ref STRING,
+  tag_alt STRING,
+  overall_r2 FLOAT64,
+  AFR_1000G_prop FLOAT64,
+  AMR_1000G_prop FLOAT64,
+  EAS_1000G_prop FLOAT64,
+  EUR_1000G_prop FLOAT64,
+  SAS_1000G_prop FLOAT64,
+  log10_ABF FLOAT64,
+  posterior_prob FLOAT64,
+  odds_ratio FLOAT64,
+  oddsr_ci_lower FLOAT64,
+  oddsr_ci_upper FLOAT64,
+  direction STRING,
+  beta FLOAT64,
+  beta_ci_lower FLOAT64,
+  beta_ci_upper FLOAT64,
+  pval_mantissa FLOAT64,
+  pval_exponent INT64,
+  pval FLOAT64,
+  gene_id STRING,
+  feature STRING,
+  type_id STRING,
+  source_id STRING,
+  fpred_labels STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  fpred_scores STRUCT<list ARRAY<STRUCT<element FLOAT64>>>,
+  fpred_max_label STRING,
+  fpred_max_score FLOAT64,
+  qtl_beta FLOAT64,
+  qtl_se FLOAT64,
+  qtl_pval FLOAT64,
+  qtl_score FLOAT64,
+  interval_score FLOAT64,
+  qtl_score_q FLOAT64,
+  interval_score_q FLOAT64,
+  d INT64,
+  distance_score FLOAT64,
+  distance_score_q FLOAT64
+)
+OPTIONS(
+  description=""Gene to variant to study-trait index""
+);"
+sa_gwas,"CREATE TABLE `bigquery-public-data.open_targets_genetics.sa_gwas`
+(
+  type_id STRING,
+  study_id STRING,
+  chrom STRING,
+  pos INT64,
+  ref STRING,
+  alt STRING,
+  beta FLOAT64,
+  se FLOAT64,
+  pval FLOAT64,
+  n_total INT64,
+  n_cases INT64,
+  eaf FLOAT64,
+  mac FLOAT64,
+  mac_cases FLOAT64,
+  info FLOAT64,
+  is_cc BOOL
+)
+OPTIONS(
+  description=""Summary stats GWAS pval 0.05 cut-off""
+);"
+genes,"CREATE TABLE `bigquery-public-data.open_targets_genetics.genes`
+(
+  biotype STRING,
+  chr STRING,
+  description STRING,
+  `end` INT64,
+  exons STRING,
+  fwdstrand INT64,
+  gene_id STRING,
+  gene_name STRING,
+  start INT64,
+  tss INT64
+)
+OPTIONS(
+  description=""Gene index""
+);"
+studies,"CREATE TABLE `bigquery-public-data.open_targets_genetics.studies`
+(
+  study_id STRING,
+  ancestry_initial STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  ancestry_replication STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  n_cases INT64,
+  n_initial INT64,
+  n_replication INT64,
+  pmid STRING,
+  pub_author STRING,
+  pub_date STRING,
+  pub_journal STRING,
+  pub_title STRING,
+  has_sumstats BOOL,
+  num_assoc_loci INT64,
+  source STRING,
+  trait_reported STRING,
+  trait_efos STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  trait_category STRING NOT NULL
+)
+OPTIONS(
+  description=""Study index""
+);"

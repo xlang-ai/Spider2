@@ -1,0 +1,31 @@
+## ST_MAKELINE
+
+ST_MAKELINE(geography_1, geography_2)
+
+
+ST_MAKELINE(array_of_geography)
+
+**Description**
+
+Creates a ` GEOGRAPHY ` with a single linestring by concatenating the point or line vertices of each of the input ` GEOGRAPHY ` s in the order they are given.
+
+` ST_MAKELINE ` comes in two variants. For the first variant, input must be two ` GEOGRAPHY ` s. For the second, input must be an ` ARRAY ` of type `
+GEOGRAPHY ` . In either variant, each input ` GEOGRAPHY ` must consist of one of the following values:
+
+* Exactly one point.
+* Exactly one linestring.
+
+For the first variant of ` ST_MAKELINE ` , if either input ` GEOGRAPHY ` is `
+NULL ` , ` ST_MAKELINE ` returns ` NULL ` . For the second variant, if input `
+ARRAY ` or any element in the input ` ARRAY ` is ` NULL ` , ` ST_MAKELINE `
+returns ` NULL ` .
+
+**Constraints**
+
+Every edge must span strictly less than 180 degrees.
+
+NOTE: The GoogleSQL snapping process may discard sufficiently short edges and snap the two endpoints together. For instance, if two input ` GEOGRAPHY ` s each contain a point and the two points are separated by a distance less than the snap radius, the points will be snapped together. In such a case the result will be a ` GEOGRAPHY ` with exactly one point.
+
+**Return type**
+
+LineString ` GEOGRAPHY `

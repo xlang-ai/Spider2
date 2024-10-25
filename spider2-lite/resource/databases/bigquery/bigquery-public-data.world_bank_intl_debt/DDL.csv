@@ -1,0 +1,91 @@
+table_name,ddl
+series_summary,"CREATE TABLE `bigquery-public-data.world_bank_intl_debt.series_summary`
+(
+  series_code STRING,
+  topic STRING,
+  indicator_name STRING,
+  short_definition STRING,
+  long_definition STRING,
+  unit_of_measure STRING,
+  periodicity STRING,
+  base_period STRING,
+  other_notes STRING,
+  aggregation_method STRING,
+  limitations_and_exceptions STRING,
+  notes_from_original_source STRING,
+  general_comments STRING,
+  source STRING,
+  statistical_concept_and_methodology STRING,
+  development_relevance STRING,
+  related_source_links STRING,
+  other_web_links STRING,
+  related_indicators STRING,
+  license_type STRING
+)
+OPTIONS(
+  description=""Series Summary table""
+);"
+country_series_definitions,"CREATE TABLE `bigquery-public-data.world_bank_intl_debt.country_series_definitions`
+(
+  country_code STRING,
+  series_code STRING,
+  description STRING
+)
+OPTIONS(
+  description=""Country Series Definition table""
+);"
+series_times,"CREATE TABLE `bigquery-public-data.world_bank_intl_debt.series_times`
+(
+  series_code STRING,
+  year INT64,
+  description STRING
+)
+OPTIONS(
+  description=""Series Times table""
+);"
+country_summary,"CREATE TABLE `bigquery-public-data.world_bank_intl_debt.country_summary`
+(
+  country_code STRING,
+  short_name STRING,
+  table_name STRING,
+  long_name STRING,
+  two_alpha_code STRING,
+  currency_unit STRING,
+  special_notes STRING,
+  region STRING,
+  income_group STRING,
+  wb_2_code STRING,
+  national_accounts_base_year STRING,
+  national_accounts_reference_year STRING,
+  sna_price_valuation STRING,
+  lending_category STRING,
+  other_groups STRING,
+  system_of_national_accounts STRING,
+  alternative_conversion_factor STRING,
+  ppp_survey_year STRING,
+  balance_of_payments_manual_in_use STRING,
+  external_debt_reporting_status STRING,
+  system_of_trade STRING,
+  government_accounting_concept STRING,
+  imf_data_dissemination_standard STRING,
+  latest_population_census STRING,
+  latest_household_survey STRING,
+  source_of_most_recent_Income_and_expenditure_data STRING,
+  vital_registration_complete STRING,
+  latest_agricultural_census STRING,
+  latest_industrial_data INT64,
+  latest_trade_data INT64,
+  latest_water_withdrawal_data STRING
+)
+OPTIONS(
+  description=""Country Summary table""
+);"
+international_debt,"CREATE TABLE `bigquery-public-data.world_bank_intl_debt.international_debt`
+(
+  country_name STRING OPTIONS(description=""""),
+  country_code STRING OPTIONS(description=""""),
+  indicator_name STRING OPTIONS(description=""""),
+  indicator_code STRING OPTIONS(description=""""),
+  value FLOAT64 OPTIONS(description=""""),
+  year INT64 OPTIONS(description="""")
+);"

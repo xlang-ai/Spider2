@@ -1,0 +1,20 @@
+table_name,ddl
+dual_eligible_enrollment_by_county_and_program,"CREATE TABLE `bigquery-public-data.sdoh_cms_dual_eligible_enrollment.dual_eligible_enrollment_by_county_and_program`
+(
+  State_Abbr STRING OPTIONS(description=""State of Beneficiary""),
+  County_Name STRING OPTIONS(description=""County of Beneficiary""),
+  QMB_Only INT64 OPTIONS(description=""Number of Qualified Medicare Beneficiary Program (QMB) Only Enrollees""),
+  QMB_plus_Full INT64 OPTIONS(description=""Number of Qualified Medicare Beneficiary Program (QMB) plus Full Medicaid Enrollees""),
+  SLMB_only INT64 OPTIONS(description=""Number of Specified Low-Income Medicare Beneficiary (SLMB) Program Only Enrollees""),
+  SLMB_plus_Full INT64 OPTIONS(description=""Number of Specified Low-Income Medicare Beneficiary (SMLB) plus Full Medicaid Enrollees""),
+  QDWI INT64 OPTIONS(description=""Number of Qualifying Disabled Working Individual (QDWI) Enrollees""),
+  QI INT64 OPTIONS(description=""Number of Qualifying Individual (QI) Enrollees""),
+  Other_full INT64 OPTIONS(description=""Number of Other Dual Full Medicaid Enrollees""),
+  Public_Total INT64 OPTIONS(description=""Total Enrollees Across All Dual Eligible Programs""),
+  Date DATE OPTIONS(description=""Date of Enrollment Snapshot""),
+  FIPS STRING OPTIONS(description=""Geo FIPS Code"")
+)
+OPTIONS(
+  description=""This document presents counts of Medicare-Medicaid dual enrollees (including those in Medicare Savings Programs), by eligibility type, who were enrolled in a given month (to be continuously updated on a quarterly basis).  They include numbers of individuals at both the state and county level.   Note that these are monthly snapshots and are inherently lower than ever-enrolled counts which include persons enrolled at any time during a calendar year.  The underlying source data are the Medicare Modernization Act (MMA) data that states submit to CMS on an at-least monthly basis. These data are subject to retroactive adjustment.  Analyses were conducted within the Chronic Condition Data Warehouse (CCW) environment.   For more information on identifying dually eligible beneficiaries within CMS data, please refer to the following website: https://www.cms.gov/Medicare-Medicaid-Coordination/Medicare-and-Medicaid-Coordination/Medicare-Medicaid-Coordination-Office/Downloads/MMCO_Definition_of_Dual_Eligible.pdf."",
+  labels=[(""freebqcovid"", """")]
+);"

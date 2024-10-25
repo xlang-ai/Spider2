@@ -1,0 +1,61 @@
+## ARRAY
+
+ARRAY(subquery)
+
+**Description**
+
+The ` ARRAY ` function returns an ` ARRAY ` with one element for each row in a
+[ subquery ](/bigquery/docs/reference/standard-sql/query-syntax#subqueries) .
+
+If ` subquery ` produces a SQL table, the table must have exactly one column.
+Each element in the output ` ARRAY ` is the value of the single column of a row in the table.
+
+If ` subquery ` produces a value table, then each element in the output `
+ARRAY ` is the entire corresponding row of the value table.
+
+**Constraints**
+
+* Subqueries are unordered, so the elements of the output ` ARRAY ` are not guaranteed to preserve any order in the source table for the subquery. However, if the subquery includes an ` ORDER BY ` clause, the ` ARRAY ` function will return an ` ARRAY ` that honors that clause.
+* If the subquery returns more than one column, the ` ARRAY ` function returns an error.
+* If the subquery returns an ` ARRAY ` typed column or ` ARRAY ` typed rows, the ` ARRAY ` function returns an error that GoogleSQL does not support ` ARRAY ` s with elements of type [ ` ARRAY ` ](/bigquery/docs/reference/standard-sql/data-types#array_type) .
+* If the subquery returns zero rows, the ` ARRAY ` function returns an empty ` ARRAY ` . It never returns a ` NULL ` ` ARRAY ` .
+
+**Return type**
+
+` ARRAY `
+
+**Examples**
+
+
+SELECT ARRAY (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3) AS new_array;
+
+/*-----------*
+| new_array |
++-----------+
+| [1, 2, 3] |
+*-----------*/
+
+To construct an ` ARRAY ` from a subquery that contains multiple columns,
+change the subquery to use ` SELECT AS STRUCT ` . Now the ` ARRAY ` function will return an ` ARRAY ` of ` STRUCT ` s. The ` ARRAY ` will contain one `
+STRUCT ` for each row in the subquery, and each of these ` STRUCT ` s will contain a field for each column in that row.
+
+
+SELECT ARRAY (SELECT AS STRUCT 1, 2, 3 UNION ALL SELECT AS STRUCT 4, 5, 6) AS new_array;
+
+/*------------------------*
+| new_array              |
++------------------------+
+| [{1, 2, 3}, {4, 5, 6}] |
+*------------------------*/
+
+Similarly, to construct an ` ARRAY ` from a subquery that contains one or more
+` ARRAY ` s, change the subquery to use ` SELECT AS STRUCT ` .
+
+
+SELECT ARRAY (SELECT AS STRUCT [1, 2, 3] UNION ALL SELECT AS STRUCT [4, 5, 6]) AS new_array;
+
+/*----------------------------*
+| new_array                  |
++----------------------------+
+| [{[1, 2, 3]}, {[4, 5, 6]}] |
+*----------------------------*/

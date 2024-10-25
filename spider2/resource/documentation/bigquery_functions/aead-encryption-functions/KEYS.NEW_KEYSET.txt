@@ -1,0 +1,26 @@
+## KEYS.NEW_KEYSET
+
+KEYS.NEW_KEYSET(key_type)
+
+**Description**
+
+Returns a serialized keyset containing a new key based on ` key_type ` . The returned keyset is a serialized ` BYTES ` representation of [
+google.crypto.tink.Keyset
+](https://github.com/google/tink/blob/master/proto/tink.proto) that contains a primary cryptographic key and no additional keys. You can use the keyset with the ` AEAD.ENCRYPT ` , ` AEAD.DECRYPT_BYTES ` , and ` AEAD.DECRYPT_STRING `
+functions for encryption and decryption, as well as with the ` KEYS ` group of key- and keyset-related functions.
+
+` key_type ` is a ` STRING ` literal representation of the type of key to create. ` key_type ` cannot be ` NULL ` . ` key_type ` can be:
+
+* ` AEAD_AES_GCM_256 ` : Creates a 256-bit key with the pseudo-random number generator provided by [ boringSSL ](https://boringssl.googlesource.com/boringssl/) . The key uses AES-GCM for encryption and decryption operations.
+* ` DETERMINISTIC_AEAD_AES_SIV_CMAC_256 ` : Creates a 512-bit ` AES-SIV-CMAC ` key, which contains a 256-bit ` AES-CTR ` key and 256-bit ` AES-CMAC ` key. The ` AES-SIV-CMAC ` key is created with the pseudo-random number generator provided by [ boringSSL ](https://boringssl.googlesource.com/boringssl/) . The key uses AES-SIV for encryption and decryption operations.
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+The following query creates a keyset for each row in ` CustomerIds ` , which can subsequently be used to encrypt data. Each keyset contains a single encryption key with randomly-generated key data. Each row in the output contains a ` customer_id ` and an ` 'AEAD_AES_GCM_256' ` key in ` BYTES ` .
+
+
+SELECT customer_id, KEYS.NEW_KEYSET('AEAD_AES_GCM_256') AS keyset FROM ( SELECT 1 AS customer_id UNION ALL SELECT 2 UNION ALL SELECT 3 ) AS CustomerIds;

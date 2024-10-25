@@ -1,0 +1,235 @@
+{
+    "table_name": "202408",
+    "table_fullname": "githubarchive.month.202408",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"anime365_domain_net\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":\"Integrates MyAnimeList/AniList/Kitsu/Simkl into various sites, with auto episode tracking.\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 700442920,
+                "name": "NoPlagiarism/MALSync",
+                "url": "https://api.github.com/repos/NoPlagiarism/MALSync"
+            },
+            "actor": {
+                "id": 37241775,
+                "login": "NoPlagiarism",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/37241775?",
+                "url": "https://api.github.com/users/NoPlagiarism"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-08-01 22:00:48+00:00",
+            "id": "40676839782",
+            "other": "{\"actor\":{\"display_login\":\"NoPlagiarism\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":382398094,\"push_id\":19589409079,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/gh-pages\",\"head\":\"5768a228a4538717490db48329bcb4a7d5a8be07\",\"before\":\"739d9f0dde0e9aa1995d0121a27e770739a7e522\",\"commits\":[{\"sha\":\"5768a228a4538717490db48329bcb4a7d5a8be07\",\"author\":{\"email\":\"f619e61b249410e960c3f5695eff39f17fcd5242@users.noreply.github.com\",\"name\":\"github-actions[bot]\"},\"message\":\"deploy: 320c9cf43a9597c70a2165d7b5bfe6de87d2fe18\",\"distinct\":true,\"url\":\"https://api.github.com/repos/dontcallmedom/mdn-issue-by-spec/commits/5768a228a4538717490db48329bcb4a7d5a8be07\"}]}",
+            "repo": {
+                "id": 382398094,
+                "name": "dontcallmedom/mdn-issue-by-spec",
+                "url": "https://api.github.com/repos/dontcallmedom/mdn-issue-by-spec"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-08-01 22:29:35+00:00",
+            "id": "40677392266",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":836929874,\"push_id\":19589376957,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"d30954eea845db12d320be0831e2496e2954c6fa\",\"before\":\"9fe4a169e0ce90e1b0f59b0b937fcbb87331d992\",\"commits\":[{\"sha\":\"d30954eea845db12d320be0831e2496e2954c6fa\",\"author\":{\"email\":\"9ad1345711ac917246f3423329fbd91fbe35ac68@gmail.com\",\"name\":\"Dusan Herich\"},\"message\":\"Changed to use github secrets\",\"distinct\":true,\"url\":\"https://api.github.com/repos/dusan-herich/task-v1/commits/d30954eea845db12d320be0831e2496e2954c6fa\"}]}",
+            "repo": {
+                "id": 836929874,
+                "name": "dusan-herich/task-v1",
+                "url": "https://api.github.com/repos/dusan-herich/task-v1"
+            },
+            "actor": {
+                "id": 72222037,
+                "login": "dusan-herich",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/72222037?",
+                "url": "https://api.github.com/users/dusan-herich"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-08-01 22:26:16+00:00",
+            "id": "40677331733",
+            "other": "{\"actor\":{\"display_login\":\"dusan-herich\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":794439843,\"push_id\":19589220336,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"2b5788aab45f11c71d107272c704df6e6a28496c\",\"before\":\"824028f660a607f1da158203a8b95cf4eedbd062\",\"commits\":[{\"sha\":\"2b5788aab45f11c71d107272c704df6e6a28496c\",\"author\":{\"email\":\"2284188e53e14c9e3ff3a1a9fb8dae4cddbe9b67@gmail.com\",\"name\":\"ozigoyeng\"},\"message\":\"\ud83d\udd0d Investigate Axelar network\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Ozigoyeng/lavaozigoyeng/commits/2b5788aab45f11c71d107272c704df6e6a28496c\"}]}",
+            "repo": {
+                "id": 794439843,
+                "name": "Ozigoyeng/lavaozigoyeng",
+                "url": "https://api.github.com/repos/Ozigoyeng/lavaozigoyeng"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-08-01 22:11:21+00:00",
+            "id": "40677041005",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":825955900,\"push_id\":19589238171,\"size\":3,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"bf35812c47a7dd6df5a8ce6d6a3881926d366659\",\"before\":\"e0ee90dc1484521778e7c5aa39dfae7a8b8f4258\",\"commits\":[{\"sha\":\"2c7d676f76464bef0868cdb4b2766716d68ef663\",\"author\":{\"email\":\"82543edc9040ff2ba630fc20880a86f64670c274@gmail.com\",\"name\":\"Jakub Nov\u00e1k\"},\"message\":\"xxxx\",\"distinct\":false,\"url\":\"https://api.github.com/repos/jkbnovak/photobooth-app/commits/2c7d676f76464bef0868cdb4b2766716d68ef663\"},{\"sha\":\"a76dc51782b8cc7ea210b0df2ddd7b940ffa9d13\",\"author\":{\"email\":\"82543edc9040ff2ba630fc20880a86f64670c274@gmail.com\",\"name\":\"Jakub Nov\u00e1k\"},\"message\":\"xxxxx2\",\"distinct\":false,\"url\":\"https://api.github.com/repos/jkbnovak/photobooth-app/commits/a76dc51782b8cc7ea210b0df2ddd7b940ffa9d13\"},{\"sha\":\"bf35812c47a7dd6df5a8ce6d6a3881926d366659\",\"author\":{\"email\":\"82543edc9040ff2ba630fc20880a86f64670c274@gmail.com\",\"name\":\"Jakub Nov\u00e1k\"},\"message\":\"Merge branch 'x'\",\"distinct\":true,\"url\":\"https://api.github.com/repos/jkbnovak/photobooth-app/commits/bf35812c47a7dd6df5a8ce6d6a3881926d366659\"}]}",
+            "repo": {
+                "id": 825955900,
+                "name": "jkbnovak/photobooth-app",
+                "url": "https://api.github.com/repos/jkbnovak/photobooth-app"
+            },
+            "actor": {
+                "id": 85021960,
+                "login": "jkbnovak",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/85021960?",
+                "url": "https://api.github.com/users/jkbnovak"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-08-01 22:13:15+00:00",
+            "id": "40677076114",
+            "other": "{\"actor\":{\"display_login\":\"jkbnovak\"}}"
+        }
+    ]
+}

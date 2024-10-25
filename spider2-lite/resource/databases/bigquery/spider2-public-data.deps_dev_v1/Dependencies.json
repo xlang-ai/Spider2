@@ -1,0 +1,115 @@
+{
+    "table_name": "Dependencies",
+    "table_fullname": "spider2-public-data.deps_dev_v1.Dependencies",
+    "column_names": [
+        "SnapshotAt",
+        "System",
+        "Name",
+        "Version",
+        "Dependency",
+        "MinimumDepth"
+    ],
+    "column_types": [
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<System STRING, Name STRING, Version STRING>",
+        "INT64"
+    ],
+    "nested_column_names": [
+        "SnapshotAt",
+        "System",
+        "Name",
+        "Version",
+        "Dependency",
+        "Dependency.System",
+        "Dependency.Name",
+        "Dependency.Version",
+        "MinimumDepth"
+    ],
+    "nested_column_types": [
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<System STRING, Name STRING, Version STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "SnapshotAt": "2022-05-08 02:05:29.029028+00:00",
+            "System": "NPM",
+            "Name": "ex",
+            "Version": "0.1.2",
+            "Dependency": {
+                "System": "NPM",
+                "Name": "ee-first",
+                "Version": "1.1.1"
+            },
+            "MinimumDepth": null
+        },
+        {
+            "SnapshotAt": "2022-06-20 21:00:03.118511+00:00",
+            "System": "NPM",
+            "Name": "fo",
+            "Version": "0.1.0",
+            "Dependency": {
+                "System": "NPM",
+                "Name": "trivial-deferred",
+                "Version": "1.0.1"
+            },
+            "MinimumDepth": null
+        },
+        {
+            "SnapshotAt": "2022-06-20 21:00:03.118511+00:00",
+            "System": "NPM",
+            "Name": "n4",
+            "Version": "0.0.29",
+            "Dependency": {
+                "System": "NPM",
+                "Name": "babel-helpers",
+                "Version": "6.24.1"
+            },
+            "MinimumDepth": null
+        },
+        {
+            "SnapshotAt": "2022-06-20 21:00:03.118511+00:00",
+            "System": "NPM",
+            "Name": "n4",
+            "Version": "0.0.46",
+            "Dependency": {
+                "System": "NPM",
+                "Name": "babel-core",
+                "Version": "6.26.3"
+            },
+            "MinimumDepth": null
+        },
+        {
+            "SnapshotAt": "2022-06-20 21:00:03.118511+00:00",
+            "System": "NPM",
+            "Name": "n4",
+            "Version": "0.0.45",
+            "Dependency": {
+                "System": "NPM",
+                "Name": "babel-plugin-transform-es2015-shorthand-properties",
+                "Version": "6.24.1"
+            },
+            "MinimumDepth": null
+        }
+    ]
+}

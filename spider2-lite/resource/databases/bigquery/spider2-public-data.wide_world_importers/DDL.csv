@@ -1,0 +1,462 @@
+table_name,ddl
+sales_OrderLines,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_OrderLines`
+(
+  OrderLineID INT64,
+  OrderID INT64,
+  StockItemID INT64,
+  Description STRING,
+  PackageTypeID INT64,
+  Quantity INT64,
+  UnitPrice FLOAT64,
+  TaxRate FLOAT64,
+  PickedQuantity INT64,
+  PickingCompletedWhen STRING,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+warehouse_StockGroups,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_StockGroups`
+(
+  StockGroupID INT64,
+  StockGroupName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+sales_BuyingGroups,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_BuyingGroups`
+(
+  BuyingGroupID INT64,
+  BuyingGroupName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+purchasing_SupplierTransactions,"CREATE TABLE `spider2-public-data.wide_world_importers.purchasing_SupplierTransactions`
+(
+  SupplierTransactionID INT64,
+  SupplierID INT64,
+  TransactionTypeID INT64,
+  PurchaseOrderID STRING,
+  PaymentMethodID INT64,
+  SupplierInvoiceNumber STRING,
+  TransactionDate DATE,
+  AmountExcludingTax FLOAT64,
+  TaxAmount FLOAT64,
+  TransactionAmount FLOAT64,
+  OutstandingBalance FLOAT64,
+  FinalizationDate STRING,
+  IsFinalized INT64,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+application_Countries,"CREATE TABLE `spider2-public-data.wide_world_importers.application_Countries`
+(
+  CountryID INT64,
+  CountryName STRING,
+  FormalName STRING,
+  IsoAlpha3Code STRING,
+  IsoNumericCode INT64,
+  CountryType STRING,
+  LatestRecordedPopulation INT64,
+  Continent STRING,
+  Region STRING,
+  Subregion STRING,
+  Border FLOAT64,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+warehouse_StockItemHoldings,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_StockItemHoldings`
+(
+  StockItemID INT64,
+  QuantityOnHand INT64,
+  BinLocation STRING,
+  LastStocktakeQuantity INT64,
+  LastCostPrice FLOAT64,
+  ReorderLevel INT64,
+  TargetStockLevel INT64,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+application_Cities,"CREATE TABLE `spider2-public-data.wide_world_importers.application_Cities`
+(
+  CityID INT64,
+  CityName STRING,
+  StateProvinceID INT64,
+  Location FLOAT64,
+  LatestRecordedPopulation STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+warehouse_VehicleTemperatures,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_VehicleTemperatures`
+(
+  VehicleTemperatureID INT64,
+  VehicleRegistration STRING,
+  ChillerSensorNumber INT64,
+  RecordedWhen TIMESTAMP,
+  Temperature FLOAT64,
+  FullSensorData STRING,
+  IsCompressed INT64,
+  CompressedSensorData STRING
+);"
+application_StateProvinces,"CREATE TABLE `spider2-public-data.wide_world_importers.application_StateProvinces`
+(
+  StateProvinceID INT64,
+  StateProvinceCode STRING,
+  StateProvinceName STRING,
+  CountryID INT64,
+  SalesTerritory STRING,
+  Border BYTES,
+  LatestRecordedPopulation INT64,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+sales_Invoices,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_Invoices`
+(
+  InvoiceID INT64,
+  CustomerID INT64,
+  BillToCustomerID INT64,
+  OrderID INT64,
+  DeliveryMethodID INT64,
+  ContactPersonID INT64,
+  AccountsPersonID INT64,
+  SalespersonPersonID INT64,
+  PackedByPersonID INT64,
+  InvoiceDate STRING,
+  CustomerPurchaseOrderNumber INT64,
+  IsCreditNote INT64,
+  CreditNoteReason FLOAT64,
+  Comments FLOAT64,
+  DeliveryInstructions STRING,
+  InternalComments FLOAT64,
+  TotalDryItems INT64,
+  TotalChillerItems INT64,
+  DeliveryRun FLOAT64,
+  RunPosition FLOAT64,
+  ReturnedDeliveryData STRING,
+  ConfirmedDeliveryTime STRING,
+  ConfirmedReceivedBy STRING,
+  LastEditedBy INT64,
+  LastEditedWhen STRING
+);"
+warehouse_StockItemStockGroups,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_StockItemStockGroups`
+(
+  StockItemStockGroupID INT64,
+  StockItemID INT64,
+  StockGroupID INT64,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+sales_InvoiceLines,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_InvoiceLines`
+(
+  InvoiceLineID INT64,
+  InvoiceID INT64,
+  StockItemID INT64,
+  Description STRING,
+  PackageTypeID INT64,
+  Quantity INT64,
+  UnitPrice FLOAT64,
+  TaxRate FLOAT64,
+  TaxAmount FLOAT64,
+  LineProfit FLOAT64,
+  ExtendedPrice FLOAT64,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+purchasing_SupplierCategories,"CREATE TABLE `spider2-public-data.wide_world_importers.purchasing_SupplierCategories`
+(
+  SupplierCategoryID INT64,
+  SupplierCategoryName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+purchasing_PurchaseOrderLines,"CREATE TABLE `spider2-public-data.wide_world_importers.purchasing_PurchaseOrderLines`
+(
+  PurchaseOrderLineID INT64,
+  PurchaseOrderID INT64,
+  StockItemID INT64,
+  OrderedOuters INT64,
+  Description STRING,
+  ReceivedOuters INT64,
+  PackageTypeID INT64,
+  ExpectedUnitPricePerOuter FLOAT64,
+  LastReceiptDate STRING,
+  IsOrderLineFinalized INT64,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+warehouse_Colors,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_Colors`
+(
+  ColorID INT64,
+  ColorName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+sales_Customers,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_Customers`
+(
+  CustomerID INT64,
+  CustomerName STRING,
+  BillToCustomerID INT64,
+  CustomerCategoryID INT64,
+  BuyingGroupID STRING,
+  PrimaryContactPersonID INT64,
+  AlternateContactPersonID STRING,
+  DeliveryMethodID INT64,
+  DeliveryCityID INT64,
+  PostalCityID INT64,
+  CreditLimit STRING,
+  AccountOpenedDate DATE,
+  StandardDiscountPercentage FLOAT64,
+  IsStatementSent INT64,
+  IsOnCreditHold INT64,
+  PaymentDays INT64,
+  PhoneNumber STRING,
+  FaxNumber STRING,
+  DeliveryRun STRING,
+  RunPosition STRING,
+  WebsiteURL STRING,
+  DeliveryAddressLine1 STRING,
+  DeliveryAddressLine2 STRING,
+  DeliveryPostalCode INT64,
+  DeliveryLocation FLOAT64,
+  PostalAddressLine1 STRING,
+  PostalAddressLine2 STRING,
+  PostalPostalCode INT64,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+application_People,"CREATE TABLE `spider2-public-data.wide_world_importers.application_People`
+(
+  PersonID INT64,
+  FullName STRING,
+  PreferredName STRING,
+  SearchName STRING,
+  IsPermittedToLogon INT64,
+  LogonName STRING,
+  IsExternalLogonProvider INT64,
+  HashedPassword STRING,
+  IsSystemUser INT64,
+  IsEmployee INT64,
+  IsSalesperson INT64,
+  UserPreferences STRING,
+  PhoneNumber STRING,
+  FaxNumber STRING,
+  EmailAddress STRING,
+  Photo STRING,
+  CustomFields STRING,
+  OtherLanguages STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+warehouse_ColdRoomTemperatures,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_ColdRoomTemperatures`
+(
+  ColdRoomTemperatureID INT64,
+  ColdRoomSensorNumber INT64,
+  RecordedWhen TIMESTAMP,
+  Temperature FLOAT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+sales_CustomerTransactions,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_CustomerTransactions`
+(
+  CustomerTransactionID INT64,
+  CustomerID INT64,
+  TransactionTypeID INT64,
+  InvoiceID FLOAT64,
+  PaymentMethodID FLOAT64,
+  TransactionDate STRING,
+  AmountExcludingTax FLOAT64,
+  TaxAmount FLOAT64,
+  TransactionAmount FLOAT64,
+  OutstandingBalance FLOAT64,
+  FinalizationDate STRING,
+  IsFinalized INT64,
+  LastEditedBy INT64,
+  LastEditedWhen STRING
+);"
+application_SystemParameters,"CREATE TABLE `spider2-public-data.wide_world_importers.application_SystemParameters`
+(
+  SystemParameterID INT64,
+  DeliveryAddressLine1 STRING,
+  DeliveryAddressLine2 STRING,
+  DeliveryCityID INT64,
+  DeliveryPostalCode INT64,
+  DeliveryLocation STRING,
+  PostalAddressLine1 STRING,
+  PostalAddressLine2 STRING,
+  PostalCityID INT64,
+  PostalPostalCode INT64,
+  ApplicationSettings STRING,
+  LastEditedBy INT64,
+  LastEditedWhen STRING
+);"
+sales_SpecialDeals,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_SpecialDeals`
+(
+  SpecialDealID INT64,
+  StockItemID STRING,
+  CustomerID STRING,
+  BuyingGroupID INT64,
+  CustomerCategoryID STRING,
+  StockGroupID INT64,
+  DealDescription STRING,
+  StartDate DATE,
+  EndDate DATE,
+  DiscountAmount STRING,
+  DiscountPercentage FLOAT64,
+  UnitPrice STRING,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+sales_CustomerCategories,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_CustomerCategories`
+(
+  CustomerCategoryID INT64,
+  CustomerCategoryName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+warehouse_StockItemTransactions,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_StockItemTransactions`
+(
+  StockItemTransactionID INT64,
+  StockItemID INT64,
+  TransactionTypeID INT64,
+  CustomerID FLOAT64,
+  InvoiceID FLOAT64,
+  SupplierID FLOAT64,
+  PurchaseOrderID FLOAT64,
+  TransactionOccurredWhen STRING,
+  Quantity FLOAT64,
+  LastEditedBy INT64,
+  LastEditedWhen STRING
+);"
+sales_Orders,"CREATE TABLE `spider2-public-data.wide_world_importers.sales_Orders`
+(
+  OrderID INT64,
+  CustomerID INT64,
+  SalespersonPersonID INT64,
+  PickedByPersonID STRING,
+  ContactPersonID INT64,
+  BackorderOrderID STRING,
+  OrderDate DATE,
+  ExpectedDeliveryDate DATE,
+  CustomerPurchaseOrderNumber INT64,
+  IsUndersupplyBackordered INT64,
+  Comments STRING,
+  DeliveryInstructions STRING,
+  InternalComments STRING,
+  PickingCompletedWhen STRING,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+warehouse_PackageTypes,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_PackageTypes`
+(
+  PackageTypeID INT64,
+  PackageTypeName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+purchasing_PurchaseOrder,"CREATE TABLE `spider2-public-data.wide_world_importers.purchasing_PurchaseOrder`
+(
+  PurchaseOrderID INT64,
+  SupplierID INT64,
+  OrderDate DATE,
+  DeliveryMethodID INT64,
+  ContactPersonID INT64,
+  ExpectedDeliveryDate DATE,
+  SupplierReference STRING,
+  IsOrderFinalized INT64,
+  Comments STRING,
+  InternalComments STRING,
+  LastEditedBy INT64,
+  LastEditedWhen TIMESTAMP
+);"
+warehouse_StockItems,"CREATE TABLE `spider2-public-data.wide_world_importers.warehouse_StockItems`
+(
+  StockItemID INT64,
+  StockItemName STRING,
+  SupplierID INT64,
+  ColorID STRING,
+  UnitPackageID INT64,
+  OuterPackageID INT64,
+  Brand STRING,
+  Size STRING,
+  LeadTimeDays INT64,
+  QuantityPerOuter INT64,
+  IsChillerStock INT64,
+  Barcode STRING,
+  TaxRate FLOAT64,
+  UnitPrice FLOAT64,
+  RecommendedRetailPrice FLOAT64,
+  TypicalWeightPerUnit FLOAT64,
+  MarketingComments STRING,
+  InternalComments STRING,
+  Photo STRING,
+  CustomFields STRING,
+  Tags STRING,
+  SearchDetails STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+application_TransactionTypes,"CREATE TABLE `spider2-public-data.wide_world_importers.application_TransactionTypes`
+(
+  TransactionTypeID INT64,
+  TransactionTypeName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+application_DeliveryMethods,"CREATE TABLE `spider2-public-data.wide_world_importers.application_DeliveryMethods`
+(
+  DeliveryMethodID INT64,
+  DeliveryMethodName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+purchasing_Suppliers,"CREATE TABLE `spider2-public-data.wide_world_importers.purchasing_Suppliers`
+(
+  SupplierID INT64,
+  SupplierName STRING,
+  SupplierCategoryID INT64,
+  PrimaryContactPersonID INT64,
+  AlternateContactPersonID INT64,
+  DeliveryMethodID STRING,
+  DeliveryCityID INT64,
+  PostalCityID INT64,
+  SupplierReference STRING,
+  BankAccountName STRING,
+  BankAccountBranch STRING,
+  BankAccountCode INT64,
+  BankAccountNumber INT64,
+  BankInternationalCode INT64,
+  PaymentDays INT64,
+  InternalComments STRING,
+  PhoneNumber STRING,
+  FaxNumber STRING,
+  WebsiteURL STRING,
+  DeliveryAddressLine1 STRING,
+  DeliveryAddressLine2 STRING,
+  DeliveryPostalCode INT64,
+  DeliveryLocation FLOAT64,
+  PostalAddressLine1 STRING,
+  PostalAddressLine2 STRING,
+  PostalPostalCode INT64,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"
+application_PaymentMethods,"CREATE TABLE `spider2-public-data.wide_world_importers.application_PaymentMethods`
+(
+  PaymentMethodID INT64,
+  PaymentMethodName STRING,
+  LastEditedBy INT64,
+  ValidFrom TIMESTAMP,
+  ValidTo TIMESTAMP
+);"

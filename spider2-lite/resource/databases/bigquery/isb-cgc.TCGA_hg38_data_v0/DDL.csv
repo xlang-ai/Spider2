@@ -1,0 +1,1106 @@
+table_name,ddl
+DNA_Methylation_chr4,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr4`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-20""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba35""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba28""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 4 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 4 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr4_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr4_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr9,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr9`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-25""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba40""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba33""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 9 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 9 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr9_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr9_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+Copy_Number_Segment_Masked,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Copy_Number_Segment_Masked`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; e.g. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-01""),
+  chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  start_pos INT64 OPTIONS(description=""1-based start chromosome position of CN segment start-position""),
+  end_pos INT64 OPTIONS(description=""1-based end chromosome position of isoform""),
+  num_probes INT64 OPTIONS(description=""Number of probes in the SNP array used to infer this CN segment""),
+  segment_mean FLOAT64 OPTIONS(description=""Mean CN value for this segment -- the value is base2 log(CN/2), centered at 0.""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba9""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba16"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 COPY NUMBER SEGMENT MASKED 2017 DEPRECATED"",
+  description=""Data was extracted from GDC on February 2017. Masked Copy Number Segments was generated by selecting the fields marked masked and the data was generated using the Affymetrix Genome Wide SNP 6.0 array and the GDC workflow. More details: https://docs.gdc.cancer.gov/Data/Bioinformatics_Pipelines/CNV_Pipeline/. It has been copied to isb-cgc-bq.TCGA_versioned.copy_number_segment_masked_hg38_gdc_2017_02. Please see isb-cgc-bq.TCGA.copy_number_segment_masked_hg38_gdc_current for the most current table."",
+  labels=[(""source"", ""gdc""), (""reference_genome"", ""hg38""), (""access"", ""open""), (""data_type"", ""copy_number_segment_masked""), (""status"", ""deprecated""), (""program"", ""tcga""), (""category"", ""processed_-omics_data"")]
+);"
+DNA_Methylation_chr21,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr21`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-17""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba32""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba25""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 21 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 21 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr21_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr21_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr17,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr17`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-12""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba27""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba20""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 17 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 17 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr17_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr17_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+miRNAseq_Expression,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.miRNAseq_Expression`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-28""),
+  mirna_id STRING OPTIONS(description=""Unique miRNA id (aka symbol), eg hsa-mir-21  --  relevant reference information can be found in the isb-cgc:genome_reference dataset in the tables miRBase_v21 and miRBase_v21_hsa_gff3""),
+  read_count INT64 OPTIONS(description=""Number of reads that were mapped to this mirna_id""),
+  reads_per_million_miRNA_mapped FLOAT64 OPTIONS(description=""Read count normalized by total reads mapped divided by 1 million""),
+  cross_mapped STRING OPTIONS(description=""A short isomiR read may map exactly to mature strands whose sequences are similar but not identical, when the read sequence does not capture the bases that distinguish these miRNAs (e.g. hsa-mir-30a at 6q13 and hsa-mir-30e at 1p34.2, which differ at position 18). We report such a <line_feed> read as cross-mapped, and we increment the read count for each MIMAT that it mapped to. Either Y or N -- fewer than 2% are Y"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 MIRNASEQ EXPRESSION REL14 DEPRECATED"",
+  description=""Data was extracted from release 14 of the active GDC archive from December 2018 for miRNAseq expression data. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-140. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.miRNAseq_hg38_gdc_r14. Please see isb-cgc-bq.TCGA.miRNAseq_hg38_gdc_current for the most current table."",
+  labels=[(""source"", ""gdc""), (""program"", ""tcga""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""data_type"", ""mirna_expression""), (""reference_genome"", ""hg38"")]
+);"
+DNA_Methylation_chr16,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr16`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-11""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba26""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba19""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 16 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 16 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr16_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr16_hg38_gdc_current for the most current table."",
+  labels=[(""data_type_0"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr13,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr13`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-08""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba23""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba16""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 13 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 13 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr13_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr13_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+Protein_Expression,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Protein_Expression`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-30""),
+  gene_name STRING OPTIONS(description=""Gene name e.g. TTN, DDR1, etc.""),
+  protein_base_name STRING OPTIONS(description=""Protein name e.g. AR, MAPK""),
+  phospho STRING OPTIONS(description=""If the antibody targets a phosphorylated protein, this field will contain that information, eg pS473  --  otherwise this field will be null""),
+  protein_name STRING OPTIONS(description=""Protein symbol with phosphorylation status, eg ACC_pS79""),
+  protein_expression FLOAT64 OPTIONS(description=""Expression level of protein as measured by reverse-phase protein arrays. https://bioinformatics.mdanderson.org/public-software/tcpa/""),
+  antibody_source STRING OPTIONS(description=""Animal of origin for the antibody M (Mouse), R (Rabbit), G (Goat)""),
+  validation_status STRING OPTIONS(description=""Validation status of antibody by correlation of RPPA data with Western blot, V E C (https://bioinformatics.mdanderson.org/public-software/mclp/)"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 PROTEIN EXPRESSION 2017 DEPRECATED"",
+  description=""Data was extracted from TCGA DCC on February 2017. RPPA/protein qualification data for TCGA samples was extracted by the NCI GDC in the legacy archive specifically the files with names like \""MDA_RPPA_Core.protein_expression.Level_3\"". Note: A significant amount of manual curation of the gene and protein symbols was done. More details: https://bioinformatics.mdanderson.org/public-software/tcpa/. It has been copied to isb-cgc-bq.TCGA_versioned.protein_expression_hg38_gdc_2017_02. Please see isb-cgc-bq.TCGA.protein_expression_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""protein_expression""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""experimental_strategy"", ""rppa""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+Somatic_Mutation,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode_tumor STRING OPTIONS(description=""TCGA sample barcode for the tumor, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  sample_barcode_normal STRING OPTIONS(description=""TCGA sample barcode for the normal control, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode_tumor STRING OPTIONS(description=""TCGA aliquot barcode for the tumor, eg TCGA-12-1089-01A-01D-0517-01""),
+  aliquot_barcode_normal STRING OPTIONS(description=""TCGA aliquot barcode for the normal control, eg TCGA-12-1089-01A-01D-0517-01""),
+  Hugo_Symbol STRING OPTIONS(description=""HUGO symbol for the gene (HUGO symbols are always in all caps). Unknown is used for regions that do not correspond to a gene""),
+  Entrez_Gene_Id INT64 OPTIONS(description=""Entrez gene ID (an integer). 0 is used for regions that do not correspond to a gene region or Ensembl ID""),
+  Center STRING OPTIONS(description=""One or more genome sequencing center reporting the variant""),
+  NCBI_Build STRING OPTIONS(description=""The reference genome used for the alignment (GRCh38)""),
+  Chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  Start_Position INT64 OPTIONS(description=""Lowest numeric position of the reported variant on the genomic reference sequence. Mutation start coordinate""),
+  End_Position INT64 OPTIONS(description=""Highest numeric genomic position of the reported variant on the genomic reference sequence. Mutation end coordinate""),
+  Strand STRING OPTIONS(description=""Either + or - to denote whether read mapped to the sense (+) or anti-sense (-) strand""),
+  Variant_Classification STRING OPTIONS(description=""Translational effect of variant allele""),
+  Variant_Type STRING OPTIONS(description=""Type of mutation. TNP (tri-nucleotide polymorphism) is analogous to DNP (di-nucleotide polymorphism) but for three consecutive nucleotides. ONP (oligo-nucleotide polymorphism) is analogous to TNP but for consecutive runs of four or more (SNP, DNP, TNP, ONP, INS, DEL, or Consolidated)""),
+  Reference_Allele STRING OPTIONS(description=""The plus strand reference allele at this position. Includes the deleted sequence for a deletion or - for an insertion""),
+  Tumor_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Seq_Allele2 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 2. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  dbSNP_RS STRING OPTIONS(description=""The rs-IDs from the   dbSNP database, novel if not found in any database used, or null if there is no dbSNP record, but it is found in other databases""),
+  dbSNP_Val_Status STRING OPTIONS(description=""The dbSNP validation status is reported as a semicolon-separated list of statuses. The union of all rs-IDs is taken when there are multiple""),
+  Tumor_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 2""),
+  Mutation_Status STRING OPTIONS(description=""An assessment of the mutation as somatic, germline, LOH, post transcriptional modification, unknown, or none. The values allowed in this field are constrained by the value in the Validation_Status field""),
+  Validation_Method STRING OPTIONS(description=""The assay platforms used for the validation call""),
+  Sequencer STRING OPTIONS(description=""Instrument used to produce primary sequence data""),
+  Tumor_Sample_UUID STRING OPTIONS(description=""Unique GDC identifier for tumor aliquot (10189 unique)""),
+  Matched_Norm_Sample_UUID STRING OPTIONS(description=""Unique GDC identifier for normal aliquot (10189 unique)""),
+  HGVSc STRING OPTIONS(description=""The coding sequence of the variant in HGVS recommended format""),
+  HGVSp STRING OPTIONS(description=""The protein sequence of the variant in HGVS recommended format. p.= signifies no change in the protein""),
+  HGVSp_Short STRING OPTIONS(description=""Same as the HGVSp column, but using 1-letter amino-acid codes""),
+  Transcript_ID STRING OPTIONS(description=""Ensembl ID of the transcript affected by the variant""),
+  Exon_Number STRING OPTIONS(description=""The exon number (out of total number)""),
+  t_depth STRING OPTIONS(description=""Read depth across this locus in tumor BAM""),
+  t_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in tumor BAM""),
+  t_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in tumor BAM""),
+  n_depth STRING OPTIONS(description=""Read depth across this locus in normal BAM""),
+  all_effects STRING OPTIONS(description=""A semicolon delimited list of all possible variant effects, sorted by priority ([Symbol,Consequence,HGVSp_Short,Transcript_ID,RefSeq,HGVSc,Impact,Canonical,Sift,PolyPhen,Strand])""),
+  Allele STRING OPTIONS(description=""The variant allele used to calculate the consequence""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is gene name e.g. ACADVL""),
+  Feature STRING OPTIONS(description=""Stable Ensembl ID of feature (transcript, regulatory, motif)""),
+  Feature_type STRING OPTIONS(description=""Type of feature. Currently one of Transcript, RegulatoryFeature, MotifFeature (or blank)""),
+  One_Consequence STRING OPTIONS(description=""The single consequence of the canonical transcript in  sequence ontology terms, eg missense_variant""),
+  Consequence STRING OPTIONS(description=""Consequence type of this variant; sequence ontology terms""),
+  cDNA_position STRING OPTIONS(description=""Relative position of base pair in the cDNA sequence as a fraction. A - symbol is displayed as the numerator if the variant does not appear in cDNA""),
+  CDS_position STRING OPTIONS(description=""Relative position of base pair in coding sequence. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Protein_position STRING OPTIONS(description=""Relative position of affected amino acid in protein. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Amino_acids STRING OPTIONS(description=""Amino acid substitution caused by the mutation. Only given if the variation affects the protein-coding sequence""),
+  Codons STRING OPTIONS(description=""The alternative codons with the variant base in upper case""),
+  Existing_variation STRING OPTIONS(description=""Known identifier of existing variation""),
+  ALLELE_NUM STRING OPTIONS(description=""Allele number from input; 0 is reference, 1 is first alternate etc.""),
+  DISTANCE INT64 OPTIONS(description=""Shortest distance from the variant to transcript""),
+  TRANSCRIPT_STRAND INT64 OPTIONS(description=""The DNA strand (1 or -1) on which the transcript/feature lies""),
+  SYMBOL STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown""),
+  SYMBOL_SOURCE STRING OPTIONS(description=""The source of the gene symbol, usually HGNC, rarely blank, other sources include Uniprot_gn, EntrezGene, etc""),
+  HGNC_ID STRING OPTIONS(description=""Gene identifier from the HUGO Gene Nomenclature Committee if applicable""),
+  BIOTYPE STRING OPTIONS(description=""Biotype of transcript""),
+  CANONICAL STRING OPTIONS(description=""A flag (YES) indicating that the VEP-based canonical transcript, the longest translation, was used for this gene. If not, the value is null""),
+  CCDS STRING OPTIONS(description=""The  CCDS identifier for this transcript, where applicable""),
+  ENSP STRING OPTIONS(description=""The Ensembl protein identifier of the affected transcript""),
+  SWISSPROT STRING OPTIONS(description=""UniProtKB/Swiss-Prot accession""),
+  TREMBL STRING OPTIONS(description=""UniProtKB/TrEMBL identifier of protein product""),
+  UNIPARC STRING OPTIONS(description=""UniParc identifier of protein product""),
+  RefSeq STRING OPTIONS(description=""RefSeq identifier for this transcript""),
+  SIFT STRING OPTIONS(description=""The   SIFT prediction and/or score, with both given as prediction (score)""),
+  PolyPhen STRING OPTIONS(description=""The PolyPhen prediction and/or score""),
+  EXON STRING OPTIONS(description=""The exon number (out of total number)""),
+  INTRON STRING OPTIONS(description=""The intron number (out of total number)""),
+  DOMAINS STRING OPTIONS(description=""The source and identifier of any overlapping protein domains""),
+  GMAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in   1000 Genomes""),
+  AFR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined African population""),
+  AMR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined American population""),
+  EAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined East Asian population""),
+  EUR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined European population""),
+  SAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined South Asian population""),
+  AA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP African American population""),
+  EA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP European American population""),
+  CLIN_SIG STRING OPTIONS(description=""Clinical significance of variant from dbSNP""),
+  SOMATIC STRING OPTIONS(description=""Somatic status of each ID reported under Existing_variation (0, 1, or null)""),
+  PUBMED STRING OPTIONS(description=""Pubmed ID(s) of publications that cite existing variant""),
+  IMPACT STRING OPTIONS(description=""The impact modifier for the consequence type""),
+  PICK STRING OPTIONS(description=""Indicates if this block of consequence data was picked by VEP's   pick feature (1 or null)""),
+  VARIANT_CLASS STRING OPTIONS(description=""Sequence Ontology variant class""),
+  TSL INT64 OPTIONS(description=""Transcript support level, which is based on independent RNA analyses""),
+  HGVS_OFFSET INT64 OPTIONS(description=""Indicates by how many bases the HGVS notations for this variant have been shifted""),
+  PHENO STRING OPTIONS(description=""Indicates if existing variant is associated with a phenotype, disease or trait (0, 1, or null)""),
+  MINIMISED STRING OPTIONS(description=""Alleles in this variant have been converted to minimal representation before consequence calculation (1 or null)""),
+  ExAC_AF STRING OPTIONS(description=""Global Allele Frequency from   ExAC""),
+  ExAC_AF_Adj STRING OPTIONS(description=""Adjusted Global Allele Frequency from ExAC""),
+  ExAC_AF_AFR STRING OPTIONS(description=""African/African American Allele Frequency from ExAC""),
+  ExAC_AF_AMR STRING OPTIONS(description=""American Allele Frequency from ExAC""),
+  ExAC_AF_EAS STRING OPTIONS(description=""East Asian Allele Frequency from ExAC""),
+  ExAC_AF_FIN STRING OPTIONS(description=""Finnish Allele Frequency from ExAC""),
+  ExAC_AF_NFE STRING OPTIONS(description=""Non-Finnish European Allele Frequency from ExAC""),
+  ExAC_AF_OTH STRING OPTIONS(description=""Other Allele Frequency from ExAC""),
+  ExAC_AF_SAS STRING OPTIONS(description=""South Asian Allele Frequency from ExAC""),
+  FILTER STRING OPTIONS(description=""Copied from input VCF. This includes filters implemented directly by the variant caller and other external software used in the DNA-Seq pipeline. See below for additional details.""),
+  CONTEXT STRING OPTIONS(description=""The reference allele per VCF specs, and its five flanking base pairs""),
+  src_vcf_id STRING OPTIONS(description=""|-delimited list of GDC VCF file identifiers""),
+  tumor_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying bam file""),
+  normal_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying normal bam file""),
+  case_id STRING OPTIONS(description=""Unique GDC identifier for the underlying case""),
+  GDC_FILTER STRING OPTIONS(description=""GDC filters applied universally across all MAFs""),
+  COSMIC STRING OPTIONS(description=""Overlapping COSMIC variants""),
+  MC3_Overlap STRING OPTIONS(description=""Indicates whether this region overlaps with an MC3 variant for the same sample pair""),
+  GDC_Validation_Status STRING OPTIONS(description=""GDC implementation of validation checks. See notes section (#5) below for details""),
+  callerName STRING OPTIONS(description=""|-delimited list of mutation caller(s) that agreed on this particular call, always in alphabetical order: muse, mutect, somaticsniper, varscan""),
+  fileUUID STRING OPTIONS(description=""|-delimited list of unique GDC identifiers for underlying MAF file""),
+  fileName STRING OPTIONS(description=""|-delimited list of name of underlying MAF file"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 SOMATIC MUTATION DEPRECATED"",
+  description=""Data was extracted from release 10 of the active GDC archive on January 2018 for somatic mutation data. More details:https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-101. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.somatic_mutation_hg38_gdc_r10. Please see isb-cgc-bq.TCGA.somatic_mutation_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""somatic_mutation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr5,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr5`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-21""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba36""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba29""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 5 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 5 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr5_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr5_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr8,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr8`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-24""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba39""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba32""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 8 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 8 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr8_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr8_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+miRNAseq_Isoform_Expression,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.miRNAseq_Isoform_Expression`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-29""),
+  mirna_id STRING OPTIONS(description=""Unique miRNA id (aka symbol), eg hsa-mir-21  --  relevant reference information can be found in the isb-cgc:genome_reference dataset in the tables miRBase_v21 and miRBase_v21_hsa_gff4""),
+  chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  start_pos INT64 OPTIONS(description=""1-based start chromosome position of isoform""),
+  end_pos INT64 OPTIONS(description=""1-based end chromosome position of isoform""),
+  strand STRING OPTIONS(description=""Either + or - to denote whether read mapped to the sense (+) or anti-sense (-) strand""),
+  read_count INT64 OPTIONS(description=""Number of reads that were mapped to this mirna_id""),
+  reads_per_million_miRNA_mapped FLOAT64 OPTIONS(description=""Read count normalized by total reads mapped divided by 1 million""),
+  cross_mapped STRING OPTIONS(description=""A short isomiR read may map exactly to mature strands whose sequences are similar but not identical, when the read sequence does not capture the bases that distinguish these miRNAs (e.g. hsa-mir-30a at 6q13 and hsa-mir-30e at 1p34.2, which differ at position 18). We report such a <line_feed> read as cross-mapped, and we increment the read count for each MIMAT that it mapped to. Either Y or N -- fewer than 2% are Y""),
+  mirna_transcript STRING OPTIONS(description=""The type of transcript -- either mature, precursor, unannotated, or stemloop  (if this value is not mature, then the mirna_accession field will be null)""),
+  mirna_accession STRING OPTIONS(description=""The mature miRNA accession id (eg MIMAT0000062) -- note that this can also be null, in the event that this read does not map to a mature portion of the miRNA"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 MIRNASEQ ISOFORM EXPRESSION REL14 DEPRECATED"",
+  description=""Data was extracted from release 14 active GDC archive from December 2018 for miRNA isoform expression. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-140. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.miRNAseq_isoform_hg38_gdc_r14. Please see isb-cgc-bq.TCGA.miRNAseq_isoform_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""mirna_isoform_expression""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr14,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr14`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-09""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba24""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba17""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 14 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 14 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr14_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr14_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr10,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr10`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-05""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba20""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba13""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 10 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation data for chromosome 10 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr10_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr10_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr19,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr19`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-14""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba29""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba22""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 19 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 19 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr19_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr19_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+tcga_metadata_data_hg38_r14,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.tcga_metadata_data_hg38_r14`
+(
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba44""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba37""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  disease_code STRING OPTIONS(description=""A code representing the type of cancer. Values can be found at https://gdc.cancer.gov/resources-TCGA-users/TCGA-code-tables/TCGA-study-abbreviations; eg. OV, GBM, LUAD""),
+  program_name STRING OPTIONS(description=""Program name, eg TCGA or TARGET""),
+  data_type STRING OPTIONS(description=""Experimental source of the data type, eg Tissue slide image, RNA-Seq""),
+  data_category STRING OPTIONS(description=""Category description of the underlying data, eg Clinical, Raw Sequencing Data, Simple Nucleotide Variation, Transcriptome Profiling  , etc""),
+  experimental_strategy STRING OPTIONS(description=""Experimental strategy used to generate data (where applicable) e.g. WXS, RNA-Seq""),
+  type STRING OPTIONS(description=""Description of the data, eg. clinical_supplement, aligned_reads""),
+  file_size INT64 OPTIONS(description=""The size of the file measured in bytes""),
+  data_format STRING OPTIONS(description=""File format of the underlying data, eg BCR XML, BAM""),
+  platform STRING OPTIONS(description=""Platform used to generate data (null, Illumina)""),
+  file_name_key STRING OPTIONS(description=""GDC path to original bam or vcf file""),
+  index_file_id STRING OPTIONS(description=""BAM  or VCF index file GDC file UUID""),
+  index_file_name_key STRING OPTIONS(description=""GDC path to original vcf or bam index file ""),
+  index_file_size INT64 OPTIONS(description=""When available, the size of the file measured in bytes""),
+  `access` STRING OPTIONS(description=""Data accessibility policy (open or controlled)""),
+  acl STRING OPTIONS(description=""Access Control List -- if access is controlled, this field contains the dbGaP accession, eg phs000179"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 METADATA REL14 DEPRECATED"",
+  description=""Data was generated from file metadata for TCGA data in the GDC active archive for release 14 from December 2018. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-140. It has been copied to isb-cgc-bq.TCGA_versioned.per_sample_file_metadata_hg38_gdc_r14. Please see isb-cgc-bq.TCGA.per_sample_file_metadata_hg38_gdc_current for the most current table."",
+  labels=[(""access"", ""open""), (""reference_genome"", ""hg38""), (""data_type"", ""file_metadata""), (""source"", ""gdc""), (""program"", ""tcga""), (""status"", ""deprecated""), (""category"", ""metadata"")]
+);"
+Somatic_Mutation_DR7,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation_DR7`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode_tumor STRING OPTIONS(description=""TCGA sample barcode for the tumor, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  sample_barcode_normal STRING OPTIONS(description=""TCGA sample barcode for the normal control, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode_tumor STRING OPTIONS(description=""TCGA aliquot barcode for the tumor, eg TCGA-12-1089-01A-01D-0517-01""),
+  aliquot_barcode_normal STRING OPTIONS(description=""TCGA aliquot barcode for the normal control, eg TCGA-12-1089-01A-01D-0517-01""),
+  Hugo_Symbol STRING OPTIONS(description=""HUGO symbol for the gene (HUGO symbols are always in all caps). Unknown is used for regions that do not correspond to a gene""),
+  Entrez_Gene_Id INT64 OPTIONS(description=""Entrez gene ID (an integer). 0 is used for regions that do not correspond to a gene region or Ensembl ID""),
+  Center STRING OPTIONS(description=""One or more genome sequencing center reporting the variant""),
+  NCBI_Build STRING OPTIONS(description=""The reference genome used for the alignment (GRCh38)""),
+  Chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  Start_Position INT64 OPTIONS(description=""Lowest numeric position of the reported variant on the genomic reference sequence. Mutation start coordinate""),
+  End_Position INT64 OPTIONS(description=""Highest numeric genomic position of the reported variant on the genomic reference sequence. Mutation end coordinate""),
+  Strand STRING OPTIONS(description=""Either + or - to denote whether read mapped to the sense (+) or anti-sense (-) strand""),
+  Variant_Classification STRING OPTIONS(description=""Translational effect of variant allele""),
+  Variant_Type STRING OPTIONS(description=""Type of mutation. TNP (tri-nucleotide polymorphism) is analogous to DNP (di-nucleotide polymorphism) but for three consecutive nucleotides. ONP (oligo-nucleotide polymorphism) is analogous to TNP but for consecutive runs of four or more (SNP, DNP, TNP, ONP, INS, DEL, or Consolidated)""),
+  Reference_Allele STRING OPTIONS(description=""The plus strand reference allele at this position. Includes the deleted sequence for a deletion or - for an insertion""),
+  Tumor_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Seq_Allele2 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 2. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  dbSNP_RS STRING OPTIONS(description=""The rs-IDs from the   dbSNP database, novel if not found in any database used, or null if there is no dbSNP record, but it is found in other databases""),
+  dbSNP_Val_Status STRING OPTIONS(description=""The dbSNP validation status is reported as a semicolon-separated list of statuses. The union of all rs-IDs is taken when there are multiple""),
+  Match_Norm_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype. Matched normal sequencing allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases (cleared in somatic MAF)""),
+  Match_Norm_Seq_Allele2 STRING OPTIONS(description=""Matched normal sequencing allele 2""),
+  Tumor_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 2""),
+  Match_Norm_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Matched normal genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases (cleared in somatic MAF)""),
+  Match_Norm_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Matched normal genotyping (validation) for allele 2 (cleared in somatic MAF)""),
+  Verification_Status STRING OPTIONS(description=""Second pass results from independent attempt using same methods as primary data source. Generally reserved for 3730 Sanger Sequencing""),
+  Validation_Status STRING OPTIONS(description=""Second pass results from orthogonal technology""),
+  Mutation_Status STRING OPTIONS(description=""An assessment of the mutation as somatic, germline, LOH, post transcriptional modification, unknown, or none. The values allowed in this field are constrained by the value in the Validation_Status field""),
+  Sequencing_Phase STRING OPTIONS(description=""TCGA sequencing phase (if applicable). Phase should change under any circumstance that the targets under consideration change""),
+  Sequence_Source STRING OPTIONS(description=""Molecular assay type used to produce the analytes used for sequencing. Allowed values are a subset of the SRA 1.5 library_strategy field values. This subset matches those used at CGHub""),
+  Validation_Method STRING OPTIONS(description=""The assay platforms used for the validation call""),
+  Score STRING OPTIONS(description=""Not in use""),
+  BAM_File STRING OPTIONS(description=""Name of the bam file. Not in use in this table. ""),
+  Sequencer STRING OPTIONS(description=""Instrument used to produce primary sequence data""),
+  Tumor_Sample_UUID STRING OPTIONS(description=""GDC aliquot UUID for tumor sample""),
+  Matched_Norm_Sample_UUID STRING OPTIONS(description=""Unique GDC identifier for the matched normal sample""),
+  HGVSc STRING OPTIONS(description=""The coding sequence of the variant in HGVS recommended format""),
+  HGVSp STRING OPTIONS(description=""The protein sequence of the variant in HGVS recommended format. p.= signifies no change in the protein""),
+  HGVSp_Short STRING OPTIONS(description=""Same as the HGVSp column, but using 1-letter amino-acid codes""),
+  Transcript_ID STRING OPTIONS(description=""Ensembl ID of the transcript affected by the variant""),
+  Exon_Number STRING OPTIONS(description=""The exon number (out of total number)""),
+  t_depth STRING OPTIONS(description=""Read depth across this locus in tumor BAM""),
+  t_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in tumor BAM""),
+  t_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in tumor BAM""),
+  n_depth STRING OPTIONS(description=""Read depth across this locus in normal BAM""),
+  n_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in normal BAM (cleared in somatic MAF)""),
+  n_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in normal BAM (cleared in somatic MAF)""),
+  all_effects STRING OPTIONS(description=""A semicolon delimited list of all possible variant effects, sorted by priority ([Symbol,Consequence,HGVSp_Short,Transcript_ID,RefSeq,HGVSc,Impact,Canonical,Sift,PolyPhen,Strand])""),
+  Allele STRING OPTIONS(description=""The variant allele used to calculate the consequence""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is simulated data e.g. ENSG00000251562""),
+  Feature STRING OPTIONS(description=""Stable Ensembl ID of feature (transcript, regulatory, motif)""),
+  Feature_type STRING OPTIONS(description=""Type of feature. Currently one of Transcript, RegulatoryFeature, MotifFeature (or blank)""),
+  One_Consequence STRING OPTIONS(description=""The single consequence of the canonical transcript in   sequence ontology terms""),
+  Consequence STRING OPTIONS(description=""Consequence type of this variant;   sequence ontology terms""),
+  cDNA_position STRING OPTIONS(description=""Relative position of base pair in the cDNA sequence as a fraction. A - symbol is displayed as the numerator if the variant does not appear in cDNA""),
+  CDS_position STRING OPTIONS(description=""Relative position of base pair in coding sequence. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Protein_position STRING OPTIONS(description=""Relative position of affected amino acid in protein. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Amino_acids STRING OPTIONS(description=""Amino acid substitution caused by the mutation. Only given if the variation affects the protein-coding sequence""),
+  Codons STRING OPTIONS(description=""The alternative codons with the variant base in upper case""),
+  Existing_variation STRING OPTIONS(description=""Known identifier of existing variation""),
+  ALLELE_NUM STRING OPTIONS(description=""Allele number from input; 0 is reference, 1 is first alternate etc.""),
+  DISTANCE INT64 OPTIONS(description=""Shortest distance from the variant to transcript""),
+  TRANSCRIPT_STRAND INT64 OPTIONS(description=""The DNA strand (1 or -1) on which the transcript/feature lies""),
+  SYMBOL STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown""),
+  SYMBOL_SOURCE STRING OPTIONS(description=""The source of the gene symbol, usually HGNC, rarely blank, other sources include Uniprot_gn, EntrezGene, etc""),
+  HGNC_ID STRING OPTIONS(description=""Gene identifier from the HUGO Gene Nomenclature Committee if applicable""),
+  BIOTYPE STRING OPTIONS(description=""Biotype of transcript""),
+  CANONICAL STRING OPTIONS(description=""A flag (YES) indicating that the VEP-based canonical transcript, the longest translation, was used for this gene. If not, the value is null""),
+  CCDS STRING OPTIONS(description=""The CCDS identifier for this transcript, where applicable""),
+  ENSP STRING OPTIONS(description=""The Ensembl protein identifier of the affected transcript""),
+  SWISSPROT STRING OPTIONS(description=""UniProtKB/Swiss-Prot accession""),
+  TREMBL STRING OPTIONS(description=""UniProtKB/TrEMBL identifier of protein product""),
+  UNIPARC STRING OPTIONS(description=""UniParc identifier of protein product""),
+  RefSeq STRING OPTIONS(description=""RefSeq identifier for this transcript""),
+  SIFT STRING OPTIONS(description=""The  SIFT prediction and/or score, with both given as prediction (score)""),
+  PolyPhen STRING OPTIONS(description=""The PolyPhen prediction and/or score""),
+  EXON STRING OPTIONS(description=""The exon number (out of total number)""),
+  INTRON STRING OPTIONS(description=""The intron number (out of total number)""),
+  DOMAINS STRING OPTIONS(description=""The source and identifier of any overlapping protein domains""),
+  GMAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in   1000 Genomes""),
+  AFR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined African population""),
+  AMR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined American population""),
+  ASN_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined Asian population""),
+  EAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined East Asian population""),
+  EUR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined European population""),
+  SAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined South Asian population""),
+  AA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP African American population""),
+  EA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP European American population""),
+  CLIN_SIG STRING OPTIONS(description=""Clinical significance of variant from dbSNP""),
+  SOMATIC STRING OPTIONS(description=""Somatic status of each ID reported under Existing_variation (0, 1, or null)""),
+  PUBMED STRING OPTIONS(description=""Pubmed ID(s) of publications that cite existing variant""),
+  MOTIF_NAME STRING OPTIONS(description=""The source and identifier of a transcription factor binding profile aligned at this position""),
+  MOTIF_POS STRING OPTIONS(description=""The relative position of the variation in the aligned TFBP""),
+  HIGH_INF_POS STRING OPTIONS(description=""A flag indicating if the variant falls in a high information position of a transcription factor binding profile (TFBP) (Y, N, or null)""),
+  MOTIF_SCORE_CHANGE STRING OPTIONS(description=""The difference in motif score of the reference and variant sequences for the TFBP""),
+  IMPACT STRING OPTIONS(description=""The impact modifier for the consequence type""),
+  PICK STRING OPTIONS(description=""Indicates if this block of consequence data was picked by VEP's   pick feature (1 or null)""),
+  VARIANT_CLASS STRING OPTIONS(description=""Sequence Ontology variant class""),
+  TSL INT64 OPTIONS(description=""Transcript support level, which is based on independent RNA analyses""),
+  HGVS_OFFSET INT64 OPTIONS(description=""Indicates by how many bases the HGVS notations for this variant have been shifted""),
+  PHENO STRING OPTIONS(description=""Indicates if existing variant is associated with a phenotype, disease or trait (0, 1, or null)""),
+  MINIMISED STRING OPTIONS(description=""Alleles in this variant have been converted to minimal representation before consequence calculation (1 or null)""),
+  ExAC_AF STRING OPTIONS(description=""Global Allele Frequency from  ExAC""),
+  ExAC_AF_Adj STRING OPTIONS(description=""Adjusted Global Allele Frequency from ExAC""),
+  ExAC_AF_AFR STRING OPTIONS(description=""African/African American Allele Frequency from ExAC""),
+  ExAC_AF_AMR STRING OPTIONS(description=""American Allele Frequency from ExAC""),
+  ExAC_AF_EAS STRING OPTIONS(description=""East Asian Allele Frequency from ExAC""),
+  ExAC_AF_FIN STRING OPTIONS(description=""Finnish Allele Frequency from ExAC""),
+  ExAC_AF_NFE STRING OPTIONS(description=""Non-Finnish European Allele Frequency from ExAC""),
+  ExAC_AF_OTH STRING OPTIONS(description=""Other Allele Frequency from ExAC""),
+  ExAC_AF_SAS STRING OPTIONS(description=""South Asian Allele Frequency from ExAC""),
+  GENE_PHENO STRING OPTIONS(description=""Indicates if gene that the variant maps to is associated with a phenotype, disease or trait (0, 1, or null)""),
+  FILTER STRING OPTIONS(description=""Copied from input VCF. This includes filters implemented directly by the variant caller and other external software used in the DNA-Seq pipeline. See below for additional details.""),
+  CONTEXT STRING OPTIONS(description=""The reference allele per VCF specs, and its five flanking base pairs""),
+  src_vcf_id STRING OPTIONS(description=""GDC UUID for the input VCF file""),
+  tumor_bam_uuid STRING OPTIONS(description=""GDC UUID for the tumor bam file""),
+  normal_bam_uuid STRING OPTIONS(description=""GDC UUID for the normal bam file""),
+  case_id STRING OPTIONS(description=""Unique GDC identifier for the case""),
+  GDC_FILTER STRING OPTIONS(description=""GDC filters applied universally across all MAFs""),
+  COSMIC STRING OPTIONS(description=""Overlapping COSMIC variants""),
+  MC3_Overlap STRING OPTIONS(description=""Indicates whether this region overlaps with an MC3 variant for the same sample pair""),
+  GDC_Validation_Status STRING OPTIONS(description=""GDC implementation of validation checks. See notes section (#5) below for details""),
+  callerName STRING OPTIONS(description=""|-delimited list of mutation caller(s) that agreed on this particular call, always in alphabetical order: muse, mutect, somaticsniper, varscan""),
+  fileUUID STRING OPTIONS(description=""Unique GDC identifier for the underlying MAF file(s)""),
+  fileName STRING OPTIONS(description=""Original file name for the underlying MAF file(s), eg TCGA.UCEC.muse.1093fec9-6c39-4589-adeb-95f00e5e2181.DR-6.0.somatic.maf"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 SOMATIC MUTATION REL7 DEPRECATED"",
+  description=""Data was extracted from release 7 of the active GDC archive on January 2018 for somatic mutation data. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-70. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.somatic_mutation_hg38_gdc_r7. Please see isb-cgc-bq.TCGA.somatic_mutation_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""somatic_mutation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr1,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr1`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-04""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba19""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba12""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 1 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 1 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr1_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr1_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+Copy_Number_Segment_Masked_r14,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Copy_Number_Segment_Masked_r14`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; e.g. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-02""),
+  chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  start_pos INT64 OPTIONS(description=""1-based start chromosome position of isoform""),
+  end_pos INT64 OPTIONS(description=""1-based end chromosome position of isoform""),
+  num_probes INT64 OPTIONS(description=""Number of probes in the SNP array used to infer this CN segment""),
+  segment_mean FLOAT64 OPTIONS(description=""Mean CN value for this segment -- the value is base2 log(CN/2), centered at 0.""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba10""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba17"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 COPY NUMBER SEGMENT MASKED REL14 DEPRECATED"",
+  description=""Data was extracted from release 14 of the active GDC archive from GDC on December 2018 for masked copy number segment data. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-140. It has been copied to isb-cgc-bq.TCGA_versioned.copy_number_segment_masked_hg38_gdc_r14. Please see isb-cgc-bq.TCGA.copy_number_segment_masked_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""copy_number_segment_masked""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr3,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr3`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-19""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba34""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba27""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 3 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 3 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr3_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr3_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chrX,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chrX`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-26""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba41""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba34""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR X DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome X was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chrX_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chrX_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""access"", ""open""), (""source"", ""gdc""), (""category"", ""processed_-omics_data""), (""reference_genome_0"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr12,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr12`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-07""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba22""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba15""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 12 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 12 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr12_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr12_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr18,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr18`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-13""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba28""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba21""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 18 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 18 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr18_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr18_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-03""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba18""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba11""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation data generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+Somatic_Mutation_DR10,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation_DR10`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode_tumor STRING OPTIONS(description=""TCGA sample barcode for the tumor, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  sample_barcode_normal STRING OPTIONS(description=""TCGA sample barcode for the normal control, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode_tumor STRING OPTIONS(description=""TCGA aliquot barcode for the tumor, eg TCGA-12-1089-01A-01D-0517-01""),
+  aliquot_barcode_normal STRING OPTIONS(description=""TCGA aliquot barcode for the normal control, eg TCGA-12-1089-01A-01D-0517-01""),
+  Hugo_Symbol STRING OPTIONS(description=""HUGO symbol for the gene (HUGO symbols are always in all caps). Unknown is used for regions that do not correspond to a gene""),
+  Entrez_Gene_Id INT64 OPTIONS(description=""Entrez gene ID (an integer). 0 is used for regions that do not correspond to a gene region or Ensembl ID""),
+  Center STRING OPTIONS(description=""One or more genome sequencing center reporting the variant""),
+  NCBI_Build STRING OPTIONS(description=""The reference genome used for the alignment (GRCh38)""),
+  Chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  Start_Position INT64 OPTIONS(description=""Lowest numeric position of the reported variant on the genomic reference sequence. Mutation start coordinate""),
+  End_Position INT64 OPTIONS(description=""Highest numeric genomic position of the reported variant on the genomic reference sequence. Mutation end coordinate""),
+  Strand STRING OPTIONS(description=""Either + or - to denote whether read mapped to the sense (+) or anti-sense (-) strand""),
+  Variant_Classification STRING OPTIONS(description=""Translational effect of variant allele""),
+  Variant_Type STRING OPTIONS(description=""Type of mutation. TNP (tri-nucleotide polymorphism) is analogous to DNP (di-nucleotide polymorphism) but for three consecutive nucleotides. ONP (oligo-nucleotide polymorphism) is analogous to TNP but for consecutive runs of four or more (SNP, DNP, TNP, ONP, INS, DEL, or Consolidated)""),
+  Reference_Allele STRING OPTIONS(description=""The plus strand reference allele at this position. Includes the deleted sequence for a deletion or - for an insertion""),
+  Tumor_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Seq_Allele2 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 2. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  dbSNP_RS STRING OPTIONS(description=""The rs-IDs from the   dbSNP database, novel if not found in any database used, or null if there is no dbSNP record, but it is found in other databases""),
+  dbSNP_Val_Status STRING OPTIONS(description=""The dbSNP validation status is reported as a semicolon-separated list of statuses. The union of all rs-IDs is taken when there are multiple""),
+  Tumor_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 2""),
+  Mutation_Status STRING OPTIONS(description=""An assessment of the mutation as somatic, germline, LOH, post transcriptional modification, unknown, or none. The values allowed in this field are constrained by the value in the Validation_Status field""),
+  Validation_Method STRING OPTIONS(description=""The assay platforms used for the validation call""),
+  Sequencer STRING OPTIONS(description=""Instrument used to produce primary sequence data""),
+  Tumor_Sample_UUID STRING OPTIONS(description=""Unique GDC identifier for tumor aliquot (10189 unique)""),
+  Matched_Norm_Sample_UUID STRING OPTIONS(description=""Unique GDC identifier for normal aliquot (10189 unique)""),
+  HGVSc STRING OPTIONS(description=""The coding sequence of the variant in HGVS recommended format""),
+  HGVSp STRING OPTIONS(description=""The protein sequence of the variant in HGVS recommended format. p.= signifies no change in the protein""),
+  HGVSp_Short STRING OPTIONS(description=""Same as the HGVSp column, but using 1-letter amino-acid codes""),
+  Transcript_ID STRING OPTIONS(description=""Ensembl ID of the transcript affected by the variant""),
+  Exon_Number STRING OPTIONS(description=""The exon number (out of total number)""),
+  t_depth STRING OPTIONS(description=""Read depth across this locus in tumor BAM""),
+  t_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in tumor BAM""),
+  t_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in tumor BAM""),
+  n_depth STRING OPTIONS(description=""Read depth across this locus in normal BAM""),
+  all_effects STRING OPTIONS(description=""A semicolon delimited list of all possible variant effects, sorted by priority ([Symbol,Consequence,HGVSp_Short,Transcript_ID,RefSeq,HGVSc,Impact,Canonical,Sift,PolyPhen,Strand])""),
+  Allele STRING OPTIONS(description=""The variant allele used to calculate the consequence""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is simulated data e.g. ENSG00000251562""),
+  Feature STRING OPTIONS(description=""Stable Ensembl ID of feature (transcript, regulatory, motif)""),
+  Feature_type STRING OPTIONS(description=""Type of feature. Currently one of Transcript, RegulatoryFeature, MotifFeature (or blank)""),
+  One_Consequence STRING OPTIONS(description=""The single consequence of the canonical transcript in  sequence ontology terms, eg missense_variant""),
+  Consequence STRING OPTIONS(description=""Consequence type of this variant;   sequence ontology terms""),
+  cDNA_position STRING OPTIONS(description=""Relative position of base pair in the cDNA sequence as a fraction. A - symbol is displayed as the numerator if the variant does not appear in cDNA""),
+  CDS_position STRING OPTIONS(description=""Relative position of base pair in coding sequence. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Protein_position STRING OPTIONS(description=""Relative position of affected amino acid in protein. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Amino_acids STRING OPTIONS(description=""Amino acid substitution caused by the mutation. Only given if the variation affects the protein-coding sequence""),
+  Codons STRING OPTIONS(description=""The alternative codons with the variant base in upper case""),
+  Existing_variation STRING OPTIONS(description=""Known identifier of existing variation""),
+  ALLELE_NUM STRING OPTIONS(description=""Allele number from input; 0 is reference, 1 is first alternate etc.""),
+  DISTANCE INT64 OPTIONS(description=""Shortest distance from the variant to transcript""),
+  TRANSCRIPT_STRAND INT64 OPTIONS(description=""The DNA strand (1 or -1) on which the transcript/feature lies""),
+  SYMBOL STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown""),
+  SYMBOL_SOURCE STRING OPTIONS(description=""The source of the gene symbol, usually HGNC, rarely blank, other sources include Uniprot_gn, EntrezGene, etc""),
+  HGNC_ID STRING OPTIONS(description=""Gene identifier from the HUGO Gene Nomenclature Committee if applicable""),
+  BIOTYPE STRING OPTIONS(description=""Biotype of transcript""),
+  CANONICAL STRING OPTIONS(description=""A flag (YES) indicating that the VEP-based canonical transcript, the longest translation, was used for this gene. If not, the value is null""),
+  CCDS STRING OPTIONS(description=""The CCDS identifier for this transcript, where applicable""),
+  ENSP STRING OPTIONS(description=""The Ensembl protein identifier of the affected transcript""),
+  SWISSPROT STRING OPTIONS(description=""UniProtKB/Swiss-Prot accession""),
+  TREMBL STRING OPTIONS(description=""UniProtKB/TrEMBL identifier of protein product""),
+  UNIPARC STRING OPTIONS(description=""UniParc identifier of protein product""),
+  RefSeq STRING OPTIONS(description=""RefSeq identifier for this transcript""),
+  SIFT STRING OPTIONS(description=""The  SIFT prediction and/or score, with both given as prediction (score)""),
+  PolyPhen STRING OPTIONS(description=""The PolyPhen prediction and/or score""),
+  EXON STRING OPTIONS(description=""The exon number (out of total number)""),
+  INTRON STRING OPTIONS(description=""The intron number (out of total number)""),
+  DOMAINS STRING OPTIONS(description=""The source and identifier of any overlapping protein domains""),
+  GMAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in   1000 Genomes""),
+  AFR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined African population""),
+  AMR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined American population""),
+  EAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined East Asian population""),
+  EUR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined European population""),
+  SAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined South Asian population""),
+  AA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP African American population""),
+  EA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP European American population""),
+  CLIN_SIG STRING OPTIONS(description=""Clinical significance of variant from dbSNP""),
+  SOMATIC STRING OPTIONS(description=""Somatic status of each ID reported under Existing_variation (0, 1, or null)""),
+  PUBMED STRING OPTIONS(description=""Pubmed ID(s) of publications that cite existing variant""),
+  IMPACT STRING OPTIONS(description=""The impact modifier for the consequence type""),
+  PICK STRING OPTIONS(description=""Indicates if this block of consequence data was picked by VEP's   pick feature (1 or null)""),
+  VARIANT_CLASS STRING OPTIONS(description=""Sequence Ontology variant class""),
+  TSL INT64 OPTIONS(description=""Transcript support level, which is based on independent RNA analyses""),
+  HGVS_OFFSET INT64 OPTIONS(description=""Indicates by how many bases the HGVS notations for this variant have been shifted""),
+  PHENO STRING OPTIONS(description=""Indicates if existing variant is associated with a phenotype, disease or trait (0, 1, or null)""),
+  MINIMISED STRING OPTIONS(description=""Alleles in this variant have been converted to minimal representation before consequence calculation (1 or null)""),
+  ExAC_AF STRING OPTIONS(description=""Global Allele Frequency from  ExAC""),
+  ExAC_AF_Adj STRING OPTIONS(description=""Adjusted Global Allele Frequency from ExAC""),
+  ExAC_AF_AFR STRING OPTIONS(description=""African/African American Allele Frequency from ExAC""),
+  ExAC_AF_AMR STRING OPTIONS(description=""American Allele Frequency from ExAC""),
+  ExAC_AF_EAS STRING OPTIONS(description=""East Asian Allele Frequency from ExAC""),
+  ExAC_AF_FIN STRING OPTIONS(description=""Finnish Allele Frequency from ExAC""),
+  ExAC_AF_NFE STRING OPTIONS(description=""Non-Finnish European Allele Frequency from ExAC""),
+  ExAC_AF_OTH STRING OPTIONS(description=""Other Allele Frequency from ExAC""),
+  ExAC_AF_SAS STRING OPTIONS(description=""South Asian Allele Frequency from ExAC""),
+  FILTER STRING OPTIONS(description=""Copied from input VCF. This includes filters implemented directly by the variant caller and other external software used in the DNA-Seq pipeline. See below for additional details.""),
+  CONTEXT STRING OPTIONS(description=""The reference allele per VCF specs, and its five flanking base pairs""),
+  src_vcf_id STRING OPTIONS(description=""|-delimited list of GDC VCF file identifiers""),
+  tumor_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying tumor bam file""),
+  normal_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying normal bam file""),
+  case_id STRING OPTIONS(description=""Unique GDC identifier for the case""),
+  GDC_FILTER STRING OPTIONS(description=""GDC filters applied universally across all MAFs""),
+  COSMIC STRING OPTIONS(description=""Overlapping COSMIC variants""),
+  MC3_Overlap STRING OPTIONS(description=""Indicates whether this region overlaps with an MC3 variant for the same sample pair""),
+  GDC_Validation_Status STRING OPTIONS(description=""GDC implementation of validation checks. See notes section (#5) below for details""),
+  callerName STRING OPTIONS(description=""|-delimited list of mutation caller(s) that agreed on this particular call, always in alphabetical order: muse, mutect, somaticsniper, varscan""),
+  fileUUID STRING OPTIONS(description=""|-delimited list of unique GDC identifier for underlying MAF file""),
+  fileName STRING OPTIONS(description=""|-delimited list of name of underlying MAF file"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 SOMATIC MUTATION REL10 DEPRECATED"",
+  description=""Data was extracted from release 10 of the active GDC archive on January 2018 for somatic mutation data. More details:https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-101. This table has been deprecated. Please see isb-cgc-bq.TCGA.somatic_mutation_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""somatic_mutation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr11,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr11`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-06""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba21""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba14""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 11 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 11 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr11_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr11_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+RNAseq_Gene_Expression,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.RNAseq_Gene_Expression`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-31""),
+  gene_name STRING OPTIONS(description=""Gene name e.g. TTN, DDR1, etc.""),
+  gene_type STRING OPTIONS(description=""The type of genetic element the reads mapped to, eg protein_coding, ribozyme""),
+  Ensembl_gene_id STRING OPTIONS(description=""The Ensembl gene ID from the underlying file, but stripped of the version suffix -- eg ENSG00000185028""),
+  Ensembl_gene_id_v STRING OPTIONS(description=""The Ensembl gene ID from the underlying file, including the version suffix  --  eg ENSG00000235943.1""),
+  HTSeq__Counts INT64 OPTIONS(description=""Number of mapped reads to each gene as calculated by the Python package HTSeq. https://docs.gdc.cancer.gov/Encyclopedia/pages/HTSeq-Counts/""),
+  HTSeq__FPKM FLOAT64 OPTIONS(description=""FPKM is implemented at the GDC on gene-level read counts that are produced by HTSeq1 and generated using custom. scripts https://docs.gdc.cancer.gov/Encyclopedia/pages/HTSeq-FPKM/""),
+  HTSeq__FPKM_UQ FLOAT64 OPTIONS(description=""Fragments Per Kilobase of transcript per Million mapped reads (FPKM) is a simple expression level normalization method. The FPKM normalizes read count based on gene length and the total number of mapped reads. https://docs.gdc.cancer.gov/Encyclopedia/pages/HTSeq-FPKM/""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba36""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba43""),
+  platform STRING OPTIONS(description=""Platform used to generate data; either IlluminaHiSeqor IlluminaGA"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 RNASEQ GENE EXPRESSION 2017 DEPRECATED"",
+  description=""Data was extracted from GDC on December 2017. mRNA expression data was generated using Illumina GA or HiSeq sequencing platforms with information from each of the three files (HTSeq Counts, HTSeq FPKM, HTSeq FPKM-UQ) from the GDC's RNAseq pipeline was combine for each aliquot. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.RNAseq_hg38_gdc_2017_12. Please see isb-cgc-bq.TCGA.RNAseq_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""gene_expression""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""experimental_strategy"", ""rnaseq""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr15,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr15`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-10""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba25""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba18""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 15 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 15 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr15_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr15_hg38_gdc_current for the most current table."",
+  labels=[(""data_type_0"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chrY,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chrY`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-27""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba42""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba35""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR Y DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome Y was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chrY_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chrY_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr2,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr2`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-15""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba30""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba23""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 2 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 2 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr2_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr2_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr22,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr22`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-18""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba33""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba26""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 22 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 22 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr22_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr22_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+Somatic_Mutation_DR6,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.Somatic_Mutation_DR6`
+(
+  project_short_name STRING OPTIONS(description=""Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.""),
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode_tumor STRING OPTIONS(description=""TCGA sample barcode for the tumor, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  sample_barcode_normal STRING OPTIONS(description=""TCGA sample barcode for the normal control, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode_tumor STRING OPTIONS(description=""TCGA aliquot barcode for the tumor, eg TCGA-12-1089-01A-01D-0517-01""),
+  aliquot_barcode_normal STRING OPTIONS(description=""TCGA aliquot barcode for the normal control, eg TCGA-12-1089-01A-01D-0517-01""),
+  NCBI_Build STRING OPTIONS(description=""The reference genome used for the alignment (GRCh38)""),
+  Hugo_Symbol STRING OPTIONS(description=""HUGO symbol for the gene (HUGO symbols are always in all caps). Unknown is used for regions that do not correspond to a gene""),
+  HGNC_ID STRING OPTIONS(description=""Gene identifier from the HUGO Gene Nomenclature Committee if applicable""),
+  Entrez_Gene_Id INT64 OPTIONS(description=""Entrez gene ID (an integer). 0 is used for regions that do not correspond to a gene region or Ensembl ID""),
+  SYMBOL STRING OPTIONS(description=""Eg TP53, LRP1B, etc (same as Hugo_Symbol field except blank instead of Unknown""),
+  SYMBOL_SOURCE STRING OPTIONS(description=""The source of the gene symbol, usually HGNC, rarely blank, other sources include Uniprot_gn, EntrezGene, etc""),
+  Variant_Classification STRING OPTIONS(description=""Translational effect of variant allele""),
+  VARIANT_CLASS STRING OPTIONS(description=""Sequence Ontology variant class""),
+  Variant_Type STRING OPTIONS(description=""Type of mutation. TNP (tri-nucleotide polymorphism) is analogous to DNP (di-nucleotide polymorphism) but for three consecutive nucleotides. ONP (oligo-nucleotide polymorphism) is analogous to TNP but for consecutive runs of four or more (SNP, DNP, TNP, ONP, INS, DEL, or Consolidated)""),
+  Chromosome STRING OPTIONS(description=""Chromosome, possible values: chr1-22, and chrX""),
+  Start_Position INT64 OPTIONS(description=""Lowest numeric position of the reported variant on the genomic reference sequence. Mutation start coordinate""),
+  End_Position INT64 OPTIONS(description=""Highest numeric genomic position of the reported variant on the genomic reference sequence. Mutation end coordinate""),
+  Strand STRING OPTIONS(description=""Either + or - to denote whether read mapped to the sense (+) or anti-sense (-) strand""),
+  TRANSCRIPT_STRAND INT64 OPTIONS(description=""The DNA strand (1 or -1) on which the transcript/feature lies""),
+  Mutation_Status STRING OPTIONS(description=""An assessment of the mutation as somatic, germline, LOH, post transcriptional modification, unknown, or none. The values allowed in this field are constrained by the value in the Validation_Status field""),
+  HGVSc STRING OPTIONS(description=""The coding sequence of the variant in HGVS recommended format""),
+  HGVSp STRING OPTIONS(description=""The protein sequence of the variant in HGVS recommended format. p.= signifies no change in the protein""),
+  HGVSp_Short STRING OPTIONS(description=""Same as the HGVSp column, but using 1-letter amino-acid codes""),
+  cDNA_position STRING OPTIONS(description=""Relative position of base pair in the cDNA sequence as a fraction. A - symbol is displayed as the numerator if the variant does not appear in cDNA""),
+  CDS_position STRING OPTIONS(description=""Relative position of base pair in coding sequence. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Protein_position STRING OPTIONS(description=""Relative position of affected amino acid in protein. A - symbol is displayed as the numerator if the variant does not appear in coding sequence""),
+  Amino_acids STRING OPTIONS(description=""Amino acid substitution caused by the mutation. Only given if the variation affects the protein-coding sequence""),
+  Codons STRING OPTIONS(description=""The alternative codons with the variant base in upper case""),
+  Gene STRING OPTIONS(description=""The gene symbol. In this table, gene symbol is simulated data e.g. ENSG00000251562""),
+  Feature STRING OPTIONS(description=""Stable Ensembl ID of feature (transcript, regulatory, motif)""),
+  Feature_type STRING OPTIONS(description=""Type of feature. Currently one of Transcript, RegulatoryFeature, MotifFeature (or blank)""),
+  BIOTYPE STRING OPTIONS(description=""Biotype of transcript""),
+  Transcript_ID STRING OPTIONS(description=""Ensembl ID of the transcript affected by the variant""),
+  Exon_Number STRING OPTIONS(description=""The exon number (out of total number)""),
+  callerName STRING OPTIONS(description=""|-delimited list of mutation caller(s) that agreed on this particular call, always in alphabetical order: muse, mutect, somaticsniper, varscan""),
+  FILTER STRING OPTIONS(description=""Copied from input VCF. This includes filters implemented directly by the variant caller and other external software used in the DNA-Seq pipeline. See below for additional details.""),
+  GDC_FILTER STRING OPTIONS(description=""GDC filters applied universally across all MAFs""),
+  GDC_Validation_Status STRING OPTIONS(description=""GDC implementation of validation checks. See notes section (#5) below for details""),
+  MC3_Overlap STRING OPTIONS(description=""Indicates whether this region overlaps with an MC3 variant for the same sample pair""),
+  Center STRING OPTIONS(description=""One or more genome sequencing center reporting the variant""),
+  Sequencer STRING OPTIONS(description=""Instrument used to produce primary sequence data""),
+  COSMIC STRING OPTIONS(description=""Overlapping COSMIC variants""),
+  dbSNP_RS STRING OPTIONS(description=""The rs-IDs from the   dbSNP database, novel if not found in any database used, or null if there is no dbSNP record, but it is found in other databases""),
+  dbSNP_Val_Status STRING OPTIONS(description=""The dbSNP validation status is reported as a semicolon-separated list of statuses. The union of all rs-IDs is taken when there are multiple""),
+  Consequence STRING OPTIONS(description=""Consequence type of this variant;   sequence ontology terms""),
+  IMPACT STRING OPTIONS(description=""The impact modifier for the consequence type""),
+  MINIMISED STRING OPTIONS(description=""Alleles in this variant have been converted to minimal representation before consequence calculation (1 or null)""),
+  Reference_Allele STRING OPTIONS(description=""The plus strand reference allele at this position. Includes the deleted sequence for a deletion or - for an insertion""),
+  Allele STRING OPTIONS(description=""The variant allele used to calculate the consequence""),
+  ALLELE_NUM STRING OPTIONS(description=""Allele number from input; 0 is reference, 1 is first alternate etc.""),
+  Tumor_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Seq_Allele2 STRING OPTIONS(description=""Primary data genotype for tumor sequencing (discovery) allele 2. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Match_Norm_Seq_Allele1 STRING OPTIONS(description=""Primary data genotype. Matched normal sequencing allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases (cleared in somatic MAF)""),
+  Match_Norm_Seq_Allele2 STRING OPTIONS(description=""Matched normal sequencing allele 2""),
+  Tumor_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases""),
+  Tumor_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Tumor genotyping (validation) for allele 2""),
+  Match_Norm_Validation_Allele1 STRING OPTIONS(description=""Secondary data from orthogonal technology. Matched normal genotyping (validation) for allele 1. A - symbol for a deletion represents a variant. A - symbol for an insertion represents wild-type allele. Novel inserted sequence for insertion does not include flanking reference bases (cleared in somatic MAF)""),
+  Match_Norm_Validation_Allele2 STRING OPTIONS(description=""Secondary data from orthogonal technology. Matched normal genotyping (validation) for allele 2 (cleared in somatic MAF)""),
+  gdc_case_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying case""),
+  gdc_tumor_sample_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying tumor sample""),
+  gdc_normal_sample_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying normal sample""),
+  gdc_maf_uuid STRING OPTIONS(description=""Unique GDC indentifier for the underlying MAF file""),
+  gdc_maf_file_name STRING OPTIONS(description=""GDC name for the underlying MAF file""),
+  gdc_vcf_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying vcf file""),
+  gdc_tumor_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying tumor bam file""),
+  gdc_normal_bam_uuid STRING OPTIONS(description=""Unique GDC identifier for the underlying normal bam file""),
+  t_depth STRING OPTIONS(description=""Read depth across this locus in tumor BAM""),
+  t_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in tumor BAM""),
+  t_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in tumor BAM""),
+  n_depth STRING OPTIONS(description=""Read depth across this locus in normal BAM""),
+  n_ref_count STRING OPTIONS(description=""Read depth supporting the reference allele in normal BAM (cleared in somatic MAF)""),
+  n_alt_count STRING OPTIONS(description=""Read depth supporting the variant allele in normal BAM (cleared in somatic MAF)""),
+  Verification_Status STRING OPTIONS(description=""Second pass results from independent attempt using same methods as primary data source. Generally reserved for 3730 Sanger Sequencing""),
+  Validation_Status STRING OPTIONS(description=""Second pass results from orthogonal technology""),
+  Sequencing_Phase STRING OPTIONS(description=""TCGA sequencing phase (if applicable). Phase should change under any circumstance that the targets under consideration change""),
+  Sequence_Source STRING OPTIONS(description=""Molecular assay type used to produce the analytes used for sequencing. Allowed values are a subset of the SRA 1.5 library_strategy field values. This subset matches those used at CGHub""),
+  Validation_Method STRING OPTIONS(description=""The assay platforms used for the validation call""),
+  Score STRING OPTIONS(description=""Not in use""),
+  BAM_File STRING OPTIONS(description=""Name of the bam file. Not in use in this table. ""),
+  all_effects STRING OPTIONS(description=""A semicolon delimited list of all possible variant effects, sorted by priority ([Symbol,Consequence,HGVSp_Short,Transcript_ID,RefSeq,HGVSc,Impact,Canonical,Sift,PolyPhen,Strand])""),
+  Existing_variation STRING OPTIONS(description=""Known identifier of existing variation""),
+  DISTANCE INT64 OPTIONS(description=""Shortest distance from the variant to transcript""),
+  CANONICAL STRING OPTIONS(description=""A flag (YES) indicating that the VEP-based canonical transcript, the longest translation, was used for this gene. If not, the value is null""),
+  CCDS STRING OPTIONS(description=""The  CCDS identifier for this transcript, where applicable""),
+  ENSP STRING OPTIONS(description=""The Ensembl protein identifier of the affected transcript""),
+  SWISSPROT STRING OPTIONS(description=""UniProtKB/Swiss-Prot accession""),
+  TREMBL STRING OPTIONS(description=""UniProtKB/TrEMBL identifier of protein product""),
+  UNIPARC STRING OPTIONS(description=""UniParc identifier of protein product""),
+  RefSeq STRING OPTIONS(description=""RefSeq identifier for this transcript""),
+  SIFT STRING OPTIONS(description=""The   SIFT prediction and/or score, with both given as prediction (score)""),
+  PolyPhen STRING OPTIONS(description=""The PolyPhen prediction and/or score""),
+  EXON STRING OPTIONS(description=""The exon number (out of total number)""),
+  INTRON STRING OPTIONS(description=""The intron number (out of total number)""),
+  DOMAINS STRING OPTIONS(description=""The source and identifier of any overlapping protein domains""),
+  CLIN_SIG STRING OPTIONS(description=""Clinical significance of variant from dbSNP""),
+  SOMATIC STRING OPTIONS(description=""Somatic status of each ID reported under Existing_variation (0, 1, or null)""),
+  PUBMED STRING OPTIONS(description=""Pubmed ID(s) of publications that cite existing variant""),
+  MOTIF_NAME STRING OPTIONS(description=""The source and identifier of a transcription factor binding profile aligned at this position""),
+  MOTIF_POS STRING OPTIONS(description=""The relative position of the variation in the aligned TFBP""),
+  HIGH_INF_POS STRING OPTIONS(description=""A flag indicating if the variant falls in a high information position of a transcription factor binding profile (TFBP) (Y, N, or null)""),
+  MOTIF_SCORE_CHANGE STRING OPTIONS(description=""The difference in motif score of the reference and variant sequences for the TFBP""),
+  PICK STRING OPTIONS(description=""Indicates if this block of consequence data was picked by VEP's   pick feature (1 or null)""),
+  TSL INT64 OPTIONS(description=""Transcript support level, which is based on independent RNA analyses""),
+  HGVS_OFFSET INT64 OPTIONS(description=""Indicates by how many bases the HGVS notations for this variant have been shifted""),
+  PHENO STRING OPTIONS(description=""Indicates if existing variant is associated with a phenotype, disease or trait (0, 1, or null)""),
+  GENE_PHENO STRING OPTIONS(description=""Indicates if gene that the variant maps to is associated with a phenotype, disease or trait (0, 1, or null)""),
+  CONTEXT STRING OPTIONS(description=""The reference allele per VCF specs, and its five flanking base pairs""),
+  GMAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in   1000 Genomes""),
+  AFR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined African population""),
+  AMR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined American population""),
+  ASN_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined Asian population""),
+  EAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined East Asian population""),
+  EUR_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined European population""),
+  SAS_MAF FLOAT64 OPTIONS(description=""Non-reference allele and frequency of existing variant in 1000 Genomes combined South Asian population""),
+  AA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP African American population""),
+  EA_MAF STRING OPTIONS(description=""Non-reference allele and frequency of existing variant in NHLBI-ESP European American population""),
+  ExAC_AF STRING OPTIONS(description=""Global Allele Frequency from ExAC""),
+  ExAC_AF_Adj STRING OPTIONS(description=""Adjusted Global Allele Frequency from ExAC""),
+  ExAC_AF_AFR STRING OPTIONS(description=""African/African American Allele Frequency from ExAC""),
+  ExAC_AF_AMR STRING OPTIONS(description=""American Allele Frequency from ExAC""),
+  ExAC_AF_EAS STRING OPTIONS(description=""East Asian Allele Frequency from ExAC""),
+  ExAC_AF_FIN STRING OPTIONS(description=""Finnish Allele Frequency from ExAC""),
+  ExAC_AF_NFE STRING OPTIONS(description=""Non-Finnish European Allele Frequency from ExAC""),
+  ExAC_AF_OTH STRING OPTIONS(description=""Other Allele Frequency from ExAC""),
+  ExAC_AF_SAS STRING OPTIONS(description=""South Asian Allele Frequency from ExAC"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 SOMATIC MUTATION REL6 DEPRECATED"",
+  description=""Data was extracted from release 6 of the active GDC archive on January 2018 for somatic mutation data. More details: https://docs.gdc.cancer.gov/Data/Release_Notes/Data_Release_Notes/#data-release-60. This table has been deprecated. It has been copied to isb-cgc-bq.TCGA_versioned.somatic_mutation_hg38_gdc_r6. Please see isb-cgc-bq.TCGA.somatic_mutation_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""somatic_mutation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""status"", ""deprecated""), (""program"", ""tcga""), (""reference_genome"", ""hg38""), (""source"", ""gdc"")]
+);"
+DNA_Methylation_chr7,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr7`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-23""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba38""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba31""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 7 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 7 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr7_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr7_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr20,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr20`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-16""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba31""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba24""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 20 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 20 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr20_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr20_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"
+DNA_Methylation_chr6,"CREATE TABLE `isb-cgc.TCGA_hg38_data_v0.DNA_Methylation_chr6`
+(
+  case_barcode STRING OPTIONS(description=""Original TCGA case barcode, eg TCGA-DX-A8BN""),
+  sample_barcode STRING OPTIONS(description=""TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries""),
+  aliquot_barcode STRING OPTIONS(description=""TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-22""),
+  probe_id STRING OPTIONS(description=""Unique ID for the array probe associated with a CpG site""),
+  beta_value FLOAT64 OPTIONS(description=""Represents the ratio between the methylated array intensity and total array intensity, falls between 0 (lower levels of methylation) and 1 (higher levels of methylation)""),
+  platform STRING OPTIONS(description=""Platform used to generate this data -- either HumanMethylation450 or HumanMethylation27""),
+  file_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this file (corresponds to the file_barcode)  --  this can be used to access more information from the GDC data portal like this: https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba37""),
+  case_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this case (corresponds to the case_barcode).  Can be used to access more information from the GDC data portal like this:   https://portal.gdc.cancer.gov/files/c21b332c-06c6-4403-9032-f91c8f407ba30""),
+  sample_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this sample (corresponds to the sample_barcode), eg a1ec9279-c1a6-4e58-97ed-9ec1f36187c5  --  this can be used to access more information from the GDC data portal""),
+  aliquot_gdc_id STRING OPTIONS(description=""Unique GDC identifier for this aliquot (corresponds to the aliquot_barcode), eg 7fbfdb3e-1fd2-4206-8d2e-7f68e4a15844  --  this can be used to access more information from the GDC data portal"")
+)
+OPTIONS(
+  friendly_name=""TCGA HG38 DNA METHYLATION CHR 6 DEPRECATED"",
+  description=""Data was extracted from GDC on January 2017 for DNA Methylation for chromosome 6 was generated using Illumina Human Methylation 27k and 450k platforms. \n\nThis table has been deprecated. It has been copied to isb-cgc-bq.TCGA.DNA_Methylation_chr6_hg38_gdc_2017_01. Please see TCGA.DNA_Methylation_chr6_hg38_gdc_current for the most current table."",
+  labels=[(""data_type"", ""dna_methylation""), (""category"", ""processed_-omics_data""), (""access"", ""open""), (""source"", ""gdc""), (""reference_genome"", ""hg38""), (""program"", ""tcga""), (""status"", ""deprecated"")]
+);"

@@ -1,0 +1,36 @@
+## KEYS.ADD_KEY_FROM_RAW_BYTES
+
+KEYS.ADD_KEY_FROM_RAW_BYTES(keyset, key_type, raw_key_bytes)
+
+**Description**
+
+Returns a serialized keyset as ` BYTES ` with the addition of a key to `
+keyset ` based on ` key_type ` and ` raw_key_bytes ` .
+
+The primary cryptographic key remains the same as in ` keyset ` . The expected length of ` raw_key_bytes ` depends on the value of ` key_type ` . The following are supported ` key_types ` :
+
+* ` 'AES_CBC_PKCS' ` : Creates a key for AES decryption using cipher block chaining and PKCS padding. ` raw_key_bytes ` is expected to be a raw key ` BYTES ` value of length 16, 24, or 32; these lengths have sizes of 128, 192, and 256 bits, respectively. GoogleSQL AEAD functions do not support keys of these types for encryption; instead, prefer ` 'AEAD_AES_GCM_256' ` or ` 'AES_GCM' ` keys.
+* ` 'AES_GCM' ` : Creates a key for AES decryption or encryption using [ Galois/Counter Mode ](https://en.wikipedia.org/wiki/Galois/Counter_Mode) . ` raw_key_bytes ` must be a raw key ` BYTES ` value of length 16 or 32; these lengths have sizes of 128 and 256 bits, respectively. When keys of this type are inputs to ` AEAD.ENCRYPT ` , the output ciphertext does not have a Tink-specific prefix indicating which key was used as input.
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+The following query creates a table of customer IDs along with raw key bytes,
+called ` CustomerRawKeys ` , and a table of unique IDs, called ` CustomerIds `
+. It creates a new ` 'AEAD_AES_GCM_256' ` keyset for each ` customer_id ` ;
+then it adds a new key to each keyset, using the ` raw_key_bytes ` value corresponding to that ` customer_id ` . The output is a table where each row contains a ` customer_id ` and a keyset in ` BYTES ` , which contains the raw key added using KEYS.ADD_KEY_FROM_RAW_BYTES.
+
+
+WITH CustomerRawKeys AS ( SELECT 1 AS customer_id, b'0123456789012345' AS raw_key_bytes UNION ALL SELECT 2, b'9876543210543210' UNION ALL SELECT 3, b'0123012301230123'
+), CustomerIds AS ( SELECT 1 AS customer_id UNION ALL SELECT 2 UNION ALL SELECT 3 ) SELECT ci.customer_id,
+KEYS.ADD_KEY_FROM_RAW_BYTES( KEYS.NEW_KEYSET('AEAD_AES_GCM_256'),
+'AES_CBC_PKCS',
+(SELECT raw_key_bytes FROM CustomerRawKeys AS crk WHERE crk.customer_id = ci.customer_id) ) AS keyset FROM CustomerIds AS ci;
+
+The output keysets each contain two things: the primary cryptographic key created using ` KEYS.NEW_KEYSET('AEAD_AES_GCM_256') ` , and the raw key added using ` KEYS.ADD_KEY_FROM_RAW_BYTES ` . If a keyset in the output is used with
+` AEAD.ENCRYPT ` , GoogleSQL uses the primary cryptographic key created using
+` KEYS.NEW_KEYSET('AEAD_AES_GCM_256') ` to encrypt the input plaintext. If the keyset is used with ` AEAD.DECRYPT_STRING ` or ` AEAD.DECRYPT_BYTES ` ,
+GoogleSQL returns the resulting plaintext if either key succeeds in decrypting the ciphertext.

@@ -1,0 +1,235 @@
+{
+    "table_name": "202302",
+    "table_fullname": "githubarchive.month.202302",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":603955671,\"push_id\":12675419468,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"535cb5baa71f82e64f41ff63a6496200d9281c61\",\"before\":\"b061a22c7e76b626a83492b31fbcb14bca038e93\",\"commits\":[{\"sha\":\"535cb5baa71f82e64f41ff63a6496200d9281c61\",\"author\":{\"email\":\"64b2b6d12bfe4baae7dad3d018f8cbf6b0e7a044@alexrudy.net\",\"name\":\"Alex Rudy\"},\"message\":\"Fix link on README\",\"distinct\":true,\"url\":\"https://api.github.com/repos/alexrudy/yacme/commits/535cb5baa71f82e64f41ff63a6496200d9281c61\"}]}",
+            "repo": {
+                "id": 603955671,
+                "name": "alexrudy/yacme",
+                "url": "https://api.github.com/repos/alexrudy/yacme"
+            },
+            "actor": {
+                "id": 427688,
+                "login": "alexrudy",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/427688?",
+                "url": "https://api.github.com/users/alexrudy"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-02-20 02:47:59+00:00",
+            "id": "27194218870",
+            "other": "{\"actor\":{\"display_login\":\"alexrudy\"}}"
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 90050085,
+                "name": "DLTK/DLTK",
+                "url": "https://api.github.com/repos/DLTK/DLTK"
+            },
+            "actor": {
+                "id": 68768130,
+                "login": "rihabu",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/68768130?",
+                "url": "https://api.github.com/users/rihabu"
+            },
+            "org": {
+                "id": 28306010,
+                "login": "DLTK",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/28306010?",
+                "url": "https://api.github.com/orgs/DLTK"
+            },
+            "created_at": "2023-02-20 01:11:14+00:00",
+            "id": "27193172462",
+            "other": "{\"actor\":{\"display_login\":\"rihabu\"}}"
+        },
+        {
+            "type": "IssuesEvent",
+            "public": true,
+            "payload": "{\"action\":\"opened\",\"issue\":{\"url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449\",\"repository_url\":\"https://api.github.com/repos/artemislena/upptime\",\"labels_url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449/comments\",\"events_url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449/events\",\"html_url\":\"https://github.com/artemislena/upptime/issues/1449\",\"id\":1592453299,\"node_id\":\"I_kwDOHbxcic5e6uiz\",\"number\":1449,\"title\":\"\ud83d\uded1 Libreddit is down\",\"user\":{\"login\":\"artemislena\",\"id\":51862164,\"node_id\":\"MDQ6VXNlcjUxODYyMTY0\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/51862164?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/artemislena\",\"html_url\":\"https://github.com/artemislena\",\"followers_url\":\"https://api.github.com/users/artemislena/followers\",\"following_url\":\"https://api.github.com/users/artemislena/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/artemislena/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/artemislena/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/artemislena/subscriptions\",\"organizations_url\":\"https://api.github.com/users/artemislena/orgs\",\"repos_url\":\"https://api.github.com/users/artemislena/repos\",\"events_url\":\"https://api.github.com/users/artemislena/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/artemislena/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[{\"id\":4191315848,\"node_id\":\"LA_kwDOHbxcic750meI\",\"url\":\"https://api.github.com/repos/artemislena/upptime/labels/status\",\"name\":\"status\",\"color\":\"ededed\",\"default\":false,\"description\":null},{\"id\":4191315850,\"node_id\":\"LA_kwDOHbxcic750meK\",\"url\":\"https://api.github.com/repos/artemislena/upptime/labels/libreddit\",\"name\":\"libreddit\",\"color\":\"ededed\",\"default\":false,\"description\":null}],\"state\":\"open\",\"locked\":false,\"assignee\":null,\"assignees\":[],\"milestone\":null,\"comments\":0,\"created_at\":\"2023-02-20T21:14:48Z\",\"updated_at\":\"2023-02-20T21:14:48Z\",\"closed_at\":null,\"author_association\":\"OWNER\",\"active_lock_reason\":null,\"body\":\"In [`638caf0`](https://github.com/artemislena/upptime/commit/638caf028559f2df07500d4b50c3e32f25dfb535\\n), Libreddit (https://lr.artemislena.eu) was **down**:\\n- HTTP code: 502\\n- Response time: 3433 ms\\n\",\"reactions\":{\"url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449/reactions\",\"total_count\":0,\"+1\":0,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0},\"timeline_url\":\"https://api.github.com/repos/artemislena/upptime/issues/1449/timeline\",\"performed_via_github_app\":null,\"state_reason\":null}}",
+            "repo": {
+                "id": 498883721,
+                "name": "artemislena/upptime",
+                "url": "https://api.github.com/repos/artemislena/upptime"
+            },
+            "actor": {
+                "id": 51862164,
+                "login": "artemislena",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/51862164?",
+                "url": "https://api.github.com/users/artemislena"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-02-20 21:14:48+00:00",
+            "id": "27215517510",
+            "other": "{\"actor\":{\"display_login\":\"artemislena\"}}"
+        },
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"pyproject\",\"ref_type\":\"branch\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 362883685,
+                "name": "janosh/format-ipy-cells",
+                "url": "https://api.github.com/repos/janosh/format-ipy-cells"
+            },
+            "actor": {
+                "id": 30958850,
+                "login": "janosh",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/30958850?",
+                "url": "https://api.github.com/users/janosh"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-02-20 21:17:12+00:00",
+            "id": "27215551780",
+            "other": "{\"actor\":{\"display_login\":\"janosh\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":8474379,\"push_id\":12675534841,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"8ebce0cf7b8a114c1758e6a6d8720b40fc7413cf\",\"before\":\"8323e1ec0490139b7476d24d72b8f519be1897fa\",\"commits\":[{\"sha\":\"8ebce0cf7b8a114c1758e6a6d8720b40fc7413cf\",\"author\":{\"email\":\"1c358da00a777d4e9898c1280ab801e2df165188@users.noreply.github.com\",\"name\":\"dependabot[bot]\"},\"message\":\"chore(deps-dev): bump @commitlint/cli from 17.4.2 to 17.4.4\\n\\nBumps [@commitlint/cli](https://github.com/conventional-changelog/commitlint/tree/HEAD/@commitlint/cli) from 17.4.2 to 17.4.4.\\n- [Release notes](https://github.com/conventional-changelog/commitlint/releases)\\n- [Changelog](https://github.com/conventional-changelog/commitlint/blob/master/@commitlint/cli/CHANGELOG.md)\\n- [Commits](https://github.com/conventional-changelog/commitlint/commits/v17.4.4/@commitlint/cli)\\n\\n---\\nupdated-dependencies:\\n- dependency-name: \\\"@commitlint/cli\\\"\\n  dependency-type: direct:development\\n  update-type: version-update:semver-patch\\n...\\n\\nSigned-off-by: dependabot[bot] <support@github.com>\",\"distinct\":true,\"url\":\"https://api.github.com/repos/karma-runner/karma-firefox-launcher/commits/8ebce0cf7b8a114c1758e6a6d8720b40fc7413cf\"}]}",
+            "repo": {
+                "id": 8474379,
+                "name": "karma-runner/karma-firefox-launcher",
+                "url": "https://api.github.com/repos/karma-runner/karma-firefox-launcher"
+            },
+            "actor": {
+                "id": 1232595,
+                "login": "birtles",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1232595?",
+                "url": "https://api.github.com/users/birtles"
+            },
+            "org": {
+                "id": 3284117,
+                "login": "karma-runner",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/3284117?",
+                "url": "https://api.github.com/orgs/karma-runner"
+            },
+            "created_at": "2023-02-20 03:07:12+00:00",
+            "id": "27194458610",
+            "other": "{\"actor\":{\"display_login\":\"birtles\"}}"
+        }
+    ]
+}

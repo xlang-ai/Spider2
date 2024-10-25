@@ -1,0 +1,25 @@
+table_name,ddl
+street_trees,"CREATE TABLE `bigquery-public-data.san_francisco_trees.street_trees`
+(
+  tree_id INT64 NOT NULL OPTIONS(description=""Unique ID for Tree""),
+  legal_status STRING OPTIONS(description=""Legal staus: Permitted or DPW maintained""),
+  species STRING OPTIONS(description=""Species of tree""),
+  address STRING OPTIONS(description=""Address of Tree""),
+  site_order INT64 OPTIONS(description=""Order of tree at address where multiple trees are at same address. Trees are ordered in ascending address order""),
+  site_info STRING OPTIONS(description=""Description of location of tree""),
+  plant_type STRING OPTIONS(description=""Landscaping or Tree""),
+  care_taker STRING OPTIONS(description=""Agency or person that is primary caregiver to tree. Owner of Tree""),
+  care_assistant STRING OPTIONS(description=""Agency or person that is secondary caregiver to tree""),
+  plant_date TIMESTAMP OPTIONS(description=""Date tree was planted""),
+  dbh STRING OPTIONS(description=""depth height""),
+  plot_size STRING OPTIONS(description=""dimension of tree plot""),
+  permit_notes STRING OPTIONS(description=""Tree permit number reference""),
+  x_coordinate FLOAT64 OPTIONS(description=""CA State Plane III""),
+  y_coordinate FLOAT64 OPTIONS(description=""CA State Plane III""),
+  latitude FLOAT64 OPTIONS(description=""WGS84""),
+  longitude FLOAT64 OPTIONS(description=""WGS84""),
+  location STRING OPTIONS(description=""Location formatted for mapping"")
+)
+OPTIONS(
+  description=""San Francisco street trees table""
+);"

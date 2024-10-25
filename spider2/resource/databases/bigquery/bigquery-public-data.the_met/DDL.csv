@@ -1,0 +1,71 @@
+table_name,ddl
+images,"CREATE TABLE `bigquery-public-data.the_met.images`
+(
+  object_id INT64,
+  public_caption STRING,
+  title STRING,
+  original_image_url STRING,
+  caption STRING,
+  is_oasc BOOL,
+  gcs_url STRING
+);"
+objects,"CREATE TABLE `bigquery-public-data.the_met.objects`
+(
+  object_number STRING,
+  is_highlight BOOL,
+  is_public_domain BOOL,
+  object_id INT64,
+  department STRING,
+  object_name STRING,
+  title STRING,
+  culture STRING,
+  period STRING,
+  dynasty STRING,
+  reign STRING,
+  portfolio STRING,
+  artist_role STRING,
+  artist_prefix STRING,
+  artist_display_name STRING,
+  artist_display_bio STRING,
+  artist_suffix STRING,
+  artist_alpha_sort STRING,
+  artist_nationality STRING,
+  artist_begin_date STRING,
+  artist_end_date STRING,
+  object_date STRING,
+  object_begin_date INT64,
+  object_end_date INT64,
+  medium STRING,
+  dimensions STRING,
+  credit_line STRING,
+  geography_type STRING,
+  city STRING,
+  state STRING,
+  county STRING,
+  country STRING,
+  region STRING,
+  subregion STRING,
+  locale STRING,
+  locus STRING,
+  excavation STRING,
+  river STRING,
+  classification STRING,
+  rights_and_reproduction STRING,
+  link_resource STRING,
+  metadata_date TIMESTAMP,
+  repository STRING
+);"
+vision_api_data,"CREATE TABLE `bigquery-public-data.the_met.vision_api_data`
+(
+  object_id INT64,
+  faceAnnotations ARRAY<STRUCT<headwearLikelihood STRING, underExposedLikelihood STRING, surpriseLikelihood STRING, boundingPoly STRUCT<vertices ARRAY<STRUCT<y INT64, x INT64>>>, fdBoundingPoly STRUCT<vertices ARRAY<STRUCT<y INT64, x INT64>>>, rollAngle FLOAT64, sorrowLikelihood STRING, panAngle FLOAT64, blurredLikelihood STRING, landmarks ARRAY<STRUCT<position STRUCT<z FLOAT64, y FLOAT64, x FLOAT64>, type STRING>>, detectionConfidence FLOAT64, angerLikelihood STRING, landmarkingConfidence FLOAT64, tiltAngle FLOAT64, joyLikelihood STRING>>,
+  landmarkAnnotations ARRAY<STRUCT<properties ARRAY<STRING>, locations ARRAY<STRUCT<latLng STRUCT<longitude FLOAT64, latitude FLOAT64>>>, boundingPoly STRUCT<vertices ARRAY<STRUCT<y INT64, x INT64>>>, topicality INT64, confidence INT64, score FLOAT64, description STRING, locale STRING, mid STRING>>,
+  cropHintsAnnotation STRUCT<cropHints ARRAY<STRUCT<importanceFraction FLOAT64, confidence FLOAT64, boundingPoly STRUCT<vertices ARRAY<STRUCT<y INT64, x INT64>>>>>>,
+  logoAnnotations ARRAY<STRING>,
+  labelAnnotations ARRAY<STRUCT<properties ARRAY<STRING>, locations ARRAY<STRING>, boundingPoly STRING, topicality INT64, confidence INT64, score FLOAT64, description STRING, locale STRING, mid STRING>>,
+  textAnnotations ARRAY<STRING>,
+  fullTextAnnotation STRING,
+  imagePropertiesAnnotation STRUCT<dominantColors STRUCT<colors ARRAY<STRUCT<pixelFraction FLOAT64, score FLOAT64, color STRUCT<alpha STRING, blue INT64, green INT64, red INT64>>>>>,
+  safeSearchAnnotation STRING,
+  webDetection STRUCT<partialMatchingImages ARRAY<STRUCT<score INT64, url STRING>>, pagesWithMatchingImages ARRAY<STRUCT<score INT64, url STRING>>, fullMatchingImages ARRAY<STRUCT<score INT64, url STRING>>, webEntities ARRAY<STRUCT<description STRING, score FLOAT64, entityId STRING>>>
+);"

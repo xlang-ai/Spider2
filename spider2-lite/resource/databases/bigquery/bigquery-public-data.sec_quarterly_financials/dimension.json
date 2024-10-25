@@ -1,0 +1,58 @@
+{
+    "table_name": "dimension",
+    "table_fullname": "bigquery-public-data.sec_quarterly_financials.dimension",
+    "column_names": [
+        "segments_hash",
+        "segments",
+        "segment_truncation",
+        "_PARTITIONTIME"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "BOOL",
+        "TIMESTAMP"
+    ],
+    "nested_column_names": [
+        "segments_hash",
+        "segments",
+        "segment_truncation"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "BOOL"
+    ],
+    "description": [
+        "MD5 hash of the segments field text. Although MD5 is unsuitable for cryptographic use, it is used here merely to limit the size of the primary key. segments_hash: [dimhash]",
+        "Concatenation of tag names representing the axis and members appearing in the XBRL segments. Tag names have their first characters \\\"Statement\\\", last 4 characters \\\"Axis\\\", and last 6 characters \\\"Member\\\" or \\\"Domain\\\" truncated where they appear. Namespaces and prefixes are ignored because EDGAR validation guarantees that the local-names are unique with a submission. Each dimension is represented as the pair \\\"{axis}={member};\\\" and the axes concatenated in lexical order. Example: \\\"LegalEntity=Xyz;Scenario=Restated;\\\" represents the XBRL segment with dimension LegalEntityAxis and member XyzMember, dimension StatementScenarioAxis and member RestatedMember.",
+        "TRUE if the segments field would have been longer than 1024 characters had it not been truncated, else FALSE. segment_truncation: [segt]"
+    ],
+    "sample_rows": [
+        {
+            "segments_hash": "0x00000000",
+            "segments": null,
+            "segment_truncation": false
+        },
+        {
+            "segments_hash": "0x0cfab777bfb97c9c70428f4aa168335c",
+            "segments": "PropertyPlantAndEquipmentByType=NonProducingOilAndGasProperties;",
+            "segment_truncation": false
+        },
+        {
+            "segments_hash": "0x0fbb52a9c45f6b71e15f9014faa85f56",
+            "segments": "PropertyPlantAndEquipmentByType=SouthTexasProjectAcreage;",
+            "segment_truncation": false
+        },
+        {
+            "segments_hash": "0x133ed0334b7713ac9a34d0512f7d9f1a",
+            "segments": "DerivativeInstrumentRisk=PutOption;",
+            "segment_truncation": false
+        },
+        {
+            "segments_hash": "0x1767e6cfc42e170f20b295eb0caaa6cc",
+            "segments": "ConsolidationItems=OperatingSegments;BusinessSegments=AllOtherSegments;",
+            "segment_truncation": false
+        }
+    ]
+}

@@ -1,0 +1,57 @@
+table_name,ddl
+top_rising_terms,"CREATE TABLE `bigquery-public-data.google_trends.top_rising_terms`
+(
+  refresh_date DATE,
+  dma_name STRING,
+  dma_id INT64,
+  term STRING,
+  week DATE,
+  score INT64,
+  rank INT64,
+  percent_gain INT64
+)
+PARTITION BY refresh_date
+OPTIONS(
+  description=""Daily top rising terms in the United States with score, ranking, time, and designated market area""
+);"
+international_top_rising_terms,"CREATE TABLE `bigquery-public-data.google_trends.international_top_rising_terms`
+(
+  country_name STRING,
+  country_code STRING,
+  region_name STRING,
+  region_code STRING,
+  week DATE,
+  rank INT64,
+  refresh_date DATE,
+  term STRING,
+  score INT64,
+  percent_gain INT64
+)
+PARTITION BY refresh_date;"
+top_terms,"CREATE TABLE `bigquery-public-data.google_trends.top_terms`
+(
+  dma_name STRING,
+  dma_id INT64,
+  term STRING,
+  week DATE,
+  score INT64,
+  rank INT64,
+  refresh_date DATE
+)
+PARTITION BY refresh_date
+OPTIONS(
+  description=""Daily top 25 terms in the United States with score, ranking, time, and designated market area""
+);"
+international_top_terms,"CREATE TABLE `bigquery-public-data.google_trends.international_top_terms`
+(
+  country_name STRING,
+  region_code STRING,
+  term STRING,
+  score INT64,
+  rank INT64,
+  refresh_date DATE,
+  country_code STRING,
+  region_name STRING,
+  week DATE
+)
+PARTITION BY refresh_date;"

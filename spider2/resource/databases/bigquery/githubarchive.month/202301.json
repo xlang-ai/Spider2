@@ -1,0 +1,235 @@
+{
+    "table_name": "202301",
+    "table_fullname": "githubarchive.month.202301",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":12404831476,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"256d052fc382a819b8958b21c08ca7a53e86115b\",\"before\":\"aa1f3d1a2220c84228db60234fdde623ce84a696\",\"commits\":[{\"sha\":\"256d052fc382a819b8958b21c08ca7a53e86115b\",\"author\":{\"email\":\"2bf98ad2d8cdeacfaadb7b704464199c3dcff63b@gmail.com\",\"name\":\"jmnote\"},\"message\":\".\",\"distinct\":true,\"url\":\"https://api.github.com/repos/jmnote/my-wsl/commits/256d052fc382a819b8958b21c08ca7a53e86115b\"}]}",
+            "repo": {
+                "id": 592336970,
+                "name": "jmnote/my-wsl",
+                "url": "https://api.github.com/repos/jmnote/my-wsl"
+            },
+            "actor": {
+                "id": 2242405,
+                "login": "jmnote",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/2242405?",
+                "url": "https://api.github.com/users/jmnote"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-25 23:59:12+00:00",
+            "id": "26663541026",
+            "other": "{\"actor\":{\"display_login\":\"jmnote\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":12404688578,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"903928749a4b227513d1175449cfb7d0c7951062\",\"before\":\"6ed6a6adf2385e605872274ab55280bc7f50f069\",\"commits\":[{\"sha\":\"903928749a4b227513d1175449cfb7d0c7951062\",\"author\":{\"email\":\"05889dbe7bb5c6837cac22638e5eced2f73626c3@helgi.com\",\"name\":\"Helgi M\u00e1r\"},\"message\":\"Update parser.h\\n\\nTest\",\"distinct\":true,\"url\":\"https://api.github.com/repos/helgi27/dsmr/commits/903928749a4b227513d1175449cfb7d0c7951062\"}]}",
+            "repo": {
+                "id": 593411667,
+                "name": "helgi27/dsmr",
+                "url": "https://api.github.com/repos/helgi27/dsmr"
+            },
+            "actor": {
+                "id": 6931465,
+                "login": "helgi27",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/6931465?",
+                "url": "https://api.github.com/users/helgi27"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-25 23:33:31+00:00",
+            "id": "26663261914",
+            "other": "{\"actor\":{\"display_login\":\"helgi27\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":12392363502,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"db04d607df17007240470828ea5f9b3f3162cad9\",\"before\":\"631144c53e83719cea40ba67c285ab6a814ccf56\",\"commits\":[{\"sha\":\"db04d607df17007240470828ea5f9b3f3162cad9\",\"author\":{\"email\":\"501cbbad9b5010f457ec3bf811149793f2d771bd@gmail.com\",\"name\":\"Miguel Jimenez Lopez\"},\"message\":\"ATM: Fix the get_state method for ATM.\\n\\nWe have some issues related to the default values in the constructor of\\nATM class. Avoid the utilization of this list as default value.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/klyone/codurance-katas/commits/db04d607df17007240470828ea5f9b3f3162cad9\"}]}",
+            "repo": {
+                "id": 591986094,
+                "name": "klyone/codurance-katas",
+                "url": "https://api.github.com/repos/klyone/codurance-katas"
+            },
+            "actor": {
+                "id": 1672028,
+                "login": "klyone",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1672028?",
+                "url": "https://api.github.com/users/klyone"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-25 00:32:10+00:00",
+            "id": "26638205812",
+            "other": "{\"actor\":{\"display_login\":\"klyone\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"eng/104668509\",\"ref_type\":\"branch\",\"master_branch\":\"main\",\"description\":\"Official git mirror of the WebKit repository, https://svn.webkit.org/repository/webkit, future canonical repository.\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 364394331,
+                "name": "JonWBedard/WebKit",
+                "url": "https://api.github.com/repos/JonWBedard/WebKit"
+            },
+            "actor": {
+                "id": 6426975,
+                "login": "JonWBedard",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/6426975?",
+                "url": "https://api.github.com/users/JonWBedard"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-25 23:01:54+00:00",
+            "id": "26662851720",
+            "other": "{\"actor\":{\"display_login\":\"JonWBedard\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":null,\"ref_type\":\"repository\",\"master_branch\":\"main\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 593409755,
+                "name": "AldreiMiranda/Bloquinhos",
+                "url": "https://api.github.com/repos/AldreiMiranda/Bloquinhos"
+            },
+            "actor": {
+                "id": 8248561,
+                "login": "AldreiMiranda",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/8248561?",
+                "url": "https://api.github.com/users/AldreiMiranda"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-01-25 23:23:29+00:00",
+            "id": "26663144527",
+            "other": "{\"actor\":{\"display_login\":\"AldreiMiranda\"}}"
+        }
+    ]
+}

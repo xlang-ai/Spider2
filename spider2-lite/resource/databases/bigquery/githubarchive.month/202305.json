@@ -1,0 +1,235 @@
+{
+    "table_name": "202305",
+    "table_fullname": "githubarchive.month.202305",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":84506236,\"push_id\":13567325170,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/dev-fix-180\",\"head\":\"962ef58920e7f13b08b0b884c230f40991cd193e\",\"before\":\"0f17f269fea724f066e1b0364baa0f61a9192f7d\",\"commits\":[{\"sha\":\"962ef58920e7f13b08b0b884c230f40991cd193e\",\"author\":{\"email\":\"1a73af9e7ae00182733b2292511b814be66f065f@kdgregory.com\",\"name\":\"Keith Gregory\"},\"message\":\"add integration tests\",\"distinct\":true,\"url\":\"https://api.github.com/repos/kdgregory/log4j-aws-appenders/commits/962ef58920e7f13b08b0b884c230f40991cd193e\"}]}",
+            "repo": {
+                "id": 84506236,
+                "name": "kdgregory/log4j-aws-appenders",
+                "url": "https://api.github.com/repos/kdgregory/log4j-aws-appenders"
+            },
+            "actor": {
+                "id": 703623,
+                "login": "kdgregory",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/703623?",
+                "url": "https://api.github.com/users/kdgregory"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-05-09 00:56:40+00:00",
+            "id": "28932125885",
+            "other": "{\"actor\":{\"display_login\":\"kdgregory\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":191522604,\"push_id\":13567018265,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"5ce54a1169f8fed44c1f083ac349276b3cfb2d1f\",\"before\":\"89b25fddd0966e5f267489f395fc5d14770e9f63\",\"commits\":[{\"sha\":\"5ce54a1169f8fed44c1f083ac349276b3cfb2d1f\",\"author\":{\"email\":\"333584fc2850d1a1f97a0a7bf8c5a12e684856bf@revthornton.com\",\"name\":\"David Thornton\"},\"message\":\"melee weapons thrown now do damage right and got hold melee on new system\",\"distinct\":true,\"url\":\"https://api.github.com/repos/DaveThornton/Robits/commits/5ce54a1169f8fed44c1f083ac349276b3cfb2d1f\"}]}",
+            "repo": {
+                "id": 191522604,
+                "name": "DaveThornton/Robits",
+                "url": "https://api.github.com/repos/DaveThornton/Robits"
+            },
+            "actor": {
+                "id": 1097728,
+                "login": "DaveThornton",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1097728?",
+                "url": "https://api.github.com/users/DaveThornton"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-05-09 00:05:35+00:00",
+            "id": "28931555335",
+            "other": "{\"actor\":{\"display_login\":\"DaveThornton\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":636636327,\"push_id\":13567194475,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"1ff7c0c77999e093a92d4def88a3ab0d56e5b2de\",\"before\":\"39574608de2dcadccecd25159fdb853d0d19a6b4\",\"commits\":[{\"sha\":\"1ff7c0c77999e093a92d4def88a3ab0d56e5b2de\",\"author\":{\"email\":\"ed5e4b1d5beb35a2deafb8643c410af7831c7973@gmail.com\",\"name\":\"Vidul Nikolaev Petrov\"},\"message\":\"fix README\",\"distinct\":true,\"url\":\"https://api.github.com/repos/vidul-nikolaev-petrov/nums2wordsBG/commits/1ff7c0c77999e093a92d4def88a3ab0d56e5b2de\"}]}",
+            "repo": {
+                "id": 636636327,
+                "name": "vidul-nikolaev-petrov/nums2wordsBG",
+                "url": "https://api.github.com/repos/vidul-nikolaev-petrov/nums2wordsBG"
+            },
+            "actor": {
+                "id": 7838394,
+                "login": "vidul-nikolaev-petrov",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/7838394?",
+                "url": "https://api.github.com/users/vidul-nikolaev-petrov"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-05-09 00:34:54+00:00",
+            "id": "28931894122",
+            "other": "{\"actor\":{\"display_login\":\"vidul-nikolaev-petrov\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":627727328,\"push_id\":13567198794,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"414e7d9110700e3965513dba8634c2f29712f291\",\"before\":\"88a455ed4dcb27cffee0496631beb34fcbc739a3\",\"commits\":[{\"sha\":\"414e7d9110700e3965513dba8634c2f29712f291\",\"author\":{\"email\":\"00516cdef3f9943915161dc8b90bd2f2d30c1d73@gmail.com\",\"name\":\"Bob Monsour\"},\"message\":\"Fixed broken Issue 6 link\",\"distinct\":true,\"url\":\"https://api.github.com/repos/bobmonsour/11tybundle.dev/commits/414e7d9110700e3965513dba8634c2f29712f291\"}]}",
+            "repo": {
+                "id": 627727328,
+                "name": "bobmonsour/11tybundle.dev",
+                "url": "https://api.github.com/repos/bobmonsour/11tybundle.dev"
+            },
+            "actor": {
+                "id": 133979,
+                "login": "bobmonsour",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/133979?",
+                "url": "https://api.github.com/users/bobmonsour"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-05-09 00:35:39+00:00",
+            "id": "28931901813",
+            "other": "{\"actor\":{\"display_login\":\"bobmonsour\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":638032964,\"push_id\":13567301929,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"c24d2a8a1278eaa5e19b4de3b3b644329e1c9de1\",\"before\":\"17d8a572ed5e8c9d3f9ebd28e9f60fec566ca2bc\",\"commits\":[{\"sha\":\"c24d2a8a1278eaa5e19b4de3b3b644329e1c9de1\",\"author\":{\"email\":\"6cd9ac132f07e2a6917647ca3a64b0ab5a5c424f@toptal.com\",\"name\":\"Eduardo Sotero\"},\"message\":\"save changes\",\"distinct\":true,\"url\":\"https://api.github.com/repos/dudusotero/sotero-dashboard/commits/c24d2a8a1278eaa5e19b4de3b3b644329e1c9de1\"}]}",
+            "repo": {
+                "id": 638032964,
+                "name": "dudusotero/sotero-dashboard",
+                "url": "https://api.github.com/repos/dudusotero/sotero-dashboard"
+            },
+            "actor": {
+                "id": 7073199,
+                "login": "dudusotero",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/7073199?",
+                "url": "https://api.github.com/users/dudusotero"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-05-09 00:53:01+00:00",
+            "id": "28932085336",
+            "other": "{\"actor\":{\"display_login\":\"dudusotero\"}}"
+        }
+    ]
+}

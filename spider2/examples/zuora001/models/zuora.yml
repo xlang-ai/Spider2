@@ -1,0 +1,557 @@
+version: 2
+
+models:
+  - name: zuora__account_daily_overview
+    description: Each record is a day in an account and its accumulated balance totals based on all line item transactions up to that day.   
+    columns:
+      - name: account_daily_id
+        description: Unique account key, based on account id and date of balance data.
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description:  "{{ doc('created_date') }} the account."
+      - name: date_day
+        description: Date compiled line item transactions by day for this account balance took place.
+      - name: date_week
+        description: Date compiled line item transactions by week for this account balance took place.
+      - name: date_month
+        description: Date compiled line item transactions by month for this account balance took place.
+      - name: date_year
+        description: Date compiled line item transactions by year for this account balance took place.
+      - name: date_index
+        description: The nth date in the transaction model. 
+      - name: account_created_at
+        description: Timestamp of when the account entry was created.
+      - name: account_name
+        description: Account name as displayed in Zuora.
+      - name: account_number
+        description: Unique account number assigned to the account. 
+      - name: account_status
+        description: Status of the account in the system.
+      - name: account_country
+        description: The country of the contact's address associated with the account.
+      - name: account_email
+        description: The business email address of the contact associated with the account.
+      - name: account_first_name
+        description: The first name of the contact associated with the account.
+      - name: account_last_name
+        description: The last name of the contact associated with the account.
+      - name: account_postal_code
+        description: The zip code of the contact associated with the account.
+      - name: account_state
+        description: The state of the contact associated with the account.
+      - name: first_charge_processed_at
+        description: Time at which the first charge on the account is processed. 
+      - name: daily_invoices
+        description: Number of invoices that day for this account.
+      - name: daily_invoice_items
+        description: Number of invoice items that day for this account.
+      - name: daily_invoice_amount
+        description: Total amount of the invoices that day for this account.
+      - name: daily_invoice_amount_paid
+        description: Total amount of the invoices paid that day for this account.
+      - name: daily_invoice_amount_unpaid
+        description: Total amount of the invoices unpaid that day for this account.
+      - name: daily_tax_amount
+        description: Total amount of the taxes that day for this account.
+      - name: daily_credit_balance_adjustment_amount
+        description: Total amount of the credit balance adjustments that day for this account.
+      - name: daily_discount_charges
+        description: Total amount of the discount charges that day for this account.
+      - name: daily_refunds
+        description: Total amount of the refunds that day for this account.
+      - name: rolling_invoices
+        description: Number of invoices on this account since it was created to the current date.
+      - name: rolling_invoice_items
+        description: Number of invoice items on this account since it was created to the current date.
+      - name: rolling_invoice_amount
+        description: Accumulated invoice amount based on totalled invoice amounts up to the current date.
+      - name: rolling_invoice_amount_paid
+        description: Accumulated invoice amount paid based on totalled invoice amounts paid up to the current date.
+      - name: rolling_invoice_amount_unpaid
+        description: Accumulated invoice amount unpaid based on totalled invoice amounts unpaid up to the current date.
+      - name: rolling_tax_amount
+        description: Accumulated taxes based on totalled taxes up to the current date.
+      - name: rolling_credit_balance_adjustment_amount
+        description: Accumulated credit balance adjustments based on totalled credit balances up to the current date.
+      - name: rolling_discount_charges
+        description: Accumulated discount charges based on totalled discount charges up to the current date.
+      - name: rolling_refunds
+        description: Accumulated refunds based on totalled refunds up to the current date.
+    ref:
+      - name: int_zuora__account_running_totals
+      - name: zuora__account_overview
+
+
+  - name: zuora__account_overview
+    description: Each record represents an account enriched with metrics about their associated transactions.
+    columns:
+      - name: account_id
+        description: Primary key for the account.
+        tests: 
+          - unique 
+      - name: account_created_at
+        description: "{{ doc('created_date') }} the account."
+      - name: account_name
+        description: Account name as displayed in Zuora.
+      - name: account_number
+        description: Unique account number assigned to the account. 
+      - name: account_credit_balance
+        description: Total credit balance for the account.
+      - name: account_zuora_calculated_mrr
+        description: The amount of tabulated MRR as calculated by Zuora internally. 
+      - name: account_status
+        description: Status of the account in the system.
+      - name: is_auto_pay
+        description: Indicates if future payments are automatically collected when they're due during a Payment Run.
+      - name: account_country
+        description: The country of the contact's address associated with the account.
+      - name: account_city
+        description: The city of the contact's address associated with the account.
+      - name: account_email
+        description: The business email address of the contact associated with the account.
+      - name: account_first_name
+        description: The first name of the contact associated with the account.
+      - name: account_last_name
+        description: The last name of the contact associated with the account.
+      - name: account_postal_code
+        description: The postal code of the contact's address associated with the account.
+      - name: account_state
+        description: The state of the contact's address associated with the account.
+      - name: account_active_months
+        description: The number of months the account has been active, rounded to days. 
+      - name: first_charge_processed_at
+        description: Time at which the first charge on the account is processed. 
+      - name: is_currently_subscribed
+        description: Does the account have a current active subscription associated with it?
+      - name: is_new_customer
+        description: Was this account created in the past 30 days? 
+      - name: invoice_item_count
+        description: All invoice items ever associated with this account.
+      - name: invoice_count
+        description: All invoices ever associated with this account.s
+      - name: active_subscription_count
+        description: Subscriptions currently active in this account.
+      - name: total_subscription_count
+        description: All subscriptions ever created with this account.
+      - name: total_invoice_amount
+        description: Total amount of all invoices associated with this account.
+      - name: total_invoice_amount_home_currency
+        description: Total amount of all invoices in the home currency associated with this account.
+      - name: total_taxes
+        description: Total taxes associated with this account.
+      - name: total_discounts
+        description: Total discounts associated with this account.
+      - name: total_amount_paid
+        description: Total amount of invoices paid associated with this account.
+      - name: total_amount_not_paid
+        description: Total amount of invoices unpaid associated with this account.
+      - name: total_amount_past_due
+        description: Total amount of past due invoices associated with this account.
+      - name: total_refunds
+        description: Total amount of refunds associated with this account.
+      - name: total_average_invoice_value
+        description: Total average value of the invoice associated with this account.
+      - name: total_units_per_invoice
+        description: Total units per invoice associated with this account.
+      - name: monthly_average_subscription_count
+        description: Average number of subscriptions per month for this account.
+      - name: monthly_average_invoice_amount
+        description: Average invoice amount per month for this account.
+      - name: monthly_average_invoice_amount_home_currency
+        description: Average invoice amount in the home currency per month for this account.
+      - name: monthly_average_taxes
+        description: Average taxes per month for this account.
+      - name: monthly_average_discounts
+        description: Average discounts per month for this account.
+      - name: monthly_average_amount_paid
+        description: Average paid amount per month for this account.
+      - name: monthly_average_amount_not_paid
+        description: Average unpaid amount per month for this account.
+      - name: monthly_average_amount_past_due
+        description: Average past due amount per month for this account.
+      - name: monthly_average_refunds 
+        description: Average refunds per month for this account.
+
+    ref:
+      - name: int_zuora__account_enriched
+      - name: contact
+
+  - name: zuora__billing_history
+    description: Each record is an invoice to evaluate the history of charges billed, enhanced with additional details from payments, refunds, adjustments, discounts, and taxes.
+    columns:
+      - name: invoice_id
+        description: "{{ doc('id') }} invoice table."  
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: The account associated with the invoice.
+      - name: created_at
+        description: The time at which the invoice was created.
+      - name: invoice_number
+        description: The unique identification number for the invoice.
+      - name: invoice_date
+        description: Specifies the date on which to generate the invoice.
+      - name: invoice_amount
+        description: The sum of all charges and taxes associated with the invoice.
+      - name: invoice_amount_home_currency
+        description: The sum of all charges and taxes associated with the invoice in its home currency.
+      - name: invoice_amount_paid
+        description: The amount of the invoice currently paid for.  
+      - name: invoice_amount_unpaid
+        description: The amount of the invoice yet to be paid for. 
+      - name: tax_amount
+        description: The total amount of the taxes applied to the invoice.
+      - name: refund_amount
+        description: The amount of refunds applied to the invoice.
+      - name: credit_balance_adjustment_amount
+        description: The amount of the credit balance adjustment applied to the invoice.
+      - name: tax_amount_home_currency
+        description: The amount of tax in home currency for the invoice.
+      - name: transaction_currency 
+        description: "{{ doc('transaction_currency') }}"
+      - name: home_currency 
+        description: "{{ doc('home_currency') }}"
+      - name: exchange_rate_date 
+        description: The date of the exchange rate used for the invoice.
+      - name: due_date
+        description: The due date of the invoice.
+      - name: status
+        description: The status of the invoice in the system. This status is not the status of the payment of the invoice just the status of the invoice itself.
+      - name: purchase_type
+        description: The type of the invoice source. 
+      - name: invoice_items
+        description: The amount of invoice items in the invoice.
+      - name: products
+        description: The number of products billed in the invoice.
+      - name: subscriptions
+        description: The number of subscriptions in the invoice.
+      - name: discount_charges
+        description: The discount charges applied to the invoice.
+      - name: discount_charges_home_currency
+        description: The discount charges home currency applied to the invoice.
+      - name: units
+        description: The units in the invoice.
+      - name: first_charge_date
+        description: The first charge date for the invoice.
+      - name: most_recent_charge_date
+        description: The most recent charge date for the invoice.
+      - name: invoice_service_start_date
+        description: Earliest invoice item service start date for the invoice.
+      - name: invoice_service_end_date
+        description: Earliest invoice item service end date for the invoice.
+      - name: payments
+        description: The number of payments applied to the invoice.
+      - name: invoice_amount_paid_home_currency
+        description: The amount of the invoice amount paid in the home currency on the invoice.
+      - name: invoice_amount_unpaid_home_currency
+        description: The amount of the invoice amount unpaid in the home currency on the invoice.
+      - name: first_payment_date
+        description: The first date when a payment is applied to the invoice.
+      - name: most_recent_payment_date
+        description: The most recent date when a payment is applied to the invoice. 
+      - name: payment_methods
+        description: The number of payment methods associated with the invoice.
+      - name: credit_balance_adjustments
+        description: The number of the credit balance adjustments applied on the invoice.
+      - name: credit_balance_adjustment_amount_home_currency
+        description: The amount for the credit balance adjustment in home currency on the invoice.
+      - name: first_credit_balance_adjustment_date
+        description: The first date when a credit balance adjustment is applied to the invoice. 
+      - name: most_recent_credit_balance_adjustment_date
+        description: The most recent date when a credit balance adjustment is applied to the invoice. 
+
+  - name: zuora__line_item_history
+    description: Each record is an invoice item meant to provide all details on all transactions at the most granular level, with details being brought in from subscriptions, amendments, rate plan charges, products, subscriptions, amendments and more.
+    columns: 
+      - name: invoice_item_id
+        description: "{{ doc('id') }} invoice item table."
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Identifier of the account associated with this invoice item.
+      - name: account_creation_day
+        description: Day the account associated with the line item was created.
+      - name: account_status
+        description: Status of the account associated with the line item. 
+      - name: amendment_id
+        description: Amendment identifier associated with the invoice item.
+      - name: balance
+        description: Balance of the invoice item.
+      - name: charge_amount
+        description: Amount charged for the invoice item.
+      - name: charge_amount_home_currency
+        description: Amount charged for the invoice item in the home currency.
+      - name: charge_date
+        description: Date on which the charge for the invoice item was made.
+      - name: charge_day
+        description: Day on which the charge for the invoice item was made.
+      - name: charge_week
+        description: Week on which the charge for the invoice item was made.
+      - name: charge_month
+        description: Month on which the charge for the invoice item was made.
+      - name: charge_name
+        description: Name on which the charge for the invoice item was made.
+      - name: discount_amount
+        description: Discount amount applied for the invoice item.
+      - name: discount_amount_home_currency
+        description: Discount amount applied for the invoice item in the home currency.
+      - name: first_charge_day
+        description: First charge day for the account associated with the invoice item.
+      - name: home_currency
+        description: "{{ doc('home_currency') }}"
+      - name: invoice_id
+        description: The identifier for the invoice associated with the invoice item.
+      - name: product_id
+        description: The identifier for the product associated with the invoice item.
+      - name: product_rate_plan_id
+        description: The identifier for the product rate plan associated with the invoice item.
+      - name: product_rate_plan_charge_id
+        description: The identifier for the product rate plan charge associated with the invoice item.
+      - name: rate_plan_charge_id
+        description: The identifier for the rate plan charge associated with the invoice item.
+      - name: service_start_day
+        description: Start date of the service associated with the invoice item.
+      - name: service_start_week
+        description: Start week of the service associated with the invoice item.
+      - name: service_start_month
+        description: Start month of the service associated with the invoice item.
+      - name: service_end_date
+        description: End date of the service associated with the invoice item.
+      - name: subscription_id
+        description: The id of the subscription associated with the invoice item.
+      - name: sku
+        description: SKU of the invoice item.
+      - name: tax_amount
+        description: The tax amount for the invoice item.
+      - name: tax_amount_home_currency
+        description: The tax amount for the invoice item in the home currency.
+      - name: transaction_currency
+        description: "{{ doc('transaction_currency') }}"
+      - name: unit_price
+        description: The unit price for the invoice item.
+      - name: uom
+        description: The unit of measure for the invoice item.
+      - name: invoice_number
+        description: The unique identification number for the invoice.
+      - name: invoice_date
+        description: Specifies the date on which to generate the invoice.
+      - name: invoice_due_date   
+        description: The due date of the invoice.
+      - name: subscription_auto_renew
+        description: Indicates whether the subscription is set to automatically renew at the end of the term.
+      - name: subscription_cancel_reason
+        description: The reason for cancelling the subscription, if applicable.
+      - name: subscription_cancel_date 
+        description: The date on which the subscription was cancelled, if applicable.
+      - name: subscription_service_activation_date
+        description: The date the subscription was activated.
+      - name: subscription_status
+        description: The status of the subscription associated with the invoice item.
+      - name: subscription_start_date
+        description: The start date of the subscription associated with the invoice item.
+      - name: subscription_end_date
+        description: The end date of the subscription associated with the invoice item.
+      - name: subscription_term_start_date
+        description: The start date of the subscription term associated with the invoice item.
+      - name: subscription_term_end_date
+        description: The end date of the subscription term associated with the invoice item.
+      - name: subscription_term_type
+        description: The type of subscription term associated with the invoice item.
+      - name: subscription_version
+        description: The version number of the subscription for the invoice item.
+      - name: rate_plan_charge_name
+        description: The name of the rate plan charge associated with the invoice item.
+      - name: charge_billing_period
+        description: The billing period for the charge associated with the invoice item. 
+      - name: charge_billing_timing
+        description: The timing of the charge for the invoice item. 
+      - name: charge_model
+        description: The model used to calculate the charge for the invoice item.
+      - name: charge_type
+        description: The type of charge for the invoice item.
+      - name: charge_effective_start_date
+        description: The date on which the rate plan charge goes into effect for the invoice item.
+      - name: charge_effective_end_date
+        description: The date on which the rate plan charge is no longer in effect for the invoice item.
+      - name: charge_segment
+        description: The segment associated with the rate plan charge for the invoice item.
+      - name: charge_mrr
+        description: The monthly recurring revenue of the rate plan charge for the invoice item.
+      - name: charge_mrr_home_currency
+        description: The monthly recurring revenue of the rate plan charge in the home currency for the invoice item.
+      - name: amendment_name
+        description: The name of the amendment associated with the invoice item..
+      - name: amendment_type
+        description: The type of the amendment associated with the invoice item..
+      - name: amendment_status
+        description: The status of the amendment associated with the invoice item.
+      - name: product_name
+        description: The name of the product associated with the invoice item.
+      - name: product_category
+        description: The category of the product associated with the invoice item.
+      - name: product_description
+        description: The description of the product associated with the invoice item.
+      - name: product_start_date
+        description: The date when the product becomes available for purchase.
+      - name: product_end_date 
+        description: The date when the product is no longer available for purchase.
+      - name: product_rate_plan_name
+        description: The name of the product rate plan.
+      - name: product_rate_plan_description
+        description: A brief description of the product rate plan.
+      - name: gross_revenue
+        description: The charge amount for the invoice item, accumulated as revenue.
+      - name: discount_revenue
+        description: The discount amount applied to the invoice item, accumulated as revenue.
+      - name: net_revenue
+        description: The difference between the gross and the discount revenue.
+
+  - name: zuora__monthly_recurring_revenue
+    description: Each record is an account and a month in that account, with details about its monthly recurring and non-recurring revenue in these time periods.
+    columns: 
+      - name: account_monthly_id
+        description: The unique identifier for the account id and month.
+        tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: Unique identifier of the account.
+      - name: account_month
+        description: Month of the account where MRR is being generated. 
+      - name: mrr_expected_current_month
+        description: Expected monthly recurring revenue based on the rate plan charges for the account.    
+      - name: gross_current_month_mrr
+        description: Total recurring charges in the current month for the account, resulting in gross monthly recurring revenue.    
+      - name: discount_current_month_mrr
+        description: Total recurring discounts in the current month for the account, resulting in discount monthly recurring revenue.
+      - name: net_current_month_mrr
+        description: The difference between gross monthly recurring revenue and net monthly recurring revenue in the current month.
+      - name: gross_current_month_non_mrr
+        description: Total non-recurring charges in the current month for the account, resulting in gross monthly non-recurring revenue.
+      - name: discount_current_month_non_mrr
+        description: Total non-recurring discounts in the current month for the account, resulting in discount monthly non-recurring revenue.
+      - name: net_current_month_non_mrr
+        description: The difference between gross monthly non-recurring revenue and net monthly non-recurring revenue in that month.    
+      - name: mrr_expected_previous_month
+        description: Expected previous month's monthly recurring revenue based on the rate plan charges for the account.
+      - name: gross_previous_month_mrr
+        description: Total recurring charges in the previous month for the account, resulting in gross monthly recurring revenue.        
+      - name: discount_previous_month_mrr
+        description: Total recurring discounts in the previous month for the account, resulting in discount monthly recurring revenue.   
+      - name: net_previous_month_mrr
+        description: The difference between gross monthly recurring revenue and net monthly recurring revenue in the previous month.     
+      - name: gross_previous_month_non_mrr
+        description: Total non-recurring charges in the previous month for the account, resulting in gross monthly non-recurring revenue.
+      - name: discount_previous_month_non_mrr
+        description: Total non-recurring discounts in the previous month for the account, resulting in discount monthly non-recurring revenue.
+      - name: net_previous_month_non_mrr
+        description: The difference between gross monthly non-recurring revenue and net monthly non-recurring revenue in the previous month.
+      - name: account_month_number
+        description: The number of the month of the account, 1 being the first month the account receives revenue and the number increases with each subsequent month.
+      - name: net_mrr_type
+        description: The net monthly recurring revenue type, defined by best-known MRR type terminology. 
+
+  - name: zuora__subscription_overview
+    description: Each record is a subscription, enhanced with additional details from rate plan charges and amendments.
+    columns: 
+      - name: subscription_key 
+        description: The unique subscription key, defined by subscription id, rate plan charge id, and amendment id.
+        tests:
+          - unique
+          - not_null
+      - name: subscription_id
+        description: The unique identifier for the subscription.
+      - name: account_id
+        description: The unique identifier for the account associated with the subscription.
+      - name: account_name
+        description: The account name associated with the subscription. 
+      - name: auto_renew
+        description: Indicates whether the subscription is set to automatically renew at the end of the term.
+      - name: cancel_reason
+        description: The reason for cancelling the subscription, if applicable.
+      - name: cancelled_date
+        description: The date on which the subscription was cancelled, if applicable.
+      - name: current_term 
+        description: The length of the current subscription term.
+      - name: current_term_period_type 
+        description: The unit of time for the current subscription term (e.g. "Month", "Year").
+      - name: initial_term
+        description: The length of the initial subscription term.
+      - name: initial_term_period_type 
+        description: The unit of time for the initial subscription term (e.g. "Month", "Year").
+      - name: is_latest_version
+        description: Indicates whether the subscription is the latest version of the subscription on the account.
+      - name: previous_subscription_id
+        description: The unique identifier for the previous subscription associated with the subscription.
+      - name: renewal_term
+        description: The length of the renewal subscription term.
+      - name: renewal_term_period_type
+        description: The type of the renewal term for the subscription.
+      - name: service_activation_date
+        description: The date the subscription was activated.
+      - name: status
+        description: The status of the subscription.
+      - name: subscription_start_date
+        description: The start date of the subscription.
+      - name: subscription_end_date
+        description: The end date of the subscription.
+      - name: term_start_date
+        description: The start date of the subscription term.
+      - name: term_end_date
+        description: The end date of the subscription term.
+      - name: term_type
+        description: The type of subscription term.
+      - name: version
+        description: The version number of the subscription.
+      - name: rate_plan_charge_id 
+        description: The identifier for the rate plan charge associated with the subscription.
+      - name: rate_plan_charge_name
+        description: The name of the rate plan charge associated with the subscription.
+      - name: charge_billing_period
+        description: The billing period for the charge associated with the subscription.
+      - name: charge_billing_timing
+        description: The billing timing for the charge associated with the subscription. 
+      - name: charge_model
+        description: The model used to calculate the charge associated with the subscription.
+      - name: charge_type
+        description: TThe type of charge associated with the subscription.
+      - name: charged_through_date
+        description: The date through which the charge has been charged on the subscription.
+      - name: charge_effective_start_date
+        description: The date on which the rate plan charge goes into effect on the subscription.
+      - name: charge_effective_end_date
+        description:  The date on which the rate plan charge is no longer in effect on the subscription.
+      - name: charge_mrr
+        description: The monthly recurring revenue of the rate plan charge associated with the subscription. 
+      - name: charge_mrr_home_currency
+        description: The monthly recurring revenue of the rate plan charge in the home currency associated with the subscription. 
+      - name: amendment_id
+        description: The id of the amendment associated with the subscription.
+      - name: amendment_name
+        description: The name of the amendment associated with the subscription.
+      - name: amendment_booking_date
+        description: The date when the amendment is signed.
+      - name: amendment_creation_date
+        description: "{{ doc('created_date') }} the amendment."
+      - name: amendment_type
+        description: The type of amendment associated with the subscription.
+      - name: amendment_status
+        description: The status of the amendment associated with the subscription.
+      - name: amendment_contract_date
+        description: The date when the amendment's changes become effective for billing purposes.
+      - name: amendment_activation_date
+        description: The date when service is activated for the amendment. 
+      - name: current_term_days
+        description: The length of the current term of the subscription in days. 
+      - name: initial_term_days
+        description: The length of the initial term of the subscription in days. 
+      - name: renewal_term_days
+        description: The length of the renewal term of the subscription in days. 
+      - name: subscription_days
+        description: The length of the subscription in days. 
+      - name: term_days
+        description: The length of the subscription term in days. 

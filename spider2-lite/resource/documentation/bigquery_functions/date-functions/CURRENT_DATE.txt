@@ -1,0 +1,81 @@
+## CURRENT_DATE
+
+CURRENT_DATE()
+
+
+CURRENT_DATE(time_zone_expression)
+
+
+CURRENT_DATE
+
+**Description**
+
+Returns the current date as a ` DATE ` object. Parentheses are optional when called with no arguments.
+
+This function supports the following arguments:
+
+* ` time_zone_expression ` : A ` STRING ` expression that represents a [ time zone ](/bigquery/docs/reference/standard-sql/timestamp_functions#timezone_definitions) . If no time zone is specified, the default time zone, UTC, is used. If this expression is used and it evaluates to ` NULL ` , this function returns ` NULL ` .
+
+The current date is recorded at the start of the query statement which contains this function, not when this specific function is evaluated.
+
+**Return Data Type**
+
+` DATE `
+
+**Examples**
+
+The following query produces the current date in the default time zone:
+
+
+SELECT CURRENT_DATE() AS the_date;
+
+/*--------------*
+| the_date     |
++--------------+
+| 2016-12-25   |
+*--------------*/
+
+The following queries produce the current date in a specified time zone:
+
+
+SELECT CURRENT_DATE('America/Los_Angeles') AS the_date;
+
+/*--------------*
+| the_date     |
++--------------+
+| 2016-12-25   |
+*--------------*/
+
+
+SELECT CURRENT_DATE('-08') AS the_date;
+
+/*--------------*
+| the_date     |
++--------------+
+| 2016-12-25   |
+*--------------*/
+
+The following query produces the current date in the default time zone.
+Parentheses are not needed if the function has no arguments.
+
+
+SELECT CURRENT_DATE AS the_date;
+
+/*--------------*
+| the_date     |
++--------------+
+| 2016-12-25   |
+*--------------*/
+
+When a column named ` current_date ` is present, the column name and the function call without parentheses are ambiguous. To ensure the function call,
+add parentheses; to ensure the column name, qualify it with its [ range variable ](/bigquery/docs/reference/standard-sql/query-syntax#range_variables) . For example, the following query will select the function in the ` the_date
+` column and the table column in the ` current_date ` column.
+
+
+WITH t AS (SELECT 'column value' AS `current_date`) SELECT current_date() AS the_date, t.current_date FROM t;
+
+/*------------+--------------*
+| the_date   | current_date |
++------------+--------------+
+| 2016-12-25 | column value |
+*------------+--------------*/

@@ -1,0 +1,81 @@
+table_name,DDL
+Bowler_Scores,"CREATE TABLE Bowler_Scores (
+    MatchID INT,
+    GameNumber smallint,
+    BowlerID INT,
+    RawScore smallint,
+    HandiCapScore smallint,
+    WonGame BOOLEAN
+);"
+Bowler_Scores_Archive,"CREATE TABLE Bowler_Scores_Archive (
+    MatchID INT,
+    GameNumber smallint,
+    BowlerID INT,
+    RawScore smallint,
+    HandiCapScore smallint,
+    WonGame BOOLEAN
+);"
+Bowlers,"CREATE TABLE Bowlers (
+    BowlerID INTEGER,
+    BowlerLastName TEXT,
+    BowlerFirstName TEXT,
+    BowlerMiddleInit TEXT,
+    BowlerAddress TEXT,
+    BowlerCity TEXT,
+    BowlerState TEXT,
+    BowlerZip TEXT,
+    BowlerPhoneNumber TEXT,
+    TeamID INT,
+    BowlerTotalPins INT,
+    BowlerGamesBowled INT,
+    BowlerCurrentAverage smallint,
+    BowlerCurrentHcp smallint
+);"
+sqlite_sequence,"CREATE TABLE sqlite_sequence (
+    name ,
+    seq 
+);"
+Match_Games,"CREATE TABLE Match_Games (
+    MatchID INT,
+    GameNumber smallint,
+    WinningTeamID INT
+);"
+Match_Games_Archive,"CREATE TABLE Match_Games_Archive (
+    MatchID INT,
+    GameNumber smallint,
+    WinningTeamID INT
+);"
+Teams,"CREATE TABLE Teams (
+    TeamID INTEGER,
+    TeamName TEXT,
+    CaptainID INT
+);"
+Tournaments,"CREATE TABLE Tournaments (
+    TourneyID INTEGER,
+    TourneyDate DATE,
+    TourneyLocation TEXT
+);"
+Tournaments_Archive,"CREATE TABLE Tournaments_Archive (
+    TourneyID INT,
+    TourneyDate DATE,
+    TourneyLocation TEXT
+);"
+Tourney_Matches,"CREATE TABLE Tourney_Matches (
+    MatchID INTEGER,
+    TourneyID INT,
+    Lanes TEXT,
+    OddLaneTeamID INT,
+    EvenLaneTeamID INT
+);"
+Tourney_Matches_Archive,"CREATE TABLE Tourney_Matches_Archive (
+    MatchID INT,
+    TourneyID INT,
+    Lanes TEXT,
+    OddLaneTeamID INT,
+    EvenLaneTeamID INT
+);"
+WAZips,"CREATE TABLE WAZips (
+    ZIP TEXT,
+    City TEXT,
+    State TEXT
+);"

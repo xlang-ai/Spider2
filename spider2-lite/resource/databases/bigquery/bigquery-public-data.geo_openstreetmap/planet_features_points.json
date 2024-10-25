@@ -1,0 +1,92 @@
+{
+    "table_name": "planet_features_points",
+    "table_fullname": "bigquery-public-data.geo_openstreetmap.planet_features_points",
+    "column_names": [
+        "osm_id",
+        "osm_version",
+        "osm_way_id",
+        "osm_timestamp",
+        "geometry",
+        "all_tags"
+    ],
+    "column_types": [
+        "INT64",
+        "INT64",
+        "INT64",
+        "TIMESTAMP",
+        "GEOGRAPHY",
+        "ARRAY<STRUCT<key STRING, value STRING>>"
+    ],
+    "nested_column_names": [
+        "osm_id",
+        "osm_version",
+        "osm_way_id",
+        "osm_timestamp",
+        "geometry",
+        "all_tags",
+        "all_tags.key",
+        "all_tags.value"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "INT64",
+        "INT64",
+        "TIMESTAMP",
+        "GEOGRAPHY",
+        "ARRAY<STRUCT<key STRING, value STRING>>",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "osm_id": 1720857690,
+            "osm_version": 9,
+            "osm_way_id": null,
+            "osm_timestamp": "2021-10-16 09:51:11+00:00",
+            "geometry": "POINT(0.3433364 46.5834609)",
+            "all_tags": "[{'key': 'atm', 'value': 'yes'} {'key': 'disused:shop', 'value': 'yes'}]"
+        },
+        {
+            "osm_id": 8727369550,
+            "osm_version": 1,
+            "osm_way_id": null,
+            "osm_timestamp": "2021-05-13 07:38:10+00:00",
+            "geometry": "POINT(1.0618047 46.1262821)",
+            "all_tags": "[{'key': 'bin', 'value': 'yes'} {'key': 'bus', 'value': 'yes'}\n {'key': 'highway', 'value': 'bus_stop'}\n {'key': 'name', 'value': 'Bellac - Rue Ren\u00e9 Coty Abri 1'}\n {'key': 'public_transport', 'value': 'platform'}\n {'key': 'route_ref', 'value': 'LR13'} {'key': 'shelter', 'value': 'yes'}]"
+        },
+        {
+            "osm_id": 3396875635,
+            "osm_version": 3,
+            "osm_way_id": null,
+            "osm_timestamp": "2019-07-24 14:14:25+00:00",
+            "geometry": "POINT(1.2376024 45.8631192)",
+            "all_tags": "[{'key': 'bus', 'value': 'yes'} {'key': 'name', 'value': 'Villef\u00e9lix'}\n {'key': 'note', 'value': '37'}\n {'key': 'public_transport', 'value': 'stop_position'}]"
+        },
+        {
+            "osm_id": 3399014616,
+            "osm_version": 5,
+            "osm_way_id": null,
+            "osm_timestamp": "2019-07-24 14:14:25+00:00",
+            "geometry": "POINT(1.2374224 45.7978503)",
+            "all_tags": "[{'key': 'bus', 'value': 'yes'}\n {'key': 'name', 'value': 'Pont des Roches'}\n {'key': 'note', 'value': 'Bus 36'}\n {'key': 'public_transport', 'value': 'stop_position'}]"
+        },
+        {
+            "osm_id": 7143085920,
+            "osm_version": 1,
+            "osm_way_id": null,
+            "osm_timestamp": "2020-01-19 17:52:25+00:00",
+            "geometry": "POINT(1.2364374 45.8143933)",
+            "all_tags": "[{'key': 'bus', 'value': 'yes'}\n {'key': 'name', 'value': 'CHU Dupuytren 2'}\n {'key': 'network', 'value': 'STCLM'}\n {'key': 'operator', 'value': 'Limoges M\u00e9tropole'}\n {'key': 'public_transport', 'value': 'stop_position'}]"
+        }
+    ]
+}

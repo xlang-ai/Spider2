@@ -1,0 +1,235 @@
+{
+    "table_name": "202405",
+    "table_fullname": "githubarchive.month.202405",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"master\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 802807860,
+                "name": "direwolf-github/ephemeral-ci-a3122242",
+                "url": "https://api.github.com/repos/direwolf-github/ephemeral-ci-a3122242"
+            },
+            "actor": {
+                "id": 10810283,
+                "login": "direwolf-github",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/10810283?",
+                "url": "https://api.github.com/users/direwolf-github"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-05-19 10:27:16+00:00",
+            "id": "38507251451",
+            "other": "{\"actor\":{\"display_login\":\"direwolf-github\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":777037808,\"push_id\":18488782829,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"2e90a5d33ff5f92d478289ad9fc7fff4849c4e02\",\"before\":\"e2173e12b2147fb9ea6c1301648dc960402e32d5\",\"commits\":[{\"sha\":\"2e90a5d33ff5f92d478289ad9fc7fff4849c4e02\",\"author\":{\"email\":\"42ae05a65576d0ec264b26cc7a7fda68e478ffc5@dongqn.com\",\"name\":\"longg46346\"},\"message\":\"\ud83d\udca1 Improve Axelar network\",\"distinct\":true,\"url\":\"https://api.github.com/repos/longg46346/lava-auto-commit/commits/2e90a5d33ff5f92d478289ad9fc7fff4849c4e02\"}]}",
+            "repo": {
+                "id": 777037808,
+                "name": "longg46346/lava-auto-commit",
+                "url": "https://api.github.com/repos/longg46346/lava-auto-commit"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-05-19 10:30:25+00:00",
+            "id": "38507283909",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":506566991,\"push_id\":18488615931,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/branch1\",\"head\":\"4c5bc2551a7cf64319fe3c419e26ba86cc6ada96\",\"before\":\"7b4ac279a7e10a15cd888fffbde4e58efd18542d\",\"commits\":[{\"sha\":\"4c5bc2551a7cf64319fe3c419e26ba86cc6ada96\",\"author\":{\"email\":\"8a6f9c2cc3951efb1c122b10e2b4bec2282de4cd@peliqan.io\",\"name\":\"Piet-Michiel Rappelet\"},\"message\":\"New version of Qlik Sense app 24-05-19 10:05\",\"distinct\":true,\"url\":\"https://api.github.com/repos/pmrappelet/Demo/commits/4c5bc2551a7cf64319fe3c419e26ba86cc6ada96\"}]}",
+            "repo": {
+                "id": 506566991,
+                "name": "pmrappelet/Demo",
+                "url": "https://api.github.com/repos/pmrappelet/Demo"
+            },
+            "actor": {
+                "id": 83819739,
+                "login": "pmrappelet",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/83819739?",
+                "url": "https://api.github.com/users/pmrappelet"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-05-19 10:05:32+00:00",
+            "id": "38507039304",
+            "other": "{\"actor\":{\"display_login\":\"pmrappelet\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":794627879,\"push_id\":18488914841,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"02e7a7cf3b2018c4028f34ac4bd0485807f294bf\",\"before\":\"b609fca894bae7957282b5d7c379d8033fd1dd6b\",\"commits\":[{\"sha\":\"02e7a7cf3b2018c4028f34ac4bd0485807f294bf\",\"author\":{\"email\":\"9dc09c1d665f31c4418d26699a1438629fb48d43@gmail.com\",\"name\":\"ABDELLATIF LAGHJAJ\"},\"message\":\"Update app.py\",\"distinct\":true,\"url\":\"https://api.github.com/repos/abdellatif-laghjaj/classification-system-for-online-learning/commits/02e7a7cf3b2018c4028f34ac4bd0485807f294bf\"}]}",
+            "repo": {
+                "id": 794627879,
+                "name": "abdellatif-laghjaj/classification-system-for-online-learning",
+                "url": "https://api.github.com/repos/abdellatif-laghjaj/classification-system-for-online-learning"
+            },
+            "actor": {
+                "id": 79521157,
+                "login": "abdellatif-laghjaj",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/79521157?",
+                "url": "https://api.github.com/users/abdellatif-laghjaj"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-05-19 10:54:45+00:00",
+            "id": "38507533838",
+            "other": "{\"actor\":{\"display_login\":\"abdellatif-laghjaj\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":730932158,\"push_id\":18488669419,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"6a200933f84776c680acec37625762b99d7308e9\",\"before\":\"0e04a476220037c035e3dda542a233fccf69449c\",\"commits\":[{\"sha\":\"6a200933f84776c680acec37625762b99d7308e9\",\"author\":{\"email\":\"f11e9d0e5fb8761ffafe671ebb708ce63c1433e9@users.noreply.github.com\",\"name\":\"Dustnow\"},\"message\":\"Update 1.txt\",\"distinct\":true,\"url\":\"https://api.github.com/repos/tipo23/dark-web-links/commits/6a200933f84776c680acec37625762b99d7308e9\"}]}",
+            "repo": {
+                "id": 730932158,
+                "name": "tipo23/dark-web-links",
+                "url": "https://api.github.com/repos/tipo23/dark-web-links"
+            },
+            "actor": {
+                "id": 153695169,
+                "login": "tipo23",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/153695169?",
+                "url": "https://api.github.com/users/tipo23"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2024-05-19 10:14:44+00:00",
+            "id": "38507119888",
+            "other": "{\"actor\":{\"display_login\":\"tipo23\"}}"
+        }
+    ]
+}

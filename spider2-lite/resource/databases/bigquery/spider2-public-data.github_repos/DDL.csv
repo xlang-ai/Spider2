@@ -1,0 +1,53 @@
+table_name,ddl
+sample_commits,"CREATE TABLE `spider2-public-data.github_repos.sample_commits`
+(
+  commit STRING,
+  tree STRING,
+  parent ARRAY<STRING>,
+  author STRUCT<name STRING, email STRING, time_sec INT64, tz_offset INT64, date TIMESTAMP>,
+  committer STRUCT<name STRING, email STRING, time_sec INT64, tz_offset INT64, date TIMESTAMP>,
+  subject STRING,
+  message STRING,
+  trailer ARRAY<STRUCT<key STRING, value STRING, email STRING>>,
+  difference ARRAY<STRUCT<old_mode INT64, new_mode INT64, old_path STRING, new_path STRING, old_sha1 STRING, new_sha1 STRING, old_repo STRING, new_repo STRING>>,
+  difference_truncated BOOL,
+  repo_name STRING,
+  encoding STRING
+);"
+licenses,"CREATE TABLE `spider2-public-data.github_repos.licenses`
+(
+  repo_name STRING,
+  license STRING
+);"
+sample_repos,"CREATE TABLE `spider2-public-data.github_repos.sample_repos`
+(
+  repo_name STRING,
+  watch_count INT64
+);"
+sample_contents,"CREATE TABLE `spider2-public-data.github_repos.sample_contents`
+(
+  id STRING,
+  size INT64,
+  content STRING,
+  binary BOOL,
+  copies INT64,
+  sample_repo_name STRING,
+  sample_ref STRING,
+  sample_path STRING,
+  sample_mode INT64,
+  sample_symlink_target STRING
+);"
+sample_files,"CREATE TABLE `spider2-public-data.github_repos.sample_files`
+(
+  repo_name STRING,
+  ref STRING,
+  path STRING,
+  mode INT64,
+  id STRING,
+  symlink_target STRING
+);"
+languages,"CREATE TABLE `spider2-public-data.github_repos.languages`
+(
+  repo_name STRING,
+  language ARRAY<STRUCT<name STRING, bytes INT64>>
+);"

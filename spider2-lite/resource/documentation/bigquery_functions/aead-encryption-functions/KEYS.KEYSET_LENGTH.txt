@@ -1,0 +1,55 @@
+## KEYS.KEYSET_LENGTH
+
+KEYS.KEYSET_LENGTH(keyset)
+
+**Description**
+
+Returns the number of keys in the provided keyset.
+
+**Return Data Type**
+
+` INT64 `
+
+**Example**
+
+This example references a JSON-formatted STRING called ` json_keyset ` that contains two keys:
+
+
+{
+"primaryKeyId":1354994251,
+"key":[
+{
+"keyData":{
+"keyMaterialType":"SYMMETRIC",
+"typeUrl":"type.googleapis.com/google.crypto.tink.AesGcmKey",
+"value":"GiD9sxQRgFj4aYN78vaIlxInjZkG/uvyWSY9a8GN+ELV2Q=="
+},
+"keyId":1354994251,
+"outputPrefixType":"TINK",
+"status":"ENABLED"
+}
+],
+"key":[
+{
+"keyData":{
+"keyMaterialType":"SYMMETRIC",
+"typeUrl":"type.googleapis.com/google.crypto.tink.AesGcmKey",
+"value":"PRn76sxQRgFj4aYN00vaIlxInjZkG/uvyWSY9a2bLRm"
+},
+"keyId":852264701,
+"outputPrefixType":"TINK",
+"status":"DISABLED"
+}
+]
+}
+
+The following query converts ` json_keyset ` to a keyset and then returns the number of keys in the keyset:
+
+
+SELECT KEYS.KEYSET_LENGTH(KEYS.KEYSET_FROM_JSON(json_keyset)) as key_count;
+
+/*-----------*
+| key_count |
++-----------+
+| 2         |
+*-----------*/

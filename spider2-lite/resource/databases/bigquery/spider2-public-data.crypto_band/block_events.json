@@ -1,0 +1,92 @@
+{
+    "table_name": "block_events",
+    "table_fullname": "spider2-public-data.crypto_band.block_events",
+    "column_names": [
+        "block_height",
+        "block_timestamp",
+        "block_timestamp_truncated",
+        "event_type",
+        "block_event_type",
+        "attributes"
+    ],
+    "column_types": [
+        "INT64",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "ARRAY<STRUCT<key STRING, value STRING>>"
+    ],
+    "nested_column_names": [
+        "block_height",
+        "block_timestamp",
+        "block_timestamp_truncated",
+        "event_type",
+        "block_event_type",
+        "attributes",
+        "attributes.key",
+        "attributes.value"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "ARRAY<STRUCT<key STRING, value STRING>>",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "block_height": 4561369,
+            "block_timestamp": "2021-03-29T23:27:14.111869Z",
+            "block_timestamp_truncated": "2021-03-29 23:27:14.111869+00:00",
+            "event_type": "proposer_reward",
+            "block_event_type": "begin",
+            "attributes": "[]"
+        },
+        {
+            "block_height": 4561369,
+            "block_timestamp": "2021-03-29T23:27:14.111869Z",
+            "block_timestamp_truncated": "2021-03-29 23:27:14.111869+00:00",
+            "event_type": "mint",
+            "block_event_type": "begin",
+            "attributes": "[]"
+        },
+        {
+            "block_height": 4560826,
+            "block_timestamp": "2021-03-29T22:59:30.7985516Z",
+            "block_timestamp_truncated": "2021-03-29 22:59:30.798551+00:00",
+            "event_type": "proposer_reward",
+            "block_event_type": "begin",
+            "attributes": "[]"
+        },
+        {
+            "block_height": 4560826,
+            "block_timestamp": "2021-03-29T22:59:30.7985516Z",
+            "block_timestamp_truncated": "2021-03-29 22:59:30.798551+00:00",
+            "event_type": "mint",
+            "block_event_type": "begin",
+            "attributes": "[]"
+        },
+        {
+            "block_height": 4560830,
+            "block_timestamp": "2021-03-29T22:59:43.7732523Z",
+            "block_timestamp_truncated": "2021-03-29 22:59:43.773252+00:00",
+            "event_type": "mint",
+            "block_event_type": "begin",
+            "attributes": "[]"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+## TO_BASE32
+
+TO_BASE32(bytes_expr)
+
+**Description**
+
+Converts a sequence of ` BYTES ` into a base32-encoded ` STRING ` . To convert a base32-encoded ` STRING ` into ` BYTES ` , use  FROM_BASE32  .
+
+**Return type**
+
+` STRING `
+
+**Example**
+
+
+SELECT TO_BASE32(b'abcde\xFF') AS base32_string;
+
+/*------------------*
+| base32_string    |
++------------------+
+| MFRGGZDF74====== |
+*------------------*/

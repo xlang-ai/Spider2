@@ -1,0 +1,52 @@
+## NORMALIZE
+
+NORMALIZE(value[, normalization_mode])
+
+**Description**
+
+Takes a string value and returns it as a normalized string. If you do not provide a normalization mode, ` NFC ` is used.
+
+[ Normalization
+](https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization) is used to ensure that two strings are equivalent. Normalization is often used in situations in which two strings render the same on the screen but have different Unicode code points.
+
+` NORMALIZE ` supports four optional normalization modes:
+
+Value  |  Name  |  Description
+---|---|---
+` NFC ` |  Normalization Form Canonical Composition  |  Decomposes and recomposes characters by canonical equivalence.
+` NFKC ` |  Normalization Form Compatibility Composition  |  Decomposes characters by compatibility, then recomposes them by canonical equivalence.
+` NFD ` |  Normalization Form Canonical Decomposition  |  Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order.
+` NFKD ` |  Normalization Form Compatibility Decomposition  |  Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT a, b, a = b as normalized FROM (SELECT NORMALIZE('\u00ea') as a, NORMALIZE('\u0065\u0302') as b);
+
+/*---+---+------------*
+| a | b | normalized |
++---+---+------------+
+| ê | ê | true       |
+*---+---+------------*/
+
+The following example normalizes different space characters.
+
+
+WITH EquivalentNames AS ( SELECT name FROM UNNEST([
+'Jane\u2004Doe',
+'John\u2004Smith',
+'Jane\u2005Doe',
+'Jane\u2006Doe',
+'John Smith']) AS name ) SELECT NORMALIZE(name, NFKC) AS normalized_name,
+COUNT(*) AS name_count FROM EquivalentNames GROUP BY 1;
+
+/*-----------------+------------*
+| normalized_name | name_count |
++-----------------+------------+
+| John Smith      | 2          |
+| Jane Doe        | 3          |
+*-----------------+------------*/

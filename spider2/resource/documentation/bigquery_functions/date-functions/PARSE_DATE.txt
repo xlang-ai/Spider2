@@ -1,0 +1,59 @@
+## PARSE_DATE
+
+PARSE_DATE(format_string, date_string)
+
+**Description**
+
+Converts a  string representation of date  to a ` DATE ` object.
+
+` format_string ` contains the [ format elements
+](/bigquery/docs/reference/standard-sql/format-
+elements#format_elements_date_time) that define how ` date_string ` is formatted. Each element in ` date_string ` must have a corresponding element in ` format_string ` . The location of each element in ` format_string ` must match the location of each element in ` date_string ` .
+
+
+-- This works because elements on both sides match.
+SELECT PARSE_DATE('%A %b %e %Y', 'Thursday Dec 25 2008');
+
+-- This produces an error because the year element is in different locations.
+SELECT PARSE_DATE('%Y %A %b %e', 'Thursday Dec 25 2008');
+
+-- This produces an error because one of the year elements is missing.
+SELECT PARSE_DATE('%A %b %e', 'Thursday Dec 25 2008');
+
+-- This works because %F can find all matching elements in date_string.
+SELECT PARSE_DATE('%F', '2000-12-30');
+
+When using ` PARSE_DATE ` , keep the following in mind:
+
+* **Unspecified fields.** Any unspecified field is initialized from ` 1970-01-01 ` .
+* **Case insensitivity.** Names, such as ` Monday ` , ` February ` , and so on, are case insensitive.
+* **Whitespace.** One or more consecutive white spaces in the format string matches zero or more consecutive white spaces in the date string. In addition, leading and trailing white spaces in the date string are always allowed -- even if they are not in the format string.
+* **Format precedence.** When two (or more) format elements have overlapping information (for example both ` %F ` and ` %Y ` affect the year), the last one generally overrides any earlier ones.
+
+**Return Data Type**
+
+DATE
+
+**Examples**
+
+This example converts a ` MM/DD/YY ` formatted string to a ` DATE ` object:
+
+
+SELECT PARSE_DATE('%x', '12/25/08') AS parsed;
+
+/*------------*
+| parsed     |
++------------+
+| 2008-12-25 |
+*------------*/
+
+This example converts a ` YYYYMMDD ` formatted string to a ` DATE ` object:
+
+
+SELECT PARSE_DATE('%Y%m%d', '20081225') AS parsed;
+
+/*------------*
+| parsed     |
++------------+
+| 2008-12-25 |
+*------------*/

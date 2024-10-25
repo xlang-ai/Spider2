@@ -1,0 +1,213 @@
+table_name,ddl
+classification_model_2_results,"CREATE TABLE `data-to-insights.ecommerce.classification_model_2_results`
+(
+  predicted_will_buy_on_return_visit INT64,
+  predicted_will_buy_on_return_visit_probs ARRAY<STRUCT<label INT64, prob FLOAT64>>,
+  unique_session_id STRING,
+  will_buy_on_return_visit INT64,
+  latest_ecommerce_progress INT64,
+  bounces INT64,
+  time_on_site INT64,
+  pageviews INT64,
+  source STRING,
+  medium STRING,
+  channelGrouping STRING,
+  deviceCategory STRING,
+  country STRING
+);"
+site_wide_promotion,"CREATE TABLE `data-to-insights.ecommerce.site_wide_promotion`
+(
+  discount FLOAT64
+);"
+partitions,"CREATE TABLE `data-to-insights.ecommerce.partitions`
+(
+  total_transactions INT64,
+  date_formatted DATE
+)
+PARTITION BY date_formatted
+OPTIONS(
+  description=""a table partitioned by date""
+);"
+rev_transactions,"CREATE TABLE `data-to-insights.ecommerce.rev_transactions`
+(
+  fullVisitorId STRING,
+  channelGrouping STRING,
+  hits_time INT64,
+  geoNetwork_country STRING,
+  geoNetwork_city STRING,
+  totals_totalTransactionRevenue INT64,
+  totals_transactions INT64,
+  totals_timeOnSite INT64,
+  totals_pageviews INT64,
+  date STRING,
+  visitId INT64,
+  hits_type STRING,
+  hits_product_productRefundAmount INT64,
+  hits_product_productQuantity INT64,
+  hits_product_productPrice INT64,
+  hits_product_productRevenue INT64,
+  hits_product_productSKU STRING,
+  hits_product_v2ProductName STRING,
+  hits_product_v2ProductCategory STRING,
+  hits_product_productVariant STRING,
+  hits_item_currencyCode STRING,
+  hits_item_itemQuantity INT64,
+  hits_item_itemRevenue INT64,
+  hits_transaction_transactionRevenue INT64,
+  hits_transaction_transactionId STRING,
+  hits_page_pageTitle STRING,
+  hits_page_searchKeyword STRING,
+  hits_page_pagePathLevel1 STRING
+);"
+products,"CREATE TABLE `data-to-insights.ecommerce.products`
+(
+  SKU STRING,
+  name STRING,
+  orderedQuantity INT64,
+  stockLevel INT64,
+  restockingLeadTime INT64,
+  sentimentScore FLOAT64,
+  sentimentMagnitude FLOAT64
+);"
+product_list,"CREATE TABLE `data-to-insights.ecommerce.product_list`
+(
+  productSKU STRING,
+  v2ProductName STRING
+);"
+days_with_rain,"CREATE TABLE `data-to-insights.ecommerce.days_with_rain`
+(
+  date DATE,
+  station_name STRING,
+  prcp FLOAT64
+)
+PARTITION BY date
+OPTIONS(
+  partition_expiration_days=60.0,
+  description=""weather stations with precipitation, partitioned by day""
+);"
+checkout_nudge,"CREATE TABLE `data-to-insights.ecommerce.checkout_nudge`
+(
+  fullVisitorID STRING,
+  number_of_sessions INT64,
+  number_of_products_viewed INT64,
+  session_time_on_site_minutes_max FLOAT64,
+  eCommerceAction_type_max STRING
+);"
+all_sessions,"CREATE TABLE `data-to-insights.ecommerce.all_sessions`
+(
+  fullVisitorId STRING,
+  channelGrouping STRING,
+  time INT64,
+  country STRING,
+  city STRING,
+  totalTransactionRevenue INT64,
+  transactions INT64,
+  timeOnSite INT64,
+  pageviews INT64,
+  sessionQualityDim INT64,
+  date STRING,
+  visitId INT64,
+  type STRING,
+  productRefundAmount INT64,
+  productQuantity INT64,
+  productPrice INT64,
+  productRevenue INT64,
+  productSKU STRING,
+  v2ProductName STRING,
+  v2ProductCategory STRING,
+  productVariant STRING,
+  currencyCode STRING,
+  itemQuantity INT64,
+  itemRevenue INT64,
+  transactionRevenue INT64,
+  transactionId STRING,
+  pageTitle STRING,
+  searchKeyword STRING,
+  pagePathLevel1 STRING,
+  eCommerceAction_type STRING,
+  eCommerceAction_step INT64,
+  eCommerceAction_option STRING
+);"
+sales_report,"CREATE TABLE `data-to-insights.ecommerce.sales_report`
+(
+  productSKU STRING,
+  total_ordered INT64,
+  name STRING,
+  stockLevel INT64,
+  restockingLeadTime INT64,
+  sentimentScore FLOAT64,
+  sentimentMagnitude FLOAT64,
+  ratio FLOAT64
+);"
+sales_by_sku,"CREATE TABLE `data-to-insights.ecommerce.sales_by_sku`
+(
+  productSKU STRING,
+  total_ordered INT64
+);"
+web_analytics,"CREATE TABLE `data-to-insights.ecommerce.web_analytics`
+(
+  visitorId INT64,
+  visitNumber INT64,
+  visitId INT64,
+  visitStartTime INT64,
+  date STRING,
+  totals STRUCT<visits INT64, hits INT64, pageviews INT64, timeOnSite INT64, bounces INT64, transactions INT64, transactionRevenue INT64, newVisits INT64, screenviews INT64, uniqueScreenviews INT64, timeOnScreen INT64, totalTransactionRevenue INT64, sessionQualityDim INT64>,
+  trafficSource STRUCT<referralPath STRING, campaign STRING, source STRING, medium STRING, keyword STRING, adContent STRING, adwordsClickInfo STRUCT<campaignId INT64, adGroupId INT64, creativeId INT64, criteriaId INT64, page INT64, slot STRING, criteriaParameters STRING, gclId STRING, customerId INT64, adNetworkType STRING, targetingCriteria STRUCT<boomUserlistId INT64>, isVideoAd BOOL>, isTrueDirect BOOL, campaignCode STRING>,
+  device STRUCT<browser STRING, browserVersion STRING, browserSize STRING, operatingSystem STRING, operatingSystemVersion STRING, isMobile BOOL, mobileDeviceBranding STRING, mobileDeviceModel STRING, mobileInputSelector STRING, mobileDeviceInfo STRING, mobileDeviceMarketingName STRING, flashVersion STRING, javaEnabled BOOL, language STRING, screenColors STRING, screenResolution STRING, deviceCategory STRING>,
+  geoNetwork STRUCT<continent STRING, subContinent STRING, country STRING, region STRING, metro STRING, city STRING, cityId STRING, networkDomain STRING, latitude STRING, longitude STRING, networkLocation STRING>,
+  customDimensions ARRAY<STRUCT<index INT64, value STRING>>,
+  hits ARRAY<STRUCT<hitNumber INT64, time INT64, hour INT64, minute INT64, isSecure BOOL, isInteraction BOOL, isEntrance BOOL, isExit BOOL, referer STRING, page STRUCT<pagePath STRING, hostname STRING, pageTitle STRING, searchKeyword STRING, searchCategory STRING, pagePathLevel1 STRING, pagePathLevel2 STRING, pagePathLevel3 STRING, pagePathLevel4 STRING>, transaction STRUCT<transactionId STRING, transactionRevenue INT64, transactionTax INT64, transactionShipping INT64, affiliation STRING, currencyCode STRING, localTransactionRevenue INT64, localTransactionTax INT64, localTransactionShipping INT64, transactionCoupon STRING>, item STRUCT<transactionId STRING, productName STRING, productCategory STRING, productSku STRING, itemQuantity INT64, itemRevenue INT64, currencyCode STRING, localItemRevenue INT64>, contentInfo STRUCT<contentDescription STRING>, appInfo STRUCT<name STRING, version STRING, id STRING, installerId STRING, appInstallerId STRING, appName STRING, appVersion STRING, appId STRING, screenName STRING, landingScreenName STRING, exitScreenName STRING, screenDepth STRING>, exceptionInfo STRUCT<description STRING, isFatal BOOL, exceptions INT64, fatalExceptions INT64>, eventInfo STRUCT<eventCategory STRING, eventAction STRING, eventLabel STRING, eventValue INT64>, product ARRAY<STRUCT<productSKU STRING, v2ProductName STRING, v2ProductCategory STRING, productVariant STRING, productBrand STRING, productRevenue INT64, localProductRevenue INT64, productPrice INT64, localProductPrice INT64, productQuantity INT64, productRefundAmount INT64, localProductRefundAmount INT64, isImpression BOOL, isClick BOOL, customDimensions ARRAY<STRUCT<index INT64, value STRING>>, customMetrics ARRAY<STRUCT<index INT64, value INT64>>, productListName STRING, productListPosition INT64>>, promotion ARRAY<STRUCT<promoId STRING, promoName STRING, promoCreative STRING, promoPosition STRING>>, promotionActionInfo STRUCT<promoIsView BOOL, promoIsClick BOOL>, refund STRUCT<refundAmount INT64, localRefundAmount INT64>, eCommerceAction STRUCT<action_type STRING, step INT64, option STRING>, experiment ARRAY<STRUCT<experimentId STRING, experimentVariant STRING>>, publisher STRUCT<dfpClicks INT64, dfpImpressions INT64, dfpMatchedQueries INT64, dfpMeasurableImpressions INT64, dfpQueries INT64, dfpRevenueCpm INT64, dfpRevenueCpc INT64, dfpViewableImpressions INT64, dfpPagesViewed INT64, adsenseBackfillDfpClicks INT64, adsenseBackfillDfpImpressions INT64, adsenseBackfillDfpMatchedQueries INT64, adsenseBackfillDfpMeasurableImpressions INT64, adsenseBackfillDfpQueries INT64, adsenseBackfillDfpRevenueCpm INT64, adsenseBackfillDfpRevenueCpc INT64, adsenseBackfillDfpViewableImpressions INT64, adsenseBackfillDfpPagesViewed INT64, adxBackfillDfpClicks INT64, adxBackfillDfpImpressions INT64, adxBackfillDfpMatchedQueries INT64, adxBackfillDfpMeasurableImpressions INT64, adxBackfillDfpQueries INT64, adxBackfillDfpRevenueCpm INT64, adxBackfillDfpRevenueCpc INT64, adxBackfillDfpViewableImpressions INT64, adxBackfillDfpPagesViewed INT64, adxClicks INT64, adxImpressions INT64, adxMatchedQueries INT64, adxMeasurableImpressions INT64, adxQueries INT64, adxRevenue INT64, adxViewableImpressions INT64, adxPagesViewed INT64, adsViewed INT64, adsUnitsViewed INT64, adsUnitsMatched INT64, viewableAdsViewed INT64, measurableAdsViewed INT64, adsPagesViewed INT64, adsClicked INT64, adsRevenue INT64, dfpAdGroup STRING, dfpAdUnits STRING, dfpNetworkId STRING>, customVariables ARRAY<STRUCT<index INT64, customVarName STRING, customVarValue STRING>>, customDimensions ARRAY<STRUCT<index INT64, value STRING>>, customMetrics ARRAY<STRUCT<index INT64, value INT64>>, type STRING, social STRUCT<socialInteractionNetwork STRING, socialInteractionAction STRING, socialInteractions INT64, socialInteractionTarget STRING, socialNetwork STRING, uniqueSocialInteractions INT64, hasSocialSourceReferral STRING, socialInteractionNetworkAction STRING>, latencyTracking STRUCT<pageLoadSample INT64, pageLoadTime INT64, pageDownloadTime INT64, redirectionTime INT64, speedMetricsSample INT64, domainLookupTime INT64, serverConnectionTime INT64, serverResponseTime INT64, domLatencyMetricsSample INT64, domInteractiveTime INT64, domContentLoadedTime INT64, userTimingValue INT64, userTimingSample INT64, userTimingVariable STRING, userTimingCategory STRING, userTimingLabel STRING>, sourcePropertyInfo STRUCT<sourcePropertyDisplayName STRING, sourcePropertyTrackingId STRING>, contentGroup STRUCT<contentGroup1 STRING, contentGroup2 STRING, contentGroup3 STRING, contentGroup4 STRING, contentGroup5 STRING, previousContentGroup1 STRING, previousContentGroup2 STRING, previousContentGroup3 STRING, previousContentGroup4 STRING, previousContentGroup5 STRING, contentGroupUniqueViews1 INT64, contentGroupUniqueViews2 INT64, contentGroupUniqueViews3 INT64, contentGroupUniqueViews4 INT64, contentGroupUniqueViews5 INT64>, dataSource STRING, publisher_infos ARRAY<STRUCT<dfpClicks INT64, dfpImpressions INT64, dfpMatchedQueries INT64, dfpMeasurableImpressions INT64, dfpQueries INT64, dfpRevenueCpm INT64, dfpRevenueCpc INT64, dfpViewableImpressions INT64, dfpPagesViewed INT64, adsenseBackfillDfpClicks INT64, adsenseBackfillDfpImpressions INT64, adsenseBackfillDfpMatchedQueries INT64, adsenseBackfillDfpMeasurableImpressions INT64, adsenseBackfillDfpQueries INT64, adsenseBackfillDfpRevenueCpm INT64, adsenseBackfillDfpRevenueCpc INT64, adsenseBackfillDfpViewableImpressions INT64, adsenseBackfillDfpPagesViewed INT64, adxBackfillDfpClicks INT64, adxBackfillDfpImpressions INT64, adxBackfillDfpMatchedQueries INT64, adxBackfillDfpMeasurableImpressions INT64, adxBackfillDfpQueries INT64, adxBackfillDfpRevenueCpm INT64, adxBackfillDfpRevenueCpc INT64, adxBackfillDfpViewableImpressions INT64, adxBackfillDfpPagesViewed INT64, adxClicks INT64, adxImpressions INT64, adxMatchedQueries INT64, adxMeasurableImpressions INT64, adxQueries INT64, adxRevenue INT64, adxViewableImpressions INT64, adxPagesViewed INT64, adsViewed INT64, adsUnitsViewed INT64, adsUnitsMatched INT64, viewableAdsViewed INT64, measurableAdsViewed INT64, adsPagesViewed INT64, adsClicked INT64, adsRevenue INT64, dfpAdGroup STRING, dfpAdUnits STRING, dfpNetworkId STRING>>>>,
+  fullVisitorId STRING,
+  userId STRING,
+  channelGrouping STRING,
+  socialEngagementType STRING
+);"
+categories,"CREATE TABLE `data-to-insights.ecommerce.categories`
+(
+  productSKU STRING,
+  category STRING
+);"
+all_sessions_raw,"CREATE TABLE `data-to-insights.ecommerce.all_sessions_raw`
+(
+  fullVisitorId STRING,
+  channelGrouping STRING,
+  time INT64,
+  country STRING,
+  city STRING,
+  totalTransactionRevenue INT64,
+  transactions INT64,
+  timeOnSite INT64,
+  pageviews INT64,
+  sessionQualityDim INT64,
+  date STRING,
+  visitId INT64,
+  type STRING,
+  productRefundAmount INT64,
+  productQuantity INT64,
+  productPrice INT64,
+  productRevenue INT64,
+  productSKU STRING,
+  v2ProductName STRING,
+  v2ProductCategory STRING,
+  productVariant STRING,
+  currencyCode STRING,
+  itemQuantity INT64,
+  itemRevenue INT64,
+  transactionRevenue INT64,
+  transactionId STRING,
+  pageTitle STRING,
+  searchKeyword STRING,
+  pagePathLevel1 STRING,
+  eCommerceAction_type STRING,
+  eCommerceAction_step INT64,
+  eCommerceAction_option STRING
+);"
+partition_by_day,"CREATE TABLE `data-to-insights.ecommerce.partition_by_day`
+(
+  date_formatted DATE,
+  fullvisitorId STRING
+)
+PARTITION BY date_formatted
+OPTIONS(
+  description=""a table partitioned by date""
+);"

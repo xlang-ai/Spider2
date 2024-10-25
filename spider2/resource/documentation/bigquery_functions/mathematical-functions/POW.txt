@@ -1,0 +1,31 @@
+## POW
+
+POW(X, Y)
+
+**Description**
+
+Returns the value of X raised to the power of Y. If the result underflows and is not representable, then the function returns a value of zero.
+
+X  |  Y  |  POW(X, Y)
+---|---|---
+2.0  |  3.0  |  8.0 1.0  |  Any value including ` NaN ` |  1.0 Any value including ` NaN ` |  0  |  1.0
+-1.0  |  ` +inf ` |  1.0
+-1.0  |  ` -inf ` |  1.0 ABS(X) < 1  |  ` -inf ` |  ` +inf `
+ABS(X) > 1  |  ` -inf ` |  0.0 ABS(X) < 1  |  ` +inf ` |  0.0 ABS(X) > 1  |  ` +inf ` |  ` +inf `
+` -inf ` |  Y < 0  |  0.0
+` -inf ` |  Y > 0  |  ` -inf ` if Y is an odd integer, ` +inf ` otherwise
+` +inf ` |  Y < 0  |  0
+` +inf ` |  Y > 0  |  ` +inf `
+Finite value < 0  |  Non-integer  |  Error 0  |  Finite value < 0  |  Error
+
+**Return Data Type**
+
+The return data type is determined by the argument types with the following table.
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+` INT64 ` |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` NUMERIC ` |  ` NUMERIC ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  `
+FLOAT64 `
+` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 `

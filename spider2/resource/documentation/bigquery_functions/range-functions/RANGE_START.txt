@@ -1,0 +1,56 @@
+## RANGE_START
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+RANGE_START(range_to_check)
+
+**Description**
+
+Gets the lower bound of a range.
+
+**Definitions**
+
+* ` range_to_check ` : The ` RANGE<T> ` value.
+
+**Details**
+
+Returns ` NULL ` if the lower bound of ` range_value ` is ` UNBOUNDED ` .
+
+Returns ` NULL ` if ` range_to_check ` is ` NULL ` .
+
+**Return type**
+
+` T ` in ` range_value `
+
+**Examples**
+
+In the following query, the lower bound of the range is retrieved:
+
+
+SELECT RANGE_START(RANGE<DATE> '[2022-12-01, 2022-12-31)') AS results;
+
+/*------------+
+| results    |
++------------+
+| 2022-12-01 |
++------------*/
+
+In the following query, the lower bound of the range is unbounded, so ` NULL `
+is returned:
+
+
+SELECT RANGE_START(RANGE<DATE> '[UNBOUNDED, 2022-12-31)') AS results;
+
+/*------------+
+| results    |
++------------+
+| NULL       |
++------------*/

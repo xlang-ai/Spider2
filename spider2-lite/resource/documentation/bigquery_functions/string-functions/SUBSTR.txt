@@ -1,0 +1,105 @@
+## SUBSTR
+
+SUBSTR(value, position[, length])
+
+**Description**
+
+Gets a portion (substring) of the supplied ` STRING ` or ` BYTES ` value.
+
+The ` position ` argument is an integer specifying the starting position of the substring.
+
+* If ` position ` is ` 1 ` , the substring starts from the first character or byte.
+* If ` position ` is ` 0 ` or less than ` -LENGTH(value) ` , ` position ` is set to ` 1 ` , and the substring starts from the first character or byte.
+* If ` position ` is greater than the length of ` value ` , the function produces an empty substring.
+* If ` position ` is negative, the function counts from the end of ` value ` , with ` -1 ` indicating the last character or byte.
+
+The ` length ` argument specifies the maximum number of characters or bytes to return.
+
+* If ` length ` is not specified, the function produces a substring that starts at the specified position and ends at the last character or byte of ` value ` .
+* If ` length ` is ` 0 ` , the function produces an empty substring.
+* If ` length ` is negative, the function produces an error.
+* The returned substring may be shorter than ` length ` , for example, when ` length ` exceeds the length of ` value ` , or when the starting position of the substring plus ` length ` is greater than the length of ` value ` .
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, 2) as example FROM items;
+
+/*---------*
+| example |
++---------+
+| pple    |
+| anana   |
+| range   |
+*---------*/
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, 2, 2) as example FROM items;
+
+/*---------*
+| example |
++---------+
+| pp      |
+| an      |
+| ra      |
+*---------*/
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, -2) as example FROM items;
+
+/*---------*
+| example |
++---------+
+| le      |
+| na      |
+| ge      |
+*---------*/
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, 1, 123) as example FROM items;
+
+/*---------*
+| example |
++---------+
+| apple   |
+| banana  |
+| orange  |
+*---------*/
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, 123) as example FROM items;
+
+/*---------*
+| example |
++---------+
+|         |
+|         |
+|         |
+*---------*/
+
+
+WITH items AS (SELECT 'apple' as item UNION ALL SELECT 'banana' as item UNION ALL SELECT 'orange' as item)
+
+SELECT SUBSTR(item, 123, 5) as example FROM items;
+
+/*---------*
+| example |
++---------+
+|         |
+|         |
+|         |
+*---------*/

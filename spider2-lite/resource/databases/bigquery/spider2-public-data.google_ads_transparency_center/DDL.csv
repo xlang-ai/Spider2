@@ -1,0 +1,23 @@
+table_name,ddl
+creative_stats,"CREATE TABLE `spider2-public-data.google_ads_transparency_center.creative_stats`
+(
+  advertiser_id STRING,
+  creative_id STRING,
+  creative_page_url STRING,
+  ad_format_type STRING,
+  advertiser_disclosed_name STRING,
+  advertiser_legal_name STRING,
+  advertiser_location STRING,
+  advertiser_verification_status STRING,
+  region_stats ARRAY<STRUCT<region_code STRING, first_shown STRING, last_shown STRING, times_shown_end_date STRING, times_shown_lower_bound INT64, times_shown_upper_bound INT64, times_shown_start_date STRING, times_shown_availability_date STRING, surface_serving_stats STRUCT<surface_serving_stats ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>>>>,
+  audience_selection_approach_info STRUCT<demographic_info STRING, geo_location STRING, contextual_signals STRING, customer_lists STRING, topics_of_interest STRING>,
+  topic STRING,
+  is_funded_by_google_ad_grants BOOL
+);"
+removed_creative_stats,"CREATE TABLE `spider2-public-data.google_ads_transparency_center.removed_creative_stats`
+(
+  creative_page_url STRING,
+  region_stats ARRAY<STRUCT<region_code STRING, first_shown STRING, last_shown STRING, times_shown_end_date STRING, times_shown_lower_bound INT64, times_shown_upper_bound INT64, times_shown_start_date STRING, times_shown_availability_date STRING, surface_serving_stats STRUCT<surface_serving_stats ARRAY<STRUCT<surface STRING, times_shown_upper_bound INT64, times_shown_lower_bound INT64, times_shown_availability_date STRING>>>>>,
+  audience_selection_approach_info STRUCT<demographic_info STRING, geo_location STRING, contextual_signals STRING, customer_lists STRING, topics_of_interest STRING>,
+  disapproval ARRAY<STRUCT<removal_reason STRING, violation_category STRING, use_of_automated_means BOOL, removal_location ARRAY<STRING>, decision_type STRING>>
+);"

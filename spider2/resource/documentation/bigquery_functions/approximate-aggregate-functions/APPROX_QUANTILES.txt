@@ -1,0 +1,78 @@
+## APPROX_QUANTILES
+
+APPROX_QUANTILES(
+[ DISTINCT ]
+expression, number
+[ { IGNORE | RESPECT } NULLS ]
+)
+
+**Description**
+
+Returns the approximate boundaries for a group of ` expression ` values, where
+` number ` represents the number of quantiles to create. This function returns an array of ` number ` \+ 1 elements, sorted in ascending order, where the first element is the approximate minimum and the last element is the approximate maximum.
+
+Returns ` NULL ` if there are zero input rows or ` expression ` evaluates to `
+NULL ` for all rows.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* ` expression ` : Any supported data type **except** :
+
+* ` ARRAY `
+* ` STRUCT `
+* ` INTERVAL `
+* ` number ` : ` INT64 ` literal or query parameter.
+
+**Returned Data Types**
+
+` ARRAY<T> ` where ` T ` is the type specified by ` expression ` .
+
+**Examples**
+
+
+SELECT APPROX_QUANTILES(x, 2) AS approx_quantiles FROM UNNEST([1, 1, 1, 4, 5, 6, 7, 8, 9, 10]) AS x;
+
+/*------------------*
+| approx_quantiles |
++------------------+
+| [1, 5, 10]       |
+*------------------*/
+
+
+SELECT APPROX_QUANTILES(x, 100)[OFFSET(90)] AS percentile_90 FROM UNNEST([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) AS x;
+
+/*---------------*
+| percentile_90 |
++---------------+
+| 9             |
+*---------------*/
+
+
+SELECT APPROX_QUANTILES(DISTINCT x, 2) AS approx_quantiles FROM UNNEST([1, 1, 1, 4, 5, 6, 7, 8, 9, 10]) AS x;
+
+/*------------------*
+| approx_quantiles |
++------------------+
+| [1, 6, 10]       |
+*------------------*/
+
+
+SELECT FORMAT("%T", APPROX_QUANTILES(x, 2 RESPECT NULLS)) AS approx_quantiles FROM UNNEST([NULL, NULL, 1, 1, 1, 4, 5, 6, 7, 8, 9, 10]) AS x;
+
+/*------------------*
+| approx_quantiles |
++------------------+
+| [NULL, 4, 10]    |
+*------------------*/
+
+
+SELECT FORMAT("%T", APPROX_QUANTILES(DISTINCT x, 2 RESPECT NULLS)) AS approx_quantiles FROM UNNEST([NULL, NULL, 1, 1, 1, 4, 5, 6, 7, 8, 9, 10]) AS x;
+
+/*------------------*
+| approx_quantiles |
++------------------+
+| [NULL, 6, 10]    |
+*------------------*/

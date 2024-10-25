@@ -1,0 +1,61 @@
+table_name,ddl
+match_pub,"CREATE TABLE `patents-public-data.uspto_oce_office_actions.match_pub`
+(
+  parsed STRING,
+  publication_number STRING
+);"
+citations,"CREATE TABLE `patents-public-data.uspto_oce_office_actions.citations`
+(
+  app_id STRING,
+  citation_pat_pgpub_id STRING,
+  parsed STRING,
+  ifw_number STRING,
+  action_type STRING,
+  action_subtype STRING,
+  form892 STRING,
+  form1449 STRING,
+  citation_in_oa STRING
+);"
+rejections,"CREATE TABLE `patents-public-data.uspto_oce_office_actions.rejections`
+(
+  app_id STRING,
+  ifw_number STRING,
+  action_type STRING,
+  action_subtype STRING,
+  claim_numbers STRING,
+  alice_in STRING,
+  bilski_in STRING,
+  mayo_in STRING,
+  myriad_in STRING
+);"
+office_actions,"CREATE TABLE `patents-public-data.uspto_oce_office_actions.office_actions`
+(
+  app_id STRING,
+  ifw_number STRING,
+  document_cd STRING,
+  mail_dt STRING,
+  art_unit STRING,
+  uspc_class STRING,
+  uspc_subclass STRING,
+  header_missing STRING,
+  fp_missing STRING,
+  rejection_fp_mismatch STRING,
+  closing_missing STRING,
+  rejection_101 STRING,
+  rejection_102 STRING,
+  rejection_103 STRING,
+  rejection_112 STRING,
+  rejection_dp STRING,
+  objection STRING,
+  allowed_claims STRING,
+  cite102_gt1 STRING,
+  cite103_gt3 STRING,
+  cite103_eq1 STRING,
+  cite103_max STRING,
+  signature_type STRING
+);"
+match_app,"CREATE TABLE `patents-public-data.uspto_oce_office_actions.match_app`
+(
+  app_id STRING,
+  application_number STRING
+);"

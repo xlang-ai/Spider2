@@ -1,0 +1,34 @@
+## LOGICAL_AND
+
+LOGICAL_AND( expression )
+
+**Description**
+
+Returns the logical AND of all non- ` NULL ` expressions. Returns ` NULL ` if there are zero input rows or ` expression ` evaluates to ` NULL ` for all rows.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+**Supported Argument Types**
+
+` BOOL `
+
+**Return Data Types**
+
+` BOOL `
+
+**Examples**
+
+` LOGICAL_AND ` returns ` FALSE ` because not all of the values in the array are less than 3.
+
+
+SELECT LOGICAL_AND(x < 3) AS logical_and FROM UNNEST([1, 2, 4]) AS x;
+
+/*-------------*
+| logical_and |
++-------------+
+| FALSE       |
+*-------------*/

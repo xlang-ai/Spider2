@@ -1,0 +1,47 @@
+## JSON_TYPE
+
+JSON_TYPE(json_expr)
+
+**Description**
+
+Gets the JSON type of the outermost JSON value and converts the name of this type to a SQL ` STRING ` value. The names of these JSON types can be returned:
+` object ` , ` array ` , ` string ` , ` number ` , ` boolean ` , ` null `
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '{"name": "sky", "color": "blue"}'
+
+If this expression is SQL ` NULL ` , the function returns SQL ` NULL ` . If the extracted JSON value is not a valid JSON type, an error is produced.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT json_val, JSON_TYPE(json_val) AS type FROM UNNEST(
+[
+JSON '"apple"',
+JSON '10',
+JSON '3.14',
+JSON 'null',
+JSON '{"city": "New York", "State": "NY"}',
+JSON '["apple", "banana"]',
+JSON 'false'
+]
+) AS json_val;
+
+/*----------------------------------+---------*
+| json_val                         | type    |
++----------------------------------+---------+
+| "apple"                          | string  |
+| 10                               | number  |
+| 3.14                             | number  |
+| null                             | null    |
+| {"State":"NY","city":"New York"} | object  |
+| ["apple","banana"]               | array   |
+| false                            | boolean |
+*----------------------------------+---------*/

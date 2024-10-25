@@ -1,0 +1,40 @@
+## ST_GEOMETRYTYPE
+
+ST_GEOMETRYTYPE(geography_expression)
+
+**Description**
+
+Returns the [ Open Geospatial Consortium ](https://www.ogc.org/standards/sfa) (OGC) geometry type that describes the input ` GEOGRAPHY ` . The OGC geometry type matches the types that are used in [ WKT
+](https://en.wikipedia.org/wiki/Well-known_text) and [ GeoJSON
+](https://en.wikipedia.org/wiki/GeoJSON) formats and printed for  ST_ASTEXT and  ST_ASGEOJSON  . ` ST_GEOMETRYTYPE ` returns the OGC geometry type with the "ST_" prefix.
+
+` ST_GEOMETRYTYPE ` returns the following given the type on the input:
+
+* Single point geography: Returns ` ST_Point ` .
+* Collection of only points: Returns ` ST_MultiPoint ` .
+* Single linestring geography: Returns ` ST_LineString ` .
+* Collection of only linestrings: Returns ` ST_MultiLineString ` .
+* Single polygon geography: Returns ` ST_Polygon ` .
+* Collection of only polygons: Returns ` ST_MultiPolygon ` .
+* Collection with elements of different dimensions, or the input is the empty geography: Returns ` ST_GeometryCollection ` .
+
+**Return type**
+
+` STRING `
+
+**Example**
+
+The following example shows how ` ST_GEOMETRYTYPE ` takes geographies and returns the names of their OGC geometry types.
+
+
+WITH example AS( SELECT ST_GEOGFROMTEXT('POINT(0 1)') AS geography UNION ALL SELECT ST_GEOGFROMTEXT('MULTILINESTRING((2 2, 3 4), (5 6, 7 7))') UNION ALL SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION(MULTIPOINT(-1 2, 0 12), LINESTRING(-2 4, 0 6))') UNION ALL SELECT ST_GEOGFROMTEXT('GEOMETRYCOLLECTION EMPTY')) SELECT geography AS WKT,
+ST_GEOMETRYTYPE(geography) AS geometry_type_name FROM example;
+
+/*-------------------------------------------------------------------+-----------------------*
+| WKT                                                               | geometry_type_name    |
++-------------------------------------------------------------------+-----------------------+
+| POINT(0 1)                                                        | ST_Point              |
+| MULTILINESTRING((2 2, 3 4), (5 6, 7 7))                           | ST_MultiLineString    |
+| GEOMETRYCOLLECTION(MULTIPOINT(-1 2, 0 12), LINESTRING(-2 4, 0 6)) | ST_GeometryCollection |
+| GEOMETRYCOLLECTION EMPTY                                          | ST_GeometryCollection |
+*-------------------------------------------------------------------+-----------------------*/

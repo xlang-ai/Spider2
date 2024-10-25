@@ -1,0 +1,36 @@
+## DLP_KEY_CHAIN
+
+DLP_KEY_CHAIN(kms_resource_name, wrapped_key)
+
+**Description**
+
+You can use this function instead of the ` key ` argument for DLP deterministic encryption functions. This function lets you use the [ AES-SIV encryption functions ](https://cloud.google.com/dlp/docs/pseudonymization#aes-
+siv) without including ` plaintext ` keys in a query.
+
+**Definitions**
+
+* ` kms_resource_name ` : A ` STRING ` literal that contains the resource path to the Cloud KMS key. ` kms_resource_name ` cannot be ` NULL ` and must reside in the same Cloud region where this function is executed. This argument is used to derive the data encryption key in the ` DLP_DETERMINISTIC_DECRYPT ` and ` DLP_DETERMINISTIC_ENCRYPT ` functions. A Cloud KMS key looks like this:
+
+gcp-kms://projects/my-project/locations/us/keyRings/my-key-ring/cryptoKeys/my-crypto-key
+
+* ` wrapped_key ` : A ` BYTES ` literal that represents a secret text chosen by the user. This secret text can be 16, 24, or 32 bytes. For information about how to generate a wrapped key, see [ gcloud kms encrypt ](https://cloud.google.com/sdk/gcloud/reference/kms/encrypt) .
+
+**Return data type**
+
+` STRUCT `
+
+**Example**
+
+
+SELECT DLP_DETERMINISTIC_ENCRYPT( DLP_KEY_CHAIN(
+'gcp-kms://projects/my_project/locations/us-central1/keyRings/keyringtest/cryptoKeys/testkey',
+b'\123\044\290\876....'),
+plaintext,
+'',
+'test') AS results
+
+/*--------------------------------------*
+| results                              |
++--------------------------------------+
+| AXDEwUnZsTf/NzxoHaC8AZXcawWuma7L39A= |
+*--------------------------------------*/

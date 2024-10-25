@@ -1,0 +1,235 @@
+{
+    "table_name": "202105",
+    "table_fullname": "githubarchive.month.202105",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CommitCommentEvent",
+            "public": true,
+            "payload": "{\"comment\":{\"url\":\"https://api.github.com/repos/benesch/materialize/comments/51055652\",\"html_url\":\"https://github.com/benesch/materialize/commit/fb851d071306e220e33ba9d08fac31d8ec6834ff#commitcomment-51055652\",\"id\":51055652,\"node_id\":\"MDEzOkNvbW1pdENvbW1lbnQ1MTA1NTY1Mg==\",\"user\":{\"login\":\"senior7515\",\"id\":175206,\"node_id\":\"MDQ6VXNlcjE3NTIwNg==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/175206?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/senior7515\",\"html_url\":\"https://github.com/senior7515\",\"followers_url\":\"https://api.github.com/users/senior7515/followers\",\"following_url\":\"https://api.github.com/users/senior7515/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/senior7515/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/senior7515/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/senior7515/subscriptions\",\"organizations_url\":\"https://api.github.com/users/senior7515/orgs\",\"repos_url\":\"https://api.github.com/users/senior7515/repos\",\"events_url\":\"https://api.github.com/users/senior7515/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/senior7515/received_events\",\"type\":\"User\",\"site_admin\":false},\"position\":6,\"line\":40,\"path\":\"ci/nightly/pipeline.yml\",\"commit_id\":\"fb851d071306e220e33ba9d08fac31d8ec6834ff\",\"created_at\":\"2021-05-20T05:18:15Z\",\"updated_at\":\"2021-05-20T05:18:15Z\",\"author_association\":\"NONE\",\"body\":\"\ud83d\udc3c  - is the cutest \"}}",
+            "repo": {
+                "id": 240338353,
+                "name": "benesch/materialize",
+                "url": "https://api.github.com/repos/benesch/materialize"
+            },
+            "actor": {
+                "id": 175206,
+                "login": "senior7515",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/175206?",
+                "url": "https://api.github.com/users/senior7515"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-05-20 05:18:15+00:00",
+            "id": "16432730135",
+            "other": "{\"actor\":{\"display_login\":\"senior7515\"}}"
+        },
+        {
+            "type": "IssueCommentEvent",
+            "public": true,
+            "payload": "{\"action\":\"created\",\"issue\":{\"url\":\"https://api.github.com/repos/dotnet/runtime/issues/41958\",\"repository_url\":\"https://api.github.com/repos/dotnet/runtime\",\"labels_url\":\"https://api.github.com/repos/dotnet/runtime/issues/41958/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/dotnet/runtime/issues/41958/comments\",\"events_url\":\"https://api.github.com/repos/dotnet/runtime/issues/41958/events\",\"html_url\":\"https://github.com/dotnet/runtime/issues/41958\",\"id\":695688035,\"node_id\":\"MDU6SXNzdWU2OTU2ODgwMzU=\",\"number\":41958,\"title\":\"Application hangs on GC\",\"user\":{\"login\":\"klesta490\",\"id\":921463,\"node_id\":\"MDQ6VXNlcjkyMTQ2Mw==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/921463?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/klesta490\",\"html_url\":\"https://github.com/klesta490\",\"followers_url\":\"https://api.github.com/users/klesta490/followers\",\"following_url\":\"https://api.github.com/users/klesta490/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/klesta490/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/klesta490/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/klesta490/subscriptions\",\"organizations_url\":\"https://api.github.com/users/klesta490/orgs\",\"repos_url\":\"https://api.github.com/users/klesta490/repos\",\"events_url\":\"https://api.github.com/users/klesta490/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/klesta490/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[{\"id\":1675409291,\"node_id\":\"MDU6TGFiZWwxNjc1NDA5Mjkx\",\"url\":\"https://api.github.com/repos/dotnet/runtime/labels/area-VM-coreclr\",\"name\":\"area-VM-coreclr\",\"color\":\"d4c5f9\",\"default\":false,\"description\":\"\"},{\"id\":1675386283,\"node_id\":\"MDU6TGFiZWwxNjc1Mzg2Mjgz\",\"url\":\"https://api.github.com/repos/dotnet/runtime/labels/tracking-external-issue\",\"name\":\"tracking-external-issue\",\"color\":\"b60205\",\"default\":false,\"description\":\"The issue is caused by external problem (e.g. OS) - nothing we can do to fix it directly\"}],\"state\":\"open\",\"locked\":false,\"assignee\":{\"login\":\"davidwrighton\",\"id\":10779849,\"node_id\":\"MDQ6VXNlcjEwNzc5ODQ5\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/10779849?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/davidwrighton\",\"html_url\":\"https://github.com/davidwrighton\",\"followers_url\":\"https://api.github.com/users/davidwrighton/followers\",\"following_url\":\"https://api.github.com/users/davidwrighton/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/davidwrighton/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/davidwrighton/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/davidwrighton/subscriptions\",\"organizations_url\":\"https://api.github.com/users/davidwrighton/orgs\",\"repos_url\":\"https://api.github.com/users/davidwrighton/repos\",\"events_url\":\"https://api.github.com/users/davidwrighton/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/davidwrighton/received_events\",\"type\":\"User\",\"site_admin\":false},\"assignees\":[{\"login\":\"davidwrighton\",\"id\":10779849,\"node_id\":\"MDQ6VXNlcjEwNzc5ODQ5\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/10779849?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/davidwrighton\",\"html_url\":\"https://github.com/davidwrighton\",\"followers_url\":\"https://api.github.com/users/davidwrighton/followers\",\"following_url\":\"https://api.github.com/users/davidwrighton/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/davidwrighton/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/davidwrighton/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/davidwrighton/subscriptions\",\"organizations_url\":\"https://api.github.com/users/davidwrighton/orgs\",\"repos_url\":\"https://api.github.com/users/davidwrighton/repos\",\"events_url\":\"https://api.github.com/users/davidwrighton/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/davidwrighton/received_events\",\"type\":\"User\",\"site_admin\":false}],\"milestone\":{\"url\":\"https://api.github.com/repos/dotnet/runtime/milestones/69\",\"html_url\":\"https://github.com/dotnet/runtime/milestone/69\",\"labels_url\":\"https://api.github.com/repos/dotnet/runtime/milestones/69/labels\",\"id\":5535020,\"node_id\":\"MDk6TWlsZXN0b25lNTUzNTAyMA==\",\"number\":69,\"title\":\"6.0.0\",\"description\":\".NET 6.0 Release\",\"creator\":{\"login\":\"marek-safar\",\"id\":250852,\"node_id\":\"MDQ6VXNlcjI1MDg1Mg==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/250852?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/marek-safar\",\"html_url\":\"https://github.com/marek-safar\",\"followers_url\":\"https://api.github.com/users/marek-safar/followers\",\"following_url\":\"https://api.github.com/users/marek-safar/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/marek-safar/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/marek-safar/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/marek-safar/subscriptions\",\"organizations_url\":\"https://api.github.com/users/marek-safar/orgs\",\"repos_url\":\"https://api.github.com/users/marek-safar/repos\",\"events_url\":\"https://api.github.com/users/marek-safar/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/marek-safar/received_events\",\"type\":\"User\",\"site_admin\":false},\"open_issues\":2036,\"closed_issues\":2966,\"state\":\"open\",\"created_at\":\"2020-06-12T11:37:57Z\",\"updated_at\":\"2021-05-20T05:03:35Z\",\"due_on\":\"2021-11-12T08:00:00Z\",\"closed_at\":null},\"comments\":23,\"created_at\":\"2020-09-08T08:55:18Z\",\"updated_at\":\"2021-05-20T05:18:45Z\",\"closed_at\":null,\"author_association\":\"NONE\",\"active_lock_reason\":null,\"body\":\"<!--This is just a template - feel free to delete any and all of it and replace as appropriate.-->\\r\\n\\r\\n### Configuration\\r\\n\\r\\n* Which version of .NET is the code running on? **NET Core 3.1**\\r\\n* What OS and version, and what distro if applicable? **Host is CentOS Linux release 7.7.1908 (Core), docker image Debian GNU/Linux 10 (buster)**\\r\\n* What is the architecture (x64, x86, ARM, ARM64)? **x64**\\r\\n* GC mode: **server**\\r\\n\\r\\n### App is completely frozen, unresponsive\\r\\n\\r\\n**[clrstack -f -all](https://github.com/dotnet/runtime/files/5187107/stacks.txt)**\\r\\n* it seems to be GC issue because \\r\\n```\\r\\n> threadpool\\r\\nCPU utilization: 81 %%\\r\\nWorker Thread: Total: 8 Running: 8 Idle: 0 MaxLimit: 32767 MinLimit: 100\\r\\nWork Request in Queue: 4\\r\\n    Unknown Function: 00007F9395D3BD70  Context: 000000000158BB60\\r\\n    Unknown Function: 00007F9395D3BD70  Context: 00007F8E680053B0\\r\\n    Unknown Function: 00007F9395D3BD70  Context: 00007F8E90002BD0\\r\\n    Unknown Function: 00007F9395D3BD70  Context: 00007F8E9C021450\\r\\n--------------------------------------\\r\\nNumber of Timers: 0\\r\\n--------------------------------------\\r\\nCompletion Port Thread:Total: 0 Free: 0 MaxFree: 8 CurrentLimit: 0 MaxLimit: 1000 MinLimit: 4\\r\\n```\\r\\n\\r\\nFinalizer thread seems to be stuck on garbage collection\\r\\n```\\r\\nOS Thread Id: 0xd\\r\\n        Child SP               IP Call Site\\r\\n00007F9393250840 00007F9396D0300C libpthread.so.0!__pthread_cond_wait + 508\\r\\n00007F9393250910 00007F9396041585 libcoreclr.so!CorUnix::CPalSynchronizationManager::ThreadNativeWait(CorUnix::_ThreadNativeWaitData*, unsigned int, CorUnix::ThreadWakeupReason*, unsigned int*) + 309\\r\\n00007F9393250970 00007F9396041194 libcoreclr.so!CorUnix::CPalSynchronizationManager::BlockThread(CorUnix::CPalThread*, unsigned int, bool, bool, CorUnix::ThreadWakeupReason*, unsigned int*) + 388\\r\\n00007F93932509D0 00007F93960457AF libcoreclr.so!CorUnix::InternalWaitForMultipleObjectsEx(CorUnix::CPalThread*, unsigned int, void* const*, int, unsigned int, int, int) + 1743\\r\\n00007F9393250B60 00007F9396045A59 libcoreclr.so!WaitForSingleObjectEx + 89\\r\\n00007F9393250BA0 00007F9395DE19F4 libcoreclr.so!CLREventBase::WaitEx(unsigned int, WaitMode, PendingSync*) + 228\\r\\n00007F9393250C40 00007F9395ED818E libcoreclr.so!SVR::GCHeap::GarbageCollectGeneration(unsigned int, gc_reason) + 638\\r\\n00007F9393250C90 00007F9395EFCF25 libcoreclr.so!SVR::GCHeap::GarbageCollect(int, bool, int) + 773\\r\\n00007F9393250CD0 00007F9395D7745A libcoreclr.so!FinalizerThread::FinalizerThreadWorker(void*) + 330\\r\\n00007F9393250D10 00007F9395D19645 libcoreclr.so!ManagedThreadBase_DispatchOuter(ManagedThreadCallState*) + 341\\r\\n00007F9393250D60                  [DebuggerU2MCatchHandlerFrame: 00007f9393250d60]\\r\\n00007F9393250E30 00007F9395D19CFD libcoreclr.so!ManagedThreadBase::FinalizerBase(void (*)(void*)) + 45\\r\\n00007F9393250E60 00007F9395D775AC libcoreclr.so!FinalizerThread::FinalizerThreadStart(void*) + 188\\r\\n00007F9393250EE0 00007F939604B73D libcoreclr.so!CorUnix::CPalThread::ThreadEntry(void*) + 349\\r\\n00007F9393250F00 00007F9396CFCFA3 libpthread.so.0!start_thread + 243\\r\\n00007F9393250FC0 00007F93969074CF libc.so.6!clone + 63\\r\\n```\\r\\n\\r\\n4 GC threads seems to be waiting (4 CPU):\\r\\n3 GC threads are waiting to enter critical section\\r\\n```\\r\\nOS Thread Id: 0x21\\r\\n        Child SP               IP Call Site\\r\\n00007F8E717F9AF0 00007F9396D0300C libpthread.so.0!__pthread_cond_wait + 508\\r\\n00007F8E717F9BC0 00007F939603C6F2 libcoreclr.so!CorUnix::InternalEnterCriticalSection(CorUnix::CPalThread*, _CRITICAL_SECTION*) + 530\\r\\n00007F8E717F9C20 00007F9395C98225 libcoreclr.so!CrstBase::Enter() + 213\\r\\n00007F8E717F9C60 00007F9395E19CD2 libcoreclr.so!AppDomain::AssemblyIterator::Next(CollectibleAssemblyHolder<DomainAssembly*>*) + 34\\r\\n00007F8E717F9C90 00007F9395E1B48B libcoreclr.so!AppDomain::EnumStaticGCRefs(void (*)(Object**, ScanContext*, unsigned int), ScanContext*) + 123\\r\\n00007F8E717F9D00 00007F9395F3706E libcoreclr.so!GCToEEInterface::GcScanRoots(void (*)(Object**, ScanContext*, unsigned int), int, int, ScanContext*) + 126\\r\\n00007F8E717F9D40 00007F9395EDD678 libcoreclr.so!SVR::gc_heap::background_mark_phase() + 280\\r\\n00007F8E717F9E00 00007F9395EDC806 libcoreclr.so!SVR::gc_heap::gc1() + 438\\r\\n00007F8E717F9E60 00007F9395EF4A8F libcoreclr.so!SVR::gc_heap::bgc_thread_function() + 191\\r\\n00007F8E717F9EA0 00007F9395F395D2 libcoreclr.so!(anonymous namespace)::CreateSuspendableThread(void (*)(void*), void*, char16_t const*)::$_0::__invoke(void*) + 210\\r\\n00007F8E717F9EE0 00007F939604B73D libcoreclr.so!CorUnix::CPalThread::ThreadEntry(void*) + 349\\r\\n00007F8E717F9F00 00007F9396CFCFA3 libpthread.so.0!start_thread + 243\\r\\n00007F8E717F9FC0 00007F93969074CF libc.so.6!clone + 63\\r\\n```\\r\\n1 is waiting on something else\\r\\n```\\r\\nOS Thread Id: 0x20\\r\\n        Child SP               IP Call Site\\r\\n00007F8E71FFA900 00007F9396D0300C libpthread.so.0!__pthread_cond_wait + 508\\r\\n00007F8E71FFA9D0 00007F9396041585 libcoreclr.so!CorUnix::CPalSynchronizationManager::ThreadNativeWait(CorUnix::_ThreadNativeWaitData*, unsigned int, CorUnix::ThreadWakeupReason*, unsigned int*) + 309\\r\\n00007F8E71FFAA30 00007F9396041194 libcoreclr.so!CorUnix::CPalSynchronizationManager::BlockThread(CorUnix::CPalThread*, unsigned int, bool, bool, CorUnix::ThreadWakeupReason*, unsigned int*) + 388\\r\\n00007F8E71FFAA90 00007F93960457AF libcoreclr.so!CorUnix::InternalWaitForMultipleObjectsEx(CorUnix::CPalThread*, unsigned int, void* const*, int, unsigned int, int, int) + 1743\\r\\n00007F8E71FFAC20 00007F9396045A59 libcoreclr.so!WaitForSingleObjectEx + 89\\r\\n00007F8E71FFAC60 00007F9395DE19F4 libcoreclr.so!CLREventBase::WaitEx(unsigned int, WaitMode, PendingSync*) + 228\\r\\n00007F8E71FFAD00 00007F9395EFFF87 libcoreclr.so!SVR::t_join::join(SVR::gc_heap*, int) + 295\\r\\n00007F8E71FFAD40 00007F9395EDD762 libcoreclr.so!SVR::gc_heap::background_mark_phase() + 514\\r\\n00007F8E71FFAE00 00007F9395EDC806 libcoreclr.so!SVR::gc_heap::gc1() + 438\\r\\n00007F8E71FFAE60 00007F9395EF4A8F libcoreclr.so!SVR::gc_heap::bgc_thread_function() + 191\\r\\n00007F8E71FFAEA0 00007F9395F395D2 libcoreclr.so!(anonymous namespace)::CreateSuspendableThread(void (*)(void*), void*, char16_t const*)::$_0::__invoke(void*) + 210\\r\\n00007F8E71FFAEE0 00007F939604B73D libcoreclr.so!CorUnix::CPalThread::ThreadEntry(void*) + 349\\r\\n00007F8E71FFAF00 00007F9396CFCFA3 libpthread.so.0!start_thread + 243\\r\\n00007F8E71FFAFC0 00007F93969074CF libc.so.6!clone + 63\\r\\n```\\r\\n\\r\\nAlmost all other threads looks like this:\\r\\n```\\r\\n00007F8E4BFFE0B0 00007F9396D0300C libpthread.so.0!__pthread_cond_wait + 508\\r\\n00007F8E4BFFE180 00007F9396041585 libcoreclr.so!CorUnix::CPalSynchronizationManager::ThreadNativeWait(CorUnix::_ThreadNativeWaitData*, unsigned int, CorUnix::ThreadWakeupReason*, unsigned int*) + 309\\r\\n00007F8E4BFFE1E0 00007F9396041194 libcoreclr.so!CorUnix::CPalSynchronizationManager::BlockThread(CorUnix::CPalThread*, unsigned int, bool, bool, CorUnix::ThreadWakeupReason*, unsigned int*) + 388\\r\\n00007F8E4BFFE240 00007F93960457AF libcoreclr.so!CorUnix::InternalWaitForMultipleObjectsEx(CorUnix::CPalThread*, unsigned int, void* const*, int, unsigned int, int, int) + 1743\\r\\n00007F8E4BFFE3D0 00007F9396045A59 libcoreclr.so!WaitForSingleObjectEx + 89\\r\\n00007F8E4BFFE410 00007F9395DE19F4 libcoreclr.so!CLREventBase::WaitEx(unsigned int, WaitMode, PendingSync*) + 228\\r\\n00007F8E4BFFE4B0 00007F9395DE4D9B libcoreclr.so!Thread::RareDisablePreemptiveGC() + 427\\r\\n```\\r\\n\\r\\n\\r\\n<!--\\r\\n* Please include any relevant stack traces or error messages. If possible please include text as text rather than images (so it shows up in searches).\\r\\n* If you have an idea where the problem might lie, let us know that here. Please include any pointers to code, relevant changes, or related issues you know of.\\r\\n* Do you know of any workarounds?\\r\\n  -->\\r\\n\",\"performed_via_github_app\":null},\"comment\":{\"url\":\"https://api.github.com/repos/dotnet/runtime/issues/comments/844703427\",\"html_url\":\"https://github.com/dotnet/runtime/issues/41958#issuecomment-844703427\",\"issue_url\":\"https://api.github.com/repos/dotnet/runtime/issues/41958\",\"id\":844703427,\"node_id\":\"MDEyOklzc3VlQ29tbWVudDg0NDcwMzQyNw==\",\"user\":{\"login\":\"luryus\",\"id\":287814,\"node_id\":\"MDQ6VXNlcjI4NzgxNA==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/287814?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/luryus\",\"html_url\":\"https://github.com/luryus\",\"followers_url\":\"https://api.github.com/users/luryus/followers\",\"following_url\":\"https://api.github.com/users/luryus/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/luryus/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/luryus/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/luryus/subscriptions\",\"organizations_url\":\"https://api.github.com/users/luryus/orgs\",\"repos_url\":\"https://api.github.com/users/luryus/repos\",\"events_url\":\"https://api.github.com/users/luryus/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/luryus/received_events\",\"type\":\"User\",\"site_admin\":false},\"created_at\":\"2021-05-20T05:18:44Z\",\"updated_at\":\"2021-05-20T05:18:44Z\",\"author_association\":\"NONE\",\"body\":\"Sure enough, I can't reproduce the lock either with .NET 5. I don't know why I didn't think to test the repro with the newer runtime earlier \ud83d\ude05 \\r\\n\\r\\nI guess we should update to .NET 5 then, unless this is something that should still get fixed in 3.1?\\r\\n\\r\\nJust out of curiosity, I tested the repro with the .NET 5 preview Docker images. Preview 3 locks up, while preview 4 does not. #32795 was already included in preview 3, so I guess the bug was fixed by some other later change.\",\"performed_via_github_app\":null}}",
+            "repo": {
+                "id": 210716005,
+                "name": "dotnet/runtime",
+                "url": "https://api.github.com/repos/dotnet/runtime"
+            },
+            "actor": {
+                "id": 287814,
+                "login": "luryus",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/287814?",
+                "url": "https://api.github.com/users/luryus"
+            },
+            "org": {
+                "id": 9141961,
+                "login": "dotnet",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/9141961?",
+                "url": "https://api.github.com/orgs/dotnet"
+            },
+            "created_at": "2021-05-20 05:18:45+00:00",
+            "id": "16432734587",
+            "other": "{\"actor\":{\"display_login\":\"luryus\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":null,\"ref_type\":\"repository\",\"master_branch\":\"master\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 369150016,
+                "name": "ArturHusikovich/react-project-one",
+                "url": "https://api.github.com/repos/ArturHusikovich/react-project-one"
+            },
+            "actor": {
+                "id": 64202174,
+                "login": "ArturHusikovich",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/64202174?",
+                "url": "https://api.github.com/users/ArturHusikovich"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-05-20 09:17:36+00:00",
+            "id": "16435974848",
+            "other": "{\"actor\":{\"display_login\":\"ArturHusikovich\"}}"
+        },
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"ci/apt-mirror-dynamic-host\",\"ref_type\":\"branch\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 142138486,
+                "name": "newrelic/nri-apache",
+                "url": "https://api.github.com/repos/newrelic/nri-apache"
+            },
+            "actor": {
+                "id": 3380451,
+                "login": "rubenruizdegauna",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/3380451?",
+                "url": "https://api.github.com/users/rubenruizdegauna"
+            },
+            "org": {
+                "id": 31739,
+                "login": "newrelic",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/31739?",
+                "url": "https://api.github.com/orgs/newrelic"
+            },
+            "created_at": "2021-05-20 10:09:59+00:00",
+            "id": "16436833499",
+            "other": "{\"actor\":{\"display_login\":\"rubenruizdegauna\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":7155017330,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"62df98436f098af72efa4553a350bb062546b21b\",\"before\":\"5d0f6f5a5e2b64dd20a5adb225f4ebccd2d64981\",\"commits\":[{\"sha\":\"62df98436f098af72efa4553a350bb062546b21b\",\"author\":{\"name\":\"Vlad Zarytovskii\",\"email\":\"74e5f340833bf4735c0245b5a553b705375ca875@hotmail.com\"},\"message\":\"Emacs: removed jump-tree (was too unstable and buggy), tweaked fsharp-mode activation\",\"distinct\":true,\"url\":\"https://api.github.com/repos/vzarytovskii/vzarytovskii/commits/62df98436f098af72efa4553a350bb062546b21b\"}]}",
+            "repo": {
+                "id": 237481956,
+                "name": "vzarytovskii/vzarytovskii",
+                "url": "https://api.github.com/repos/vzarytovskii/vzarytovskii"
+            },
+            "actor": {
+                "id": 1260985,
+                "login": "vzarytovskii",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/1260985?",
+                "url": "https://api.github.com/users/vzarytovskii"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2021-05-20 10:35:38+00:00",
+            "id": "16437222673",
+            "other": "{\"actor\":{\"display_login\":\"vzarytovskii\"}}"
+        }
+    ]
+}

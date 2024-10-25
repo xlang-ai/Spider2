@@ -1,0 +1,42 @@
+## DATE
+
+DATE(year, month, day)
+
+
+DATE(timestamp_expression)
+
+
+DATE(timestamp_expression, time_zone_expression)
+
+
+DATE(datetime_expression)
+
+**Description**
+
+Constructs or extracts a date.
+
+This function supports the following arguments:
+
+* ` year ` : The ` INT64 ` value for year.
+* ` month ` : The ` INT64 ` value for month.
+* ` day ` : The ` INT64 ` value for day.
+* ` timestamp_expression ` : A ` TIMESTAMP ` expression that contains the date.
+* ` time_zone_expression ` : A ` STRING ` expression that represents a [ time zone ](/bigquery/docs/reference/standard-sql/timestamp_functions#timezone_definitions) . If no time zone is specified with ` timestamp_expression ` , the default time zone, UTC, is used.
+* ` datetime_expression ` : A ` DATETIME ` expression that contains the date.
+
+**Return Data Type**
+
+` DATE `
+
+**Example**
+
+
+SELECT DATE(2016, 12, 25) AS date_ymd,
+DATE(DATETIME '2016-12-25 23:59:59') AS date_dt,
+DATE(TIMESTAMP '2016-12-25 05:30:00+07', 'America/Los_Angeles') AS date_tstz;
+
+/*------------+------------+------------*
+| date_ymd   | date_dt    | date_tstz  |
++------------+------------+------------+
+| 2016-12-25 | 2016-12-25 | 2016-12-24 |
+*------------+------------+------------*/

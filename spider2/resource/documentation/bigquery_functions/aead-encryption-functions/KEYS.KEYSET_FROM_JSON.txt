@@ -1,0 +1,50 @@
+## KEYS.KEYSET_FROM_JSON
+
+KEYS.KEYSET_FROM_JSON(json_keyset)
+
+**Description**
+
+Returns the input ` json_keyset ` ` STRING ` as serialized ` BYTES ` , which is a valid input for other ` KEYS ` and ` AEAD ` functions. The JSON ` STRING
+` must be compatible with the definition of the [ google.crypto.tink.Keyset
+](https://github.com/google/tink/blob/master/proto/tink.proto) protocol buffer message: the JSON keyset should be a JSON object containing objects and name-
+value pairs corresponding to those in the "keyset" message in the google.crypto.tink.Keyset definition. You can convert the output serialized `
+BYTES ` representation back to a JSON ` STRING ` using ` KEYS.KEYSET_TO_JSON `
+.
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+` KEYS.KEYSET_FROM_JSON ` takes JSON-formatted ` STRING ` values like the following:
+
+
+{
+"key":[
+{
+"keyData":{
+"keyMaterialType":"SYMMETRIC",
+"typeUrl":"type.googleapis.com/google.crypto.tink.AesGcmKey",
+"value":"GiD80Z8kL6AP3iSNHhqseZGAIvq7TVQzClT7FQy8YwK3OQ=="
+},
+"keyId":3101427138,
+"outputPrefixType":"TINK",
+"status":"ENABLED"
+}
+],
+"primaryKeyId":3101427138
+}
+
+The following query creates a new keyset from a JSON-formatted ` STRING ` `
+json_keyset ` :
+
+
+SELECT KEYS.KEYSET_FROM_JSON(json_keyset);
+
+This returns the ` json_keyset ` serialized as ` BYTES ` , like the following:
+
+
+\x08\x9d\x8e\x85\x82\x09\x12d\x0aX\x0a0 type.googleapis.com/google.crypto.tink.AesGcmKey\x12\"\x1a qX\xe4IG\x87\x1f\xde
+\xe3)+e\x98\x0a\x1c}\xfe\x88<\x12\xeb\xc1t\xb8\x83\x1a\xcd\xa8\x97\x84g\x18\x01
+\x10\x01\x18\x9d\x8e\x85\x82\x09 \x01

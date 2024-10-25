@@ -1,0 +1,153 @@
+{
+    "table_name": "transactions",
+    "table_fullname": "spider2-public-data.crypto_band.transactions",
+    "column_names": [
+        "block_height",
+        "block_timestamp",
+        "block_timestamp_truncated",
+        "txhash",
+        "transaction_type",
+        "gas_wanted",
+        "gas_used",
+        "sender",
+        "fee",
+        "memo"
+    ],
+    "column_types": [
+        "INT64",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "NUMERIC",
+        "NUMERIC",
+        "STRING",
+        "STRUCT<amount ARRAY<STRUCT<amount INT64, denom STRING>>, gas INT64>",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "block_height",
+        "block_timestamp",
+        "block_timestamp_truncated",
+        "txhash",
+        "transaction_type",
+        "gas_wanted",
+        "gas_used",
+        "sender",
+        "fee",
+        "fee.amount",
+        "fee.amount.amount",
+        "fee.amount.denom",
+        "fee.gas",
+        "memo"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING",
+        "NUMERIC",
+        "NUMERIC",
+        "STRING",
+        "STRUCT<amount ARRAY<STRUCT<amount INT64, denom STRING>>, gas INT64>",
+        "ARRAY<STRUCT<amount INT64, denom STRING>>",
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "block_height": 5907110,
+            "block_timestamp": "2021-05-17T17:36:28.3058741Z",
+            "block_timestamp_truncated": "2021-05-17 17:36:28.305874+00:00",
+            "txhash": "233381D3B0EF04CD718CF2723C1D1129AAB3456C1F3FC80951CED9F29CCB5DB9",
+            "transaction_type": "cosmos-sdk/StdTx",
+            "gas_wanted": "79488.000000000",
+            "gas_used": "74633.000000000",
+            "sender": "band1hdn4dc5ylhvgcv8jd20ej6vmmeuh82zg0hjm2r",
+            "fee": {
+                "amount": "[]",
+                "gas": 79488
+            },
+            "memo": "yoda:1.2.7a/exec:lambda:1.1.2,"
+        },
+        {
+            "block_height": 5900625,
+            "block_timestamp": "2021-05-17T11:59:23.53926789Z",
+            "block_timestamp_truncated": "2021-05-17 11:59:23.539267+00:00",
+            "txhash": "1BB3CF0904BA04BF74B692A998D3F20BDEB5D7B09AE5DA26F81C2DBB79DE83C2",
+            "transaction_type": "cosmos-sdk/StdTx",
+            "gas_wanted": "79488.000000000",
+            "gas_used": "71770.000000000",
+            "sender": "band1yupjfyaxjvrmzm5ydmnjgczdj4wkan9mzk3v4p",
+            "fee": {
+                "amount": "[]",
+                "gas": 79488
+            },
+            "memo": "yoda:1.2.7/exec:google-cloud-function:1.1.2,"
+        },
+        {
+            "block_height": 5891616,
+            "block_timestamp": "2021-05-17T04:12:59.755277625Z",
+            "block_timestamp_truncated": "2021-05-17 04:12:59.755277+00:00",
+            "txhash": "AA6F2DE99465A1115285B7F2D4AD0DA207B99CA25D0B577335296CC0AA645570",
+            "transaction_type": "cosmos-sdk/StdTx",
+            "gas_wanted": "79488.000000000",
+            "gas_used": "77450.000000000",
+            "sender": "band18weyye6rsnvt5g7qeep0zq6p6qtjxu58lq05w3",
+            "fee": {
+                "amount": "[]",
+                "gas": 79488
+            },
+            "memo": "yoda:1.2.7a/exec:lambda:1.1.2,"
+        },
+        {
+            "block_height": 5894547,
+            "block_timestamp": "2021-05-17T06:43:57.331940073Z",
+            "block_timestamp_truncated": "2021-05-17 06:43:57.331940+00:00",
+            "txhash": "F0B8051D688EB353754D78A5A373D57405FE63EDC0EA3E7FAA40F5539935E059",
+            "transaction_type": "cosmos-sdk/StdTx",
+            "gas_wanted": "79488.000000000",
+            "gas_used": "78818.000000000",
+            "sender": "band1rf3fgq8y49u9ju3tz625y8e2jjyspkvevxsh3n",
+            "fee": {
+                "amount": "[]",
+                "gas": 79488
+            },
+            "memo": "yoda:1.2.7a/exec:google-cloud-function:1.1.2,"
+        },
+        {
+            "block_height": 5896099,
+            "block_timestamp": "2021-05-17T08:04:15.927855292Z",
+            "block_timestamp_truncated": "2021-05-17 08:04:15.927855+00:00",
+            "txhash": "4D8C06F582BA5CF566E37BE393F1C71AB52B9BD7128C6D97D6AB6670AD7CBC23",
+            "transaction_type": "cosmos-sdk/StdTx",
+            "gas_wanted": "79488.000000000",
+            "gas_used": "77401.000000000",
+            "sender": "band1sa6xc8qz3c5qqfdtlykdnjpdpdp7hs37fhjpht",
+            "fee": {
+                "amount": "[]",
+                "gas": 79488
+            },
+            "memo": "yoda:1.2.7/exec:,lambda:1.1.2"
+        }
+    ]
+}

@@ -1,0 +1,235 @@
+{
+    "table_name": "202011",
+    "table_fullname": "githubarchive.month.202011",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":5953713518,\"size\":2,\"distinct_size\":2,\"ref\":\"refs/heads/master\",\"head\":\"d2895e71c684ed9e7a4715a8dce211e11b62fb80\",\"before\":\"e7b354df30723154eb9be4f72c764bd8c013dc50\",\"commits\":[{\"sha\":\"f6176de1367f55e5237668cdb67813deb538b458\",\"author\":{\"name\":\"Stephen Oliver\",\"email\":\"9ce5770b3bb4b2a1d59be2d97e34379cd192299f@infincia.com\"},\"message\":\"Update the pi zero kernel configs\",\"distinct\":true,\"url\":\"https://api.github.com/repos/OpenHD/OpenHDKernelBuilder/commits/f6176de1367f55e5237668cdb67813deb538b458\"},{\"sha\":\"d2895e71c684ed9e7a4715a8dce211e11b62fb80\",\"author\":{\"name\":\"Stephen Oliver\",\"email\":\"9ce5770b3bb4b2a1d59be2d97e34379cd192299f@infincia.com\"},\"message\":\"Re-enable building pi zero kernels\",\"distinct\":true,\"url\":\"https://api.github.com/repos/OpenHD/OpenHDKernelBuilder/commits/d2895e71c684ed9e7a4715a8dce211e11b62fb80\"}]}",
+            "repo": {
+                "id": 269826530,
+                "name": "OpenHD/OpenHDKernelBuilder",
+                "url": "https://api.github.com/repos/OpenHD/OpenHDKernelBuilder"
+            },
+            "actor": {
+                "id": 84317,
+                "login": "steveatinfincia",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/84317?",
+                "url": "https://api.github.com/users/steveatinfincia"
+            },
+            "org": {
+                "id": 59079272,
+                "login": "OpenHD",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/59079272?",
+                "url": "https://api.github.com/orgs/OpenHD"
+            },
+            "created_at": "2020-11-01 04:25:12+00:00",
+            "id": "14040709827",
+            "other": "{\"actor\":{\"display_login\":\"steveatinfincia\"}}"
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 65233633,
+                "name": "vercel/pkg",
+                "url": "https://api.github.com/repos/vercel/pkg"
+            },
+            "actor": {
+                "id": 217126,
+                "login": "utkarshkukreti",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/217126?",
+                "url": "https://api.github.com/users/utkarshkukreti"
+            },
+            "org": {
+                "id": 14985020,
+                "login": "vercel",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/14985020?",
+                "url": "https://api.github.com/orgs/vercel"
+            },
+            "created_at": "2020-11-01 04:53:50+00:00",
+            "id": "14040784350",
+            "other": "{\"actor\":{\"display_login\":\"utkarshkukreti\"}}"
+        },
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"3.3.3\",\"ref_type\":\"tag\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 2209077,
+                "name": "JetBrains/MPS",
+                "url": "https://api.github.com/repos/JetBrains/MPS"
+            },
+            "actor": {
+                "id": 249955,
+                "login": "SergeyZh",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/249955?",
+                "url": "https://api.github.com/users/SergeyZh"
+            },
+            "org": {
+                "id": 878437,
+                "login": "JetBrains",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/878437?",
+                "url": "https://api.github.com/orgs/JetBrains"
+            },
+            "created_at": "2020-11-01 04:28:04+00:00",
+            "id": "14040717398",
+            "other": "{\"actor\":{\"display_login\":\"SergeyZh\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":5953502566,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/1.6.x\",\"head\":\"2799e255b981f76d7c50f4136e26e78fcf0aa878\",\"before\":\"0e810c15f4015ec397115711a9892862206612ea\",\"commits\":[{\"sha\":\"2799e255b981f76d7c50f4136e26e78fcf0aa878\",\"author\":{\"name\":\"Korko\",\"email\":\"1335d211f294bd43daba9e53ba4f509582cbccb7@korko.fr\"},\"message\":\"Change ribbon, add tooltip and reword some wordings\",\"distinct\":true,\"url\":\"https://api.github.com/repos/Korko/SecretSanta.fr/commits/2799e255b981f76d7c50f4136e26e78fcf0aa878\"}]}",
+            "repo": {
+                "id": 47186829,
+                "name": "Korko/SecretSanta.fr",
+                "url": "https://api.github.com/repos/Korko/SecretSanta.fr"
+            },
+            "actor": {
+                "id": 43628,
+                "login": "Korko",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/43628?",
+                "url": "https://api.github.com/users/Korko"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-11-01 02:08:13+00:00",
+            "id": "14040375446",
+            "other": "{\"actor\":{\"display_login\":\"Korko\"}}"
+        },
+        {
+            "type": "IssueCommentEvent",
+            "public": true,
+            "payload": "{\"action\":\"created\",\"issue\":{\"url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/54\",\"repository_url\":\"https://api.github.com/repos/michaelrsweet/pappl\",\"labels_url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/54/labels{/name}\",\"comments_url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/54/comments\",\"events_url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/54/events\",\"html_url\":\"https://github.com/michaelrsweet/pappl/issues/54\",\"id\":731423876,\"node_id\":\"MDU6SXNzdWU3MzE0MjM4NzY=\",\"number\":54,\"title\":\"Finish support for vendor options\",\"user\":{\"login\":\"michaelrsweet\",\"id\":488103,\"node_id\":\"MDQ6VXNlcjQ4ODEwMw==\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/488103?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michaelrsweet\",\"html_url\":\"https://github.com/michaelrsweet\",\"followers_url\":\"https://api.github.com/users/michaelrsweet/followers\",\"following_url\":\"https://api.github.com/users/michaelrsweet/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michaelrsweet/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michaelrsweet/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michaelrsweet/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michaelrsweet/orgs\",\"repos_url\":\"https://api.github.com/users/michaelrsweet/repos\",\"events_url\":\"https://api.github.com/users/michaelrsweet/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michaelrsweet/received_events\",\"type\":\"User\",\"site_admin\":false},\"labels\":[{\"id\":1870254757,\"node_id\":\"MDU6TGFiZWwxODcwMjU0NzU3\",\"url\":\"https://api.github.com/repos/michaelrsweet/pappl/labels/enhancement\",\"name\":\"enhancement\",\"color\":\"00cccc\",\"default\":true,\"description\":\"New feature or request\"},{\"id\":2038619772,\"node_id\":\"MDU6TGFiZWwyMDM4NjE5Nzcy\",\"url\":\"https://api.github.com/repos/michaelrsweet/pappl/labels/priority-high\",\"name\":\"priority-high\",\"color\":\"cc0000\",\"default\":false,\"description\":\"\"}],\"state\":\"open\",\"locked\":false,\"assignee\":{\"login\":\"michaelrsweet\",\"id\":488103,\"node_id\":\"MDQ6VXNlcjQ4ODEwMw==\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/488103?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michaelrsweet\",\"html_url\":\"https://github.com/michaelrsweet\",\"followers_url\":\"https://api.github.com/users/michaelrsweet/followers\",\"following_url\":\"https://api.github.com/users/michaelrsweet/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michaelrsweet/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michaelrsweet/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michaelrsweet/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michaelrsweet/orgs\",\"repos_url\":\"https://api.github.com/users/michaelrsweet/repos\",\"events_url\":\"https://api.github.com/users/michaelrsweet/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michaelrsweet/received_events\",\"type\":\"User\",\"site_admin\":false},\"assignees\":[{\"login\":\"michaelrsweet\",\"id\":488103,\"node_id\":\"MDQ6VXNlcjQ4ODEwMw==\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/488103?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michaelrsweet\",\"html_url\":\"https://github.com/michaelrsweet\",\"followers_url\":\"https://api.github.com/users/michaelrsweet/followers\",\"following_url\":\"https://api.github.com/users/michaelrsweet/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michaelrsweet/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michaelrsweet/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michaelrsweet/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michaelrsweet/orgs\",\"repos_url\":\"https://api.github.com/users/michaelrsweet/repos\",\"events_url\":\"https://api.github.com/users/michaelrsweet/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michaelrsweet/received_events\",\"type\":\"User\",\"site_admin\":false}],\"milestone\":{\"url\":\"https://api.github.com/repos/michaelrsweet/pappl/milestones/1\",\"html_url\":\"https://github.com/michaelrsweet/pappl/milestone/1\",\"labels_url\":\"https://api.github.com/repos/michaelrsweet/pappl/milestones/1/labels\",\"id\":5209620,\"node_id\":\"MDk6TWlsZXN0b25lNTIwOTYyMA==\",\"number\":1,\"title\":\"v1.0\",\"description\":\"The first stable release.\",\"creator\":{\"login\":\"michaelrsweet\",\"id\":488103,\"node_id\":\"MDQ6VXNlcjQ4ODEwMw==\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/488103?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michaelrsweet\",\"html_url\":\"https://github.com/michaelrsweet\",\"followers_url\":\"https://api.github.com/users/michaelrsweet/followers\",\"following_url\":\"https://api.github.com/users/michaelrsweet/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michaelrsweet/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michaelrsweet/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michaelrsweet/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michaelrsweet/orgs\",\"repos_url\":\"https://api.github.com/users/michaelrsweet/repos\",\"events_url\":\"https://api.github.com/users/michaelrsweet/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michaelrsweet/received_events\",\"type\":\"User\",\"site_admin\":false},\"open_issues\":2,\"closed_issues\":25,\"state\":\"open\",\"created_at\":\"2020-03-17T11:31:59Z\",\"updated_at\":\"2020-10-31T01:06:17Z\",\"due_on\":\"2020-12-04T08:00:00Z\",\"closed_at\":null},\"comments\":1,\"created_at\":\"2020-10-28T13:05:09Z\",\"updated_at\":\"2020-11-01T02:32:12Z\",\"closed_at\":null,\"author_association\":\"OWNER\",\"active_lock_reason\":null,\"body\":\"The current support for vendor/custom options is lacking and needs to be completed before 1.0. Specific changes:\\r\\n\\r\\n- [x] Add cups_option_t array to pappl_joptions_t with vendor options\\r\\n- [x] Change papplJobGetOptions to allocate the pappl_joptions_t structure.\\r\\n- [x] Add papplJobFreeOptions function to free the pappl_joptions_t structure along with any allocated vendor options\\r\\n- [x] Add vendor options and attributes to the PWG test driver\\r\\n- [x] Add web UI for vendor options\\r\\n- [ ] Add support for vendor options at the command-line\\r\\n\",\"performed_via_github_app\":null},\"comment\":{\"url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/comments/720016978\",\"html_url\":\"https://github.com/michaelrsweet/pappl/issues/54#issuecomment-720016978\",\"issue_url\":\"https://api.github.com/repos/michaelrsweet/pappl/issues/54\",\"id\":720016978,\"node_id\":\"MDEyOklzc3VlQ29tbWVudDcyMDAxNjk3OA==\",\"user\":{\"login\":\"michaelrsweet\",\"id\":488103,\"node_id\":\"MDQ6VXNlcjQ4ODEwMw==\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/488103?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michaelrsweet\",\"html_url\":\"https://github.com/michaelrsweet\",\"followers_url\":\"https://api.github.com/users/michaelrsweet/followers\",\"following_url\":\"https://api.github.com/users/michaelrsweet/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michaelrsweet/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michaelrsweet/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michaelrsweet/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michaelrsweet/orgs\",\"repos_url\":\"https://api.github.com/users/michaelrsweet/repos\",\"events_url\":\"https://api.github.com/users/michaelrsweet/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michaelrsweet/received_events\",\"type\":\"User\",\"site_admin\":false},\"created_at\":\"2020-11-01T02:32:12Z\",\"updated_at\":\"2020-11-01T02:32:12Z\",\"author_association\":\"OWNER\",\"body\":\"[master 0985f6d] Add vendor options to the test driver (Issue #54)\\r\\n\",\"performed_via_github_app\":null}}",
+            "repo": {
+                "id": 243025018,
+                "name": "michaelrsweet/pappl",
+                "url": "https://api.github.com/repos/michaelrsweet/pappl"
+            },
+            "actor": {
+                "id": 488103,
+                "login": "michaelrsweet",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/488103?",
+                "url": "https://api.github.com/users/michaelrsweet"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2020-11-01 02:32:12+00:00",
+            "id": "14040435872",
+            "other": "{\"actor\":{\"display_login\":\"michaelrsweet\"}}"
+        }
+    ]
+}

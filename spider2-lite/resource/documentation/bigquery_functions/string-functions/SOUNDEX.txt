@@ -1,0 +1,35 @@
+## SOUNDEX
+
+SOUNDEX(value)
+
+**Description**
+
+Returns a ` STRING ` that represents the [ Soundex
+](https://en.wikipedia.org/wiki/Soundex) code for ` value ` .
+
+SOUNDEX produces a phonetic representation of a string. It indexes words by sound, as pronounced in English. It is typically used to help determine whether two strings, such as the family names _Levine_ and _Lavine_ , or the words _to_ and _too_ , have similar English-language pronunciation.
+
+The result of the SOUNDEX consists of a letter followed by 3 digits. Non-latin characters are ignored. If the remaining string is empty after removing non-
+Latin characters, an empty ` STRING ` is returned.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+WITH example AS ( SELECT 'Ashcraft' AS value UNION ALL SELECT 'Raven' AS value UNION ALL SELECT 'Ribbon' AS value UNION ALL SELECT 'apple' AS value UNION ALL SELECT 'Hello world!' AS value UNION ALL SELECT '  H3##!@llo w00orld!' AS value UNION ALL SELECT '#1' AS value UNION ALL SELECT NULL AS value ) SELECT value, SOUNDEX(value) AS soundex FROM example;
+
+/*----------------------+---------*
+| value                | soundex |
++----------------------+---------+
+| Ashcraft             | A261    |
+| Raven                | R150    |
+| Ribbon               | R150    |
+| apple                | a140    |
+| Hello world!         | H464    |
+|   H3##!@llo w00orld! | H464    |
+| #1                   |         |
+| NULL                 | NULL    |
+*----------------------+---------*/

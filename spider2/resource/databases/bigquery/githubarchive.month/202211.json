@@ -1,0 +1,235 @@
+{
+    "table_name": "202211",
+    "table_fullname": "githubarchive.month.202211",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":null,\"ref_type\":\"repository\",\"master_branch\":\"main\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 569654070,
+                "name": "christiankjaer/proofs-as-programs",
+                "url": "https://api.github.com/repos/christiankjaer/proofs-as-programs"
+            },
+            "actor": {
+                "id": 438298,
+                "login": "christiankjaer",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/438298?",
+                "url": "https://api.github.com/users/christiankjaer"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-11-23 10:15:21+00:00",
+            "id": "25425107430",
+            "other": "{\"actor\":{\"display_login\":\"christiankjaer\"}}"
+        },
+        {
+            "type": "CreateEvent",
+            "public": true,
+            "payload": "{\"ref\":\"master\",\"ref_type\":\"branch\",\"master_branch\":\"master\",\"description\":null,\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 569535039,
+                "name": "hardik311099/ts_react",
+                "url": "https://api.github.com/repos/hardik311099/ts_react"
+            },
+            "actor": {
+                "id": 113990239,
+                "login": "hardik311099",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/113990239?",
+                "url": "https://api.github.com/users/hardik311099"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-11-23 03:34:08+00:00",
+            "id": "25418417059",
+            "other": "{\"actor\":{\"display_login\":\"hardik311099\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11756138533,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"5470008aa5356ee78ba175ff06d631dd5a678671\",\"before\":\"225747c06ce49467f278deaa933cc885296b735e\",\"commits\":[{\"sha\":\"5470008aa5356ee78ba175ff06d631dd5a678671\",\"author\":{\"email\":\"a6eb4d9d7f99ca47abe56f3220597663cf37ca4a@packer-output-f010df36-349c-4327-bffc-9b0304510dc4\",\"name\":\"Debian\"},\"message\":\"automated script push\",\"distinct\":true,\"url\":\"https://api.github.com/repos/mu-arch/valheimlist.org/commits/5470008aa5356ee78ba175ff06d631dd5a678671\"}]}",
+            "repo": {
+                "id": 368744823,
+                "name": "mu-arch/valheimlist.org",
+                "url": "https://api.github.com/repos/mu-arch/valheimlist.org"
+            },
+            "actor": {
+                "id": 6717350,
+                "login": "mu-arch",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/6717350?",
+                "url": "https://api.github.com/users/mu-arch"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-11-23 01:15:30+00:00",
+            "id": "25416753416",
+            "other": "{\"actor\":{\"display_login\":\"mu-arch\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"push_id\":11760858094,\"size\":67,\"distinct_size\":67,\"ref\":\"refs/heads/feature/xap-generate-rust\",\"head\":\"0537ffd5ad1e819596f9812111fe4117252becb9\",\"before\":\"e46ed35e705a4ae845556222f37fcadd73bfd936\",\"commits\":[{\"sha\":\"118370457820ecc45707bc0fa81f27c1b01fc794\",\"author\":{\"email\":\"36683d74c44c86bda6910ac44668c77ed26d04b5@users.noreply.github.com\",\"name\":\"James Young\"},\"message\":\"Star75 Refactor (#18885)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/118370457820ecc45707bc0fa81f27c1b01fc794\"},{\"sha\":\"a45607f4e6e0f5b7a40d655c10e6bc79272cd4d5\",\"author\":{\"email\":\"9e599ee708f7f7c6c0f5527d8604706b867b443a@gmail.com\",\"name\":\"Max Rumpf\"},\"message\":\"Phoebe: Add key to print screen (#18856)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/a45607f4e6e0f5b7a40d655c10e6bc79272cd4d5\"},{\"sha\":\"96c48a5f4aa461ed31fd4ee61151ac206e16fb5f\",\"author\":{\"email\":\"46f1a0bd5592a2f9244ca321b129902a06b53e03@zvecr.com\",\"name\":\"Joel Challis\"},\"message\":\"Refactor to avoid deprecated wmic execution (#18122)\\n\\n* wmic deprecated?\\r\\n\\r\\n* Update platforms/avr/flash.mk\\r\\n\\r\\n* Update platforms/avr/flash.mk\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/96c48a5f4aa461ed31fd4ee61151ac206e16fb5f\"},{\"sha\":\"1983421b7d68f0e74c89f17b741b04c8a015efda\",\"author\":{\"email\":\"41874a010cdfd5ff07f5d79c4278a4e5f099cbfd@pm.me\",\"name\":\"Stefan Kerkmann\"},\"message\":\"XAP: prevent OOB reads in config blob handler (#18926)\\n\\nThis fixes two bugs:\\r\\n\\r\\n1. An invalid offset could be specified which wasn't checked to be in\\r\\n   the bounds of the config blob.\\r\\n2. The data_len check was incorrect as it would allow reading one byte\\r\\n   past the config blob lenght.\\r\\n\\r\\nBefore the changes the following operation wouldn't fail:\\r\\n\\r\\nAssuming we have blob of 64 bytes size and attempt a read with an\\r\\noffset of 32 and data_len of 32, we actually try to read 32 bytes\\r\\nstarting from the 33. byte in the config blob. This reads exactly\\r\\none byte past array. Therefore we have to subtract one byte the get\\r\\nthe correct length.\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/1983421b7d68f0e74c89f17b741b04c8a015efda\"},{\"sha\":\"5fb80562f11b9bbd291a7d7e920912dedcc8a9f2\",\"author\":{\"email\":\"c028c213ed5efcf30c3f4fc7361dbde0c893c5b7@windowoffire.com\",\"name\":\"Joshua Diamond\"},\"message\":\"Fix syntax error introduced in #18800 (#18933)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/5fb80562f11b9bbd291a7d7e920912dedcc8a9f2\"},{\"sha\":\"1c48ad58a10a22db917a48e21eafdc21c5e83675\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/1c48ad58a10a22db917a48e21eafdc21c5e83675\"},{\"sha\":\"7fe76e53c1e7c1569a99b6dbf3eee11aad3df094\",\"author\":{\"email\":\"b1a887da75725d9274097d24551cb6d13458e359@live.com\",\"name\":\"Drashna Jaelre\"},\"message\":\"[Keyboard]  Add hotdox76v2 support (#18680)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/7fe76e53c1e7c1569a99b6dbf3eee11aad3df094\"},{\"sha\":\"db2aa039f197f958fbf0e95c0d7256a5a41c7163\",\"author\":{\"email\":\"df2de7f8e16d325f512d31727c40ea92f6759695@gmail.com\",\"name\":\"Ryan\"},\"message\":\"Remove more `UNUSED_PINS` defines (#18940)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/db2aa039f197f958fbf0e95c0d7256a5a41c7163\"},{\"sha\":\"e6d24f0e5a97291ea8310c081fa3ce311b6983a7\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/e6d24f0e5a97291ea8310c081fa3ce311b6983a7\"},{\"sha\":\"40122c28e026ab2da6dd784b66fd8de2b6dc1fed\",\"author\":{\"email\":\"df2de7f8e16d325f512d31727c40ea92f6759695@gmail.com\",\"name\":\"Ryan\"},\"message\":\"Resolve info.json/rules.mk feature conflicts in three boards (#18942)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/40122c28e026ab2da6dd784b66fd8de2b6dc1fed\"},{\"sha\":\"ec87bdc83cb8785612d1f70bc35063a2b9e847d6\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/ec87bdc83cb8785612d1f70bc35063a2b9e847d6\"},{\"sha\":\"f11a247127c82bc207f20e0b1be2cf6efea3a129\",\"author\":{\"email\":\"46f1a0bd5592a2f9244ca321b129902a06b53e03@zvecr.com\",\"name\":\"Joel Challis\"},\"message\":\"Reduce includes for sequencer header (#18946)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/f11a247127c82bc207f20e0b1be2cf6efea3a129\"},{\"sha\":\"493004561d714d1c8aaa966dc2d949c86bc65be4\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/493004561d714d1c8aaa966dc2d949c86bc65be4\"},{\"sha\":\"3de296f42014c489682730d9ab554d25ba8953a4\",\"author\":{\"email\":\"46f1a0bd5592a2f9244ca321b129902a06b53e03@zvecr.com\",\"name\":\"Joel Challis\"},\"message\":\"Reduce includes for crc header (#18947)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/3de296f42014c489682730d9ab554d25ba8953a4\"},{\"sha\":\"c099e25ad7890ac37591fd614f580814c31006bb\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/c099e25ad7890ac37591fd614f580814c31006bb\"},{\"sha\":\"fe18df9d4186c7f2c97a2bfccf3cc0e11615c728\",\"author\":{\"email\":\"df2de7f8e16d325f512d31727c40ea92f6759695@gmail.com\",\"name\":\"Ryan\"},\"message\":\"Normalise Dynamic Macro keycodes (#18939)\\n\\n* `DYN_REC_START1` -> `QK_DYNAMIC_MACRO_RECORD_START_1`\\r\\n\\r\\n* `DYN_REC_START2` -> `QK_DYNAMIC_MACRO_RECORD_START_2`\\r\\n\\r\\n* `DYN_MACRO_PLAY1` -> `QK_DYNAMIC_MACRO_PLAY_1`\\r\\n\\r\\n* `DYN_MACRO_PLAY2` -> `QK_DYNAMIC_MACRO_PLAY_2`\\r\\n\\r\\n* `DYN_REC_STOP` -> `QK_DYNAMIC_MACRO_RECORD_STOP`\\r\\n\\r\\n* Update docs\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/fe18df9d4186c7f2c97a2bfccf3cc0e11615c728\"},{\"sha\":\"bde0a497048fa85ff69cdb81284ddfb8f857b941\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/bde0a497048fa85ff69cdb81284ddfb8f857b941\"},{\"sha\":\"1249f74b31863bc0118057884abae10de698e4a5\",\"author\":{\"email\":\"46f1a0bd5592a2f9244ca321b129902a06b53e03@zvecr.com\",\"name\":\"Joel Challis\"},\"message\":\"Reduce includes for caps_word header (#18948)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/1249f74b31863bc0118057884abae10de698e4a5\"},{\"sha\":\"8d7d7b8fc2550943e87546045a302ebce28c7776\",\"author\":{\"email\":\"aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d@qmk.fm\",\"name\":\"QMK Bot\"},\"message\":\"Merge remote-tracking branch 'origin/develop' into xap\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/8d7d7b8fc2550943e87546045a302ebce28c7776\"},{\"sha\":\"fb96b88842f4481df8942768f43813b489ca5c3a\",\"author\":{\"email\":\"46f1a0bd5592a2f9244ca321b129902a06b53e03@zvecr.com\",\"name\":\"Joel Challis\"},\"message\":\"Reduce includes for wpm header (#18949)\",\"distinct\":true,\"url\":\"https://api.github.com/repos/KarlK90/qmk_firmware/commits/fb96b88842f4481df8942768f43813b489ca5c3a\"}]}",
+            "repo": {
+                "id": 280257003,
+                "name": "KarlK90/qmk_firmware",
+                "url": "https://api.github.com/repos/KarlK90/qmk_firmware"
+            },
+            "actor": {
+                "id": 13887561,
+                "login": "KarlK90",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/13887561?",
+                "url": "https://api.github.com/users/KarlK90"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-11-23 10:50:24+00:00",
+            "id": "25425977334",
+            "other": "{\"actor\":{\"display_login\":\"KarlK90\"}}"
+        },
+        {
+            "type": "DeleteEvent",
+            "public": true,
+            "payload": "{\"ref\":\"dev\",\"ref_type\":\"branch\",\"pusher_type\":\"user\"}",
+            "repo": {
+                "id": 558756759,
+                "name": "Bpazy/qbt-cli",
+                "url": "https://api.github.com/repos/Bpazy/qbt-cli"
+            },
+            "actor": {
+                "id": 9838749,
+                "login": "Bpazy",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/9838749?",
+                "url": "https://api.github.com/users/Bpazy"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2022-11-23 10:13:03+00:00",
+            "id": "25425052028",
+            "other": "{\"actor\":{\"display_login\":\"Bpazy\"}}"
+        }
+    ]
+}

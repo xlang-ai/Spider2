@@ -1,0 +1,41 @@
+## REGEXP_REPLACE
+
+REGEXP_REPLACE(value, regexp, replacement)
+
+**Description**
+
+Returns a ` STRING ` where all substrings of ` value ` that match regular expression ` regexp ` are replaced with ` replacement ` .
+
+You can use backslashed-escaped digits (\1 to \9) within the ` replacement `
+argument to insert text matching the corresponding parenthesized group in the
+` regexp ` pattern. Use \0 to refer to the entire matching text.
+
+To add a backslash in your regular expression, you must first escape it. For example, ` SELECT REGEXP_REPLACE('abc', 'b(.)', 'X\\1'); ` returns ` aXc ` .
+You can also use [ raw strings ](/bigquery/docs/reference/standard-
+sql/lexical#string_and_bytes_literals) to remove one layer of escaping, for example ` SELECT REGEXP_REPLACE('abc', 'b(.)', r'X\1'); ` .
+
+The ` REGEXP_REPLACE ` function only replaces non-overlapping matches. For example, replacing ` ana ` within ` banana ` results in only one replacement,
+not two.
+
+If the ` regexp ` argument is not a valid regular expression, this function returns an error.
+
+**Note:** GoogleSQL provides regular expression support using the [ re2
+](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH markdown AS (SELECT '# Heading' as heading UNION ALL SELECT '# Another heading' as heading)
+
+SELECT REGEXP_REPLACE(heading, r'^# ([a-zA-Z0-9\s]+$)', '<h1>\\1</h1>') AS html FROM markdown;
+
+/*--------------------------*
+| html                     |
++--------------------------+
+| <h1>Heading</h1>         |
+| <h1>Another heading</h1> |
+*--------------------------*/

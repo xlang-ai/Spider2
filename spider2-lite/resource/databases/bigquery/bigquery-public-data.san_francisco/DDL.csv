@@ -1,0 +1,143 @@
+table_name,ddl
+film_locations,"CREATE TABLE `bigquery-public-data.san_francisco.film_locations`
+(
+  title STRING OPTIONS(description=""""),
+  release_year INT64 OPTIONS(description=""""),
+  locations STRING OPTIONS(description=""""),
+  fun_facts STRING OPTIONS(description=""""),
+  production_company STRING OPTIONS(description=""""),
+  distributor STRING OPTIONS(description=""""),
+  director STRING OPTIONS(description=""""),
+  writer STRING OPTIONS(description=""""),
+  actor_1 STRING OPTIONS(description=""""),
+  actor_2 STRING OPTIONS(description=""""),
+  actor_3 STRING OPTIONS(description="""")
+);"
+bikeshare_stations,"CREATE TABLE `bigquery-public-data.san_francisco.bikeshare_stations`
+(
+  station_id INT64 NOT NULL OPTIONS(description=""Station ID number""),
+  name STRING OPTIONS(description=""Name of station""),
+  latitude FLOAT64 OPTIONS(description=""Latitude""),
+  longitude FLOAT64 OPTIONS(description=""Longitude""),
+  dockcount INT64 OPTIONS(description=""Number of total docks at station""),
+  landmark STRING OPTIONS(description=""City (San Francisco, Redwood City, Palo Alto, Mountain View, San Jose)""),
+  installation_date DATE OPTIONS(description=""Original date that station was installed. If station was moved, it is noted below."")
+);"
+street_trees,"CREATE TABLE `bigquery-public-data.san_francisco.street_trees`
+(
+  tree_id INT64 NOT NULL OPTIONS(description=""Unique ID for Tree""),
+  legal_status STRING OPTIONS(description=""Legal staus: Permitted or DPW maintained""),
+  species STRING OPTIONS(description=""Species of tree""),
+  address STRING OPTIONS(description=""Address of Tree""),
+  site_order INT64 OPTIONS(description=""Order of tree at address where multiple trees are at same address. Trees are ordered in ascending address order""),
+  site_info STRING OPTIONS(description=""Description of location of tree""),
+  plant_type STRING OPTIONS(description=""Landscaping or Tree""),
+  care_taker STRING OPTIONS(description=""Agency or person that is primary caregiver to tree. Owner of Tree""),
+  care_assistant STRING OPTIONS(description=""Agency or person that is secondary caregiver to tree""),
+  plant_date TIMESTAMP OPTIONS(description=""Date tree was planted""),
+  dbh STRING OPTIONS(description=""depth, height""),
+  plot_size STRING OPTIONS(description=""dimension of tree plot""),
+  permit_notes STRING OPTIONS(description=""Tree permit number reference""),
+  x_coordinate FLOAT64 OPTIONS(description=""CA State Plane III""),
+  y_coordinate FLOAT64 OPTIONS(description=""CA State Plane III""),
+  latitude FLOAT64 OPTIONS(description=""WGS84""),
+  longitude FLOAT64 OPTIONS(description=""WGS84""),
+  location STRING OPTIONS(description=""Location formatted for mapping"")
+);"
+sfpd_incidents,"CREATE TABLE `bigquery-public-data.san_francisco.sfpd_incidents`
+(
+  unique_key INT64 NOT NULL OPTIONS(description=""The unique incident number for this accident""),
+  category STRING OPTIONS(description=""""),
+  descript STRING OPTIONS(description=""""),
+  dayofweek STRING OPTIONS(description=""""),
+  pddistrict STRING OPTIONS(description=""Police Department district""),
+  resolution STRING OPTIONS(description=""Whether there was an arrest, citation, booking, etc.""),
+  address STRING OPTIONS(description=""""),
+  longitude FLOAT64 OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude/Longitude""),
+  pdid INT64 OPTIONS(description=""Unique Identifier for use in update and insert operations""),
+  timestamp TIMESTAMP OPTIONS(description="""")
+);"
+bikeshare_status,"CREATE TABLE `bigquery-public-data.san_francisco.bikeshare_status`
+(
+  station_id INT64 NOT NULL OPTIONS(description=""Station ID number""),
+  bikes_available INT64 OPTIONS(description=""Number of available bikes""),
+  docks_available INT64 OPTIONS(description=""Number of available docks""),
+  time TIMESTAMP OPTIONS(description=""Date and time, PST"")
+);"
+bikeshare_trips,"CREATE TABLE `bigquery-public-data.san_francisco.bikeshare_trips`
+(
+  trip_id INT64 NOT NULL OPTIONS(description=""Numeric ID of bike trip""),
+  duration_sec INT64 OPTIONS(description=""Time of trip in seconds""),
+  start_date TIMESTAMP OPTIONS(description=""Start date of trip with date and time, in PST""),
+  start_station_name STRING OPTIONS(description=""Station name of start station""),
+  start_station_id INT64 OPTIONS(description=""Numeric reference for start station""),
+  end_date TIMESTAMP OPTIONS(description=""End date of trip with date and time, in PST""),
+  end_station_name STRING OPTIONS(description=""Station name for end station""),
+  end_station_id INT64 OPTIONS(description=""Numeric reference for end station""),
+  bike_number INT64 OPTIONS(description=""ID of bike used""),
+  zip_code STRING OPTIONS(description=""Home zip code of subscriber (customers can choose to manually enter zip at kiosk however data is unreliable)""),
+  subscriber_type STRING OPTIONS(description=""Subscriber = annual or 30-day member; Customer = 24-hour or 3-day member"")
+);"
+311_service_requests,"CREATE TABLE `bigquery-public-data.san_francisco.311_service_requests`
+(
+  unique_key INT64 NOT NULL OPTIONS(description=""Unique case id""),
+  created_date TIMESTAMP OPTIONS(description=""The date and time when the service request was made""),
+  closed_date TIMESTAMP OPTIONS(description=""The date and time when the service request was closed""),
+  resolution_action_updated_date TIMESTAMP OPTIONS(description=""The date and time when the service request was last modified. For requests with status=closed, this will be the date the request was closed""),
+  status STRING OPTIONS(description=""The current status of the service request.""),
+  status_notes STRING OPTIONS(description=""Explanation of why status was changed to current state or more details on current status than conveyed with status alone""),
+  agency_name STRING OPTIONS(description=""The agency responsible for fulfilling or otherwise addressing the service request.""),
+  category STRING OPTIONS(description=""The Human readable name of the specific service request type (service_name)""),
+  complaint_type STRING OPTIONS(description=""More specific description of the problem related to the Category""),
+  descriptor STRING OPTIONS(description=""More specific description of the problem related to the Request Type""),
+  incident_address STRING OPTIONS(description=""Human readable address or description of location""),
+  supervisor_district INT64 OPTIONS(description=""""),
+  neighborhood STRING OPTIONS(description=""""),
+  location STRING OPTIONS(description=""Latitude and longitude using the (WGS84) projection.""),
+  source STRING OPTIONS(description=""How the service request was made""),
+  media_url STRING OPTIONS(description=""Website URL""),
+  latitude FLOAT64 OPTIONS(description=""Latitude using the (WGS84) projection.""),
+  longitude FLOAT64 OPTIONS(description=""Longitude using the (WGS84) projection.""),
+  police_district STRING OPTIONS(description="""")
+);"
+sffd_service_calls,"CREATE TABLE `bigquery-public-data.san_francisco.sffd_service_calls`
+(
+  call_number INT64 NOT NULL OPTIONS(description=""A unique 9-digit number assigned by the 911 Dispatch Center (DEM) to this call. These number are used for both Police and Fire calls.""),
+  unit_id STRING OPTIONS(description=""Unit Identifier. For example E01 for Engine 1 or T01 for Truck 1.""),
+  incident_number INT64 OPTIONS(description=""A unique 8-digit number assigned by DEM to this Fire incident.""),
+  call_type STRING OPTIONS(description=""Type of call the incident falls into. See the list below.""),
+  call_date DATE OPTIONS(description=""Date the call is received at the 911 Dispatch Center. Used for reporting purposes.""),
+  watch_date DATE OPTIONS(description=""Watch date when the call is received. Watch date starts at 0800 each morning and ends at 0800 the next day.""),
+  received_timestamp TIMESTAMP OPTIONS(description=""Date and time of call is received at the 911 Dispatch Center.""),
+  entry_timestamp TIMESTAMP OPTIONS(description=""Date and time the 911 operator submits the entry of the initical call information into the CAD system""),
+  dispatch_timestamp TIMESTAMP OPTIONS(description=""Date and time the 911 operator dispatches this unit to the call.""),
+  response_timestamp TIMESTAMP OPTIONS(description=""Date and time this unit acknowledges the dispatch and records that the unit is en route to the location of the call.""),
+  on_scene_timestamp TIMESTAMP OPTIONS(description=""Date and time the unit records arriving to the location of the incident""),
+  transport_timestamp TIMESTAMP OPTIONS(description=""If this unit is an ambulance, date and time the unit begins the transport unit arrives to hospital""),
+  hospital_timestamp TIMESTAMP OPTIONS(description=""If this unit is an ambulance, date and time the unit arrives to the hospital.""),
+  call_final_disposition STRING OPTIONS(description=""Disposition of the call (Code). For example TH2: Transport to Hospital - Code 2, FIR: Resolved by Fire Department""),
+  available_timestamp TIMESTAMP OPTIONS(description=""Date and time this unit is not longer assigned to this call and it is available for another dispatch.""),
+  address STRING OPTIONS(description=""Address of midblock point associated with incident (obfuscated address to protect caller privacy)""),
+  city STRING OPTIONS(description=""City of incident""),
+  zipcode_of_incident STRING OPTIONS(description=""Zipcode of incident""),
+  battalion STRING OPTIONS(description=""Emergency Response District (There are 9 Fire Emergency Response Districts)""),
+  station_area STRING OPTIONS(description=""Fire Station First Response Area associated with the address of the incident""),
+  box STRING OPTIONS(description=""Fire box associated with the address of the incident. A box is the smallest area used to divide the City. Each box is associated with a unique unit dispatch order. The City is divided into more than 2,400 boxes.""),
+  original_priority STRING OPTIONS(description=""Initial call priority (Code 2: Non-Emergency or Code 3:Emergency).""),
+  priority STRING OPTIONS(description=""Call priority (Code 2: Non-Emergency or Code 3:Emergency).""),
+  final_priority INT64 OPTIONS(description=""Final call priority (Code 2: Non-Emergency or Code 3:Emergency).""),
+  als_unit BOOL OPTIONS(description=""Does this unit includes ALS (Advance Life Support) resources? Is there a paramedic in this unit?""),
+  call_type_group STRING OPTIONS(description=""Call types are divided into four main groups: Fire, Alarm, Potential Life Threatening and Non Life Threatening.""),
+  number_of_alarms INT64 OPTIONS(description=""Number of alarms associated with the incident. This is a number between 1 and 5.""),
+  unit_type STRING OPTIONS(description=""Unit type""),
+  unit_sequence_in_call_dispatch INT64 OPTIONS(description=""A number that indicates the order this unit was assigned to this call""),
+  fire_prevention_district STRING OPTIONS(description=""Bureau of Fire Prevention District associated with this address""),
+  supervisor_district STRING OPTIONS(description=""Supervisor District associated with this address""),
+  neighborhood_district STRING OPTIONS(description=""Neighborhood District associated with this address, boundaries available here: https://data.sfgov.org/d/p5b7-5n3h""),
+  location STRING OPTIONS(description=""Latitude and longitude of address obfuscated either to the midblock, intersection or call box""),
+  row_id STRING OPTIONS(description=""Unique identifier used for managing data updates. It is the concatenation of Call Number and Unit ID separated by a dash""),
+  latitude FLOAT64 OPTIONS(description=""Latitude of the address""),
+  longitude FLOAT64 OPTIONS(description=""Longitude of the address"")
+);"

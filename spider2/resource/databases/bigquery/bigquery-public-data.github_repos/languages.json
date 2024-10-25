@@ -1,0 +1,52 @@
+{
+    "table_name": "languages",
+    "table_fullname": "bigquery-public-data.github_repos.languages",
+    "column_names": [
+        "repo_name",
+        "language"
+    ],
+    "column_types": [
+        "STRING",
+        "ARRAY<STRUCT<name STRING, bytes INT64>>"
+    ],
+    "nested_column_names": [
+        "repo_name",
+        "language",
+        "language.name",
+        "language.bytes"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "ARRAY<STRUCT<name STRING, bytes INT64>>",
+        "STRING",
+        "INT64"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "repo_name": "lemi136/puntovent",
+            "language": "[{'name': 'C', 'bytes': 80}]"
+        },
+        {
+            "repo_name": "taxigps/nctool",
+            "language": "[{'name': 'C', 'bytes': 4461}]"
+        },
+        {
+            "repo_name": "ahy1/strbuf",
+            "language": "[{'name': 'C', 'bytes': 5573}]"
+        },
+        {
+            "repo_name": "nleiten/mod_rpaf-ng",
+            "language": "[{'name': 'C', 'bytes': 30330}]"
+        },
+        {
+            "repo_name": "kmcallister/alameda",
+            "language": "[{'name': 'C', 'bytes': 17077}]"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+## KEYS.ROTATE_KEYSET
+
+KEYS.ROTATE_KEYSET(keyset, key_type)
+
+**Description**
+
+Adds a new key to ` keyset ` based on ` key_type ` . This new key becomes the primary cryptographic key of the new keyset. Returns the new keyset serialized as ` BYTES ` .
+
+The old primary cryptographic key from the input ` keyset ` remains an additional key in the returned keyset.
+
+The new ` key_type ` must match the key type of existing keys in the ` keyset
+` .
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+The following statement creates a table containing a column of unique `
+customer_id ` values and ` 'AEAD_AES_GCM_256' ` keysets. Then, it creates a new primary cryptographic key within each keyset in the source table using `
+KEYS.ROTATE_KEYSET ` . Each row in the output contains a ` customer_id ` and an ` 'AEAD_AES_GCM_256' ` keyset in ` BYTES ` .
+
+
+WITH ExistingKeysets AS ( SELECT 1 AS customer_id, KEYS.NEW_KEYSET('AEAD_AES_GCM_256') AS keyset UNION ALL SELECT 2, KEYS.NEW_KEYSET('AEAD_AES_GCM_256') UNION ALL SELECT 3, KEYS.NEW_KEYSET('AEAD_AES_GCM_256') ) SELECT customer_id, KEYS.ROTATE_KEYSET(keyset, 'AEAD_AES_GCM_256') AS keyset FROM ExistingKeysets;

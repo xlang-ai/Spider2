@@ -1,0 +1,91 @@
+## STDDEV_POP
+
+STDDEV_POP(
+[ DISTINCT ]
+expression )
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns the population (biased) standard deviation of the values. The return result is between ` 0 ` and ` +Inf ` .
+
+All numeric types are supported. If the input is ` NUMERIC ` or ` BIGNUMERIC `
+then the internal aggregation is stable with the final output converted to a `
+FLOAT64 ` . Otherwise the input is converted to a ` FLOAT64 ` before aggregation, resulting in a potentially unstable result.
+
+This function ignores any ` NULL ` inputs. If all inputs are ignored, this function returns ` NULL ` . If this function receives a single non- ` NULL `
+input, it returns ` 0 ` .
+
+` NaN ` is produced if:
+
+* Any input value is ` NaN `
+* Any input value is positive infinity or negative infinity.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+If this function is used with the ` OVER ` clause, it's part of a window function call. In a window function call, aggregate function clauses can't be used. To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Examples**
+
+
+SELECT STDDEV_POP(x) AS results FROM UNNEST([10, 14, 18]) AS x
+
+/*-------------------*
+| results           |
++-------------------+
+| 3.265986323710904 |
+*-------------------*/
+
+
+SELECT STDDEV_POP(x) AS results FROM UNNEST([10, 14, NULL]) AS x
+
+/*---------*
+| results |
++---------+
+| 2       |
+*---------*/
+
+
+SELECT STDDEV_POP(x) AS results FROM UNNEST([10, NULL]) AS x
+
+/*---------*
+| results |
++---------+
+| 0       |
+*---------*/
+
+
+SELECT STDDEV_POP(x) AS results FROM UNNEST([NULL]) AS x
+
+/*---------*
+| results |
++---------+
+| NULL    |
+*---------*/
+
+
+SELECT STDDEV_POP(x) AS results FROM UNNEST([10, 14, CAST('Infinity' as FLOAT64)]) AS x
+
+/*---------*
+| results |
++---------+
+| NaN     |
+*---------*/

@@ -1,0 +1,86 @@
+{
+    "table_name": "shapes",
+    "table_fullname": "bigquery-public-data.san_francisco_transit_muni.shapes",
+    "column_names": [
+        "shape_id",
+        "shape_point_sequence",
+        "shape_point_lat",
+        "shape_point_lon",
+        "shape_point_geom",
+        "shape_distance_traveled"
+    ],
+    "column_types": [
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "FLOAT64",
+        "GEOGRAPHY",
+        "FLOAT64"
+    ],
+    "nested_column_names": [
+        "shape_id",
+        "shape_point_sequence",
+        "shape_point_lat",
+        "shape_point_lon",
+        "shape_point_geom",
+        "shape_distance_traveled"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "INT64",
+        "FLOAT64",
+        "FLOAT64",
+        "GEOGRAPHY",
+        "FLOAT64"
+    ],
+    "description": [
+        "Uniquely identifies each shape",
+        "Associates the latitude and longitude of a shape point with its sequence order along the shape. The values for shape_pt_sequence must increase throughout the trip but don't need to be consecutive.",
+        "Associates a shape point's latitude with a shape ID.",
+        "Associates a shape point's longitude with a shape ID.",
+        "Geographic representation of the points latitude and longitude",
+        "Provides the actual distance traveled along the shape from the first shape point to the point specified in this record. This information allows the trip planner to determine how much of the shape to draw when they show part of a trip on the map. The values used for shape_dist_traveled must increase along with shape_pt_sequence: they can't be used to show reverse travel along a route."
+    ],
+    "sample_rows": [
+        {
+            "shape_id": "173975",
+            "shape_point_sequence": 197,
+            "shape_point_lat": 37.715079,
+            "shape_point_lon": -122.424956,
+            "shape_point_geom": "POINT(-122.424956 37.715079)",
+            "shape_distance_traveled": 14437.0
+        },
+        {
+            "shape_id": "173976",
+            "shape_point_sequence": 195,
+            "shape_point_lat": 37.715079,
+            "shape_point_lon": -122.424956,
+            "shape_point_geom": "POINT(-122.424956 37.715079)",
+            "shape_distance_traveled": 14391.0
+        },
+        {
+            "shape_id": "174183",
+            "shape_point_sequence": 283,
+            "shape_point_lat": 37.832971,
+            "shape_point_lon": -122.538276,
+            "shape_point_geom": "POINT(-122.538276 37.832971)",
+            "shape_distance_traveled": 21512.0
+        },
+        {
+            "shape_id": "174271",
+            "shape_point_sequence": 92,
+            "shape_point_lat": 37.760837,
+            "shape_point_lon": -122.440596,
+            "shape_point_geom": "POINT(-122.440596 37.760837)",
+            "shape_distance_traveled": 5348.0
+        },
+        {
+            "shape_id": "174272",
+            "shape_point_sequence": 185,
+            "shape_point_lat": 37.760837,
+            "shape_point_lon": -122.440596,
+            "shape_point_geom": "POINT(-122.440596 37.760837)",
+            "shape_distance_traveled": 6161.0
+        }
+    ]
+}

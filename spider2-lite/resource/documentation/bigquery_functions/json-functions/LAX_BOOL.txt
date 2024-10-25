@@ -1,0 +1,114 @@
+## LAX_BOOL
+
+LAX_BOOL(json_expr)
+
+**Description**
+
+Attempts to convert a JSON value to a SQL ` BOOL ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON 'true'
+
+Details:
+
+* If ` json_expr ` is SQL ` NULL ` , the function returns SQL ` NULL ` .
+* See the conversion rules in the next section for additional ` NULL ` handling.
+
+**Conversion rules**
+
+From JSON type  |  To SQL ` BOOL `
+---|---
+boolean  |  If the JSON boolean is ` true ` , returns ` TRUE ` . Otherwise,
+returns ` FALSE ` .
+string  |  If the JSON string is ` 'true' ` , returns ` TRUE ` . If the JSON string is ` 'false' ` , returns ` FALSE ` . If the JSON string is any other value or has whitespace in it, returns ` NULL ` . This conversion is case-
+insensitive.
+number  |  If the JSON number is a representation of ` 0 ` , returns ` FALSE `
+. Otherwise, returns ` TRUE ` .
+other type or null  |  ` NULL `
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+Example with input that is a JSON boolean:
+
+
+SELECT LAX_BOOL(JSON 'true') AS result;
+
+/*--------*
+| result |
++--------+
+| true   |
+*--------*/
+
+Examples with inputs that are JSON strings:
+
+
+SELECT LAX_BOOL(JSON '"true"') AS result;
+
+/*--------*
+| result |
++--------+
+| TRUE   |
+*--------*/
+
+
+SELECT LAX_BOOL(JSON '"true "') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+
+SELECT LAX_BOOL(JSON '"foo"') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+Examples with inputs that are JSON numbers:
+
+
+SELECT LAX_BOOL(JSON '10') AS result;
+
+/*--------*
+| result |
++--------+
+| TRUE   |
+*--------*/
+
+
+SELECT LAX_BOOL(JSON '0') AS result;
+
+/*--------*
+| result |
++--------+
+| FALSE  |
+*--------*/
+
+
+SELECT LAX_BOOL(JSON '0.0') AS result;
+
+/*--------*
+| result |
++--------+
+| FALSE  |
+*--------*/
+
+
+SELECT LAX_BOOL(JSON '-1.1') AS result;
+
+/*--------*
+| result |
++--------+
+| TRUE   |
+*--------*/

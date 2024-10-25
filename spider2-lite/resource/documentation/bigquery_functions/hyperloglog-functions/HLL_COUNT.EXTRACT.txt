@@ -1,0 +1,42 @@
+## HLL_COUNT.EXTRACT
+
+HLL_COUNT.EXTRACT(sketch)
+
+**Description**
+
+A scalar function that extracts a cardinality estimate of a single [ HLL++
+](https://research.google.com/pubs/pub40671.html) sketch.
+
+If ` sketch ` is ` NULL ` , this function returns a cardinality estimate of `
+0 ` .
+
+**Supported input types**
+
+` BYTES `
+
+**Return type**
+
+` INT64 `
+
+**Example**
+
+The following query returns the number of distinct users for each country who have at least one invoice.
+
+
+SELECT country,
+HLL_COUNT.EXTRACT(HLL_sketch) AS distinct_customers_with_open_invoice FROM ( SELECT country,
+HLL_COUNT.INIT(customer_id) AS hll_sketch FROM UNNEST( ARRAY<STRUCT<country STRING, customer_id STRING, invoice_id STRING>>[
+('UA', 'customer_id_1', 'invoice_id_11'),
+('BR', 'customer_id_3', 'invoice_id_31'),
+('CZ', 'customer_id_2', 'invoice_id_22'),
+('CZ', 'customer_id_2', 'invoice_id_23'),
+('BR', 'customer_id_3', 'invoice_id_31'),
+('UA', 'customer_id_2', 'invoice_id_24')]) GROUP BY country );
+
+/*---------+--------------------------------------*
+| country | distinct_customers_with_open_invoice |
++---------+--------------------------------------+
+| UA      |                                    2 |
+| BR      |                                    1 |
+| CZ      |                                    1 |
+*---------+--------------------------------------*/

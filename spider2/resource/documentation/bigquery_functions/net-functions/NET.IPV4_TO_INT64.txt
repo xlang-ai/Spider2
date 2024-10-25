@@ -1,0 +1,30 @@
+## NET.IPV4_TO_INT64
+
+NET.IPV4_TO_INT64(addr_bin)
+
+**Description**
+
+Converts an IPv4 address from binary (BYTES) format in network byte order to integer format. In the integer output, the least significant bit of the IP address is stored in the least significant bit of the integer, regardless of host or client architecture. For example, ` 1 ` means ` 0.0.0.1 ` , and `
+0x1FF ` means ` 0.0.1.255 ` . The output is in the range ` [0, 0xFFFFFFFF] ` .
+
+If the input length is not 4, this function throws an error.
+
+This function does not support IPv6.
+
+**Return Data Type**
+
+INT64
+
+**Example**
+
+
+SELECT FORMAT("%T", x) AS addr_bin,
+FORMAT("0x%X", NET.IPV4_TO_INT64(x)) AS ipv4_to_int64 FROM UNNEST([b"\x00\x00\x00\x00", b"\x00\xab\xcd\xef", b"\xff\xff\xff\xff"]) AS x;
+
+/*-------------------------------------*
+| addr_bin            | ipv4_to_int64 |
++-------------------------------------+
+| b"\x00\x00\x00\x00" | 0x0           |
+| b"\x00\xab\xcd\xef" | 0xABCDEF      |
+| b"\xff\xff\xff\xff" | 0xFFFFFFFF    |
+*-------------------------------------*/

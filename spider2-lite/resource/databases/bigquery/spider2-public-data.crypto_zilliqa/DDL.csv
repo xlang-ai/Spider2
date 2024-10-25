@@ -1,0 +1,86 @@
+table_name,ddl
+transitions,"CREATE TABLE `spider2-public-data.crypto_zilliqa.transitions`
+(
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_id STRING,
+  index INT64,
+  accepted BOOL,
+  addr STRING,
+  depth INT64,
+  amount NUMERIC,
+  recipient STRING,
+  tag STRING,
+  params ARRAY<STRING>
+);"
+transactions,"CREATE TABLE `spider2-public-data.crypto_zilliqa.transactions`
+(
+  id STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  amount NUMERIC,
+  code STRING,
+  data STRING,
+  gas_limit INT64,
+  gas_price INT64,
+  sender_pub_key STRING,
+  sender STRING,
+  signature BYTES,
+  to_addr STRING,
+  version INT64,
+  accepted BOOL,
+  success BOOL,
+  cumulative_gas INT64,
+  epoch_num INT64
+);"
+ds_blocks,"CREATE TABLE `spider2-public-data.crypto_zilliqa.ds_blocks`
+(
+  number INT64,
+  timestamp TIMESTAMP,
+  difficulty INT64,
+  difficulty_ds INT64,
+  gas_price INT64,
+  ds_leader_pub_key STRING,
+  ds_leader_address STRING,
+  prev_hash STRING,
+  signature BYTES
+);"
+exceptions,"CREATE TABLE `spider2-public-data.crypto_zilliqa.exceptions`
+(
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_id STRING,
+  index INT64,
+  line INT64,
+  message STRING
+);"
+tx_blocks,"CREATE TABLE `spider2-public-data.crypto_zilliqa.tx_blocks`
+(
+  number INT64,
+  ds_block_number INT64,
+  timestamp TIMESTAMP,
+  version INT64,
+  gas_limit INT64,
+  gas_used INT64,
+  mb_info_hash STRING,
+  tx_leader_pub_key STRING,
+  tx_leader_address STRING,
+  num_micro_blocks INT64,
+  num_transactions INT64,
+  num_present_transactions INT64,
+  prev_block_hash STRING,
+  rewards INT64,
+  state_delta_hash STRING,
+  state_root_hash STRING,
+  header_signature BYTES
+);"
+event_logs,"CREATE TABLE `spider2-public-data.crypto_zilliqa.event_logs`
+(
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  transaction_id STRING,
+  index INT64,
+  address STRING,
+  event_name STRING,
+  params ARRAY<STRING>
+);"

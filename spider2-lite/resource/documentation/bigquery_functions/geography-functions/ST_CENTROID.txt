@@ -1,0 +1,24 @@
+## ST_CENTROID
+
+ST_CENTROID(geography_expression)
+
+**Description**
+
+Returns the _centroid_ of the input ` GEOGRAPHY ` as a single point `
+GEOGRAPHY ` .
+
+The _centroid_ of a ` GEOGRAPHY ` is the weighted average of the centroids of the highest-dimensional components in the ` GEOGRAPHY ` . The centroid for components in each dimension is defined as follows:
+
+* The centroid of points is the arithmetic mean of the input coordinates.
+* The centroid of linestrings is the centroid of all the edges weighted by length. The centroid of each edge is the geodesic midpoint of the edge.
+* The centroid of a polygon is its center of mass.
+
+If the input ` GEOGRAPHY ` is empty, an empty ` GEOGRAPHY ` is returned.
+
+**Constraints**
+
+In the unlikely event that the centroid of a ` GEOGRAPHY ` cannot be defined by a single point on the surface of the Earth, a deterministic but otherwise arbitrary point is returned. This can only happen if the centroid is exactly at the center of the Earth, such as the centroid for a pair of antipodal points, and the likelihood of this happening is vanishingly small.
+
+**Return type**
+
+Point ` GEOGRAPHY `

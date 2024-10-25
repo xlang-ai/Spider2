@@ -1,0 +1,235 @@
+{
+    "table_name": "202312",
+    "table_fullname": "githubarchive.month.202312",
+    "column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "actor",
+        "org",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "type",
+        "public",
+        "payload",
+        "repo",
+        "repo.id",
+        "repo.name",
+        "repo.url",
+        "actor",
+        "actor.id",
+        "actor.login",
+        "actor.gravatar_id",
+        "actor.avatar_url",
+        "actor.url",
+        "org",
+        "org.id",
+        "org.login",
+        "org.gravatar_id",
+        "org.avatar_url",
+        "org.url",
+        "created_at",
+        "id",
+        "other"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "BOOL",
+        "STRING",
+        "STRUCT<id INT64, name STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<id INT64, login STRING, gravatar_id STRING, avatar_url STRING, url STRING>",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "TIMESTAMP",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 459927923,
+                "name": "onfuns/nestjs-blog",
+                "url": "https://api.github.com/repos/onfuns/nestjs-blog"
+            },
+            "actor": {
+                "id": 39521635,
+                "login": "liuhuanzh",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/39521635?",
+                "url": "https://api.github.com/users/liuhuanzh"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-12-18 06:32:04+00:00",
+            "id": "34238624354",
+            "other": "{\"actor\":{\"display_login\":\"liuhuanzh\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":732916408,\"push_id\":16317757753,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/main\",\"head\":\"2f8723286aa368e3ca1c6f2cbbe21202a22e94ab\",\"before\":\"a90f056bf3e75b49637da85aa676cb1546a1598b\",\"commits\":[{\"sha\":\"2f8723286aa368e3ca1c6f2cbbe21202a22e94ab\",\"author\":{\"email\":\"b3437f565af3bdbbe62a83c52e56a0ec1e741984@users.noreply.github.com\",\"name\":\"ChaitanyaB\"},\"message\":\"Add files via upload\",\"distinct\":true,\"url\":\"https://api.github.com/repos/CHAITU302000/OFDM-Implementation-Using-SDR-/commits/2f8723286aa368e3ca1c6f2cbbe21202a22e94ab\"}]}",
+            "repo": {
+                "id": 732916408,
+                "name": "CHAITU302000/OFDM-Implementation-Using-SDR-",
+                "url": "https://api.github.com/repos/CHAITU302000/OFDM-Implementation-Using-SDR-"
+            },
+            "actor": {
+                "id": 116204961,
+                "login": "CHAITU302000",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/116204961?",
+                "url": "https://api.github.com/users/CHAITU302000"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-12-18 06:45:28+00:00",
+            "id": "34238854637",
+            "other": "{\"actor\":{\"display_login\":\"CHAITU302000\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":650393384,\"push_id\":16317658978,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/2.3\",\"head\":\"573c3d96056f2d9b7f4ff61cecac7fe082550a39\",\"before\":\"637191c65e037af47108ee3aaefe9861418fc1ad\",\"commits\":[{\"sha\":\"573c3d96056f2d9b7f4ff61cecac7fe082550a39\",\"author\":{\"email\":\"45268095cafb5f70ba5f78b0c109165f3c6a65d3@ncontr.com\",\"name\":\"tomoka-abe\"},\"message\":\"#1411 \u8ab2\u984c\u7ba1\u7406\u8868_OASE No.23,25,27,30,31,32\u3078\u306e\u5bfe\u51e6\\n\uff08\u5404\u30e1\u30cb\u30e5\u30fc\u306e\u9805\u76ee\u540d\u3001\u8aac\u660e\u5909\u66f4\u7b49\uff09\",\"distinct\":true,\"url\":\"https://api.github.com/repos/tomoka-abe/exastro-it-automation/commits/573c3d96056f2d9b7f4ff61cecac7fe082550a39\"}]}",
+            "repo": {
+                "id": 650393384,
+                "name": "tomoka-abe/exastro-it-automation",
+                "url": "https://api.github.com/repos/tomoka-abe/exastro-it-automation"
+            },
+            "actor": {
+                "id": 130961669,
+                "login": "tomoka-abe",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/130961669?",
+                "url": "https://api.github.com/users/tomoka-abe"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-12-18 06:34:10+00:00",
+            "id": "34238659615",
+            "other": "{\"actor\":{\"display_login\":\"tomoka-abe\"}}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"repository_id\":375639778,\"push_id\":16317676723,\"size\":1,\"distinct_size\":1,\"ref\":\"refs/heads/master\",\"head\":\"45ebe5ac2e0504fd23727e990264998076b46ad2\",\"before\":\"0b3a77262907fa37fcb560be6ac15dde6d8e2e31\",\"commits\":[{\"sha\":\"45ebe5ac2e0504fd23727e990264998076b46ad2\",\"author\":{\"email\":\"1041179cbdda366fd7b0347f09255f775170e103@nanshen.ml\",\"name\":\"znsd\"},\"message\":\"UPDATE\",\"distinct\":true,\"url\":\"https://api.github.com/repos/znsd/xxoo/commits/45ebe5ac2e0504fd23727e990264998076b46ad2\"}]}",
+            "repo": {
+                "id": 375639778,
+                "name": "znsd/xxoo",
+                "url": "https://api.github.com/repos/znsd/xxoo"
+            },
+            "actor": {
+                "id": 41898282,
+                "login": "github-actions[bot]",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/41898282?",
+                "url": "https://api.github.com/users/github-actions[bot]"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-12-18 06:36:16+00:00",
+            "id": "34238695054",
+            "other": "{\"actor\":{\"display_login\":\"github-actions\"}}"
+        },
+        {
+            "type": "WatchEvent",
+            "public": true,
+            "payload": "{\"action\":\"started\"}",
+            "repo": {
+                "id": 5552858,
+                "name": "cyfdecyf/cow",
+                "url": "https://api.github.com/repos/cyfdecyf/cow"
+            },
+            "actor": {
+                "id": 18515033,
+                "login": "Tang-GitHub",
+                "gravatar_id": "",
+                "avatar_url": "https://avatars.githubusercontent.com/u/18515033?",
+                "url": "https://api.github.com/users/Tang-GitHub"
+            },
+            "org": {
+                "id": null,
+                "login": null,
+                "gravatar_id": null,
+                "avatar_url": null,
+                "url": null
+            },
+            "created_at": "2023-12-18 06:42:58+00:00",
+            "id": "34238811236",
+            "other": "{\"actor\":{\"display_login\":\"Tang-GitHub\"}}"
+        }
+    ]
+}

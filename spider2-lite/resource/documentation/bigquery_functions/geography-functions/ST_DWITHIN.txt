@@ -1,0 +1,19 @@
+## ST_DWITHIN
+
+ST_DWITHIN(geography_1, geography_2, distance[, use_spheroid])
+
+**Description**
+
+Returns ` TRUE ` if the distance between at least one point in ` geography_1 `
+and one point in ` geography_2 ` is less than or equal to the distance given by the ` distance ` argument; otherwise, returns ` FALSE ` . If either input `
+GEOGRAPHY ` is empty, ` ST_DWithin ` returns ` FALSE ` . The given ` distance
+` is in meters on the surface of the Earth.
+
+The optional ` use_spheroid ` parameter determines how this function measures distance. If ` use_spheroid ` is ` FALSE ` , the function measures distance on the surface of a perfect sphere.
+
+The ` use_spheroid ` parameter currently only supports the value ` FALSE ` .
+The default value of ` use_spheroid ` is ` FALSE ` .
+
+**Return type**
+
+` BOOL `

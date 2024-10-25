@@ -1,0 +1,53 @@
+## NORMALIZE_AND_CASEFOLD
+
+NORMALIZE_AND_CASEFOLD(value[, normalization_mode])
+
+**Description**
+
+Takes a string value and returns it as a normalized string. If you do not provide a normalization mode, ` NFC ` is used.
+
+[ Normalization
+](https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization) is used to ensure that two strings are equivalent. Normalization is often used in situations in which two strings render the same on the screen but have different Unicode code points.
+
+[ Case folding ](https://en.wikipedia.org/wiki/Letter_case#Case_folding) is used for the caseless comparison of strings. If you need to compare strings and case should not be considered, use ` NORMALIZE_AND_CASEFOLD ` , otherwise use  ` NORMALIZE ` .
+
+` NORMALIZE_AND_CASEFOLD ` supports four optional normalization modes:
+
+Value  |  Name  |  Description
+---|---|---
+` NFC ` |  Normalization Form Canonical Composition  |  Decomposes and recomposes characters by canonical equivalence.
+` NFKC ` |  Normalization Form Compatibility Composition  |  Decomposes characters by compatibility, then recomposes them by canonical equivalence.
+` NFD ` |  Normalization Form Canonical Decomposition  |  Decomposes characters by canonical equivalence, and multiple combining characters are arranged in a specific order.
+` NFKD ` |  Normalization Form Compatibility Decomposition  |  Decomposes characters by compatibility, and multiple combining characters are arranged in a specific order.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT a, b,
+NORMALIZE(a) = NORMALIZE(b) as normalized,
+NORMALIZE_AND_CASEFOLD(a) = NORMALIZE_AND_CASEFOLD(b) as normalized_with_case_folding FROM (SELECT 'The red barn' AS a, 'The Red Barn' AS b);
+
+/*--------------+--------------+------------+------------------------------*
+| a            | b            | normalized | normalized_with_case_folding |
++--------------+--------------+------------+------------------------------+
+| The red barn | The Red Barn | false      | true                         |
+*--------------+--------------+------------+------------------------------*/
+
+
+WITH Strings AS ( SELECT '\u2168' AS a, 'IX' AS b UNION ALL SELECT '\u0041\u030A', '\u00C5'
+) SELECT a, b,
+NORMALIZE_AND_CASEFOLD(a, NFD)=NORMALIZE_AND_CASEFOLD(b, NFD) AS nfd,
+NORMALIZE_AND_CASEFOLD(a, NFC)=NORMALIZE_AND_CASEFOLD(b, NFC) AS nfc,
+NORMALIZE_AND_CASEFOLD(a, NFKD)=NORMALIZE_AND_CASEFOLD(b, NFKD) AS nkfd,
+NORMALIZE_AND_CASEFOLD(a, NFKC)=NORMALIZE_AND_CASEFOLD(b, NFKC) AS nkfc FROM Strings;
+
+/*---+----+-------+-------+------+------*
+| a | b  | nfd   | nfc   | nkfd | nkfc |
++---+----+-------+-------+------+------+
+| Ⅸ | IX | false | false | true | true |
+| Å | Å  | true  | true  | true | true |
+*---+----+-------+-------+------+------*/

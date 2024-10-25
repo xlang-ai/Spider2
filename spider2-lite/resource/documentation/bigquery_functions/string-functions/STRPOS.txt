@@ -1,0 +1,35 @@
+## STRPOS
+
+STRPOS(value, subvalue)
+
+**Description**
+
+Takes two ` STRING ` or ` BYTES ` values. Returns the 1-based position of the first occurrence of ` subvalue ` inside ` value ` . Returns ` 0 ` if `
+subvalue ` is not found.
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH email_addresses AS (SELECT
+'foo@example.com' AS email_address UNION ALL SELECT
+'foobar@example.com' AS email_address UNION ALL SELECT
+'foobarbaz@example.com' AS email_address UNION ALL SELECT
+'quxexample.com' AS email_address)
+
+SELECT STRPOS(email_address, '@') AS example FROM email_addresses;
+
+/*---------*
+| example |
++---------+
+|       4 |
+|       7 |
+|      10 |
+|       0 |
+*---------*/

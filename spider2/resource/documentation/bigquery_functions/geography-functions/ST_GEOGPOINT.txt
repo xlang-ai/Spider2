@@ -1,0 +1,19 @@
+## ST_GEOGPOINT
+
+ST_GEOGPOINT(longitude, latitude)
+
+**Description**
+
+Creates a ` GEOGRAPHY ` with a single point. ` ST_GEOGPOINT ` creates a point from the specified ` FLOAT64 ` longitude (in degrees, negative west of the Prime Meridian, positive east) and latitude (in degrees, positive north of the Equator, negative south) parameters and returns that point in a ` GEOGRAPHY `
+value.
+
+NOTE: Some systems present latitude first; take care with argument order.
+
+**Constraints**
+
+* Longitudes outside the range [-180, 180] are allowed; ` ST_GEOGPOINT ` uses the input longitude modulo 360 to obtain a longitude within [-180, 180].
+* Latitudes must be in the range [-90, 90]. Latitudes outside this range will result in an error.
+
+**Return type**
+
+Point ` GEOGRAPHY `

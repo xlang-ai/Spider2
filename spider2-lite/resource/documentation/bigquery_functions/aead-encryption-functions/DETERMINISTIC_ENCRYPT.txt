@@ -1,0 +1,41 @@
+## DETERMINISTIC_ENCRYPT
+
+DETERMINISTIC_ENCRYPT(keyset, plaintext, additional_data)
+
+**Description**
+
+Encrypts ` plaintext ` using the primary cryptographic key in ` keyset ` using
+[ deterministic AEAD ](https://developers.google.com/tink/deterministic-aead) . The algorithm of the primary key must be `
+DETERMINISTIC_AEAD_AES_SIV_CMAC_256 ` . Binds the ciphertext to the context defined by ` additional_data ` . Returns ` NULL ` if any input is ` NULL ` .
+
+` keyset ` is a serialized ` BYTES ` value or a ` STRUCT ` value returned by one of the ` KEYS ` functions.
+
+` plaintext ` is the ` STRING ` or ` BYTES ` value to be encrypted.
+
+` additional_data ` is a ` STRING ` or ` BYTES ` value that binds the ciphertext to its context. This forces the ciphertext to be decrypted in the same context in which it was encrypted. ` plaintext ` and ` additional_data `
+must be of the same type. ` DETERMINISTIC_ENCRYPT(keyset, string1, string2) `
+is equivalent to ` DETERMINISTIC_ENCRYPT(keyset, CAST(string1 AS BYTES),
+CAST(string2 AS BYTES)) ` .
+
+The output is ciphertext ` BYTES ` . The ciphertext contains a [ Tink-specific
+](https://github.com/google/tink/blob/master/docs/KEY-MANAGEMENT.md) prefix indicating the key used to perform the encryption. Given an identical ` keyset
+` and ` plaintext ` , this function returns the same ciphertext each time it is invoked (including across queries).
+
+**Return Data Type**
+
+` BYTES `
+
+**Example**
+
+The following query uses the keysets for each ` customer_id ` in the `
+CustomerKeysets ` table to encrypt the value of the plaintext `
+favorite_animal ` in the ` PlaintextCustomerData ` table corresponding to that
+` customer_id ` . The output contains a column of ` customer_id ` values and a column of corresponding ciphertext output as ` BYTES ` .
+
+
+WITH CustomerKeysets AS ( SELECT 1 AS customer_id,
+KEYS.NEW_KEYSET('DETERMINISTIC_AEAD_AES_SIV_CMAC_256') AS keyset UNION ALL SELECT 2, KEYS.NEW_KEYSET('DETERMINISTIC_AEAD_AES_SIV_CMAC_256') UNION ALL SELECT 3, KEYS.NEW_KEYSET('DETERMINISTIC_AEAD_AES_SIV_CMAC_256') ), PlaintextCustomerData AS ( SELECT 1 AS customer_id, 'elephant' AS favorite_animal UNION ALL SELECT 2, 'walrus' UNION ALL SELECT 3, 'leopard'
+) SELECT pcd.customer_id,
+DETERMINISTIC_ENCRYPT( (SELECT keyset FROM CustomerKeysets AS ck WHERE ck.customer_id = pcd.customer_id),
+pcd.favorite_animal,
+CAST(pcd.customer_id AS STRING) ) AS encrypted_animal FROM PlaintextCustomerData AS pcd;

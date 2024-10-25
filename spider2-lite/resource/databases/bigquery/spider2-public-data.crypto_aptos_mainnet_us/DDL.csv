@@ -1,0 +1,129 @@
+table_name,ddl
+blocks,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.blocks`
+(
+  block_hash STRING,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  block_height INT64,
+  blockmetadata_tx_version INT64,
+  round INT64,
+  previous_block_votes_bitvec BYTES,
+  proposer STRING
+);"
+modules,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.modules`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  change_index INT64,
+  bytecode BYTES,
+  address STRING,
+  name STRING,
+  friends ARRAY<STRUCT<address STRING, name STRING>>,
+  exposed_functions ARRAY<STRUCT<name STRING, visibility STRING, is_entry BOOL, generic_type_params ARRAY<STRUCT<constraints ARRAY<STRING>>>, params ARRAY<STRING>, return ARRAY<STRING>>>,
+  structs ARRAY<STRUCT<name STRING, is_native BOOL, abilities ARRAY<STRING>, generic_type_params ARRAY<STRUCT<constraints ARRAY<STRING>, is_phantom BOOL>>, fields ARRAY<STRUCT<name STRING, type STRING>>>>
+);"
+resources,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.resources`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  tx_sequence_number INT64,
+  change_index INT64,
+  address STRING,
+  state_key_hash STRING,
+  change_type STRING,
+  struct_tag STRUCT<address STRING, module STRING, name STRING, generic_type_params ARRAY<STRING>>,
+  type_str STRING,
+  resource JSON
+);"
+changes,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.changes`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  tx_sequence_number INT64,
+  change_index INT64,
+  change_type STRING,
+  address STRING,
+  state_key_hash STRING
+);"
+transactions,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.transactions`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_type STRING,
+  tx_version INT64,
+  tx_hash STRING,
+  state_change_hash STRING,
+  event_root_hash STRING,
+  state_checkpoint_hash STRING,
+  gas_used INT64,
+  success BOOL,
+  vm_status STRING,
+  accumulator_root_hash STRING,
+  sequence_number INT64,
+  max_gas_amount INT64,
+  gas_unit_price INT64,
+  sender STRING,
+  num_events INT64,
+  num_changes STRUCT<total INT64, delete_module INT64, delete_resource INT64, delete_table_item INT64, write_module INT64, write_resource INT64, write_table_item INT64>,
+  expiration_timestamp TIMESTAMP,
+  expiration_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  payload_type STRING,
+  payload STRUCT<function STRING, entry_function_id_str STRING, type_arguments ARRAY<STRING>, arguments ARRAY<STRING>, execute_as STRING, code STRUCT<bytecode BYTES, abi STRUCT<name STRING, visibility STRING, is_entry BOOL, is_view BOOL, generic_type_params ARRAY<STRUCT<generics_types ARRAY<STRING>, constraints ARRAY<STRING>>>, params ARRAY<STRING>, return ARRAY<STRING>>>, multisig_address STRING, tx_payload STRUCT<function STRING, type_arguments ARRAY<STRING>, arguments ARRAY<STRING>>>,
+  num_signatures INT64
+);"
+events,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.events`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  tx_sequence_number INT64,
+  event_index INT64,
+  address STRING,
+  creation_num INT64,
+  sequence_number INT64,
+  event_type STRING,
+  data JSON
+);"
+table_items,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.table_items`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  tx_sequence_number INT64,
+  change_index INT64,
+  change_type STRING,
+  address STRING,
+  state_key_hash STRING,
+  key STRUCT<name STRING, type STRING>,
+  value STRUCT<content STRING, type STRING>
+);"
+signatures,"CREATE TABLE `spider2-public-data.crypto_aptos_mainnet_us.signatures`
+(
+  block_height INT64,
+  block_timestamp TIMESTAMP,
+  block_unixtimestamp STRUCT<seconds INT64, nanos INT64>,
+  tx_version INT64,
+  tx_hash STRING,
+  threshold INT64,
+  build_type STRING,
+  public_key STRUCT<type STRING, value STRING, index INT64>,
+  signature STRUCT<type STRING, value STRING, index INT64>,
+  is_secondary BOOL,
+  is_fee_payer BOOL,
+  is_sender BOOL,
+  signer STRING
+);"

@@ -1,0 +1,171 @@
+table_name,ddl
+countries,"CREATE TABLE `spider2-public-data.complex_oracle.countries`
+(
+  country_total STRING,
+  country_region_id INT64,
+  country_total_id INT64,
+  country_region STRING,
+  country_name STRING,
+  country_id INT64,
+  country_iso_code STRING,
+  country_subregion_id INT64,
+  country_subregion STRING
+);"
+currency,"CREATE TABLE `spider2-public-data.complex_oracle.currency`
+(
+  month INT64,
+  to_us FLOAT64,
+  year INT64,
+  country STRING
+);"
+sales,"CREATE TABLE `spider2-public-data.complex_oracle.sales`
+(
+  quantity_sold INT64,
+  promo_id INT64,
+  channel_id INT64,
+  cust_id INT64,
+  time_id DATE,
+  amount_sold FLOAT64,
+  prod_id INT64
+);"
+channels,"CREATE TABLE `spider2-public-data.complex_oracle.channels`
+(
+  channel_total_id INT64,
+  channel_class STRING,
+  channel_class_id INT64,
+  channel_desc STRING,
+  channel_total STRING,
+  channel_id INT64
+);"
+times,"CREATE TABLE `spider2-public-data.complex_oracle.times`
+(
+  end_of_fis_year DATE,
+  end_of_cal_year DATE,
+  fiscal_year_id INT64,
+  calendar_year_id INT64,
+  calendar_quarter_number INT64,
+  end_of_fis_quarter DATE,
+  fiscal_quarter_number INT64,
+  end_of_cal_quarter DATE,
+  days_in_cal_quarter INT64,
+  fiscal_quarter_id INT64,
+  calendar_month_desc STRING,
+  fiscal_quarter_desc STRING,
+  fiscal_month_name STRING,
+  calendar_quarter_desc STRING,
+  end_of_fis_month DATE,
+  days_in_fis_year INT64,
+  days_in_fis_month INT64,
+  time_id DATE,
+  days_in_cal_month INT64,
+  calendar_month_id INT64,
+  fiscal_month_number INT64,
+  end_of_cal_month DATE,
+  days_in_fis_quarter INT64,
+  day_name STRING,
+  week_ending_day_id INT64,
+  week_ending_day DATE,
+  fiscal_week_number INT64,
+  fiscal_year INT64,
+  day_number_in_month INT64,
+  calendar_month_number INT64,
+  fiscal_month_id INT64,
+  calendar_month_name STRING,
+  calendar_week_number INT64,
+  day_number_in_week INT64,
+  calendar_quarter_id INT64,
+  days_in_cal_year INT64,
+  calendar_year INT64,
+  fiscal_month_desc STRING
+);"
+costs,"CREATE TABLE `spider2-public-data.complex_oracle.costs`
+(
+  unit_price FLOAT64,
+  channel_id INT64,
+  promo_id INT64,
+  prod_id INT64,
+  unit_cost FLOAT64,
+  time_id DATE
+);"
+products,"CREATE TABLE `spider2-public-data.complex_oracle.products`
+(
+  prod_valid STRING,
+  prod_eff_to STRING,
+  prod_eff_from TIMESTAMP,
+  prod_total STRING,
+  prod_min_price FLOAT64,
+  prod_list_price FLOAT64,
+  prod_status STRING,
+  prod_total_id INT64,
+  supplier_id INT64,
+  prod_pack_size STRING,
+  prod_subcategory_id INT64,
+  prod_unit_of_measure STRING,
+  prod_desc STRING,
+  prod_weight_class INT64,
+  prod_category_desc STRING,
+  prod_src_id STRING,
+  prod_id INT64,
+  prod_category_id INT64,
+  prod_subcategory_desc STRING,
+  prod_category STRING,
+  prod_subcategory STRING,
+  prod_name STRING
+);"
+supplementary_demographics,"CREATE TABLE `spider2-public-data.complex_oracle.supplementary_demographics`
+(
+  tennis INT64,
+  cust_id INT64,
+  baseball INT64,
+  misc INT64,
+  cricket INT64,
+  affinity_card INT64,
+  unknown INT64,
+  household_size STRING,
+  education STRING,
+  comments STRING,
+  golf INT64,
+  soccer INT64,
+  yrs_residence INT64,
+  occupation STRING
+);"
+customers,"CREATE TABLE `spider2-public-data.complex_oracle.customers`
+(
+  cust_eff_to STRING,
+  cust_eff_from DATE,
+  cust_total STRING,
+  cust_credit_limit FLOAT64,
+  cust_income_level STRING,
+  cust_valid STRING,
+  cust_marital_status STRING,
+  cust_state_province STRING,
+  country_id INT64,
+  cust_city_id INT64,
+  cust_email STRING,
+  cust_city STRING,
+  cust_total_id INT64,
+  cust_main_phone_number STRING,
+  cust_state_province_id INT64,
+  cust_last_name STRING,
+  cust_src_id STRING,
+  cust_first_name STRING,
+  cust_year_of_birth INT64,
+  cust_id INT64,
+  cust_postal_code INT64,
+  cust_street_address STRING,
+  cust_gender STRING
+);"
+promotions,"CREATE TABLE `spider2-public-data.complex_oracle.promotions`
+(
+  promo_total_id INT64,
+  promo_end_date DATE,
+  promo_total STRING,
+  promo_cost FLOAT64,
+  promo_begin_date DATE,
+  promo_category_id INT64,
+  promo_subcategory_id INT64,
+  promo_category STRING,
+  promo_subcategory STRING,
+  promo_name STRING,
+  promo_id INT64
+);"

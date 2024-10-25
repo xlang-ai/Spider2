@@ -1,0 +1,52 @@
+table_name,ddl
+file_downloads,"CREATE TABLE `spider2-public-data.pypi.file_downloads`
+(
+  timestamp TIMESTAMP,
+  country_code STRING,
+  url STRING,
+  project STRING,
+  file STRUCT<filename STRING, project STRING, version STRING, type STRING>,
+  details STRUCT<installer STRUCT<name STRING, version STRING>, python STRING, implementation STRUCT<name STRING, version STRING>, distro STRUCT<name STRING, version STRING, id STRING, libc STRUCT<lib STRING, version STRING>>, system STRUCT<name STRING, release STRING>, cpu STRING, openssl_version STRING, setuptools_version STRING, rustc_version STRING, ci BOOL>,
+  tls_protocol STRING,
+  tls_cipher STRING
+);"
+distribution_metadata,"CREATE TABLE `spider2-public-data.pypi.distribution_metadata`
+(
+  metadata_version STRING,
+  name STRING,
+  version STRING,
+  summary STRING,
+  description STRING,
+  description_content_type STRING,
+  author STRING,
+  author_email STRING,
+  maintainer STRING,
+  maintainer_email STRING,
+  license STRING,
+  keywords STRING,
+  classifiers ARRAY<STRING>,
+  platform ARRAY<STRING>,
+  home_page STRING,
+  download_url STRING,
+  requires_python STRING,
+  requires ARRAY<STRING>,
+  provides ARRAY<STRING>,
+  obsoletes ARRAY<STRING>,
+  requires_dist ARRAY<STRING>,
+  provides_dist ARRAY<STRING>,
+  obsoletes_dist ARRAY<STRING>,
+  requires_external ARRAY<STRING>,
+  project_urls ARRAY<STRING>,
+  uploaded_via STRING,
+  upload_time TIMESTAMP,
+  filename STRING,
+  size INT64,
+  path STRING,
+  python_version STRING,
+  packagetype STRING,
+  comment_text STRING,
+  has_signature BOOL,
+  md5_digest STRING,
+  sha256_digest STRING,
+  blake2_256_digest STRING
+);"

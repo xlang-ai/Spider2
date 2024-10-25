@@ -1,0 +1,58 @@
+## AVG
+
+WITH DIFFERENTIAL_PRIVACY ...
+AVG( expression,
+[contribution_bounds_per_group => (lower_bound, upper_bound)]
+)
+
+**Description**
+
+Returns the average of non- ` NULL ` , non- ` NaN ` values in the expression.
+This function first computes the average per privacy unit column, and then computes the final result by averaging these averages.
+
+This function must be used with the [ ` DIFFERENTIAL_PRIVACY ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#dp_clause) and can support the following arguments:
+
+* ` expression ` : The input expression. This can be any numeric input type, such as ` INT64 ` .
+* ` contribution_bounds_per_group ` : The  contribution bounds named argument  . Perform clamping per each group separately before performing intermediate grouping on the privacy unit column.
+
+**Return type**
+
+` FLOAT64 `
+
+**Examples**
+
+The following differentially private query gets the average number of each item requested per professor. Smaller aggregations might not be included. This query references a table called [ ` professors `
+](/bigquery/docs/reference/standard-sql/query-syntax#dp_example_tables) .
+
+
+-- With noise, using the epsilon parameter.
+SELECT WITH DIFFERENTIAL_PRIVACY OPTIONS(epsilon=10, delta=.01, max_groups_contributed=1, privacy_unit_column=id) item,
+AVG(quantity, contribution_bounds_per_group => (0,100)) average_quantity FROM professors GROUP BY item;
+
+-- These results will change each time you run the query.
+-- Smaller aggregations might be removed.
+/*----------+------------------*
+| item     | average_quantity |
++----------+------------------+
+| pencil   | 38.5038356810269 |
+| pen      | 13.4725028762032 |
+*----------+------------------*/
+
+
+-- Without noise, using the epsilon parameter.
+-- (this un-noised version is for demonstration only) SELECT WITH DIFFERENTIAL_PRIVACY OPTIONS(epsilon=1e20, delta=.01, max_groups_contributed=1, privacy_unit_column=id) item,
+AVG(quantity) average_quantity FROM professors GROUP BY item;
+
+-- These results will not change when you run the query.
+/*----------+------------------*
+| item     | average_quantity |
++----------+------------------+
+| scissors | 8                |
+| pencil   | 40               |
+| pen      | 18.5             |
+*----------+------------------*/
+
+**Note:** For more information about when and when not to use noise, see [
+Remove noise ](/bigquery/docs/reference/standard-sql/query-
+syntax#eliminate_noise) .

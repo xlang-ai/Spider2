@@ -1,0 +1,1331 @@
+table_name,ddl
+cpc_group_201708,"CREATE TABLE `patents-public-data.patentsview.cpc_group_201708`
+(
+  id STRING,
+  title STRING
+);"
+patent_201708,"CREATE TABLE `patents-public-data.patentsview.patent_201708`
+(
+  id STRING,
+  type STRING,
+  number STRING,
+  country STRING,
+  date STRING,
+  abstract STRING,
+  title STRING,
+  kind STRING,
+  num_claims STRING,
+  filename STRING
+);"
+wipo_field_201908,"CREATE TABLE `patents-public-data.patentsview.wipo_field_201908`
+(
+  id STRING,
+  sector_title STRING,
+  field_title STRING
+);"
+inventor_201708,"CREATE TABLE `patents-public-data.patentsview.inventor_201708`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING
+);"
+mainclass_current,"CREATE TABLE `patents-public-data.patentsview.mainclass_current`
+(
+  id STRING,
+  title STRING
+);"
+us_term_of_grant_201708,"CREATE TABLE `patents-public-data.patentsview.us_term_of_grant_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  lapse_of_patent STRING,
+  disclaimer_date STRING,
+  term_disclaimer STRING,
+  term_grant STRING,
+  term_extension STRING
+);"
+non_inventor_applicant_201708,"CREATE TABLE `patents-public-data.patentsview.non_inventor_applicant_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  rawlocation_id STRING,
+  lname STRING,
+  fname STRING,
+  organization STRING,
+  sequence STRING,
+  designation STRING,
+  applicant_type STRING
+);"
+patent_201908,"CREATE TABLE `patents-public-data.patentsview.patent_201908`
+(
+  id STRING,
+  type STRING,
+  number STRING,
+  country STRING,
+  date STRING,
+  abstract STRING,
+  title STRING,
+  kind STRING,
+  num_claims STRING,
+  filename STRING,
+  withdrawn STRING
+);"
+subclass_201908,"CREATE TABLE `patents-public-data.patentsview.subclass_201908`
+(
+  id STRING
+);"
+cpc_group_201908,"CREATE TABLE `patents-public-data.patentsview.cpc_group_201908`
+(
+  id STRING,
+  title STRING
+);"
+patent,"CREATE TABLE `patents-public-data.patentsview.patent`
+(
+  id STRING,
+  type STRING,
+  number STRING,
+  country STRING,
+  date STRING,
+  abstract STRING,
+  title STRING,
+  kind STRING,
+  num_claims INT64,
+  filename STRING,
+  withdrawn INT64
+);"
+persistent_inventor_disamb_201708,"CREATE TABLE `patents-public-data.patentsview.persistent_inventor_disamb_201708`
+(
+  rawinventor_id STRING,
+  disamb_inventor_id_20170307 STRING,
+  disamb_inventor_id_20170808 STRING
+);"
+inventor_gender_201908,"CREATE TABLE `patents-public-data.patentsview.inventor_gender_201908`
+(
+  disamb_inventor_id_20170808 STRING,
+  disamb_inventor_id_20181127 STRING,
+  disamb_inventor_id_20190312 STRING,
+  male STRING
+);"
+foreigncitation,"CREATE TABLE `patents-public-data.patentsview.foreigncitation`
+(
+  uuid STRING,
+  patent_id STRING,
+  date STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence INT64
+);"
+usapplicationcitation_201708,"CREATE TABLE `patents-public-data.patentsview.usapplicationcitation_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  application_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+subclass_current_201708,"CREATE TABLE `patents-public-data.patentsview.subclass_current_201708`
+(
+  id STRING,
+  title STRING
+);"
+uspc,"CREATE TABLE `patents-public-data.patentsview.uspc`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence INT64
+);"
+rawlocation,"CREATE TABLE `patents-public-data.patentsview.rawlocation`
+(
+  id STRING,
+  location_id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latlong STRING
+);"
+uspc_current,"CREATE TABLE `patents-public-data.patentsview.uspc_current`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence INT64
+);"
+cpc_subsection,"CREATE TABLE `patents-public-data.patentsview.cpc_subsection`
+(
+  id STRING,
+  title STRING
+);"
+patent_inventor,"CREATE TABLE `patents-public-data.patentsview.patent_inventor`
+(
+  patent_id STRING,
+  inventor_id STRING,
+  location_id STRING
+);"
+cpc_subgroup,"CREATE TABLE `patents-public-data.patentsview.cpc_subgroup`
+(
+  id STRING,
+  title STRING
+);"
+government_organization_201708,"CREATE TABLE `patents-public-data.patentsview.government_organization_201708`
+(
+  organization_id STRING,
+  name STRING,
+  level_one STRING,
+  level_two STRING,
+  level_three STRING
+);"
+detail_desc_text_2021,"CREATE TABLE `patents-public-data.patentsview.detail_desc_text_2021`
+(
+  patent_id STRING,
+  text STRING,
+  length INT64
+);"
+nber_201908,"CREATE TABLE `patents-public-data.patentsview.nber_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  category_id STRING,
+  subcategory_id STRING
+);"
+rawexaminer_201708,"CREATE TABLE `patents-public-data.patentsview.rawexaminer_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  role STRING,
+  `group` STRING
+);"
+ipcr_201708,"CREATE TABLE `patents-public-data.patentsview.ipcr_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  classification_level STRING,
+  section STRING,
+  ipc_class STRING,
+  subclass STRING,
+  main_group STRING,
+  subgroup STRING,
+  symbol_position STRING,
+  classification_value STRING,
+  classification_status STRING,
+  classification_data_source STRING,
+  action_date STRING,
+  ipc_version_indicator STRING,
+  sequence STRING
+);"
+inventor_201908,"CREATE TABLE `patents-public-data.patentsview.inventor_201908`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING
+);"
+brf_sum_text_201908,"CREATE TABLE `patents-public-data.patentsview.brf_sum_text_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING
+);"
+patent_inventor_201708,"CREATE TABLE `patents-public-data.patentsview.patent_inventor_201708`
+(
+  patent_id STRING,
+  inventor_id STRING
+);"
+location_assignee_201708,"CREATE TABLE `patents-public-data.patentsview.location_assignee_201708`
+(
+  location_id STRING,
+  assignee_id STRING
+);"
+nber_201708,"CREATE TABLE `patents-public-data.patentsview.nber_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  category_id STRING,
+  subcategory_id STRING
+);"
+location_inventor_201908,"CREATE TABLE `patents-public-data.patentsview.location_inventor_201908`
+(
+  location_id STRING,
+  inventor_id STRING
+);"
+patent_govintorg_201708,"CREATE TABLE `patents-public-data.patentsview.patent_govintorg_201708`
+(
+  patent_id STRING,
+  organization_id STRING
+);"
+location_inventor_201708,"CREATE TABLE `patents-public-data.patentsview.location_inventor_201708`
+(
+  location_id STRING,
+  inventor_id STRING
+);"
+foreign_priority_201908,"CREATE TABLE `patents-public-data.patentsview.foreign_priority_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  sequence STRING,
+  kind STRING,
+  number STRING,
+  date STRING,
+  country STRING,
+  country_transformed STRING
+);"
+location_assignee,"CREATE TABLE `patents-public-data.patentsview.location_assignee`
+(
+  location_id STRING,
+  assignee_id STRING
+);"
+subclass_current_201908,"CREATE TABLE `patents-public-data.patentsview.subclass_current_201908`
+(
+  id STRING,
+  title STRING
+);"
+wipo_201708,"CREATE TABLE `patents-public-data.patentsview.wipo_201708`
+(
+  patent_id STRING,
+  field_id STRING,
+  sequence STRING
+);"
+location_201708,"CREATE TABLE `patents-public-data.patentsview.location_201708`
+(
+  id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latitude STRING,
+  longitude STRING,
+  county STRING,
+  state_fips STRING,
+  county_fips STRING
+);"
+location_inventor,"CREATE TABLE `patents-public-data.patentsview.location_inventor`
+(
+  location_id STRING,
+  inventor_id STRING
+);"
+rawlocation_201908,"CREATE TABLE `patents-public-data.patentsview.rawlocation_201908`
+(
+  id STRING,
+  location_id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latlong STRING
+);"
+patent_assignee,"CREATE TABLE `patents-public-data.patentsview.patent_assignee`
+(
+  patent_id STRING,
+  assignee_id STRING,
+  location_id STRING
+);"
+uspc_201908,"CREATE TABLE `patents-public-data.patentsview.uspc_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence STRING
+);"
+botanic,"CREATE TABLE `patents-public-data.patentsview.botanic`
+(
+  uuid STRING,
+  patent_id STRING,
+  latin_name STRING,
+  variety STRING
+);"
+rawinventor_201908,"CREATE TABLE `patents-public-data.patentsview.rawinventor_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  inventor_id STRING,
+  rawlocation_id STRING,
+  name_first STRING,
+  name_last STRING,
+  sequence STRING,
+  rule_47 STRING,
+  deceased STRING
+);"
+draw_desc_text_2021,"CREATE TABLE `patents-public-data.patentsview.draw_desc_text_2021`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence INT64
+);"
+foreigncitation_201708,"CREATE TABLE `patents-public-data.patentsview.foreigncitation_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  date STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+assignee_201708,"CREATE TABLE `patents-public-data.patentsview.assignee_201708`
+(
+  id STRING,
+  type STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING
+);"
+rawexaminer_201908,"CREATE TABLE `patents-public-data.patentsview.rawexaminer_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  role STRING,
+  `group` STRING
+);"
+patent_contractawardnumber,"CREATE TABLE `patents-public-data.patentsview.patent_contractawardnumber`
+(
+  patent_id STRING,
+  contract_award_number STRING
+);"
+non_inventor_applicant_201908,"CREATE TABLE `patents-public-data.patentsview.non_inventor_applicant_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  rawlocation_id STRING,
+  lname STRING,
+  fname STRING,
+  organization STRING,
+  sequence STRING,
+  designation STRING,
+  applicant_type STRING
+);"
+persistent_assignee_disambig,"CREATE TABLE `patents-public-data.patentsview.persistent_assignee_disambig`
+(
+  rawassignee_id STRING,
+  disamb_assignee_id_20181127 STRING,
+  disamb_assignee_id_20190312 STRING,
+  disamb_assignee_id_20190820 STRING,
+  disamb_assignee_id_20191008 STRING,
+  disamb_assignee_id_20191231 STRING,
+  disamb_assignee_id_20200331 STRING,
+  disamb_assignee_id_20200630 STRING,
+  disamb_assignee_id_20200929 STRING
+);"
+patent_govintorg,"CREATE TABLE `patents-public-data.patentsview.patent_govintorg`
+(
+  patent_id STRING,
+  organization_id INT64
+);"
+location_assignee_201908,"CREATE TABLE `patents-public-data.patentsview.location_assignee_201908`
+(
+  location_id STRING,
+  assignee_id STRING
+);"
+uspc_201708,"CREATE TABLE `patents-public-data.patentsview.uspc_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence STRING
+);"
+rel_app_text,"CREATE TABLE `patents-public-data.patentsview.rel_app_text`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING
+);"
+us_term_of_grant,"CREATE TABLE `patents-public-data.patentsview.us_term_of_grant`
+(
+  uuid STRING,
+  patent_id STRING,
+  lapse_of_patent STRING,
+  disclaimer_date STRING,
+  term_disclaimer STRING,
+  term_grant STRING,
+  term_extension STRING
+);"
+uspc_current_201708,"CREATE TABLE `patents-public-data.patentsview.uspc_current_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence STRING
+);"
+uspatentcitation_201708,"CREATE TABLE `patents-public-data.patentsview.uspatentcitation_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  citation_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+patent_govintorg_201908,"CREATE TABLE `patents-public-data.patentsview.patent_govintorg_201908`
+(
+  patent_id STRING,
+  organization_id STRING
+);"
+ipcr_201908,"CREATE TABLE `patents-public-data.patentsview.ipcr_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  classification_level STRING,
+  section STRING,
+  ipc_class STRING,
+  subclass STRING,
+  main_group STRING,
+  subgroup STRING,
+  symbol_position STRING,
+  classification_value STRING,
+  classification_status STRING,
+  classification_data_source STRING,
+  action_date STRING,
+  ipc_version_indicator STRING,
+  sequence STRING
+);"
+botanic_201708,"CREATE TABLE `patents-public-data.patentsview.botanic_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  latin_name STRING,
+  variety STRING
+);"
+figures_201908,"CREATE TABLE `patents-public-data.patentsview.figures_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  num_figures STRING,
+  num_sheets STRING
+);"
+otherreference_201908,"CREATE TABLE `patents-public-data.patentsview.otherreference_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+government_organization_201908,"CREATE TABLE `patents-public-data.patentsview.government_organization_201908`
+(
+  organization_id STRING,
+  name STRING,
+  level_one STRING,
+  level_two STRING,
+  level_three STRING
+);"
+rawassignee_201708,"CREATE TABLE `patents-public-data.patentsview.rawassignee_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  assignee_id STRING,
+  rawlocation_id STRING,
+  type STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  sequence STRING
+);"
+uspatentcitation_201908,"CREATE TABLE `patents-public-data.patentsview.uspatentcitation_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  citation_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+nber_category,"CREATE TABLE `patents-public-data.patentsview.nber_category`
+(
+  id STRING,
+  title STRING
+);"
+figures,"CREATE TABLE `patents-public-data.patentsview.figures`
+(
+  uuid STRING,
+  patent_id STRING,
+  num_figures INT64,
+  num_sheets INT64
+);"
+claim_201908,"CREATE TABLE `patents-public-data.patentsview.claim_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  dependent STRING,
+  sequence STRING,
+  exemplary STRING
+);"
+brf_sum_text,"CREATE TABLE `patents-public-data.patentsview.brf_sum_text`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING
+);"
+patent_assignee_201708,"CREATE TABLE `patents-public-data.patentsview.patent_assignee_201708`
+(
+  patent_id STRING,
+  assignee_id STRING
+);"
+wipo_201908,"CREATE TABLE `patents-public-data.patentsview.wipo_201908`
+(
+  patent_id STRING,
+  field_id STRING,
+  sequence STRING
+);"
+rawlocation_201708,"CREATE TABLE `patents-public-data.patentsview.rawlocation_201708`
+(
+  id STRING,
+  location_id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latlong STRING
+);"
+usreldoc_201908,"CREATE TABLE `patents-public-data.patentsview.usreldoc_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  doctype STRING,
+  relkind STRING,
+  reldocno STRING,
+  country STRING,
+  date STRING,
+  status STRING,
+  sequence STRING,
+  kind STRING
+);"
+cpc_subgroup_201908,"CREATE TABLE `patents-public-data.patentsview.cpc_subgroup_201908`
+(
+  id STRING,
+  title STRING
+);"
+cpc_subgroup_201708,"CREATE TABLE `patents-public-data.patentsview.cpc_subgroup_201708`
+(
+  id STRING,
+  title STRING
+);"
+brf_sum_text_2021,"CREATE TABLE `patents-public-data.patentsview.brf_sum_text_2021`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING
+);"
+claims_2021,"CREATE TABLE `patents-public-data.patentsview.claims_2021`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  dependent STRING,
+  sequence INT64,
+  num STRING,
+  exemplary INT64
+);"
+nber_category_201708,"CREATE TABLE `patents-public-data.patentsview.nber_category_201708`
+(
+  id STRING,
+  title STRING
+);"
+assignee,"CREATE TABLE `patents-public-data.patentsview.assignee`
+(
+  id STRING,
+  type FLOAT64,
+  name_first STRING,
+  name_last STRING,
+  organization STRING
+);"
+cpc_current_201908,"CREATE TABLE `patents-public-data.patentsview.cpc_current_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  section_id STRING,
+  subsection_id STRING,
+  group_id STRING,
+  subgroup_id STRING,
+  category STRING,
+  sequence STRING
+);"
+mainclass_201908,"CREATE TABLE `patents-public-data.patentsview.mainclass_201908`
+(
+  id STRING
+);"
+usapplicationcitation_201908,"CREATE TABLE `patents-public-data.patentsview.usapplicationcitation_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  application_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+rel_app_text_201708,"CREATE TABLE `patents-public-data.patentsview.rel_app_text_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+subclass,"CREATE TABLE `patents-public-data.patentsview.subclass`
+(
+  id STRING
+);"
+persistent_inventor_disambig,"CREATE TABLE `patents-public-data.patentsview.persistent_inventor_disambig`
+(
+  rawinventor_id STRING,
+  disamb_inventor_id_20170808 STRING,
+  disamb_inventor_id_20171003 STRING,
+  disamb_inventor_id_20171226 STRING,
+  disamb_inventor_id_20180528 STRING,
+  disamb_inventor_id_20181127 STRING,
+  disamb_inventor_id_20190312 STRING,
+  disamb_inventor_id_20190820 STRING,
+  disamb_inventor_id_20191008 STRING,
+  disamb_inventor_id_20191231 STRING,
+  disamb_inventor_id_20200331 STRING,
+  disamb_inventor_id_20200630 STRING,
+  disamb_inventor_id_20200929 STRING,
+  disamb_inventor_id_20201229 STRING
+);"
+match,"CREATE TABLE `patents-public-data.patentsview.match`
+(
+  patent_id STRING,
+  publication_number STRING
+);"
+uspatentcitation,"CREATE TABLE `patents-public-data.patentsview.uspatentcitation`
+(
+  uuid STRING,
+  patent_id STRING,
+  citation_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  country STRING,
+  category STRING,
+  sequence INT64
+);"
+claim,"CREATE TABLE `patents-public-data.patentsview.claim`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  dependent STRING,
+  sequence STRING,
+  exemplary STRING
+);"
+pct_data,"CREATE TABLE `patents-public-data.patentsview.pct_data`
+(
+  uuid STRING,
+  patent_id STRING,
+  rel_id STRING,
+  date STRING,
+  _371_date STRING,
+  country STRING,
+  kind STRING,
+  doc_type STRING,
+  _102_date STRING
+);"
+cpc_current_201708,"CREATE TABLE `patents-public-data.patentsview.cpc_current_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  section_id STRING,
+  subsection_id STRING,
+  group_id STRING,
+  subgroup_id STRING,
+  category STRING,
+  sequence STRING
+);"
+inventor,"CREATE TABLE `patents-public-data.patentsview.inventor`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING,
+  male_flag FLOAT64,
+  attribution_status INT64
+);"
+draw_desc_text_201908,"CREATE TABLE `patents-public-data.patentsview.draw_desc_text_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+cpc,"CREATE TABLE `patents-public-data.patentsview.cpc`
+(
+  uuid STRING,
+  patent_id STRING,
+  section_id STRING,
+  subsection_id STRING,
+  group_id STRING,
+  subgroup_id STRING,
+  category STRING,
+  sequence INT64
+);"
+cpc_subsection_201708,"CREATE TABLE `patents-public-data.patentsview.cpc_subsection_201708`
+(
+  id STRING,
+  title STRING
+);"
+inventor_gender,"CREATE TABLE `patents-public-data.patentsview.inventor_gender`
+(
+  disamb_inventor_id_20170808 STRING,
+  disamb_inventor_id_20181127 STRING,
+  disamb_inventor_id_20190312 STRING,
+  male STRING
+);"
+government_interest_201908,"CREATE TABLE `patents-public-data.patentsview.government_interest_201908`
+(
+  patent_id STRING,
+  gi_statement STRING
+);"
+ipcr,"CREATE TABLE `patents-public-data.patentsview.ipcr`
+(
+  uuid STRING,
+  patent_id STRING,
+  classification_level STRING,
+  section STRING,
+  ipc_class STRING,
+  subclass STRING,
+  main_group STRING,
+  subgroup STRING,
+  symbol_position STRING,
+  classification_value STRING,
+  classification_status STRING,
+  classification_data_source STRING,
+  action_date STRING,
+  ipc_version_indicator STRING,
+  sequence INT64
+);"
+non_inventor_applicant,"CREATE TABLE `patents-public-data.patentsview.non_inventor_applicant`
+(
+  uuid STRING,
+  patent_id STRING,
+  rawlocation_id STRING,
+  lname STRING,
+  fname STRING,
+  organization STRING,
+  sequence INT64,
+  designation STRING,
+  applicant_type STRING
+);"
+location_201908,"CREATE TABLE `patents-public-data.patentsview.location_201908`
+(
+  id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latitude STRING,
+  longitude STRING,
+  county STRING,
+  state_fips STRING,
+  county_fips STRING
+);"
+government_interest,"CREATE TABLE `patents-public-data.patentsview.government_interest`
+(
+  patent_id STRING,
+  gi_statement STRING
+);"
+rawassignee_201908,"CREATE TABLE `patents-public-data.patentsview.rawassignee_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  assignee_id STRING,
+  rawlocation_id STRING,
+  type STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  sequence STRING
+);"
+patent_lawyer_201708,"CREATE TABLE `patents-public-data.patentsview.patent_lawyer_201708`
+(
+  patent_id STRING,
+  lawyer_id STRING
+);"
+foreign_priority_201708,"CREATE TABLE `patents-public-data.patentsview.foreign_priority_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  sequence STRING,
+  kind STRING,
+  number STRING,
+  date STRING,
+  country STRING,
+  country_transformed STRING
+);"
+nber_subcategory,"CREATE TABLE `patents-public-data.patentsview.nber_subcategory`
+(
+  id STRING,
+  title STRING
+);"
+us_term_of_grant_201908,"CREATE TABLE `patents-public-data.patentsview.us_term_of_grant_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  lapse_of_patent STRING,
+  disclaimer_date STRING,
+  term_disclaimer STRING,
+  term_grant STRING,
+  term_extension STRING
+);"
+lawyer,"CREATE TABLE `patents-public-data.patentsview.lawyer`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING
+);"
+botanic_201908,"CREATE TABLE `patents-public-data.patentsview.botanic_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  latin_name STRING,
+  variety STRING
+);"
+application_201708,"CREATE TABLE `patents-public-data.patentsview.application_201708`
+(
+  id STRING,
+  patent_id STRING,
+  series_code STRING,
+  number STRING,
+  country STRING,
+  date STRING
+);"
+cpc_current,"CREATE TABLE `patents-public-data.patentsview.cpc_current`
+(
+  uuid STRING,
+  patent_id STRING,
+  section_id STRING,
+  subsection_id STRING,
+  group_id STRING,
+  subgroup_id STRING,
+  category STRING,
+  sequence INT64
+);"
+rawinventor,"CREATE TABLE `patents-public-data.patentsview.rawinventor`
+(
+  uuid STRING,
+  patent_id STRING,
+  inventor_id STRING,
+  rawlocation_id STRING,
+  name_first STRING,
+  name_last STRING,
+  sequence INT64,
+  rule_47 STRING,
+  deceased STRING
+);"
+rawlawyer_201908,"CREATE TABLE `patents-public-data.patentsview.rawlawyer_201908`
+(
+  uuid STRING,
+  lawyer_id STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING,
+  sequence STRING
+);"
+usreldoc_201708,"CREATE TABLE `patents-public-data.patentsview.usreldoc_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  doctype STRING,
+  relkind STRING,
+  reldocno STRING,
+  country STRING,
+  date STRING,
+  status STRING,
+  sequence STRING,
+  kind STRING
+);"
+mainclass_current_201908,"CREATE TABLE `patents-public-data.patentsview.mainclass_current_201908`
+(
+  id STRING,
+  title STRING
+);"
+mainclass,"CREATE TABLE `patents-public-data.patentsview.mainclass`
+(
+  id STRING
+);"
+subclass_current,"CREATE TABLE `patents-public-data.patentsview.subclass_current`
+(
+  id STRING,
+  title STRING
+);"
+match_201780,"CREATE TABLE `patents-public-data.patentsview.match_201780`
+(
+  patent_id STRING,
+  publication_number STRING
+);"
+location,"CREATE TABLE `patents-public-data.patentsview.location`
+(
+  id STRING,
+  city STRING,
+  state STRING,
+  country STRING,
+  latitude FLOAT64,
+  longitude FLOAT64,
+  county STRING,
+  state_fips FLOAT64,
+  county_fips STRING
+);"
+rawassignee,"CREATE TABLE `patents-public-data.patentsview.rawassignee`
+(
+  uuid STRING,
+  patent_id STRING,
+  assignee_id STRING,
+  rawlocation_id STRING,
+  type FLOAT64,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  sequence INT64
+);"
+subclass_201708,"CREATE TABLE `patents-public-data.patentsview.subclass_201708`
+(
+  id STRING
+);"
+patent_lawyer_201908,"CREATE TABLE `patents-public-data.patentsview.patent_lawyer_201908`
+(
+  patent_id STRING,
+  lawyer_id STRING
+);"
+otherreference_201708,"CREATE TABLE `patents-public-data.patentsview.otherreference_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+mainclass_201708,"CREATE TABLE `patents-public-data.patentsview.mainclass_201708`
+(
+  id STRING
+);"
+nber,"CREATE TABLE `patents-public-data.patentsview.nber`
+(
+  uuid STRING,
+  patent_id STRING,
+  category_id STRING,
+  subcategory_id STRING
+);"
+rawlawyer,"CREATE TABLE `patents-public-data.patentsview.rawlawyer`
+(
+  uuid STRING,
+  lawyer_id STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING,
+  sequence INT64
+);"
+draw_desc_text_201708,"CREATE TABLE `patents-public-data.patentsview.draw_desc_text_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+patent_lawyer,"CREATE TABLE `patents-public-data.patentsview.patent_lawyer`
+(
+  patent_id STRING,
+  lawyer_id STRING
+);"
+wipo,"CREATE TABLE `patents-public-data.patentsview.wipo`
+(
+  patent_id STRING,
+  field_id STRING,
+  sequence STRING
+);"
+cpc_group,"CREATE TABLE `patents-public-data.patentsview.cpc_group`
+(
+  id STRING,
+  title STRING
+);"
+application_201908,"CREATE TABLE `patents-public-data.patentsview.application_201908`
+(
+  id STRING,
+  patent_id STRING,
+  series_code STRING,
+  number STRING,
+  country STRING,
+  date STRING
+);"
+patent_inventor_201908,"CREATE TABLE `patents-public-data.patentsview.patent_inventor_201908`
+(
+  patent_id STRING,
+  inventor_id STRING
+);"
+government_interest_201708,"CREATE TABLE `patents-public-data.patentsview.government_interest_201708`
+(
+  patent_id STRING,
+  gi_statement STRING
+);"
+patent_assignee_201908,"CREATE TABLE `patents-public-data.patentsview.patent_assignee_201908`
+(
+  patent_id STRING,
+  assignee_id STRING
+);"
+brf_sum_text_201708,"CREATE TABLE `patents-public-data.patentsview.brf_sum_text_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING
+);"
+uspc_current_201908,"CREATE TABLE `patents-public-data.patentsview.uspc_current_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  mainclass_id STRING,
+  subclass_id STRING,
+  sequence STRING
+);"
+cpc_subsection_201908,"CREATE TABLE `patents-public-data.patentsview.cpc_subsection_201908`
+(
+  id STRING,
+  title STRING
+);"
+usapplicationcitation,"CREATE TABLE `patents-public-data.patentsview.usapplicationcitation`
+(
+  uuid STRING,
+  patent_id STRING,
+  application_id STRING,
+  date STRING,
+  name STRING,
+  kind STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence INT64
+);"
+wipo_field,"CREATE TABLE `patents-public-data.patentsview.wipo_field`
+(
+  id STRING,
+  sector_title STRING,
+  field_title STRING
+);"
+pct_data_201908,"CREATE TABLE `patents-public-data.patentsview.pct_data_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  rel_id STRING,
+  date STRING,
+  f371_date STRING,
+  country STRING,
+  kind STRING,
+  doc_type STRING,
+  f102_date STRING
+);"
+nber_subcategory_201908,"CREATE TABLE `patents-public-data.patentsview.nber_subcategory_201908`
+(
+  id STRING,
+  title STRING
+);"
+foreign_priority,"CREATE TABLE `patents-public-data.patentsview.foreign_priority`
+(
+  uuid STRING,
+  patent_id STRING,
+  sequence INT64,
+  kind STRING,
+  number STRING,
+  date STRING,
+  country STRING,
+  country_transformed STRING
+);"
+rawexaminer,"CREATE TABLE `patents-public-data.patentsview.rawexaminer`
+(
+  uuid STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  role STRING,
+  `group` STRING
+);"
+wipo_field_201708,"CREATE TABLE `patents-public-data.patentsview.wipo_field_201708`
+(
+  id STRING,
+  sector_title STRING,
+  field_title STRING
+);"
+persistent_inventor_disamb,"CREATE TABLE `patents-public-data.patentsview.persistent_inventor_disamb`
+(
+  rawinventor_id STRING,
+  disamb_inventor_id_20170307 STRING,
+  disamb_inventor_id_20170808 STRING
+);"
+lawyer_201708,"CREATE TABLE `patents-public-data.patentsview.lawyer_201708`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING
+);"
+rawinventor_201708,"CREATE TABLE `patents-public-data.patentsview.rawinventor_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  inventor_id STRING,
+  rawlocation_id STRING,
+  name_first STRING,
+  name_last STRING,
+  sequence STRING,
+  rule_47 STRING
+);"
+pct_data_201708,"CREATE TABLE `patents-public-data.patentsview.pct_data_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  rel_id STRING,
+  date STRING,
+  f371_date STRING,
+  country STRING,
+  kind STRING,
+  doc_type STRING,
+  f102_date STRING
+);"
+assignee_201908,"CREATE TABLE `patents-public-data.patentsview.assignee_201908`
+(
+  id STRING,
+  type STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING
+);"
+patent_contractawardnumber_201908,"CREATE TABLE `patents-public-data.patentsview.patent_contractawardnumber_201908`
+(
+  patent_id STRING,
+  contract_award_number STRING
+);"
+figures_201708,"CREATE TABLE `patents-public-data.patentsview.figures_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  num_figures STRING,
+  num_sheets STRING
+);"
+claim_201708,"CREATE TABLE `patents-public-data.patentsview.claim_201708`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  dependent STRING,
+  sequence STRING,
+  exemplary STRING
+);"
+rawlawyer_201708,"CREATE TABLE `patents-public-data.patentsview.rawlawyer_201708`
+(
+  uuid STRING,
+  lawyer_id STRING,
+  patent_id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING,
+  sequence STRING
+);"
+lawyer_201908,"CREATE TABLE `patents-public-data.patentsview.lawyer_201908`
+(
+  id STRING,
+  name_first STRING,
+  name_last STRING,
+  organization STRING,
+  country STRING
+);"
+patent_contractawardnumber_201708,"CREATE TABLE `patents-public-data.patentsview.patent_contractawardnumber_201708`
+(
+  patent_id STRING,
+  contract_award_number STRING
+);"
+foreigncitation_201908,"CREATE TABLE `patents-public-data.patentsview.foreigncitation_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  date STRING,
+  number STRING,
+  country STRING,
+  category STRING,
+  sequence STRING
+);"
+government_organization,"CREATE TABLE `patents-public-data.patentsview.government_organization`
+(
+  organization_id INT64,
+  name STRING,
+  level_one STRING,
+  level_two STRING,
+  level_three STRING
+);"
+draw_desc_text,"CREATE TABLE `patents-public-data.patentsview.draw_desc_text`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+nber_subcategory_201708,"CREATE TABLE `patents-public-data.patentsview.nber_subcategory_201708`
+(
+  id STRING,
+  title STRING
+);"
+otherreference,"CREATE TABLE `patents-public-data.patentsview.otherreference`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence INT64
+);"
+usreldoc,"CREATE TABLE `patents-public-data.patentsview.usreldoc`
+(
+  uuid STRING,
+  patent_id STRING,
+  doctype STRING,
+  relkind STRING,
+  reldocno STRING,
+  country STRING,
+  date STRING,
+  status STRING,
+  sequence STRING,
+  kind STRING
+);"
+mainclass_current_201708,"CREATE TABLE `patents-public-data.patentsview.mainclass_current_201708`
+(
+  id STRING,
+  title STRING
+);"
+rel_app_text_201908,"CREATE TABLE `patents-public-data.patentsview.rel_app_text_201908`
+(
+  uuid STRING,
+  patent_id STRING,
+  text STRING,
+  sequence STRING
+);"
+nber_category_201908,"CREATE TABLE `patents-public-data.patentsview.nber_category_201908`
+(
+  id STRING,
+  title STRING
+);"
+application,"CREATE TABLE `patents-public-data.patentsview.application`
+(
+  id STRING,
+  patent_id STRING,
+  series_code STRING,
+  number STRING,
+  country STRING,
+  date STRING
+);"

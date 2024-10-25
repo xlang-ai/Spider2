@@ -1,0 +1,33 @@
+## REGEXP_EXTRACT_ALL
+
+REGEXP_EXTRACT_ALL(value, regexp)
+
+**Description**
+
+Returns an array of all substrings of ` value ` that match the [ re2 regular expression ](https://github.com/google/re2/wiki/Syntax) , ` regexp ` . Returns an empty array if there is no match.
+
+If the regular expression contains a capturing group ( ` (...) ` ), and there is a match for that capturing group, that match is added to the results.
+
+The ` REGEXP_EXTRACT_ALL ` function only returns non-overlapping matches. For example, using this function to extract ` ana ` from ` banana ` returns only one substring, not two.
+
+Returns an error if:
+
+* The regular expression is invalid
+* The regular expression has more than one capturing group
+
+**Return type**
+
+` ARRAY<STRING> ` or ` ARRAY<BYTES> `
+
+**Examples**
+
+
+WITH code_markdown AS (SELECT 'Try `function(x)` or `function(y)`' as code)
+
+SELECT REGEXP_EXTRACT_ALL(code, '`(.+?)`') AS example FROM code_markdown;
+
+/*----------------------------*
+| example                    |
++----------------------------+
+| [function(x), function(y)] |
+*----------------------------*/

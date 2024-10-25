@@ -1,0 +1,62 @@
+## PARSE_JSON
+
+PARSE_JSON(json_string_expr[, wide_number_mode=>{ 'exact' | 'round' }])
+
+**Description**
+
+Converts a JSON-formatted ` STRING ` value to a ` JSON ` value.
+
+Arguments:
+
+* ` json_string_expr ` : A JSON-formatted string. For example:
+
+'{"class": {"students": [{"name": "Jane"}]}}'
+
+* ` wide_number_mode ` : Optional mandatory-named argument that determines how to handle numbers that cannot be stored in a ` JSON ` value without the loss of precision. If used, ` wide_number_mode ` must include one of these values:
+
+* ` exact ` (default): Only accept numbers that can be stored without loss of precision. If a number that cannot be stored without loss of precision is encountered, the function throws an error.
+* ` round ` : If a number that cannot be stored without loss of precision is encountered, attempt to round it to a number that can be stored without loss of precision. If the number cannot be rounded, the function throws an error.
+
+If a number appears in a JSON object or array, the ` wide_number_mode `
+argument is applied to the number in the object or array.
+
+Numbers from the following domains can be stored in JSON without loss of precision:
+
+* 64-bit signed/unsigned integers, such as ` INT64 `
+* ` FLOAT64 `
+
+**Return type**
+
+` JSON `
+
+**Examples**
+
+In the following example, a JSON-formatted string is converted to ` JSON ` .
+
+
+SELECT PARSE_JSON('{"coordinates": [10, 20], "id": 1}') AS json_data;
+
+/*--------------------------------*
+| json_data                      |
++--------------------------------+
+| {"coordinates":[10,20],"id":1} |
+*--------------------------------*/
+
+The following queries fail because:
+
+* The number that was passed in cannot be stored without loss of precision.
+* ` wide_number_mode=>'exact' ` is used implicitly in the first query and explicitly in the second query.
+
+
+SELECT PARSE_JSON('{"id": 922337203685477580701}') AS json_data; -- fails SELECT PARSE_JSON('{"id": 922337203685477580701}', wide_number_mode=>'exact') AS json_data; -- fails
+
+The following query rounds the number to a number that can be stored in JSON.
+
+
+SELECT PARSE_JSON('{"id": 922337203685477580701}', wide_number_mode=>'round') AS json_data;
+
+/*------------------------------*
+| json_data                    |
++------------------------------+
+| {"id":9.223372036854776e+20} |
+*------------------------------*/

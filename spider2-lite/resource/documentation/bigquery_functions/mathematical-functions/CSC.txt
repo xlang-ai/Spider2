@@ -1,0 +1,32 @@
+## CSC
+
+CSC(X)
+
+**Description**
+
+Computes the cosecant of the input angle, which is in radians. ` X ` can be any data type that [ coerces to ` FLOAT64 `
+](/bigquery/docs/reference/standard-sql/conversion_rules#conversion_rules) .
+Supports the ` SAFE. ` prefix.
+
+X  |  CSC(X)
+---|---
+` +inf ` |  ` NaN `
+` -inf ` |  ` NaN `
+` NaN ` |  ` NaN `
+` 0 ` |  ` Error `
+` NULL ` |  ` NULL `
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+SELECT CSC(100) AS a, CSC(-1) AS b, SAFE.CSC(0) AS c;
+
+/*----------------+-----------------+------*
+| a              | b               | c    |
++----------------+-----------------+------+
+| -1.97485753142 | -1.188395105778 | NULL |
+*----------------+-----------------+------*/

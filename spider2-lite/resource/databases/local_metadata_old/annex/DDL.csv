@@ -1,0 +1,31 @@
+table_name,DDL
+veg_cat,"CREATE TABLE veg_cat (
+    index INTEGER,
+    item_code INTEGER,
+    item_name TEXT,
+    category_code INTEGER,
+    category_name TEXT
+);"
+veg_txn_df,"CREATE TABLE veg_txn_df (
+    index INTEGER,
+    txn_date TIMESTAMP,
+    txn_time TEXT,
+    item_code INTEGER,
+    qty_sold(kg) REAL,
+    unit_selling_px_rmb/kg REAL,
+    sale/return TEXT,
+    discount(%) INTEGER,
+    day_of_week TEXT
+);"
+veg_whsle_df,"CREATE TABLE veg_whsle_df (
+    index INTEGER,
+    whsle_date TIMESTAMP,
+    item_code INTEGER,
+    whsle_px_rmb-kg REAL
+);"
+loss_rate_df,"CREATE TABLE loss_rate_df (
+    index INTEGER,
+    item_code INTEGER,
+    item_name TEXT,
+    loss_rate_% REAL
+);"

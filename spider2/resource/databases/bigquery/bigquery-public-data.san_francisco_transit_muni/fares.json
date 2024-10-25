@@ -1,0 +1,96 @@
+{
+    "table_name": "fares",
+    "table_fullname": "bigquery-public-data.san_francisco_transit_muni.fares",
+    "column_names": [
+        "fare_id",
+        "rider_id",
+        "rider_desc",
+        "price",
+        "payment_method",
+        "transfers_permitted",
+        "transfer_duration"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "NUMERIC",
+        "STRING",
+        "STRING",
+        "INT64"
+    ],
+    "nested_column_names": [
+        "fare_id",
+        "rider_id",
+        "rider_desc",
+        "price",
+        "payment_method",
+        "transfers_permitted",
+        "transfer_duration"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "NUMERIC",
+        "STRING",
+        "STRING",
+        "INT64"
+    ],
+    "description": [
+        "Unique identifier a fare class.",
+        "Unique identifier a rider category. Rider categories are used to assign different pricing to different groups of individuals",
+        "Text description of the rider category",
+        "Contains the fare price, in USD",
+        "Indicates when the fare must be paid. The following are valid values for this field: -  during: Indicates the fare is paid when riders board -  before: Indicates fare must be paid before riders board",
+        "Specifies the number of transfers permitted on this fare.  -  0: No transfers are permitted on this fare. -  1: One transfer is permitted on this fare. -  2: Two transfers are permitted on this fare. -  NULL: Unlimited transfers are permitted on this fare.",
+        "Specifies the length of time, in seconds, before a transfer expires. When used with a transfers_permitted value of 0, the transfer_duration field indicates how long a ticket is valid for a fare where no transfers are allowed."
+    ],
+    "sample_rows": [
+        {
+            "fare_id": "5398",
+            "rider_id": "6",
+            "rider_desc": "Disabled",
+            "price": "3.000000000",
+            "payment_method": "0",
+            "transfers_permitted": null,
+            "transfer_duration": 5400
+        },
+        {
+            "fare_id": "5398",
+            "rider_id": "5",
+            "rider_desc": "Youth",
+            "price": "3.000000000",
+            "payment_method": "0",
+            "transfers_permitted": null,
+            "transfer_duration": 5400
+        },
+        {
+            "fare_id": "5398",
+            "rider_id": "3",
+            "rider_desc": "Child",
+            "price": "3.000000000",
+            "payment_method": "0",
+            "transfers_permitted": null,
+            "transfer_duration": 5400
+        },
+        {
+            "fare_id": "5398",
+            "rider_id": "2",
+            "rider_desc": "Senior",
+            "price": "3.000000000",
+            "payment_method": "0",
+            "transfers_permitted": null,
+            "transfer_duration": 5400
+        },
+        {
+            "fare_id": "5399",
+            "rider_id": "6",
+            "rider_desc": "Disabled",
+            "price": "7.000000000",
+            "payment_method": "0",
+            "transfers_permitted": "0.0",
+            "transfer_duration": 0
+        }
+    ]
+}

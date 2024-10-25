@@ -1,0 +1,57 @@
+## REGEXP_CONTAINS
+
+REGEXP_CONTAINS(value, regexp)
+
+**Description**
+
+Returns ` TRUE ` if ` value ` is a partial match for the regular expression, `
+regexp ` .
+
+If the ` regexp ` argument is invalid, the function returns an error.
+
+You can search for a full match by using ` ^ ` (beginning of text) and ` $ `
+(end of text). Due to regular expression operator precedence, it is good practice to use parentheses around everything between ` ^ ` and ` $ ` .
+
+**Note:** GoogleSQL provides regular expression support using the [ re2
+](https://github.com/google/re2/wiki/Syntax) library; see that documentation for its regular expression syntax.
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+
+SELECT email,
+REGEXP_CONTAINS(email, r'@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+') AS is_valid FROM (SELECT
+['foo@example.com', 'bar@example.org', 'www.example.net']
+AS addresses),
+UNNEST(addresses) AS email;
+
+/*-----------------+----------*
+| email           | is_valid |
++-----------------+----------+
+| foo@example.com | true     |
+| bar@example.org | true     |
+| www.example.net | false    |
+*-----------------+----------*/
+
+-- Performs a full match, using ^ and $. Due to regular expression operator
+-- precedence, it is good practice to use parentheses around everything between ^
+-- and $.
+SELECT email,
+REGEXP_CONTAINS(email, r'^([\w.+-]+@foo\.com|[\w.+-]+@bar\.org)$') AS valid_email_address,
+REGEXP_CONTAINS(email, r'^[\w.+-]+@foo\.com|[\w.+-]+@bar\.org$') AS without_parentheses FROM (SELECT
+['a@foo.com', 'a@foo.computer', 'b@bar.org', '!b@bar.org', 'c@buz.net']
+AS addresses),
+UNNEST(addresses) AS email;
+
+/*----------------+---------------------+---------------------*
+| email          | valid_email_address | without_parentheses |
++----------------+---------------------+---------------------+
+| a@foo.com      | true                | true                |
+| a@foo.computer | false               | true                |
+| b@bar.org      | true                | true                |
+| !b@bar.org     | false               | true                |
+| c@buz.net      | false               | false               |
+*----------------+---------------------+---------------------*/

@@ -1,0 +1,21 @@
+## SAFE_SUBTRACT
+
+SAFE_SUBTRACT(X, Y)
+
+**Description**
+
+Returns the result of Y subtracted from X. Equivalent to the subtraction operator ( ` - ` ), but returns ` NULL ` if overflow occurs.
+
+X  |  Y  |  SAFE_SUBTRACT(X, Y)
+---|---|---
+5  |  4  |  1
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+` INT64 ` |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` NUMERIC ` |  ` NUMERIC ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  ` BIGNUMERIC ` |  `
+FLOAT64 `
+` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 ` |  ` FLOAT64 `

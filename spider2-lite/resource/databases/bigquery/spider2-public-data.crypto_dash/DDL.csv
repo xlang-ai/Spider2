@@ -1,0 +1,68 @@
+table_name,ddl
+blocks,"CREATE TABLE `spider2-public-data.crypto_dash.blocks`
+(
+  `hash` STRING,
+  size INT64,
+  stripped_size INT64,
+  weight INT64,
+  number INT64,
+  version INT64,
+  merkle_root STRING,
+  timestamp TIMESTAMP,
+  timestamp_month DATE,
+  nonce STRING,
+  bits STRING,
+  coinbase_param STRING,
+  transaction_count INT64
+);"
+outputs,"CREATE TABLE `spider2-public-data.crypto_dash.outputs`
+(
+  transaction_hash STRING,
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  index INT64,
+  script_asm STRING,
+  script_hex STRING,
+  required_signatures INT64,
+  type STRING,
+  addresses ARRAY<STRING>,
+  value NUMERIC
+);"
+transactions,"CREATE TABLE `spider2-public-data.crypto_dash.transactions`
+(
+  `hash` STRING,
+  size INT64,
+  virtual_size INT64,
+  version INT64,
+  lock_time INT64,
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  block_timestamp_month DATE,
+  input_count INT64,
+  output_count INT64,
+  input_value NUMERIC,
+  output_value NUMERIC,
+  is_coinbase BOOL,
+  fee NUMERIC,
+  inputs ARRAY<STRUCT<index INT64, spent_transaction_hash STRING, spent_output_index INT64, script_asm STRING, script_hex STRING, sequence INT64, required_signatures INT64, type STRING, addresses ARRAY<STRING>, value NUMERIC>>,
+  outputs ARRAY<STRUCT<index INT64, script_asm STRING, script_hex STRING, required_signatures INT64, type STRING, addresses ARRAY<STRING>, value NUMERIC>>
+);"
+inputs,"CREATE TABLE `spider2-public-data.crypto_dash.inputs`
+(
+  transaction_hash STRING,
+  block_hash STRING,
+  block_number INT64,
+  block_timestamp TIMESTAMP,
+  index INT64,
+  spent_transaction_hash STRING,
+  spent_output_index INT64,
+  script_asm STRING,
+  script_hex STRING,
+  sequence INT64,
+  required_signatures INT64,
+  type STRING,
+  addresses ARRAY<STRING>,
+  value NUMERIC
+);"

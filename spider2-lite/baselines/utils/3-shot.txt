@@ -1,0 +1,85 @@
+/* Some example questions and corresponding SQL queries are provided as follows: */
+/* Question: How many US patent applications about IoT applications were filed each month from 2008 to 2022? */
+/* SQL query: */
+WITH
+  Patent_Matches AS (
+    SELECT
+      PARSE_DATE('%Y%m%d', SAFE_CAST(ANY_VALUE(patentsdb.filing_date) AS STRING)) AS Patent_Filing_Date,
+      patentsdb.application_number AS Patent_Application_Number,
+      ANY_VALUE(abstract_info.text) AS Patent_Title,
+      ANY_VALUE(abstract_info.language) AS Patent_Title_Language
+    FROM
+      publications AS patentsdb,
+      UNNEST(abstract_localized) AS abstract_info
+    WHERE
+      LOWER(abstract_info.text) LIKE '%internet of things%'
+      AND patentsdb.country_code = 'US'
+    GROUP BY
+      Patent_Application_Number
+  ),
+
+  Date_Series_Table AS (
+    SELECT
+      day,
+      0 AS Number_of_Patents
+    FROM
+      UNNEST(GENERATE_DATE_ARRAY(
+        DATE '2008-01-01', 
+        DATE '2022-12-31'
+      )) AS day
+  )
+SELECT
+  SAFE_CAST(FORMAT_DATE('%Y-%m', Date_Series_Table.day) AS STRING) AS Patent_Date_YearMonth,
+  COUNT(Patent_Matches.Patent_Application_Number) AS Number_of_Patent_Applications
+FROM
+  Date_Series_Table
+  LEFT JOIN Patent_Matches
+    ON Date_Series_Table.day = Patent_Matches.Patent_Filing_Date
+GROUP BY
+  Patent_Date_YearMonth
+ORDER BY
+  Patent_Date_YearMonth;
+
+/* Question: Which month generally has the greatest number of motor vehicle thefts in 2016? */
+/* SQL query: */
+SELECT
+  incidents AS highest_monthly_thefts
+FROM (
+  SELECT
+    year,
+    EXTRACT(MONTH FROM date) AS month,
+    COUNT(1) AS incidents,
+    RANK() OVER (PARTITION BY year ORDER BY COUNT(1) DESC) AS ranking
+  FROM
+    crime
+  WHERE
+    primary_type = 'MOTOR VEHICLE THEFT'
+    AND year = 2016
+  GROUP BY
+    year,
+    month
+)
+WHERE
+  ranking = 1
+ORDER BY
+  year DESC
+LIMIT 1;
+
+/* Question: How does average reputation and badge count vary among Stack Overflow users based on their tenure, measured in years? */
+/* SQL query: */
+SELECT User_Tenure,
+       COUNT(1) AS Num_Users,
+       ROUND(AVG(reputation)) AS Avg_Reputation,
+       ROUND(AVG(num_badges)) AS Avg_Num_Badges
+FROM (
+  SELECT users.id AS user,
+         ROUND(TIMESTAMP_DIFF(CURRENT_TIMESTAMP(), ANY_VALUE(users.creation_date), DAY)/365) AS user_tenure,
+         ANY_VALUE(users.reputation) AS reputation,
+         SUM(IF(badges.user_id IS NULL, 0, 1)) AS num_badges
+  FROM users
+  LEFT JOIN badges
+  ON users.id = badges.user_id
+  GROUP BY user
+)
+GROUP BY User_Tenure
+ORDER BY User_Tenure

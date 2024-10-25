@@ -1,0 +1,83 @@
+## APPROX_TOP_SUM
+
+APPROX_TOP_SUM( expression, weight, number )
+
+**Description**
+
+Returns the approximate top elements of ` expression ` , based on the sum of an assigned ` weight ` . The ` number ` parameter specifies the number of elements returned.
+
+If the ` weight ` input is negative or ` NaN ` , this function returns an error.
+
+The elements are returned as an array of ` STRUCT ` s. Each ` STRUCT `
+contains two fields: ` value ` and ` sum ` . The ` value ` field contains the value of the input expression. The ` sum ` field is the same type as ` weight
+` , and is the approximate sum of the input weight associated with the ` value
+` field.
+
+Returns ` NULL ` if there are zero input rows.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* ` expression ` : Any data type that the ` GROUP BY ` clause supports.
+* ` weight ` : One of the following:
+
+* ` INT64 `
+* ` NUMERIC `
+* ` BIGNUMERIC `
+* ` FLOAT64 `
+* ` number ` : ` INT64 ` literal or query parameter.
+
+**Returned Data Types**
+
+` ARRAY<STRUCT> `
+
+**Examples**
+
+
+SELECT APPROX_TOP_SUM(x, weight, 2) AS approx_top_sum FROM UNNEST([
+STRUCT("apple" AS x, 3 AS weight),
+("pear", 2),
+("apple", 0),
+("banana", 5),
+("pear", 4)
+]);
+
+/*--------------------------*
+| approx_top_sum           |
++--------------------------+
+| [{pear, 6}, {banana, 5}] |
+*--------------------------*/
+
+**NULL handling**
+
+` APPROX_TOP_SUM ` does not ignore ` NULL ` values for the ` expression ` and
+` weight ` parameters.
+
+
+SELECT APPROX_TOP_SUM(x, weight, 2) AS approx_top_sum FROM UNNEST([STRUCT("apple" AS x, NULL AS weight), ("pear", 0), ("pear", NULL)]);
+
+/*----------------------------*
+| approx_top_sum             |
++----------------------------+
+| [{pear, 0}, {apple, NULL}] |
+*----------------------------*/
+
+
+SELECT APPROX_TOP_SUM(x, weight, 2) AS approx_top_sum FROM UNNEST([STRUCT("apple" AS x, 0 AS weight), (NULL, 2)]);
+
+/*-------------------------*
+| approx_top_sum          |
++-------------------------+
+| [{NULL, 2}, {apple, 0}] |
+*-------------------------*/
+
+
+SELECT APPROX_TOP_SUM(x, weight, 2) AS approx_top_sum FROM UNNEST([STRUCT("apple" AS x, 0 AS weight), (NULL, NULL)]);
+
+/*----------------------------*
+| approx_top_sum             |
++----------------------------+
+| [{apple, 0}, {NULL, NULL}] |
+*----------------------------*/

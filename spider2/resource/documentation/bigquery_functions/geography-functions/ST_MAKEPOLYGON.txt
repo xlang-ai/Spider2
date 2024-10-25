@@ -1,0 +1,43 @@
+## ST_MAKEPOLYGON
+
+ST_MAKEPOLYGON(polygon_shell[, array_of_polygon_holes])
+
+**Description**
+
+Creates a ` GEOGRAPHY ` containing a single polygon from linestring inputs,
+where each input linestring is used to construct a polygon ring.
+
+` ST_MAKEPOLYGON ` comes in two variants. For the first variant, the input linestring is provided by a single ` GEOGRAPHY ` containing exactly one linestring. For the second variant, the input consists of a single ` GEOGRAPHY
+` and an array of ` GEOGRAPHY ` s, each containing exactly one linestring.
+
+The first ` GEOGRAPHY ` in either variant is used to construct the polygon shell. Additional ` GEOGRAPHY ` s provided in the input ` ARRAY ` specify a polygon hole. For every input ` GEOGRAPHY ` containing exactly one linestring,
+the following must be true:
+
+* The linestring must consist of at least three distinct vertices.
+* The linestring must be closed: that is, the first and last vertex have to be the same. If the first and last vertex differ, the function constructs a final edge from the first vertex to the last.
+
+For the first variant of ` ST_MAKEPOLYGON ` , if either input ` GEOGRAPHY ` is
+` NULL ` , ` ST_MAKEPOLYGON ` returns ` NULL ` . For the second variant, if input ` ARRAY ` or any element in the ` ARRAY ` is ` NULL ` , ` ST_MAKEPOLYGON
+` returns ` NULL ` .
+
+NOTE: ` ST_MAKEPOLYGON ` accepts an empty ` GEOGRAPHY ` as input. `
+ST_MAKEPOLYGON ` interprets an empty ` GEOGRAPHY ` as having an empty linestring, which will create a full loop: that is, a polygon that covers the entire Earth.
+
+**Constraints**
+
+Together, the input rings must form a valid polygon:
+
+* The polygon shell must cover each of the polygon holes.
+* There can be only one polygon shell (which has to be the first input ring). This implies that polygon holes cannot be nested.
+* Polygon rings may only intersect in a vertex on the boundary of both rings.
+
+Every edge must span strictly less than 180 degrees.
+
+Each polygon ring divides the sphere into two regions. The first input linesting to ` ST_MAKEPOLYGON ` forms the polygon shell, and the interior is chosen to be the smaller of the two regions. Each subsequent input linestring specifies a polygon hole, so the interior of the polygon is already well-
+defined. In order to define a polygon shell such that the interior of the polygon is the larger of the two regions, see  ` ST_MAKEPOLYGONORIENTED ` .
+
+NOTE: The GoogleSQL snapping process may discard sufficiently short edges and snap the two endpoints together. Hence, when vertices are snapped together, it is possible that a polygon hole that is sufficiently small may disappear, or the output ` GEOGRAPHY ` may contain only a line or a point.
+
+**Return type**
+
+` GEOGRAPHY `

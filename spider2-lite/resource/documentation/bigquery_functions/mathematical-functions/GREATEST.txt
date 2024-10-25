@@ -1,0 +1,19 @@
+## GREATEST
+
+GREATEST(X1,...,XN)
+
+**Description**
+
+Returns the greatest value among ` X1,...,XN ` . If any argument is ` NULL ` ,
+returns ` NULL ` . Otherwise, in the case of floating-point arguments, if any argument is ` NaN ` , returns ` NaN ` . In all other cases, returns the value among ` X1,...,XN ` that has the greatest value according to the ordering used by the ` ORDER BY ` clause. The arguments ` X1, ..., XN ` must be coercible to a common supertype, and the supertype must support ordering.
+
+X1,...,XN  |  GREATEST(X1,...,XN)
+---|---
+3,5,1  |  5
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return Data Types**
+
+Data type of the input values.

@@ -1,0 +1,62 @@
+## ST_GEOGFROMTEXT
+
+ST_GEOGFROMTEXT( wkt_string
+[ , oriented => value ]
+[ , planar => value ]
+[ , make_valid => value ]
+)
+
+**Description**
+
+Converts a ` STRING ` [ WKT ](https://en.wikipedia.org/wiki/Well-known_text) geometry value into a ` GEOGRAPHY ` value.
+
+To format ` GEOGRAPHY ` value as WKT, use  ` ST_ASTEXT ` .
+
+**Definitions**
+
+* ` wkt_string ` : A ` STRING ` value that contains the [ WKT ](https://en.wikipedia.org/wiki/Well-known_text) format.
+* ` oriented ` : A named argument with a ` BOOL ` literal.
+
+* If the value is ` TRUE ` , any polygons in the input are assumed to be oriented as follows: when traveling along the boundary of the polygon in the order of the input vertices, the interior of the polygon is on the left. This allows WKT to represent polygons larger than a hemisphere. See also  ` ST_MAKEPOLYGONORIENTED ` , which is similar to ` ST_GEOGFROMTEXT ` with ` oriented=TRUE ` .
+
+* If the value is ` FALSE ` or omitted, this function returns the polygon with the smaller area.
+
+* ` planar ` : A named argument with a ` BOOL ` literal. If the value is ` TRUE ` , the edges of the linestrings and polygons are assumed to use planar map semantics, rather than GoogleSQL default spherical geodesics semantics. For more information about the differences between spherical geodesics and planar lines, see [ Coordinate systems and edges ](/bigquery/docs/gis-data#coordinate_systems_and_edges) .
+
+* ` make_valid ` : A named argument with a ` BOOL ` literal. If the value is ` TRUE ` , the function attempts to repair polygons that don't conform to [ Open Geospatial Consortium ](https://www.ogc.org/standards/sfa) semantics.
+
+**Details**
+
+* The function does not support three-dimensional geometries that have a ` Z ` suffix, nor does it support linear referencing system geometries with an ` M ` suffix.
+* ` oriented ` and ` planar ` can't be ` TRUE ` at the same time.
+* ` oriented ` and ` make_valid ` can't be ` TRUE ` at the same time.
+
+**Example**
+
+The following query reads the WKT string ` POLYGON((0 0, 0 2, 2 2, 0 2, 0 0))
+` both as a non-oriented polygon and as an oriented polygon, and checks whether each result contains the point ` (1, 1) ` .
+
+
+WITH polygon AS (SELECT 'POLYGON((0 0, 0 2, 2 2, 2 0, 0 0))' AS p) SELECT ST_CONTAINS(ST_GEOGFROMTEXT(p), ST_GEOGPOINT(1, 1)) AS fromtext_default,
+ST_CONTAINS(ST_GEOGFROMTEXT(p, oriented => FALSE), ST_GEOGPOINT(1, 1)) AS non_oriented,
+ST_CONTAINS(ST_GEOGFROMTEXT(p, oriented => TRUE),  ST_GEOGPOINT(1, 1)) AS oriented FROM polygon;
+
+/*-------------------+---------------+-----------*
+| fromtext_default  | non_oriented  | oriented  |
++-------------------+---------------+-----------+
+| TRUE              | TRUE          | FALSE     |
+*-------------------+---------------+-----------*/
+
+The following query converts a WKT string with an invalid polygon to `
+GEOGRAPHY ` . The WKT string violates two properties of a valid polygon - the loop describing the polygon is not closed, and it contains self-intersection.
+With the ` make_valid ` option, ` ST_GEOGFROMTEXT ` successfully converts it to a multipolygon shape.
+
+
+WITH data AS ( SELECT 'POLYGON((0 -1, 2 1, 2 -1, 0 1))' wkt) SELECT SAFE.ST_GEOGFROMTEXT(wkt) as geom,
+SAFE.ST_GEOGFROMTEXT(wkt, make_valid => TRUE) as valid_geom FROM data
+
+/*------+-----------------------------------------------------------------*
+| geom | valid_geom                                                      |
++------+-----------------------------------------------------------------+
+| NULL | MULTIPOLYGON(((0 -1, 1 0, 0 1, 0 -1)), ((1 0, 2 -1, 2 1, 1 0))) |
+*------+-----------------------------------------------------------------*/

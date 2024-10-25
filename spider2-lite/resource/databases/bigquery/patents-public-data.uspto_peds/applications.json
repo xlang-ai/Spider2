@@ -1,0 +1,311 @@
+{
+    "table_name": "applications",
+    "table_fullname": "patents-public-data.uspto_peds.applications",
+    "column_names": [
+        "patentCaseMetadata",
+        "prosecutionHistoryDataOrPatentTermData"
+    ],
+    "column_types": [
+        "STRUCT<applicantFileReference STRING, applicationConfirmationNumber STRING, applicationNumberText STRUCT<electronicText STRING, value STRING>, applicationStatusCategory STRING, applicationStatusDate STRING, applicationTypeCategory STRING, businessEntityStatusCategory STRING, filingDate STRING, firstInventorToFileIndicator BOOL, groupArtUnitNumber STRUCT<electronicText STRING, value STRING>, hagueAgreementData STRUCT<internationalFilingDate STRING, internationalRegistrationNumber STRING>, inventionTitle STRUCT<content ARRAY<STRING>>, officialFileLocationCategory STRING, officialFileLocationDate STRING, partyBag STRUCT<applicantBagOrInventorBagOrOwnerBag ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>>, patentClassificationBag STRUCT<cpcClassificationBagOrIPCClassificationOrECLAClassificationBag ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>>, patentGrantIdentification STRUCT<grantDate STRING, patentNumber STRING>, relatedPatentPublicationIdentification STRUCT<publicationDate STRING, publicationNumber STRING>>",
+        "ARRAY<STRUCT<caseActionDescriptionText STRING, recordedDate STRING>>"
+    ],
+    "nested_column_names": [
+        "patentCaseMetadata",
+        "patentCaseMetadata.applicantFileReference",
+        "patentCaseMetadata.applicationConfirmationNumber",
+        "patentCaseMetadata.applicationNumberText",
+        "patentCaseMetadata.applicationNumberText.electronicText",
+        "patentCaseMetadata.applicationNumberText.value",
+        "patentCaseMetadata.applicationStatusCategory",
+        "patentCaseMetadata.applicationStatusDate",
+        "patentCaseMetadata.applicationTypeCategory",
+        "patentCaseMetadata.businessEntityStatusCategory",
+        "patentCaseMetadata.filingDate",
+        "patentCaseMetadata.firstInventorToFileIndicator",
+        "patentCaseMetadata.groupArtUnitNumber",
+        "patentCaseMetadata.groupArtUnitNumber.electronicText",
+        "patentCaseMetadata.groupArtUnitNumber.value",
+        "patentCaseMetadata.hagueAgreementData",
+        "patentCaseMetadata.hagueAgreementData.internationalFilingDate",
+        "patentCaseMetadata.hagueAgreementData.internationalRegistrationNumber",
+        "patentCaseMetadata.inventionTitle",
+        "patentCaseMetadata.inventionTitle.content",
+        "patentCaseMetadata.officialFileLocationCategory",
+        "patentCaseMetadata.officialFileLocationDate",
+        "patentCaseMetadata.partyBag",
+        "patentCaseMetadata.partyBag.applicantBagOrInventorBagOrOwnerBag",
+        "patentCaseMetadata.partyBag.applicantBagOrInventorBagOrOwnerBag.primaryExaminerOrAssistantExaminerOrAuthorizedOfficer",
+        "patentCaseMetadata.partyBag.applicantBagOrInventorBagOrOwnerBag.primaryExaminerOrAssistantExaminerOrAuthorizedOfficer.name",
+        "patentCaseMetadata.partyBag.applicantBagOrInventorBagOrOwnerBag.primaryExaminerOrAssistantExaminerOrAuthorizedOfficer.name.personNameOrOrganizationNameOrEntityName",
+        "patentCaseMetadata.partyBag.applicantBagOrInventorBagOrOwnerBag.primaryExaminerOrAssistantExaminerOrAuthorizedOfficer.name.personNameOrOrganizationNameOrEntityName.personFullName",
+        "patentCaseMetadata.patentClassificationBag",
+        "patentCaseMetadata.patentClassificationBag.cpcClassificationBagOrIPCClassificationOrECLAClassificationBag",
+        "patentCaseMetadata.patentClassificationBag.cpcClassificationBagOrIPCClassificationOrECLAClassificationBag.mainNationalClassification",
+        "patentCaseMetadata.patentClassificationBag.cpcClassificationBagOrIPCClassificationOrECLAClassificationBag.mainNationalClassification.nationalClass",
+        "patentCaseMetadata.patentClassificationBag.cpcClassificationBagOrIPCClassificationOrECLAClassificationBag.mainNationalClassification.nationalSubclass",
+        "patentCaseMetadata.patentGrantIdentification",
+        "patentCaseMetadata.patentGrantIdentification.grantDate",
+        "patentCaseMetadata.patentGrantIdentification.patentNumber",
+        "patentCaseMetadata.relatedPatentPublicationIdentification",
+        "patentCaseMetadata.relatedPatentPublicationIdentification.publicationDate",
+        "patentCaseMetadata.relatedPatentPublicationIdentification.publicationNumber",
+        "prosecutionHistoryDataOrPatentTermData",
+        "prosecutionHistoryDataOrPatentTermData.caseActionDescriptionText",
+        "prosecutionHistoryDataOrPatentTermData.recordedDate"
+    ],
+    "nested_column_types": [
+        "STRUCT<applicantFileReference STRING, applicationConfirmationNumber STRING, applicationNumberText STRUCT<electronicText STRING, value STRING>, applicationStatusCategory STRING, applicationStatusDate STRING, applicationTypeCategory STRING, businessEntityStatusCategory STRING, filingDate STRING, firstInventorToFileIndicator BOOL, groupArtUnitNumber STRUCT<electronicText STRING, value STRING>, hagueAgreementData STRUCT<internationalFilingDate STRING, internationalRegistrationNumber STRING>, inventionTitle STRUCT<content ARRAY<STRING>>, officialFileLocationCategory STRING, officialFileLocationDate STRING, partyBag STRUCT<applicantBagOrInventorBagOrOwnerBag ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>>, patentClassificationBag STRUCT<cpcClassificationBagOrIPCClassificationOrECLAClassificationBag ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>>, patentGrantIdentification STRUCT<grantDate STRING, patentNumber STRING>, relatedPatentPublicationIdentification STRUCT<publicationDate STRING, publicationNumber STRING>>",
+        "STRING",
+        "STRING",
+        "STRUCT<electronicText STRING, value STRING>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "BOOL",
+        "STRUCT<electronicText STRING, value STRING>",
+        "STRING",
+        "STRING",
+        "STRUCT<internationalFilingDate STRING, internationalRegistrationNumber STRING>",
+        "STRING",
+        "STRING",
+        "STRUCT<content ARRAY<STRING>>",
+        "ARRAY<STRING>",
+        "STRING",
+        "STRING",
+        "STRUCT<applicantBagOrInventorBagOrOwnerBag ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>>",
+        "ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>",
+        "ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>",
+        "STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>",
+        "ARRAY<STRUCT<personFullName STRING>>",
+        "STRING",
+        "STRUCT<cpcClassificationBagOrIPCClassificationOrECLAClassificationBag ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>>",
+        "ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>",
+        "STRUCT<nationalClass STRING, nationalSubclass STRING>",
+        "STRING",
+        "STRING",
+        "STRUCT<grantDate STRING, patentNumber STRING>",
+        "STRING",
+        "STRING",
+        "STRUCT<publicationDate STRING, publicationNumber STRING>",
+        "STRING",
+        "STRING",
+        "ARRAY<STRUCT<caseActionDescriptionText STRING, recordedDate STRING>>",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "patentCaseMetadata": {
+                "applicantFileReference": null,
+                "applicationConfirmationNumber": null,
+                "applicationNumberText": {
+                    "electronicText": "PCT/KR13/10479",
+                    "value": "PCT/KR13/10479"
+                },
+                "applicationStatusCategory": null,
+                "applicationStatusDate": null,
+                "applicationTypeCategory": null,
+                "businessEntityStatusCategory": null,
+                "filingDate": null,
+                "firstInventorToFileIndicator": null,
+                "groupArtUnitNumber": null,
+                "hagueAgreementData": {
+                    "internationalFilingDate": "-",
+                    "internationalRegistrationNumber": "-"
+                },
+                "inventionTitle": null,
+                "officialFileLocationCategory": null,
+                "officialFileLocationDate": "-",
+                "partyBag": {
+                    "applicantBagOrInventorBagOrOwnerBag": "[{'primaryExaminerOrAssistantExaminerOrAuthorizedOfficer': array([{'name': {'personNameOrOrganizationNameOrEntityName': array([{'personFullName': None}], dtype=object)}}],\n       dtype=object)}                                                                                                                                                      ]"
+                },
+                "patentClassificationBag": {
+                    "cpcClassificationBagOrIPCClassificationOrECLAClassificationBag": "[{'mainNationalClassification': {'nationalClass': None, 'nationalSubclass': None}}]"
+                },
+                "patentGrantIdentification": null,
+                "relatedPatentPublicationIdentification": null
+            },
+            "prosecutionHistoryDataOrPatentTermData": "[]"
+        },
+        {
+            "patentCaseMetadata": {
+                "applicantFileReference": null,
+                "applicationConfirmationNumber": null,
+                "applicationNumberText": {
+                    "electronicText": "PCT/CA01/01324",
+                    "value": "PCT/CA01/01324"
+                },
+                "applicationStatusCategory": null,
+                "applicationStatusDate": null,
+                "applicationTypeCategory": null,
+                "businessEntityStatusCategory": null,
+                "filingDate": null,
+                "firstInventorToFileIndicator": null,
+                "groupArtUnitNumber": null,
+                "hagueAgreementData": {
+                    "internationalFilingDate": "-",
+                    "internationalRegistrationNumber": "-"
+                },
+                "inventionTitle": null,
+                "officialFileLocationCategory": null,
+                "officialFileLocationDate": "-",
+                "partyBag": {
+                    "applicantBagOrInventorBagOrOwnerBag": "[{'primaryExaminerOrAssistantExaminerOrAuthorizedOfficer': array([{'name': {'personNameOrOrganizationNameOrEntityName': array([{'personFullName': None}], dtype=object)}}],\n       dtype=object)}                                                                                                                                                      ]"
+                },
+                "patentClassificationBag": {
+                    "cpcClassificationBagOrIPCClassificationOrECLAClassificationBag": "[{'mainNationalClassification': {'nationalClass': None, 'nationalSubclass': None}}]"
+                },
+                "patentGrantIdentification": null,
+                "relatedPatentPublicationIdentification": null
+            },
+            "prosecutionHistoryDataOrPatentTermData": "[]"
+        },
+        {
+            "patentCaseMetadata": {
+                "applicantFileReference": null,
+                "applicationConfirmationNumber": null,
+                "applicationNumberText": {
+                    "electronicText": "PCT/SE00/02254",
+                    "value": "PCT/SE00/02254"
+                },
+                "applicationStatusCategory": null,
+                "applicationStatusDate": null,
+                "applicationTypeCategory": null,
+                "businessEntityStatusCategory": null,
+                "filingDate": null,
+                "firstInventorToFileIndicator": null,
+                "groupArtUnitNumber": null,
+                "hagueAgreementData": {
+                    "internationalFilingDate": "-",
+                    "internationalRegistrationNumber": "-"
+                },
+                "inventionTitle": null,
+                "officialFileLocationCategory": null,
+                "officialFileLocationDate": "-",
+                "partyBag": {
+                    "applicantBagOrInventorBagOrOwnerBag": "[{'primaryExaminerOrAssistantExaminerOrAuthorizedOfficer': array([{'name': {'personNameOrOrganizationNameOrEntityName': array([{'personFullName': None}], dtype=object)}}],\n       dtype=object)}                                                                                                                                                      ]"
+                },
+                "patentClassificationBag": {
+                    "cpcClassificationBagOrIPCClassificationOrECLAClassificationBag": "[{'mainNationalClassification': {'nationalClass': None, 'nationalSubclass': None}}]"
+                },
+                "patentGrantIdentification": null,
+                "relatedPatentPublicationIdentification": null
+            },
+            "prosecutionHistoryDataOrPatentTermData": "[]"
+        },
+        {
+            "patentCaseMetadata": {
+                "applicantFileReference": null,
+                "applicationConfirmationNumber": null,
+                "applicationNumberText": {
+                    "electronicText": "PCT/GB12/52611",
+                    "value": "PCT/GB12/52611"
+                },
+                "applicationStatusCategory": null,
+                "applicationStatusDate": null,
+                "applicationTypeCategory": null,
+                "businessEntityStatusCategory": null,
+                "filingDate": null,
+                "firstInventorToFileIndicator": null,
+                "groupArtUnitNumber": null,
+                "hagueAgreementData": {
+                    "internationalFilingDate": "-",
+                    "internationalRegistrationNumber": "-"
+                },
+                "inventionTitle": null,
+                "officialFileLocationCategory": null,
+                "officialFileLocationDate": "-",
+                "partyBag": {
+                    "applicantBagOrInventorBagOrOwnerBag": "[{'primaryExaminerOrAssistantExaminerOrAuthorizedOfficer': array([{'name': {'personNameOrOrganizationNameOrEntityName': array([{'personFullName': None}], dtype=object)}}],\n       dtype=object)}                                                                                                                                                      ]"
+                },
+                "patentClassificationBag": {
+                    "cpcClassificationBagOrIPCClassificationOrECLAClassificationBag": "[{'mainNationalClassification': {'nationalClass': None, 'nationalSubclass': None}}]"
+                },
+                "patentGrantIdentification": null,
+                "relatedPatentPublicationIdentification": null
+            },
+            "prosecutionHistoryDataOrPatentTermData": "[]"
+        },
+        {
+            "patentCaseMetadata": {
+                "applicantFileReference": null,
+                "applicationConfirmationNumber": null,
+                "applicationNumberText": {
+                    "electronicText": "PCT/JP2012/069381",
+                    "value": "PCT/JP2012/069381"
+                },
+                "applicationStatusCategory": null,
+                "applicationStatusDate": null,
+                "applicationTypeCategory": null,
+                "businessEntityStatusCategory": null,
+                "filingDate": null,
+                "firstInventorToFileIndicator": null,
+                "groupArtUnitNumber": null,
+                "hagueAgreementData": {
+                    "internationalFilingDate": "-",
+                    "internationalRegistrationNumber": "-"
+                },
+                "inventionTitle": null,
+                "officialFileLocationCategory": null,
+                "officialFileLocationDate": "-",
+                "partyBag": {
+                    "applicantBagOrInventorBagOrOwnerBag": "[{'primaryExaminerOrAssistantExaminerOrAuthorizedOfficer': array([{'name': {'personNameOrOrganizationNameOrEntityName': array([{'personFullName': None}], dtype=object)}}],\n       dtype=object)}                                                                                                                                                      ]"
+                },
+                "patentClassificationBag": {
+                    "cpcClassificationBagOrIPCClassificationOrECLAClassificationBag": "[{'mainNationalClassification': {'nationalClass': None, 'nationalSubclass': None}}]"
+                },
+                "patentGrantIdentification": null,
+                "relatedPatentPublicationIdentification": null
+            },
+            "prosecutionHistoryDataOrPatentTermData": "[]"
+        }
+    ]
+}

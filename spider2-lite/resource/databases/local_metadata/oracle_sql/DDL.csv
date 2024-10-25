@@ -1,0 +1,201 @@
+table_name,DDL
+customers,"CREATE TABLE customers (
+    id INTEGER,
+    name TEXT
+);"
+conway_gen_zero,"CREATE TABLE conway_gen_zero (
+    x INTEGER,
+    y INTEGER,
+    alive INTEGER
+);"
+web_devices,"CREATE TABLE web_devices (
+    day ,
+    pc INTEGER,
+    tablet INTEGER,
+    phone INTEGER
+);"
+web_demographics,"CREATE TABLE web_demographics (
+    day ,
+    m_tw_cnt INTEGER,
+    m_tw_qty INTEGER,
+    m_fb_cnt INTEGER,
+    m_fb_qty INTEGER,
+    f_tw_cnt INTEGER,
+    f_tw_qty INTEGER,
+    f_fb_cnt INTEGER,
+    f_fb_qty INTEGER
+);"
+channels_dim,"CREATE TABLE channels_dim (
+    id INTEGER,
+    name TEXT,
+    shortcut TEXT
+);"
+gender_dim,"CREATE TABLE gender_dim (
+    letter TEXT,
+    name TEXT
+);"
+packaging,"CREATE TABLE packaging (
+    id INTEGER,
+    name TEXT
+);"
+packaging_relations,"CREATE TABLE packaging_relations (
+    packaging_id INTEGER,
+    contains_id INTEGER,
+    qty INTEGER
+);"
+product_groups,"CREATE TABLE product_groups (
+    id INTEGER,
+    name TEXT
+);"
+products,"CREATE TABLE products (
+    id INTEGER,
+    name TEXT,
+    group_id INTEGER
+);"
+monthly_sales,"CREATE TABLE monthly_sales (
+    product_id INTEGER,
+    mth TEXT,
+    qty INTEGER
+);"
+breweries,"CREATE TABLE breweries (
+    id INTEGER,
+    name TEXT
+);"
+purchases,"CREATE TABLE purchases (
+    id INTEGER,
+    purchased TEXT,
+    brewery_id INTEGER,
+    product_id INTEGER,
+    qty INTEGER,
+    cost REAL
+);"
+product_alcohol,"CREATE TABLE product_alcohol (
+    product_id INTEGER,
+    sales_volume REAL,
+    abv REAL
+);"
+customer_favorites,"CREATE TABLE customer_favorites (
+    customer_id INTEGER,
+    favorite_list TEXT
+);"
+customer_reviews,"CREATE TABLE customer_reviews (
+    customer_id INTEGER,
+    review_list TEXT
+);"
+locations,"CREATE TABLE locations (
+    id INTEGER,
+    warehouse INTEGER,
+    aisle TEXT,
+    position INTEGER
+);"
+inventory,"CREATE TABLE inventory (
+    id INTEGER,
+    location_id INTEGER,
+    product_id INTEGER,
+    purchase_id INTEGER,
+    qty REAL
+);"
+orders,"CREATE TABLE orders (
+    id INTEGER,
+    customer_id INTEGER,
+    ordered TEXT,
+    delivery TEXT
+);"
+orderlines,"CREATE TABLE orderlines (
+    id INTEGER,
+    order_id INTEGER,
+    product_id INTEGER,
+    qty REAL,
+    amount REAL
+);"
+monthly_budget,"CREATE TABLE monthly_budget (
+    product_id INTEGER,
+    mth TEXT,
+    qty REAL
+);"
+product_minimums,"CREATE TABLE product_minimums (
+    product_id INTEGER,
+    qty_minimum REAL,
+    qty_purchase REAL
+);"
+stock,"CREATE TABLE stock (
+    symbol TEXT,
+    company TEXT
+);"
+ticker,"CREATE TABLE ticker (
+    symbol TEXT,
+    day TEXT,
+    price REAL
+);"
+web_apps,"CREATE TABLE web_apps (
+    id INTEGER,
+    name TEXT
+);"
+web_pages,"CREATE TABLE web_pages (
+    app_id INTEGER,
+    page_no INTEGER,
+    friendly_url TEXT
+);"
+web_counter_hist,"CREATE TABLE web_counter_hist (
+    app_id INTEGER,
+    page_no INTEGER,
+    day TEXT,
+    counter INTEGER
+);"
+server_heartbeat,"CREATE TABLE server_heartbeat (
+    server TEXT,
+    beat_time TEXT
+);"
+web_page_visits,"CREATE TABLE web_page_visits (
+    client_ip TEXT,
+    visit_time TEXT,
+    app_id INTEGER,
+    page_no INTEGER
+);"
+employees,"CREATE TABLE employees (
+    id INTEGER,
+    name TEXT,
+    title TEXT,
+    supervisor_id INTEGER
+);"
+emp_hire_periods,"CREATE TABLE emp_hire_periods (
+    emp_id INTEGER,
+    start_ TEXT,
+    end_ TEXT,
+    title TEXT
+);"
+picking_list,"CREATE TABLE picking_list (
+    id INTEGER,
+    created TEXT,
+    picker_emp_id INTEGER
+);"
+picking_line,"CREATE TABLE picking_line (
+    picklist_id INTEGER,
+    line_no INTEGER,
+    location_id INTEGER,
+    order_id INTEGER,
+    product_id INTEGER,
+    qty REAL
+);"
+picking_log,"CREATE TABLE picking_log (
+    picklist_id INTEGER,
+    log_time TEXT,
+    activity TEXT,
+    location_id INTEGER,
+    pickline_no INTEGER
+);"
+id_name_type,"CREATE TABLE id_name_type (
+    id INTEGER,
+    name TEXT
+);"
+id_name_coll_type,"CREATE TABLE id_name_coll_type (
+    collection_id INTEGER
+);"
+id_name_coll_entries,"CREATE TABLE id_name_coll_entries (
+    collection_id INTEGER,
+    id INTEGER,
+    name TEXT
+);"
+favorite_coll_type,"CREATE TABLE favorite_coll_type (
+    id INTEGER
+);"

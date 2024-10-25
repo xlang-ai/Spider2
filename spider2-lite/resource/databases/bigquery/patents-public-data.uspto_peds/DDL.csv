@@ -1,0 +1,93 @@
+table_name,ddl
+match_201710,"CREATE TABLE `patents-public-data.uspto_peds.match_201710`
+(
+  applicationNumberText STRING,
+  application_number STRING
+);"
+backfile,"CREATE TABLE `patents-public-data.uspto_peds.backfile`
+(
+  fileName STRING OPTIONS(description=""PEDS API source""),
+  applicationNumber STRING,
+  prosecutionHistoryData STRING,
+  applicationNumberText STRING,
+  filingDate STRING,
+  applicationTypeCategory STRING,
+  partyBag STRING,
+  groupArtUnitNumber STRING,
+  applicationConfirmationNumber STRING,
+  applicantFileReference STRING,
+  priorityClaimBag STRING,
+  patentClassificationBag STRING,
+  businessEntityStatusCategory STRING,
+  firstInventorToFileIndicator STRING,
+  inventionTitle STRING,
+  applicationStatusCategory STRING,
+  applicationStatusDate STRING,
+  officialFileLocationCategory STRING,
+  officialFileLocationDate STRING,
+  patentGrantIdentification STRING,
+  publication_number STRING
+);"
+frontfile,"CREATE TABLE `patents-public-data.uspto_peds.frontfile`
+(
+  fileName STRING OPTIONS(description=""PEDS API source""),
+  applicationNumber STRING,
+  prosecutionHistoryData STRING,
+  applicationNumberText STRING,
+  filingDate STRING,
+  applicationTypeCategory STRING,
+  partyBag STRING,
+  groupArtUnitNumber STRING,
+  applicationConfirmationNumber STRING,
+  applicantFileReference STRING,
+  priorityClaimBag STRING,
+  patentClassificationBag STRING,
+  businessEntityStatusCategory STRING,
+  firstInventorToFileIndicator STRING,
+  inventionTitle STRING,
+  applicationStatusCategory STRING,
+  applicationStatusDate STRING,
+  officialFileLocationCategory STRING,
+  officialFileLocationDate STRING,
+  patentGrantIdentification STRING,
+  publication_number STRING
+);"
+applications_201710,"CREATE TABLE `patents-public-data.uspto_peds.applications_201710`
+(
+  patentCaseMetadata STRUCT<applicantFileReference STRING, applicationConfirmationNumber STRING, applicationNumberText STRUCT<electronicText STRING, value STRING>, applicationStatusCategory STRING, applicationStatusDate STRING, applicationTypeCategory STRING, businessEntityStatusCategory STRING, filingDate STRING, firstInventorToFileIndicator BOOL, groupArtUnitNumber STRUCT<electronicText STRING, value STRING>, hagueAgreementData STRUCT<internationalFilingDate STRING, internationalRegistrationNumber STRING>, inventionTitle STRUCT<content ARRAY<STRING>>, officialFileLocationCategory STRING, officialFileLocationDate STRING, partyBag STRUCT<applicantBagOrInventorBagOrOwnerBag ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>>, patentClassificationBag STRUCT<cpcClassificationBagOrIPCClassificationOrECLAClassificationBag ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>>, patentGrantIdentification STRUCT<grantDate STRING, patentNumber STRING>, relatedPatentPublicationIdentification STRUCT<publicationDate STRING, publicationNumber STRING>>,
+  prosecutionHistoryDataOrPatentTermData ARRAY<STRUCT<caseActionDescriptionText STRING, recordedDate STRING>>
+);"
+applications,"CREATE TABLE `patents-public-data.uspto_peds.applications`
+(
+  patentCaseMetadata STRUCT<applicantFileReference STRING, applicationConfirmationNumber STRING, applicationNumberText STRUCT<electronicText STRING, value STRING>, applicationStatusCategory STRING, applicationStatusDate STRING, applicationTypeCategory STRING, businessEntityStatusCategory STRING, filingDate STRING, firstInventorToFileIndicator BOOL, groupArtUnitNumber STRUCT<electronicText STRING, value STRING>, hagueAgreementData STRUCT<internationalFilingDate STRING, internationalRegistrationNumber STRING>, inventionTitle STRUCT<content ARRAY<STRING>>, officialFileLocationCategory STRING, officialFileLocationDate STRING, partyBag STRUCT<applicantBagOrInventorBagOrOwnerBag ARRAY<STRUCT<primaryExaminerOrAssistantExaminerOrAuthorizedOfficer ARRAY<STRUCT<name STRUCT<personNameOrOrganizationNameOrEntityName ARRAY<STRUCT<personFullName STRING>>>>>>>>, patentClassificationBag STRUCT<cpcClassificationBagOrIPCClassificationOrECLAClassificationBag ARRAY<STRUCT<mainNationalClassification STRUCT<nationalClass STRING, nationalSubclass STRING>>>>, patentGrantIdentification STRUCT<grantDate STRING, patentNumber STRING>, relatedPatentPublicationIdentification STRUCT<publicationDate STRING, publicationNumber STRING>>,
+  prosecutionHistoryDataOrPatentTermData ARRAY<STRUCT<caseActionDescriptionText STRING, recordedDate STRING>>
+);"
+match,"CREATE TABLE `patents-public-data.uspto_peds.match`
+(
+  applicationNumberText STRING,
+  application_number STRING
+);"
+backfile_tmp,"CREATE TABLE `patents-public-data.uspto_peds.backfile_tmp`
+(
+  fileName STRING OPTIONS(description=""PEDS API source""),
+  applicationNumber STRING,
+  prosecutionHistoryData STRING,
+  applicationNumberText STRING,
+  filingDate STRING,
+  applicationTypeCategory STRING,
+  partyBag STRING,
+  groupArtUnitNumber STRING,
+  applicationConfirmationNumber STRING,
+  applicantFileReference STRING,
+  priorityClaimBag STRING,
+  patentClassificationBag STRING,
+  businessEntityStatusCategory STRING,
+  firstInventorToFileIndicator STRING,
+  inventionTitle STRING,
+  applicationStatusCategory STRING,
+  applicationStatusDate STRING,
+  officialFileLocationCategory STRING,
+  officialFileLocationDate STRING,
+  patentGrantIdentification STRING,
+  publication_number STRING
+);"

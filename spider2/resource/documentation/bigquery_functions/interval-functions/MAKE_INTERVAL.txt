@@ -1,0 +1,27 @@
+## MAKE_INTERVAL
+
+MAKE_INTERVAL([year][, month][, day][, hour][, minute][, second])
+
+**Description**
+
+Constructs an [ ` INTERVAL ` ](/bigquery/docs/reference/standard-sql/data-
+types#interval_type) object using ` INT64 ` values representing the year,
+month, day, hour, minute, and second. All arguments are optional, ` 0 ` by default, and can be [ named arguments ](/bigquery/docs/reference/standard-
+sql/functions-reference#named_arguments) .
+
+**Return Data Type**
+
+` INTERVAL `
+
+**Example**
+
+
+SELECT MAKE_INTERVAL(1, 6, 15) AS i1,
+MAKE_INTERVAL(hour => 10, second => 20) AS i2,
+MAKE_INTERVAL(1, minute => 5, day => 2) AS i3
+
+/*--------------+---------------+-------------*
+| i1           | i2            | i3          |
++--------------+---------------+-------------+
+| 1-6 15 0:0:0 | 0-0 0 10:0:20 | 1-0 2 0:5:0 |
+*--------------+---------------+-------------*/

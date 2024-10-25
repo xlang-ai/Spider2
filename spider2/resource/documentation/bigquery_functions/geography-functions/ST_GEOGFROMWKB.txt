@@ -1,0 +1,61 @@
+## ST_GEOGFROMWKB
+
+ST_GEOGFROMWKB( wkb_bytes_expression
+[ , oriented => value ]
+[ , planar => value ]
+[ , make_valid => value ]
+)
+
+
+ST_GEOGFROMWKB( wkb_hex_string_expression
+[ , oriented => value ]
+[ , planar => value ]
+[ , make_valid => value ]
+)
+
+**Description**
+
+Converts an expression from a hexadecimal-text ` STRING ` or ` BYTES ` value into a ` GEOGRAPHY ` value. The expression must be in [ WKB
+](https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary) format.
+
+To format ` GEOGRAPHY ` as WKB, use  ` ST_ASBINARY ` .
+
+**Definitions**
+
+* ` wkb_bytes_expression ` : A ` BYTES ` value that contains the [ WKB ](https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary) format.
+* ` wkb_hex_string_expression ` : A ` STRING ` value that contains the hexadecimal-encoded [ WKB ](https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary) format.
+* ` oriented ` : A named argument with a ` BOOL ` literal.
+
+* If the value is ` TRUE ` , any polygons in the input are assumed to be oriented as follows: when traveling along the boundary of the polygon in the order of the input vertices, the interior of the polygon is on the left. This allows WKB to represent polygons larger than a hemisphere. See also  ` ST_MAKEPOLYGONORIENTED ` , which is similar to ` ST_GEOGFROMWKB ` with ` oriented=TRUE ` .
+
+* If the value is ` FALSE ` or omitted, this function returns the polygon with the smaller area.
+
+* ` planar ` : A named argument with a ` BOOL ` literal. If the value is ` TRUE ` , the edges of the linestrings and polygons are assumed to use planar map semantics, rather than GoogleSQL default spherical geodesics semantics. For more information about the differences between spherical geodesics and planar lines, see [ Coordinate systems and edges ](/bigquery/docs/gis-data#coordinate_systems_and_edges) .
+
+* ` make_valid ` : A named argument with a ` BOOL ` literal. If the value is ` TRUE ` , the function attempts to repair polygons that don't conform to [ Open Geospatial Consortium ](https://www.ogc.org/standards/sfa) semantics.
+
+**Details**
+
+* The function does not support three-dimensional geometries that have a ` Z ` suffix, nor does it support linear referencing system geometries with an ` M ` suffix.
+* ` oriented ` and ` planar ` can't be ` TRUE ` at the same time.
+* ` oriented ` and ` make_valid ` can't be ` TRUE ` at the same time.
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Example**
+
+The following query reads the hex-encoded WKB data containing ` LINESTRING(1 1, 3 2) ` and uses it with planar and geodesic semantics. When planar is used,
+the function approximates the planar input line using line that contains a chain of geodesic segments.
+
+
+WITH wkb_data AS ( SELECT '010200000002000000feffffffffffef3f000000000000f03f01000000000008400000000000000040' geo ) SELECT ST_GeogFromWkb(geo, planar=>TRUE) AS from_planar,
+ST_GeogFromWkb(geo, planar=>FALSE) AS from_geodesic,
+FROM wkb_data
+
+/*---------------------------------------+----------------------*
+| from_planar                           | from_geodesic        |
++---------------------------------------+----------------------+
+| LINESTRING(1 1, 2 1.5, 2.5 1.75, 3 2) | LINESTRING(1 1, 3 2) |
+*---------------------------------------+----------------------*/

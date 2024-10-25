@@ -1,0 +1,39 @@
+table_name,ddl
+job_postings_fact,"CREATE TABLE `spider2-public-data.job.job_postings_fact`
+(
+  job_id INT64,
+  company_id INT64,
+  job_title_short STRING,
+  job_title STRING,
+  job_location STRING,
+  job_via STRING,
+  job_schedule_type STRING,
+  job_work_from_home INT64,
+  search_location STRING,
+  job_posted_date TIMESTAMP,
+  job_no_degree_mention INT64,
+  job_health_insurance INT64,
+  job_country STRING,
+  salary_rate STRING,
+  salary_year_avg FLOAT64,
+  salary_hour_avg FLOAT64
+);"
+skills_dim,"CREATE TABLE `spider2-public-data.job.skills_dim`
+(
+  skill_id INT64,
+  skills STRING,
+  type STRING
+);"
+company,"CREATE TABLE `spider2-public-data.job.company`
+(
+  company_id INT64,
+  name STRING,
+  link STRING,
+  link_google STRING,
+  thumbnail STRING
+);"
+skills_job_dim,"CREATE TABLE `spider2-public-data.job.skills_job_dim`
+(
+  job_id INT64,
+  skill_id INT64
+);"

@@ -1,0 +1,62 @@
+table_name,ddl
+legislators,"CREATE TABLE `spider2-public-data.legislation.legislators`
+(
+  full_name STRING,
+  first_name STRING,
+  last_name STRING,
+  middle_name STRING,
+  nickname STRING,
+  suffix STRING,
+  other_names_end DATE,
+  other_names_middle STRING,
+  other_names_last STRING,
+  birthday DATE,
+  gender STRING,
+  id_bioguide STRING,
+  id_bioguide_previous_0 STRING,
+  id_govtrack INT64,
+  id_icpsr FLOAT64,
+  id_wikipedia STRING,
+  id_wikidata STRING,
+  id_google_entity_id STRING,
+  id_house_history FLOAT64,
+  id_house_history_alternate FLOAT64,
+  id_thomas FLOAT64,
+  id_cspan FLOAT64,
+  id_votesmart FLOAT64,
+  id_lis STRING,
+  id_ballotpedia STRING,
+  id_opensecrets STRING,
+  id_fec_0 STRING,
+  id_fec_1 STRING,
+  id_fec_2 STRING
+);"
+date_dim,"CREATE TABLE `spider2-public-data.legislation.date_dim`
+(
+  date DATE,
+  month_name STRING,
+  day_of_month INT64
+);"
+legislators_terms,"CREATE TABLE `spider2-public-data.legislation.legislators_terms`
+(
+  id_bioguide STRING,
+  term_number INT64,
+  term_id STRING,
+  term_type STRING,
+  term_start DATE,
+  term_end DATE,
+  state STRING,
+  district FLOAT64,
+  class FLOAT64,
+  party STRING,
+  how STRING,
+  url STRING,
+  address STRING,
+  phone STRING,
+  fax STRING,
+  contact_form STRING,
+  office STRING,
+  state_rank STRING,
+  rss_url STRING,
+  caucus STRING
+);"

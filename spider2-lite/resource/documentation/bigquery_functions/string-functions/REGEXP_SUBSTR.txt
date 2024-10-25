@@ -1,0 +1,23 @@
+## REGEXP_SUBSTR
+
+REGEXP_SUBSTR(value, regexp[, position[, occurrence]])
+
+**Description**
+
+Synonym for  REGEXP_EXTRACT  .
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH example AS (SELECT 'Hello World Helloo' AS value, 'H?ello+' AS regex, 1 AS position, 1 AS occurrence ) SELECT value, regex, position, occurrence, REGEXP_SUBSTR(value, regex,
+position, occurrence) AS regexp_value FROM example;
+
+/*--------------------+---------+----------+------------+--------------*
+| value              | regex   | position | occurrence | regexp_value |
++--------------------+---------+----------+------------+--------------+
+| Hello World Helloo | H?ello+ | 1        | 1          | Hello        |
+*--------------------+---------+----------+------------+--------------*/
