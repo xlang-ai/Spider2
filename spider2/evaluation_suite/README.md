@@ -39,7 +39,7 @@ If there are only three instances results to be evaluated, the 'results_metadata
 {
     "instance_id": "b544e853-00b3-45bc-b3ea-81f195739c60",
     "answer_type": "answer",
-    "answer_or_path": 17.5056918%
+    "answer_or_path": "17.5056918%"
 },
 {
     "instance_id": "0bcfa8c4-bc4c-4cd8-9fe5-dd60a2c1f956",
