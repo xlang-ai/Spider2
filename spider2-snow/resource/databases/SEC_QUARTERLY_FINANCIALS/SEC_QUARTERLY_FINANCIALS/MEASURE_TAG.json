@@ -1,0 +1,94 @@
+{
+    "table_name": "SEC_QUARTERLY_FINANCIALS.MEASURE_TAG",
+    "table_fullname": "SEC_QUARTERLY_FINANCIALS.SEC_QUARTERLY_FINANCIALS.MEASURE_TAG",
+    "column_names": [
+        "CREDIT_OR_DEBIT",
+        "DATATYPE",
+        "TAG_LABEL",
+        "I_OR_D",
+        "CUSTOM",
+        "ABSTRACT",
+        "MEASURE_TAG",
+        "DOC",
+        "VERSION"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "BOOLEAN",
+        "BOOLEAN",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "If datatype = monetary, then the tag's natural accounting balance from the perspective of the balance sheet or income statement (debit or credit); if not defined, then NULL. credit_or_debit: [crdr]",
+        "If abstract=1, then NULL, otherwise the data type (e.g., monetary) for the tag.",
+        "If a standard tag, then the label text provided by the taxonomy, otherwise the text provided by the filer. A tag which had neither would have a NULL value here. tag_label: [tlabel]",
+        "If abstract=1, then NULL; otherwise, I if the value is a point in time, or D if the value is a duration. i_or_d: [iord]",
+        "1 if tag is custom (version=adsh), 0 if it is standard. Note: This flag is technically redundant with the version and adsh fields.",
+        "1 if the tag is not used to represent a numeric fact.",
+        "The unique identifier (name) for a tag in a specific taxonomy release. measure_tag:[tag]",
+        "The detailed definition for the tag, truncated to 2048 characters. If a standard tag, then the text provided by the taxonomy, otherwise the text assigned by the filer. Some tags have neither, in which case this field is NULL.",
+        "For a standard tag, an identifier for the taxonomy; otherwise the accession number where the tag was defined."
+    ],
+    "sample_rows": [
+        {
+            "MEASURE_TAG": "AdjustmentsToAdditionalPaidInCapitalAbstract",
+            "VERSION": "us-gaap/2009",
+            "CUSTOM": false,
+            "ABSTRACT": true,
+            "DATATYPE": null,
+            "I_OR_D": null,
+            "CREDIT_OR_DEBIT": null,
+            "TAG_LABEL": "Adjustments to Additional Paid in Capital [Abstract]",
+            "DOC": "A roll forward is a reconciliation of an account balance from the beginning of a period to the end of a period."
+        },
+        {
+            "MEASURE_TAG": "ClassOfStockLineItems",
+            "VERSION": "us-gaap/2009",
+            "CUSTOM": false,
+            "ABSTRACT": true,
+            "DATATYPE": null,
+            "I_OR_D": null,
+            "CREDIT_OR_DEBIT": null,
+            "TAG_LABEL": "Class of Stock [Line Items]",
+            "DOC": "Line items represent financial concepts included in a table. These concepts are used to disclose reportable information associated with domain members defined in one or many axes to the table."
+        },
+        {
+            "MEASURE_TAG": "DocumentInformationTable",
+            "VERSION": "dei/2008",
+            "CUSTOM": false,
+            "ABSTRACT": true,
+            "DATATYPE": null,
+            "I_OR_D": null,
+            "CREDIT_OR_DEBIT": null,
+            "TAG_LABEL": "Document Information [Table]",
+            "DOC": "Container to support the formal attachment of each official or unofficial, public or private document as part of a submission package."
+        },
+        {
+            "MEASURE_TAG": "DocumentInformationTable",
+            "VERSION": "dei/2009",
+            "CUSTOM": false,
+            "ABSTRACT": true,
+            "DATATYPE": null,
+            "I_OR_D": null,
+            "CREDIT_OR_DEBIT": null,
+            "TAG_LABEL": "Document Information [Table]",
+            "DOC": "Container to support the formal attachment of each official or unofficial, public or private document as part of a submission package."
+        },
+        {
+            "MEASURE_TAG": "EntitiesTable",
+            "VERSION": "dei/2008",
+            "CUSTOM": false,
+            "ABSTRACT": true,
+            "DATATYPE": null,
+            "I_OR_D": null,
+            "CREDIT_OR_DEBIT": null,
+            "TAG_LABEL": "Entities [Table]",
+            "DOC": "Container to assemble all relevant information about each entity associated with the document instance"
+        }
+    ]
+}

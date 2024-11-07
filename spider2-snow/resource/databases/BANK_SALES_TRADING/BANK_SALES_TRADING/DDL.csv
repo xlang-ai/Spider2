@@ -1,0 +1,145 @@
+table_name,description,DDL
+INTEREST_MAP,,"create or replace TABLE INTEREST_MAP (
+	""id"" NUMBER(38,0),
+	""interest_name"" VARCHAR(16777216),
+	""interest_summary"" VARCHAR(16777216),
+	""created_at"" VARCHAR(16777216),
+	""last_modified"" VARCHAR(16777216)
+);"
+INTEREST_METRICS,,"create or replace TABLE INTEREST_METRICS (
+	""_month"" FLOAT,
+	""_year"" FLOAT,
+	""month_year"" VARCHAR(16777216),
+	""interest_id"" FLOAT,
+	""composition"" FLOAT,
+	""index_value"" FLOAT,
+	""ranking"" NUMBER(38,0),
+	""percentile_ranking"" FLOAT
+);"
+BITCOIN_PRICES,,"create or replace TABLE BITCOIN_PRICES (
+	""ticker"" VARCHAR(16777216),
+	""market_date"" VARCHAR(16777216),
+	""price"" FLOAT,
+	""open"" FLOAT,
+	""high"" FLOAT,
+	""low"" FLOAT,
+	""volume"" VARCHAR(16777216),
+	""change"" VARCHAR(16777216)
+);"
+SHOPPING_CART_CAMPAIGN_IDENTIFIER,,"create or replace TABLE SHOPPING_CART_CAMPAIGN_IDENTIFIER (
+	""campaign_id"" NUMBER(38,0),
+	""products"" VARCHAR(16777216),
+	""campaign_name"" VARCHAR(16777216),
+	""start_date"" VARCHAR(16777216),
+	""end_date"" VARCHAR(16777216)
+);"
+SHOPPING_CART_EVENT_IDENTIFIER,,"create or replace TABLE SHOPPING_CART_EVENT_IDENTIFIER (
+	""event_type"" NUMBER(38,0),
+	""event_name"" VARCHAR(16777216)
+);"
+VEG_CAT,,"create or replace TABLE VEG_CAT (
+	""index"" NUMBER(38,0),
+	""item_code"" NUMBER(38,0),
+	""item_name"" VARCHAR(16777216),
+	""category_code"" NUMBER(38,0),
+	""category_name"" VARCHAR(16777216)
+);"
+VEG_WHSLE_DF,,"create or replace TABLE VEG_WHSLE_DF (
+	""index"" NUMBER(38,0),
+	""whsle_date"" VARCHAR(16777216),
+	""item_code"" NUMBER(38,0),
+	""whsle_px_rmb-kg"" FLOAT
+);"
+BITCOIN_TRANSACTIONS,,"create or replace TABLE BITCOIN_TRANSACTIONS (
+	""txn_id"" NUMBER(38,0),
+	""member_id"" VARCHAR(16777216),
+	""ticker"" VARCHAR(16777216),
+	""txn_date"" VARCHAR(16777216),
+	""txn_type"" VARCHAR(16777216),
+	""quantity"" FLOAT,
+	""percentage_fee"" FLOAT,
+	""txn_time"" VARCHAR(16777216)
+);"
+SHOPPING_CART_EVENTS,,"create or replace TABLE SHOPPING_CART_EVENTS (
+	""visit_id"" VARCHAR(16777216),
+	""cookie_id"" VARCHAR(16777216),
+	""page_id"" NUMBER(38,0),
+	""event_type"" NUMBER(38,0),
+	""sequence_number"" NUMBER(38,0),
+	""event_time"" VARCHAR(16777216)
+);"
+VEG_LOSS_RATE_DF,,"create or replace TABLE VEG_LOSS_RATE_DF (
+	""index"" NUMBER(38,0),
+	""item_code"" NUMBER(38,0),
+	""item_name"" VARCHAR(16777216),
+	""loss_rate_%"" FLOAT
+);"
+CUSTOMER_NODES,,"create or replace TABLE CUSTOMER_NODES (
+	""customer_id"" NUMBER(38,0),
+	""region_id"" NUMBER(38,0),
+	""node_id"" NUMBER(38,0),
+	""start_date"" VARCHAR(16777216),
+	""end_date"" VARCHAR(16777216)
+);"
+WEEKLY_SALES,,"create or replace TABLE WEEKLY_SALES (
+	""week_date"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""platform"" VARCHAR(16777216),
+	""segment"" VARCHAR(16777216),
+	""customer_type"" VARCHAR(16777216),
+	""transactions"" NUMBER(38,0),
+	""sales"" NUMBER(38,0)
+);"
+BITCOIN_MEMBERS,,"create or replace TABLE BITCOIN_MEMBERS (
+	""member_id"" VARCHAR(16777216),
+	""first_name"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216)
+);"
+CLEANED_WEEKLY_SALES,,"create or replace TABLE CLEANED_WEEKLY_SALES (
+	""week_date_formatted"" VARCHAR(16777216),
+	""week_date"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""platform"" VARCHAR(16777216),
+	""segment"" VARCHAR(16777216),
+	""customer_type"" VARCHAR(16777216),
+	""transactions"" NUMBER(38,0),
+	""sales"" NUMBER(38,0),
+	""week_number"" NUMBER(38,0),
+	""month_number"" NUMBER(38,0),
+	""calendar_year"" NUMBER(38,0),
+	""age_band"" VARCHAR(16777216),
+	""demographic"" VARCHAR(16777216),
+	""avg_transaction"" FLOAT
+);"
+CUSTOMER_REGIONS,,"create or replace TABLE CUSTOMER_REGIONS (
+	""region_id"" NUMBER(38,0),
+	""region_name"" VARCHAR(16777216)
+);"
+CUSTOMER_TRANSACTIONS,,"create or replace TABLE CUSTOMER_TRANSACTIONS (
+	""customer_id"" NUMBER(38,0),
+	""txn_date"" VARCHAR(16777216),
+	""txn_type"" VARCHAR(16777216),
+	""txn_amount"" NUMBER(38,0)
+);"
+SHOPPING_CART_USERS,,"create or replace TABLE SHOPPING_CART_USERS (
+	""user_id"" NUMBER(38,0),
+	""cookie_id"" VARCHAR(16777216),
+	""start_date"" VARCHAR(16777216)
+);"
+VEG_TXN_DF,,"create or replace TABLE VEG_TXN_DF (
+	""index"" NUMBER(38,0),
+	""txn_date"" VARCHAR(16777216),
+	""txn_time"" VARCHAR(16777216),
+	""item_code"" NUMBER(38,0),
+	""qty_sold(kg)"" FLOAT,
+	""unit_selling_px_rmb/kg"" FLOAT,
+	""sale/return"" VARCHAR(16777216),
+	""discount(%)"" NUMBER(38,0),
+	""day_of_week"" VARCHAR(16777216)
+);"
+SHOPPING_CART_PAGE_HIERARCHY,,"create or replace TABLE SHOPPING_CART_PAGE_HIERARCHY (
+	""page_id"" NUMBER(38,0),
+	""page_name"" VARCHAR(16777216),
+	""product_category"" VARCHAR(16777216),
+	""product_id"" FLOAT
+);"

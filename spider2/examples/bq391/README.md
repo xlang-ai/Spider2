@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.fhir_synthea` database to solve this problem.

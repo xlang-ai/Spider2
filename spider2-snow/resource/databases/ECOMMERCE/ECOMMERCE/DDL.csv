@@ -1,0 +1,236 @@
+table_name,description,DDL
+ALL_SESSIONS,,"create or replace TABLE ALL_SESSIONS (
+	""fullVisitorId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""time"" NUMBER(38,0),
+	""country"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""totalTransactionRevenue"" NUMBER(38,0),
+	""transactions"" NUMBER(38,0),
+	""timeOnSite"" NUMBER(38,0),
+	""pageviews"" NUMBER(38,0),
+	""sessionQualityDim"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""visitId"" NUMBER(38,0),
+	""type"" VARCHAR(16777216),
+	""productRefundAmount"" NUMBER(38,0),
+	""productQuantity"" NUMBER(38,0),
+	""productPrice"" NUMBER(38,0),
+	""productRevenue"" NUMBER(38,0),
+	""productSKU"" VARCHAR(16777216),
+	""v2ProductName"" VARCHAR(16777216),
+	""v2ProductCategory"" VARCHAR(16777216),
+	""productVariant"" VARCHAR(16777216),
+	""currencyCode"" VARCHAR(16777216),
+	""itemQuantity"" NUMBER(38,0),
+	""itemRevenue"" NUMBER(38,0),
+	""transactionRevenue"" NUMBER(38,0),
+	""transactionId"" VARCHAR(16777216),
+	""pageTitle"" VARCHAR(16777216),
+	""searchKeyword"" VARCHAR(16777216),
+	""pagePathLevel1"" VARCHAR(16777216),
+	""eCommerceAction_type"" VARCHAR(16777216),
+	""eCommerceAction_step"" NUMBER(38,0),
+	""eCommerceAction_option"" VARCHAR(16777216)
+);"
+CATEGORIES,,"create or replace TABLE CATEGORIES (
+	""productSKU"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216)
+);"
+CLASSIFICATION_MODEL_2_RESULTS,,"create or replace TABLE CLASSIFICATION_MODEL_2_RESULTS (
+	""predicted_will_buy_on_return_visit"" NUMBER(38,0),
+	""predicted_will_buy_on_return_visit_probs"" VARIANT,
+	""unique_session_id"" VARCHAR(16777216),
+	""will_buy_on_return_visit"" NUMBER(38,0),
+	""latest_ecommerce_progress"" NUMBER(38,0),
+	""bounces"" NUMBER(38,0),
+	""time_on_site"" NUMBER(38,0),
+	""pageviews"" NUMBER(38,0),
+	""source"" VARCHAR(16777216),
+	""medium"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""deviceCategory"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216)
+);"
+SALES_REPORT,,"create or replace TABLE SALES_REPORT (
+	""productSKU"" VARCHAR(16777216),
+	""total_ordered"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""stockLevel"" NUMBER(38,0),
+	""restockingLeadTime"" NUMBER(38,0),
+	""sentimentScore"" FLOAT,
+	""sentimentMagnitude"" FLOAT,
+	""ratio"" FLOAT
+);"
+SITE_WIDE_PROMOTION,,"create or replace TABLE SITE_WIDE_PROMOTION (
+	""discount"" FLOAT
+);"
+PARTITION_BY_DAY,,"create or replace TABLE PARTITION_BY_DAY (
+	""date_formatted"" DATE,
+	""fullvisitorId"" VARCHAR(16777216)
+);"
+REV_TRANSACTIONS,,"create or replace TABLE REV_TRANSACTIONS (
+	""fullVisitorId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""hits_time"" NUMBER(38,0),
+	""geoNetwork_country"" VARCHAR(16777216),
+	""geoNetwork_city"" VARCHAR(16777216),
+	""totals_totalTransactionRevenue"" NUMBER(38,0),
+	""totals_transactions"" NUMBER(38,0),
+	""totals_timeOnSite"" NUMBER(38,0),
+	""totals_pageviews"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""visitId"" NUMBER(38,0),
+	""hits_type"" VARCHAR(16777216),
+	""hits_product_productRefundAmount"" NUMBER(38,0),
+	""hits_product_productQuantity"" NUMBER(38,0),
+	""hits_product_productPrice"" NUMBER(38,0),
+	""hits_product_productRevenue"" NUMBER(38,0),
+	""hits_product_productSKU"" VARCHAR(16777216),
+	""hits_product_v2ProductName"" VARCHAR(16777216),
+	""hits_product_v2ProductCategory"" VARCHAR(16777216),
+	""hits_product_productVariant"" VARCHAR(16777216),
+	""hits_item_currencyCode"" VARCHAR(16777216),
+	""hits_item_itemQuantity"" NUMBER(38,0),
+	""hits_item_itemRevenue"" NUMBER(38,0),
+	""hits_transaction_transactionRevenue"" NUMBER(38,0),
+	""hits_transaction_transactionId"" VARCHAR(16777216),
+	""hits_page_pageTitle"" VARCHAR(16777216),
+	""hits_page_searchKeyword"" VARCHAR(16777216),
+	""hits_page_pagePathLevel1"" VARCHAR(16777216)
+);"
+PRODUCT_LIST,,"create or replace TABLE PRODUCT_LIST (
+	""productSKU"" VARCHAR(16777216),
+	""v2ProductName"" VARCHAR(16777216)
+);"
+SALES_BY_SKU,,"create or replace TABLE SALES_BY_SKU (
+	""productSKU"" VARCHAR(16777216),
+	""total_ordered"" NUMBER(38,0)
+);"
+ALL_SESSIONS_RAW,,"create or replace TABLE ALL_SESSIONS_RAW (
+	""fullVisitorId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""time"" NUMBER(38,0),
+	""country"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""totalTransactionRevenue"" NUMBER(38,0),
+	""transactions"" NUMBER(38,0),
+	""timeOnSite"" NUMBER(38,0),
+	""pageviews"" NUMBER(38,0),
+	""sessionQualityDim"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""visitId"" NUMBER(38,0),
+	""type"" VARCHAR(16777216),
+	""productRefundAmount"" NUMBER(38,0),
+	""productQuantity"" NUMBER(38,0),
+	""productPrice"" NUMBER(38,0),
+	""productRevenue"" NUMBER(38,0),
+	""productSKU"" VARCHAR(16777216),
+	""v2ProductName"" VARCHAR(16777216),
+	""v2ProductCategory"" VARCHAR(16777216),
+	""productVariant"" VARCHAR(16777216),
+	""currencyCode"" VARCHAR(16777216),
+	""itemQuantity"" NUMBER(38,0),
+	""itemRevenue"" NUMBER(38,0),
+	""transactionRevenue"" NUMBER(38,0),
+	""transactionId"" VARCHAR(16777216),
+	""pageTitle"" VARCHAR(16777216),
+	""searchKeyword"" VARCHAR(16777216),
+	""pagePathLevel1"" VARCHAR(16777216),
+	""eCommerceAction_type"" VARCHAR(16777216),
+	""eCommerceAction_step"" NUMBER(38,0),
+	""eCommerceAction_option"" VARCHAR(16777216)
+);"
+CHECKOUT_NUDGE,,"create or replace TABLE CHECKOUT_NUDGE (
+	""fullVisitorID"" VARCHAR(16777216),
+	""number_of_sessions"" NUMBER(38,0),
+	""number_of_products_viewed"" NUMBER(38,0),
+	""session_time_on_site_minutes_max"" FLOAT,
+	""eCommerceAction_type_max"" VARCHAR(16777216)
+);"
+PARTITIONS,,"create or replace TABLE PARTITIONS (
+	""total_transactions"" NUMBER(38,0),
+	""date_formatted"" DATE
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	SKU VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""orderedQuantity"" NUMBER(38,0),
+	""stockLevel"" NUMBER(38,0),
+	""restockingLeadTime"" NUMBER(38,0),
+	""sentimentScore"" FLOAT,
+	""sentimentMagnitude"" FLOAT
+);"
+REV_TRANSACTIONS_VIEW,,"create or replace TABLE REV_TRANSACTIONS_VIEW (
+	""fullVisitorId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""time"" NUMBER(38,0),
+	""country"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""totalTransactionRevenue"" NUMBER(38,0),
+	""transactions"" NUMBER(38,0),
+	""timeOnSite"" NUMBER(38,0),
+	""pageviews"" NUMBER(38,0),
+	""sessionQualityDim"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""visitId"" NUMBER(38,0),
+	""type"" VARCHAR(16777216),
+	""productRefundAmount"" NUMBER(38,0),
+	""productQuantity"" NUMBER(38,0),
+	""productPrice"" NUMBER(38,0),
+	""productRevenue"" NUMBER(38,0),
+	""productSKU"" VARCHAR(16777216),
+	""v2ProductName"" VARCHAR(16777216),
+	""v2ProductCategory"" VARCHAR(16777216),
+	""productVariant"" VARCHAR(16777216),
+	""currencyCode"" VARCHAR(16777216),
+	""itemQuantity"" NUMBER(38,0),
+	""itemRevenue"" NUMBER(38,0),
+	""transactionRevenue"" NUMBER(38,0),
+	""transactionId"" VARCHAR(16777216),
+	""pageTitle"" VARCHAR(16777216),
+	""searchKeyword"" VARCHAR(16777216),
+	""pagePathLevel1"" VARCHAR(16777216),
+	""eCommerceAction_type"" VARCHAR(16777216),
+	""eCommerceAction_step"" NUMBER(38,0),
+	""eCommerceAction_option"" VARCHAR(16777216)
+);"
+WEB_ANALYTICS_TEST,,"create or replace TABLE WEB_ANALYTICS_TEST (
+	""visitorId"" NUMBER(38,0),
+	""visitNumber"" NUMBER(38,0),
+	""visitId"" NUMBER(38,0),
+	""visitStartTime"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""totals"" VARIANT,
+	""trafficSource"" VARIANT,
+	""device"" VARIANT,
+	""geoNetwork"" VARIANT,
+	""customDimensions"" VARIANT,
+	""hits"" VARIANT,
+	""fullVisitorId"" VARCHAR(16777216),
+	""userId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""socialEngagementType"" VARCHAR(16777216)
+);"
+DAYS_WITH_RAIN,,"create or replace TABLE DAYS_WITH_RAIN (
+	""date"" DATE,
+	""station_name"" VARCHAR(16777216),
+	""prcp"" FLOAT
+);"
+WEB_ANALYTICS,,"create or replace TABLE WEB_ANALYTICS (
+	""visitorId"" NUMBER(38,0),
+	""visitNumber"" NUMBER(38,0),
+	""visitId"" NUMBER(38,0),
+	""visitStartTime"" NUMBER(38,0),
+	""date"" VARCHAR(16777216),
+	""totals"" VARIANT,
+	""trafficSource"" VARIANT,
+	""device"" VARIANT,
+	""geoNetwork"" VARIANT,
+	""customDimensions"" VARIANT,
+	""hits"" VARIANT,
+	""fullVisitorId"" VARCHAR(16777216),
+	""userId"" VARCHAR(16777216),
+	""channelGrouping"" VARCHAR(16777216),
+	""socialEngagementType"" VARCHAR(16777216)
+);"

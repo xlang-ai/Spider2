@@ -1,0 +1,123 @@
+## RANGE_SESSIONIZE
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+RANGE_SESSIONIZE( TABLE table_name,
+range_column,
+partitioning_columns )
+
+
+RANGE_SESSIONIZE( TABLE table_name,
+range_column,
+partitioning_columns,
+sessionize_option )
+
+**Description**
+
+Produces a table of sessionized ranges.
+
+**Definitions**
+
+* ` table_name ` : A table expression that represents the name of the table to construct. This can represent any relation with ` range_column ` .
+* ` range_column ` : A ` STRING ` literal that indicates which ` RANGE ` column in a table contains the data to sessionize.
+* ` partitioning_columns ` : An ` ARRAY<STRING> ` literal that indicates which columns should partition the data before the data is sessionized.
+* ` sessionize_option ` : A ` STRING ` value that describes how order-adjacent ranges are sessionized. Your choices are as follows:
+
+* ` MEETS ` (default): Ranges that meet or overlap are sessionized.
+
+* ` OVERLAPS ` : Only a range that is overlapped by another range is sessionized.
+
+If this argument is not provided, ` MEETS ` is used by default.
+
+**Details**
+
+This function produces a table that includes all columns in the input table and an additional ` RANGE ` column called ` session_range ` , which indicates the start and end of a session. The start and end of each session is determined by the ` sessionize_option ` argument.
+
+**Return type**
+
+` TABLE `
+
+**Examples**
+
+The examples in this section reference the following table called `
+my_sessionized_range_table ` in a dataset called ` mydataset ` :
+
+
+INSERT mydataset.my_sessionized_range_table (emp_id, dept_id, duration) VALUES(10, 1000, RANGE<DATE> '[2010-01-10, 2010-03-10)'),
+(10, 2000, RANGE<DATE> '[2010-03-10, 2010-07-15)'),
+(10, 2000, RANGE<DATE> '[2010-06-15, 2010-08-18)'),
+(20, 2000, RANGE<DATE> '[2010-03-10, 2010-07-20)'),
+(20, 1000, RANGE<DATE> '[2020-05-10, 2020-09-20)');
+
+SELECT * FROM mydataset.my_sessionized_range_table ORDER BY emp_id;
+
+/*--------+---------+--------------------------+
+| emp_id | dept_id | duration                 |
++--------+---------+--------------------------+
+| 10     | 1000    | [2010-01-10, 2010-03-10) |
+| 10     | 2000    | [2010-03-10, 2010-07-15) |
+| 10     | 2000    | [2010-06-15, 2010-08-18) |
+| 20     | 2000    | [2010-03-10, 2010-07-20) |
+| 20     | 1000    | [2020-05-10, 2020-09-20) |
++--------+---------+--------------------------*/
+
+In the following query, a table of sessionized data is produced for `
+my_sessionized_range_table ` , and only ranges that meet or overlap are sessionized:
+
+
+SELECT emp_id, duration, session_range FROM RANGE_SESSIONIZE( TABLE mydataset.my_sessionized_range_table,
+'duration',
+['emp_id']) ORDER BY emp_id;
+
+/*--------+--------------------------+--------------------------+
+| emp_id | duration                 | session_range            |
++--------+--------------------------+--------------------------+
+| 10     | [2010-01-10, 2010-03-10) | [2010-01-10, 2010-08-18) |
+| 10     | [2010-03-10, 2010-07-15) | [2010-01-10, 2010-08-18) |
+| 10     | [2010-06-15, 2010-08-18) | [2010-01-10, 2010-08-18) |
+| 20     | [2010-03-10, 2010-07-20) | [2010-03-10, 2010-07-20) |
+| 20     | [2020-05-10, 2020-09-20) | [2020-05-10, 2020-09-20) |
++--------+-----------------------------------------------------*/
+
+In the following query, a table of sessionized data is produced for `
+my_sessionized_range_table ` , and only a range that is overlapped by another range is sessionized:
+
+
+SELECT emp_id, duration, session_range FROM RANGE_SESSIONIZE( TABLE mydataset.my_sessionized_range_table,
+'duration',
+['emp_id'],
+'OVERLAPS') ORDER BY emp_id;
+
+/*--------+--------------------------+--------------------------+
+| emp_id | duration                 | session_range            |
++--------+--------------------------+--------------------------+
+| 10     | [2010-03-10, 2010-07-15) | [2010-03-10, 2010-08-18) |
+| 10     | [2010-06-15, 2010-08-18) | [2010-03-10, 2010-08-18) |
+| 10     | [2010-01-10, 2010-03-10) | [2010-01-10, 2010-03-10) |
+| 20     | [2020-05-10, 2020-09-20) | [2020-05-10, 2020-09-20) |
+| 20     | [2010-03-10, 2010-07-20) | [2010-03-10, 2010-07-20) |
++--------+-----------------------------------------------------*/
+
+If you need to normalize sessionized data, you can use a query similar to the following:
+
+
+SELECT emp_id, session_range AS normalized FROM ( SELECT emp_id, session_range FROM RANGE_SESSIONIZE( TABLE mydataset.my_sessionized_range_table,
+'duration',
+['emp_id'],
+'MEETS') ) GROUP BY emp_id, normalized;
+
+/*--------+--------------------------+
+| emp_id | normalized               |
++--------+--------------------------+
+| 20     | [2010-03-10, 2010-07-20) |
+| 10     | [2010-01-10, 2010-08-18) |
+| 20     | [2020-05-10, 2020-09-20) |
++--------+--------------------------*/

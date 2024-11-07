@@ -1,0 +1,83 @@
+table_name,description,DDL
+OLIST_ORDERS,,"create or replace TABLE OLIST_ORDERS (
+	""order_id"" VARCHAR(16777216),
+	""customer_id"" VARCHAR(16777216),
+	""order_status"" VARCHAR(16777216),
+	""order_purchase_timestamp"" VARCHAR(16777216),
+	""order_approved_at"" VARCHAR(16777216),
+	""order_delivered_carrier_date"" VARCHAR(16777216),
+	""order_delivered_customer_date"" VARCHAR(16777216),
+	""order_estimated_delivery_date"" VARCHAR(16777216)
+);"
+OLIST_ORDER_PAYMENTS,,"create or replace TABLE OLIST_ORDER_PAYMENTS (
+	""order_id"" VARCHAR(16777216),
+	""payment_sequential"" NUMBER(38,0),
+	""payment_type"" VARCHAR(16777216),
+	""payment_installments"" NUMBER(38,0),
+	""payment_value"" FLOAT
+);"
+OLIST_PRODUCTS_DATASET,,"create or replace TABLE OLIST_PRODUCTS_DATASET (
+	""index"" NUMBER(38,0),
+	""product_id"" VARCHAR(16777216),
+	""product_category_name"" VARCHAR(16777216),
+	""product_name_lenght"" FLOAT,
+	""product_description_lenght"" FLOAT,
+	""product_photos_qty"" FLOAT,
+	""product_weight_g"" FLOAT,
+	""product_length_cm"" FLOAT,
+	""product_height_cm"" FLOAT,
+	""product_width_cm"" FLOAT
+);"
+OLIST_ORDER_ITEMS,,"create or replace TABLE OLIST_ORDER_ITEMS (
+	""order_id"" VARCHAR(16777216),
+	""order_item_id"" NUMBER(38,0),
+	""product_id"" VARCHAR(16777216),
+	""seller_id"" VARCHAR(16777216),
+	""shipping_limit_date"" VARCHAR(16777216),
+	""price"" FLOAT,
+	""freight_value"" FLOAT
+);"
+OLIST_GEOLOCATION,,"create or replace TABLE OLIST_GEOLOCATION (
+	""geolocation_zip_code_prefix"" NUMBER(38,0),
+	""geolocation_lat"" FLOAT,
+	""geolocation_lng"" FLOAT,
+	""geolocation_city"" VARCHAR(16777216),
+	""geolocation_state"" VARCHAR(16777216)
+);"
+OLIST_SELLERS,,"create or replace TABLE OLIST_SELLERS (
+	""seller_id"" VARCHAR(16777216),
+	""seller_zip_code_prefix"" NUMBER(38,0),
+	""seller_city"" VARCHAR(16777216),
+	""seller_state"" VARCHAR(16777216)
+);"
+OLIST_ORDER_REVIEWS,,"create or replace TABLE OLIST_ORDER_REVIEWS (
+	""review_id"" VARCHAR(16777216),
+	""order_id"" VARCHAR(16777216),
+	""review_score"" NUMBER(38,0),
+	""review_comment_title"" VARCHAR(16777216),
+	""review_comment_message"" VARCHAR(16777216),
+	""review_creation_date"" VARCHAR(16777216),
+	""review_answer_timestamp"" VARCHAR(16777216)
+);"
+OLIST_CUSTOMERS,,"create or replace TABLE OLIST_CUSTOMERS (
+	""customer_id"" VARCHAR(16777216),
+	""customer_unique_id"" VARCHAR(16777216),
+	""customer_zip_code_prefix"" NUMBER(38,0),
+	""customer_city"" VARCHAR(16777216),
+	""customer_state"" VARCHAR(16777216)
+);"
+OLIST_PRODUCTS,,"create or replace TABLE OLIST_PRODUCTS (
+	""product_id"" VARCHAR(16777216),
+	""product_category_name"" VARCHAR(16777216),
+	""product_name_lenght"" FLOAT,
+	""product_description_lenght"" FLOAT,
+	""product_photos_qty"" FLOAT,
+	""product_weight_g"" FLOAT,
+	""product_length_cm"" FLOAT,
+	""product_height_cm"" FLOAT,
+	""product_width_cm"" FLOAT
+);"
+PRODUCT_CATEGORY_NAME_TRANSLATION,,"create or replace TABLE PRODUCT_CATEGORY_NAME_TRANSLATION (
+	""product_category_name"" VARCHAR(16777216),
+	""product_category_name_english"" VARCHAR(16777216)
+);"

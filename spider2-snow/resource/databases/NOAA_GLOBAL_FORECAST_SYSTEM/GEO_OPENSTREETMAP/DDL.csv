@@ -1,0 +1,107 @@
+table_name,description,DDL
+HISTORY_CHANGESETS,,"create or replace TABLE HISTORY_CHANGESETS (
+	""id"" NUMBER(38,0),
+	""osm_timestamp_min"" NUMBER(38,0),
+	""osm_timestamp_max"" NUMBER(38,0),
+	""relations"" VARIANT,
+	""ways"" VARIANT,
+	""nodes"" VARIANT
+);"
+PLANET_FEATURES,,"create or replace TABLE PLANET_FEATURES (
+	""feature_type"" VARCHAR(16777216),
+	""osm_id"" NUMBER(38,0),
+	""osm_way_id"" NUMBER(38,0),
+	""osm_version"" NUMBER(38,0),
+	""osm_timestamp"" NUMBER(38,0),
+	""all_tags"" VARIANT,
+	""geometry"" BINARY(8388608)
+);"
+PLANET_NODES,,"create or replace TABLE PLANET_NODES (
+	""id"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""changeset"" NUMBER(38,0),
+	""visible"" BOOLEAN,
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""all_tags"" VARIANT,
+	""latitude"" NUMBER(38,9),
+	""longitude"" NUMBER(38,9)
+);"
+PLANET_FEATURES_POINTS,,"create or replace TABLE PLANET_FEATURES_POINTS (
+	""osm_id"" NUMBER(38,0),
+	""osm_version"" NUMBER(38,0),
+	""osm_way_id"" NUMBER(38,0),
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""all_tags"" VARIANT
+);"
+HISTORY_NODES,,"create or replace TABLE HISTORY_NODES (
+	""id"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""changeset"" NUMBER(38,0),
+	""visible"" BOOLEAN,
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""all_tags"" VARIANT,
+	""latitude"" NUMBER(38,9),
+	""longitude"" NUMBER(38,9)
+);"
+PLANET_WAYS,,"create or replace TABLE PLANET_WAYS (
+	""id"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""changeset"" NUMBER(38,0),
+	""visible"" BOOLEAN,
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""all_tags"" VARIANT,
+	""nodes"" VARIANT
+);"
+HISTORY_LAYERS,,"create or replace TABLE HISTORY_LAYERS (
+	""layer_code"" NUMBER(38,0),
+	""layer_class"" VARCHAR(16777216),
+	""layer_name"" VARCHAR(16777216),
+	""osm_id"" NUMBER(38,0),
+	""osm_way_id"" NUMBER(38,0),
+	""osm_timestamp"" NUMBER(38,0),
+	""osm_version"" NUMBER(38,0),
+	""all_tags"" VARIANT,
+	""geometry"" BINARY(8388608),
+	""gdal_type"" VARCHAR(16777216)
+);"
+HISTORY_RELATIONS,,"create or replace TABLE HISTORY_RELATIONS (
+	""id"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""changeset"" NUMBER(38,0),
+	""visible"" BOOLEAN,
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""members"" VARIANT,
+	""all_tags"" VARIANT
+);"
+PLANET_RELATIONS,,"create or replace TABLE PLANET_RELATIONS (
+	""id"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""changeset"" NUMBER(38,0),
+	""visible"" BOOLEAN,
+	""osm_timestamp"" NUMBER(38,0),
+	""geometry"" BINARY(8388608),
+	""all_tags"" VARIANT,
+	""members"" VARIANT
+);"
+PLANET_LAYERS,,"create or replace TABLE PLANET_LAYERS (
+	""layer_code"" NUMBER(38,0),
+	""layer_class"" VARCHAR(16777216),
+	""layer_name"" VARCHAR(16777216),
+	""gdal_type"" VARCHAR(16777216),
+	""osm_id"" NUMBER(38,0),
+	""osm_way_id"" NUMBER(38,0),
+	""osm_timestamp"" NUMBER(38,0),
+	""osm_version"" NUMBER(38,0),
+	""all_tags"" VARIANT,
+	""geometry"" BINARY(8388608)
+);"

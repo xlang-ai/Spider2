@@ -1,0 +1,52 @@
+table_name,DDL
+aircrafts_data,"CREATE TABLE aircrafts_data (
+    aircraft_code character(3),
+    model jsonb,
+    range INTEGER
+);"
+airports_data,"CREATE TABLE airports_data (
+    airport_code character(3),
+    airport_name jsonb,
+    city jsonb,
+    coordinates point,
+    timezone TEXT
+);"
+boarding_passes,"CREATE TABLE boarding_passes (
+    ticket_no character(13),
+    flight_id INTEGER,
+    boarding_no INTEGER,
+    seat_no character varying(4)
+);"
+bookings,"CREATE TABLE bookings (
+    book_ref character(6),
+    book_date timestamp with time zone,
+    total_amount numeric(10,2)
+);"
+flights,"CREATE TABLE flights (
+    flight_id INTEGER,
+    flight_no character(6),
+    scheduled_departure timestamp with time zone,
+    scheduled_arrival timestamp with time zone,
+    departure_airport character(3),
+    arrival_airport character(3),
+    status character varying(20),
+    aircraft_code character(3),
+    actual_departure timestamp with time zone,
+    actual_arrival timestamp with time zone
+);"
+seats,"CREATE TABLE seats (
+    aircraft_code character(3),
+    seat_no character varying(4),
+    fare_conditions character varying(10)
+);"
+ticket_flights,"CREATE TABLE ticket_flights (
+    ticket_no character(13),
+    flight_id INTEGER,
+    fare_conditions character varying(10),
+    amount numeric(10,2)
+);"
+tickets,"CREATE TABLE tickets (
+    ticket_no character(13),
+    book_ref character(6),
+    passenger_id character varying(20)
+);"

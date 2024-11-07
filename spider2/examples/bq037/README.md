@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.human_genome_variants` database to solve this problem.

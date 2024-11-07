@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.crypto_bitcoin` database to solve this problem.

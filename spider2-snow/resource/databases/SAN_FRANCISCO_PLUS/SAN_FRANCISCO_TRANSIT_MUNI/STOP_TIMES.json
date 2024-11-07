@@ -1,0 +1,94 @@
+{
+    "table_name": "SAN_FRANCISCO_TRANSIT_MUNI.STOP_TIMES",
+    "table_fullname": "SAN_FRANCISCO_PLUS.SAN_FRANCISCO_TRANSIT_MUNI.STOP_TIMES",
+    "column_names": [
+        "arrival_time",
+        "exact_timepoint",
+        "stop_sequence",
+        "stop_id",
+        "arrives_next_day",
+        "trip_id",
+        "departure_time",
+        "dropoff_type",
+        "departs_next_day"
+    ],
+    "column_types": [
+        "TIME",
+        "BOOLEAN",
+        "NUMBER",
+        "NUMBER",
+        "BOOLEAN",
+        "NUMBER",
+        "TIME",
+        "TEXT",
+        "BOOLEAN"
+    ],
+    "description": [
+        "Specifies the scheduled arrival time at a specific stop for a specific trip on a route.",
+        "Indicates if the specified arrival and departure times for a stop are strictly adhered to by the transit vehicle, or if they're instead approximate or interpolated times.",
+        "Identifies the order of the stops for a particular trip. The values for stop_sequence must increase throughout the trip but do not need to be consecutive.",
+        "Identifies the serviced stop. Multiple routes can use the same stop.",
+        "Several routes begin before midnight, with service continuing throughout the night. This variable specifies whether arrival_time occurs after midnight the day after the scheduled day. \u00a0This is useful for identifying routes that begin one day and end the next day",
+        "Identifies a trip. Multiple trips can have the same stop",
+        "Specifies the scheduled departure time at a specific stop for a specific trip on a route.",
+        "\"Indicates whether riders are dropped off at a stop as part of the normal schedule or whether a drop off at the stop isn't available. Available options: \u00a0- \u00a0regular - \u00a0none - \u00a0phone (indicates must phone agency to arrange drop off) - \u00a0driver (indicates must coordinate with driver to arrange drop off)\"",
+        "Several routes begin before midnight, with service continuing throughout the night. This variable specifies whether departure_time occurs after midnight the day after the scheduled day. \u00a0This is useful for identifying routes that begin one day and end the next day"
+    ],
+    "sample_rows": [
+        {
+            "stop_id": 15759,
+            "trip_id": 8951406,
+            "stop_sequence": 51,
+            "arrival_time": "06:54:55",
+            "arrives_next_day": false,
+            "departure_time": "06:54:55",
+            "departs_next_day": false,
+            "dropoff_type": "regular",
+            "exact_timepoint": false
+        },
+        {
+            "stop_id": 15761,
+            "trip_id": 8951406,
+            "stop_sequence": 52,
+            "arrival_time": "06:55:33",
+            "arrives_next_day": false,
+            "departure_time": "06:55:33",
+            "departs_next_day": false,
+            "dropoff_type": "regular",
+            "exact_timepoint": false
+        },
+        {
+            "stop_id": 15759,
+            "trip_id": 8951253,
+            "stop_sequence": 51,
+            "arrival_time": "06:54:55",
+            "arrives_next_day": false,
+            "departure_time": "06:54:55",
+            "departs_next_day": false,
+            "dropoff_type": "regular",
+            "exact_timepoint": false
+        },
+        {
+            "stop_id": 15761,
+            "trip_id": 8951253,
+            "stop_sequence": 52,
+            "arrival_time": "06:55:33",
+            "arrives_next_day": false,
+            "departure_time": "06:55:33",
+            "departs_next_day": false,
+            "dropoff_type": "regular",
+            "exact_timepoint": false
+        },
+        {
+            "stop_id": 15828,
+            "trip_id": 8951253,
+            "stop_sequence": 54,
+            "arrival_time": "06:57:00",
+            "arrives_next_day": false,
+            "departure_time": "06:57:00",
+            "departs_next_day": false,
+            "dropoff_type": "regular",
+            "exact_timepoint": true
+        }
+    ]
+}

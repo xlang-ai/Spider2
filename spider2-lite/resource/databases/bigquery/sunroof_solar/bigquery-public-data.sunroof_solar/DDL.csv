@@ -1,0 +1,77 @@
+table_name,ddl
+solar_potential_by_postal_code,"CREATE TABLE `bigquery-public-data.sunroof_solar.solar_potential_by_postal_code`
+(
+  region_name STRING OPTIONS(description=""Postal Code""),
+  state_name STRING OPTIONS(description=""Name of the state containing that region""),
+  lat_max FLOAT64 OPTIONS(description=""maximum latitude for that region""),
+  lat_min FLOAT64 OPTIONS(description=""minimum latitude for that region""),
+  lng_max FLOAT64 OPTIONS(description=""maximum longitude for that region""),
+  lng_min FLOAT64 OPTIONS(description=""minimum longitude for that region""),
+  lat_avg FLOAT64 OPTIONS(description=""average latitude for that region""),
+  lng_avg FLOAT64 OPTIONS(description=""average longitude for that region""),
+  yearly_sunlight_kwh_kw_threshold_avg FLOAT64 OPTIONS(description=""75% of the optimimum sunlight in the county containing that zip code""),
+  count_qualified INT64 OPTIONS(description=""# of buildings in Google Maps that are suitable for solar""),
+  percent_covered FLOAT64 OPTIONS(description=""% of buildings in Google Maps covered by Project Sunroof""),
+  percent_qualified FLOAT64 OPTIONS(description=""% of buildings covered by Project Sunroof that are suitable for solar""),
+  number_of_panels_n INT64 OPTIONS(description=""# of solar panels potential for north-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_s INT64 OPTIONS(description=""# of solar panels potential for south-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_e INT64 OPTIONS(description=""# of solar panels potential for east-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_w INT64 OPTIONS(description=""# of solar panels potential for west-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_f INT64 OPTIONS(description=""# of solar panels potential for flat roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_median INT64 OPTIONS(description=""# of panels that fit on the median roof""),
+  number_of_panels_total INT64 OPTIONS(description=""# of solar panels potential for all roof space in that region, assuming 1.650m 0.992m panels""),
+  kw_median FLOAT64 OPTIONS(description=""kW of solar potential for the median building in that region (assuming 250 watts per panel)""),
+  kw_total FLOAT64 OPTIONS(description=""# of kW of solar potential for all roof types in that region (assuming 250 watts per panel)""),
+  yearly_sunlight_kwh_n FLOAT64 OPTIONS(description=""total solar energy generation potential for north-facing roof space in that region""),
+  yearly_sunlight_kwh_s FLOAT64 OPTIONS(description=""total solar energy generation potential for south-facing roof space in that region""),
+  yearly_sunlight_kwh_e FLOAT64 OPTIONS(description=""total solar energy generation potential for east-facing roof space in that region""),
+  yearly_sunlight_kwh_w FLOAT64 OPTIONS(description=""total solar energy generation potential for west-facing roof space in that region""),
+  yearly_sunlight_kwh_f FLOAT64 OPTIONS(description=""total solar energy generation potential for flat roof space in that region""),
+  yearly_sunlight_kwh_median FLOAT64 OPTIONS(description=""kWh/kw/yr for the median roof, in DC (not AC) terms""),
+  yearly_sunlight_kwh_total FLOAT64 OPTIONS(description=""total solar energy generation potential for all roof space in that region""),
+  install_size_kw_buckets STRING OPTIONS(description=""# of buildings with potential for various installation size buckets. Format is a JSON array, where each element is a tuple containing (1) lower bound of bucket, in kW, and (2) number of buildings in that bucket.""),
+  carbon_offset_metric_tons FLOAT64 OPTIONS(description=""The potential carbon dioxide abatement of the solar capacity that meets the technical potential criteria. The calculation uses eGRID subregion CO2 equivalent non-baseload output emission rates. https://www.epa.gov/sites/production/files/2015-10/documents/egrid2012_summarytables_0.pdf""),
+  existing_installs_count INT64 OPTIONS(description=""# of buildings estimated to have a solar installation, at time of data collection""),
+  center_point GEOGRAPHY
+)
+OPTIONS(
+  description=""Sunroof Solar Potential By Postal Code""
+);"
+solar_potential_by_censustract,"CREATE TABLE `bigquery-public-data.sunroof_solar.solar_potential_by_censustract`
+(
+  region_name STRING OPTIONS(description=""Census Tract""),
+  state_name STRING OPTIONS(description=""Name of the state containing that region""),
+  lat_max FLOAT64 OPTIONS(description=""maximum latitude for that region""),
+  lat_min FLOAT64 OPTIONS(description=""minimum latitude for that region""),
+  lng_max FLOAT64 OPTIONS(description=""maximum longitude for that region""),
+  lng_min FLOAT64 OPTIONS(description=""minimum longitude for that region""),
+  lat_avg FLOAT64 OPTIONS(description=""average latitude for that region""),
+  lng_avg FLOAT64 OPTIONS(description=""average longitude for that region""),
+  yearly_sunlight_kwh_kw_threshold_avg FLOAT64 OPTIONS(description=""75% of the optimimum sunlight in the county containing that zip code""),
+  count_qualified INT64 OPTIONS(description=""# of buildings in Google Maps that are suitable for solar""),
+  percent_covered FLOAT64 OPTIONS(description=""% of buildings in Google Maps covered by Project Sunroof""),
+  percent_qualified FLOAT64 OPTIONS(description=""% of buildings covered by Project Sunroof that are suitable for solar""),
+  number_of_panels_n INT64 OPTIONS(description=""# of solar panels potential for north-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_s INT64 OPTIONS(description=""# of solar panels potential for south-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_e INT64 OPTIONS(description=""# of solar panels potential for east-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_w INT64 OPTIONS(description=""# of solar panels potential for west-facing roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_f INT64 OPTIONS(description=""# of solar panels potential for flat roof space in that region, assuming 1.650m x 0.992m panels""),
+  number_of_panels_median INT64 OPTIONS(description=""# of panels that fit on the median roof""),
+  number_of_panels_total INT64 OPTIONS(description=""# of solar panels potential for all roof space in that region, assuming 1.650m 0.992m panels""),
+  kw_median FLOAT64 OPTIONS(description=""kW of solar potential for the median building in that region (assuming 250 watts per panel)""),
+  kw_total FLOAT64 OPTIONS(description=""# of kW of solar potential for all roof types in that region (assuming 250 watts per panel)""),
+  yearly_sunlight_kwh_n FLOAT64 OPTIONS(description=""total solar energy generation potential for north-facing roof space in that region""),
+  yearly_sunlight_kwh_s FLOAT64 OPTIONS(description=""total solar energy generation potential for south-facing roof space in that region""),
+  yearly_sunlight_kwh_e FLOAT64 OPTIONS(description=""total solar energy generation potential for east-facing roof space in that region""),
+  yearly_sunlight_kwh_w FLOAT64 OPTIONS(description=""total solar energy generation potential for west-facing roof space in that region""),
+  yearly_sunlight_kwh_f FLOAT64 OPTIONS(description=""total solar energy generation potential for flat roof space in that region""),
+  yearly_sunlight_kwh_median FLOAT64 OPTIONS(description=""kWh/kw/yr for the median roof, in DC (not AC) terms""),
+  yearly_sunlight_kwh_total FLOAT64 OPTIONS(description=""total solar energy generation potential for all roof space in that region""),
+  install_size_kw_buckets STRING OPTIONS(description=""# of buildings with potential for various installation size buckets. Format is a JSON array, where each element is a tuple containing (1) lower bound of bucket, in kW, and (2) number of buildings in that bucket.""),
+  carbon_offset_metric_tons FLOAT64 OPTIONS(description=""The potential carbon dioxide abatement of the solar capacity that meets the technical potential criteria. The calculation uses eGRID subregion CO2 equivalent non-baseload output emission rates. https://www.epa.gov/sites/production/files/2015-10/documents/egrid2012_summarytables_0.pdf""),
+  existing_installs_count INT64 OPTIONS(description=""# of buildings estimated to have a solar installation, at time of data collection""),
+  center_point GEOGRAPHY
+)
+OPTIONS(
+  description=""Sunroof Solar Potential By Census Tract""
+);"

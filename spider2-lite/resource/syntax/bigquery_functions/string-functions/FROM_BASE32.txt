@@ -1,0 +1,23 @@
+## FROM_BASE32
+
+FROM_BASE32(string_expr)
+
+**Description**
+
+Converts the base32-encoded input ` string_expr ` into ` BYTES ` format. To convert ` BYTES ` to a base32-encoded ` STRING ` , use  TO_BASE32  .
+
+**Return type**
+
+` BYTES `
+
+**Example**
+
+
+SELECT FROM_BASE32('MFRGGZDF74======') AS byte_data;
+
+-- Note that the result of FROM_BASE32 is of type BYTES, displayed as a base64-encoded string.
+/*-----------*
+| byte_data |
++-----------+
+| YWJjZGX/  |
+*-----------*/

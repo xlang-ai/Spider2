@@ -1,0 +1,21 @@
+# Details of bike share trips
+
+- trip ID
+- duration (s)
+- start date
+- start station name
+  - Not null
+- route : `start_station_name` - `end_station_name` (there is " - " between two strings of names)
+- bike number
+- subscriber type
+- member birth year
+  - Not null
+- age := current year - birth year
+  - Not null
+- age class
+  - age < 40 : 'Young (<40 Y.O)'
+  - 40 <= age <= 60 : 'Adult (40-60 Y.O)'
+  - age > 60 : 'Senior Adult (>60 Y.O)'
+- member gender
+  - Not null
+- region name

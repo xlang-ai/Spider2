@@ -1,0 +1,44 @@
+## PERCENTILE_CONT
+
+WITH DIFFERENTIAL_PRIVACY ...
+PERCENTILE_CONT( expression,
+percentile,
+contribution_bounds_per_row => (lower_bound, upper_bound) )
+
+**Description**
+
+Takes an expression and computes a percentile for it. The final result is an aggregation across privacy unit columns.
+
+This function must be used with the [ ` DIFFERENTIAL_PRIVACY ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#dp_clause) and can support these arguments:
+
+* ` expression ` : The input expression. This can be most numeric input types, such as ` INT64 ` . ` NULL ` values are always ignored.
+* ` percentile ` : The percentile to compute. The percentile must be a literal in the range ` [0, 1] ` .
+* ` contribution_bounds_per_row ` : The  contribution bounds named argument  . Perform clamping per each row separately before performing intermediate grouping on the privacy unit column.
+
+` NUMERIC ` and ` BIGNUMERIC ` arguments are not allowed. If you need them,
+cast them as the ` FLOAT64 ` data type first.
+
+**Return type**
+
+` FLOAT64 `
+
+**Examples**
+
+The following differentially private query gets the percentile of items requested. Smaller aggregations might not be included. This query references a view called [ ` professors ` ](/bigquery/docs/reference/standard-sql/query-
+syntax#dp_example_tables) .
+
+
+-- With noise, using the epsilon parameter.
+SELECT WITH DIFFERENTIAL_PRIVACY OPTIONS(epsilon=10, delta=.01, max_groups_contributed=1, privacy_unit_column=id) item,
+PERCENTILE_CONT(quantity, 0.5, contribution_bounds_per_row => (0,100)) percentile_requested FROM professors GROUP BY item;
+
+-- These results will change each time you run the query.
+-- Smaller aggregations might be removed.
+/*----------+----------------------*
+| item     | percentile_requested |
++----------+----------------------+
+| pencil   | 72.00011444091797    |
+| scissors | 8.000175476074219    |
+| pen      | 23.001075744628906   |
+*----------+----------------------*/

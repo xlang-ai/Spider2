@@ -1,0 +1,110 @@
+{
+    "table_name": "SAN_FRANCISCO_BIKESHARE.BIKESHARE_STATION_STATUS",
+    "table_fullname": "SAN_FRANCISCO_PLUS.SAN_FRANCISCO_BIKESHARE.BIKESHARE_STATION_STATUS",
+    "column_names": [
+        "is_renting",
+        "is_installed",
+        "station_id",
+        "num_bikes_available",
+        "eightd_has_available_keys",
+        "num_docks_disabled",
+        "last_reported",
+        "is_returning",
+        "num_ebikes_available",
+        "num_bikes_disabled",
+        "num_docks_available"
+    ],
+    "column_types": [
+        "BOOLEAN",
+        "BOOLEAN",
+        "TEXT",
+        "NUMBER",
+        "BOOLEAN",
+        "NUMBER",
+        "NUMBER",
+        "BOOLEAN",
+        "NUMBER",
+        "NUMBER",
+        "NUMBER"
+    ],
+    "description": [
+        "1/0 boolean - is the station currently renting bikes (even if the station is empty, if it is set to allow rentals this value should be 1)",
+        "1/0 boolean - is the station currently on the street",
+        "Unique identifier of a station",
+        "Number of bikes available for rental",
+        "",
+        "Number of empty but disabled dock points at the station. This value remains as part of the spec as it is possibly useful during development",
+        "Integer POSIX timestamp indicating the last time this station reported its status to the backend",
+        "1/0 boolean - is the station accepting bike returns (if a station is full but would allow a return if it was not full then this value should be 1)",
+        "",
+        "Number of disabled bikes at the station. Vendors who do not want to publicize the number of disabled bikes or docks in their system can opt to omit station capacity (in station_information), num_bikes_disabled and num_docks_disabled. If station capacity is published then broken docks/bikes can be inferred (though not specifically whether the decreased capacity is a broken bike or dock)",
+        "Number of docks accepting bike returns"
+    ],
+    "sample_rows": [
+        {
+            "station_id": "46b4ef45-b06b-40eb-9fdf-9bc8ff104a4f",
+            "num_bikes_available": 0,
+            "num_bikes_disabled": 0,
+            "num_docks_available": 15,
+            "num_docks_disabled": 0,
+            "is_installed": true,
+            "is_renting": true,
+            "is_returning": true,
+            "last_reported": 1729209514,
+            "num_ebikes_available": 0,
+            "eightd_has_available_keys": false
+        },
+        {
+            "station_id": "bb54f5c8-5578-4167-9599-8e55154de4fd",
+            "num_bikes_available": 0,
+            "num_bikes_disabled": 0,
+            "num_docks_available": 27,
+            "num_docks_disabled": 0,
+            "is_installed": true,
+            "is_renting": true,
+            "is_returning": true,
+            "last_reported": 1729209462,
+            "num_ebikes_available": 0,
+            "eightd_has_available_keys": false
+        },
+        {
+            "station_id": "63b2136c-c947-473e-977e-8cc0e6347699",
+            "num_bikes_available": 0,
+            "num_bikes_disabled": 0,
+            "num_docks_available": 19,
+            "num_docks_disabled": 0,
+            "is_installed": true,
+            "is_renting": true,
+            "is_returning": true,
+            "last_reported": 1729209551,
+            "num_ebikes_available": 0,
+            "eightd_has_available_keys": false
+        },
+        {
+            "station_id": "7dd926da-25ee-48fd-9de7-ad59a83f94a8",
+            "num_bikes_available": 0,
+            "num_bikes_disabled": 0,
+            "num_docks_available": 31,
+            "num_docks_disabled": 0,
+            "is_installed": true,
+            "is_renting": true,
+            "is_returning": true,
+            "last_reported": 1729209544,
+            "num_ebikes_available": 0,
+            "eightd_has_available_keys": false
+        },
+        {
+            "station_id": "e70c8987-0178-46f2-941f-1fd0eb306ed9",
+            "num_bikes_available": 0,
+            "num_bikes_disabled": 0,
+            "num_docks_available": 19,
+            "num_docks_disabled": 0,
+            "is_installed": true,
+            "is_renting": true,
+            "is_returning": true,
+            "last_reported": 1729209503,
+            "num_ebikes_available": 0,
+            "eightd_has_available_keys": false
+        }
+    ]
+}

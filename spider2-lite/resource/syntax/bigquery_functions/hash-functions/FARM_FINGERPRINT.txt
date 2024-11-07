@@ -1,0 +1,27 @@
+## FARM_FINGERPRINT
+
+FARM_FINGERPRINT(value)
+
+**Description**
+
+Computes the fingerprint of the ` STRING ` or ` BYTES ` input using the `
+Fingerprint64 ` function from the [ open-source FarmHash library
+](https://github.com/google/farmhash) . The output of this function for a particular input will never change.
+
+**Return type**
+
+INT64
+
+**Examples**
+
+
+WITH example AS ( SELECT 1 AS x, "foo" AS y, true AS z UNION ALL SELECT 2 AS x, "apple" AS y, false AS z UNION ALL SELECT 3 AS x, "" AS y, true AS z ) SELECT
+*,
+FARM_FINGERPRINT(CONCAT(CAST(x AS STRING), y, CAST(z AS STRING))) AS row_fingerprint FROM example;
+/*---+-------+-------+----------------------*
+| x | y     | z     | row_fingerprint      |
++---+-------+-------+----------------------+
+| 1 | foo   | true  | -1541654101129638711 |
+| 2 | apple | false | 2794438866806483259  |
+| 3 |       | true  | -4880158226897771312 |
+*---+-------+-------+----------------------*/

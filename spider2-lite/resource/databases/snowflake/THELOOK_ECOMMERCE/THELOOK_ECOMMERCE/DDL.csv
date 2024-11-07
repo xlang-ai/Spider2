@@ -1,0 +1,88 @@
+table_name,description,DDL
+DISTRIBUTION_CENTERS,,"create or replace TABLE DISTRIBUTION_CENTERS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT
+);"
+ORDERS,,"create or replace TABLE ORDERS (
+	""order_id"" NUMBER(38,0),
+	""user_id"" NUMBER(38,0),
+	""status"" VARCHAR(16777216),
+	""gender"" VARCHAR(16777216),
+	""created_at"" NUMBER(38,0),
+	""returned_at"" NUMBER(38,0),
+	""shipped_at"" NUMBER(38,0),
+	""delivered_at"" NUMBER(38,0),
+	""num_of_item"" NUMBER(38,0)
+);"
+USERS,,"create or replace TABLE USERS (
+	""id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""age"" NUMBER(38,0),
+	""gender"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""street_address"" VARCHAR(16777216),
+	""postal_code"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""traffic_source"" VARCHAR(16777216),
+	""created_at"" NUMBER(38,0)
+);"
+EVENTS,,"create or replace TABLE EVENTS (
+	""id"" NUMBER(38,0),
+	""user_id"" NUMBER(38,0),
+	""sequence_number"" NUMBER(38,0),
+	""session_id"" VARCHAR(16777216),
+	""created_at"" NUMBER(38,0),
+	""ip_address"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""postal_code"" VARCHAR(16777216),
+	""browser"" VARCHAR(16777216),
+	""traffic_source"" VARCHAR(16777216),
+	""uri"" VARCHAR(16777216),
+	""event_type"" VARCHAR(16777216)
+);"
+INVENTORY_ITEMS,,"create or replace TABLE INVENTORY_ITEMS (
+	""id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""created_at"" NUMBER(38,0),
+	""sold_at"" NUMBER(38,0),
+	""cost"" FLOAT,
+	""product_category"" VARCHAR(16777216),
+	""product_name"" VARCHAR(16777216),
+	""product_brand"" VARCHAR(16777216),
+	""product_retail_price"" FLOAT,
+	""product_department"" VARCHAR(16777216),
+	""product_sku"" VARCHAR(16777216),
+	""product_distribution_center_id"" NUMBER(38,0)
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	""id"" NUMBER(38,0),
+	""cost"" FLOAT,
+	""category"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""brand"" VARCHAR(16777216),
+	""retail_price"" FLOAT,
+	""department"" VARCHAR(16777216),
+	""sku"" VARCHAR(16777216),
+	""distribution_center_id"" NUMBER(38,0)
+);"
+ORDER_ITEMS,,"create or replace TABLE ORDER_ITEMS (
+	""id"" NUMBER(38,0),
+	""order_id"" NUMBER(38,0),
+	""user_id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""inventory_item_id"" NUMBER(38,0),
+	""status"" VARCHAR(16777216),
+	""created_at"" NUMBER(38,0),
+	""shipped_at"" NUMBER(38,0),
+	""delivered_at"" NUMBER(38,0),
+	""returned_at"" NUMBER(38,0),
+	""sale_price"" FLOAT
+);"

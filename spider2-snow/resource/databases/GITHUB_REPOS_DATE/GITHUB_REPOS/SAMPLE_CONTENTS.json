@@ -1,0 +1,102 @@
+{
+    "table_name": "GITHUB_REPOS.SAMPLE_CONTENTS",
+    "table_fullname": "GITHUB_REPOS_DATE.GITHUB_REPOS.SAMPLE_CONTENTS",
+    "column_names": [
+        "size",
+        "binary",
+        "sample_symlink_target",
+        "copies",
+        "sample_mode",
+        "sample_path",
+        "content",
+        "sample_ref",
+        "sample_repo_name",
+        "id"
+    ],
+    "column_types": [
+        "NUMBER",
+        "BOOLEAN",
+        "TEXT",
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": "2808cc7dad1e963456a33387816a60edcd14e3c2",
+            "size": 2743,
+            "content": "// Copyright (c) 2015 The Chromium Authors. All rights reserved.\n// Use of this source code is governed by a BSD-style license that can be\n// found in the LICENSE file.\n\n#include \"net/tools/quic/synchronous_host_resolver.h\"\n\n#include \"base/at_exit.h\"\n#include \"base/location.h\"\n#include \"base/macros.h\"\n#include \"base/memory/weak_ptr.h\"\n#include \"base/single_thread_task_runner.h\"\n#include \"base/thread_task_runner_handle.h\"\n#include \"base/threading/simple_thread.h\"\n#include \"net/base/host_port_pair.h\"\n#include \"net/base/net_errors.h\"\n#include \"net/dns/host_resolver_impl.h\"\n#include \"net/dns/single_request_host_resolver.h\"\n\nnamespace net {\n\n\nnamespace {\n\nclass ResolverThread : public base::SimpleThread {\n public:\n  ResolverThread();\n\n  ~ResolverThread() override;\n\n  // Called on the main thread.\n  int Resolve(const std::string& host, AddressList* addresses);\n\n  // SimpleThread methods:\n  void Run() override;\n\n private:\n  void OnResolutionComplete(int rv);\n\n  AddressList* addresses_;\n  std::string host_;\n  int rv_;\n\n  base::WeakPtrFactory<ResolverThread> weak_factory_;\n\n  DISALLOW_COPY_AND_ASSIGN(ResolverThread);\n};\n\nResolverThread::ResolverThread()\n    : SimpleThread(\"resolver_thread\"),\n      rv_(ERR_UNEXPECTED),\n      weak_factory_(this) {}\n\nResolverThread::~ResolverThread() {}\n\nvoid ResolverThread::Run() {\n  base::MessageLoopForIO loop;\n\n  net::NetLog net_log;\n  net::HostResolver::Options options;\n  options.max_concurrent_resolves = 6;\n  options.max_retry_attempts = 3u;\n  scoped_ptr<net::HostResolverImpl> resolver_impl(\n      new net::HostResolverImpl(options, &net_log));\n  SingleRequestHostResolver resolver(resolver_impl.get());\n\n  HostPortPair host_port_pair(host_, 80);\n  rv_ = resolver.Resolve(HostResolver::RequestInfo(host_port_pair),\n                         DEFAULT_PRIORITY, addresses_,\n                         base::Bind(&ResolverThread::OnResolutionComplete,\n                                    weak_factory_.GetWeakPtr()),\n                         BoundNetLog());\n\n  if (rv_ != ERR_IO_PENDING)\n    return;\n\n  // Run the mesage loop until OnResolutionComplete quits it.\n  base::MessageLoop::current()->Run();\n}\n\nint ResolverThread::Resolve(const std::string& host, AddressList* addresses) {\n  host_ = host;\n  addresses_ = addresses;\n  this->Start();\n  this->Join();\n  return rv_;\n}\n\nvoid ResolverThread::OnResolutionComplete(int rv) {\n  rv_ = rv;\n  base::ThreadTaskRunnerHandle::Get()->PostTask(\n      FROM_HERE, base::MessageLoop::QuitWhenIdleClosure());\n}\n\n}  // namespace\n\n// static\nint SynchronousHostResolver::Resolve(const std::string& host,\n                                     AddressList* addresses) {\n  ResolverThread resolver;\n  return resolver.Resolve(host, addresses);\n}\n\n}  // namespace net\n",
+            "binary": false,
+            "copies": 8,
+            "sample_repo_name": "nwjs/chromium.src",
+            "sample_ref": "refs/heads/nw15",
+            "sample_path": "net/tools/quic/synchronous_host_resolver.cc",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "b5d98c4d7b90b473fdf470a29b2562c7c6b70c67",
+            "size": 636,
+            "content": "{\n  \"organization\" : \"net.databinder\",\n  \"name\" : \"unfiltered-json\",\n  \"version\" : \"0.6.5\",\n  \"description\" : \"Json requset matchers and response functions\",\n  \"site\" : \"http://unfiltered.databinder.net/\",\n  \"tags\" : [ ],\n  \"docs\" : \"\",\n  \"resolvers\" : [ \"https://oss.sonatype.org/content/repositories/releases\" ],\n  \"dependencies\" : [ {\n    \"organization\" : \"net.liftweb\",\n    \"name\" : \"lift-json_2.9.1\",\n    \"version\" : \"2.4\"\n  } ],\n  \"scalas\" : [ \"2.8.1\", \"2.8.2\", \"2.9.0-1\", \"2.9.1\", \"2.9.1-1\", \"2.9.2\", \"2.10.0\" ],\n  \"licenses\" : [ {\n    \"name\" : \"MIT\",\n    \"url\" : \"http://www.opensource.org/licenses/MIT\"\n  } ],\n  \"sbt\" : false\n}",
+            "binary": false,
+            "copies": 8,
+            "sample_repo_name": "unfiltered/unfiltered",
+            "sample_ref": "refs/heads/0.9.0",
+            "sample_path": "json4s/src/main/ls/0.6.5.json",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "feb55b7e02a74beed6b06ed165c8ba65cb76bd75",
+            "size": 2954,
+            "content": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n<!-- Created with Inkscape (http://www.inkscape.org/) -->\n\n<svg\n   xmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n   xmlns:cc=\"http://creativecommons.org/ns#\"\n   xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n   xmlns:svg=\"http://www.w3.org/2000/svg\"\n   xmlns=\"http://www.w3.org/2000/svg\"\n   xmlns:sodipodi=\"http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd\"\n   xmlns:inkscape=\"http://www.inkscape.org/namespaces/inkscape\"\n   width=\"130\"\n   height=\"130\"\n   id=\"svg4682\"\n   version=\"1.1\"\n   inkscape:version=\"0.48.4 r9939\"\n   sodipodi:docname=\"ic_menu_folder_w.svg\"\n   inkscape:export-filename=\"/home/corbax/Dev/android/Icons/Test 1/ic_play_normal.png\"\n   inkscape:export-xdpi=\"90\"\n   inkscape:export-ydpi=\"90\">\n  <defs\n     id=\"defs4684\" />\n  <sodipodi:namedview\n     id=\"base\"\n     pagecolor=\"#ffffff\"\n     bordercolor=\"#666666\"\n     borderopacity=\"1.0\"\n     inkscape:pageopacity=\"0.0\"\n     inkscape:pageshadow=\"2\"\n     inkscape:zoom=\"3.959798\"\n     inkscape:cx=\"-23.979132\"\n     inkscape:cy=\"74.339893\"\n     inkscape:document-units=\"px\"\n     inkscape:current-layer=\"layer1\"\n     showgrid=\"false\"\n     inkscape:window-width=\"1680\"\n     inkscape:window-height=\"1026\"\n     inkscape:window-x=\"1920\"\n     inkscape:window-y=\"54\"\n     inkscape:window-maximized=\"1\" />\n  <metadata\n     id=\"metadata4687\">\n    <rdf:RDF>\n      <cc:Work\n         rdf:about=\"\">\n        <dc:format>image/svg+xml</dc:format>\n        <dc:type\n           rdf:resource=\"http://purl.org/dc/dcmitype/StillImage\" />\n        <dc:title></dc:title>\n      </cc:Work>\n    </rdf:RDF>\n  </metadata>\n  <g\n     inkscape:label=\"Layer 1\"\n     inkscape:groupmode=\"layer\"\n     id=\"layer1\"\n     transform=\"translate(0,-922.36218)\">\n    <path\n       style=\"fill:#fafafa;fill-opacity:1;stroke:none\"\n       d=\"m 19.492496,942.36737 a 3.3263094,3.252294 0 0 0 -0.169259,0.0414 c -3.826704,0.40353 -6.652854,3.43651 -6.644107,7.19958 l 0,66.74095 a 3.3263094,3.252294 0 0 0 6.559548,0.7862 l 12.314601,-48.16268 c 0.172451,-0.68137 1.147456,-1.50277 1.862116,-1.57235 0.01389,4.2e-4 0.02916,-6.7e-4 0.04165,0 a 3.3263094,3.252294 0 0 0 0.169259,0.0414 l 65.001203,0 a 3.3263094,3.252294 0 0 0 3.343363,-3.26878 l 0,-1.32406 a 3.3263094,3.252294 0 0 0 0,-0.0414 c -0.0264,-4.028 -3.273943,-7.18577 -7.405973,-7.19957 l -37.536551,0 -11.38361,-11.13039 a 3.3263094,3.252294 0 0 0 -0.04304,0 c -1.400718,-1.36081 -3.23076,-2.11222 -5.205205,-2.11022 l -20.143515,0 c -0.05554,-0.003 -0.115245,0.001 -0.169397,0 -0.192446,-0.006 -0.400165,-0.008 -0.592472,0 z m 19.170315,29.58449 a 3.8114006,3.726591 0 0 0 -3.300879,2.81363 l -13.542033,52.96231 a 3.8114006,3.726591 0 0 0 3.681883,4.6344 l 74.480629,0 a 3.8114006,3.726591 0 0 0 3.681879,-2.8137 l 13.54188,-52.96242 a 3.8114006,3.726591 0 0 0 -3.68174,-4.63422 l -74.480753,0 a 3.8114006,3.726591 0 0 0 -0.380866,0 z\"\n       id=\"path3933\"\n       inkscape:connector-curvature=\"0\" />\n  </g>\n</svg>\n",
+            "binary": false,
+            "copies": 8,
+            "sample_repo_name": "JosefRypacek/PrimeTV",
+            "sample_ref": "refs/heads/1.0.x",
+            "sample_path": "assets/images/svg/ic_menu_folder_w.svg",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "814343a33660c53403791055ac5f502cee0644bd",
+            "size": 4802,
+            "content": "/*!\n@file\nDefines `boost::hana::monadic_fold_right`.\n\n@copyright Louis Dionne 2013-2016\nDistributed under the Boost Software License, Version 1.0.\n(See accompanying file LICENSE.md or copy at http://boost.org/LICENSE_1_0.txt)\n */\n\n#ifndef BOOST_HANA_MONADIC_FOLD_RIGHT_HPP\n#define BOOST_HANA_MONADIC_FOLD_RIGHT_HPP\n\n#include <boost/hana/fwd/monadic_fold_right.hpp>\n\n#include <boost/hana/chain.hpp>\n#include <boost/hana/concept/foldable.hpp>\n#include <boost/hana/concept/monad.hpp>\n#include <boost/hana/config.hpp>\n#include <boost/hana/core/dispatch.hpp>\n#include <boost/hana/fold_left.hpp>\n#include <boost/hana/functional/curry.hpp>\n#include <boost/hana/functional/partial.hpp>\n#include <boost/hana/lift.hpp>\n\n#include <type_traits>\n\n\nBOOST_HANA_NAMESPACE_BEGIN\n    template <typename M>\n    struct monadic_fold_right_t {\n    #ifndef BOOST_HANA_CONFIG_DISABLE_CONCEPT_CHECKS\n        static_assert(hana::Monad<M>::value,\n        \"hana::monadic_fold_right<M> requires 'M' to be a Monad\");\n    #endif\n\n        template <typename Xs, typename State, typename F>\n        constexpr decltype(auto) operator()(Xs&& xs, State&& state, F&& f) const {\n            using S = typename hana::tag_of<Xs>::type;\n            using MonadicFoldRight = BOOST_HANA_DISPATCH_IF(monadic_fold_right_impl<S>,\n                hana::Foldable<S>::value\n            );\n\n        #ifndef BOOST_HANA_CONFIG_DISABLE_CONCEPT_CHECKS\n            static_assert(hana::Foldable<S>::value,\n            \"hana::monadic_fold_right<M>(xs, state, f) requires 'xs' to be Foldable\");\n        #endif\n\n            return MonadicFoldRight::template apply<M>(static_cast<Xs&&>(xs),\n                                                       static_cast<State&&>(state),\n                                                       static_cast<F&&>(f));\n        }\n\n        template <typename Xs, typename F>\n        constexpr decltype(auto) operator()(Xs&& xs, F&& f) const {\n            using S = typename hana::tag_of<Xs>::type;\n            using MonadicFoldRight = BOOST_HANA_DISPATCH_IF(monadic_fold_right_impl<S>,\n                hana::Foldable<S>::value\n            );\n\n        #ifndef BOOST_HANA_CONFIG_DISABLE_CONCEPT_CHECKS\n            static_assert(hana::Foldable<S>::value,\n            \"hana::monadic_fold_right<M>(xs, f) requires 'xs' to be Foldable\");\n        #endif\n            return MonadicFoldRight::template apply<M>(static_cast<Xs&&>(xs),\n                                                       static_cast<F&&>(f));\n        }\n    };\n\n    namespace detail {\n        struct foldrM_helper {\n            template <typename F, typename K, typename X, typename Z>\n            constexpr decltype(auto) operator()(F&& f, K&& k, X&& x, Z&& z) const {\n                return hana::chain(\n                    static_cast<F&&>(f)(\n                        static_cast<X&&>(x),\n                        static_cast<Z&&>(z)\n                    ),\n                    static_cast<K&&>(k)\n                );\n            }\n        };\n\n        template <typename End, typename M, typename F>\n        struct monadic_foldr1_helper {\n            F f;\n            template <typename X, typename Y>\n            constexpr decltype(auto) operator()(X&& x, Y&& y) const\n            { return f(static_cast<X&&>(x), static_cast<Y&&>(y)); }\n            template <typename X>\n            constexpr decltype(auto) operator()(X&& x, End) const\n            { return hana::lift<M>(static_cast<X&&>(x)); }\n        };\n    }\n\n    template <typename T, bool condition>\n    struct monadic_fold_right_impl<T, when<condition>> : default_ {\n        // with state\n        template <typename M, typename Xs, typename S, typename F>\n        static constexpr decltype(auto) apply(Xs&& xs, S&& s, F&& f) {\n            return hana::fold_left(\n                static_cast<Xs&&>(xs),\n                hana::lift<M>,\n                hana::curry<3>(hana::partial(\n                    detail::foldrM_helper{}, static_cast<F&&>(f)\n                ))\n            )(static_cast<S&&>(s));\n        }\n\n        // without state\n        template <typename M, typename Xs, typename F>\n        static constexpr decltype(auto) apply(Xs&& xs, F&& f) {\n            struct end { };\n            using G = detail::monadic_foldr1_helper<end, M, typename std::decay<F>::type>;\n            decltype(auto) result = hana::monadic_fold_right<M>(\n                static_cast<Xs&&>(xs),\n                end{},\n                G{static_cast<F&&>(f)}\n            );\n\n            static_assert(!std::is_same<\n                std::remove_reference_t<decltype(result)>,\n                decltype(hana::lift<M>(end{}))\n            >{},\n            \"hana::monadic_fold_right<M>(xs, f) requires 'xs' to be non-empty\");\n            return result;\n        }\n    };\nBOOST_HANA_NAMESPACE_END\n\n#endif // !BOOST_HANA_MONADIC_FOLD_RIGHT_HPP\n",
+            "binary": false,
+            "copies": 8,
+            "sample_repo_name": "arangodb/arangodb",
+            "sample_ref": "refs/heads/devel",
+            "sample_path": "3rdParty/boost/1.61.0b1/boost/hana/monadic_fold_right.hpp",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        },
+        {
+            "id": "bb50f15deb162b39542ee69056036a8d659d5fc6",
+            "size": 588,
+            "content": "#ifndef BOOST_METAPARSE_V1_ITERATE_C_HPP\n#define BOOST_METAPARSE_V1_ITERATE_C_HPP\n\n// Copyright Abel Sinkovics (abel@sinkovics.hu)  2011.\n// Distributed under the Boost Software License, Version 1.0.\n//    (See accompanying file LICENSE_1_0.txt or copy at\n//          http://www.boost.org/LICENSE_1_0.txt)\n\n#include <boost/metaparse/v1/impl/iterate_impl.hpp>\n\n#include <boost/mpl/deque.hpp>\n\nnamespace boost\n{\n  namespace metaparse\n  {\n    namespace v1\n    {\n      template <class P, int N>\n      struct iterate_c : impl::iterate_impl<N, P, boost::mpl::deque<> > {};\n    }\n  }\n}\n\n#endif\n\n",
+            "binary": false,
+            "copies": 8,
+            "sample_repo_name": "arangodb/arangodb",
+            "sample_ref": "refs/heads/devel",
+            "sample_path": "3rdParty/boost/1.61.0b1/boost/metaparse/v1/iterate_c.hpp",
+            "sample_mode": 33188,
+            "sample_symlink_target": null
+        }
+    ]
+}

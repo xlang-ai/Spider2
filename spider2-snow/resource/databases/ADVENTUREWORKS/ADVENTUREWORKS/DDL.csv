@@ -1,0 +1,147 @@
+table_name,description,DDL
+COUNTRYREGIONCURRENCY,,"create or replace TABLE COUNTRYREGIONCURRENCY (
+	""countryregioncode"" VARCHAR(16777216),
+	""currencycode"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+SALESORDERDETAIL,,"create or replace TABLE SALESORDERDETAIL (
+	""salesorderid"" NUMBER(38,0),
+	""salesorderdetailid"" NUMBER(38,0),
+	""carriertrackingnumber"" VARCHAR(16777216),
+	""orderqty"" NUMBER(38,0),
+	""productid"" NUMBER(38,0),
+	""specialofferid"" NUMBER(38,0),
+	""unitprice"" FLOAT,
+	""unitpricediscount"" FLOAT,
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+CURRENCYRATE,,"create or replace TABLE CURRENCYRATE (
+	""currencyrateid"" NUMBER(38,0),
+	""currencyratedate"" VARCHAR(16777216),
+	""fromcurrencycode"" VARCHAR(16777216),
+	""tocurrencycode"" VARCHAR(16777216),
+	""averagerate"" FLOAT,
+	""endofdayrate"" FLOAT,
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCTREVIEW,,"create or replace TABLE PRODUCTREVIEW (
+	""productreviewid"" NUMBER(38,0),
+	""productid"" NUMBER(38,0),
+	""reviewername"" VARCHAR(16777216),
+	""reviewdate"" VARCHAR(16777216),
+	""emailaddress"" VARCHAR(16777216),
+	""rating"" NUMBER(38,0),
+	""comments"" VARCHAR(16777216),
+	""modifeddate"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+SALESTERRITORY,,"create or replace TABLE SALESTERRITORY (
+	""territoryid"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""countryregioncode"" VARCHAR(16777216),
+	""group"" VARCHAR(16777216),
+	""salesytd"" FLOAT,
+	""saleslastyear"" FLOAT,
+	""costytd"" FLOAT,
+	""costlastyear"" FLOAT,
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCTCATEGORY,,"create or replace TABLE PRODUCTCATEGORY (
+	""productcategoryid"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+SALESORDERHEADER,,"create or replace TABLE SALESORDERHEADER (
+	""salesorderid"" NUMBER(38,0),
+	""revisionnumber"" NUMBER(38,0),
+	""orderdate"" VARCHAR(16777216),
+	""duedate"" VARCHAR(16777216),
+	""shipdate"" VARCHAR(16777216),
+	STATUS VARCHAR(16777216),
+	""onlineorderflag"" VARCHAR(16777216),
+	""purchaseordernumber"" VARCHAR(16777216),
+	""accountnumber"" VARCHAR(16777216),
+	""customerid"" NUMBER(38,0),
+	""salespersonid"" VARCHAR(16777216),
+	""territoryid"" NUMBER(38,0),
+	""billtoaddressid"" NUMBER(38,0),
+	""shiptoaddressid"" NUMBER(38,0),
+	""shipmethodid"" NUMBER(38,0),
+	""creditcardid"" VARCHAR(16777216),
+	""creditcardapprovalcode"" VARCHAR(16777216),
+	""currencyrateid"" VARCHAR(16777216),
+	""subtotal"" FLOAT,
+	""taxamt"" FLOAT,
+	""freight"" FLOAT,
+	""totaldue"" FLOAT,
+	""comment"" VARCHAR(16777216),
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCT,,"create or replace TABLE PRODUCT (
+	""productid"" NUMBER(38,0),
+	NAME VARCHAR(16777216),
+	""productnumber"" VARCHAR(16777216),
+	""makeflag"" VARCHAR(16777216),
+	""finishedgoodsflag"" VARCHAR(16777216),
+	""color"" VARCHAR(16777216),
+	""safetystocklevel"" NUMBER(38,0),
+	""reorderpoint"" NUMBER(38,0),
+	""standardcost"" FLOAT,
+	""listprice"" FLOAT,
+	""size"" VARCHAR(16777216),
+	""sizeunitmeasurecode"" VARCHAR(16777216),
+	""weightunitmeasurecode"" VARCHAR(16777216),
+	""weight"" VARCHAR(16777216),
+	""daystomanufacture"" NUMBER(38,0),
+	""productline"" VARCHAR(16777216),
+	""class"" VARCHAR(16777216),
+	""style"" VARCHAR(16777216),
+	""productsubcategoryid"" VARCHAR(16777216),
+	""productmodelid"" VARCHAR(16777216),
+	""sellstartdate"" VARCHAR(16777216),
+	""sellenddate"" VARCHAR(16777216),
+	""discontinueddate"" VARCHAR(16777216),
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCTDESCRIPTION,,"create or replace TABLE PRODUCTDESCRIPTION (
+	""productdescriptionid"" NUMBER(38,0),
+	""description"" VARCHAR(16777216),
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCTMODELPRODUCTDESCRIPTIONCULTURE,,"create or replace TABLE PRODUCTMODELPRODUCTDESCRIPTIONCULTURE (
+	""productmodelid"" NUMBER(38,0),
+	""productdescriptionid"" NUMBER(38,0),
+	""cultureid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+PRODUCTSUBCATEGORY,,"create or replace TABLE PRODUCTSUBCATEGORY (
+	""productsubcategoryid"" NUMBER(38,0),
+	""productcategoryid"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"
+SALESPERSONQUOTAHISTORY,,"create or replace TABLE SALESPERSONQUOTAHISTORY (
+	""BusinessEntityID"" NUMBER(38,0),
+	""QuotaDate"" VARCHAR(16777216),
+	""SalesQuota"" FLOAT,
+	""rowguid"" VARCHAR(16777216),
+	""ModifiedDate"" VARCHAR(16777216)
+);"
+SALESPERSON,,"create or replace TABLE SALESPERSON (
+	""businessentityid"" NUMBER(38,0),
+	""territoryid"" VARCHAR(16777216),
+	""salesquota"" VARCHAR(16777216),
+	""bonus"" NUMBER(38,0),
+	""commissionpct"" FLOAT,
+	""salesytd"" FLOAT,
+	""saleslastyear"" FLOAT,
+	""rowguid"" VARCHAR(16777216),
+	""modifieddate"" VARCHAR(16777216)
+);"

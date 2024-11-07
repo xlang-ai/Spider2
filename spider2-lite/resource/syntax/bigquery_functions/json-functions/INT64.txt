@@ -1,0 +1,55 @@
+## INT64
+
+INT64(json_expr)
+
+**Description**
+
+Converts a JSON number to a SQL ` INT64 ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '999'
+
+If the JSON value is not a number, or the JSON number is not in the SQL `
+INT64 ` domain, an error is produced. If the expression is SQL ` NULL ` , the function returns SQL ` NULL ` .
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+SELECT INT64(JSON '2005') AS flight_number;
+
+/*---------------*
+| flight_number |
++---------------+
+| 2005          |
+*---------------*/
+
+
+SELECT INT64(JSON_QUERY(JSON '{"gate": "A4", "flight_number": 2005}', "$.flight_number")) AS flight_number;
+
+/*---------------*
+| flight_number |
++---------------+
+| 2005          |
+*---------------*/
+
+
+SELECT INT64(JSON '10.0') AS score;
+
+/*-------*
+| score |
++-------+
+| 10    |
+*-------*/
+
+The following examples show how invalid requests are handled:
+
+
+-- An error is thrown if JSON is not a number or cannot be converted to a 64-bit integer.
+SELECT INT64(JSON '10.1') AS result;  -- Throws an error SELECT INT64(JSON '"strawberry"') AS result; -- Throws an error SELECT INT64(JSON 'null') AS result; -- Throws an error SELECT SAFE.INT64(JSON '"strawberry"') AS result;  -- Returns a SQL NULL

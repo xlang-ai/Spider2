@@ -1,0 +1,105 @@
+table_name,description,DDL
+ALIQUOT_TO_CASE_MAPPING_CURRENT,,"create or replace TABLE ALIQUOT_TO_CASE_MAPPING_CURRENT (
+	""program_name"" VARCHAR(16777216),
+	""project_name"" VARCHAR(16777216),
+	""case_id"" VARCHAR(16777216),
+	""case_submitter_id"" VARCHAR(16777216),
+	""sample_id"" VARCHAR(16777216),
+	""sample_submitter_id"" VARCHAR(16777216),
+	""sample_type"" VARCHAR(16777216),
+	""preservation_method"" VARCHAR(16777216),
+	""freezing_method"" VARCHAR(16777216),
+	""time_between_clamping_and_freezing"" NUMBER(38,0),
+	""time_between_excision_and_freezing"" NUMBER(38,0),
+	""days_to_collection"" NUMBER(38,0),
+	""initial_weight"" FLOAT,
+	""current_weight"" FLOAT,
+	""shortest_dimension"" FLOAT,
+	""intermediate_dimension"" FLOAT,
+	""longest_dimension"" FLOAT,
+	""aliquot_id"" VARCHAR(16777216),
+	""aliquot_submitter_id"" VARCHAR(16777216)
+);"
+FILE_ASSOCIATED_ENTITY_MAPPING_CURRENT,,"create or replace TABLE FILE_ASSOCIATED_ENTITY_MAPPING_CURRENT (
+	""file_id"" VARCHAR(16777216),
+	""case_id"" VARCHAR(16777216),
+	""entity_id"" VARCHAR(16777216),
+	""entity_submitter_id"" VARCHAR(16777216),
+	""entity_type"" VARCHAR(16777216)
+);"
+FILE_METADATA_CURRENT,,"create or replace TABLE FILE_METADATA_CURRENT (
+	""file_id"" VARCHAR(16777216),
+	""file_name"" VARCHAR(16777216),
+	""pdc_study_ids"" VARCHAR(16777216),
+	""study_run_metadata_id"" VARCHAR(16777216),
+	""study_run_metadata_submitter_id"" VARCHAR(16777216),
+	""file_format"" VARCHAR(16777216),
+	""file_type"" VARCHAR(16777216),
+	""data_category"" VARCHAR(16777216),
+	""file_size"" NUMBER(38,0),
+	""fraction_number"" VARCHAR(16777216),
+	""experiment_type"" VARCHAR(16777216),
+	""plex_or_dataset_name"" VARCHAR(16777216),
+	""analyte"" VARCHAR(16777216),
+	""instrument"" VARCHAR(16777216),
+	""md5sum"" VARCHAR(16777216),
+	""access"" VARCHAR(16777216)
+);"
+STUDIES_CURRENT,,"create or replace TABLE STUDIES_CURRENT (
+	""study_name"" VARCHAR(16777216),
+	""study_submitter_id"" VARCHAR(16777216),
+	""submitter_id_name"" VARCHAR(16777216),
+	""pdc_study_id"" VARCHAR(16777216),
+	""study_id"" VARCHAR(16777216),
+	""study_friendly_name"" VARCHAR(16777216),
+	""study_grouping_name"" VARCHAR(16777216),
+	""analytical_fraction"" VARCHAR(16777216),
+	""disease_type"" VARCHAR(16777216),
+	""primary_site"" VARCHAR(16777216),
+	""acquisition_type"" VARCHAR(16777216),
+	""experiment_type"" VARCHAR(16777216),
+	""project_id"" VARCHAR(16777216),
+	""project_submitter_id"" VARCHAR(16777216),
+	""project_name"" VARCHAR(16777216),
+	""project_short_name"" VARCHAR(16777216),
+	""project_friendly_name"" VARCHAR(16777216),
+	""program_id"" VARCHAR(16777216),
+	""program_submitter_id"" VARCHAR(16777216),
+	""program_name"" VARCHAR(16777216),
+	""program_short_name"" VARCHAR(16777216),
+	""program_manager"" VARCHAR(16777216),
+	""program_labels"" VARCHAR(16777216),
+	""start_date"" DATE,
+	""end_date"" VARCHAR(16777216)
+);"
+CASE_METADATA_CURRENT,,"create or replace TABLE CASE_METADATA_CURRENT (
+	""case_id"" VARCHAR(16777216),
+	""case_submitter_id"" VARCHAR(16777216),
+	""primary_site"" VARCHAR(16777216),
+	""disease_type"" VARCHAR(16777216),
+	""project_name"" VARCHAR(16777216),
+	""program_name"" VARCHAR(16777216),
+	""project_id"" VARCHAR(16777216),
+	""file_count"" NUMBER(38,0)
+);"
+REFSEQ_MAPPING_CURRENT,,"create or replace TABLE REFSEQ_MAPPING_CURRENT (
+	""uniprot_id"" VARCHAR(16777216),
+	""uniprot_review_status"" VARCHAR(16777216),
+	""gene_symbol"" VARCHAR(16777216),
+	""refseq_id"" VARCHAR(16777216)
+);"
+GENE_INFO_CURRENT,,"create or replace TABLE GENE_INFO_CURRENT (
+	""gene_id"" VARCHAR(16777216),
+	""NCBI_gene_id"" VARCHAR(16777216),
+	""organism"" VARCHAR(16777216),
+	""chromosome"" VARCHAR(16777216),
+	""locus"" VARCHAR(16777216),
+	""proteins"" VARCHAR(16777216),
+	""assays"" VARCHAR(16777216),
+	""authority"" VARCHAR(16777216),
+	""authority_gene_id"" VARCHAR(16777216),
+	""gene_symbol"" VARCHAR(16777216),
+	""gene_description"" VARCHAR(16777216),
+	""uniprotkb_id"" VARCHAR(16777216),
+	""uniprotkb_ids"" VARCHAR(16777216)
+);"

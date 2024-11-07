@@ -1,0 +1,39 @@
+table_name,description,DDL
+CITIBIKE_TRIPS,,"create or replace TABLE CITIBIKE_TRIPS (
+	""tripduration"" NUMBER(38,0),
+	""starttime"" NUMBER(38,0),
+	""stoptime"" NUMBER(38,0),
+	""start_station_id"" NUMBER(38,0),
+	""start_station_name"" VARCHAR(16777216),
+	""start_station_latitude"" FLOAT,
+	""start_station_longitude"" FLOAT,
+	""end_station_id"" NUMBER(38,0),
+	""end_station_name"" VARCHAR(16777216),
+	""end_station_latitude"" FLOAT,
+	""end_station_longitude"" FLOAT,
+	""bikeid"" NUMBER(38,0),
+	""usertype"" VARCHAR(16777216),
+	""birth_year"" NUMBER(38,0),
+	""gender"" VARCHAR(16777216),
+	""customer_plan"" VARCHAR(16777216)
+);"
+CITIBIKE_STATIONS,,"create or replace TABLE CITIBIKE_STATIONS (
+	""station_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""short_name"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""region_id"" NUMBER(38,0),
+	""rental_methods"" VARCHAR(16777216),
+	""capacity"" NUMBER(38,0),
+	""eightd_has_key_dispenser"" BOOLEAN,
+	""num_bikes_available"" NUMBER(38,0),
+	""num_bikes_disabled"" NUMBER(38,0),
+	""num_docks_available"" NUMBER(38,0),
+	""num_docks_disabled"" NUMBER(38,0),
+	""is_installed"" BOOLEAN,
+	""is_renting"" BOOLEAN,
+	""is_returning"" BOOLEAN,
+	""eightd_has_available_keys"" BOOLEAN,
+	""last_reported"" NUMBER(38,0)
+);"

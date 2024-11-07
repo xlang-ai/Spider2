@@ -1,0 +1,103 @@
+table_name,description,DDL
+BLOCKS,,"create or replace TABLE BLOCKS (
+	""timestamp"" NUMBER(38,0),
+	""number"" NUMBER(38,0),
+	""hash"" VARCHAR(16777216),
+	""parent_hash"" VARCHAR(16777216),
+	""nonce"" VARCHAR(16777216),
+	""sha3_uncles"" VARCHAR(16777216),
+	""logs_bloom"" VARCHAR(16777216),
+	""transactions_root"" VARCHAR(16777216),
+	""state_root"" VARCHAR(16777216),
+	""receipts_root"" VARCHAR(16777216),
+	""miner"" VARCHAR(16777216),
+	""difficulty"" NUMBER(38,9),
+	""total_difficulty"" NUMBER(38,9),
+	""size"" NUMBER(38,0),
+	""extra_data"" VARCHAR(16777216),
+	""gas_limit"" NUMBER(38,0),
+	""gas_used"" NUMBER(38,0),
+	""transaction_count"" NUMBER(38,0)
+);"
+TOKENS,,"create or replace TABLE TOKENS (
+	""address"" VARCHAR(16777216),
+	""symbol"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""decimals"" VARCHAR(16777216),
+	""total_supply"" VARCHAR(16777216),
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"
+TRACES,,"create or replace TABLE TRACES (
+	""transaction_hash"" VARCHAR(16777216),
+	""transaction_index"" NUMBER(38,0),
+	""from_address"" VARCHAR(16777216),
+	""to_address"" VARCHAR(16777216),
+	""value"" NUMBER(38,9),
+	""input"" VARCHAR(16777216),
+	""output"" VARCHAR(16777216),
+	""trace_type"" VARCHAR(16777216),
+	""call_type"" VARCHAR(16777216),
+	""reward_type"" VARCHAR(16777216),
+	""gas"" NUMBER(38,0),
+	""gas_used"" NUMBER(38,0),
+	""subtraces"" NUMBER(38,0),
+	""trace_address"" VARCHAR(16777216),
+	""error"" VARCHAR(16777216),
+	""status"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"
+CONTRACTS,,"create or replace TABLE CONTRACTS (
+	""address"" VARCHAR(16777216),
+	""bytecode"" VARCHAR(16777216),
+	""function_sighashes"" VARIANT,
+	""is_erc20"" BOOLEAN,
+	""is_erc721"" BOOLEAN,
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"
+LOGS,,"create or replace TABLE LOGS (
+	""log_index"" NUMBER(38,0),
+	""transaction_hash"" VARCHAR(16777216),
+	""transaction_index"" NUMBER(38,0),
+	""address"" VARCHAR(16777216),
+	""data"" VARCHAR(16777216),
+	""topics"" VARIANT,
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"
+TOKEN_TRANSFERS,,"create or replace TABLE TOKEN_TRANSFERS (
+	""token_address"" VARCHAR(16777216),
+	""from_address"" VARCHAR(16777216),
+	""to_address"" VARCHAR(16777216),
+	""value"" VARCHAR(16777216),
+	""transaction_hash"" VARCHAR(16777216),
+	""log_index"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"
+TRANSACTIONS,,"create or replace TABLE TRANSACTIONS (
+	""hash"" VARCHAR(16777216),
+	""nonce"" NUMBER(38,0),
+	""transaction_index"" NUMBER(38,0),
+	""from_address"" VARCHAR(16777216),
+	""to_address"" VARCHAR(16777216),
+	""value"" NUMBER(38,9),
+	""gas"" NUMBER(38,0),
+	""gas_price"" NUMBER(38,0),
+	""input"" VARCHAR(16777216),
+	""receipt_cumulative_gas_used"" NUMBER(38,0),
+	""receipt_gas_used"" NUMBER(38,0),
+	""receipt_contract_address"" VARCHAR(16777216),
+	""receipt_root"" VARCHAR(16777216),
+	""receipt_status"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_number"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216)
+);"

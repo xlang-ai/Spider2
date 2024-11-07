@@ -1,0 +1,145 @@
+table_name,description,DDL
+NUM_999999,,"create or replace TABLE NUM_999999 (
+	""num"" NUMBER(38,0)
+);"
+TIME,,"create or replace TABLE TIME (
+	""time"" TIME(9),
+	""hour"" NUMBER(38,0),
+	""minute"" NUMBER(38,0),
+	""second"" NUMBER(38,0),
+	""second_in_day"" NUMBER(38,0),
+	""hour_ampm"" NUMBER(38,0),
+	""is_pm"" BOOLEAN
+);"
+US_MSA_AREA,,"create or replace TABLE US_MSA_AREA (
+	""csa_code"" VARCHAR(16777216),
+	""msa_code"" VARCHAR(16777216),
+	""geo_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""status_indicator"" VARCHAR(16777216),
+	""feature_class_code"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,9),
+	""area_water_meters"" NUMBER(38,9),
+	""int_point_lat"" VARCHAR(16777216),
+	""int_point_lon"" VARCHAR(16777216),
+	""msa_geom"" BINARY(8388608)
+);"
+US_CITIES_AREA,,"create or replace TABLE US_CITIES_AREA (
+	""urban_area_code"" VARCHAR(16777216),
+	""geo_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""feature_class_code"" VARCHAR(16777216),
+	""area_type"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,9),
+	""area_water_meters"" NUMBER(38,9),
+	""int_point_lat"" VARCHAR(16777216),
+	""int_point_lon"" VARCHAR(16777216),
+	""city_geom"" BINARY(8388608)
+);"
+US_COUNTY_AREA,,"create or replace TABLE US_COUNTY_AREA (
+	""state_fips_code"" VARCHAR(16777216),
+	""county_fips_code"" VARCHAR(16777216),
+	""county_gnis_code"" VARCHAR(16777216),
+	""aff_geo_code"" VARCHAR(16777216),
+	""geo_id"" VARCHAR(16777216),
+	""county_name"" VARCHAR(16777216),
+	""legal_area_code"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""county_geom"" BINARY(8388608)
+);"
+US_BORDER_AREA,,"create or replace TABLE US_BORDER_AREA (
+	""name"" VARCHAR(16777216),
+	""geo_id"" VARCHAR(16777216),
+	""aff_geo_id"" VARCHAR(16777216),
+	""us_border_geom"" BINARY(8388608)
+);"
+US_COASTLINE_AREA,,"create or replace TABLE US_COASTLINE_AREA (
+	""name"" VARCHAR(16777216),
+	""coastline_geom"" BINARY(8388608)
+);"
+DATE_GREG,,"create or replace TABLE DATE_GREG (
+	""date"" DATE,
+	""date_str"" VARCHAR(16777216),
+	""date_int"" NUMBER(38,0),
+	""date_dash"" VARCHAR(16777216),
+	""date_slash"" VARCHAR(16777216),
+	""day"" NUMBER(38,0),
+	""day_abbr"" VARCHAR(16777216),
+	""dow_mon17"" NUMBER(38,0),
+	""dow_mon06"" NUMBER(38,0),
+	""dow_sun17"" NUMBER(38,0),
+	""dow_sun06"" NUMBER(38,0),
+	""week_mon"" NUMBER(38,0),
+	""week_sun"" NUMBER(38,0),
+	""week_iso"" NUMBER(38,0),
+	""month"" NUMBER(38,0),
+	""month_abbr"" VARCHAR(16777216),
+	""month_first_day"" DATE,
+	""quarter"" NUMBER(38,0),
+	""quarter_first_day"" DATE,
+	""half"" NUMBER(38,0),
+	""half_first_day"" DATE,
+	""year"" NUMBER(38,0),
+	""year_iso"" NUMBER(38,0),
+	""year_first_day"" DATE
+);"
+US_CSA_AREA,,"create or replace TABLE US_CSA_AREA (
+	""csa_code"" VARCHAR(16777216),
+	""aff_geo_code"" VARCHAR(16777216),
+	""geo_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""csa_geom"" BINARY(8388608)
+);"
+US_STATES_AREA,,"create or replace TABLE US_STATES_AREA (
+	""region_code"" VARCHAR(16777216),
+	""division_code"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""state_gnis_code"" VARCHAR(16777216),
+	""state_geo_id"" VARCHAR(16777216),
+	""state_abbreviation"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""legal_area_code"" VARCHAR(16777216),
+	""feature_class_code"" VARCHAR(16777216),
+	""functional_status_code"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""internal_point_lat"" VARCHAR(16777216),
+	""internal_point_lon"" VARCHAR(16777216),
+	""state_geom"" BINARY(8388608)
+);"
+COUNTRY_CODE_ISO,,"create or replace TABLE COUNTRY_CODE_ISO (
+	""country_name"" VARCHAR(16777216),
+	""fips_code"" VARCHAR(16777216),
+	""alpha_2_code"" VARCHAR(16777216),
+	""alpha_3_code"" VARCHAR(16777216),
+	""numeric_code"" VARCHAR(16777216),
+	""stanag_code"" VARCHAR(16777216),
+	""cctlds"" VARCHAR(16777216),
+	""continent_code"" VARCHAR(16777216),
+	""continent_name"" VARCHAR(16777216),
+	""sub_continent_name"" VARCHAR(16777216)
+);"
+ZIPCODE_AREA,,"create or replace TABLE ZIPCODE_AREA (
+	""zipcode"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""area_land_miles"" FLOAT,
+	""area_water_miles"" FLOAT,
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""state_code"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""county"" VARCHAR(16777216),
+	""state_fips"" VARCHAR(16777216),
+	""zipcode_geom"" VARCHAR(16777216)
+);"

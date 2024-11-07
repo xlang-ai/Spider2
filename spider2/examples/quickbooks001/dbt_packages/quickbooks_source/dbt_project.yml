@@ -1,0 +1,76 @@
+config-version: 2
+name: 'quickbooks_source'
+
+version: '0.10.1'
+
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+models:
+  quickbooks_source:
+    +schema: quickbooks_staging
+    materialized: table
+    tmp:
+      materialized: view 
+vars:
+  quickbooks_source:
+    account: "{{ source('quickbooks','account') }}"
+    address: "{{ source('quickbooks','address') }}"
+    bill_line: "{{ source('quickbooks','bill_line') }}"
+    bill_linked_txn: "{{ source('quickbooks','bill_linked_txn') }}"
+    bill_payment_line: "{{ source('quickbooks','bill_payment_line') }}"
+    bill_payment: "{{ source('quickbooks','bill_payment') }}"
+    bill: "{{ source('quickbooks','bill') }}"
+    bundle_item: "{{ source('quickbooks','bundle_item') }}"
+    bundle: "{{ source('quickbooks','bundle') }}"
+    credit_card_payment_txn: "{{ source('quickbooks','credit_card_payment_txn') }}"
+    credit_memo_line: "{{ source('quickbooks','credit_memo_line') }}"
+    credit_memo: "{{ source('quickbooks','credit_memo') }}"
+    customer: "{{ source('quickbooks','customer') }}"
+    department: "{{ source('quickbooks','department') }}"
+    deposit_line: "{{ source('quickbooks','deposit_line') }}"
+    deposit: "{{ source('quickbooks','deposit') }}"
+    estimate: "{{ source('quickbooks','estimate') }}"
+    estimate_line: "{{ source('quickbooks','estimate_line') }}"
+    invoice_line: "{{ source('quickbooks','invoice_line') }}"
+    invoice_line_bundle: "{{ source('quickbooks','invoice_line_bundle') }}"
+    invoice_linked_txn: "{{ source('quickbooks','invoice_linked_txn') }}"
+    invoice: "{{ source('quickbooks','invoice') }}"
+    item: "{{ source('quickbooks','item') }}"
+    journal_entry_line: "{{ source('quickbooks','journal_entry_line') }}"
+    journal_entry: "{{ source('quickbooks','journal_entry') }}"
+    payment_line: "{{ source('quickbooks','payment_line') }}"
+    payment: "{{ source('quickbooks','payment') }}"
+    purchase_line: "{{ source('quickbooks','purchase_line') }}"
+    purchase: "{{ source('quickbooks','purchase') }}"
+    purchase_order_line: "{{ source('quickbooks','purchase_order_line') }}"
+    purchase_order: "{{ source('quickbooks','purchase_order') }}"
+    purchase_order_linked_txn: "{{ source('quickbooks','purchase_order_linked_txn') }}"
+    refund_receipt_line: "{{ source('quickbooks','refund_receipt_line') }}"
+    refund_receipt: "{{ source('quickbooks','refund_receipt') }}"
+    sales_receipt_line: "{{ source('quickbooks','sales_receipt_line') }}"
+    sales_receipt: "{{ source('quickbooks','sales_receipt') }}"
+    transfer: "{{ source('quickbooks','transfer') }}"
+    vendor_credit_line: "{{ source('quickbooks','vendor_credit_line') }}"
+    vendor_credit: "{{ source('quickbooks','vendor_credit') }}"
+    vendor: "{{ source('quickbooks','vendor') }}"
+    using_address: true
+    using_bill: true
+    using_credit_memo: true
+    using_department: true
+    using_deposit: true
+    using_estimate: true
+    using_invoice: true
+    using_invoice_bundle: true
+    using_journal_entry: true
+    using_payment: true
+    using_refund_receipt: true
+    using_transfer: true
+    using_vendor_credit: true
+    using_sales_receipt: true
+    using_purchase_order: false
+    using_credit_card_payment_txn: false
+
+clean-targets:
+- target
+- dbt_modules
+- dbt_packages

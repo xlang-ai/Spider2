@@ -1,0 +1,94 @@
+{
+    "table_name": "TCGA_HG19_DATA_V0.RNASEQ_GENE_EXPRESSION_UNC_RSEM",
+    "table_fullname": "TCGA_HG19_DATA_V0.TCGA_HG19_DATA_V0.RNASEQ_GENE_EXPRESSION_UNC_RSEM",
+    "column_names": [
+        "case_barcode",
+        "normalized_count",
+        "platform",
+        "gene_id",
+        "project_short_name",
+        "aliquot_barcode",
+        "sample_barcode",
+        "HGNC_gene_symbol",
+        "original_gene_symbol"
+    ],
+    "column_types": [
+        "TEXT",
+        "FLOAT",
+        "TEXT",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Original TCGA case barcode, eg TCGA-12-1089  --  note that each case typically has a primary-tumor sample and a matched-normal (blood or adjacent tissue) sample; please refer to the TCGA Biospecimen table for more details",
+        "Normalized gene expression from original rsem.genes.normalized_results file",
+        "Platform used to generate data; either IlluminaHiSeq (for close to 93% of samples) or IlluminaGA",
+        "The gene symbol. In this table, gene symbol is gene namee.g. ENSG00000251562",
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.",
+        "Original TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-01",
+        "Original TCGA sample barcode, eg TCGA-12-1089-01A",
+        "HUGO Gene Nomenclature Committee gene symbol, based on gene_id in original data file, eg AMY1A. Null if no gene symbol could be found (see documentation for additional details regarding ETL) http://isb-cancer-genomics-cloud.readthedocs.io/en/latest/sections/data/data2/ETL_mRNAexpression.html",
+        "Gene symbol from the original data file, differs if the approved gene symbol has since changed, eg C11orf17 became AKIP1"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1348",
+            "sample_barcode": "TCGA-04-1348-01A",
+            "aliquot_barcode": "TCGA-04-1348-01A-01R-1565-13",
+            "HGNC_gene_symbol": "CACNG7",
+            "gene_id": 59284,
+            "normalized_count": 0.0,
+            "original_gene_symbol": "CACNG7",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1348",
+            "sample_barcode": "TCGA-04-1348-01A",
+            "aliquot_barcode": "TCGA-04-1348-01A-01R-1565-13",
+            "HGNC_gene_symbol": "TTTY19",
+            "gene_id": 252952,
+            "normalized_count": 0.0,
+            "original_gene_symbol": "TTTY19",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1348",
+            "sample_barcode": "TCGA-04-1348-01A",
+            "aliquot_barcode": "TCGA-04-1348-01A-01R-1565-13",
+            "HGNC_gene_symbol": "PALM2-AKAP2",
+            "gene_id": 445815,
+            "normalized_count": 428.3356,
+            "original_gene_symbol": "PALM2-AKAP2",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1348",
+            "sample_barcode": "TCGA-04-1348-01A",
+            "aliquot_barcode": "TCGA-04-1348-01A-01R-1565-13",
+            "HGNC_gene_symbol": "SHISA3",
+            "gene_id": 152573,
+            "normalized_count": 0.5378,
+            "original_gene_symbol": "SHISA3",
+            "platform": "IlluminaHiSeq"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1348",
+            "sample_barcode": "TCGA-04-1348-01A",
+            "aliquot_barcode": "TCGA-04-1348-01A-01R-1565-13",
+            "HGNC_gene_symbol": "F10",
+            "gene_id": 2159,
+            "normalized_count": 6.9911,
+            "original_gene_symbol": "F10",
+            "platform": "IlluminaHiSeq"
+        }
+    ]
+}

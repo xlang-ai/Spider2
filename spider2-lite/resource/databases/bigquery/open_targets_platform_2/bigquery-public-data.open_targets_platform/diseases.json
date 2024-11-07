@@ -1,0 +1,423 @@
+{
+    "table_name": "diseases",
+    "table_fullname": "bigquery-public-data.open_targets_platform.diseases",
+    "column_names": [
+        "id",
+        "code",
+        "dbXRefs",
+        "description",
+        "name",
+        "directLocationIds",
+        "obsoleteTerms",
+        "parents",
+        "synonyms",
+        "ancestors",
+        "descendants",
+        "children",
+        "therapeuticAreas",
+        "indirectLocationIds",
+        "ontology"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRING",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<hasBroadSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasExactSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasNarrowSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasRelatedSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "STRUCT<isTherapeuticArea BOOL, leaf BOOL, sources STRUCT<url STRING, name STRING>>"
+    ],
+    "nested_column_names": [
+        "id",
+        "code",
+        "dbXRefs",
+        "dbXRefs.list",
+        "dbXRefs.list.element",
+        "description",
+        "name",
+        "directLocationIds",
+        "directLocationIds.list",
+        "directLocationIds.list.element",
+        "obsoleteTerms",
+        "obsoleteTerms.list",
+        "obsoleteTerms.list.element",
+        "parents",
+        "parents.list",
+        "parents.list.element",
+        "synonyms",
+        "synonyms.hasBroadSynonym",
+        "synonyms.hasBroadSynonym.list",
+        "synonyms.hasBroadSynonym.list.element",
+        "synonyms.hasExactSynonym",
+        "synonyms.hasExactSynonym.list",
+        "synonyms.hasExactSynonym.list.element",
+        "synonyms.hasNarrowSynonym",
+        "synonyms.hasNarrowSynonym.list",
+        "synonyms.hasNarrowSynonym.list.element",
+        "synonyms.hasRelatedSynonym",
+        "synonyms.hasRelatedSynonym.list",
+        "synonyms.hasRelatedSynonym.list.element",
+        "ancestors",
+        "ancestors.list",
+        "ancestors.list.element",
+        "descendants",
+        "descendants.list",
+        "descendants.list.element",
+        "children",
+        "children.list",
+        "children.list.element",
+        "therapeuticAreas",
+        "therapeuticAreas.list",
+        "therapeuticAreas.list.element",
+        "indirectLocationIds",
+        "indirectLocationIds.list",
+        "indirectLocationIds.list.element",
+        "ontology",
+        "ontology.isTherapeuticArea",
+        "ontology.leaf",
+        "ontology.sources",
+        "ontology.sources.url",
+        "ontology.sources.name"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<hasBroadSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasExactSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasNarrowSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasRelatedSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>>",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<list ARRAY<STRUCT<element STRING>>>",
+        "ARRAY<STRUCT<element STRING>>",
+        "STRING",
+        "STRUCT<isTherapeuticArea BOOL, leaf BOOL, sources STRUCT<url STRING, name STRING>>",
+        "BOOL",
+        "BOOL",
+        "STRUCT<url STRING, name STRING>",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": "EFO_0010285",
+            "code": "http://www.ebi.ac.uk/efo/EFO_0010285",
+            "dbXRefs": {
+                "list": "[{'element': 'SCTID:128598002'} {'element': 'DOID:16'}\n {'element': 'UMLS:C1290011'} {'element': 'MONDO:0002051'}]"
+            },
+            "description": "A disease involving the integumental system.",
+            "name": "integumentary system disease",
+            "directLocationIds": null,
+            "obsoleteTerms": null,
+            "parents": {
+                "list": "[]"
+            },
+            "synonyms": {
+                "hasBroadSynonym": null,
+                "hasExactSynonym": {
+                    "list": "[{'element': 'integumental system disease'}\n {'element': 'integumentary disease'}\n {'element': 'disease of integumental system'}\n {'element': 'disease or disorder of integumental system'}\n {'element': 'integumentary system disorder'}\n {'element': 'disorder of integumental system'}\n {'element': 'integumental system disease or disorder'}]"
+                },
+                "hasNarrowSynonym": null,
+                "hasRelatedSynonym": {
+                    "list": "[{'element': 'disorder of integument'}]"
+                }
+            },
+            "ancestors": {
+                "list": "[]"
+            },
+            "descendants": {
+                "list": "[{'element': 'MONDO_0003037'} {'element': 'MONDO_0030899'}\n {'element': 'MONDO_0004360'} ... {'element': 'MONDO_0016353'}\n {'element': 'MONDO_0019623'} {'element': 'MONDO_0016354'}]"
+            },
+            "children": {
+                "list": "[{'element': 'MONDO_0000179'} {'element': 'MONDO_0000254'}\n {'element': 'MONDO_0000652'} {'element': 'MONDO_0000653'}\n {'element': 'MONDO_0002884'} {'element': 'MONDO_0002917'}\n {'element': 'MONDO_0004593'} {'element': 'MONDO_0007085'}\n {'element': 'MONDO_0007420'} {'element': 'MONDO_0007422'}\n {'element': 'MONDO_0008390'} {'element': 'MONDO_0010031'}\n {'element': 'MONDO_0010088'} {'element': 'MONDO_0012089'}\n {'element': 'MONDO_0012794'} {'element': 'MONDO_0013268'}\n {'element': 'MONDO_0014574'} {'element': 'MONDO_0014608'}\n {'element': 'MONDO_0016175'} {'element': 'MONDO_0017269'}\n {'element': 'MONDO_0017571'} {'element': 'MONDO_0018453'}\n {'element': 'MONDO_0019296'} {'element': 'MONDO_0021114'}\n {'element': 'MONDO_0024308'} {'element': 'MONDO_0024481'}\n {'element': 'MONDO_0045011'} {'element': 'MONDO_0100080'}\n {'element': 'MONDO_0700266'} {'element': 'EFO_0000701'}\n {'element': 'EFO_0003014'} {'element': 'EFO_0003869'}\n {'element': 'EFO_0009385'}]"
+            },
+            "therapeuticAreas": {
+                "list": "[{'element': 'EFO_0010285'}]"
+            },
+            "indirectLocationIds": null,
+            "ontology": {
+                "isTherapeuticArea": true,
+                "leaf": false,
+                "sources": {
+                    "url": "http://www.ebi.ac.uk/efo/EFO_0010285",
+                    "name": "EFO_0010285"
+                }
+            }
+        },
+        {
+            "id": "EFO_0005741",
+            "code": "http://www.ebi.ac.uk/efo/EFO_0005741",
+            "dbXRefs": {
+                "list": "[{'element': 'DOID:0050117'} {'element': 'ICD9:136.8'}\n {'element': 'NCIT:C26726'} {'element': 'ICD10:Z22'}\n {'element': 'ICD9:079.0'} {'element': 'IDO:IDO_0000436'}\n {'element': 'MONDO:0005550'} {'element': 'MESH:D003141'}\n {'element': 'ICD10CM:A00-B99'} {'element': 'SCTID:40733004'}\n {'element': 'IDO:0000436'} {'element': 'ICD9:136.9'}\n {'element': 'SNOMEDCT:40733004'}]"
+            },
+            "description": "A disease whose physical basis is an infectious agent",
+            "name": "infectious disease",
+            "directLocationIds": null,
+            "obsoleteTerms": null,
+            "parents": {
+                "list": "[]"
+            },
+            "synonyms": {
+                "hasBroadSynonym": null,
+                "hasExactSynonym": {
+                    "list": "[{'element': 'disorder due to infection'}\n {'element': 'infectious disorder'} {'element': 'communicable disease'}\n {'element': 'disease by infectious agent'}\n {'element': 'infectious disease'} {'element': 'infectious'}\n {'element': 'infection'}\n {'element': 'infectious diseases and manifestations'}\n {'element': 'transmissible disease'}]"
+                },
+                "hasNarrowSynonym": {
+                    "list": "[{'element': 'clinical infection'}]"
+                },
+                "hasRelatedSynonym": {
+                    "list": "[{'element': 'disease by infectious agent'}]"
+                }
+            },
+            "ancestors": {
+                "list": "[]"
+            },
+            "descendants": {
+                "list": "[{'element': 'EFO_1000929'} {'element': 'MONDO_0010808'}\n {'element': 'MONDO_0021948'} {'element': 'EFO_1000928'}\n {'element': 'MONDO_0020860'} {'element': 'MONDO_0020863'}\n {'element': 'EFO_0009087'} {'element': 'MONDO_0021953'}\n {'element': 'MONDO_0020866'} {'element': 'MONDO_0027026'}\n {'element': 'MONDO_0027029'} {'element': 'EFO_1000943'}\n {'element': 'MONDO_0001080'} {'element': 'EFO_1000942'}\n {'element': 'MONDO_0015474'} {'element': 'MONDO_0002159'}\n {'element': 'MONDO_0003482'} {'element': 'MONDO_0006751'}\n {'element': 'MONDO_0020648'} {'element': 'EFO_1001805'}\n {'element': 'EFO_1000955'} {'element': 'MONDO_0001051'}\n {'element': 'MONDO_0001052'} {'element': 'MONDO_0003472'}\n {'element': 'MONDO_0015455'} {'element': 'EFO_1000729'}\n {'element': 'MONDO_0015459'} {'element': 'EFO_0003106'}\n {'element': 'MONDO_0020656'} {'element': 'MONDO_0020657'}\n {'element': 'EFO_0003103'} {'element': 'MONDO_0021747'}\n {'element': 'EFO_1000961'} {'element': 'EFO_0006857'}\n {'element': 'EFO_0005529'} {'element': 'EFO_1000960'}\n {'element': 'MONDO_0042433'} {'element': 'MONDO_0016778'}\n {'element': 'EFO_1000730'} {'element': 'EFO_0004220'}\n {'element': 'MONDO_0044887'} {'element': 'MONDO_0043555'}\n {'element': 'EFO_1001834'} {'element': 'EFO_1001836'}\n {'element': 'EFO_1001832'} {'element': 'EFO_0005547'}\n {'element': 'EFO_0005549'} {'element': 'MONDO_0001024'}\n {'element': 'MONDO_0004774'} {'element': 'EFO_0005542'}\n {'element': 'MONDO_0043544'} {'element': 'EFO_1001849'}\n {'element': 'MONDO_0016511'} {'element': 'MONDO_0021537'}\n {'element': 'EFO_0700069'} {'element': 'MONDO_0000166'}\n {'element': 'MONDO_0042485'} {'element': 'MONDO_0042484'}\n {'element': 'MONDO_0042488'} {'element': 'MONDO_0021783'}\n {'element': 'EFO_0002612'} {'element': 'EFO_0002613'}\n {'element': 'MONDO_0018926'} {'element': 'EFO_1001854'}\n {'element': 'MONDO_0011299'} {'element': 'MONDO_0002333'}\n {'element': 'MONDO_0004517'} {'element': 'MONDO_0021553'}\n {'element': 'MONDO_0042233'} {'element': 'EFO_0003932'}\n {'element': 'EFO_1001869'} {'element': 'EFO_1000533'}\n {'element': 'EFO_1001865'} {'element': 'EFO_0002608'}\n {'element': 'EFO_0000694'} {'element': 'EFO_1000548'}\n {'element': 'MONDO_0002312'} {'element': 'MONDO_0042497'}\n {'element': 'EFO_1001409'} {'element': 'EFO_0003955'}\n {'element': 'EFO_0002623'} {'element': 'EFO_1001406'}\n {'element': 'EFO_0002622'} {'element': 'EFO_1001407'}\n {'element': 'EFO_1001401'} {'element': 'EFO_1001888'}\n {'element': 'EFO_1000792'} {'element': 'EFO_0002629'}\n {'element': 'EFO_1000793'} {'element': 'EFO_1001883'}\n {'element': 'MONDO_0000368'} {'element': 'MONDO_0001699'}\n {'element': 'MONDO_0000369'} {'element': 'MONDO_0024610'}\n {'element': 'MONDO_0020010'} {'element': 'MONDO_0024618'}\n {'element': 'EFO_1001418'} {'element': 'EFO_1001419'}\n {'element': 'EFO_1001413'} {'element': 'EFO_1001415'}\n {'element': 'EFO_1001410'} {'element': 'MONDO_0001444'}\n {'element': 'MONDO_0004712'} {'element': 'MONDO_0024620'}\n {'element': 'EFO_0010060'} {'element': 'EFO_1001420'}\n {'element': 'EFO_1001421'} {'element': 'MONDO_0000341'}\n {'element': 'MONDO_0001678'} {'element': 'MONDO_0004944'}\n {'element': 'EFO_1001438'} {'element': 'EFO_1001433'}\n {'element': 'MONDO_0003846'} {'element': 'MONDO_0023557'}\n {'element': 'EFO_1001445'} {'element': 'EFO_1001206'}\n {'element': 'EFO_1001442'} {'element': 'EFO_1001443'}\n {'element': 'EFO_1001444'} {'element': 'MONDO_0001650'}\n {'element': 'EFO_0007231'} {'element': 'EFO_0007473'}\n {'element': 'MONDO_0001892'} {'element': 'EFO_0007232'}\n {'element': 'MONDO_0000320'} {'element': 'EFO_0007474'}\n {'element': 'EFO_0007475'} {'element': 'EFO_0007234'}\n {'element': 'EFO_0007476'} {'element': 'EFO_1001462'}\n {'element': 'EFO_0007477'} {'element': 'MONDO_0000565'}\n {'element': 'MONDO_0004924'} {'element': 'EFO_0007237'}\n {'element': 'EFO_0007479'} {'element': 'EFO_0007238'}\n {'element': 'MONDO_0024414'} {'element': 'EFO_0007470'}\n {'element': 'EFO_0007471'} {'element': 'EFO_0007230'}\n {'element': 'EFO_0007472'} {'element': 'MONDO_0024659'}\n {'element': 'EFO_0007228'} {'element': 'MONDO_0000327'}\n {'element': 'EFO_1001456'} {'element': 'EFO_0007229'}\n {'element': 'EFO_0008559'} {'element': 'MONDO_0018087'}\n {'element': 'EFO_1001217'} {'element': 'MONDO_0100286'}\n {'element': 'EFO_1001453'} {'element': 'EFO_0007220'}\n {'element': 'EFO_0007463'} {'element': 'MONDO_0001640'}\n {'element': 'EFO_0007221'} {'element': 'EFO_0007464'}\n {'element': 'EFO_0007222'} {'element': 'EFO_1001472'}\n {'element': 'EFO_0007223'} {'element': 'EFO_0007465'}\n {'element': 'EFO_0008556'} {'element': 'EFO_0007224'}\n {'element': 'EFO_0008555'} {'element': 'EFO_0007225'}\n {'element': 'EFO_0007468'} {'element': 'EFO_0008558'}\n {'element': 'MONDO_0000314'} {'element': 'EFO_0007226'}\n {'element': 'EFO_0008557'} {'element': 'EFO_0007227'}\n {'element': 'MONDO_0000315'} {'element': 'EFO_0007469'}\n {'element': 'MONDO_0021157'} {'element': 'MONDO_0015804'}\n {'element': 'MONDO_0020068'} {'element': 'MONDO_0015805'}\n {'element': 'MONDO_0021159'} {'element': 'MONDO_0015806'}\n {'element': 'EFO_0005046'} {'element': 'EFO_0005045'}\n {'element': 'EFO_0005044'} {'element': 'EFO_0004197'}\n {'element': 'EFO_0004196'} {'element': 'EFO_0007461'}\n {'element': 'MONDO_0020067'} {'element': 'EFO_1001225'}\n {'element': 'MONDO_0000316'} {'element': 'MONDO_0004917'}\n {'element': 'MONDO_0018076'} {'element': 'EFO_0007218'}\n {'element': 'EFO_0007219'} {'element': 'MONDO_0001649'}\n {'element': 'MONDO_0021160'} {'element': 'EFO_0007253'}\n {'element': 'EFO_0007495'} {'element': 'EFO_0007254'}\n {'element': 'EFO_0007496'} {'element': 'MONDO_0021161'}\n {'element': 'EFO_0007497'} {'element': 'EFO_0007255'}\n {'element': 'EFO_0007256'} {'element': 'EFO_0007499'}\n {'element': 'EFO_0007257'} {'element': 'EFO_0600064'}\n {'element': 'EFO_0007259'} {'element': 'EFO_0007250'}\n {'element': 'EFO_0007492'} {'element': 'EFO_0007494'}\n {'element': 'EFO_0009429'} {'element': 'EFO_0021516'}\n {'element': 'EFO_1001236'} {'element': 'MONDO_0002967'}\n {'element': 'MONDO_0000307'} {'element': 'MONDO_0000308'}\n {'element': 'EFO_1001474'} {'element': 'MONDO_0012521'}\n {'element': 'EFO_1001475'} {'element': 'EFO_1001233'}\n {'element': 'EFO_1001476'} {'element': 'EFO_1001235'}\n {'element': 'EFO_0007242'} {'element': 'EFO_0009662'}\n {'element': 'EFO_0007243'} {'element': 'EFO_0007245'}\n {'element': 'EFO_0007487'} {'element': 'EFO_0007246'}\n {'element': 'EFO_0007488'} {'element': 'EFO_0009425'}\n {'element': 'DOID_10718'} {'element': 'EFO_0009424'}\n {'element': 'EFO_0007247'} {'element': 'MONDO_0009348'}\n {'element': 'EFO_0007480'} {'element': 'MONDO_0021175'}\n {'element': 'EFO_0007481'} {'element': 'EFO_0007482'}\n {'element': 'EFO_0007241'} {'element': 'EFO_0008571'}\n {'element': 'EFO_0007239'} {'element': 'EFO_1001489'}\n {'element': 'EFO_1001247'} {'element': 'EFO_1000157'}\n {'element': 'EFO_1000156'} {'element': 'MONDO_0001628'}\n {'element': 'EFO_1001008'} {'element': 'EFO_1001244'}\n {'element': 'EFO_1001245'} {'element': 'EFO_1001246'}\n {'element': 'EFO_1001488'} {'element': 'EFO_0007275'}\n {'element': 'EFO_0007276'} {'element': 'EFO_1001021'}\n {'element': 'EFO_0007278'} {'element': 'EFO_0007279'}\n {'element': 'MONDO_0024459'} {'element': 'EFO_0007272'}\n {'element': 'MONDO_0025303'} {'element': 'EFO_0007273'}\n {'element': 'EFO_0007274'} {'element': 'EFO_1001259'}\n {'element': 'MONDO_0001615'} {'element': 'EFO_0010692'}\n {'element': 'EFO_0010691'} {'element': 'EFO_1001498'}\n {'element': 'EFO_1001030'} {'element': 'EFO_1001272'}\n {'element': 'EFO_1000182'} {'element': 'EFO_0007265'}\n {'element': 'EFO_1001275'} {'element': 'EFO_0007268'}\n {'element': 'EFO_0007260'} {'element': 'EFO_0007263'}\n {'element': 'EFO_1001269'} {'element': 'EFO_1001023'}\n {'element': 'EFO_1001283'} {'element': 'EFO_0007299'}\n {'element': 'MONDO_0023143'} {'element': 'MONDO_0000981'}\n {'element': 'EFO_1001280'} {'element': 'MONDO_0019362'}\n {'element': 'MONDO_0001832'} {'element': 'EFO_1001282'}\n {'element': 'EFO_1001040'} {'element': 'MONDO_0023149'}\n {'element': 'EFO_0007291'} {'element': 'EFO_0007293'}\n {'element': 'EFO_0007294'} {'element': 'EFO_0007295'}\n {'element': 'EFO_0007296'} {'element': 'EFO_0000650'}\n {'element': 'MONDO_0001837'} {'element': 'MONDO_0001838'}\n {'element': 'EFO_0007286'} {'element': 'EFO_0007289'}\n {'element': 'EFO_1001292'} {'element': 'EFO_0007280'}\n {'element': 'EFO_0007281'} {'element': 'EFO_0007282'}\n {'element': 'EFO_0007284'} {'element': 'MONDO_0024487'}\n {'element': 'MONDO_0041806'} {'element': 'MONDO_0016075'}\n {'element': 'EFO_1001287'} {'element': 'EFO_1001288'}\n {'element': 'EFO_1001063'} {'element': 'MONDO_0023164'}\n {'element': 'MONDO_0023161'} {'element': 'EFO_0003035'}\n {'element': 'EFO_0003033'} {'element': 'MONDO_0004089'}\n {'element': 'EFO_0003030'} {'element': 'MONDO_0001812'}\n {'element': 'EFO_0005681'} {'element': 'EFO_1001076'}\n {'element': 'EFO_1001070'} {'element': 'MONDO_0030705'}\n {'element': 'EFO_1001072'} {'element': 'MONDO_0030708'}\n {'element': 'MONDO_0030706'} {'element': 'MONDO_0030707'}\n {'element': 'MONDO_0024268'} {'element': 'MONDO_0025598'}\n {'element': 'MONDO_0040732'} {'element': 'MONDO_0041825'}\n {'element': 'MONDO_0024275'} {'element': 'EFO_0007410'}\n {'element': 'MONDO_0024271'} {'element': 'EFO_0007411'}\n {'element': 'EFO_1001081'} {'element': 'EFO_0007414'}\n {'element': 'MONDO_0017381'} {'element': 'MONDO_0041850'}\n {'element': 'MONDO_0018469'} {'element': 'EFO_0007404'}\n {'element': 'EFO_0005226'} {'element': 'MONDO_0016283'}\n {'element': 'MONDO_0017375'} {'element': 'EFO_0007406'}\n {'element': 'EFO_0007407'} {'element': 'EFO_0007409'}\n {'element': 'MONDO_0016047'} {'element': 'MONDO_0030720'}\n {'element': 'EFO_0007400'} {'element': 'EFO_0005222'}\n {'element': 'MONDO_0025371'} {'element': 'EFO_0007402'}\n {'element': 'EFO_0005224'} {'element': 'EFO_0005225'}\n {'element': 'EFO_0007403'} {'element': 'MONDO_8000001'}\n {'element': 'EFO_0003047'} {'element': 'MONDO_8000003'}\n {'element': 'MONDO_8000002'} {'element': 'EFO_1001091'}\n {'element': 'MONDO_8000005'} {'element': 'MONDO_8000004'}\n {'element': 'MONDO_0008412'} {'element': 'MONDO_0040998'}\n {'element': 'EFO_0006789'} {'element': 'MONDO_0000936'}\n {'element': 'MONDO_0000937'} {'element': 'MONDO_0024295'}\n {'element': 'EFO_0007431'} {'element': 'EFO_0007432'}\n {'element': 'EFO_0007434'} {'element': 'MONDO_0024294'}\n {'element': 'MONDO_0041879'} {'element': 'EFO_0007426'}\n {'element': 'MONDO_0017592'} {'element': 'EFO_0007429'}\n {'element': 'MONDO_0018686'} {'element': 'MONDO_0017596'}\n {'element': 'EFO_0008510'} {'element': 'EFO_0007420'}\n {'element': 'EFO_0007424'} {'element': 'MONDO_0017591'}\n {'element': 'MONDO_0004272'} {'element': 'MONDO_0020947'}\n {'element': 'MONDO_0017349'} {'element': 'MONDO_0020944'}\n {'element': 'MONDO_0017342'} {'element': 'EFO_0007417'}\n {'element': 'EFO_0007418'} {'element': 'MONDO_0017341'}\n {'element': 'EFO_0007419'} {'element': 'MONDO_0017344'}\n {'element': 'MONDO_0017343'} {'element': 'MONDO_0000916'}\n {'element': 'MONDO_0017346'} {'element': 'MONDO_0017345'}\n {'element': 'EFO_0007451'} {'element': 'EFO_0007210'}\n {'element': 'EFO_0007211'} {'element': 'EFO_0007212'}\n {'element': 'EFO_0007454'} {'element': 'EFO_0007455'}\n {'element': 'EFO_0007213'} {'element': 'EFO_0007457'}\n {'element': 'MONDO_0020950'} {'element': 'EFO_0003097'}\n {'element': 'EFO_0007450'} {'element': 'MONDO_0021804'}\n {'element': 'MONDO_0043836'} {'element': 'EFO_0007448'}\n {'element': 'EFO_0007449'} {'element': 'EFO_0007207'}\n {'element': 'EFO_0007209'} {'element': 'MONDO_0018661'}\n {'element': 'MONDO_0015157'} {'element': 'EFO_0007200'}\n {'element': 'EFO_0007444'} {'element': 'EFO_0007445'}\n {'element': 'EFO_0007203'} {'element': 'EFO_0007446'}\n {'element': 'EFO_0007204'} {'element': 'EFO_0007205'}\n {'element': 'EFO_0007447'} {'element': 'MONDO_0042971'}\n {'element': 'MONDO_0004497'} {'element': 'MONDO_0042972'}\n {'element': 'MONDO_0037398'} {'element': 'EFO_0007437'}\n {'element': 'EFO_0007438'} {'element': 'EFO_0007439'}\n {'element': 'MONDO_0600003'} {'element': 'MONDO_0600002'}\n {'element': 'MONDO_0020971'} {'element': 'MONDO_0016468'}\n {'element': 'DOID_7551'} {'element': 'MONDO_0003378'}\n {'element': 'MONDO_0003377'} {'element': 'MONDO_0003379'}\n {'element': 'MONDO_0003370'} {'element': 'MONDO_0002040'}\n {'element': 'MONDO_0020753'} {'element': 'MONDO_0002282'}\n {'element': 'MONDO_0003371'} {'element': 'MONDO_0002041'}\n {'element': 'MONDO_0003374'} {'element': 'MONDO_0003373'}\n {'element': 'EFO_0000180'} {'element': 'MONDO_0003376'}\n {'element': 'EFO_0000183'} {'element': 'EFO_1000829'}\n {'element': 'MONDO_0033821'} {'element': 'EFO_0006718'}\n {'element': 'MONDO_0003367'} {'element': 'MONDO_0003369'}\n {'element': 'MONDO_0004215'} {'element': 'MONDO_0003368'}\n {'element': 'MONDO_0002270'} {'element': 'MONDO_0003360'}\n {'element': 'MONDO_0005784'} {'element': 'MONDO_0003362'}\n {'element': 'MONDO_0003365'} {'element': 'MONDO_0003364'}\n {'element': 'EFO_1001925'} {'element': 'EFO_1000830'}\n {'element': 'EFO_1000831'} {'element': 'EFO_1000832'}\n {'element': 'MONDO_0015342'} {'element': 'MONDO_0015344'}\n {'element': 'MONDO_0002266'} {'element': 'MONDO_0003358'}\n {'element': 'MONDO_0002026'} {'element': 'MONDO_0003357'}\n {'element': 'MONDO_0004207'} {'element': 'MONDO_0002029'}\n {'element': 'MONDO_0700051'} {'element': 'EFO_0001055'}\n {'element': 'EFO_0001056'} {'element': 'MONDO_0003350'}\n {'element': 'EFO_0001054'} {'element': 'MONDO_0043653'}\n {'element': 'MONDO_0003351'} {'element': 'MONDO_0003353'}\n {'element': 'EFO_1000842'} {'element': 'MONDO_0004678'}\n {'element': 'MONDO_0003349'} {'element': 'MONDO_0043885'}\n {'element': 'MONDO_0018837'} {'element': 'MONDO_0002246'}\n {'element': 'MONDO_0003337'} {'element': 'EFO_0001077'}\n {'element': 'EFO_0001078'} {'element': 'EFO_0001076'}\n {'element': 'MONDO_0002240'} {'element': 'MONDO_0002000'}\n {'element': 'MONDO_0041259'} {'element': 'EFO_0001068'}\n {'element': 'EFO_1000863'} {'element': 'EFO_1001954'}\n {'element': 'EFO_0006510'} {'element': 'MONDO_0044750'}\n {'element': 'EFO_0001067'} {'element': 'EFO_0001062'}\n {'element': 'MONDO_0043424'} {'element': 'MONDO_0004651'}\n {'element': 'EFO_0001057'} {'element': 'EFO_1000873'}\n {'element': 'EFO_1000874'} {'element': 'EFO_1000875'}\n {'element': 'EFO_1000872'} {'element': 'EFO_0006509'}\n {'element': 'MONDO_0003796'} {'element': 'EFO_0007198'}\n {'element': 'MONDO_0000286'} {'element': 'EFO_0007199'}\n {'element': 'MONDO_0002226'} {'element': 'MONDO_0004649'}\n {'element': 'EFO_0007190'} {'element': 'MONDO_0021666'}\n {'element': 'EFO_0007194'} {'element': 'EFO_0009130'}\n {'element': 'EFO_0007195'} {'element': 'MONDO_0021660'}\n {'element': 'EFO_0000558'} {'element': 'MONDO_0021669'}\n {'element': 'DOID_10113'} {'element': 'EFO_1001974'}\n {'element': 'EFO_1001975'} {'element': 'EFO_1000887'}\n {'element': 'MONDO_0034976'} {'element': 'EFO_0007188'}\n {'element': 'EFO_0007189'} {'element': 'EFO_0007182'}\n {'element': 'MONDO_0021677'} {'element': 'MONDO_0000271'}\n {'element': 'EFO_0007184'} {'element': 'EFO_0007185'}\n {'element': 'EFO_0007186'} {'element': 'MONDO_0022529'}\n {'element': 'MONDO_0021678'} {'element': 'MONDO_0021679'}\n {'element': 'EFO_0000782'} {'element': 'EFO_1000656'}\n {'element': 'EFO_0000309'} {'element': 'EFO_0009157'}\n {'element': 'MONDO_0001112'} {'element': 'MONDO_0020590'}\n {'element': 'MONDO_0004863'} {'element': 'MONDO_0021201'}\n {'element': 'MONDO_0041052'} {'element': 'MONDO_0023865'}\n {'element': 'MONDO_0021681'} {'element': 'MONDO_0021682'}\n {'element': 'MONDO_0043479'} {'element': 'MONDO_0000262'}\n {'element': 'MONDO_0001110'} {'element': 'MONDO_0000263'}\n {'element': 'EFO_0001668'} {'element': 'EFO_1001753'}\n {'element': 'MONDO_0004853'} {'element': 'MONDO_0000253'}\n {'element': 'MONDO_0000254'} {'element': 'MONDO_0000255'}\n {'element': 'MONDO_0004852'} {'element': 'MONDO_0000256'}\n {'element': 'MONDO_0004616'} {'element': 'MONDO_0003769'}\n {'element': 'EFO_0003830'} {'element': 'EFO_0000564'}\n {'element': 'MONDO_0003529'} {'element': 'EFO_1001764'}\n {'element': 'EFO_1000671'} {'element': 'MONDO_0001575'}\n {'element': 'MONDO_0003997'} {'element': 'MONDO_0002429'}\n {'element': 'MONDO_0002428'} {'element': 'EFO_1001773'}\n {'element': 'MONDO_0000236'} {'element': 'MONDO_0043004'}\n {'element': 'EFO_0001675'} {'element': 'EFO_0000584'}\n {'element': 'EFO_1001309'} {'element': 'MONDO_0100096'}\n {'element': 'EFO_1001302'} {'element': 'EFO_1001303'}\n {'element': 'EFO_1000693'} {'element': 'EFO_0004708'}\n {'element': 'EFO_1001784'} {'element': 'EFO_1001300'}\n {'element': 'MONDO_0001316'} {'element': 'MONDO_0002646'}\n {'element': 'EFO_1001318'} {'element': 'EFO_1001319'}\n {'element': 'EFO_1001313'} {'element': 'EFO_1001795'}\n {'element': 'MONDO_0002875'} {'element': 'EFO_1000480'}\n {'element': 'MONDO_0022103'} {'element': 'EFO_0003878'}\n {'element': 'EFO_0004720'} {'element': 'EFO_1001324'}\n {'element': 'EFO_1001326'} {'element': 'EFO_1001327'}\n {'element': 'EFO_1001320'} {'element': 'EFO_0007353'}\n {'element': 'EFO_0007357'} {'element': 'MONDO_0001777'}\n {'element': 'EFO_0007358'} {'element': 'MONDO_0002624'}\n {'element': 'EFO_1000491'} {'element': 'EFO_0007350'}\n {'element': 'EFO_0007349'} {'element': 'EFO_0009528'}\n {'element': 'MONDO_0004806'} {'element': 'EFO_0007342'}\n {'element': 'EFO_1001351'} {'element': 'EFO_0007343'}\n {'element': 'EFO_0007344'} {'element': 'EFO_0007345'}\n {'element': 'EFO_0007347'} {'element': 'MONDO_0021032'}\n {'element': 'MONDO_0021033'} {'element': 'EFO_0007340'}\n {'element': 'EFO_0007338'} {'element': 'EFO_0007339'}\n {'element': 'EFO_1001347'} {'element': 'EFO_1001348'}\n {'element': 'EFO_1001349'} {'element': 'EFO_1001342'}\n {'element': 'MONDO_0034103'} {'element': 'EFO_0009553'}\n {'element': 'EFO_0007132'} {'element': 'EFO_0007375'}\n {'element': 'EFO_1001362'} {'element': 'EFO_0007376'}\n {'element': 'EFO_0007377'} {'element': 'MONDO_0002843'}\n {'element': 'EFO_0007379'} {'element': 'MONDO_0002842'}\n {'element': 'EFO_0007137'} {'element': 'EFO_0007139'}\n {'element': 'MONDO_0024315'} {'element': 'EFO_0007370'}\n {'element': 'EFO_0007130'} {'element': 'EFO_0007131'}\n {'element': 'MONDO_0024318'} {'element': 'EFO_1001357'}\n {'element': 'EFO_1001358'} {'element': 'EFO_1001353'}\n {'element': 'EFO_1001114'} {'element': 'EFO_0007363'}\n {'element': 'EFO_1001372'} {'element': 'EFO_1001130'}\n {'element': 'EFO_0007366'} {'element': 'EFO_1001374'}\n {'element': 'EFO_0007126'} {'element': 'EFO_0007368'}\n {'element': 'EFO_0007127'} {'element': 'EFO_0007128'}\n {'element': 'MONDO_0021297'} {'element': 'MONDO_0000890'}\n {'element': 'MONDO_0037872'} {'element': 'EFO_1001126'}\n {'element': 'EFO_1001127'} {'element': 'EFO_1000035'}\n {'element': 'MONDO_0001506'} {'element': 'EFO_1001128'}\n {'element': 'MONDO_0001507'} {'element': 'EFO_1001122'}\n {'element': 'EFO_1000039'} {'element': 'EFO_1001123'}\n {'element': 'EFO_1001124'} {'element': 'EFO_1001125'}\n {'element': 'EFO_0007154'} {'element': 'EFO_0009575'}\n {'element': 'EFO_0007396'} {'element': 'MONDO_0024330'}\n {'element': 'EFO_1001141'} {'element': 'EFO_0007155'}\n {'element': 'EFO_0007397'} {'element': 'EFO_0007398'}\n {'element': 'EFO_0007156'} {'element': 'EFO_0007399'}\n {'element': 'EFO_0007157'} {'element': 'EFO_0007158'}\n {'element': 'MONDO_0045033'} {'element': 'EFO_0007390'}\n {'element': 'EFO_0007391'} {'element': 'EFO_0007150'}\n {'element': 'EFO_0007151'} {'element': 'EFO_0007393'}\n {'element': 'EFO_0007394'} {'element': 'EFO_0007152'}\n {'element': 'EFO_0007395'} {'element': 'EFO_1001139'}\n {'element': 'MONDO_0100120'} {'element': 'EFO_1001377'}\n {'element': 'EFO_1000049'} {'element': 'EFO_0007144'}\n {'element': 'EFO_0007386'} {'element': 'EFO_0007145'}\n {'element': 'EFO_0007387'} {'element': 'EFO_1001396'}\n {'element': 'EFO_0007146'} {'element': 'EFO_0007389'}\n {'element': 'MONDO_0001720'} {'element': 'EFO_0007147'}\n {'element': 'EFO_0009567'} {'element': 'MONDO_0002812'}\n {'element': 'EFO_1001392'} {'element': 'EFO_0007380'}\n {'element': 'EFO_0007381'} {'element': 'EFO_0009560'}\n {'element': 'EFO_0007140'} {'element': 'EFO_0007383'}\n {'element': 'EFO_0009561'} {'element': 'EFO_0007142'}\n {'element': 'MONDO_0041903'} {'element': 'MONDO_0000879'}\n {'element': 'EFO_1001386'} {'element': 'EFO_1001144'}\n {'element': 'MONDO_0100370'} {'element': 'EFO_1001162'}\n {'element': 'MONDO_0024352'} {'element': 'EFO_0007178'}\n {'element': 'EFO_0007179'} {'element': 'EFO_0009117'}\n {'element': 'EFO_1001160'} {'element': 'EFO_0000781'}\n {'element': 'EFO_0000780'} {'element': 'EFO_0007171'}\n {'element': 'EFO_0007172'} {'element': 'EFO_0007173'}\n {'element': 'MONDO_0024354'} {'element': 'EFO_0007174'}\n {'element': 'MONDO_0024355'} {'element': 'EFO_0000776'}\n {'element': 'EFO_0000775'} {'element': 'EFO_0000778'}\n {'element': 'EFO_0000777'} {'element': 'EFO_0000772'}\n {'element': 'EFO_0000771'} {'element': 'MONDO_0001955'}\n {'element': 'EFO_0020106'} {'element': 'EFO_1001397'}\n {'element': 'EFO_0000779'} {'element': 'MONDO_0001719'}\n {'element': 'EFO_1001399'} {'element': 'EFO_0007166'}\n {'element': 'EFO_1002022'} {'element': 'EFO_1002023'}\n {'element': 'MONDO_0019471'} {'element': 'MONDO_0019472'}\n {'element': 'MONDO_0001701'} {'element': 'EFO_0007161'}\n {'element': 'EFO_0007162'} {'element': 'EFO_0007163'}\n {'element': 'EFO_0008494'} {'element': 'EFO_0000765'}\n {'element': 'EFO_0000764'} {'element': 'EFO_0000763'}\n {'element': 'EFO_1000077'} {'element': 'EFO_0000769'}\n {'element': 'EFO_1001168'} {'element': 'EFO_1002031'}\n {'element': 'EFO_0007510'} {'element': 'EFO_0007511'}\n {'element': 'EFO_0007512'} {'element': 'EFO_0007513'}\n {'element': 'MONDO_0100329'} {'element': 'EFO_0004239'}\n {'element': 'MONDO_0100320'} {'element': 'EFO_0007504'}\n {'element': 'EFO_0007505'} {'element': 'EFO_0007506'}\n {'element': 'EFO_1002024'} {'element': 'EFO_0007508'}\n {'element': 'EFO_1002025'} {'element': 'EFO_0007509'}\n {'element': 'EFO_1002026'} {'element': 'EFO_1001196'}\n {'element': 'EFO_0007500'} {'element': 'EFO_0007501'}\n {'element': 'EFO_1001193'} {'element': 'EFO_0007502'}\n {'element': 'MONDO_0024389'} {'element': 'EFO_0004227'}\n {'element': 'EFO_0004226'} {'element': 'MONDO_0100330'}\n {'element': 'EFO_0005593'} {'element': 'EFO_0007530'}\n {'element': 'EFO_0007531'} {'element': 'MONDO_0024392'}\n {'element': 'EFO_0007534'} {'element': 'MONDO_0004189'}\n {'element': 'EFO_0007526'} {'element': 'MONDO_0011953'}\n {'element': 'EFO_0007527'} {'element': 'EFO_0007528'}\n {'element': 'EFO_0007529'} {'element': 'EFO_1002047'}\n {'element': 'MONDO_0000827'} {'element': 'MONDO_0001917'}\n {'element': 'MONDO_0030602'} {'element': 'EFO_0007520'}\n {'element': 'EFO_0007521'} {'element': 'EFO_0005585'}\n {'element': 'EFO_0007522'} {'element': 'EFO_0007523'}\n {'element': 'MONDO_0030603'} {'element': 'EFO_0007524'}\n {'element': 'MONDO_0100116'} {'element': 'MONDO_0018339'}\n {'element': 'MONDO_0100353'} {'element': 'EFO_0004249'}\n {'element': 'EFO_0007514'} {'element': 'EFO_0007515'}\n {'element': 'EFO_0007516'} {'element': 'MONDO_0100110'}\n {'element': 'EFO_0007517'} {'element': 'EFO_0007518'}\n {'element': 'EFO_0007519'} {'element': 'EFO_0007310'}\n {'element': 'EFO_0007311'} {'element': 'EFO_0007312'}\n {'element': 'EFO_0007313'} {'element': 'EFO_0007314'}\n {'element': 'EFO_0007315'} {'element': 'EFO_0005129'}\n {'element': 'EFO_0007305'} {'element': 'EFO_0007548'}\n {'element': 'EFO_0007306'} {'element': 'EFO_0007307'}\n {'element': 'EFO_0007308'} {'element': 'EFO_0007309'}\n {'element': 'EFO_0010970'} {'element': 'EFO_0007540'}\n {'element': 'MONDO_0005247'} {'element': 'EFO_0007541'}\n {'element': 'EFO_0007300'} {'element': 'EFO_0007301'}\n {'element': 'EFO_0007543'} {'element': 'EFO_0007302'}\n {'element': 'EFO_0007545'} {'element': 'EFO_0007303'}\n {'element': 'EFO_0007546'} {'element': 'EFO_0007304'}\n {'element': 'MONDO_0016130'} {'element': 'EFO_0007538'}\n {'element': 'MONDO_0015289'} {'element': 'MONDO_0004389'}\n {'element': 'EFO_0007332'} {'element': 'MONDO_0007656'}\n {'element': 'EFO_0007335'} {'element': 'EFO_0007337'}\n {'element': 'DOID_1947'} {'element': 'MONDO_0016126'}\n {'element': 'MONDO_0043953'} {'element': 'MONDO_0016127'}\n {'element': 'EFO_1000900'} {'element': 'EFO_0007328'}\n {'element': 'MONDO_0017210'} {'element': 'EFO_0007320'}\n {'element': 'MONDO_0007403'} {'element': 'MONDO_0025294'}\n {'element': 'EFO_0007324'} {'element': 'EFO_0007326'}\n {'element': 'MONDO_0004131'} {'element': 'EFO_0010716'}\n {'element': 'EFO_1000917'} {'element': 'MONDO_0017209'}\n {'element': 'MONDO_0020601'} {'element': 'EFO_0007316'}\n {'element': 'EFO_0007317'} {'element': 'MONDO_0017203'}\n {'element': 'MONDO_0017202'}]"
+            },
+            "children": {
+                "list": "[{'element': 'MONDO_0000565'} {'element': 'MONDO_0002041'}\n {'element': 'MONDO_0016511'} {'element': 'MONDO_0020010'}\n {'element': 'MONDO_0021666'} {'element': 'MONDO_0021669'}\n {'element': 'MONDO_0021681'} {'element': 'MONDO_0021747'}\n {'element': 'MONDO_0023557'} {'element': 'MONDO_0024294'}\n {'element': 'MONDO_0024355'} {'element': 'MONDO_0024487'}\n {'element': 'MONDO_0042485'} {'element': 'MONDO_0043424'}\n {'element': 'MONDO_0043544'} {'element': 'MONDO_0043885'}\n {'element': 'MONDO_0100120'} {'element': 'MONDO_0600002'}\n {'element': 'EFO_0000763'} {'element': 'EFO_0000771'}\n {'element': 'EFO_0001067'} {'element': 'EFO_0003030'}\n {'element': 'EFO_0003103'} {'element': 'EFO_0007209'}\n {'element': 'EFO_0007314'} {'element': 'EFO_0010691'}\n {'element': 'EFO_0010692'} {'element': 'EFO_0010716'}\n {'element': 'EFO_1001283'} {'element': 'EFO_1001392'}\n {'element': 'EFO_1001396'} {'element': 'EFO_1001406'}\n {'element': 'EFO_1001407'}]"
+            },
+            "therapeuticAreas": {
+                "list": "[{'element': 'EFO_0005741'}]"
+            },
+            "indirectLocationIds": null,
+            "ontology": {
+                "isTherapeuticArea": true,
+                "leaf": false,
+                "sources": {
+                    "url": "http://www.ebi.ac.uk/efo/EFO_0005741",
+                    "name": "EFO_0005741"
+                }
+            }
+        },
+        {
+            "id": "MONDO_0045024",
+            "code": "http://purl.obolibrary.org/obo/MONDO_0045024",
+            "dbXRefs": {
+                "list": "[]"
+            },
+            "description": "Any disorder that features disrupted cell proliferation. Includes hyperplasia, neoplastic syndrome and isolated neoplasm diseases as well as precancerous conditions.",
+            "name": "cancer or benign tumor",
+            "directLocationIds": null,
+            "obsoleteTerms": null,
+            "parents": {
+                "list": "[]"
+            },
+            "synonyms": {
+                "hasBroadSynonym": null,
+                "hasExactSynonym": null,
+                "hasNarrowSynonym": {
+                    "list": "[{'element': 'neoplasm'}]"
+                },
+                "hasRelatedSynonym": {
+                    "list": "[{'element': 'cell proliferation disorder'}]"
+                }
+            },
+            "ancestors": {
+                "list": "[]"
+            },
+            "descendants": {
+                "list": "[{'element': 'MONDO_0004125'} {'element': 'OTAR_0000003'}\n {'element': 'EFO_0000284'} ... {'element': 'MONDO_0004380'}\n {'element': 'EFO_1000912'} {'element': 'EFO_1000913'}]"
+            },
+            "children": {
+                "list": "[{'element': 'MONDO_0021074'} {'element': 'MONDO_0023370'}\n {'element': 'MONDO_0045054'} {'element': 'EFO_0000536'}\n {'element': 'EFO_0000662'} {'element': 'OTAR_0000003'}]"
+            },
+            "therapeuticAreas": {
+                "list": "[{'element': 'MONDO_0045024'}]"
+            },
+            "indirectLocationIds": null,
+            "ontology": {
+                "isTherapeuticArea": true,
+                "leaf": false,
+                "sources": {
+                    "url": "http://purl.obolibrary.org/obo/MONDO_0045024",
+                    "name": "MONDO_0045024"
+                }
+            }
+        },
+        {
+            "id": "EFO_0005803",
+            "code": "http://www.ebi.ac.uk/efo/EFO_0005803",
+            "dbXRefs": {
+                "list": "[{'element': 'ICD9:289.8'} {'element': 'ICD9:289.9'}\n {'element': 'MeSH:D006402'} {'element': 'GARD:22522'}\n {'element': 'MESH:D006402'} {'element': 'SCTID:414022008'}\n {'element': 'UMLS:C0018939'} {'element': 'NCIT:C26323'}\n {'element': 'GTR:AN1320635'} {'element': 'MONDO:0005570'}\n {'element': 'Orphanet:97992'} {'element': 'ICD9:280-289.99'}\n {'element': 'ICD10CM:D50-D89'} {'element': 'ICD10:D75'}\n {'element': 'DOID:74'}]"
+            },
+            "description": "Disorders of the blood and blood forming tissues.",
+            "name": "hematologic disease",
+            "directLocationIds": null,
+            "obsoleteTerms": null,
+            "parents": {
+                "list": "[]"
+            },
+            "synonyms": {
+                "hasBroadSynonym": null,
+                "hasExactSynonym": {
+                    "list": "[{'element': 'hematologic disorder'} {'element': 'Hematologic Diseases'}\n {'element': 'haematopoietic disease'}\n {'element': 'hematopoietic disease'}\n {'element': 'disease of the blood and blood-forming organs'}\n {'element': 'hematologic disease'}\n {'element': 'disease or disorder of haematopoietic system'}\n {'element': 'hematologic and lymphocytic disorder'}\n {'element': 'disease or disorder of hematopoietic system'}\n {'element': 'disorder of haematopoietic system'}\n {'element': 'haematopoietic system disease'}\n {'element': 'disorder of hematopoietic system'}\n {'element': 'haematological disease'}\n {'element': 'disease of hematopoietic system'}\n {'element': 'hematopoietic system disease'}\n {'element': 'haematological system disease'}\n {'element': 'hematopoietic system disease or disorder'}\n {'element': 'haematopoietic system disease or disorder'}\n {'element': 'hematological system disorder'}\n {'element': 'blood disorder'}\n {'element': 'disease of haematopoietic system'}\n {'element': 'haematological system disorder'}\n {'element': 'hematological disease'} {'element': 'blood dyscrasia'}\n {'element': 'hematological disorder'}\n {'element': 'rare hematologic disease'}\n {'element': 'hematological system disease'}\n {'element': 'haematological disorder'} {'element': 'blood disease'}]"
+                },
+                "hasNarrowSynonym": null,
+                "hasRelatedSynonym": {
+                    "list": "[{'element': 'haematological disorders and malignancies'}\n {'element': 'hematological disorders and malignancies'}]"
+                }
+            },
+            "ancestors": {
+                "list": "[]"
+            },
+            "descendants": {
+                "list": "[{'element': 'Orphanet_98791'} {'element': 'MONDO_0008966'}\n {'element': 'MONDO_0009813'} ... {'element': 'MONDO_0017683'}\n {'element': 'EFO_0007319'} {'element': 'MONDO_0016598'}]"
+            },
+            "children": {
+                "list": "[{'element': 'MONDO_0000602'} {'element': 'MONDO_0002243'}\n {'element': 'MONDO_0002245'} {'element': 'MONDO_0002280'}\n {'element': 'MONDO_0002334'} {'element': 'MONDO_0002901'}\n {'element': 'MONDO_0003225'} {'element': 'MONDO_0003393'}\n {'element': 'MONDO_0004805'} {'element': 'MONDO_0007716'}\n {'element': 'MONDO_0008876'} {'element': 'MONDO_0009332'}\n {'element': 'MONDO_0010328'} {'element': 'MONDO_0013540'}\n {'element': 'MONDO_0014274'} {'element': 'MONDO_0044347'}\n {'element': 'MONDO_0060782'} {'element': 'MONDO_0100089'}\n {'element': 'MONDO_0700253'} {'element': 'EFO_0000203'}\n {'element': 'EFO_0007352'} {'element': 'EFO_0009314'}\n {'element': 'EFO_0010283'} {'element': 'EFO_0011051'}\n {'element': 'EFO_1000969'} {'element': 'EFO_1001860'}\n {'element': 'Orphanet_158300'} {'element': 'Orphanet_93614'}]"
+            },
+            "therapeuticAreas": {
+                "list": "[{'element': 'EFO_0005803'}]"
+            },
+            "indirectLocationIds": null,
+            "ontology": {
+                "isTherapeuticArea": true,
+                "leaf": false,
+                "sources": {
+                    "url": "http://www.ebi.ac.uk/efo/EFO_0005803",
+                    "name": "EFO_0005803"
+                }
+            }
+        },
+        {
+            "id": "EFO_0000319",
+            "code": "http://www.ebi.ac.uk/efo/EFO_0000319",
+            "dbXRefs": {
+                "list": "[{'element': 'SCTID:49601007'} {'element': 'MONDO:0004995'}\n {'element': 'MESH:D002318'} {'element': 'ICD9:424'}\n {'element': 'NCIT:C2931'} {'element': 'ICD9:429.7'}\n {'element': 'ICD9:429'} {'element': 'SNOMEDCT:49601007'}\n {'element': 'ICD10:I99'} {'element': 'MedDRA:10007648'}\n {'element': 'ICD9:459.9'} {'element': 'UMLS:C0007222'}\n {'element': 'ICD9:429.81'} {'element': 'SNOMEDCT:105980002'}\n {'element': 'ICD9:423'} {'element': 'ICD9:429.2'}\n {'element': 'ICD9:459.89'} {'element': 'ICD9:390-459.99'}\n {'element': 'ICD10:I98'} {'element': 'NCIt:C2931'}\n {'element': 'ICD9:420-429.99'} {'element': 'MeSH:D002318'}\n {'element': 'ICD9:423.8'} {'element': 'ICD9:429.8'}\n {'element': 'DOID:1287'} {'element': 'ICD9:429.89'}]"
+            },
+            "description": "A disease involving the cardiovascular system.",
+            "name": "cardiovascular disease",
+            "directLocationIds": null,
+            "obsoleteTerms": null,
+            "parents": {
+                "list": "[]"
+            },
+            "synonyms": {
+                "hasBroadSynonym": null,
+                "hasExactSynonym": {
+                    "list": "[{'element': 'Unspecified circulatory system disorder'}\n {'element': 'Cardiovascular Diseases'}\n {'element': 'Other forms of heart disease'}\n {'element': 'Diseases, Cardiovascular'}\n {'element': 'Other heart disease (disorder)'}\n {'element': 'Other pericardial disease NOS'}\n {'element': 'Disease of cardiovascular system (disorder)'}\n {'element': 'Cardiovascular Disorders'}\n {'element': 'Other ill-defined heart diseases'} {'element': 'ASCVD'}\n {'element': 'Other heart disease NOS (disorder)'}\n {'element': 'Other forms of heart disease (disorder)'}\n {'element': 'Disorder of the circulatory system'}\n {'element': 'cardiovascular disorder'}\n {'element': 'Certain sequelae of myocardial infarction, not elsewhere classified'}\n {'element': 'PERICARDIAL DISEASE NEC'}\n {'element': 'DISEASES OF THE CIRCULATORY SYSTEM'}\n {'element': 'Other heart disease'}\n {'element': 'Ill-defined descriptions and complications of heart disease'}\n {'element': 'cardiovascular system disease'}\n {'element': 'Cardiovascular disorder, NOS'}\n {'element': '[X]Other specified diseases of pericardium'}\n {'element': '[X]Cardiovascular disease, unspecified'}\n {'element': 'Other ill-defined heart disease (disorder)'}\n {'element': 'disease or disorder of cardiovascular system'}\n {'element': 'Cardiovascular system disease'}\n {'element': 'cardiovascular disease'}\n {'element': 'Circulatory system disease NOS'}\n {'element': 'ILL-DEFINED HRT DIS NEC'}\n {'element': '[X]Other specified diseases of pericardium (disorder)'}\n {'element': 'Other ill-defined heart disease NOS (disorder)'}\n {'element': 'circulatory system disease'}\n {'element': 'cardiovascular disease (CVD)'}\n {'element': '[X]Other ill-defined heart diseases (disorder)'}\n {'element': 'Other pericardial disease NOS (disorder)'}\n {'element': 'CARDIOVASC DIS'}\n {'element': 'Other specified diseases of pericardium'}\n {'element': 'PAPILLARY MUSCLE DIS NEC'}\n {'element': 'Cardiovascular disease, unspecified'}\n {'element': 'OTHER SEQUELAE OF MI NEC'}\n {'element': 'Other ill-defined heart disease NOS'}\n {'element': 'Disease of cardiovascular system'}\n {'element': '[X]Other forms of heart disease'}\n {'element': 'Other specified pericardial disease NOS'}\n {'element': 'Other diseases of pericardium (disorder)'}\n {'element': 'Disorder of cardiovascular system (disorder)'}\n {'element': 'CVS disease'}\n {'element': 'disorder of cardiovascular system'}\n {'element': '[X]Other forms of heart disease (disorder)'}\n {'element': 'Other disorders of papillary muscle'}\n {'element': 'Disorder of cardiovascular system'}\n {'element': 'Disease affecting entire cardiovascular system'}\n {'element': 'cardiovascular system disease or disorder'}\n {'element': 'Other heart disease NOS'}\n {'element': 'Disease of cardiovascular system, NOS'}\n {'element': 'Other diseases of pericardium'}\n {'element': 'Other diseases of endocardium (disorder)'}\n {'element': 'disease of cardiovascular system'}\n {'element': 'Other specified pericardial disease NOS (disorder)'}\n {'element': 'CIRCULATORY DISEASE NOS'}\n {'element': 'Disorder of circulatory system'}\n {'element': 'Disease affecting entire cardiovascular system (disorder)'}\n {'element': 'Disease, Cardiovascular'}\n {'element': 'Cardiovascular Disease (CVD)'}\n {'element': 'Disorder of circulatory system, NOS'}\n {'element': 'CVD, NOS'} {'element': 'Other diseases of endocardium'}\n {'element': '[X]Cardiovascular disease, unspecified (disorder)'}\n {'element': 'disease of subdivision of hemolymphoid system'}\n {'element': '[X]Other ill-defined heart diseases'}\n {'element': 'Other ill-defined heart disease'}\n {'element': 'Other sequelae of myocardial infarction, not elsewhere classified'}\n {'element': 'Circulatory system disease NOS (disorder)'}\n {'element': 'Cardiovascular Disorder'} {'element': 'CVD'}\n {'element': 'Cardiovascular disease, NOS'}]"
+                },
+                "hasNarrowSynonym": null,
+                "hasRelatedSynonym": {
+                    "list": "[{'element': 'circulatory system disease'}]"
+                }
+            },
+            "ancestors": {
+                "list": "[]"
+            },
+            "descendants": {
+                "list": "[{'element': 'MONDO_0008723'} {'element': 'MONDO_0008965'}\n {'element': 'EFO_0009094'} ... {'element': 'EFO_0005138'}\n {'element': 'MONDO_0015263'} {'element': 'MONDO_0019623'}]"
+            },
+            "children": {
+                "list": "[{'element': 'MONDO_0000603'} {'element': 'MONDO_0012726'}\n {'element': 'MONDO_0024239'} {'element': 'MONDO_0024757'}\n {'element': 'EFO_0003777'} {'element': 'EFO_0004264'}\n {'element': 'EFO_0700064'}]"
+            },
+            "therapeuticAreas": {
+                "list": "[{'element': 'EFO_0000319'}]"
+            },
+            "indirectLocationIds": null,
+            "ontology": {
+                "isTherapeuticArea": true,
+                "leaf": false,
+                "sources": {
+                    "url": "http://www.ebi.ac.uk/efo/EFO_0000319",
+                    "name": "EFO_0000319"
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "GEO_ID": "zip/47578",
+            "VARIABLE": "Total_income_-_Amount,_AGI_bin:_$100,000_under_$200,000",
+            "VARIABLE_NAME": "Total income - Amount, AGI bin: $100,000 under $200,000",
+            "DATE": "2018-12-31",
+            "VALUE": 5096000.0,
+            "UNIT": "USD",
+            "SUPPRESSED": false
+        },
+        {
+            "GEO_ID": "zip/88337",
+            "VARIABLE": "Total_taxes_paid_-_Number_of_returns,_AGI_bin:_$100,000_under_$200,000",
+            "VARIABLE_NAME": "Total taxes paid - Number of returns, AGI bin: $100,000 under $200,000",
+            "DATE": "2011-12-31",
+            "VALUE": 69.0,
+            "UNIT": "Returns",
+            "SUPPRESSED": false
+        },
+        {
+            "GEO_ID": "zip/50167",
+            "VARIABLE": "Total_premium_tax_credit_-_Amount,_AGI_bin:_$100,000_under_$200,000",
+            "VARIABLE_NAME": "Total premium tax credit - Amount, AGI bin: $100,000 under $200,000",
+            "DATE": "2017-12-31",
+            "VALUE": 0.0,
+            "UNIT": "USD",
+            "SUPPRESSED": false
+        },
+        {
+            "GEO_ID": "zip/50543",
+            "VARIABLE": "Taxable_income_-_Amount,_AGI_bin:_$200,000_or_more",
+            "VARIABLE_NAME": "Taxable income - Amount, AGI bin: $200,000 or more",
+            "DATE": "2017-12-31",
+            "VALUE": NaN,
+            "UNIT": "USD",
+            "SUPPRESSED": true
+        },
+        {
+            "GEO_ID": "zip/50643",
+            "VARIABLE": "Child_tax_credit_-_Amount,_AGI_bin:_$75,000_under_$100,000",
+            "VARIABLE_NAME": "Child tax credit - Amount, AGI bin: $75,000 under $100,000",
+            "DATE": "2017-12-31",
+            "VALUE": 128000.0,
+            "UNIT": "USD",
+            "SUPPRESSED": false
+        }
+    ],
+    "table_name": "IRS_INDIVIDUAL_INCOME_TIMESERIES",
+    "table_fullname": "US_REAL_ESTATE.CYBERSYN.IRS_INDIVIDUAL_INCOME_TIMESERIES",
+    "column_names": [
+        "SUPPRESSED",
+        "DATE",
+        "VARIABLE",
+        "VARIABLE_NAME",
+        "GEO_ID",
+        "UNIT",
+        "VALUE"
+    ],
+    "column_types": [
+        "BOOLEAN",
+        "DATE",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "FLOAT"
+    ],
+    "description": [
+        "Boolean indicating whether the value has been suppressed in the underlying data for privacy purposes. Suppressed values appear as NULL",
+        "Date associated with the value, for individual income zip code data it is the last day of the year being reported",
+        "A unique identifier for a variable joinable to the attributes table",
+        "Human readable name for the variable",
+        "A unique identifier for a place (state, county, zipcode) joinable to the geography_index/relationships tables",
+        "Unit of measure for the value, examples: USD, returns, individuals, dependents",
+        "The actual numeric value for the variable.  Suprressed values are Null."
+    ]
+}

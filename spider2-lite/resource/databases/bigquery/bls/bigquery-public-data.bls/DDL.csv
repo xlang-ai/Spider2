@@ -1,0 +1,181 @@
+table_name,ddl
+employment_hours_earnings,"CREATE TABLE `bigquery-public-data.bls.employment_hours_earnings`
+(
+  series_id STRING NOT NULL,
+  year INT64,
+  period STRING,
+  value FLOAT64,
+  footnote_codes STRING,
+  date DATE,
+  series_title STRING
+)
+OPTIONS(
+  description=""Employment_Hours_Earnings Dataset""
+);"
+employment_hours_earnings_series,"CREATE TABLE `bigquery-public-data.bls.employment_hours_earnings_series`
+(
+  series_id STRING NOT NULL,
+  supersector_code INT64,
+  industry_code INT64,
+  data_type_code INT64,
+  seasonal STRING,
+  series_title STRING,
+  footnote_codes STRING,
+  begin_year INT64,
+  begin_period STRING,
+  end_year INT64,
+  end_period STRING
+)
+OPTIONS(
+  description=""Employment_Hours_Earnings_Series Dataset""
+);"
+wm,"CREATE TABLE `bigquery-public-data.bls.wm`
+(
+  series_id STRING NOT NULL,
+  year INT64,
+  period STRING,
+  value FLOAT64,
+  footnote_codes STRING,
+  date DATE,
+  series_title STRING
+)
+OPTIONS(
+  description=""WM  Dataset""
+);"
+unemployment_cps,"CREATE TABLE `bigquery-public-data.bls.unemployment_cps`
+(
+  series_id STRING NOT NULL,
+  year INT64,
+  period STRING,
+  value FLOAT64,
+  footnote_codes STRING,
+  date DATE,
+  series_title STRING
+)
+OPTIONS(
+  description=""Unemployment_CPS Dataset""
+);"
+cpi_u,"CREATE TABLE `bigquery-public-data.bls.cpi_u`
+(
+  series_id STRING NOT NULL,
+  year INT64,
+  period STRING,
+  value FLOAT64,
+  footnote_codes STRING,
+  survey_abbreviation STRING,
+  seasonal_code STRING,
+  periodicity_code STRING,
+  area_code STRING,
+  area_name STRING,
+  item_code STRING,
+  item_name STRING,
+  date DATE
+)
+OPTIONS(
+  description=""CPI_U Dataset""
+);"
+c_cpi_u,"CREATE TABLE `bigquery-public-data.bls.c_cpi_u`
+(
+  series_id STRING NOT NULL,
+  year INT64,
+  period STRING,
+  value FLOAT64,
+  footnote_codes STRING,
+  survey_abbreviation STRING,
+  seasonal_code STRING,
+  periodicity_code STRING,
+  area_code STRING,
+  area_name STRING,
+  item_code STRING,
+  item_name STRING,
+  date DATE
+)
+OPTIONS(
+  description=""C_CPI_U Dataset""
+);"
+unemployment_cps_series,"CREATE TABLE `bigquery-public-data.bls.unemployment_cps_series`
+(
+  series_id STRING NOT NULL,
+  lfst_code INT64,
+  periodicity_code STRING,
+  series_title STRING,
+  absn_code INT64,
+  activity_code INT64,
+  ages_code INT64,
+  class_code INT64,
+  duration_code INT64,
+  education_code INT64,
+  entr_code INT64,
+  expr_code INT64,
+  hheader_code INT64,
+  hour_code INT64,
+  indy_code INT64,
+  jdes_code INT64,
+  look_code INT64,
+  mari_code INT64,
+  mjhs_code INT64,
+  occupation_code INT64,
+  orig_code INT64,
+  pcts_code INT64,
+  race_code INT64,
+  rjnw_code INT64,
+  rnlf_code INT64,
+  rwns_code INT64,
+  seek_code INT64,
+  sexs_code INT64,
+  tdat_code INT64,
+  vets_code INT64,
+  wkst_code INT64,
+  born_code INT64,
+  chld_code INT64,
+  disa_code INT64,
+  seasonal STRING,
+  footnote_codes STRING,
+  begin_year INT64,
+  begin_period STRING,
+  end_year INT64,
+  end_period STRING,
+  cert_code INT64
+)
+OPTIONS(
+  description=""Unemployment_CPS_Series Dataset""
+);"
+wm_series,"CREATE TABLE `bigquery-public-data.bls.wm_series`
+(
+  series_id STRING NOT NULL,
+  seasonal STRING,
+  area_code INT64,
+  ownership_code INT64,
+  estimate_code INT64,
+  industry_code INT64,
+  occupation_code INT64,
+  subcell_code INT64,
+  datatype_code INT64,
+  level_code INT64,
+  series_title STRING,
+  footnote_codes STRING,
+  begin_year INT64,
+  begin_period STRING,
+  end_year INT64,
+  end_period STRING
+)
+OPTIONS(
+  description=""WM_Series Dataset""
+);"
+cpsaat18,"CREATE TABLE `bigquery-public-data.bls.cpsaat18`
+(
+  year INT64,
+  sector STRING,
+  subsector STRING,
+  industry_group STRING,
+  industry STRING,
+  total_employed_in_thousands INT64,
+  percent_women FLOAT64,
+  percent_white FLOAT64,
+  percent_black_or_african_american FLOAT64,
+  percent_asian FLOAT64,
+  percent_hispanic_or_latino FLOAT64
+)
+OPTIONS(
+  description=""Current population survey 18: Employed persons by detailed industry, sex, race, and Hispanic or Latino ethnicity""
+);"

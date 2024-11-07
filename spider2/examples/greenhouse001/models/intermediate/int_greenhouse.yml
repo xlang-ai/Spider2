@@ -1,0 +1,26 @@
+version: 2
+
+# this only documents int_greenhouse__user_emails -- the rest are documented in their subfolders
+models:
+  - name: int_greenhouse__user_emails
+    description: Table of all internal users, with aggregated user emails.
+    columns:
+      - name: created_at
+        description: Timestamp of when the user was created.
+      - name: is_disabled
+        description: Boolean that is true if the user account has been disabled.
+      - name: employee_id 
+        description: The user’s external employee id.
+      - name: full_name
+        description: User's full name. 
+      - name: user_id
+        description: Unique ID of the user. 
+        tests:
+          - unique
+          - not_null
+      - name: is_site_admin
+        description: If true, this user is a site admin, which means the user has full permissions on all non-private jobs.
+      - name: last_updated_at
+        description: Timestamp of when the user was updated. 
+      - name: email
+        description: Comma-separated list of user emails. 

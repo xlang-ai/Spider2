@@ -1,0 +1,126 @@
+{
+    "table_name": "CytogenInv",
+    "table_fullname": "mitelman-db.prod.CytogenInv",
+    "column_names": [
+        "RefNo",
+        "CaseNo",
+        "InvNo",
+        "InvDate",
+        "Tissue",
+        "Clones",
+        "KaryLength",
+        "KaryShort",
+        "KaryLong",
+        "CaseOrder"
+    ],
+    "column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "RefNo",
+        "CaseNo",
+        "InvNo",
+        "InvDate",
+        "Tissue",
+        "Clones",
+        "KaryLength",
+        "KaryShort",
+        "KaryLong",
+        "CaseOrder"
+    ],
+    "nested_column_types": [
+        "INT64",
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "INT64",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "reference number",
+        "case number -- usually an intger, but can also be an arbitrary string",
+        "investigation number -- always an integer between 1 and 9",
+        "investigation date -- eg '19730327' or '20170627' but can also be blank or simply '1'",
+        "one of: 'BM', 'TB', 'LN', 'EX', or 'CSF' or (rarely) blank",
+        "an integer between 1 and 58",
+        "length of the karyotype description -- can be as long as thousands of characters, but is usually < 30",
+        "short (possibly truncated) karyotype description",
+        "if the karyotype description exceeds a certain length, the full string is in this column, otherwise this field is null",
+        "unknown integer field between 0 and 9638369"
+    ],
+    "sample_rows": [
+        {
+            "RefNo": 23,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "InvDate": "1",
+            "Tissue": "BM",
+            "Clones": 1,
+            "KaryLength": 72,
+            "KaryShort": "48,XX,t(9;22)(q34;q11),t(13;14)(q14;q24-32),+19,+der(22)t(9;22)(q34;q11)",
+            "KaryLong": null,
+            "CaseOrder": "1"
+        },
+        {
+            "RefNo": 48,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "InvDate": "1",
+            "Tissue": "BM",
+            "Clones": 1,
+            "KaryLength": 80,
+            "KaryShort": "52-54,XY,+3,+6,+7,+8,t(9;22)(q34;q11),+19,+21,+der(22)t(9;22)(q34;q11)x2,+1-3mar",
+            "KaryLong": null,
+            "CaseOrder": "1"
+        },
+        {
+            "RefNo": 96,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "InvDate": "1",
+            "Tissue": "LN",
+            "Clones": 1,
+            "KaryLength": 80,
+            "KaryShort": "48,XX,del(1)(q22q25),+ider(1)(q10)del(1)(q22q25),+5,del(12)(p12),dup(14)(q24q32)",
+            "KaryLong": null,
+            "CaseOrder": "1"
+        },
+        {
+            "RefNo": 99,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "InvDate": "1",
+            "Tissue": "LN",
+            "Clones": 1,
+            "KaryLength": 156,
+            "KaryShort": "82,XXX,-X,-1,-2,-4,del(6)(q21),-7,-9,t(9;15)(q11-12;p12),-10,-11,-11,-12,-13,-13,add(14)(q32),-15,-15,del(16)(q13),-17,-18,i(18)(p10),i(18)(q10),-19,-22,inc",
+            "KaryLong": null,
+            "CaseOrder": "1"
+        },
+        {
+            "RefNo": 107,
+            "CaseNo": "1",
+            "InvNo": 1,
+            "InvDate": "1",
+            "Tissue": "TB",
+            "Clones": 1,
+            "KaryLength": 91,
+            "KaryShort": "54,XY,+del(2)(q11),t(2;14)(q11;q32),t(3;11)(p13;p15),+i(5)(p10),+8,+9,+12,+16,+17,+21,+2mar",
+            "KaryLong": null,
+            "CaseOrder": "1"
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+## STARTS_WITH
+
+STARTS_WITH(value, prefix)
+
+**Description**
+
+Takes two ` STRING ` or ` BYTES ` values. Returns ` TRUE ` if ` prefix ` is a prefix of ` value ` .
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+
+WITH items AS (SELECT 'foo' as item UNION ALL SELECT 'bar' as item UNION ALL SELECT 'baz' as item)
+
+SELECT STARTS_WITH(item, 'b') as example FROM items;
+
+/*---------*
+| example |
++---------+
+|   False |
+|    True |
+|    True |
+*---------*/

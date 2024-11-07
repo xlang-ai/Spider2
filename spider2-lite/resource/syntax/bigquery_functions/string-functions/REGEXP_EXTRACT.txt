@@ -1,0 +1,89 @@
+## REGEXP_EXTRACT
+
+REGEXP_EXTRACT(value, regexp[, position[, occurrence]])
+
+**Description**
+
+Returns the substring in ` value ` that matches the [ re2 regular expression
+](https://github.com/google/re2/wiki/Syntax) , ` regexp ` . Returns ` NULL `
+if there is no match.
+
+If the regular expression contains a capturing group ( ` (...) ` ), and there is a match for that capturing group, that match is returned. If there are multiple matches for a capturing group, the first match is returned.
+
+If ` position ` is specified, the search starts at this position in ` value `
+, otherwise it starts at the beginning of ` value ` . The ` position ` must be a positive integer and cannot be 0. If ` position ` is greater than the length of ` value ` , ` NULL ` is returned.
+
+If ` occurrence ` is specified, the search returns a specific occurrence of the ` regexp ` in ` value ` , otherwise returns the first match. If `
+occurrence ` is greater than the number of matches found, ` NULL ` is returned. For ` occurrence ` > 1, the function searches for additional occurrences beginning with the character following the previous occurrence.
+
+Returns an error if:
+
+* The regular expression is invalid
+* The regular expression has more than one capturing group
+* The ` position ` is not a positive integer
+* The ` occurrence ` is not a positive integer
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH email_addresses AS (SELECT 'foo@example.com' as email UNION ALL SELECT 'bar@example.org' as email UNION ALL SELECT 'baz@example.net' as email)
+
+SELECT REGEXP_EXTRACT(email, r'^[a-zA-Z0-9_.+-]+') AS user_name FROM email_addresses;
+
+/*-----------*
+| user_name |
++-----------+
+| foo       |
+| bar       |
+| baz       |
+*-----------*/
+
+
+WITH email_addresses AS (SELECT 'foo@example.com' as email UNION ALL SELECT 'bar@example.org' as email UNION ALL SELECT 'baz@example.net' as email)
+
+SELECT REGEXP_EXTRACT(email, r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.([a-zA-Z0-9-.]+$)') AS top_level_domain FROM email_addresses;
+
+/*------------------*
+| top_level_domain |
++------------------+
+| com              |
+| org              |
+| net              |
+*------------------*/
+
+
+WITH characters AS ( SELECT 'ab' AS value, '.b' AS regex UNION ALL SELECT 'ab' AS value, '(.)b' AS regex UNION ALL SELECT 'xyztb' AS value, '(.)+b' AS regex UNION ALL SELECT 'ab' AS value, '(z)?b' AS regex ) SELECT value, regex, REGEXP_EXTRACT(value, regex) AS result FROM characters;
+
+/*-------+---------+----------*
+| value | regex   | result   |
++-------+---------+----------+
+| ab    | .b      | ab       |
+| ab    | (.)b    | a        |
+| xyztb | (.)+b   | t        |
+| ab    | (z)?b   | NULL     |
+*-------+---------+----------*/
+
+
+WITH example AS (SELECT 'Hello Helloo and Hellooo' AS value, 'H?ello+' AS regex, 1 as position,
+1 AS occurrence UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 1, 2 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 1, 3 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 1, 4 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 2, 1 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 3, 1 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 3, 2 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 3, 3 UNION ALL SELECT 'Hello Helloo and Hellooo', 'H?ello+', 20, 1 UNION ALL SELECT 'cats&dogs&rabbits' ,'\\w+&', 1, 2 UNION ALL SELECT 'cats&dogs&rabbits', '\\w+&', 2, 3 ) SELECT value, regex, position, occurrence, REGEXP_EXTRACT(value, regex,
+position, occurrence) AS regexp_value FROM example;
+
+/*--------------------------+---------+----------+------------+--------------*
+| value                    | regex   | position | occurrence | regexp_value |
++--------------------------+---------+----------+------------+--------------+
+| Hello Helloo and Hellooo | H?ello+ | 1        | 1          | Hello        |
+| Hello Helloo and Hellooo | H?ello+ | 1        | 2          | Helloo       |
+| Hello Helloo and Hellooo | H?ello+ | 1        | 3          | Hellooo      |
+| Hello Helloo and Hellooo | H?ello+ | 1        | 4          | NULL         |
+| Hello Helloo and Hellooo | H?ello+ | 2        | 1          | ello         |
+| Hello Helloo and Hellooo | H?ello+ | 3        | 1          | Helloo       |
+| Hello Helloo and Hellooo | H?ello+ | 3        | 2          | Hellooo      |
+| Hello Helloo and Hellooo | H?ello+ | 3        | 3          | NULL         |
+| Hello Helloo and Hellooo | H?ello+ | 20       | 1          | NULL         |
+| cats&dogs&rabbits        | \w+&    | 1        | 2          | dogs&        |
+| cats&dogs&rabbits        | \w+&    | 2        | 3          | NULL         |
+*--------------------------+---------+----------+------------+--------------*/

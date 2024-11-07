@@ -1,0 +1,72 @@
+name: 'lever'
+version: '0.6.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: 'lever'
+
+vars:
+  lever_schema: main
+  lever_source:
+    lever_application_identifier: "application"
+    lever_archive_reason_identifier: "archive_reason"
+    lever_feedback_form_identifier: "feedback_form"
+    lever_feedback_form_field_identifier: "feedback_form_field"
+    lever_interview_feedback_identifier: "interview_feedback"
+    lever_interview_identifier: "interview"
+    lever_interviewer_user_identifier: "interviewer_user"
+    lever_offer_identifier: "offer"
+    lever_opportunity_source_identifier: "opportunity_source"
+    lever_opportunity_stage_history_identifier: "opportunity_stage_history"
+    lever_opportunity_tag_identifier: "opportunity_tag"
+    lever_opportunity_identifier: "opportunity"
+    lever_posting_interview_identifier: "posting_interview"
+    lever_posting_tag_identifier: "posting_tag"
+    lever_posting_identifier: "posting"
+    lever_requisition_posting_identifier: "requisition_posting"
+    lever_requisition_offer_identifier: "requisition_offer"
+    lever_requisition_identifier: "requisition"
+    lever_stage_identifier: "stage"
+    lever_user_identifier: "user"
+    lever_contact_email_identifier: "contact_email"
+    lever_contact_phone_identifier: "contact_phone"
+    lever_contact_link_identifier: "contact_link"
+    lever_resume_identifier: "resume"
+
+
+  lever_using_requisitions: true
+  lever_using_posting_tag: true
+  lever:
+    application: "{{ ref('stg_lever__application') }}"
+    archive_reason: "{{ ref('stg_lever__archive_reason') }}"
+    feedback_form: "{{ ref('stg_lever__feedback_form') }}"
+    feedback_form_field: "{{ ref('stg_lever__feedback_form_field') }}"
+    interview_feedback: "{{ ref('stg_lever__interview_feedback') }}"
+    interview: "{{ ref('stg_lever__interview') }}"
+    interviewer_user: "{{ ref('stg_lever__interviewer_user') }}"
+    offer: "{{ ref('stg_lever__offer') }}"
+    opportunity_source: "{{ ref('stg_lever__opportunity_source') }}"
+    opportunity_stage_history: "{{ ref('stg_lever__opportunity_stage_history') }}"
+    opportunity_tag: "{{ ref('stg_lever__opportunity_tag') }}"
+    opportunity: "{{ ref('stg_lever__opportunity') }}"
+    panel_application: "{{ ref('stg_lever__panel_application') }}"
+    panel_interview: "{{ ref('stg_lever__panel_interview') }}"
+    panel: "{{ ref('stg_lever__panel') }}"
+    posting_interview: "{{ ref('stg_lever__posting_interview') }}"
+    posting_tag: "{{ ref('stg_lever__posting_tag') }}"
+    posting: "{{ ref('stg_lever__posting') }}"
+    requisition_posting: "{{ ref('stg_lever__requisition_posting') }}"
+    requisition: "{{ ref('stg_lever__requisition') }}"
+    requisition_offer: "{{ ref('stg_lever__requisition_offer') }}"
+    stage: "{{ ref('stg_lever__stage') }}"
+    user: "{{ ref('stg_lever__user') }}"
+    contact_email: "{{ ref('stg_lever__contact_email') }}"
+    contact_phone: "{{ ref('stg_lever__contact_phone') }}"
+    contact_link: "{{ ref('stg_lever__contact_link') }}"
+    resume: "{{ ref('stg_lever__resume') }}"
+models:
+  lever:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral

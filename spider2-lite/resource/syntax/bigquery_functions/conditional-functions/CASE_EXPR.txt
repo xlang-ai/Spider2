@@ -1,0 +1,49 @@
+## CASE_EXPR
+
+CASE expr WHEN expr_to_match THEN result
+[ ... ]
+[ ELSE else_result ]
+END
+
+**Description**
+
+Compares ` expr ` to ` expr_to_match ` of each successive ` WHEN ` clause and returns the first result where this comparison evaluates to ` TRUE ` . The remaining ` WHEN ` clauses and ` else_result ` aren't evaluated.
+
+If the ` expr = expr_to_match ` comparison evaluates to ` FALSE ` or ` NULL `
+for all ` WHEN ` clauses, returns the evaluation of ` else_result ` if present; if ` else_result ` isn't present, then returns ` NULL ` .
+
+Consistent with [ equality comparisons ](/bigquery/docs/reference/standard-
+sql/operators#logical_operators) elsewhere, if both ` expr ` and `
+expr_to_match ` are ` NULL ` , then ` expr = expr_to_match ` evaluates to `
+NULL ` , which returns ` else_result ` . If a CASE statement needs to distinguish a ` NULL ` value, then the alternate  CASE  syntax should be used.
+
+` expr ` and ` expr_to_match ` can be any type. They must be implicitly coercible to a common [ supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) ; equality comparisons are done on coerced values. There may be multiple ` result ` types. ` result ` and ` else_result `
+expressions must be coercible to a common supertype.
+
+This expression supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return Data Type**
+
+[ Supertype ](/bigquery/docs/reference/standard-
+sql/conversion_rules#supertypes) of ` result ` [, ...] and ` else_result ` .
+
+**Example**
+
+
+WITH Numbers AS ( SELECT 90 as A, 2 as B UNION ALL SELECT 50, 8 UNION ALL SELECT 60, 6 UNION ALL SELECT 50, 10 ) SELECT A,
+B,
+CASE A WHEN 90 THEN 'red'
+WHEN 50 THEN 'blue'
+ELSE 'green'
+END AS result FROM Numbers
+
+/*------------------*
+| A  | B  | result |
++------------------+
+| 90 | 2  | red    |
+| 50 | 8  | blue   |
+| 60 | 6  | green  |
+| 50 | 10 | blue   |
+*------------------*/

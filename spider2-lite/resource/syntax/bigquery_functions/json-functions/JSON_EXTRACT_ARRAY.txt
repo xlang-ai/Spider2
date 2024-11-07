@@ -1,0 +1,162 @@
+## JSON_EXTRACT_ARRAY
+
+JSON_EXTRACT_ARRAY(json_string_expr[, json_path])
+
+
+JSON_EXTRACT_ARRAY(json_expr[, json_path])
+
+**Description**
+
+Extracts a JSON array and converts it to a SQL ` ARRAY<JSON-formatted STRING>
+` or ` ARRAY<JSON> ` value. This function uses single quotes and brackets to escape invalid  JSONPath  characters in JSON keys. For example: ` ['a.b'] ` .
+
+Arguments:
+
+* ` json_string_expr ` : A JSON-formatted string. For example:
+
+'["a", "b", {"key": "c"}]'
+
+* ` json_expr ` : JSON. For example:
+
+JSON '["a", "b", {"key": "c"}]'
+
+* ` json_path ` : The  JSONPath  . This identifies the data that you want to obtain from the input. If this optional parameter is not provided, then the JSONPath ` $ ` symbol is applied, which means that all of the data is analyzed.
+
+There are differences between the JSON-formatted string and JSON input types.
+For details, see  Differences between the JSON and JSON-formatted STRING types .
+
+**Return type**
+
+* ` json_string_expr ` : ` ARRAY<JSON-formatted STRING> `
+* ` json_expr ` : ` ARRAY<JSON> `
+
+**Examples**
+
+This extracts items in JSON to an array of ` JSON ` values:
+
+
+SELECT JSON_EXTRACT_ARRAY( JSON '{"fruits":["apples","oranges","grapes"]}','$.fruits'
+) AS json_array;
+
+/*---------------------------------*
+| json_array                      |
++---------------------------------+
+| ["apples", "oranges", "grapes"] |
+*---------------------------------*/
+
+This extracts the items in a JSON-formatted string to a string array:
+
+
+SELECT JSON_EXTRACT_ARRAY('[1,2,3]') AS string_array;
+
+/*--------------*
+| string_array |
++--------------+
+| [1, 2, 3]    |
+*--------------*/
+
+This extracts a string array and converts it to an integer array:
+
+
+SELECT ARRAY( SELECT CAST(integer_element AS INT64) FROM UNNEST( JSON_EXTRACT_ARRAY('[1,2,3]','$') ) AS integer_element ) AS integer_array;
+
+/*---------------*
+| integer_array |
++---------------+
+| [1, 2, 3]     |
+*---------------*/
+
+This extracts string values in a JSON-formatted string to an array:
+
+
+-- Doesn't strip the double quotes SELECT JSON_EXTRACT_ARRAY('["apples", "oranges", "grapes"]', '$') AS string_array;
+
+/*---------------------------------*
+| string_array                    |
++---------------------------------+
+| ["apples", "oranges", "grapes"] |
+*---------------------------------*/
+
+-- Strips the double quotes SELECT ARRAY( SELECT JSON_EXTRACT_SCALAR(string_element, '$') FROM UNNEST(JSON_EXTRACT_ARRAY('["apples","oranges","grapes"]','$')) AS string_element ) AS string_array;
+
+/*---------------------------*
+| string_array              |
++---------------------------+
+| [apples, oranges, grapes] |
+*---------------------------*/
+
+This extracts only the items in the ` fruit ` property to an array:
+
+
+SELECT JSON_EXTRACT_ARRAY(
+'{"fruit": [{"apples": 5, "oranges": 10}, {"apples": 2, "oranges": 4}], "vegetables": [{"lettuce": 7, "kale": 8}]}',
+'$.fruit'
+) AS string_array;
+
+/*-------------------------------------------------------*
+| string_array                                          |
++-------------------------------------------------------+
+| [{"apples":5,"oranges":10}, {"apples":2,"oranges":4}] |
+*-------------------------------------------------------*/
+
+These are equivalent:
+
+
+SELECT JSON_EXTRACT_ARRAY('{"fruits": ["apples", "oranges", "grapes"]}', '$[fruits]') AS string_array;
+
+SELECT JSON_EXTRACT_ARRAY('{"fruits": ["apples", "oranges", "grapes"]}', '$.fruits') AS string_array;
+
+-- The queries above produce the following result:
+/*---------------------------------*
+| string_array                    |
++---------------------------------+
+| ["apples", "oranges", "grapes"] |
+*---------------------------------*/
+
+In cases where a JSON key uses invalid JSONPath characters, you can escape those characters using single quotes and brackets, ` [' '] ` . For example:
+
+
+SELECT JSON_EXTRACT_ARRAY('{"a.b": {"c": ["world"]}}', "$['a.b'].c") AS hello;
+
+/*-----------*
+| hello     |
++-----------+
+| ["world"] |
+*-----------*/
+
+The following examples explore how invalid requests and empty arrays are handled:
+
+* If a JSONPath is invalid, an error is thrown.
+* If a JSON-formatted string is invalid, the output is NULL.
+* It is okay to have empty arrays in the JSON-formatted string.
+
+
+-- An error is thrown if you provide an invalid JSONPath.
+SELECT JSON_EXTRACT_ARRAY('["foo", "bar", "baz"]', 'INVALID_JSONPath') AS result;
+
+-- If the JSONPath does not refer to an array, then NULL is returned.
+SELECT JSON_EXTRACT_ARRAY('{"a": "foo"}', '$.a') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+-- If a key that does not exist is specified, then the result is NULL.
+SELECT JSON_EXTRACT_ARRAY('{"a": "foo"}', '$.b') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+-- Empty arrays in JSON-formatted strings are supported.
+SELECT JSON_EXTRACT_ARRAY('{"a": "foo", "b": []}', '$.b') AS result;
+
+/*--------*
+| result |
++--------+
+| []     |
+*--------*/

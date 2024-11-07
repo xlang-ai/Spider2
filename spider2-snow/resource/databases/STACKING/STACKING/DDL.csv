@@ -1,0 +1,55 @@
+table_name,description,DDL
+FEATURE_IMPORTANCE,,"create or replace TABLE FEATURE_IMPORTANCE (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""feature"" VARCHAR(16777216),
+	""importance"" FLOAT
+);"
+PROBLEM,,"create or replace TABLE PROBLEM (
+	""name"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""target"" VARCHAR(16777216)
+);"
+SOLUTION,,"create or replace TABLE SOLUTION (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""correlation"" FLOAT,
+	""nb_model"" NUMBER(38,0),
+	""nb_feature"" NUMBER(38,0),
+	""score"" FLOAT,
+	""test_size"" FLOAT,
+	""resampling"" NUMBER(38,0)
+);"
+MODEL,,"create or replace TABLE MODEL (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""L1_model"" VARCHAR(16777216)
+);"
+MODEL_IMPORTANCE,,"create or replace TABLE MODEL_IMPORTANCE (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""model"" VARCHAR(16777216),
+	""importance"" FLOAT
+);"
+EDA,,"create or replace TABLE EDA (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""feature"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""range"" VARCHAR(16777216),
+	""drop_user"" NUMBER(38,0),
+	""drop_correlation"" NUMBER(38,0),
+	""target"" NUMBER(38,0)
+);"
+MODEL_SCORE,,"create or replace TABLE MODEL_SCORE (
+	""name"" VARCHAR(16777216),
+	""version"" NUMBER(38,0),
+	""step"" NUMBER(38,0),
+	""model"" VARCHAR(16777216),
+	""train_score"" FLOAT,
+	""test_score"" FLOAT
+);"

@@ -1,0 +1,52 @@
+table_name,description,DDL
+FLIGHTS,,"create or replace TABLE FLIGHTS (
+	""flight_id"" NUMBER(38,0),
+	""flight_no"" VARCHAR(16777216),
+	""scheduled_departure"" VARCHAR(16777216),
+	""scheduled_arrival"" VARCHAR(16777216),
+	""departure_airport"" VARCHAR(16777216),
+	""arrival_airport"" VARCHAR(16777216),
+	""status"" VARCHAR(16777216),
+	""aircraft_code"" VARCHAR(16777216),
+	""actual_departure"" VARCHAR(16777216),
+	""actual_arrival"" VARCHAR(16777216)
+);"
+SEATS,,"create or replace TABLE SEATS (
+	""aircraft_code"" VARCHAR(16777216),
+	""seat_no"" VARCHAR(16777216),
+	""fare_conditions"" VARCHAR(16777216)
+);"
+TICKETS,,"create or replace TABLE TICKETS (
+	""ticket_no"" VARCHAR(16777216),
+	""book_ref"" VARCHAR(16777216),
+	""passenger_id"" VARCHAR(16777216)
+);"
+BOOKINGS,,"create or replace TABLE BOOKINGS (
+	""book_ref"" VARCHAR(16777216),
+	""book_date"" VARCHAR(16777216),
+	""total_amount"" NUMBER(38,0)
+);"
+AIRCRAFTS_DATA,,"create or replace TABLE AIRCRAFTS_DATA (
+	""aircraft_code"" VARCHAR(16777216),
+	""model"" VARCHAR(16777216),
+	""range"" NUMBER(38,0)
+);"
+AIRPORTS_DATA,,"create or replace TABLE AIRPORTS_DATA (
+	""airport_code"" VARCHAR(16777216),
+	""airport_name"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""coordinates"" VARCHAR(16777216),
+	""timezone"" VARCHAR(16777216)
+);"
+BOARDING_PASSES,,"create or replace TABLE BOARDING_PASSES (
+	""ticket_no"" VARCHAR(16777216),
+	""flight_id"" NUMBER(38,0),
+	""boarding_no"" NUMBER(38,0),
+	""seat_no"" VARCHAR(16777216)
+);"
+TICKET_FLIGHTS,,"create or replace TABLE TICKET_FLIGHTS (
+	""ticket_no"" VARCHAR(16777216),
+	""flight_id"" NUMBER(38,0),
+	""fare_conditions"" VARCHAR(16777216),
+	""amount"" NUMBER(38,0)
+);"

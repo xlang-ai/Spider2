@@ -1,0 +1,126 @@
+{
+    "table_name": "schema_r2",
+    "table_fullname": "isb-cgc-bq.HTAN_versioned.schema_r2",
+    "column_names": [
+        "Attribute",
+        "Description",
+        "Valid_Values",
+        "DependsOn",
+        "Properties",
+        "Required",
+        "Parent",
+        "DependsOn_Component",
+        "Source",
+        "Validation_Rules"
+    ],
+    "column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "nested_column_names": [
+        "Attribute",
+        "Description",
+        "Valid_Values",
+        "DependsOn",
+        "Properties",
+        "Required",
+        "Parent",
+        "DependsOn_Component",
+        "Source",
+        "Validation_Rules"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING"
+    ],
+    "description": [
+        "Key characteristic X of the assay, related protocol, or downstream data that we want to record as metadata feature.",
+        "Provide a definition or a reference containing the definition of attribute X. Preferably provide a source ontology link or code in addition to the definition. Leave blank if the final description is pending.",
+        "The range of attribute X: the values that can be assigned to attribute X; these values can include/be other attributes (i.e. listed in the 'Attribute' columns) themselves. Comma separated. If none provided any non-null value is valid for attribute X.",
+        "Important characteristics, if any, of attribute X that need to be recorded as metadata features given attribute X is specified. These characteristics could be attributes or properties of attributes (i.e. they are listed in the 'Attribute' column and/or under the \"Properties\" column). Comma separated.",
+        "Properties specific to a particular attribute; note that properties could be attributes themselves (i.e. listed under the \"Attributes\" column).",
+        "Indicate if specifying value for attribute X is mandatory or optional by default. Set to TRUE or FALSE. If TRUE, a data contributor must provide a value for attribute X (e.g. one of the valid values in 'Valid Values', if any are specified). If FALSE, a data contributor may select between 'Not Applicable' or 'Not Specified' as a value for attribute X. Note that an attribute may not be required by default (i.e. 'Required' is set to FALSE), but it could be required by virtue of being an attribute of another required attribute (e.g. see ERCC).",
+        "Parent class of this attribute - i.e. where to \"hook\" this attribute into an existing schema. Note that this assumes a single existing schema/a single json-ld schema context; if we need to support classes/attributes/properties defined across multiple schemas/json-ld contexts we'd need to add a schema/context column that specifies the context of each attribute, if different from the context of the attribute's parent.",
+        "Each component is a high level ontology class in which entities/objects are categorized/componentized; a component is an entity on its own that needs to be defined in the schema",
+        "The source for the description of the term, usually an URI. Ontologies can be used as sources. E.g. Library Construction Method has source: http://purl.obolibrary.org/obo/OBI_0000711",
+        "What type of data is allowed in the Valid Values column. Only relevant if Valid Values are not present in the row. E.g. string, list, integer"
+    ],
+    "sample_rows": [
+        {
+            "Attribute": "File Format",
+            "Description": "Format of a file (e.g. txt, csv, fastq, bam, etc.)",
+            "Valid_Values": "hdf5, bedgraph, idx, idat, bam, bai, excel, powerpoint, tif, tiff, OME-TIFF, png, doc, pdf, fasta, fastq, sam, vcf, bcf, maf, bed, chp, cel, sif, tsv, csv, txt, plink, bigwig, wiggle, gct, bgzip, zip, seg, html, mov, hyperlink, svs, md, flagstat, gtf, raw, msf, rmd, bed narrowPeak, bed broadPeak, bed gappedPeak, avi, pzfx, fig, xml, tar, R script, abf, bpm, dat, jpg, locs, Sentrix descriptor file, Python script, sav, gzip, sdf, RData, hic, ab1, 7z, gff3, json, sqlite, svg, sra, recal, tranches, mtx, tagAlign, dup, DICOM, czi, mex, cloupe, am, cell am, mpg, m, mzML",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": null,
+            "DependsOn_Component": null,
+            "Source": "http://example.org/htan/fileFormat",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Imaging Assay Type",
+            "Description": "Type of imaging assay",
+            "Valid_Values": "H&E, CyCIF, t-CyCIF, IHC, mIHC, MxIF, SABER, IMC, CODEX, GeoMX-DSP, MIBI, MERFISH, ExSeq, Not Applicable",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging Level 2",
+            "DependsOn_Component": null,
+            "Source": null,
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Passed QC",
+            "Description": "Did all channels pass QC (if not add free text Comment)",
+            "Valid_Values": "Yes, No - Channels QC",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging Level 2",
+            "DependsOn_Component": null,
+            "Source": null,
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "DimensionOrder",
+            "Description": "The order in which the individual planes of data are interleaved.",
+            "Valid_Values": "XYZCT, XYZTC, XYCTZ, XYCZT, XYTZC, ZYX",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging Level 2",
+            "DependsOn_Component": null,
+            "Source": null,
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Pixels BigEndian",
+            "Description": "Boolean (True/False)",
+            "Valid_Values": "True, False",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging Level 2",
+            "DependsOn_Component": null,
+            "Source": null,
+            "Validation_Rules": null
+        }
+    ]
+}

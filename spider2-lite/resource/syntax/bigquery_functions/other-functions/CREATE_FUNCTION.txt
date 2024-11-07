@@ -1,0 +1,188 @@
+## CREATE_FUNCTION
+
+Creates a new [ user-defined function ](/bigquery/docs/user-defined-functions) (UDF). BigQuery supports UDFs written in either SQL or JavaScript.
+
+####  Syntax
+
+To create a SQL UDF, use the following syntax:
+
+
+CREATE [ OR REPLACE ] [ TEMPORARY | TEMP ] FUNCTION [ IF NOT EXISTS ]
+[[project_name.]dataset_name.]function_name ([named_parameter[, ...]]) ([named_parameter[, ...]])
+[RETURNS data_type]
+AS (sql_expression)
+[OPTIONS (function_option_list)]
+
+named_parameter:
+param_name param_type
+
+To create a JavaScript UDF, use the following syntax:
+
+
+CREATE [OR REPLACE] [TEMPORARY | TEMP] FUNCTION [IF NOT EXISTS]
+[[project_name.]dataset_name.]function_name ([named_parameter[, ...]]) RETURNS data_type
+[determinism_specifier]
+LANGUAGE js
+[OPTIONS (function_option_list)]
+AS javascript_code
+
+named_parameter:
+param_name param_type
+
+determinism_specifier:
+{ DETERMINISTIC | NOT DETERMINISTIC }
+
+To create a remote function, use the following syntax:
+
+
+CREATE [OR REPLACE] FUNCTION [IF NOT EXISTS]
+[[project_name.]dataset_name.]function_name ([named_parameter[, ...]]) RETURNS data_type REMOTE WITH CONNECTION connection_path
+[OPTIONS (function_option_list)]
+
+named_parameter:
+param_name param_type
+
+Routine names must contain only letters, numbers, and underscores, and be at most 256 characters long.
+
+####  Arguments
+
+* ` OR REPLACE ` : Replaces any function with the same name if it exists. Cannot appear with ` IF NOT EXISTS ` .
+
+* ` IF NOT EXISTS ` : If any dataset exists with the same name, the ` CREATE ` statement has no effect. Cannot appear with ` OR REPLACE ` .
+
+* ` TEMP ` or ` TEMPORARY ` : Creates a temporary function. If the clause is not present, the statement creates a persistent UDF. You can reuse persistent UDFs across multiple queries, whereas you can only use temporary UDFs in a single query, script, session, or procedure.
+
+* ` project_name ` : For persistent functions, the name of the project where you are creating the function. Defaults to the project that runs the DDL query. Do not include the project name for temporary functions.
+
+* ` dataset_name ` : For persistent functions, the name of the dataset where you are creating the function. Defaults to the ` defaultDataset ` in the request. Do not include the dataset name for temporary functions.
+
+* ` function_name ` : The name of the function.
+
+* ` named_parameter ` : A comma-separated ` param_name ` and ` param_type ` pair. The value of ` param_type ` is a BigQuery [ data type ](/bigquery/docs/reference/standard-sql/data-types) . For a SQL UDF, the value of ` param_type ` can also be ` ANY TYPE ` .
+
+* ` determinism_specifier ` : Applies only to JavaScript UDFs. Provides a hint to BigQuery as to whether the query result can be cached. Can be one of the following values:
+
+* ` DETERMINISTIC ` : The function always returns the same result when passed the same arguments. The query result is potentially cacheable. For example, if the function ` add_one(i) ` always returns ` i + 1 ` , the function is deterministic.
+
+* ` NOT DETERMINISTIC ` : The function does not always return the same result when passed the same arguments, and therefore is not cacheable. For example, if the functionj ` add_random(i) ` returns ` i + rand() ` , the function is not deterministic and BigQuery does not use cached results.
+
+If all of the invoked functions are ` DETERMINISTIC ` , BigQuery tries to cache the result, unless the results can't be cached for other reasons. For more information, see [ Using cached query results ](/bigquery/docs/cached-
+results) .
+
+* ` data_type ` : The data type that the function returns.
+
+* If the function is defined in SQL, then the ` RETURNS ` clause is optional. If the ` RETURNS ` clause is omitted, then BigQuery infers the result type of the function from the SQL function body when a query calls the function.
+* If the function is defined in JavaScript, then the ` RETURNS ` clause is required. For more information about allowed values for ` data_type ` , see [ Supported JavaScript UDF data types ](/bigquery/docs/reference/standard-sql/user-defined-functions#supported-javascript-udf-data-types) .
+* ` sql_expression ` : The SQL expression that defines the function.
+
+* ` function_option_list ` : A list of options for creating the function.
+
+* ` javascript_code ` : The definition of a JavaScript function. The value is a [ string literal ](/bigquery/docs/reference/standard-sql/lexical#string_and_bytes_literals) . If the code includes quotes and backslashes, it must be either escaped or represented as a raw string. For example, the code ` return "\n"; ` can be represented as one of the following:
+
+* Quoted string ` "return \"\\n\";" ` . Both quotes and backslashes need to be escaped.
+* Triple quoted string: ` """return "\\n";""" ` . Backslashes need to be escaped while quotes do not.
+* Raw string: ` r"""return "\n";""" ` . No escaping is needed.
+* ` connection_name ` : Specifies a [ connection resource ](/bigquery/docs/connections-api-intro) that has credentials for accessing the remote endpoint. Specify the connection name in the form ` project_name.location.connection_id ` : If the project name or location contains a dash, enclose the connection name in backticks ( ` ` ` ).
+
+####  ` function_option_list `
+
+The option list specifies options for creating a UDF. The following options are supported:
+
+` NAME ` |  ` VALUE ` |  Details
+---|---|---
+` description ` |
+
+` STRING `
+
+|  A description of the UDF.
+` library ` |
+
+` ARRAY<STRING> `
+
+|
+
+An array of JavaScript libraries to include in the function definition.
+Applies only to JavaScript UDFs. For more information, see [ Including JavaScript libraries ](/bigquery/docs/user-defined-functions#including-
+javascript-libraries) .
+
+Example: ` ["gs://my-bucket/lib1.js", "gs://my-bucket/lib2.js"] `
+
+` endpoint ` |
+
+` STRING `
+
+|
+
+A HTTP endpoint of Cloud Functions. Applies only to remote functions.
+
+Example: ` "https://us-east1-your-project.cloudfunctions.net/foo" `
+
+For more information, see [ Creating a Remote Function
+](/bigquery/docs/remote-functions#creating-remote-function) .
+
+` user_defined_context ` |
+
+` ARRAY<STRUCT<STRING,STRING>> `
+
+|
+
+A list of key-value pairs that will be sent with every HTTP request when the function is invoked. Applies only to remote functions.
+
+Example: ` [("key1","value1"),("key2", "value2")] `
+
+` max_batching_rows ` |
+
+` INT64 `
+
+|
+
+The maximum number of rows in each HTTP request. If not specified, BigQuery decides how many rows are included in a HTTP request. Applies only to remote functions.
+
+####  Required permissions
+
+This statement requires the following [ IAM permissions
+](/bigquery/docs/access-control#bq-permissions) :
+
+Permission  |  Resource
+---|---
+` bigquery.routines.create ` |  The dataset where you create the function.
+
+In addition, the ` OR REPLACE ` clause requires ` bigquery.routines.update `
+permission.
+
+To create a remote function, additional [ IAM permissions
+](/bigquery/docs/access-control#bq-permissions) are needed:
+
+Permission  |  Resource
+---|---
+` bigquery.connections.delegate ` |  The connection which you use to create the remote function.
+
+####  Examples
+
+####  Create a SQL UDF
+
+The following example creates a persistent SQL UDF named ` multiplyInputs ` in a dataset named ` mydataset ` .
+
+
+CREATE FUNCTION mydataset.multiplyInputs(x FLOAT64, y FLOAT64) RETURNS FLOAT64 AS (x * y);
+
+####  Create a JavaScript UDF
+
+The following example creates a temporary JavaScript UDF named `
+multiplyInputs ` and calls it from inside a ` SELECT ` statement.
+
+
+CREATE TEMP FUNCTION multiplyInputs(x FLOAT64, y FLOAT64) RETURNS FLOAT64 LANGUAGE js AS r"""
+return x*y;
+""";
+
+SELECT multiplyInputs(a, b) FROM (SELECT 3 as a, 2 as b);
+
+####  Create a remote function
+
+The following example creates a persistent remote function named `
+remoteMultiplyInputs ` in a dataset named ` mydataset ` , assuming ` mydataset
+` is in ` US ` location and there is a connection ` myconnection ` in the same location and same project.
+
+
+CREATE FUNCTION mydataset.remoteMultiplyInputs(x FLOAT64, y FLOAT64) RETURNS FLOAT64 REMOTE WITH CONNECTION us.myconnection OPTIONS(endpoint="https://us-central1-myproject.cloudfunctions.net/multiply");

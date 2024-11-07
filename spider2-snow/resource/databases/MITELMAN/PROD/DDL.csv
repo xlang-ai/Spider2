@@ -1,0 +1,204 @@
+table_name,description,DDL
+CYTOCONVERTED,,"create or replace TABLE CYTOCONVERTED (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""Clone"" NUMBER(38,0),
+	""Chr"" VARCHAR(16777216),
+	""ChrOrd"" NUMBER(38,0),
+	""Start"" NUMBER(38,0),
+	""End"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""CellsPresent"" VARCHAR(16777216)
+);"
+KARYCLONE,,"create or replace TABLE KARYCLONE (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""CloneNo"" NUMBER(38,0),
+	""ChromoMin"" NUMBER(38,0),
+	""ChromoMax"" NUMBER(38,0),
+	""CloneShort"" VARCHAR(16777216),
+	""CloneLong"" VARCHAR(16777216),
+	""CloneLength"" NUMBER(38,0),
+	""Sole"" VARCHAR(16777216)
+);"
+MOLBIOLCLINASSOC,,"create or replace TABLE MOLBIOLCLINASSOC (
+	""MolClin"" VARCHAR(16777216),
+	""RefNo"" NUMBER(38,0),
+	""InvNo"" NUMBER(38,0),
+	""Morph"" VARCHAR(16777216),
+	""Topo"" VARCHAR(16777216),
+	""Immunology"" VARCHAR(16777216),
+	""GeneLength"" VARCHAR(16777216),
+	""GeneShort"" VARCHAR(16777216),
+	""GeneLong"" VARCHAR(16777216),
+	""KaryLength"" NUMBER(38,0),
+	""KaryShort"" VARCHAR(16777216),
+	""KaryLong"" VARCHAR(16777216)
+);"
+CYTOGEN,,"create or replace TABLE CYTOGEN (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""Sex"" VARCHAR(16777216),
+	""Age"" NUMBER(38,0),
+	""Race"" VARCHAR(16777216),
+	""Series"" VARCHAR(16777216),
+	""Country"" VARCHAR(16777216),
+	""PrevTum"" VARCHAR(16777216),
+	""PrevMorph"" VARCHAR(16777216),
+	""PrevTopo"" VARCHAR(16777216),
+	""PrevTreat"" VARCHAR(16777216),
+	""HerDis"" VARCHAR(16777216),
+	""SpecHerDis"" VARCHAR(16777216),
+	""Morph"" VARCHAR(16777216),
+	""SpecMorph"" VARCHAR(16777216),
+	""Topo"" VARCHAR(16777216),
+	""Immunology"" VARCHAR(16777216),
+	""SpecObs"" VARCHAR(16777216),
+	""Origin"" VARCHAR(16777216),
+	""PatientID"" VARCHAR(16777216),
+	""PatientName"" VARCHAR(16777216),
+	""CaseOrder"" NUMBER(38,0)
+);"
+KARYABNORM,,"create or replace TABLE KARYABNORM (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""CloneNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Abnormality"" VARCHAR(16777216)
+);"
+REFERENCE,,"create or replace TABLE REFERENCE (
+	""RefNo"" NUMBER(38,0),
+	""TitleLength"" NUMBER(38,0),
+	""TitleShort"" VARCHAR(16777216),
+	""TitleLong"" VARCHAR(16777216),
+	""Volume"" VARCHAR(16777216),
+	""Year"" NUMBER(38,0),
+	""Journal"" VARCHAR(16777216),
+	""Text"" VARCHAR(16777216),
+	""Abbreviation"" VARCHAR(16777216),
+	""AuthorsLength"" VARCHAR(16777216),
+	""AuthorsShort"" VARCHAR(16777216),
+	""AuthorsLong"" VARCHAR(16777216),
+	""Flag"" VARCHAR(16777216),
+	""Pubmed"" VARCHAR(16777216)
+);"
+AUTHORREFERENCE,,"create or replace TABLE AUTHORREFERENCE (
+	""Refno"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""NameOrder"" NUMBER(38,0)
+);"
+CYTOCONVERTEDLOG,,"create or replace TABLE CYTOCONVERTEDLOG (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""Clone"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""Message"" VARCHAR(16777216)
+);"
+KARYBIT,,"create or replace TABLE KARYBIT (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""CloneNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Bit"" VARCHAR(16777216)
+);"
+KODER,,"create or replace TABLE KODER (
+	""Kod"" VARCHAR(16777216),
+	""KodTyp"" VARCHAR(16777216),
+	""Aktiv"" VARCHAR(16777216),
+	""Intern"" VARCHAR(16777216),
+	""Benamning"" VARCHAR(16777216),
+	""Kortnamn"" VARCHAR(16777216),
+	""Notering"" VARCHAR(16777216),
+	""Inregdatum"" VARCHAR(16777216),
+	""GiltigFran"" VARCHAR(16777216),
+	""GiltigTill"" VARCHAR(16777216),
+	""Flagga1"" VARCHAR(16777216),
+	""Flagga2"" VARCHAR(16777216),
+	""Flagga3"" VARCHAR(16777216),
+	""Flagga4"" VARCHAR(16777216)
+);"
+MOLCLINBREAK,,"create or replace TABLE MOLCLINBREAK (
+	""MolClin"" VARCHAR(16777216),
+	""RefNo"" NUMBER(38,0),
+	""InvNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Breakpoint"" VARCHAR(16777216)
+);"
+MOLCLINGENE,,"create or replace TABLE MOLCLINGENE (
+	""MolClin"" VARCHAR(16777216),
+	""RefNo"" NUMBER(38,0),
+	""InvNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Prefix"" VARCHAR(16777216),
+	""Gene"" VARCHAR(16777216),
+	""Suffix"" VARCHAR(16777216)
+);"
+RECURRENTNUMDATA,,"create or replace TABLE RECURRENTNUMDATA (
+	""Chromosome"" VARCHAR(16777216),
+	""Abnormality"" VARCHAR(16777216),
+	""Morph"" VARCHAR(16777216),
+	""Topo"" VARCHAR(16777216),
+	""TotalCases"" VARCHAR(16777216),
+	""ChrOrder"" NUMBER(38,0)
+);"
+CYTOGENINV,,"create or replace TABLE CYTOGENINV (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""InvDate"" VARCHAR(16777216),
+	""Tissue"" VARCHAR(16777216),
+	""Clones"" NUMBER(38,0),
+	""KaryLength"" NUMBER(38,0),
+	""KaryShort"" VARCHAR(16777216),
+	""KaryLong"" VARCHAR(16777216),
+	""CaseOrder"" VARCHAR(16777216)
+);"
+CYTOBANDS_HG38,,"create or replace TABLE CYTOBANDS_HG38 (
+	""chromosome"" VARCHAR(16777216),
+	""cytoband_name"" VARCHAR(16777216),
+	""hg38_start"" NUMBER(38,0),
+	""hg38_stop"" NUMBER(38,0)
+);"
+CYTOGENINVVALID,,"create or replace TABLE CYTOGENINVVALID (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""KaryLength"" NUMBER(38,0),
+	""KaryShort"" VARCHAR(16777216),
+	""KaryLong"" VARCHAR(16777216),
+	""Message"" VARCHAR(16777216),
+	""Reason"" VARCHAR(16777216),
+	""CytoConvInput"" VARCHAR(16777216)
+);"
+KARYBREAK,,"create or replace TABLE KARYBREAK (
+	""RefNo"" NUMBER(38,0),
+	""CaseNo"" VARCHAR(16777216),
+	""InvNo"" NUMBER(38,0),
+	""CloneNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Breakpoint"" VARCHAR(16777216)
+);"
+MOLCLINABNORM,,"create or replace TABLE MOLCLINABNORM (
+	""MolClin"" VARCHAR(16777216),
+	""RefNo"" NUMBER(38,0),
+	""InvNo"" NUMBER(38,0),
+	""OrderNo"" NUMBER(38,0),
+	""Abnormality"" VARCHAR(16777216)
+);"
+RECURRENTDATA,,"create or replace TABLE RECURRENTDATA (
+	""Chromosome"" VARCHAR(16777216),
+	""Arm"" VARCHAR(16777216),
+	""Band"" VARCHAR(16777216),
+	""Abnormality"" VARCHAR(16777216),
+	""Morph"" VARCHAR(16777216),
+	""Topo"" VARCHAR(16777216),
+	""TotalCases"" VARCHAR(16777216),
+	""Gene"" VARCHAR(16777216),
+	""ChrOrder"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216)
+);"

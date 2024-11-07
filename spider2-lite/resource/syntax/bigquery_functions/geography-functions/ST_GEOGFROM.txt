@@ -1,0 +1,73 @@
+## ST_GEOGFROM
+
+ST_GEOGFROM(expression)
+
+**Description**
+
+Converts an expression for a ` STRING ` or ` BYTES ` value into a ` GEOGRAPHY
+` value.
+
+If ` expression ` represents a ` STRING ` value, it must be a valid `
+GEOGRAPHY ` representation in one of the following formats:
+
+* WKT format. To learn more about this format and the requirements to use it, see  ST_GEOGFROMTEXT  .
+* WKB in hexadecimal text format. To learn more about this format and the requirements to use it, see  ST_GEOGFROMWKB  .
+* GeoJSON format. To learn more about this format and the requirements to use it, see  ST_GEOGFROMGEOJSON  .
+
+If ` expression ` represents a ` BYTES ` value, it must be a valid ` GEOGRAPHY
+` binary expression in WKB format. To learn more about this format and the requirements to use it, see  ST_GEOGFROMWKB  .
+
+If ` expression ` is ` NULL ` , the output is ` NULL ` .
+
+**Return type**
+
+` GEOGRAPHY `
+
+**Examples**
+
+This takes a WKT-formatted string and returns a ` GEOGRAPHY ` polygon:
+
+
+SELECT ST_GEOGFROM('POLYGON((0 0, 0 2, 2 2, 2 0, 0 0))') AS WKT_format;
+
+/*------------------------------------*
+| WKT_format                         |
++------------------------------------+
+| POLYGON((2 0, 2 2, 0 2, 0 0, 2 0)) |
+*------------------------------------*/
+
+This takes a WKB-formatted hexadecimal-encoded string and returns a `
+GEOGRAPHY ` point:
+
+
+SELECT ST_GEOGFROM(FROM_HEX('010100000000000000000000400000000000001040')) AS WKB_format;
+
+/*----------------*
+| WKB_format     |
++----------------+
+| POINT(2 4)     |
+*----------------*/
+
+This takes WKB-formatted bytes and returns a ` GEOGRAPHY ` point:
+
+
+SELECT ST_GEOGFROM('010100000000000000000000400000000000001040') AS WKB_format;
+
+/*----------------*
+| WKB_format     |
++----------------+
+| POINT(2 4)     |
+*----------------*/
+
+This takes a GeoJSON-formatted string and returns a ` GEOGRAPHY ` polygon:
+
+
+SELECT ST_GEOGFROM(
+'{ "type": "Polygon", "coordinates": [ [ [2, 0], [2, 2], [1, 2], [0, 2], [0, 0], [2, 0] ] ] }'
+) AS GEOJSON_format;
+
+/*-----------------------------------------*
+| GEOJSON_format                          |
++-----------------------------------------+
+| POLYGON((2 0, 2 2, 1 2, 0 2, 0 0, 2 0)) |
+*-----------------------------------------*/

@@ -1,0 +1,300 @@
+table_name,description,DDL
+CONDITION_OCCURRENCE,,"create or replace TABLE CONDITION_OCCURRENCE (
+	""condition_occurrence_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""condition_concept_id"" NUMBER(38,0),
+	""condition_start_date"" DATE,
+	""condition_start_datetime"" NUMBER(38,0),
+	""condition_end_date"" DATE,
+	""condition_end_datetime"" NUMBER(38,0),
+	""condition_type_concept_id"" NUMBER(38,0),
+	""stop_reason"" VARCHAR(16777216),
+	""provider_id"" NUMBER(38,0),
+	""visit_occurrence_id"" NUMBER(38,0),
+	""visit_detail_id"" NUMBER(38,0),
+	""condition_source_value"" VARCHAR(16777216),
+	""condition_source_concept_id"" NUMBER(38,0),
+	""condition_status_source_value"" VARCHAR(16777216),
+	""condition_status_concept_id"" NUMBER(38,0)
+);"
+DRUG_ERA,,"create or replace TABLE DRUG_ERA (
+	""drug_era_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""drug_concept_id"" NUMBER(38,0),
+	""drug_era_start_date"" DATE,
+	""drug_era_end_date"" DATE,
+	""drug_exposure_count"" NUMBER(38,0),
+	""gap_days"" NUMBER(38,0)
+);"
+LOCATION,,"create or replace TABLE LOCATION (
+	""location_id"" NUMBER(38,0),
+	""address_1"" VARCHAR(16777216),
+	""address_2"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""zip"" VARCHAR(16777216),
+	""county"" VARCHAR(16777216),
+	""location_source_value"" VARCHAR(16777216)
+);"
+PERSON,,"create or replace TABLE PERSON (
+	""race_concept_id"" NUMBER(38,0),
+	""ethnicity_concept_id"" NUMBER(38,0),
+	""location_id"" NUMBER(38,0),
+	""provider_id"" NUMBER(38,0),
+	""care_site_id"" NUMBER(38,0),
+	""person_source_value"" VARCHAR(16777216),
+	""gender_source_value"" VARCHAR(16777216),
+	""gender_source_concept_id"" NUMBER(38,0),
+	""race_source_value"" VARCHAR(16777216),
+	""race_source_concept_id"" NUMBER(38,0),
+	""ethnicity_source_value"" VARCHAR(16777216),
+	""ethnicity_source_concept_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""gender_concept_id"" NUMBER(38,0),
+	""year_of_birth"" NUMBER(38,0),
+	""month_of_birth"" NUMBER(38,0),
+	""day_of_birth"" NUMBER(38,0),
+	""birth_datetime"" NUMBER(38,0)
+);"
+CONDITION_ERA,,"create or replace TABLE CONDITION_ERA (
+	""condition_era_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""condition_concept_id"" NUMBER(38,0),
+	""condition_era_start_date"" DATE,
+	""condition_era_end_date"" DATE,
+	""condition_occurrence_count"" NUMBER(38,0)
+);"
+DEVICE_EXPOSURE,,"create or replace TABLE DEVICE_EXPOSURE (
+	""device_exposure_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""device_concept_id"" NUMBER(38,0),
+	""device_exposure_start_date"" DATE,
+	""device_exposure_start_datetime"" NUMBER(38,0),
+	""device_exposure_end_date"" DATE,
+	""device_exposure_end_datetime"" NUMBER(38,0),
+	""device_type_concept_id"" NUMBER(38,0),
+	""unique_device_id"" VARCHAR(16777216),
+	""quantity"" NUMBER(38,0),
+	""provider_id"" NUMBER(38,0),
+	""visit_occurrence_id"" NUMBER(38,0),
+	""visit_detail_id"" NUMBER(38,0),
+	""device_source_value"" VARCHAR(16777216),
+	""device_source_concept_id"" NUMBER(38,0)
+);"
+DOMAIN,,"create or replace TABLE DOMAIN (
+	""domain_id"" VARCHAR(16777216),
+	""domain_name"" VARCHAR(16777216),
+	""domain_concept_id"" NUMBER(38,0)
+);"
+DOSE_ERA,,"create or replace TABLE DOSE_ERA (
+	""dose_era_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""drug_concept_id"" NUMBER(38,0),
+	""unit_concept_id"" NUMBER(38,0),
+	""dose_value"" FLOAT,
+	""dose_era_start_date"" DATE,
+	""dose_era_end_date"" DATE
+);"
+OBSERVATION,,"create or replace TABLE OBSERVATION (
+	""observation_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""observation_concept_id"" NUMBER(38,0),
+	""observation_date"" DATE,
+	""observation_datetime"" NUMBER(38,0),
+	""observation_type_concept_id"" NUMBER(38,0),
+	""value_as_number"" FLOAT,
+	""value_as_string"" VARCHAR(16777216),
+	""value_as_concept_id"" NUMBER(38,0),
+	""qualifier_concept_id"" NUMBER(38,0),
+	""unit_concept_id"" NUMBER(38,0),
+	""provider_id"" NUMBER(38,0),
+	""visit_occurrence_id"" NUMBER(38,0),
+	""visit_detail_id"" NUMBER(38,0),
+	""observation_source_value"" VARCHAR(16777216),
+	""observation_source_concept_id"" NUMBER(38,0),
+	""unit_source_value"" VARCHAR(16777216),
+	""qualifier_source_value"" VARCHAR(16777216)
+);"
+COST,,"create or replace TABLE COST (
+	""cost_id"" NUMBER(38,0),
+	""cost_event_id"" NUMBER(38,0),
+	""cost_domain_id"" VARCHAR(16777216),
+	""cost_type_concept_id"" NUMBER(38,0),
+	""currency_concept_id"" NUMBER(38,0),
+	""total_charge"" FLOAT,
+	""total_cost"" FLOAT,
+	""total_paid"" FLOAT,
+	""paid_by_payer"" FLOAT,
+	""paid_by_patient"" FLOAT,
+	""paid_patient_copay"" FLOAT,
+	""paid_patient_coinsurance"" FLOAT,
+	""paid_patient_deductible"" FLOAT,
+	""paid_by_primary"" FLOAT,
+	""paid_ingredient_cost"" FLOAT,
+	""paid_dispensing_fee"" FLOAT,
+	""payer_plan_period_id"" NUMBER(38,0),
+	""amount_allowed"" FLOAT,
+	""revenue_code_concept_id"" NUMBER(38,0),
+	""revenue_code_source_value"" VARCHAR(16777216),
+	""drg_concept_id"" NUMBER(38,0),
+	""drg_source_value"" VARCHAR(16777216)
+);"
+PROVIDER,,"create or replace TABLE PROVIDER (
+	""provider_id"" NUMBER(38,0),
+	""provider_name"" VARCHAR(16777216),
+	""npi"" VARCHAR(16777216),
+	""dea"" VARCHAR(16777216),
+	""specialty_concept_id"" NUMBER(38,0),
+	""care_site_id"" NUMBER(38,0),
+	""year_of_birth"" NUMBER(38,0),
+	""gender_concept_id"" NUMBER(38,0),
+	""provider_source_value"" VARCHAR(16777216),
+	""specialty_source_value"" VARCHAR(16777216),
+	""specialty_source_concept_id"" NUMBER(38,0),
+	""gender_source_value"" VARCHAR(16777216),
+	""gender_source_concept_id"" NUMBER(38,0)
+);"
+CARE_SITE,,"create or replace TABLE CARE_SITE (
+	""care_site_id"" NUMBER(38,0),
+	""care_site_name"" VARCHAR(16777216),
+	""place_of_service_concept_id"" NUMBER(38,0),
+	""location_id"" NUMBER(38,0),
+	""care_site_source_value"" VARCHAR(16777216),
+	""place_of_service_source_value"" VARCHAR(16777216)
+);"
+CONCEPT_ANCESTOR,,"create or replace TABLE CONCEPT_ANCESTOR (
+	""ancestor_concept_id"" NUMBER(38,0),
+	""descendant_concept_id"" NUMBER(38,0),
+	""min_levels_of_separation"" NUMBER(38,0),
+	""max_levels_of_separation"" NUMBER(38,0)
+);"
+CONCEPT_RELATIONSHIP,,"create or replace TABLE CONCEPT_RELATIONSHIP (
+	""concept_id_1"" NUMBER(38,0),
+	""concept_id_2"" NUMBER(38,0),
+	""relationship_id"" VARCHAR(16777216),
+	""valid_start_date"" DATE,
+	""valid_end_date"" DATE,
+	""invalid_reason"" VARCHAR(16777216)
+);"
+DEATH,,"create or replace TABLE DEATH (
+	""person_id"" NUMBER(38,0),
+	""death_date"" DATE,
+	""death_datetime"" NUMBER(38,0),
+	""death_type_concept_id"" NUMBER(38,0),
+	""cause_concept_id"" NUMBER(38,0),
+	""cause_source_value"" VARCHAR(16777216),
+	""cause_source_concept_id"" NUMBER(38,0)
+);"
+DRUG_STRENGTH,,"create or replace TABLE DRUG_STRENGTH (
+	""drug_concept_id"" NUMBER(38,0),
+	""ingredient_concept_id"" NUMBER(38,0),
+	""amount_value"" FLOAT,
+	""amount_unit_concept_id"" NUMBER(38,0),
+	""numerator_value"" FLOAT,
+	""numerator_unit_concept_id"" NUMBER(38,0),
+	""denominator_value"" FLOAT,
+	""denominator_unit_concept_id"" NUMBER(38,0),
+	""box_size"" NUMBER(38,0),
+	""valid_start_date"" DATE,
+	""valid_end_date"" DATE,
+	""invalid_reason"" VARCHAR(16777216)
+);"
+CONCEPT,,"create or replace TABLE CONCEPT (
+	""concept_id"" NUMBER(38,0),
+	""concept_name"" VARCHAR(16777216),
+	""domain_id"" VARCHAR(16777216),
+	""vocabulary_id"" VARCHAR(16777216),
+	""concept_class_id"" VARCHAR(16777216),
+	""standard_concept"" VARCHAR(16777216),
+	""concept_code"" VARCHAR(16777216),
+	""valid_start_date"" DATE,
+	""valid_end_date"" DATE,
+	""invalid_reason"" VARCHAR(16777216)
+);"
+CONCEPT_CLASS,,"create or replace TABLE CONCEPT_CLASS (
+	""concept_class_id"" VARCHAR(16777216),
+	""concept_class_name"" VARCHAR(16777216),
+	""concept_class_concept_id"" NUMBER(38,0)
+);"
+DRUG_EXPOSURE,,"create or replace TABLE DRUG_EXPOSURE (
+	""drug_type_concept_id"" NUMBER(38,0),
+	""stop_reason"" VARCHAR(16777216),
+	""refills"" NUMBER(38,0),
+	""quantity"" FLOAT,
+	""days_supply"" NUMBER(38,0),
+	""sig"" VARCHAR(16777216),
+	""route_concept_id"" NUMBER(38,0),
+	""lot_number"" VARCHAR(16777216),
+	""provider_id"" NUMBER(38,0),
+	""visit_occurrence_id"" NUMBER(38,0),
+	""visit_detail_id"" NUMBER(38,0),
+	""drug_source_value"" VARCHAR(16777216),
+	""drug_source_concept_id"" NUMBER(38,0),
+	""route_source_value"" VARCHAR(16777216),
+	""dose_unit_source_value"" VARCHAR(16777216),
+	""drug_exposure_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""drug_concept_id"" NUMBER(38,0),
+	""drug_exposure_start_date"" DATE,
+	""drug_exposure_start_datetime"" NUMBER(38,0),
+	""drug_exposure_end_date"" DATE,
+	""drug_exposure_end_datetime"" NUMBER(38,0),
+	""verbatim_end_date"" DATE
+);"
+OBSERVATION_PERIOD,,"create or replace TABLE OBSERVATION_PERIOD (
+	""observation_period_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""observation_period_start_date"" DATE,
+	""observation_period_end_date"" DATE,
+	""period_type_concept_id"" NUMBER(38,0)
+);"
+PAYER_PLAN_PERIOD,,"create or replace TABLE PAYER_PLAN_PERIOD (
+	""payer_concept_id"" NUMBER(38,0),
+	""payer_source_value"" VARCHAR(16777216),
+	""payer_source_concept_id"" NUMBER(38,0),
+	""plan_concept_id"" NUMBER(38,0),
+	""plan_source_value"" VARCHAR(16777216),
+	""plan_source_concept_id"" NUMBER(38,0),
+	""sponsor_concept_id"" NUMBER(38,0),
+	""sponsor_source_value"" VARCHAR(16777216),
+	""sponsor_source_concept_id"" NUMBER(38,0),
+	""family_source_value"" VARCHAR(16777216),
+	""stop_reason_concept_id"" NUMBER(38,0),
+	""stop_reason_source_value"" VARCHAR(16777216),
+	""stop_reason_source_concept_id"" NUMBER(38,0),
+	""payer_plan_period_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""payer_plan_period_start_date"" DATE,
+	""payer_plan_period_end_date"" DATE
+);"
+RELATIONSHIP,,"create or replace TABLE RELATIONSHIP (
+	""relationship_id"" VARCHAR(16777216),
+	""relationship_name"" VARCHAR(16777216),
+	""is_hierarchical"" VARCHAR(16777216),
+	""defines_ancestry"" VARCHAR(16777216),
+	""reverse_relationship_id"" VARCHAR(16777216),
+	""relationship_concept_id"" NUMBER(38,0)
+);"
+VOCABULARY,,"create or replace TABLE VOCABULARY (
+	""vocabulary_id"" VARCHAR(16777216),
+	""vocabulary_name"" VARCHAR(16777216),
+	""vocabulary_reference"" VARCHAR(16777216),
+	""vocabulary_version"" VARCHAR(16777216),
+	""vocabulary_concept_id"" NUMBER(38,0)
+);"
+PROCEDURE_OCCURRENCE,,"create or replace TABLE PROCEDURE_OCCURRENCE (
+	""procedure_type_concept_id"" NUMBER(38,0),
+	""modifier_concept_id"" NUMBER(38,0),
+	""quantity"" NUMBER(38,0),
+	""provider_id"" NUMBER(38,0),
+	""visit_occurrence_id"" NUMBER(38,0),
+	""visit_detail_id"" NUMBER(38,0),
+	""procedure_source_value"" VARCHAR(16777216),
+	""procedure_source_concept_id"" NUMBER(38,0),
+	""modifier_source_value"" VARCHAR(16777216),
+	""procedure_occurrence_id"" NUMBER(38,0),
+	""person_id"" NUMBER(38,0),
+	""procedure_concept_id"" NUMBER(38,0),
+	""procedure_dat"" DATE,
+	""procedure_datetime"" NUMBER(38,0)
+);"

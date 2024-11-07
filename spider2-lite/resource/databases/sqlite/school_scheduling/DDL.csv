@@ -1,0 +1,110 @@
+table_name,DDL
+Buildings,"CREATE TABLE Buildings (
+    BuildingCode TEXT,
+    BuildingName TEXT,
+    NumberOfFloors INTEGER,
+    ElevatorAccess BOOLEAN,
+    SiteParkingAvailable BOOLEAN
+);"
+Categories,"CREATE TABLE Categories (
+    CategoryID TEXT,
+    CategoryDescription TEXT,
+    DepartmentID INTEGER
+);"
+Class_Rooms,"CREATE TABLE Class_Rooms (
+    ClassRoomID INTEGER,
+    BuildingCode TEXT,
+    PhoneAvailable BOOLEAN
+);"
+sqlite_sequence,"CREATE TABLE sqlite_sequence (
+    name ,
+    seq 
+);"
+Classes,"CREATE TABLE Classes (
+    ClassID INTEGER,
+    SubjectID INTEGER,
+    ClassRoomID INTEGER,
+    Credits INTEGER,
+    StartDate DATE,
+    StartTime TIME,
+    Duration INTEGER,
+    MondaySchedule BOOLEAN,
+    TuesdaySchedule BOOLEAN,
+    WednesdaySchedule BOOLEAN,
+    ThursdaySchedule BOOLEAN,
+    FridaySchedule BOOLEAN,
+    SaturdaySchedule BOOLEAN
+);"
+Departments,"CREATE TABLE Departments (
+    DepartmentID INTEGER,
+    DeptName TEXT,
+    DeptChair INTEGER
+);"
+Faculty,"CREATE TABLE Faculty (
+    StaffID INTEGER,
+    Title TEXT,
+    Status TEXT,
+    Tenured BOOLEAN
+);"
+Faculty_Categories,"CREATE TABLE Faculty_Categories (
+    StaffID INTEGER,
+    CategoryID TEXT
+);"
+Faculty_Classes,"CREATE TABLE Faculty_Classes (
+    ClassID INTEGER,
+    StaffID INTEGER
+);"
+Faculty_Subjects,"CREATE TABLE Faculty_Subjects (
+    StaffID INTEGER,
+    SubjectID INTEGER,
+    ProficiencyRating REAL
+);"
+Majors,"CREATE TABLE Majors (
+    MajorID INTEGER,
+    Major TEXT
+);"
+Staff,"CREATE TABLE Staff (
+    StaffID INTEGER,
+    StfFirstName TEXT,
+    StfLastname TEXT,
+    StfStreetAddress TEXT,
+    StfCity TEXT,
+    StfState TEXT,
+    StfZipCode TEXT,
+    StfAreaCode TEXT,
+    StfPhoneNumber TEXT,
+    Salary REAL,
+    DateHired DATE,
+    Position TEXT
+);"
+Student_Class_Status,"CREATE TABLE Student_Class_Status (
+    ClassStatus INTEGER,
+    ClassStatusDescription TEXT
+);"
+Student_Schedules,"CREATE TABLE Student_Schedules (
+    StudentID INTEGER,
+    ClassID INTEGER,
+    ClassStatus INTEGER,
+    Grade REAL
+);"
+Students,"CREATE TABLE Students (
+    StudentID INTEGER,
+    StudFirstName TEXT,
+    StudLastName TEXT,
+    StudStreetAddress TEXT,
+    StudCity TEXT,
+    StudState TEXT,
+    StudZipCode TEXT,
+    StudAreaCode TEXT,
+    StudPhoneNumber TEXT,
+    StudGPA REAL,
+    StudMajor INTEGER
+);"
+Subjects,"CREATE TABLE Subjects (
+    SubjectID INTEGER,
+    CategoryID TEXT,
+    SubjectCode TEXT,
+    SubjectName TEXT,
+    SubjectPreReq TEXT,
+    SubjectDescription TEXT
+);"

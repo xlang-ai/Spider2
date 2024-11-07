@@ -1,0 +1,32 @@
+## APPROX_COUNT_DISTINCT
+
+APPROX_COUNT_DISTINCT( expression )
+
+**Description**
+
+Returns the approximate result for ` COUNT(DISTINCT expression) ` . The value returned is a statistical estimate, not necessarily the actual value.
+
+This function is less accurate than ` COUNT(DISTINCT expression) ` , but performs better on huge input.
+
+**Supported Argument Types**
+
+Any data type **except** :
+
+* ` ARRAY `
+* ` STRUCT `
+* ` INTERVAL `
+
+**Returned Data Types**
+
+` INT64 `
+
+**Examples**
+
+
+SELECT APPROX_COUNT_DISTINCT(x) as approx_distinct FROM UNNEST([0, 1, 1, 2, 3, 5]) as x;
+
+/*-----------------*
+| approx_distinct |
++-----------------+
+| 5               |
+*-----------------*/

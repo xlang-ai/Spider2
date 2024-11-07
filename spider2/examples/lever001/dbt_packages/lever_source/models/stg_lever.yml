@@ -1,0 +1,559 @@
+version: 2
+
+models:
+  - name: stg_lever__opportunity
+    description: > 
+      Opportunities represent each candidates' individual journeys/candidacies through
+      your pipeline. An individual candidate might have multiple opportunties if
+      applying to multiple job postings. 
+    columns:
+      - name: opportunity_id
+        description: Unique ID of the opportunity.
+        tests:
+          - unique
+          - not_null
+      - name: archived_at
+        description: Timestamp of when the opportunity was archived. 
+      - name: archived_reason_id
+        description: Foreign key referencing the ARCHIVE_REASON for which the opportunity was archived.
+      - name: contact_id
+        description: Foreign key referencing the CONTACT info of the candidate applying in this opportunity.
+      - name: created_at
+        description: >
+          Timestamp of when the opportunity was created (ie when the candidate clicked "apply" on your
+          company website).
+      - name: is_data_protection_contact_allowed
+        description: >
+          Boolean that is true if relevant data policy regulations allow for contacting 
+          this opportunity's candidate.
+      - name: data_protection_contact_expires_at
+        description: Timestamp of when this permission/data policy expires.
+      - name: is_data_protection_store_allowed
+        description: >
+          Boolean that is true if relevant data policy regulations allow for storing 
+          this opportunity record.
+      - name: data_protection_store_expires_at
+        description: Timestamp of when this permission/data policy expires.
+      - name: contact_headline
+        description: > 
+          Contact headline, typically a list of previous companies where the contact has worked or 
+          schools that the contact has attended.
+      - name: is_anonymized
+        description: >
+          Boolean that is true if the opportunity has been anonymized (therefore fully anonymizing 
+          the contact and removing their *personal* information).
+      - name: last_advanced_at
+        description: >
+          Timestamp of when the candidate advanced to their current stage in the hiring pipeline.
+      - name: last_interaction_at
+        description: >
+          Timestamp of when the Opportunity profile was last interacted with. See interactions
+          [here](https://help.lever.co/hc/en-us/articles/205697619).
+      - name: contact_location
+        description: Current contact location of the candidate.
+      - name: contact_name
+        description: Contact full name.
+      - name: origin
+        description: >
+          The way in which the opportunity was added to lever. Includes 'agency', 'applied', 'internal',
+          'referred', 'sourced', and 'university'.
+      - name: owner_user_id
+        description: Foreign key referencing the id of the USER who owns this opportunity.
+      - name: snoozed_until
+        description: Timestamp of when the current snooze period of this opportunity ends (if snoozed).
+      - name: stage_id
+        description: Foreign key referencing the ID of the current stage of the opportunity.
+      - name: updated_at
+        description: Timestamp of when the opportunity was last updated in lever.
+
+  - name: stg_lever__posting
+    description: Table capturing job postings that candidates can apply to.
+    columns:
+      - name: posting_id
+        description: Unique ID of the job posting. 
+        tests:
+          - unique
+          - not_null
+      - name: job_commitment
+        description: Tag for job position work type (e.g. Full-time, Part-time, Internship).
+      - name: job_department
+        description: Tag for the department to which the job posting's team belongs, if present.
+      - name: job_level
+        description: >
+          Tag for job posting level (e.g. Senior, Junior). Note - this has been deprecated by Lever 
+          but is currently maintained for backward compatibility.
+      - name: job_location
+        description: Tag for job position location.
+      - name: job_team
+        description: >
+          Tag for the team to which the job posting belongs (a sub-category of department).
+      - name: content_description
+        description: Job posting description that is shown at the top of the job's page, as plaintext.
+      - name: created_at
+        description: Timestamp of when the posting was created in Lever.
+      - name: creator_user_id
+        description: Foreign key referencing the id of the USER who created the job posting. 
+      - name: owner_user_id
+        description: >
+          Foreign key referencing the id of the USER who owns the posting. The posting owner is the 
+          individual who is directly responsible for managing all candidates who are applied to that role.
+      - name: requisition_code
+        description: Array of requisition codes associated with this posting.
+      - name: current_state
+        description: >
+          Current status of the posting, which may include 'published', 'internal' (called 'unlisted' in the UI),
+          'closed', 'draft', 'pending' (awaiting approval), and 'rejected'.
+      - name: job_title
+        description: Title of the job posting role.
+      - name: updated_at
+        description: Timestamp of when the posting was last updated.
+
+  - name: stg_lever__posting_tag
+    description: Table associating job postings with all associated tags.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - posting_id
+            - tag_name
+    columns:
+      - name: posting_id
+        description: Foreign key referencing the id of the job POSTING.
+      - name: tag_name
+        description: Text of the posting's individual tag.
+
+  - name: stg_lever__posting_interview
+    description: Table relating job postings to any interviews undertaken for the role.
+    columns:
+      - name: interview_id
+        description: Foreign key referencing the INTERVIEW for this job posting.
+      - name: posting_id
+        description: Foreign key referencing the POSTING that was interviewed for.
+
+  - name: stg_lever__user
+    description: Table of Lever users (anyone who has been invited to join the recruiting efforts).
+    columns:
+      - name: user_id
+        description: Unique id of the user. 
+        tests:
+          - unique
+          - not_null
+      - name: access_role
+        description: >
+          The user's access role, which can be 'super admin', 'admin', 'team member', 'limited team member', or 'interviewer'.
+          Information on what the roles entail can be found 
+          [here](https://help.lever.co/hc/en-us/articles/360042645691-What-are-the-differences-between-access-roles-in-Lever-#:~:text=There%20are%205%20different%20access,information%2C%20and%20permission%20granting%20privileges).
+      - name: created_at
+        description: Timestamp of when the user was created. 
+      - name: deactivated_at
+        description: Timestamp of when the user was deactivated (null for active users). 
+      - name: email
+        description: The user's email address.
+      - name: external_directory_user_id
+        description: Unique ID of the user in an external HR directory, if provided.
+      - name: full_name
+        description: User's preferred name.
+
+  - name: stg_lever__interviewer_user
+    description: Table relating interviews to their interviewers.
+    columns:
+      - name: interview_id
+        description: Foreign key referencing the INTERVIEW that was given.
+      - name: user_id 
+        description: Foreign key referencing the USER that interviewed the candidate.
+
+  - name: stg_lever__opportunity_stage_history
+    description: Table capturing the different stages that each opportunity has passed through in the pipeline.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - opportunity_id
+            - updated_at  
+    columns:
+      - name: opportunity_id
+        description: Foreign key referencing the id of the OPPORTUNITY.
+      - name: updated_at
+        description: Timestamp of when the opportunity was changed to this stage.
+      - name: stage_id
+        description: Foreign key referencing the STAGE that the opportunity was changed to.
+      - name: updater_user_id
+        description: Foreign key referencing the USER who changed the opportunity stage.
+      - name: to_stage_index
+        description: The index of the stage in the pipeline at the time the stage change occurred. 
+
+  - name: stg_lever__stage
+    description: Table of steps in the recruiting workflow of your hiring pipeline.
+    columns:
+      - name: stage_id
+        description: Unique id of the stage.
+        tests:
+          - unique
+          - not_null
+      - name: stage_name
+        description: Title of the stage.
+
+  - name: stg_lever__opportunity_source
+    description: Table relating opportunities to all of their individual sources. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - opportunity_id
+            - source  
+    columns:
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY that was sourced. 
+      - name: source
+        description: Where this opportunity was sourced from (ie 'linkedin').
+
+  - name: stg_lever__opportunity_tag 
+    description: Table relating opportunities to their tags.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - opportunity_id
+            - tag_name
+    columns:
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY that was tagged.
+      - name: tag_name
+        description: Text of the tag associated with this opportunity.
+
+  - name: stg_lever__application
+    description: Table capturing candidate applications to job postings. 
+    columns:
+      - name: application_id
+        description: Unique ID of the application.
+        tests:
+          - unique
+          - not_null
+      - name: archived_at
+        description: Timestamp of when the application was last archived.
+      - name: archived_reason_id
+        description: Foreign key referencing the id of the ARCHIVE_REASON for which the application was last archived.
+      - name: comments
+        description: Any additional comments from the candidate included in the job application.
+      - name: company
+        description: The candidate's current company or organization.
+      - name: created_at
+        description: Timestamp of when the application was created.
+      - name: posting_hiring_manager_user_id
+        description: >
+          Foreign key referencing the id of the USER who is the job posting's hiring manager, at the time 
+          the application was submitted.
+      - name: posting_id
+        description: Foreign key referencing the job POSTING for which the candidate applied.
+      - name: posting_owner_user_id
+        description: >
+          Foreign key referencing the id of the USER who owns this posting at the time the candidate applied.
+      - name: referrer_user_id
+        description: The user ID of the candidate's referrer. 
+      - name: requisition_id
+        description: >
+          If the application was archived as hired against a requisition, a foreign key referencing the id of the
+          REQUISITION against which the application was hired.
+      - name: type
+        description: >
+          Type of the application. An application can be of type referral, user, or posting. Applications of type 
+          referral are created when a user refers a candidate for a job posting. Applications have type user when they 
+          are applied manually to a posting in Lever. Applications have type posting when a candidate applies to a job 
+          posting through your company's jobs page.
+      - name: opportunity_id
+        description: Foreign key referencing the id of the OPPORTUNITY associated with this application.
+
+  - name: stg_lever__offer
+    description: Table of the data sent to an opportunity for a position they have been offerred.
+    columns:
+      - name: offer_id
+        description: Unique ID of the offer.
+        tests:
+          - unique
+          - not_null
+      - name: opportunity_id 
+        description: Unique ID of the candidate or opportunity??
+      - name: created_at
+        description: Timestamp of when the offer was created.
+      - name: creator_user_id
+        description: Foreign key referencing the USER who created the offer.
+      - name: status
+        description: >
+          A string describing the current status of the offer. Can include: 
+          draft - the offer is still under construction
+          approval-sent - the offer needs approval
+          approved - the offer has been approved
+          sent - the offer has been sent through Lever
+          sent-manually - the offer has been sent to the candidate outside of Lever
+          opened - the candidate has opened the offer
+          denied - the candidate denied the offer
+          signed - the candidate signed the offer
+
+  - name: stg_lever__archive_reason 
+    description: >
+      Table of reasons for archiving candidates, exiting them from the hiring pipeline (after hiring or rejecting 
+      for a particular reason).
+    columns:
+      - name: archive_reason_id
+        description: Unique id of the archive reason.
+        tests:
+          - unique
+          - not_null
+      - name: archive_reason_title
+        description: Name of the archive reason as shown in the Lever UI. 
+
+  - name: stg_lever__interview
+    description: Table capturing individual interviews (which comprise panels).
+    columns:
+      - name: interview_id
+        description: Unique ID of the interview. 
+        tests:
+          - unique
+          - not_null
+      - name: canceled_at
+        description: Timestamp of when the interview was canceled, if canceled.
+      - name: created_at
+        description: Timestamp of when the interview was created.
+      - name: creator_user_id
+        description: Foreign key referencing the USER who created the interview in lever.
+      - name: occurred_at
+        description: Date + time at which the interview was set to occur.
+      - name: duration_minutes
+        description: Interview duration in minutes, minimum value is 1.
+      - name: feedback_reminder_frequency
+        description: > 
+          Frequency of feedback reminders (i.e. once, daily, frequently, none).
+          Defaults to 'frequently' which is every 6 hours.
+      - name: gcal_event_url
+        description: Google calendar event url. 
+      - name: location
+        description: >
+          Interview location. Usually the name of a booked conference room but can also be a 
+          phone number to call.
+      - name: note
+        description: Interview note.
+      - name: panel_id
+        description: Unique id of the PANEL this interview belongs to.
+      - name: opportunity_stage_id
+        description: >
+          Foreign key referencing the STAGE that the candidate was in at the time 
+          the interview was scheduled.
+      - name: subject
+        description: Subject of the interview. 
+      - name: timezone
+        description: Name of timezone in which interview was scheduled to occur.
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY being interviewed for. 
+
+  - name: stg_lever__interview_feedback
+    description: Table associating interviews with their feedback forms. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - feedback_form_id
+            - interview_id 
+    columns:
+      - name: feedback_form_id
+        description: Foreign key referencing the FEEDBACK_FORM submitted for this interview.
+      - name: interview_id  
+        description: Foreign key referencing the INTERVIEW that was given feedback for.
+
+  - name: stg_lever__feedback_form
+    description: >
+      Table capturing feedback forms that have been completed after interviewing a candidate. 
+    columns:
+      - name: feedback_form_id
+        description: Unique id of the feedback form. 
+        tests:
+          - unique
+          - not_null
+      - name: completed_at
+        description: Timestamp of when the feedback form was completed.
+      - name: created_at
+        description: Timestamp of when the feedback form was created. 
+      - name: creator_user_id
+        description: Foreign key referencing the USER who completed and submitted the feedback. 
+      - name: deleted_at
+        description: Timestamp of when the feedback form was deleted. 
+      - name: instructions
+        description: Form instructions.
+      - name: interview_id
+        description: Foreign key referencing the INTERVIEW for which the feedback is directed. 
+      - name: score_system_value
+        description: Overall rating (1-4 scale) to the candidate. 
+      - name: template_field_id
+        description: Foreign key referencing the TEMPLATE_FIELD that this form used.
+      - name: form_title
+        description: Form title. This can be edited in Feedback and Form Settings.
+      - name: type
+        description: Form type. Feedback forms are of type interview.
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY that the candidate was interviewed for.
+
+  - name: stg_lever__feedback_form_field
+    description: Table capturing the values provided for individual fields within interview feedback forms.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - feedback_form_id
+            - field_index
+            - value_index 
+    columns:
+      - name: feedback_form_id
+        description: Foreign key referencing the FEEDBACK_FORM that this field is found in. 
+      - name: field_index
+        description: Numerical index of the field's position in the feedback form. 
+      - name: value_index
+        description: Index of the value(s) provided for this field. This is relevant if the field is an array.
+      - name: code_language
+        description: Programming language if the interview assessed coding. 
+      - name: currency 
+        description: The three-character ISO 4217 Currency Code specifying what currency this field captures.
+      - name: value_date
+        description: If the field is a date-type, this is the value. 
+      - name: value_decimal
+        description: If the field is a decimal, this is the value.
+      - name: value_file_id
+        description: Foreign key referencing the FILE that was provided as the field value. 
+      - name: value_number
+        description: If the field is a numeric, this is the value. 
+      - name: value_text
+        description: If the field is a text field, this is the content of the value. 
+
+  - name: stg_lever__requisition
+    description: Table capturing requisitions made in/pushed to lever.
+    columns:
+    # requistion can have custom fields 
+      - name: requisition_id
+        description: Unique id of the requisition.
+        tests:
+          - unique
+          - not_null
+      - name: is_backfill
+        description: > 
+          Boolean that is true if the requisition represents a backfill or new headcount. 
+          If unspecified, defaults to false. 
+      - name: compensation_band_currency
+        description: The ISO currency code associated with the requisition's compensation band.
+      - name: compensation_band_interval
+        description: The string representing the interval of payment for the compensation band.
+      - name: compensation_band_max
+        description: The high bound for the compensation band.
+      - name: compensation_band_min
+        description: The low bound for the compensation band.
+      - name: created_at
+        description: Timestamp of when the requisition was first created. 
+      - name: creator_user_id
+        description: Foreign key referencing the USER who created the requisition.
+      - name: employment_status
+        description: The work type of the requisition ('full-time', 'part-time', 'intern', 'contractor', or 'temp-worker').
+      - name: headcount_hired
+        description: The number of filled seats / openings on the requisition, or the string, 'unlimited'.
+      - name: headcount_infinite
+      - name: headcount_total_allotted
+        description: Total headcount allotted for this requisition.
+      - name: hiring_manager_user_id
+        description: Foreign key referencing the USER who is the hiring manager for this requisition. 
+      - name: internal_notes
+        description: Free form text for notes and meta-data about the requisition, visible to anyone who can see the requisition in Lever. 
+      - name: job_location
+        description: The location associated with the requisition.
+      - name: job_title
+        description: The human-readable name for the requisition.
+      - name: owner_user_id
+        description: Foreign key referencing the USER who owns the requisition.
+      - name: requisition_code
+        description: The unique HRIS requisition code.
+      - name: status
+        description: The status of the requisition. Can be 'open', 'onHold', 'closed', or 'draft'.
+      - name: job_team
+        description: The team associated with the requisition
+
+  - name: stg_lever__requisition_posting
+    description: Table relating requsitions to postings.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - posting_id
+            - requisition_id
+    columns:
+      - name: posting_id
+        description: Foreign key referencing the POSTING created for this requisition.
+      - name: requisition_id
+        description: Foreign key referencing the REQUISITION associated with this posting. 
+
+  - name: stg_lever__contact_email
+    description: Table capturing the emails associated with a contact. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - contact_id
+            - email
+    columns:
+      - name: contact_id
+        description: Unique ID of the contact in Lever. 
+      - name: email 
+        description: Contact's email address.
+
+  - name: stg_lever__contact_phone 
+    description: Table capturing the phone numbers associated with a contact. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - contact_id
+            - index
+    columns:
+      - name: contact_id
+        description: Unique ID of the contact in Lever. 
+      - name: index
+        description: The index of this phone number for this contact (there can be multiple phone numbers per contact).
+      - name: phone_type
+        description: Type of phone number, either "mobile", "home", "work", "skype", or "other".
+      - name: phone_number
+        description: The contact's provided phone number.
+  
+      # add requisition_offer, resume, contact_link tests
+  - name: stg_lever__requisition_offer
+    description: Table relating offers to their associated requisitions.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - offer_id
+            - requisition_id
+    columns:
+    - name: offer_id
+      description: Foriegn key referencing the OFFER for the requisition. 
+    - name: requisition_id
+      description: Foriegn key referencing the REQUISITION which the offer was made against. 
+    - name: _fivetran_deleted
+      description: Boolean that is true if the offer-requisition relationship has been soft-deleted.
+  
+  - name: stg_lever__contact_link
+    description: Table of all links associated with an opportunity contact (ie linkedin, github repos, personal websites).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - contact_id
+            - link
+    columns:
+      - name: contact_id
+        description: Unique id of the contact associated with one or more opportunities.
+      - name: link
+        description: Url of the individual link.
+      
+  - name: stg_lever__resume
+    description: Table capturing resumes submitted by opportunities.
+    columns:
+      - name: id  
+        description: Unique id of the resume file. 
+        tests:
+          - unique
+          - not_null
+      - name: created_at
+        description: Timestamp of when the resume was created in Lever. 
+      - name: file_download_url
+        description: Resume file download URL.
+      - name: file_extension
+        description: Resume file extension.
+      - name: file_name
+        description: Name of the file uploaded.
+      - name: file_uploaded_at  
+        description: Timestamp of when the file was uploaded.
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY associated with this resume. 

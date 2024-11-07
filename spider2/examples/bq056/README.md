@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.geo_openstreetmap` and `bigquery-public-data.geo_us_boundaries` database to solve this problem.

@@ -1,0 +1,608 @@
+/* Some example questions and corresponding SQL queries are provided as follows: */
+/* Question: Calculate the conversion rate from product list pages to product detail pages for all sessions at January 2nd, 2021. */
+/* SQL query: */
+-- pulling user page views from GA4 events
+WITH base_table AS (
+-- pulls relevant columns from relevant dates to decrease the size of data scanned
+  SELECT
+    event_name,
+    event_date,
+    event_timestamp,
+    user_pseudo_id,
+    user_id,
+    device,
+    geo,
+    traffic_source,
+    event_params,
+    user_properties
+  FROM
+    `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+  WHERE
+    _table_suffix = '20210102'
+  AND event_name IN ('page_view')
+)
+, unnested_events AS (
+-- unnests event parameters to get to relevant keys and values
+  SELECT
+    event_date AS date,
+    event_timestamp AS event_timestamp_microseconds,
+    user_pseudo_id,
+    MAX(CASE WHEN c.key = 'ga_session_id' THEN c.value.int_value END) AS visitID,
+    MAX(CASE WHEN c.key = 'ga_session_number' THEN c.value.int_value END) AS visitNumber,
+    MAX(CASE WHEN c.key = 'page_title' THEN c.value.string_value END) AS page_title,
+    MAX(CASE WHEN c.key = 'page_location' THEN c.value.string_value END) AS page_location
+  FROM 
+    base_table,
+    UNNEST (event_params) c
+  GROUP BY 1,2,3
+)
+
+, unnested_events_categorised AS (
+-- categorizing Page Titles into PDPs and PLPs
+  SELECT
+  *,
+  CASE WHEN ARRAY_LENGTH(SPLIT(page_location, '/')) >= 5 
+            AND
+            CONTAINS_SUBSTR(ARRAY_REVERSE(SPLIT(page_location, '/'))[SAFE_OFFSET(0)], '+')
+            AND (LOWER(SPLIT(page_location, '/')[SAFE_OFFSET(4)]) IN 
+                                        ('accessories','apparel','brands','campus+collection','drinkware',
+                                          'electronics','google+redesign',
+                                          'lifestyle','nest','new+2015+logo','notebooks+journals',
+                                          'office','shop+by+brand','small+goods','stationery','wearables'
+                                          )
+                  OR
+                  LOWER(SPLIT(page_location, '/')[SAFE_OFFSET(3)]) IN 
+                                        ('accessories','apparel','brands','campus+collection','drinkware',
+                                          'electronics','google+redesign',
+                                          'lifestyle','nest','new+2015+logo','notebooks+journals',
+                                          'office','shop+by+brand','small+goods','stationery','wearables'
+                                          )
+            )
+            THEN 'PDP'
+            WHEN NOT(CONTAINS_SUBSTR(ARRAY_REVERSE(SPLIT(page_location, '/'))[SAFE_OFFSET(0)], '+'))
+            AND (LOWER(SPLIT(page_location, '/')[SAFE_OFFSET(4)]) IN 
+                                        ('accessories','apparel','brands','campus+collection','drinkware',
+                                          'electronics','google+redesign',
+                                          'lifestyle','nest','new+2015+logo','notebooks+journals',
+                                          'office','shop+by+brand','small+goods','stationery','wearables'
+                                          )
+                  OR 
+                  LOWER(SPLIT(page_location, '/')[SAFE_OFFSET(3)]) IN 
+                                          ('accessories','apparel','brands','campus+collection','drinkware',
+                                            'electronics','google+redesign',
+                                            'lifestyle','nest','new+2015+logo','notebooks+journals',
+                                            'office','shop+by+brand','small+goods','stationery','wearables'
+                                            )
+            )
+            THEN 'PLP'
+        ELSE page_title
+        END AS page_title_adjusted 
+
+  FROM 
+    unnested_events
+)
+
+
+, ranked_screens AS (
+  SELECT
+    *,
+    LAG(page_title_adjusted,1) OVER (PARTITION BY  user_pseudo_id, visitID ORDER BY event_timestamp_microseconds ASC) previous_page,
+    LEAD(page_title_adjusted,1) OVER (PARTITION BY  user_pseudo_id, visitID ORDER BY event_timestamp_microseconds ASC)  next_page
+  FROM 
+    unnested_events_categorised
+
+)
+
+,PLPtoPDPTransitions AS (
+  SELECT
+    user_pseudo_id,
+    visitID
+  FROM
+    ranked_screens
+  WHERE
+    page_title_adjusted = 'PLP' AND next_page = 'PDP'
+)
+
+,TotalPLPViews AS (
+  SELECT
+    COUNT(*) AS total_plp_views
+  FROM
+    ranked_screens
+  WHERE
+    page_title_adjusted = 'PLP'
+)
+
+,TotalTransitions AS (
+  SELECT
+    COUNT(*) AS total_transitions
+  FROM
+    PLPtoPDPTransitions
+)
+
+SELECT
+  (total_transitions * 100.0) / total_plp_views AS percentage
+FROM
+  TotalTransitions, TotalPLPViews;
+
+/* Question: For US B2 patents granted in the first seven days of January 2018, tell me the publication number of each patent and the number of backward citations it has received in the SEA category. */
+/* SQL query: */
+WITH patents_sample AS (               -- name of our table
+SELECT 
+  t1.publication_number, 
+  t1.application_number 
+FROM 
+  `patents-public-data.patents.publications` t1 
+WHERE 
+  country_code = 'US'                                                        -- only consider US patents
+  AND grant_date between 20180101 AND 20180107                               -- grant dates between 2002 and 2006
+  AND grant_date != 0                                                        -- only consider granted patents
+  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+)
+
+SELECT
+  t1.publication_number,
+  -- count disctinct application numbers cited by our focal patent
+  COUNT(DISTINCT t3.application_number) AS backward_citations
+FROM
+  patents_sample t1
+LEFT OUTER JOIN (
+  SELECT
+    -- the publication number in the joined table is the citing publication number
+    x2.publication_number AS citing_publication_number,
+    -- the publication number in the unnested citation record is the cited publication number
+    citation_u.publication_number AS cited_publication_number,
+    -- the category in the unnested citation record is the category of the cited publication
+    citation_u.category AS cited_publication_category
+  FROM
+    `patents-public-data.patents.publications` x2,
+    UNNEST(citation) AS citation_u ) t2
+ON
+  t2.citing_publication_number = t1.publication_number
+  -- citation category has to contain 'SEA'
+  AND CONTAINS_SUBSTR(t2.cited_publication_category, 'SEA')
+  -- one more join to publications table to get the application number
+LEFT OUTER JOIN
+  `patents-public-data.patents.publications` t3
+ON
+  t2.cited_publication_number = t3.publication_number
+GROUP BY
+  t1.publication_number
+ORDER BY
+  t1.publication_number
+
+/* Question: What are the monthly statistics for new StackOverflow users created in 2021, including the percentage of new users who asked questions and the percentage of those who asked questions and then answered questions within their first 30 days? */
+/* SQL query: */
+DECLARE yr, conversion_window INT64;
+SET (yr, conversion_window) = (2021, 30);
+
+WITH users AS (
+  SELECT *
+  FROM `bigquery-public-data.stackoverflow.users`
+  WHERE EXTRACT(YEAR FROM creation_date) = yr
+),
+
+users_questions AS (
+  SELECT 
+    u.display_name, 
+    u.id AS user_id, 
+    u.creation_date AS signup, 
+    COUNT(q.id) AS questions, 
+    MIN(q.creation_date) AS first_question
+  FROM users u
+  LEFT JOIN `bigquery-public-data.stackoverflow.posts_questions` q 
+    ON q.owner_user_id = u.id 
+    AND DATE_DIFF(q.creation_date, u.creation_date, DAY) <= conversion_window
+  GROUP BY 
+    u.display_name, 
+    u.id, 
+    u.creation_date
+),
+
+users_questions_answers AS (
+  SELECT 
+    display_name, 
+    user_id, 
+    signup, 
+    questions, 
+    first_question, 
+    COUNT(a.id) AS answers_after_question
+  FROM users_questions uq
+  LEFT JOIN `bigquery-public-data.stackoverflow.posts_answers` a 
+    ON a.owner_user_id = uq.user_id 
+    AND a.creation_date > uq.first_question
+    AND DATE_DIFF(a.creation_date, uq.first_question, DAY) <= conversion_window
+  GROUP BY 
+    display_name, 
+    user_id, 
+    signup, 
+    questions, 
+    first_question
+)
+
+SELECT 
+  EXTRACT(MONTH FROM signup) AS month,
+  COUNT(user_id) AS new_users,
+  COUNT(DISTINCT CASE WHEN questions > 0 THEN user_id ELSE NULL END) AS asked,
+  ROUND(COUNT(DISTINCT CASE WHEN questions > 0 THEN user_id ELSE NULL END) / COUNT(user_id) * 100, 2) AS pct_asked,
+  COUNT(DISTINCT CASE WHEN answers_after_question > 0 THEN user_id ELSE NULL END) AS then_answered,
+  ROUND(COUNT(DISTINCT CASE WHEN answers_after_question > 0 THEN user_id ELSE NULL END) / COUNT(user_id) * 100, 2) AS pct_then_answered
+FROM users_questions_answers
+GROUP BY 
+  EXTRACT(MONTH FROM signup)
+ORDER BY 
+  month ASC;
+
+/* Question: For taxi trips with a duration rounded to the nearest minute, and between 1 and 50 minutes, if the trip durations are divided into 10 quantiles, what are the total number of trips and the average fare for each quantile? */
+/* SQL query: */
+SELECT
+  FORMAT('%02.0fm to %02.0fm', min_minutes, max_minutes) AS minutes_range,
+  SUM(trips) AS total_trips,
+  FORMAT('%3.2f', SUM(total_fare) / SUM(trips)) AS average_fare
+FROM (
+  SELECT
+    MIN(duration_in_minutes) OVER (quantiles) AS min_minutes,
+    MAX(duration_in_minutes) OVER (quantiles) AS max_minutes,
+    SUM(trips) AS trips,
+    SUM(total_fare) AS total_fare
+  FROM (
+    SELECT
+      ROUND(trip_seconds / 60) AS duration_in_minutes,
+      NTILE(10) OVER (ORDER BY trip_seconds / 60) AS quantile,
+      COUNT(1) AS trips,
+      SUM(fare) AS total_fare
+    FROM
+      `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+    WHERE
+      ROUND(trip_seconds / 60) BETWEEN 1 AND 50
+    GROUP BY
+      trip_seconds,
+      duration_in_minutes )
+  GROUP BY
+    duration_in_minutes,
+    quantile
+  WINDOW quantiles AS (PARTITION BY quantile)
+  )
+GROUP BY
+  minutes_range
+ORDER BY
+  Minutes_range
+
+/* Question: Please help me find the top 3 bowlers who conceded the maximum runs in a single over, along with the corresponding matches. */
+/* SQL query: */
+WITH combined_runs AS (
+    SELECT match_id, over_id, ball_id, innings_no, runs_scored AS runs
+    FROM batsman_scored
+    UNION ALL
+    SELECT match_id, over_id, ball_id, innings_no, extra_runs AS runs
+    FROM extra_runs
+),
+over_runs AS (
+    SELECT match_id, innings_no, over_id, SUM(runs) AS runs_scored
+    FROM combined_runs
+    GROUP BY match_id, innings_no, over_id
+),
+max_over_runs AS (
+    SELECT match_id, MAX(runs_scored) AS max_runs
+    FROM over_runs
+    GROUP BY match_id
+),
+top_overs AS (
+    SELECT o.match_id, o.innings_no, o.over_id, o.runs_scored
+    FROM over_runs o
+    JOIN max_over_runs m ON o.match_id = m.match_id AND o.runs_scored = m.max_runs
+),
+top_bowlers AS (
+    SELECT
+        bb.match_id,
+        t.runs_scored AS maximum_runs,
+        bb.bowler
+    FROM ball_by_ball bb
+    JOIN top_overs t ON bb.match_id = t.match_id
+    AND bb.innings_no = t.innings_no
+    AND bb.over_id = t.over_id
+    GROUP BY bb.match_id, t.runs_scored, bb.bowler
+)
+SELECT
+    b.match_id,
+    p.player_name
+FROM (
+    SELECT *
+    FROM top_bowlers
+    ORDER BY maximum_runs DESC
+    LIMIT 3
+) b
+JOIN player p ON p.player_id = b.bowler
+ORDER BY b.maximum_runs DESC, b.match_id, p.player_name;
+
+/* Question: What is the average monthly projected sales in USD for France in 2021? Please use data from 2019 and 2020 for projection. Ensure all values are converted to USD based on the 2021 exchange rates. */
+/* SQL query: */
+WITH prod_sales_mo AS (
+   SELECT cn.country_name AS c,
+          s.prod_id AS p, 
+          t.calendar_year AS y,
+          t.calendar_month_number AS m,
+          SUM(s.amount_sold) AS s
+   FROM sales s
+   JOIN customers c ON s.cust_id = c.cust_id
+   JOIN times t ON s.time_id = t.time_id
+   JOIN countries cn ON c.country_id = cn.country_id
+   JOIN promotions p ON s.promo_id = p.promo_id
+   JOIN channels ch ON s.channel_id = ch.channel_id
+   WHERE p.promo_total_id = 1
+     AND ch.channel_total_id = 1
+     AND cn.country_name = 'France'
+     AND t.calendar_year IN (2019, 2020, 2021)
+   GROUP BY cn.country_name,
+            s.prod_id, 
+            t.calendar_year, 
+            t.calendar_month_number
+),
+time_summary AS (
+   SELECT DISTINCT calendar_year AS cal_y, 
+                   calendar_month_number AS cal_m
+   FROM times
+   WHERE calendar_year IN (2019, 2020, 2021)
+),
+base_data AS (
+   SELECT ts.cal_y AS y, 
+          ts.cal_m AS m, 
+          ps.c AS c, 
+          ps.p AS p,
+          COALESCE(ps.s, 0) AS s,
+          (SELECT AVG(s) FROM prod_sales_mo ps2 
+           WHERE ps2.c = ps.c AND ps2.p = ps.p 
+             AND ps2.y = ps.y 
+             AND ps2.m BETWEEN 1 AND 12) AS avg_s
+   FROM time_summary ts
+   LEFT JOIN prod_sales_mo ps ON ts.cal_y = ps.y AND ts.cal_m = ps.m
+),
+projected_data AS (
+   SELECT c, p, y, m, s,
+          CASE
+             WHEN y = 2021 THEN ROUND(
+                (((SELECT s FROM base_data WHERE c = b.c AND p = b.p AND y = 2020 AND m = b.m) - (SELECT s FROM base_data WHERE c = b.c AND p = b.p AND y = 2019 AND m = b.m)) / 
+                 (SELECT s FROM base_data WHERE c = b.c AND p = b.p AND y = 2019 AND m = b.m)) * 
+                (SELECT s FROM base_data WHERE c = b.c AND p = b.p AND y = 2020 AND m = b.m) + 
+                (SELECT s FROM base_data WHERE c = b.c AND p = b.p AND y = 2020 AND m = b.m)
+             , 2)
+             ELSE avg_s
+          END AS nr
+   FROM base_data b
+),
+monthly_avg_projection AS (
+   SELECT 
+       m AS month,
+       ROUND(AVG(nr * COALESCE((SELECT to_us FROM currency WHERE country = c AND year = y AND month = m), 1)), 2) AS avg_monthly_projected_sales_in_usd
+   FROM projected_data
+   WHERE y = 2021
+   GROUP BY m
+)
+SELECT month,
+       avg_monthly_projected_sales_in_usd
+FROM monthly_avg_projection
+ORDER BY month;
+
+/* Question: Could you review our records in June 2022 and identify which countries have the longest streak of consecutive inserted city dates? Please list the 2-letter length country codes of these countries. */
+/* SQL query: */
+WITH get_dates AS (
+    SELECT
+        insert_date,
+        country_code_2
+    FROM (
+        SELECT
+            insert_date,
+            country_code_2,
+            ROW_NUMBER() OVER (PARTITION BY insert_date, country_code_2 ORDER BY insert_date) AS row_num
+        FROM
+            cities
+        WHERE
+            insert_date BETWEEN '2022-06-01' AND '2022-06-30'
+    )
+    WHERE row_num = 1
+),
+get_diff AS (
+    SELECT
+        country_code_2,
+        insert_date,
+        CAST(strftime('%d', insert_date) AS INTEGER) - ROW_NUMBER() OVER (PARTITION BY country_code_2 ORDER BY insert_date) AS diff
+    FROM (
+        SELECT
+            country_code_2,
+            insert_date,
+            ROW_NUMBER() OVER (PARTITION BY country_code_2 ORDER BY insert_date) AS row_num
+        FROM
+            get_dates
+    )
+),
+get_diff_count AS (
+    SELECT
+        country_code_2,
+        insert_date,
+        COUNT(*) OVER (PARTITION BY country_code_2, diff) AS diff_count
+    FROM
+        get_diff
+),
+get_rank AS (
+    SELECT
+        country_code_2,
+        DENSE_RANK() OVER (PARTITION BY country_code_2 ORDER BY diff_count DESC) AS rnk,
+        insert_date
+    FROM
+        get_diff_count
+),
+count_rank AS(
+	SELECT
+		country_code_2,
+		COUNT(rnk) AS diff_count
+	FROM
+		get_rank
+	GROUP BY 
+		country_code_2,
+		rnk
+)
+SELECT
+    country_code_2 AS country
+FROM
+    count_rank
+WHERE
+	diff_count = (
+		SELECT
+            MAX(diff_count)
+        FROM
+            count_rank
+	);
+
+/* Question: Can you provide a breakdown of how many times each product was viewed, how many times they were added to the shopping cart, and how many times they were left in the cart without being purchased? Also, give me the count of actual purchases for each product. Ensure that products with a page id in (1, 2, 12, 13) are filtered out. */
+/* SQL query: */
+WITH product_viewed AS (
+    SELECT
+        t1.page_id,
+        SUM(CASE WHEN event_type = 1 THEN 1 ELSE 0 END) AS n_page_views,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS n_added_to_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+    GROUP BY
+        t1.page_id
+),
+product_purchased AS (
+    SELECT
+        t2.page_id,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS purchased_from_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+        AND EXISTS (
+            SELECT
+                visit_id
+            FROM
+                shopping_cart_events
+            WHERE
+                event_type = 3
+                AND t2.visit_id = visit_id
+        )
+        AND t1.page_id NOT IN (1, 2, 12, 13)
+    GROUP BY
+        t2.page_id
+),
+product_abandoned AS (
+    SELECT
+        t2.page_id,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS abandoned_in_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+        AND NOT EXISTS (
+            SELECT
+                visit_id
+            FROM
+                shopping_cart_events
+            WHERE
+                event_type = 3
+                AND t2.visit_id = visit_id
+        )
+        AND t1.page_id NOT IN (1, 2, 12, 13)
+    GROUP BY
+        t2.page_id
+)
+SELECT
+    t1.page_id,
+    t1.page_name,
+    t2.n_page_views AS 'number of product being viewed',
+    t2.n_added_to_cart AS 'number added to the cart',
+    t4.abandoned_in_cart AS 'without being purchased in cart',
+    t3.purchased_from_cart AS 'count of actual purchases'
+FROM
+    shopping_cart_page_hierarchy AS t1
+JOIN
+    product_viewed AS t2 
+ON
+    t2.page_id = t1.page_id
+JOIN
+    product_purchased AS t3 
+ON 
+    t3.page_id = t1.page_id
+JOIN
+    product_abandoned AS t4 
+ON 
+    t4.page_id = t1.page_id;
+
+/* Question: Determine the percentage change in gross income inflow and the seasonally-adjusted purchase-only home price index for the Phoenix-Mesa-Scottsdale, AZ Metro Area from January 1, 2023, to December 31, 2023. Gross income inflow refers to the total adjusted gross income from all financial entities within the specified metro area */
+/* SQL query: */
+WITH county_map AS (
+    SELECT
+        geo_id,
+        geo_name,
+        related_geo_id,
+        related_geo_name
+    FROM US_REAL_ESTATE.CYBERSYN.geography_relationships
+    WHERE geo_name = 'Phoenix-Mesa-Scottsdale, AZ Metro Area'
+    AND related_level = 'County'
+), 
+gross_income_data AS (
+    SELECT
+        geo_id,
+        date,
+        SUM(value) AS gross_income_inflow
+    FROM US_REAL_ESTATE.CYBERSYN.irs_origin_destination_migration_timeseries AS ts
+    JOIN county_map ON (county_map.related_geo_id = ts.to_geo_id)
+    WHERE ts.variable_name = 'Adjusted Gross Income'
+    GROUP BY geo_id, date
+), 
+home_price_data AS (
+    SELECT LAST_DAY(date, 'year') AS end_date, AVG(value) AS home_price_index
+    FROM US_REAL_ESTATE.CYBERSYN.fhfa_house_price_timeseries AS ts
+    JOIN US_REAL_ESTATE.CYBERSYN.fhfa_house_price_attributes AS att
+        ON (ts.variable = att.variable)
+    WHERE geo_id IN (SELECT geo_id FROM county_map)
+      AND att.index_type = 'purchase-only'
+      AND att.seasonally_adjusted = TRUE
+    GROUP BY end_date
+),
+combined_data AS (
+    SELECT
+        gid.date,
+        gid.gross_income_inflow,
+        hpi.home_price_index
+    FROM gross_income_data AS gid
+    JOIN home_price_data AS hpi ON (gid.date = hpi.end_date)
+),
+aggregated_data AS (
+    SELECT
+        MIN(date) AS first_year,
+        MAX(date) AS last_year
+    FROM combined_data
+),
+summary_data AS (
+    SELECT
+        first_year,
+        last_year,
+        first_income.gross_income_inflow AS first_year_income,
+        last_income.gross_income_inflow AS last_year_income,
+        first_index.home_price_index AS first_year_index,
+        last_index.home_price_index AS last_year_index
+    FROM aggregated_data AS ad
+    JOIN combined_data AS first_income ON (first_income.date = ad.first_year)
+    JOIN combined_data AS last_income ON (last_income.date = ad.last_year)
+    JOIN combined_data AS first_index ON (first_index.date = ad.first_year)
+    JOIN combined_data AS last_index ON (last_index.date = ad.last_year)
+)
+SELECT
+    ((last_year_income - first_year_income) / first_year_income) * 100 AS income_growth_percent,
+    ((last_year_index - first_year_index) / first_year_index) * 100 AS index_growth_percent
+FROM summary_data;

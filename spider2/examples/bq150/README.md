@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.TCGA_hg19_data_v0` database to solve this problem.

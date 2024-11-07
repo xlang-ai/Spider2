@@ -1,0 +1,32 @@
+## COT
+
+COT(X)
+
+**Description**
+
+Computes the cotangent for the angle of ` X ` , where ` X ` is specified in radians. ` X ` can be any data type that [ coerces to ` FLOAT64 `
+](/bigquery/docs/reference/standard-sql/conversion_rules#conversion_rules) .
+Supports the ` SAFE. ` prefix.
+
+X  |  COT(X)
+---|---
+` +inf ` |  ` NaN `
+` -inf ` |  ` NaN `
+` NaN ` |  ` NaN `
+` 0 ` |  ` Error `
+` NULL ` |  ` NULL `
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+SELECT COT(1) AS a, SAFE.COT(0) AS b;
+
+/*---------------------+------*
+| a                   | b    |
++---------------------+------+
+| 0.64209261593433065 | NULL |
+*---------------------+------*/

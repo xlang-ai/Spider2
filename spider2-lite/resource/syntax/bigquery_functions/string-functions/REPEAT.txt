@@ -1,0 +1,34 @@
+## REPEAT
+
+REPEAT(original_value, repetitions)
+
+**Description**
+
+Returns a ` STRING ` or ` BYTES ` value that consists of ` original_value ` ,
+repeated. The ` repetitions ` parameter specifies the number of times to repeat ` original_value ` . Returns ` NULL ` if either ` original_value ` or `
+repetitions ` are ` NULL ` .
+
+This function returns an error if the ` repetitions ` value is negative.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+SELECT t, n, REPEAT(t, n) AS REPEAT FROM UNNEST([
+STRUCT('abc' AS t, 3 AS n),
+('例子', 2),
+('abc', null),
+(null, 3)
+]);
+
+/*------+------+-----------*
+| t    | n    | REPEAT    |
+|------|------|-----------|
+| abc  | 3    | abcabcabc |
+| 例子 | 2    | 例子例子  |
+| abc  | NULL | NULL      |
+| NULL | 3    | NULL      |
+*------+------+-----------*/

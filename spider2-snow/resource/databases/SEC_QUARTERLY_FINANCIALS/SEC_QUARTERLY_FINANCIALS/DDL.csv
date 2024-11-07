@@ -1,0 +1,159 @@
+table_name,description,DDL
+PRESENTATION,,"create or replace TABLE PRESENTATION (
+	""submission_number"" VARCHAR(16777216),
+	""report"" NUMBER(38,0),
+	""line"" NUMBER(38,0),
+	""statement"" VARCHAR(16777216),
+	""presented_parenthetically"" BOOLEAN,
+	""rfile"" VARCHAR(16777216),
+	""measure_tag"" VARCHAR(16777216),
+	""version"" VARCHAR(16777216),
+	""preferred_role"" VARCHAR(16777216),
+	""preferred_label"" VARCHAR(16777216),
+	""negating"" BOOLEAN
+);"
+QUICK_SUMMARY,,"create or replace TABLE QUICK_SUMMARY (
+	""submission_number"" VARCHAR(16777216),
+	""company_name"" VARCHAR(16777216),
+	""measure_tag"" VARCHAR(16777216),
+	""period_end_date"" VARCHAR(16777216),
+	""value"" FLOAT,
+	""units"" VARCHAR(16777216),
+	""number_of_quarters"" NUMBER(38,0),
+	""version"" VARCHAR(16777216),
+	""central_index_key"" NUMBER(38,0),
+	""ein"" VARCHAR(16777216),
+	""sic"" VARCHAR(16777216),
+	""fiscal_year_end"" VARCHAR(16777216),
+	""form"" VARCHAR(16777216),
+	""fiscal_year"" NUMBER(38,0),
+	""fiscal_period_focus"" VARCHAR(16777216),
+	""date_filed"" NUMBER(38,0),
+	""date_accepted"" NUMBER(38,0)
+);"
+MEASURE_TAG,,"create or replace TABLE MEASURE_TAG (
+	MEASURE_TAG VARCHAR(16777216),
+	VERSION VARCHAR(16777216),
+	CUSTOM BOOLEAN,
+	ABSTRACT BOOLEAN,
+	DATATYPE VARCHAR(16777216),
+	I_OR_D VARCHAR(16777216),
+	CREDIT_OR_DEBIT VARCHAR(16777216),
+	TAG_LABEL VARCHAR(16777216),
+	DOC VARCHAR(16777216)
+);"
+NUMBERS,,"create or replace TABLE NUMBERS (
+	SUBMISSION_NUMBER VARCHAR(16777216),
+	COMPANY_NAME VARCHAR(16777216),
+	MEASURE_TAG VARCHAR(16777216),
+	VERSION VARCHAR(16777216),
+	PERIOD_END_DATE NUMBER(38,0),
+	NUMBER_OF_QUARTERS NUMBER(38,0),
+	UNITS VARCHAR(16777216),
+	DIMENSION_HASH VARCHAR(16777216),
+	IPRX NUMBER(38,0),
+	VALUE FLOAT,
+	FOOTNOTE VARCHAR(16777216),
+	FOOTNOTE_LENGTH NUMBER(38,0),
+	NUM_DIMENSIONS NUMBER(38,0),
+	COREGISTRANT VARCHAR(16777216),
+	DURATION_FRACTION FLOAT,
+	DATE_FRACTION FLOAT,
+	DECIMAL NUMBER(38,0)
+);"
+SUBMISSION,,"create or replace TABLE SUBMISSION (
+	""submission_number"" VARCHAR(16777216),
+	""central_index_key"" NUMBER(38,0),
+	""company_name"" VARCHAR(16777216),
+	""sic"" VARCHAR(16777216),
+	""countryba"" VARCHAR(16777216),
+	""stprba"" VARCHAR(16777216),
+	""cityba"" VARCHAR(16777216),
+	""zipba"" VARCHAR(16777216),
+	""ba_street1"" VARCHAR(16777216),
+	""ba_street2"" VARCHAR(16777216),
+	""ba_phone"" VARCHAR(16777216),
+	""countryma"" VARCHAR(16777216),
+	""stprma"" VARCHAR(16777216),
+	""cityma"" VARCHAR(16777216),
+	""zipma"" VARCHAR(16777216),
+	""ma_street1"" VARCHAR(16777216),
+	""ma_street2"" VARCHAR(16777216),
+	""country_inc"" VARCHAR(16777216),
+	""state_province_inc"" VARCHAR(16777216),
+	""ein"" VARCHAR(16777216),
+	""former_name"" VARCHAR(16777216),
+	""date_changed"" NUMBER(38,0),
+	""filer_status"" VARCHAR(16777216),
+	""well_known_seasoned_issuer"" BOOLEAN,
+	""fiscal_year_end"" VARCHAR(16777216),
+	""form"" VARCHAR(16777216),
+	""period"" NUMBER(38,0),
+	""fiscal_year"" NUMBER(38,0),
+	""fiscal_period_focus"" VARCHAR(16777216),
+	""date_filed"" NUMBER(38,0),
+	""date_accepted"" NUMBER(38,0),
+	""has_previous_report"" BOOLEAN,
+	""has_required_detail"" BOOLEAN,
+	""instance"" VARCHAR(16777216),
+	""num_ciks"" NUMBER(38,0),
+	""additional_ciks"" VARCHAR(16777216),
+	""public_float_usd"" FLOAT,
+	""float_date"" NUMBER(38,0),
+	""float_axis"" VARCHAR(16777216),
+	""float_terms"" NUMBER(38,0)
+);"
+RENDERING,,"create or replace TABLE RENDERING (
+	""submission_number"" VARCHAR(16777216),
+	""report"" NUMBER(38,0),
+	""file_type"" VARCHAR(16777216),
+	""menu_category"" VARCHAR(16777216),
+	""shortname"" VARCHAR(16777216),
+	""longname"" VARCHAR(16777216),
+	""roleuri"" VARCHAR(16777216),
+	""parentroleuri"" VARCHAR(16777216),
+	""parentreport"" NUMBER(38,0),
+	""ultimate_parent_report"" NUMBER(38,0)
+);"
+TXT,,"create or replace TABLE TXT (
+	""submission_number"" VARCHAR(16777216),
+	""measure_tag"" VARCHAR(16777216),
+	""version"" VARCHAR(16777216),
+	""period_end_date"" NUMBER(38,0),
+	""num_quarters"" NUMBER(38,0),
+	""iprx"" NUMBER(38,0),
+	""language"" VARCHAR(16777216),
+	""language_decimal"" NUMBER(38,0),
+	""duration_fraction"" FLOAT,
+	""date_fraction"" FLOAT,
+	""dimension_hash"" VARCHAR(16777216),
+	""num_dimensions"" NUMBER(38,0),
+	""coregistrant"" VARCHAR(16777216),
+	""escaped"" BOOLEAN,
+	""source_length"" NUMBER(38,0),
+	""text_length"" NUMBER(38,0),
+	""footnote"" VARCHAR(16777216),
+	""footnote_length"" NUMBER(38,0),
+	""context"" VARCHAR(16777216),
+	""value"" VARCHAR(16777216)
+);"
+CALCULATION,,"create or replace TABLE CALCULATION (
+	""submission_number"" VARCHAR(16777216),
+	""group"" NUMBER(38,0),
+	""arc"" NUMBER(38,0),
+	""negative"" NUMBER(38,0),
+	""parent_tag"" VARCHAR(16777216),
+	""parent_version"" VARCHAR(16777216),
+	""child_tag"" VARCHAR(16777216),
+	""child_version"" VARCHAR(16777216)
+);"
+DIMENSION,,"create or replace TABLE DIMENSION (
+	""segments_hash"" VARCHAR(16777216),
+	""segments"" VARCHAR(16777216),
+	""segment_truncation"" BOOLEAN
+);"
+SIC_CODES,,"create or replace TABLE SIC_CODES (
+	""sic_code"" VARCHAR(16777216),
+	""ad_office"" VARCHAR(16777216),
+	""industry_title"" VARCHAR(16777216)
+);"

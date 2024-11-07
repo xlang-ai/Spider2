@@ -1,0 +1,102 @@
+{
+    "table_name": "TCGA_VERSIONED.COPY_NUMBER_SEGMENT_MASKED_HG19_GDC_2017_02",
+    "table_fullname": "TCGA_MITELMAN.TCGA_VERSIONED.COPY_NUMBER_SEGMENT_MASKED_HG19_GDC_2017_02",
+    "column_names": [
+        "end_pos",
+        "segment_mean",
+        "aliquot_barcode",
+        "start_pos",
+        "chromosome",
+        "project_short_name",
+        "num_probes",
+        "platform",
+        "case_barcode",
+        "sample_barcode"
+    ],
+    "column_types": [
+        "NUMBER",
+        "FLOAT",
+        "TEXT",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "1-based end chromosome position of CN segment end- position",
+        "Mean CN value for this segment -- the value is base2 log(CN/2), centered at 0",
+        "Original TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-01",
+        "1-based start chromosome position of CN segment start-position",
+        "Chromosome, possible values: chr1-22, and chrX",
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.",
+        "Number of probes in the SNP array used to infer this CN segment",
+        "Platform used to generate these data (Genome_Wide_SNP_6 for this data)",
+        "Original TCGA case barcode, eg TCGA-12-1089  --  note that each case typically has a primary-tumor sample and a matched-normal (blood or adjacent tissue) sample; please refer to the TCGA Biospecimen table for more details",
+        "Original TCGA sample barcode, eg TCGA-12-1089-01A  --  note that one sample may have multiple aliquots and therefore multiple sets of CN segmentations; so be sure to use GROUP BY appropriately in your queries"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-01-0628",
+            "sample_barcode": "TCGA-01-0628-11A",
+            "aliquot_barcode": "TCGA-01-0628-11A-01D-0356-01",
+            "chromosome": "6",
+            "start_pos": 147484238,
+            "end_pos": 155912754,
+            "num_probes": 5870,
+            "segment_mean": 0.0018,
+            "platform": "Genome_Wide_SNP_6"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-01-0628",
+            "sample_barcode": "TCGA-01-0628-11A",
+            "aliquot_barcode": "TCGA-01-0628-11A-01D-0356-01",
+            "chromosome": "10",
+            "start_pos": 24602382,
+            "end_pos": 24604992,
+            "num_probes": 10,
+            "segment_mean": -0.6218,
+            "platform": "Genome_Wide_SNP_6"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-01-0628",
+            "sample_barcode": "TCGA-01-0628-11A",
+            "aliquot_barcode": "TCGA-01-0628-11A-01D-0356-01",
+            "chromosome": "15",
+            "start_pos": 24288234,
+            "end_pos": 24288324,
+            "num_probes": 2,
+            "segment_mean": -1.3104,
+            "platform": "Genome_Wide_SNP_6"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-01-0628",
+            "sample_barcode": "TCGA-01-0628-11A",
+            "aliquot_barcode": "TCGA-01-0628-11A-01D-0356-01",
+            "chromosome": "21",
+            "start_pos": 22982574,
+            "end_pos": 47678774,
+            "num_probes": 15705,
+            "segment_mean": 0.0002,
+            "platform": "Genome_Wide_SNP_6"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-01-0628",
+            "sample_barcode": "TCGA-01-0628-11A",
+            "aliquot_barcode": "TCGA-01-0628-11A-01D-0356-01",
+            "chromosome": "11",
+            "start_pos": 56497378,
+            "end_pos": 56498947,
+            "num_probes": 2,
+            "segment_mean": -1.2838,
+            "platform": "Genome_Wide_SNP_6"
+        }
+    ]
+}

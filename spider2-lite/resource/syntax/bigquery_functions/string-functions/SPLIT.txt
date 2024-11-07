@@ -1,0 +1,39 @@
+## SPLIT
+
+SPLIT(value[, delimiter])
+
+**Description**
+
+Splits ` value ` using the ` delimiter ` argument.
+
+For ` STRING ` , the default delimiter is the comma ` , ` .
+
+For ` BYTES ` , you must specify a delimiter.
+
+Splitting on an empty delimiter produces an array of UTF-8 characters for `
+STRING ` values, and an array of ` BYTES ` for ` BYTES ` values.
+
+Splitting an empty ` STRING ` returns an ` ARRAY ` with a single empty `
+STRING ` .
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return type**
+
+` ARRAY<STRING> ` or ` ARRAY<BYTES> `
+
+**Examples**
+
+
+WITH letters AS (SELECT '' as letter_group UNION ALL SELECT 'a' as letter_group UNION ALL SELECT 'b c d' as letter_group)
+
+SELECT SPLIT(letter_group, ' ') as example FROM letters;
+
+/*----------------------*
+| example              |
++----------------------+
+| []                   |
+| [a]                  |
+| [b, c, d]            |
+*----------------------*/

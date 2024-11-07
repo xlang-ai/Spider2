@@ -1,0 +1,45 @@
+## ARRAY_TO_STRING
+
+ARRAY_TO_STRING(array_expression, delimiter[, null_text])
+
+**Description**
+
+Returns a concatenation of the elements in ` array_expression ` as a ` STRING
+` . The value for ` array_expression ` can either be an array of ` STRING ` or
+` BYTES ` data types.
+
+If the ` null_text ` parameter is used, the function replaces any ` NULL `
+values in the array with the value of ` null_text ` .
+
+If the ` null_text ` parameter is not used, the function omits the ` NULL `
+value and its preceding delimiter.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+WITH items AS (SELECT ['coffee', 'tea', 'milk' ] as list UNION ALL SELECT ['cake', 'pie', NULL] as list)
+
+SELECT ARRAY_TO_STRING(list, '--') AS text FROM items;
+
+/*--------------------------------*
+| text                           |
++--------------------------------+
+| coffee--tea--milk              |
+| cake--pie                      |
+*--------------------------------*/
+
+
+WITH items AS (SELECT ['coffee', 'tea', 'milk' ] as list UNION ALL SELECT ['cake', 'pie', NULL] as list)
+
+SELECT ARRAY_TO_STRING(list, '--', 'MISSING') AS text FROM items;
+
+/*--------------------------------*
+| text                           |
++--------------------------------+
+| coffee--tea--milk              |
+| cake--pie--MISSING             |
+*--------------------------------*/

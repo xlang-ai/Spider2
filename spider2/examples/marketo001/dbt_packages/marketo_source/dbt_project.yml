@@ -1,0 +1,28 @@
+name: 'marketo_source'
+version: '0.11.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  marketo_source:
+    +materialized: table
+    +schema: marketo_source
+    tmp:
+      +materialized: view
+vars:
+  marketo_source:
+    lead: "{{ source('marketo','lead') }}"
+    lead_describe: "{{ source('marketo','lead_describe') }}"
+    campaign: "{{ source('marketo','campaign') }}"
+    program: "{{ source('marketo','program') }}"
+    email_template_history: "{{ source('marketo','email_template_history') }}"
+    activity_change_data_value: "{{ source('marketo','activity_change_data_value') }}"
+    activity_click_email: "{{ source('marketo','activity_click_email') }}"
+    activity_email_delivered: "{{ source('marketo','activity_email_delivered') }}"
+    activity_email_bounced: "{{ source('marketo','activity_email_bounced') }}"
+    activity_open_email: "{{ source('marketo','activity_open_email') }}"
+    activity_unsubscribe_email: "{{ source('marketo','activity_unsubscribe_email') }}"
+    activity_send_email: "{{ source('marketo','activity_send_email') }}"
+    activity_delete_lead: "{{ source('marketo','activity_delete_lead') }}"
+    activity_merge_leads: "{{ source('marketo','activity_merge_leads') }}"
+    marketo__activity_send_email_passthrough_columns: []
+    marketo__program_passthrough_columns: []

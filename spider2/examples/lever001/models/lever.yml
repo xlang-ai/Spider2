@@ -1,0 +1,415 @@
+version: 2
+
+models:
+  - name: lever__interview_enhanced
+    description: Table in which each row is a unique interview-feedback combo. Interviews without feedback appear here as well. 
+    columns:
+      - name: canceled_at
+        description: Timestamp of when the interview was canceled.
+      - name: created_at
+        description: Timestamp of when the interview was created.
+      - name: creator_user_id
+        description: Foreign key referencing the USER who created the interview in lever.
+      - name: occurred_at
+        description: Date + time at which the interview was set to occur.
+      - name: duration_minutes
+        description: Interview duration in minutes, minimum value is 1.
+      - name: feedback_reminder_frequency
+        description: > 
+          Frequency of feedback reminders (i.e. once, daily, frequently, none).
+          Defaults to 'frequently' which is every 6 hours.
+      - name: gcal_event_url
+        description: Google calendar event url. 
+      - name: interview_id
+        description: Unique ID of the interview. 
+      - name: location
+        description: >
+          Interview location. Usually the name of a booked conference room but can also be a 
+          phone number to call.
+      - name: note
+        description: Interview note.
+      - name: opportunity_id
+        description: Foreign key referencing the OPPORTUNITY being interviewed for. 
+      - name: panel_id
+        description: Unique id of the PANEL this interview belongs to.
+      - name: opportunity_stage_id
+        description: >
+          Foreign key referencing the STAGE that the candidate was in at the time 
+          the interview was scheduled.
+      - name: subject
+        description: Subject of the interview. 
+      - name: timezone
+        description: Name of timezone in which interview was scheduled to occur.
+      - name: feedback_form_id
+        description: Unique id of the feedback form. 
+      - name: feedback_completer_user_id
+        description: Foreign key referencing the USER who completed the feedback.
+      - name: feedback_completed_at
+        description: Timestamp of when the feedback form was completed.
+      - name: feedback_form_instructions
+        description: Guidelines given for how give a feedback score. 
+      - name: score_system_value
+        description: Overall rating (1-4 scale) to the candidate. 
+      - name: feedback_form_title
+        description: Form title. This can be edited in Feedback and Form Settings.
+      - name: interviewer_user_id
+        description: Foreign key referencing the USER that interviewed the candidate.
+      - name: inteviewer_name
+        description: Full name of the interviewer. 
+      - name: interviewer_email
+        description: Email associated with the interviewer.
+      - name: feedback_completer_name
+        description: Full name of the user who completed the feedback form.
+      - name: interview_coordinator_name
+        description: Full name of the user who created the interviewer in Lever. 
+      - name: ended_at
+        description: Timestamp of when the interview was scheduled to end. 
+      - name: opportunity_owner_name
+        description: Full name of the user who owns the opportunity in Lever.
+      - name: referrer_name
+        description: Full name of the user who referred the candidate for this opportunity.
+      - name: hiring_manager_name
+        description: Full name of the hiring manager of role for which the opportunity applied. 
+      - name: interviewer_is_hiring_manager
+        description: Boolean that is true if the interviewer is also the hiring manager of this position. 
+      - name: interviewee_name
+        description: Full name of the interviewee candidate. 
+      - name: interviewee_origin
+        description: >
+          The way in which the interviewed opportunity was added to lever. Includes 'agency', 'applied', 'internal',
+          'referred', 'sourced', and 'university'. 
+      - name: interviewee_contact_id
+        description: CONTACT id of the opportunity. 
+      - name: days_between_opp_created_and_interview
+        description: Number of days that have passed between the creation of this opportunity and the beginning of this interview. 
+      - name: has_advanced_since_interview
+        description: Boolean that is true if the opportunity advanced to another stage after this interview ended. 
+
+  - name: lever__opportunity_enhanced
+    description: Table of unique opportunities.
+    columns:
+      - name: opportunity_id
+        description: Unique ID of the opportunity.
+        tests:
+          - unique
+          - not_null
+      - name: archived_at
+        description: Timestamp of when the opportunity was archived. 
+      - name: archived_reason_id
+        description: Foreign key referencing the ARCHIVE_REASON for which the opportunity was archived.
+      - name: contact_id
+        description: Foreign key referencing the CONTACT info of the candidate applying in this opportunity.
+      - name: created_at
+        description: >
+          Timestamp of when the opportunity was created (ie when the candidate clicked "apply" on your
+          company website).
+      - name: is_data_protection_contact_allowed
+        description: >
+          Boolean that is true if relevant data policy regulations allow for contacting 
+          this opportunity's candidate.
+      - name: data_protection_contact_expires_at
+        description: Timestamp of when this permission/data policy expires.
+      - name: is_data_protection_store_allowed
+        description: >
+          Boolean that is true if relevant data policy regulations allow for storing 
+          this opportunity record.
+      - name: data_protection_store_expires_at
+        description: Timestamp of when this permission/data policy expires.
+      - name: contact_headline
+        description: > 
+          Contact headline, typically a list of previous companies where the contact has worked or 
+          schools that the contact has attended.
+      - name: is_anonymized
+        description: >
+          Boolean that is true if the opportunity has been anonymized (therefore fully anonymizing 
+          the contact and removing their *personal* information).
+      - name: last_advanced_at
+        description: >
+          Timestamp of when the candidate advanced to their current stage in the hiring pipeline.
+      - name: last_interaction_at
+        description: >
+          Timestamp of when the Opportunity profile was last interacted with. See interactions
+          [here](https://help.lever.co/hc/en-us/articles/205697619).
+      - name: contact_location
+        description: Current contact location of the candidate.
+      - name: contact_name
+        description: Contact full name.
+      - name: origin
+        description: >
+          The way in which the opportunity was added to lever. Includes 'agency', 'applied', 'internal',
+          'referred', 'sourced', and 'university'.
+      - name: owner_user_id
+        description: Foreign key referencing the id of the USER who owns this opportunity.
+      - name: snoozed_until
+        description: Timestamp of when the current snooze period of this opportunity ends (if snoozed).
+      - name: stage_id
+        description: Foreign key referencing the ID of the current stage of the opportunity.
+      - name: updated_at
+        description: Timestamp of when the opportunity was last updated in lever.
+      - name: application_id
+        description: Unique ID of the application.
+      - name: comments
+        description: Any additional comments from the candidate included in the job application.
+      - name: company
+        description: The candidate's current company or organization.
+      - name: posting_hiring_manager_user_id
+        description: >
+          Foreign key referencing the id of the USER who is the job posting's hiring manager, at the time 
+          the application was submitted.
+      - name: posting_id
+        description: Foreign key referencing the job POSTING for which the candidate applied.
+      - name: posting_owner_user_id
+        description: >
+          Foreign key referencing the id of the USER who owns this posting at the time the candidate applied.
+      - name: referrer_user_id
+        description: The user ID of the candidate's referrer. 
+      - name: requisition_id
+        description: >
+          If the application was archived as hired against a requisition, a foreign key referencing the id of the
+          REQUISITION against which the application was hired.
+      - name: application_type
+        description: >
+          Type of the application. An application can be of type referral, user, or posting. Applications of type 
+          referral are created when a user refers a candidate for a job posting. Applications have type user when they 
+          are applied manually to a posting in Lever. Applications have type posting when a candidate applies to a job 
+          posting through your company's jobs page.
+      - name: opportunity_owner_name
+        description: Full name of the user who owns the opportunity in Lever.
+      - name: referrer_name
+        description: Full name of the user who referred the candidate for this opportunity.
+      - name: hiring_manager_name
+        description: Full name of the hiring manager of role for which the opportunity applied. 
+      - name: sources
+        description: Aggregated list of the channels through which this opportunity was sourced.
+      - name: resume_download_url
+        description: Resume file download URL.
+      - name: emails
+        description: Aggregated list of email addresses associated with this contact. 
+      - name: phones
+        description: Aggregated list of the contact's phone numbers (with phone types).
+      - name: linkedin_link
+        description: Contact URL that contains 'linkedin.com' in it.
+      - name: github_link
+        description: Contact URL that contains 'github.com' in it.
+      - name: current_stage
+        description: The stage that the opportunity is currently at in the pipeline. 
+      - name: tags
+        description: Aggregated coma-separated list of the tags associated with this opportunity.
+      - name: archive_reason
+        description: Reason given for archiving this opportunity. 
+      - name: job_title
+        description: Title of the job posting role.Title of the job posting role.
+      - name: job_commitment
+        description: Tag for job position work type (e.g. Full-time, Part-time, Internship).
+      - name: job_department
+        description: Tag for the department to which the job posting's team belongs, if present.
+      - name: job_level
+        description: >
+          Tag for job posting level (e.g. Senior, Junior). Note - this has been deprecated by Lever 
+          but is currently maintained for backward compatibility.
+      - name: job_location
+        description: Tag for job position location.
+      - name: job_team
+        description: >
+          Tag for the team to which the job posting belongs (a sub-category of department).
+      - name: current_state_of_job_posting
+        description: >
+          Current status of the posting, which may include 'published', 'internal' (called 'unlisted' in the UI),
+          'closed', 'draft', 'pending' (awaiting approval), and 'rejected'.
+      - name: opp_created_n_days_after_first_app
+        description: How many days this opportunity was created after the first application was sent to this posting. 
+      - name: has_offer
+        description: Boolean that is true if the opportunity has been extended an offer. 
+      - name: current_offer_status
+        description: >
+          A string describing the current status of the offer. Can include: 
+          draft - the offer is still under construction
+          approval-sent - the offer needs approval
+          approved - the offer has been approved
+          sent - the offer has been sent through Lever
+          sent-manually - the offer has been sent to the candidate outside of Lever
+          opened - the candidate has opened the offer
+          denied - the candidate denied the offer
+          signed - the candidate signed the offer
+      - name: count_interviews   
+        description: The number of interviews that have been scheduled for this opportunity. 
+      - name: count_interviewers
+        description: Count of how many internal users the opportunity has spoken to via interview. 
+      - name: latest_interview_scheduled_at
+        description: Timestamp of when the opportunity's most recent (or perhaps future) interview was scheduled for. 
+      - name: has_interviewed_w_hiring_manager
+        description: Boolean that is true if the opportunity has interviewed with the hiring manager.
+
+  
+  - name: lever__opportunity_stage_history
+    description: Table capturing each stage that an opportunity has advanced too.
+    columns:
+      - name: opportunity_id
+        description: Foreign key referencing the id of the OPPORTUNITY.
+      - name: valid_from
+        description: Timestamp of when the opportunity was changed to this stage.
+      - name: stage_id
+        description: Foreign key referencing the STAGE that the opportunity was changed to.
+      - name: stage_index_in_pipeline
+        description: The index of the stage in the pipeline at the time the stage change occurred. 
+      - name: valid_ending_at
+        description: Timestamp of when the opportunity left this stage (either by advancing or being archived).
+      - name: stage
+        description: Name of the stage. 
+      - name: updater_user_name
+        description: Full name of the user who updated the candidate to this stage. 
+      - name: opportunity_contact_name
+        description: Contact full name.
+      - name: archive_reason
+        description: Reason that the opportunity was ultimately archived. 
+      - name: job_title
+        description: Title of the job posting role.Title of the job posting role.
+      - name: job_department
+        description: Tag for the department to which the job posting's team belongs, if present.
+      - name: job_location
+        description: Tag for job position location.
+      - name: job_team
+        description: >
+          Tag for the team to which the job posting belongs (a sub-category of department).
+      - name: application_type
+        description: >
+          Type of the application. An application can be of type referral, user, or posting. Applications of type 
+          referral are created when a user refers a candidate for a job posting. Applications have type user when they 
+          are applied manually to a posting in Lever. Applications have type posting when a candidate applies to a job 
+          posting through your company's jobs page.
+      - name: application_sources
+        description: Aggregated list of the channels through which this opportunity was sourced.
+      - name: hiring_manager_name
+        description: Full name of the hiring manager of role for which the opportunity applied. 
+      - name: opportunity_owner_name
+        description: Full name of the user who owns the opportunity in Lever.  
+      - name: days_in_stage
+        description: The number of calendar days in which the opportunity has remained in this stage (ie until they advanced or were archived).
+
+  - name: lever__posting_enhanced
+    description: Table capturing job postings.
+    columns:
+      - name: posting_id
+        description: Unique ID of the job posting. 
+        tests:
+          - unique
+          - not_null
+      - name: job_commitment
+        description: Tag for job position work type (e.g. Full-time, Part-time, Internship).
+      - name: job_department
+        description: Tag for the department to which the job posting's team belongs, if present.
+      - name: job_level
+        description: >
+          Tag for job posting level (e.g. Senior, Junior). Note - this has been deprecated by Lever 
+          but is currently maintained for backward compatibility.
+      - name: job_location
+        description: Tag for job position location.
+      - name: job_team
+        description: >
+          Tag for the team to which the job posting belongs (a sub-category of department).
+      - name: content_description
+        description: Job posting description that is shown at the top of the job's page, as plaintext.
+      - name: created_at
+        description: Timestamp of when the posting was created in Lever.
+      - name: creator_user_id
+        description: Foreign key referencing the id of the USER who created the job posting. 
+      - name: owner_user_id
+        description: >
+          Foreign key referencing the id of the USER who owns the posting. The posting owner is the 
+          individual who is directly responsible for managing all candidates who are applied to that role.
+      - name: requisition_code
+        description: Array of requisition codes associated with this posting.
+      - name: current_state
+        description: >
+          Current status of the posting, which may include 'published', 'internal' (called 'unlisted' in the UI),
+          'closed', 'draft', 'pending' (awaiting approval), and 'rejected'.
+      - name: job_title
+        description: Title of the job posting role.
+      - name: updated_at
+        description: Timestamp of when the posting was last updated.
+      - name: first_app_sent_at
+        description: Timestamp of when the first application was submitted to this posting. 
+      - name: count_referred_applications
+        description: Count of how many applications were referred to this posting. 
+      - name: count_posting_applications
+        description: Count of how many applications were submitted through the posting (including via an agency).
+      - name: count_manual_user_applications
+        description: Count of how many applications have been manually submitted by internal users. 
+      - name: count_opportunities
+        description: Count of how many opportunities applied to this posting. 
+      - name: count_open_opportunities
+        description: Count of how many currently open opprtunities applied to this posting. 
+      - name: count_interviews
+        description: Count of the number of interviews conducted for this posting. 
+      - name: count_interviewees
+        description: Count of opportunities interviewed for this posting. 
+      - name: count_requisitions
+        description: Number of requisitions associated with this posting. 
+      - name: has_requisition
+        description: Boolean that is true if the posting has a requisition. 
+      - name: tags
+        description: Comma-separated aggregated list of tags.
+      - name: posting_hiring_manager_name
+        description: Full name of the user who is hiring manager of this posting. 
+      
+  - name: lever__requisition_enhanced
+    description: Table capturing requisitions, if enabled.
+    columns:
+      - name: requisition_id
+        description: Unique id of the requisition.
+        tests:
+          - unique
+          - not_null
+      - name: is_backfill
+        description: > 
+          Boolean that is true if the requisition represents a backfill or new headcount. 
+          If unspecified, defaults to false. 
+      - name: compensation_band_currency
+        description: The ISO currency code associated with the requisition's compensation band.
+      - name: compensation_band_interval
+        description: The string representing the interval of payment for the compensation band.
+      - name: compensation_band_max
+        description: The high bound for the compensation band.
+      - name: compensation_band_min
+        description: The low bound for the compensation band.
+      - name: created_at
+        description: Timestamp of when the requisition was first created. 
+      - name: creator_user_id
+        description: Foreign key referencing the USER who created the requisition.
+      - name: employment_status
+        description: The work type of the requisition ('full-time', 'part-time', 'intern', 'contractor', or 'temp-worker').
+      - name: headcount_hired
+        description: The number of filled seats / openings on the requisition, or the string, 'unlimited'.
+      - name: headcount_infinite
+      - name: headcount_total_allotted
+        description: Total headcount allotted for this requisition.
+      - name: hiring_manager_user_id
+        description: Foreign key referencing the USER who is the hiring manager for this requisition. 
+      - name: internal_notes
+        description: Free form text for notes and meta-data about the requisition, visible to anyone who can see the requisition in Lever. 
+      - name: job_location
+        description: The location associated with the requisition.
+      - name: job_title
+        description: The human-readable name for the requisition.
+      - name: owner_user_id
+        description: Foreign key referencing the USER who owns the requisition.
+      - name: requisition_code
+        description: The unique HRIS requisition code.
+      - name: status
+        description: The status of the requisition. Can be 'open', 'onHold', 'closed', or 'draft'.
+      - name: job_team
+        description: The team associated with the requisition
+      - name: creator_name
+        description: Full name of the user who created the requisition. 
+      - name: requisition_owner_name
+        description: Full user name of the user who owns the requisition. 
+      - name: hiring_manager_name 
+        description: Full user name of the requisition's hiring manager. 
+      - name: count_postings
+        description: Number of postings associated with this requisition. 
+      - name: has_posting
+        description: Boolean that is true if the requisition has a posting. 
+      - name: count_offers
+        description: Total count of extended offers associated with this requisition. Note - includes offers regardless of their status. 
+      - name: has_offer
+        description: Boolean that is true if the requisition has any offer associated with it. 

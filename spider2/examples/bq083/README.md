@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.crypto_ethereum` and `spider2-public-data.crypto_bitcoin` and `spider2-public-data.crypto_bitcoin_cash` and `spider2-public-data.crypto_dash` and `spider2-public-data.crypto_ethereum_classic` and `spider2-public-data.crypto_band` and `spider2-public-data.crypto_zilliqa` database to solve this problem.

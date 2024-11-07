@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.chicago_taxi_trips` and `bigquery-public-data.chicago_crime` database to solve this problem.

@@ -1,0 +1,23 @@
+## FORMAT_TIME
+
+FORMAT_TIME(format_string, time_object)
+
+**Description** Formats a ` TIME ` object according to the specified `
+format_string ` . See [ Supported Format Elements For TIME
+](/bigquery/docs/reference/standard-sql/format-
+elements#format_elements_date_time) for a list of format elements that this function supports.
+
+**Return Data Type**
+
+` STRING `
+
+**Example**
+
+
+SELECT FORMAT_TIME("%R", TIME "15:30:00") as formatted_time;
+
+/*----------------*
+| formatted_time |
++----------------+
+| 15:30          |
+*----------------*/

@@ -1,0 +1,74 @@
+name: 'quickbooks_source_integration_tests'
+version: '0.10.1'
+
+
+profile: 'integration_tests'
+config-version: 2
+
+models:
+  quickbooks_source:
+    materialized: table
+    tmp:
+      materialized: view
+      
+vars:
+  quickbooks_source:
+    quickbooks_schema: quickbooks_source_integrations_tests
+    quickbooks_account_identifier: "account_data"
+    quickbooks_address_identifier: "address_data"
+    quickbooks_bill_line_identifier: "bill_line_data"
+    quickbooks_bill_linked_txn_identifier: "bill_linked_txn_data"
+    quickbooks_bill_payment_line_identifier: "bill_payment_line_data"
+    quickbooks_bill_payment_identifier: "bill_payment_data"
+    quickbooks_bill_identifier: "bill_data"
+    quickbooks_bundle_item_identifier: "bundle_item_data"
+    quickbooks_bundle_identifier: "bundle_data"
+    quickbooks_credit_card_payment_txn_identifier: "credit_card_payment_txn_data"
+    quickbooks_credit_memo_identifier: "credit_memo_data"
+    quickbooks_credit_memo_line_identifier: "credit_memo_line_data"
+    quickbooks_customer_identifier: "customer_data"
+    quickbooks_department_identifier: "department_data"
+    quickbooks_deposit_line_identifier: "deposit_line_data"
+    quickbooks_deposit_identifier: "deposit_data"
+    quickbooks_estimate_identifier: "estimate_data"
+    quickbooks_estimate_line_identifier: "estimate_line_data"
+    quickbooks_invoice_identifier: "invoice_data"
+    quickbooks_invoice_line_identifier: "invoice_line_data"
+    quickbooks_invoice_line_bundle_identifier: "invoice_line_bundle_data"
+    quickbooks_invoice_linked_txn_identifier: "invoice_linked_txn_data"
+    quickbooks_item_identifier: "item_data"
+    quickbooks_journal_entry_line_identifier: "journal_entry_line_data"
+    quickbooks_journal_entry_identifier: "journal_entry_data"
+    quickbooks_payment_identifier: "payment_data"
+    quickbooks_payment_line_identifier: "payment_line_data"
+    quickbooks_purchase_line_identifier: "purchase_line_data"
+    quickbooks_purchase_order_identifier: "purchase_order_data"
+    quickbooks_purchase_order_line_identifier: "purchase_order_line_data"
+    quickbooks_purchase_order_linked_txn_identifier: "purchase_order_linked_txn_data"
+    quickbooks_purchase_identifier: "purchase_data"
+    quickbooks_refund_receipt_line_identifier: "refund_receipt_line_data"
+    quickbooks_refund_receipt_identifier: "refund_receipt_data"
+    quickbooks_sales_receipt_line_identifier: "sales_receipt_line_data"
+    quickbooks_sales_receipt_identifier: "sales_receipt_data"
+    quickbooks_transfer_identifier: "transfer_data"    
+    quickbooks_vendor_credit_line_identifier: "vendor_credit_line_data"
+    quickbooks_vendor_credit_identifier: "vendor_credit_data"
+    quickbooks_vendor_identifier: "vendor_data"
+
+    using_purchase_order: True
+    using_credit_card_payment_txn: True
+    
+seeds:
+  quickbooks_source_integration_tests:
+    +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+    +column_types:
+      transaction_date: date
+      due_date: date
+clean-targets:
+- target
+- dbt_modules
+- dbt_packages
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']

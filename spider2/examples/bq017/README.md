@@ -1,0 +1,1 @@
+1. please query `spider2-public-data.geo_openstreetmap` database to solve this problem.

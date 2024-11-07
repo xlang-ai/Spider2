@@ -1,0 +1,55 @@
+table_name,description,DDL
+BIKESHARE_STATION_STATUS,,"create or replace TABLE BIKESHARE_STATION_STATUS (
+	""station_id"" VARCHAR(16777216),
+	""num_bikes_available"" NUMBER(38,0),
+	""num_bikes_disabled"" NUMBER(38,0),
+	""num_docks_available"" NUMBER(38,0),
+	""num_docks_disabled"" NUMBER(38,0),
+	""is_installed"" BOOLEAN,
+	""is_renting"" BOOLEAN,
+	""is_returning"" BOOLEAN,
+	""last_reported"" NUMBER(38,0),
+	""num_ebikes_available"" NUMBER(38,0),
+	""eightd_has_available_keys"" BOOLEAN
+);"
+BIKESHARE_REGIONS,,"create or replace TABLE BIKESHARE_REGIONS (
+	""region_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+BIKESHARE_STATION_INFO,,"create or replace TABLE BIKESHARE_STATION_INFO (
+	""station_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""short_name"" VARCHAR(16777216),
+	""lat"" FLOAT,
+	""lon"" FLOAT,
+	""region_id"" NUMBER(38,0),
+	""rental_methods"" VARCHAR(16777216),
+	""capacity"" NUMBER(38,0),
+	""external_id"" VARCHAR(16777216),
+	""eightd_has_key_dispenser"" BOOLEAN,
+	""has_kiosk"" BOOLEAN,
+	""station_geom"" BINARY(8388608)
+);"
+BIKESHARE_TRIPS,,"create or replace TABLE BIKESHARE_TRIPS (
+	""trip_id"" VARCHAR(16777216),
+	""duration_sec"" NUMBER(38,0),
+	""start_date"" NUMBER(38,0),
+	""start_station_name"" VARCHAR(16777216),
+	""start_station_id"" NUMBER(38,0),
+	""end_date"" NUMBER(38,0),
+	""end_station_name"" VARCHAR(16777216),
+	""end_station_id"" NUMBER(38,0),
+	""bike_number"" NUMBER(38,0),
+	""zip_code"" VARCHAR(16777216),
+	""subscriber_type"" VARCHAR(16777216),
+	""c_subscription_type"" VARCHAR(16777216),
+	""start_station_latitude"" FLOAT,
+	""start_station_longitude"" FLOAT,
+	""end_station_latitude"" FLOAT,
+	""end_station_longitude"" FLOAT,
+	""member_birth_year"" NUMBER(38,0),
+	""member_gender"" VARCHAR(16777216),
+	""bike_share_for_all_trip"" VARCHAR(16777216),
+	""start_station_geom"" BINARY(8388608),
+	""end_station_geom"" BINARY(8388608)
+);"

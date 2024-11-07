@@ -1,0 +1,103 @@
+table_name,DDL
+Agents,"CREATE TABLE Agents (
+    AgentID INT,
+    AgtFirstName nvarchar (25),
+    AgtLastName nvarchar (25),
+    AgtStreetAddress nvarchar (50),
+    AgtCity nvarchar (30),
+    AgtState nvarchar (2),
+    AgtZipCode nvarchar (10),
+    AgtPhoneNumber nvarchar (15),
+    DateHired date,
+    Salary decimal(15, 2),
+    CommissionRate float(24)
+);"
+Customers,"CREATE TABLE Customers (
+    CustomerID INT,
+    CustFirstName nvarchar (25),
+    CustLastName nvarchar (25),
+    CustStreetAddress nvarchar (50),
+    CustCity nvarchar (30),
+    CustState nvarchar (2),
+    CustZipCode nvarchar (10),
+    CustPhoneNumber nvarchar (15)
+);"
+Engagements,"CREATE TABLE Engagements (
+    EngagementNumber INT,
+    StartDate date,
+    EndDate date,
+    StartTime time,
+    StopTime time,
+    ContractPrice decimal(15, 2),
+    CustomerID INT,
+    AgentID INT,
+    EntertainerID INT
+);"
+Entertainer_Members,"CREATE TABLE Entertainer_Members (
+    EntertainerID INT,
+    MemberID INT,
+    Status smallint
+);"
+Entertainer_Styles,"CREATE TABLE Entertainer_Styles (
+    EntertainerID INT,
+    StyleID smallint,
+    StyleStrength smallint
+);"
+Entertainers,"CREATE TABLE Entertainers (
+    EntertainerID INT,
+    EntStageName nvarchar (50),
+    EntSSN nvarchar (12),
+    EntStreetAddress nvarchar (50),
+    EntCity nvarchar (30),
+    EntState nvarchar (2),
+    EntZipCode nvarchar (10),
+    EntPhoneNumber nvarchar (15),
+    EntWebPage nvarchar (50),
+    EntEMailAddress nvarchar (50),
+    DateEntered date
+);"
+Members,"CREATE TABLE Members (
+    MemberID INT,
+    MbrFirstName nvarchar (25),
+    MbrLastName nvarchar (25),
+    MbrPhoneNumber nvarchar (15),
+    Gender nvarchar (2)
+);"
+Musical_Preferences,"CREATE TABLE Musical_Preferences (
+    CustomerID INT,
+    StyleID smallint,
+    PreferenceSeq smallint
+);"
+Musical_Styles,"CREATE TABLE Musical_Styles (
+    StyleID smallint,
+    StyleName nvarchar (75)
+);"
+ztblDays,"CREATE TABLE ztblDays (
+    DateField date
+);"
+ztblMonths,"CREATE TABLE ztblMonths (
+    MonthYear nvarchar (15),
+    YearNumber smallint,
+    MonthNumber smallint,
+    MonthStart date,
+    MonthEnd date,
+    January smallint,
+    February smallint,
+    March smallint,
+    April smallint,
+    May smallint,
+    June smallint,
+    July smallint,
+    August smallint,
+    September smallint,
+    October smallint,
+    November smallint,
+    December smallint
+);"
+ztblSkipLabels,"CREATE TABLE ztblSkipLabels (
+    LabelCount INT
+);"
+ztblWeeks,"CREATE TABLE ztblWeeks (
+    WeekStart date,
+    WeekEnd date
+);"

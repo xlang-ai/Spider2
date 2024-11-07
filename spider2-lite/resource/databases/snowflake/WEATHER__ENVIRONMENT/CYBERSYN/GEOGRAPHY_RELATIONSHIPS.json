@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "GEO_NAME": "New York-Newark-Jersey City, NY-NJ-PA Metro Area",
+            "GEO_ID": "geoId/C35620",
+            "LEVEL": "CensusCoreBasedStatisticalArea",
+            "RELATED_GEO_NAME": "Census Tract 972.06, Queens, New York",
+            "RELATED_GEO_ID": "geoId/36081097206",
+            "RELATED_LEVEL": "CensusTract",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "24580377",
+            "GEO_ID": "statcanId/S051224580377",
+            "LEVEL": "DisseminationArea",
+            "RELATED_GEO_NAME": "Brossard",
+            "RELATED_GEO_ID": "statcanId/A00052458007",
+            "RELATED_LEVEL": "CensusSubdivision",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "Block Group 3, Census Tract 5459, Wayne County, Michigan",
+            "GEO_ID": "censusBlockGroup/261635459003",
+            "LEVEL": "CensusBlockGroup",
+            "RELATED_GEO_NAME": "Census Tract 5459, Wayne County, Michigan",
+            "RELATED_GEO_ID": "geoId/26163545900",
+            "RELATED_LEVEL": "CensusTract",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "Census Tract 9015.01, Prince William County, Virginia",
+            "GEO_ID": "geoId/51153901501",
+            "LEVEL": "CensusTract",
+            "RELATED_GEO_NAME": "Northern America",
+            "RELATED_GEO_ID": "countrySubRegion/021",
+            "RELATED_LEVEL": "CountrySubRegion",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "70506",
+            "GEO_ID": "zip/70506",
+            "LEVEL": "CensusZipCodeTabulationArea",
+            "RELATED_GEO_NAME": "Census Tract 18.02, Lafayette Parish, Louisiana",
+            "RELATED_GEO_ID": "geoId/22055001802",
+            "RELATED_LEVEL": "CensusTract",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        }
+    ],
+    "table_name": "GEOGRAPHY_RELATIONSHIPS",
+    "table_fullname": "WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_RELATIONSHIPS",
+    "column_names": [
+        "RELATED_GEO_NAME",
+        "RELATED_GEO_ID",
+        "RELATED_LEVEL",
+        "RELATIONSHIP_TYPE",
+        "GEO_ID",
+        "LEVEL",
+        "GEO_NAME"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Name of the place related to GEO_NAME. This is a place that overlaps or is contained within the primary geo (e.g., city within a state)",
+        "A unique identifier for the related place joinable to the GEOGRAPHY_INDEX table",
+        "Geographic level or hierarchy of the related place (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "Relationship between the two places. Contains means the RELATED_GEO_ID is fully contained within the GEO_ID (e.g., relationship of state to a city) while Overlaps indicates the GEO_ID is a subpart of the RELATED_GEO_ID (e.g., relationship of city to a state)",
+        "A unique identifier for a place joinable to the GEOGRAPHY_INDEX table",
+        "Geographic level or hierarchy (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "Full name of the place"
+    ]
+}

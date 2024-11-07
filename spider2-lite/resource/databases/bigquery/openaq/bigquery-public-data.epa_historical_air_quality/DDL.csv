@@ -1,0 +1,1069 @@
+table_name,ddl
+pressure_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pressure_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+no2_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.no2_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+lead_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.lead_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pressure_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pressure_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm10_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm10_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_frm_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_frm_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+voc_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.voc_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+co_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.co_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+nonoxnoy_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.nonoxnoy_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+temperature_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.temperature_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+o3_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.o3_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+no2_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.no2_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+air_quality_annual_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.air_quality_annual_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the 'Parameter Occurrence Code' used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  metric_used STRING OPTIONS(description=""The base metric used in the calculation of the aggregate statistics presented in the remainder of the row. For example, if this is Daily Maximum, then the value in the Mean column is the mean of the daily maximums.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  year INT64 OPTIONS(description=""The year the annual summary data represents.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the year.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the year. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  completeness_indicator STRING OPTIONS(description=""An indication of whether the regulatory data completeness criteria for valid summary data have been met by the monitor for the year. Y means yes, N means no or that there are no regulatory completeness criteria for the parameter.""),
+  valid_day_count INT64 OPTIONS(description=""The number of days during the year where the daily monitoring criteria were met, if the calculation of the summaries is based on valid days.""),
+  required_day_count INT64 OPTIONS(description=""The number of days during the year which the monitor was scheduled to take samples if measurements are required.""),
+  exceptional_data_count INT64 OPTIONS(description=""The number of data points in the annual data set affected by exceptional air quality events (things outside the norm that affect air quality).""),
+  null_data_count INT64 OPTIONS(description=""The count of scheduled samples when no data was collected and the reason for no data was reported.""),
+  primary_exceedance_count INT64 OPTIONS(description=""The number of samples during the year that exceeded the primary air quality standard.""),
+  secondary_exceedance_count INT64 OPTIONS(description=""The number of samples during the year that exceeded the secondary air quality standard.""),
+  certification_indicator STRING OPTIONS(description=""An indication whether the completeness and accuracy of the information on the annual summary record has been certified by the submitter. Certified means the submitter has certified the data (due May 01 the year after collection). Certification not required means that the parameter does not require certification or the deadline has not yet passed. Uncertified (past due) means that certification is required but is overdue. Requested but not yet concurred means the submitter has completed the process, but EPA has not yet acted to certify the data. Requested but denied means the submitter has completed the process, but EPA has denied the request for cause. Was certified but data changed means the data was certified but data was replaced and the process has not been repeated.""),
+  num_obs_below_mdl INT64 OPTIONS(description=""The number of samples reported during the year that were below the method detection limit (MDL) for the monitoring instrument. Sometimes these values are replaced by 1/2 the MDL in summary calculations.""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the year.""),
+  arithmetic_standard_dev FLOAT64 OPTIONS(description=""The standard deviation about the mean of the values for the year.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the year.""),
+  first_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the highest value for the year (the previous field) was taken.""),
+  second_max_value FLOAT64 OPTIONS(description=""The second highest value for the year.""),
+  second_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the second highest value for the year (the previous field) was taken.""),
+  third_max_value FLOAT64 OPTIONS(description=""The third highest value for the year.""),
+  third_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the third highest value for the year (the previous field) was taken.""),
+  fourth_max_value FLOAT64 OPTIONS(description=""The fourth highest value for the year.""),
+  fourth_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the fourth highest value for the year (the previous field) was taken.""),
+  first_max_non_overlapping_value FLOAT64 OPTIONS(description=""For 8-hour CO averages, the highest value of the year.""),
+  first_no_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the first maximum non overlapping value for the year (the previous field) was taken.""),
+  second_max_non_overlapping_value FLOAT64 OPTIONS(description=""For 8-hour CO averages, the second highest value of the year that does not share any hours with the 8-hour period of the first max non overlapping value.""),
+  second_no_max_datetime TIMESTAMP OPTIONS(description=""The date and time (on a 24-hour clock) when the second maximum non overlapping value for the year (the previous field) was taken.""),
+  ninety_nine_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 99 per cent of the rest of the measured values for the year are equal to or less than.""),
+  ninety_eight_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 98 per cent of the rest of the measured values for the year are equal to or less than.""),
+  ninety_five_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 95 per cent of the rest of the measured values for the year are equal to or less than.""),
+  ninety_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 90 per cent of the rest of the measured values for the year are equal to or less than.""),
+  seventy_five_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 75 per cent of the rest of the measured values for the year are equal to or less than.""),
+  fifty_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 50 per cent of the rest of the measured values for the year are equal to or less than (i.e., the median).""),
+  ten_percentile FLOAT64 OPTIONS(description=""The value from this monitor for which 10 per cent of the rest of the measured values for the year are equal to or less than.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+so2_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.so2_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+o3_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.o3_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+so2_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.so2_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_speciation_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_speciation_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+wind_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.wind_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_nonfrm_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_nonfrm_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+rh_and_dp_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.rh_and_dp_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm10_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm10_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+voc_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.voc_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+hap_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.hap_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_speciation_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_speciation_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+co_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.co_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_nonfrm_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_nonfrm_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+temperature_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.temperature_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+wind_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.wind_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+nonoxnoy_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.nonoxnoy_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+hap_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.hap_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+rh_and_dp_hourly_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.rh_and_dp_hourly_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  time_local STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Local Standard Time.""),
+  date_gmt DATE OPTIONS(description=""The calendar date of the sample in Greenwich Mean Time.""),
+  time_gmt STRING OPTIONS(description=""The time of day that sampling began on a 24-hour clock in Greenwich Mean Time.""),
+  sample_measurement FLOAT64 OPTIONS(description=""The measured value in the standard units of measure for the parameter.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  mdl FLOAT64 OPTIONS(description=""The Method Detection Limit. The minimum sample concentration detectable for the monitor and method. Note: if samples are reported below this level, they may have been replaced by 1/2 the MDL.""),
+  uncertainty FLOAT64 OPTIONS(description=""The total measurement uncertainty associated with a reported measurement as indicated by the reporting agency.""),
+  qualifier STRING OPTIONS(description=""Sample values may have qualifiers that indicate why they are missing or that they are out of the ordinary. Types of qualifiers are: null data, exceptional event, natural events, and quality assurance. The highest ranking qualifier, if any, is described in this field.""),
+  method_type STRING OPTIONS(description=""An indication of whether the method used to collect the data is a federal reference method (FRM), equivalent to a federal reference method, an approved regional method, or none of the above (non-federal reference method).""),
+  method_code STRING OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+)
+OPTIONS(
+  description=""""
+);"
+pm25_frm_daily_summary,"CREATE TABLE `bigquery-public-data.epa_historical_air_quality.pm25_frm_daily_summary`
+(
+  state_code STRING OPTIONS(description=""The FIPS code of the state in which the monitor resides.""),
+  county_code STRING OPTIONS(description=""The FIPS code of the county in which the monitor resides.""),
+  site_num STRING OPTIONS(description=""A unique number within the county identifying the site.""),
+  parameter_code INT64 OPTIONS(description=""The AQS code corresponding to the parameter measured by the monitor.""),
+  poc INT64 OPTIONS(description=""This is the “Parameter Occurrence Code” used to distinguish different instruments that measure the same parameter at the same site.""),
+  latitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance north of the equator measured in decimal degrees.""),
+  longitude FLOAT64 OPTIONS(description=""The monitoring site’s angular distance east of the prime meridian measured in decimal degrees.""),
+  datum STRING OPTIONS(description=""The Datum associated with the Latitude and Longitude measures.""),
+  parameter_name STRING OPTIONS(description=""The name or description assigned in AQS to the parameter measured by the monitor. Parameters may be pollutants or non-pollutants.""),
+  sample_duration STRING OPTIONS(description=""The length of time that air passes through the monitoring device before it is analyzed (measured). So, it represents an averaging period in the atmosphere (for example, a 24-hour sample duration draws ambient air over a collection filter for 24 straight hours). For continuous monitors, it can represent an averaging time of many samples (for example, a 1-hour value may be the average of four one-minute samples collected during each quarter of the hour).""),
+  pollutant_standard STRING OPTIONS(description=""A description of the ambient air quality standard rules used to aggregate statistics. (See description at beginning of document.)""),
+  date_local DATE OPTIONS(description=""The calendar date for the summary. All daily summaries are for the local standard day (midnight to midnight) at the monitor.""),
+  units_of_measure STRING OPTIONS(description=""The unit of measure for the parameter. QAD always returns data in the standard units for the parameter. Submitters are allowed to report data in any unit and EPA converts to a standard unit so that we may use the data in calculations.""),
+  event_type STRING OPTIONS(description=""Indicates whether data measured during exceptional events are included in the summary. A wildfire is an example of an exceptional event; it is something that affects air quality, but the local agency has no control over. No Events means no events occurred. Events Included means events occurred and the data from them is included in the summary. Events Excluded means that events occurred but data form them is excluded from the summary. Concurred Events Excluded means that events occurred but only EPA concurred exclusions are removed from the summary. If an event occurred for the parameter in question, the data will have multiple records for each monitor.""),
+  observation_count INT64 OPTIONS(description=""The number of observations (samples) taken during the day.""),
+  observation_percent FLOAT64 OPTIONS(description=""The percent representing the number of observations taken with respect to the number scheduled to be taken during the day. This is only calculated for monitors where measurements are required (e.g., only certain parameters).""),
+  arithmetic_mean FLOAT64 OPTIONS(description=""The average (arithmetic mean) value for the day.""),
+  first_max_value FLOAT64 OPTIONS(description=""The highest value for the day.""),
+  first_max_hour INT64 OPTIONS(description=""The hour (on a 24-hour clock) when the highest value for the day (the previous field) was taken.""),
+  aqi INT64 OPTIONS(description=""The Air Quality Index for the day for the pollutant, if applicable.""),
+  method_code INT64 OPTIONS(description=""An internal system code indicating the method (processes, equipment, and protocols) used in gathering and measuring the sample. The method name is in the next column.""),
+  method_name STRING OPTIONS(description=""A short description of the processes, equipment, and protocols used in gathering and measuring the sample.""),
+  local_site_name STRING OPTIONS(description=""The name of the site (if any) given by the State, local, or tribal air pollution control agency that operates it.""),
+  address STRING OPTIONS(description=""The approximate street address of the monitoring site.""),
+  state_name STRING OPTIONS(description=""The name of the state where the monitoring site is located.""),
+  county_name STRING OPTIONS(description=""The name of the county where the monitoring site is located.""),
+  city_name STRING OPTIONS(description=""The name of the city where the monitoring site is located. This represents the legal incorporated boundaries of cities and not urban areas.""),
+  cbsa_name STRING OPTIONS(description=""The name of the core bases statistical area (metropolitan area) where the monitoring site is located.""),
+  date_of_last_change DATE OPTIONS(description=""The date the last time any numeric values in this record were updated in the AQS data system."")
+);"

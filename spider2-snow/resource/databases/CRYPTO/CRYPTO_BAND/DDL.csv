@@ -1,0 +1,95 @@
+table_name,description,DDL
+BLOCKS,,"create or replace TABLE BLOCKS (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" VARCHAR(16777216),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216),
+	""proposer_address"" VARCHAR(16777216),
+	""last_commit_hash"" VARCHAR(16777216),
+	""data_hash"" VARCHAR(16777216),
+	""validators_hash"" VARCHAR(16777216),
+	""next_validators_hash"" VARCHAR(16777216),
+	""consensus_hash"" VARCHAR(16777216),
+	""app_hash"" VARCHAR(16777216),
+	""last_results_hash"" VARCHAR(16777216),
+	""evidence_hash"" VARCHAR(16777216),
+	""signatures"" VARIANT
+);"
+ORACLE_REQUESTS,,"create or replace TABLE ORACLE_REQUESTS (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" VARCHAR(16777216),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""oracle_request_id"" NUMBER(38,0),
+	""request"" VARIANT,
+	""reports"" VARIANT,
+	""result"" VARIANT,
+	""decoded_result"" VARIANT,
+	""oracle_script"" VARIANT
+);"
+ERRORS,,"create or replace TABLE ERRORS (
+	""tableRow"" VARCHAR(16777216),
+	""errors"" VARCHAR(16777216)
+);"
+LOGS,,"create or replace TABLE LOGS (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""txhash"" VARCHAR(16777216),
+	""log_index"" NUMBER(38,0),
+	""msg_index"" NUMBER(38,0),
+	""log"" VARCHAR(16777216),
+	""events"" VARIANT
+);"
+MESSAGES,,"create or replace TABLE MESSAGES (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" VARCHAR(16777216),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""txhash"" VARCHAR(16777216),
+	""message_type"" VARCHAR(16777216),
+	""oracle_Activate"" VARIANT,
+	""oracle_AddReporter"" VARIANT,
+	""oracle_CreateDataSource"" VARIANT,
+	""oracle_CreateOracleScript"" VARIANT,
+	""oracle_EditDataSource"" VARIANT,
+	""oracle_EditOracleScript"" VARIANT,
+	""oracle_Report"" VARIANT,
+	""oracle_Request"" VARIANT,
+	""cosmos_sdk_MsgDelegate"" VARIANT,
+	""cosmos_sdk_MsgEditValidator"" VARIANT,
+	""cosmos_sdk_MsgMultiSend"" VARIANT,
+	""cosmos_sdk_MsgSend"" VARIANT,
+	""oracle_RemoveReporter"" VARIANT,
+	""cosmos_sdk_MsgBeginRedelegate"" VARIANT,
+	""cosmos_sdk_MsgCreateValidator"" VARIANT,
+	""cosmos_sdk_MsgDeposit"" VARIANT,
+	""cosmos_sdk_MsgFundCommunityPool"" VARIANT,
+	""cosmos_sdk_MsgModifyWithdrawAddress"" VARIANT,
+	""cosmos_sdk_MsgSubmitEvidence"" VARIANT,
+	""cosmos_sdk_MsgSubmitProposal"" VARIANT,
+	""cosmos_sdk_MsgUndelegate"" VARIANT,
+	""cosmos_sdk_MsgUnjail"" VARIANT,
+	""cosmos_sdk_MsgVerifyInvariant"" VARIANT,
+	""cosmos_sdk_MsgVote"" VARIANT,
+	""cosmos_sdk_MsgWithdrawDelegationReward"" VARIANT,
+	""cosmos_sdk_MsgWithdrawValidatorCommission"" VARIANT
+);"
+BLOCK_EVENTS,,"create or replace TABLE BLOCK_EVENTS (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" VARCHAR(16777216),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""event_type"" VARCHAR(16777216),
+	""block_event_type"" VARCHAR(16777216),
+	""attributes"" VARIANT
+);"
+TRANSACTIONS,,"create or replace TABLE TRANSACTIONS (
+	""block_height"" NUMBER(38,0),
+	""block_timestamp"" VARCHAR(16777216),
+	""block_timestamp_truncated"" NUMBER(38,0),
+	""txhash"" VARCHAR(16777216),
+	""transaction_type"" VARCHAR(16777216),
+	""gas_wanted"" NUMBER(38,9),
+	""gas_used"" NUMBER(38,9),
+	""sender"" VARCHAR(16777216),
+	""fee"" VARIANT,
+	""memo"" VARCHAR(16777216)
+);"

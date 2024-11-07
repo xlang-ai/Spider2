@@ -1,0 +1,431 @@
+table_name,description,DDL
+APPLICATION_DELIVERYMETHODS,,"create or replace TABLE APPLICATION_DELIVERYMETHODS (
+	""DeliveryMethodID"" NUMBER(38,0),
+	""DeliveryMethodName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_CUSTOMERTRANSACTIONS,,"create or replace TABLE SALES_CUSTOMERTRANSACTIONS (
+	""CustomerTransactionID"" NUMBER(38,0),
+	""CustomerID"" NUMBER(38,0),
+	""TransactionTypeID"" NUMBER(38,0),
+	""InvoiceID"" FLOAT,
+	""PaymentMethodID"" FLOAT,
+	""TransactionDate"" VARCHAR(16777216),
+	""AmountExcludingTax"" FLOAT,
+	""TaxAmount"" FLOAT,
+	""TransactionAmount"" FLOAT,
+	""OutstandingBalance"" FLOAT,
+	""FinalizationDate"" VARCHAR(16777216),
+	""IsFinalized"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" VARCHAR(16777216)
+);"
+SALES_ORDERLINES,,"create or replace TABLE SALES_ORDERLINES (
+	""OrderLineID"" NUMBER(38,0),
+	""OrderID"" NUMBER(38,0),
+	""StockItemID"" NUMBER(38,0),
+	""Description"" VARCHAR(16777216),
+	""PackageTypeID"" NUMBER(38,0),
+	""Quantity"" NUMBER(38,0),
+	""UnitPrice"" FLOAT,
+	""TaxRate"" FLOAT,
+	""PickedQuantity"" NUMBER(38,0),
+	""PickingCompletedWhen"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+WAREHOUSE_STOCKITEMSTOCKGROUPS,,"create or replace TABLE WAREHOUSE_STOCKITEMSTOCKGROUPS (
+	""StockItemStockGroupID"" NUMBER(38,0),
+	""StockItemID"" NUMBER(38,0),
+	""StockGroupID"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+WAREHOUSE_VEHICLETEMPERATURES,,"create or replace TABLE WAREHOUSE_VEHICLETEMPERATURES (
+	""VehicleTemperatureID"" NUMBER(38,0),
+	""VehicleRegistration"" VARCHAR(16777216),
+	""ChillerSensorNumber"" NUMBER(38,0),
+	""RecordedWhen"" NUMBER(38,0),
+	""Temperature"" FLOAT,
+	""FullSensorData"" VARCHAR(16777216),
+	""IsCompressed"" NUMBER(38,0),
+	""CompressedSensorData"" VARCHAR(16777216)
+);"
+PURCHASING_SUPPLIERCATEGORIES,,"create or replace TABLE PURCHASING_SUPPLIERCATEGORIES (
+	""SupplierCategoryID"" NUMBER(38,0),
+	""SupplierCategoryName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+APPLICATION_PAYMENTMETHODS,,"create or replace TABLE APPLICATION_PAYMENTMETHODS (
+	""PaymentMethodID"" NUMBER(38,0),
+	""PaymentMethodName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+APPLICATION_PEOPLE,,"create or replace TABLE APPLICATION_PEOPLE (
+	""PersonID"" NUMBER(38,0),
+	""FullName"" VARCHAR(16777216),
+	""PreferredName"" VARCHAR(16777216),
+	""SearchName"" VARCHAR(16777216),
+	""IsPermittedToLogon"" NUMBER(38,0),
+	""LogonName"" VARCHAR(16777216),
+	""IsExternalLogonProvider"" NUMBER(38,0),
+	""HashedPassword"" VARCHAR(16777216),
+	""IsSystemUser"" NUMBER(38,0),
+	""IsEmployee"" NUMBER(38,0),
+	""IsSalesperson"" NUMBER(38,0),
+	""UserPreferences"" VARCHAR(16777216),
+	""PhoneNumber"" VARCHAR(16777216),
+	""FaxNumber"" VARCHAR(16777216),
+	""EmailAddress"" VARCHAR(16777216),
+	""Photo"" VARCHAR(16777216),
+	""CustomFields"" VARCHAR(16777216),
+	""OtherLanguages"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+APPLICATION_SYSTEMPARAMETERS,,"create or replace TABLE APPLICATION_SYSTEMPARAMETERS (
+	""SystemParameterID"" NUMBER(38,0),
+	""DeliveryAddressLine1"" VARCHAR(16777216),
+	""DeliveryAddressLine2"" VARCHAR(16777216),
+	""DeliveryCityID"" NUMBER(38,0),
+	""DeliveryPostalCode"" NUMBER(38,0),
+	""DeliveryLocation"" VARCHAR(16777216),
+	""PostalAddressLine1"" VARCHAR(16777216),
+	""PostalAddressLine2"" VARCHAR(16777216),
+	""PostalCityID"" NUMBER(38,0),
+	""PostalPostalCode"" NUMBER(38,0),
+	""ApplicationSettings"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" VARCHAR(16777216)
+);"
+SALES_BUYINGGROUPS,,"create or replace TABLE SALES_BUYINGGROUPS (
+	""BuyingGroupID"" NUMBER(38,0),
+	""BuyingGroupName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_CUSTOMERCATEGORIES,,"create or replace TABLE SALES_CUSTOMERCATEGORIES (
+	""CustomerCategoryID"" NUMBER(38,0),
+	""CustomerCategoryName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_CUSTOMERS,,"create or replace TABLE SALES_CUSTOMERS (
+	""CustomerID"" NUMBER(38,0),
+	""CustomerName"" VARCHAR(16777216),
+	""BillToCustomerID"" NUMBER(38,0),
+	""CustomerCategoryID"" NUMBER(38,0),
+	""BuyingGroupID"" VARCHAR(16777216),
+	""PrimaryContactPersonID"" NUMBER(38,0),
+	""AlternateContactPersonID"" VARCHAR(16777216),
+	""DeliveryMethodID"" NUMBER(38,0),
+	""DeliveryCityID"" NUMBER(38,0),
+	""PostalCityID"" NUMBER(38,0),
+	""CreditLimit"" VARCHAR(16777216),
+	""AccountOpenedDate"" DATE,
+	""StandardDiscountPercentage"" FLOAT,
+	""IsStatementSent"" NUMBER(38,0),
+	""IsOnCreditHold"" NUMBER(38,0),
+	""PaymentDays"" NUMBER(38,0),
+	""PhoneNumber"" VARCHAR(16777216),
+	""FaxNumber"" VARCHAR(16777216),
+	""DeliveryRun"" VARCHAR(16777216),
+	""RunPosition"" VARCHAR(16777216),
+	""WebsiteURL"" VARCHAR(16777216),
+	""DeliveryAddressLine1"" VARCHAR(16777216),
+	""DeliveryAddressLine2"" VARCHAR(16777216),
+	""DeliveryPostalCode"" NUMBER(38,0),
+	""DeliveryLocation"" FLOAT,
+	""PostalAddressLine1"" VARCHAR(16777216),
+	""PostalAddressLine2"" VARCHAR(16777216),
+	""PostalPostalCode"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_INVOICES,,"create or replace TABLE SALES_INVOICES (
+	""InvoiceID"" NUMBER(38,0),
+	""CustomerID"" NUMBER(38,0),
+	""BillToCustomerID"" NUMBER(38,0),
+	""OrderID"" NUMBER(38,0),
+	""DeliveryMethodID"" NUMBER(38,0),
+	""ContactPersonID"" NUMBER(38,0),
+	""AccountsPersonID"" NUMBER(38,0),
+	""SalespersonPersonID"" NUMBER(38,0),
+	""PackedByPersonID"" NUMBER(38,0),
+	""InvoiceDate"" VARCHAR(16777216),
+	""CustomerPurchaseOrderNumber"" NUMBER(38,0),
+	""IsCreditNote"" NUMBER(38,0),
+	""CreditNoteReason"" FLOAT,
+	""Comments"" FLOAT,
+	""DeliveryInstructions"" VARCHAR(16777216),
+	""InternalComments"" FLOAT,
+	""TotalDryItems"" NUMBER(38,0),
+	""TotalChillerItems"" NUMBER(38,0),
+	""DeliveryRun"" FLOAT,
+	""RunPosition"" FLOAT,
+	""ReturnedDeliveryData"" VARCHAR(16777216),
+	""ConfirmedDeliveryTime"" VARCHAR(16777216),
+	""ConfirmedReceivedBy"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" VARCHAR(16777216)
+);"
+WAREHOUSE_STOCKITEMHOLDINGS,,"create or replace TABLE WAREHOUSE_STOCKITEMHOLDINGS (
+	""StockItemID"" NUMBER(38,0),
+	""QuantityOnHand"" NUMBER(38,0),
+	""BinLocation"" VARCHAR(16777216),
+	""LastStocktakeQuantity"" NUMBER(38,0),
+	""LastCostPrice"" FLOAT,
+	""ReorderLevel"" NUMBER(38,0),
+	""TargetStockLevel"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+WAREHOUSE_STOCKITEMS,,"create or replace TABLE WAREHOUSE_STOCKITEMS (
+	""StockItemID"" NUMBER(38,0),
+	""StockItemName"" VARCHAR(16777216),
+	""SupplierID"" NUMBER(38,0),
+	""ColorID"" VARCHAR(16777216),
+	""UnitPackageID"" NUMBER(38,0),
+	""OuterPackageID"" NUMBER(38,0),
+	""Brand"" VARCHAR(16777216),
+	""Size"" VARCHAR(16777216),
+	""LeadTimeDays"" NUMBER(38,0),
+	""QuantityPerOuter"" NUMBER(38,0),
+	""IsChillerStock"" NUMBER(38,0),
+	""Barcode"" VARCHAR(16777216),
+	""TaxRate"" FLOAT,
+	""UnitPrice"" FLOAT,
+	""RecommendedRetailPrice"" FLOAT,
+	""TypicalWeightPerUnit"" FLOAT,
+	""MarketingComments"" VARCHAR(16777216),
+	""InternalComments"" VARCHAR(16777216),
+	""Photo"" VARCHAR(16777216),
+	""CustomFields"" VARCHAR(16777216),
+	""Tags"" VARCHAR(16777216),
+	""SearchDetails"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+WAREHOUSE_STOCKGROUPS,,"create or replace TABLE WAREHOUSE_STOCKGROUPS (
+	""StockGroupID"" NUMBER(38,0),
+	""StockGroupName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_SPECIALDEALS,,"create or replace TABLE SALES_SPECIALDEALS (
+	""SpecialDealID"" NUMBER(38,0),
+	""StockItemID"" VARCHAR(16777216),
+	""CustomerID"" VARCHAR(16777216),
+	""BuyingGroupID"" NUMBER(38,0),
+	""CustomerCategoryID"" VARCHAR(16777216),
+	""StockGroupID"" NUMBER(38,0),
+	""DealDescription"" VARCHAR(16777216),
+	""StartDate"" DATE,
+	""EndDate"" DATE,
+	""DiscountAmount"" VARCHAR(16777216),
+	""DiscountPercentage"" FLOAT,
+	""UnitPrice"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+APPLICATION_COUNTRIES,,"create or replace TABLE APPLICATION_COUNTRIES (
+	""CountryID"" NUMBER(38,0),
+	""CountryName"" VARCHAR(16777216),
+	""FormalName"" VARCHAR(16777216),
+	""IsoAlpha3Code"" VARCHAR(16777216),
+	""IsoNumericCode"" NUMBER(38,0),
+	""CountryType"" VARCHAR(16777216),
+	""LatestRecordedPopulation"" NUMBER(38,0),
+	""Continent"" VARCHAR(16777216),
+	""Region"" VARCHAR(16777216),
+	""Subregion"" VARCHAR(16777216),
+	""Border"" FLOAT,
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+APPLICATION_STATEPROVINCES,,"create or replace TABLE APPLICATION_STATEPROVINCES (
+	""StateProvinceID"" NUMBER(38,0),
+	""StateProvinceCode"" VARCHAR(16777216),
+	""StateProvinceName"" VARCHAR(16777216),
+	""CountryID"" NUMBER(38,0),
+	""SalesTerritory"" VARCHAR(16777216),
+	""Border"" BINARY(8388608),
+	""LatestRecordedPopulation"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+APPLICATION_TRANSACTIONTYPES,,"create or replace TABLE APPLICATION_TRANSACTIONTYPES (
+	""TransactionTypeID"" NUMBER(38,0),
+	""TransactionTypeName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+PURCHASING_SUPPLIERS,,"create or replace TABLE PURCHASING_SUPPLIERS (
+	""SupplierID"" NUMBER(38,0),
+	""SupplierName"" VARCHAR(16777216),
+	""SupplierCategoryID"" NUMBER(38,0),
+	""PrimaryContactPersonID"" NUMBER(38,0),
+	""AlternateContactPersonID"" NUMBER(38,0),
+	""DeliveryMethodID"" VARCHAR(16777216),
+	""DeliveryCityID"" NUMBER(38,0),
+	""PostalCityID"" NUMBER(38,0),
+	""SupplierReference"" VARCHAR(16777216),
+	""BankAccountName"" VARCHAR(16777216),
+	""BankAccountBranch"" VARCHAR(16777216),
+	""BankAccountCode"" NUMBER(38,0),
+	""BankAccountNumber"" NUMBER(38,0),
+	""BankInternationalCode"" NUMBER(38,0),
+	""PaymentDays"" NUMBER(38,0),
+	""InternalComments"" VARCHAR(16777216),
+	""PhoneNumber"" VARCHAR(16777216),
+	""FaxNumber"" VARCHAR(16777216),
+	""WebsiteURL"" VARCHAR(16777216),
+	""DeliveryAddressLine1"" VARCHAR(16777216),
+	""DeliveryAddressLine2"" VARCHAR(16777216),
+	""DeliveryPostalCode"" NUMBER(38,0),
+	""DeliveryLocation"" FLOAT,
+	""PostalAddressLine1"" VARCHAR(16777216),
+	""PostalAddressLine2"" VARCHAR(16777216),
+	""PostalPostalCode"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+SALES_ORDERS,,"create or replace TABLE SALES_ORDERS (
+	""OrderID"" NUMBER(38,0),
+	""CustomerID"" NUMBER(38,0),
+	""SalespersonPersonID"" NUMBER(38,0),
+	""PickedByPersonID"" VARCHAR(16777216),
+	""ContactPersonID"" NUMBER(38,0),
+	""BackorderOrderID"" VARCHAR(16777216),
+	""OrderDate"" DATE,
+	""ExpectedDeliveryDate"" DATE,
+	""CustomerPurchaseOrderNumber"" NUMBER(38,0),
+	""IsUndersupplyBackordered"" NUMBER(38,0),
+	""Comments"" VARCHAR(16777216),
+	""DeliveryInstructions"" VARCHAR(16777216),
+	""InternalComments"" VARCHAR(16777216),
+	""PickingCompletedWhen"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+WAREHOUSE_COLORS,,"create or replace TABLE WAREHOUSE_COLORS (
+	""ColorID"" NUMBER(38,0),
+	""ColorName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+WAREHOUSE_STOCKITEMTRANSACTIONS,,"create or replace TABLE WAREHOUSE_STOCKITEMTRANSACTIONS (
+	""StockItemTransactionID"" NUMBER(38,0),
+	""StockItemID"" NUMBER(38,0),
+	""TransactionTypeID"" NUMBER(38,0),
+	""CustomerID"" FLOAT,
+	""InvoiceID"" FLOAT,
+	""SupplierID"" FLOAT,
+	""PurchaseOrderID"" FLOAT,
+	""TransactionOccurredWhen"" VARCHAR(16777216),
+	""Quantity"" FLOAT,
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" VARCHAR(16777216)
+);"
+PURCHASING_PURCHASEORDER,,"create or replace TABLE PURCHASING_PURCHASEORDER (
+	""PurchaseOrderID"" NUMBER(38,0),
+	""SupplierID"" NUMBER(38,0),
+	""OrderDate"" DATE,
+	""DeliveryMethodID"" NUMBER(38,0),
+	""ContactPersonID"" NUMBER(38,0),
+	""ExpectedDeliveryDate"" DATE,
+	""SupplierReference"" VARCHAR(16777216),
+	""IsOrderFinalized"" NUMBER(38,0),
+	""Comments"" VARCHAR(16777216),
+	""InternalComments"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+APPLICATION_CITIES,,"create or replace TABLE APPLICATION_CITIES (
+	""CityID"" NUMBER(38,0),
+	""CityName"" VARCHAR(16777216),
+	""StateProvinceID"" NUMBER(38,0),
+	""Location"" FLOAT,
+	""LatestRecordedPopulation"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+PURCHASING_PURCHASEORDERLINES,,"create or replace TABLE PURCHASING_PURCHASEORDERLINES (
+	""PurchaseOrderLineID"" NUMBER(38,0),
+	""PurchaseOrderID"" NUMBER(38,0),
+	""StockItemID"" NUMBER(38,0),
+	""OrderedOuters"" NUMBER(38,0),
+	""Description"" VARCHAR(16777216),
+	""ReceivedOuters"" NUMBER(38,0),
+	""PackageTypeID"" NUMBER(38,0),
+	""ExpectedUnitPricePerOuter"" FLOAT,
+	""LastReceiptDate"" VARCHAR(16777216),
+	""IsOrderLineFinalized"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+PURCHASING_SUPPLIERTRANSACTIONS,,"create or replace TABLE PURCHASING_SUPPLIERTRANSACTIONS (
+	""SupplierTransactionID"" NUMBER(38,0),
+	""SupplierID"" NUMBER(38,0),
+	""TransactionTypeID"" NUMBER(38,0),
+	""PurchaseOrderID"" VARCHAR(16777216),
+	""PaymentMethodID"" NUMBER(38,0),
+	""SupplierInvoiceNumber"" VARCHAR(16777216),
+	""TransactionDate"" DATE,
+	""AmountExcludingTax"" FLOAT,
+	""TaxAmount"" FLOAT,
+	""TransactionAmount"" FLOAT,
+	""OutstandingBalance"" FLOAT,
+	""FinalizationDate"" VARCHAR(16777216),
+	""IsFinalized"" NUMBER(38,0),
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+SALES_INVOICELINES,,"create or replace TABLE SALES_INVOICELINES (
+	""InvoiceLineID"" NUMBER(38,0),
+	""InvoiceID"" NUMBER(38,0),
+	""StockItemID"" NUMBER(38,0),
+	""Description"" VARCHAR(16777216),
+	""PackageTypeID"" NUMBER(38,0),
+	""Quantity"" NUMBER(38,0),
+	""UnitPrice"" FLOAT,
+	""TaxRate"" FLOAT,
+	""TaxAmount"" FLOAT,
+	""LineProfit"" FLOAT,
+	""ExtendedPrice"" FLOAT,
+	""LastEditedBy"" NUMBER(38,0),
+	""LastEditedWhen"" NUMBER(38,0)
+);"
+WAREHOUSE_COLDROOMTEMPERATURES,,"create or replace TABLE WAREHOUSE_COLDROOMTEMPERATURES (
+	""ColdRoomTemperatureID"" NUMBER(38,0),
+	""ColdRoomSensorNumber"" NUMBER(38,0),
+	""RecordedWhen"" NUMBER(38,0),
+	""Temperature"" FLOAT,
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"
+WAREHOUSE_PACKAGETYPES,,"create or replace TABLE WAREHOUSE_PACKAGETYPES (
+	""PackageTypeID"" NUMBER(38,0),
+	""PackageTypeName"" VARCHAR(16777216),
+	""LastEditedBy"" NUMBER(38,0),
+	""ValidFrom"" NUMBER(38,0),
+	""ValidTo"" NUMBER(38,0)
+);"

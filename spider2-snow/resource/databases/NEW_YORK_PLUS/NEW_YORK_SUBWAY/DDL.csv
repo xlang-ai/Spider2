@@ -1,0 +1,102 @@
+table_name,description,DDL
+STATIONS,,"create or replace TABLE STATIONS (
+	""station_id"" VARCHAR(16777216),
+	""complex_id"" VARCHAR(16777216),
+	""gtfs_stop_id"" VARCHAR(16777216),
+	""division"" VARCHAR(16777216),
+	""line"" VARCHAR(16777216),
+	""station_name"" VARCHAR(16777216),
+	""borough_name"" VARCHAR(16777216),
+	""daytime_routes"" VARCHAR(16777216),
+	""structure"" VARCHAR(16777216),
+	""north_direction_label"" VARCHAR(16777216),
+	""south_direction_label"" VARCHAR(16777216),
+	""station_lat"" FLOAT,
+	""station_lon"" FLOAT,
+	""station_geom"" BINARY(8388608)
+);"
+STATION_ENTRANCES,,"create or replace TABLE STATION_ENTRANCES (
+	""division"" VARCHAR(16777216),
+	""line"" VARCHAR(16777216),
+	""station_name"" VARCHAR(16777216),
+	""station_lat"" FLOAT,
+	""station_lon"" FLOAT,
+	""route_1"" VARCHAR(16777216),
+	""route_2"" VARCHAR(16777216),
+	""route_3"" VARCHAR(16777216),
+	""route_4"" VARCHAR(16777216),
+	""route_5"" VARCHAR(16777216),
+	""route_6"" VARCHAR(16777216),
+	""route_7"" VARCHAR(16777216),
+	""route_8"" VARCHAR(16777216),
+	""route_9"" VARCHAR(16777216),
+	""route_10"" VARCHAR(16777216),
+	""route_11"" VARCHAR(16777216),
+	""entrance_type"" VARCHAR(16777216),
+	""staff"" VARCHAR(16777216),
+	""staff_hours"" VARCHAR(16777216),
+	""ada_notes"" VARCHAR(16777216),
+	""free_crossover"" BOOLEAN,
+	""north_south_street"" VARCHAR(16777216),
+	""east_west_street"" VARCHAR(16777216),
+	""corner"" VARCHAR(16777216),
+	""entrance_lat"" FLOAT,
+	""entrance_lon"" FLOAT,
+	""entry"" BOOLEAN,
+	""exit_only"" BOOLEAN,
+	""vending"" BOOLEAN,
+	""ada_compliant"" BOOLEAN,
+	""station_geom"" BINARY(8388608),
+	""entrance_geom"" BINARY(8388608)
+);"
+GEO_NYC_BOROUGH_BOUNDARIES,,"create or replace TABLE GEO_NYC_BOROUGH_BOUNDARIES (
+	""borough_code"" VARCHAR(16777216),
+	""borough_name"" VARCHAR(16777216),
+	""borough_area"" FLOAT,
+	""borough_len"" FLOAT,
+	""borough_geom"" BINARY(8388608)
+);"
+STOP_TIMES,,"create or replace TABLE STOP_TIMES (
+	""trip_id"" VARCHAR(16777216),
+	""arrival_time"" VARCHAR(16777216),
+	""departure_time"" VARCHAR(16777216),
+	""stop_id"" VARCHAR(16777216),
+	""stop_sequence"" VARCHAR(16777216),
+	""stop_headsign"" VARCHAR(16777216),
+	""pickup_type"" VARCHAR(16777216),
+	""dropoff_type"" VARCHAR(16777216),
+	""shape_dist_traveled"" VARCHAR(16777216)
+);"
+ROUTES,,"create or replace TABLE ROUTES (
+	""route_id"" VARCHAR(16777216),
+	""route_short_name"" VARCHAR(16777216),
+	""route_long_name"" VARCHAR(16777216),
+	""route_describe"" VARCHAR(16777216),
+	""route_type"" VARCHAR(16777216)
+);"
+STATION_COMPLEXES,,"create or replace TABLE STATION_COMPLEXES (
+	""complex_id"" VARCHAR(16777216),
+	""complex_name"" VARCHAR(16777216)
+);"
+SUBWAY_RIDERSHIP_2013_PRESENT,,"create or replace TABLE SUBWAY_RIDERSHIP_2013_PRESENT (
+	""station_name"" VARCHAR(16777216),
+	""routes"" VARCHAR(16777216),
+	""ridership_2013"" NUMBER(38,0),
+	""ridership_2014"" NUMBER(38,0),
+	""ridership_2015"" NUMBER(38,0),
+	""ridership_2016"" NUMBER(38,0),
+	""ridership_2017"" NUMBER(38,0),
+	""ridership_2018"" NUMBER(38,0),
+	""change_2018_raw"" NUMBER(38,0),
+	""change_2018_percent"" FLOAT,
+	""rank_ridership_2018"" NUMBER(38,0)
+);"
+TRIPS,,"create or replace TABLE TRIPS (
+	""route_id"" VARCHAR(16777216),
+	""service_id"" VARCHAR(16777216),
+	""trip_id"" VARCHAR(16777216),
+	""trip_headsign"" VARCHAR(16777216),
+	""direction_id"" VARCHAR(16777216),
+	""block_id"" VARCHAR(16777216),
+	""shape_id"" VARCHAR(16777216)
+);"

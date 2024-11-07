@@ -1,0 +1,480 @@
+version: 2
+
+models:
+  - name: stg_apple_store__app
+    description: Table containing data about your application(s)
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - app_id
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: app_name
+        description: '{{ doc("app_name") }}'
+      - name: is_enabled
+        description: Boolean indicator for whether application is enabled or not.
+
+  - name: stg_apple_store__app_store_device
+    description: Daily app store metrics (impressions, impressions_unique_device, page_views and page_views_unique_device) by device and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - device
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: impressions
+        description: '{{ doc("impressions")}}'
+      - name: impressions_unique_device
+        description: '{{ doc("impressions_unique_device") }}'
+      - name: page_views
+        description: '{{ doc("page_views") }}'
+      - name: page_views_unique_device
+        description: '{{ doc("page_views_unique_device") }}'
+
+  - name: stg_apple_store__app_store_platform_version
+    description: Daily app store metrics (impressions, impressions_unique_device, page_views and page_views_unique_device) by platform version and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - platform_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: platform_version
+        description: '{{ doc("platform_version") }}'
+      - name: impressions
+        description: '{{ doc("impressions")}}'
+      - name: impressions_unique_device
+        description: '{{ doc("impressions_unique_device") }}'
+      - name: page_views
+        description: '{{ doc("page_views") }}'
+      - name: page_views_unique_device
+        description: '{{ doc("page_views_unique_device") }}'
+
+  - name: stg_apple_store__app_store_territory
+    description: Daily app store metrics (impressions, impressions_unique_device, page_views and page_views_unique_device) by territory and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - territory
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: territory
+        description: '{{ doc("territory") }}'
+      - name: impressions
+        description: '{{ doc("impressions")}}'
+      - name: impressions_unique_device
+        description: '{{ doc("impressions_unique_device") }}'
+      - name: page_views
+        description: '{{ doc("page_views") }}'
+      - name: page_views_unique_device
+        description: '{{ doc("page_views_unique_device") }}'
+
+  - name: stg_apple_store__crashes_app_version
+    description: Daily crashes by app version and device.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - device
+            - app_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: app_version
+        description: '{{ doc("app_version") }}'
+      - name: crashes
+        description: '{{ doc("crashes") }}'
+
+  - name: stg_apple_store__crashes_platform_version
+    description: Daily crashes by platform version and device.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - device
+            - platform_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: platform_version
+        description: '{{ doc("app_version") }}'
+      - name: crashes
+        description: '{{ doc("crashes") }}'
+
+  - name: stg_apple_store__downloads_device
+    description: Daily downloads metrics (first time downloads, redownloads and total downloads) by device and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - device
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: first_time_downloads
+        description: '{{ doc("first_time_downloads") }}'
+      - name: redownloads
+        description: '{{ doc("redownloads") }}'
+      - name: total_downloads
+        description: '{{ doc("total_downloads") }}'
+
+  - name: stg_apple_store__downloads_platform_version
+    description: Daily downloads metrics (first time downloads, redownloads and total downloads) by platform version and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - platform_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: platform_version
+        description: '{{ doc("platform_version") }}'
+      - name: first_time_downloads
+        description: '{{ doc("first_time_downloads") }}'
+      - name: redownloads
+        description: '{{ doc("redownloads") }}'
+      - name: total_downloads
+        description: '{{ doc("total_downloads") }}'
+
+  - name: stg_apple_store__downloads_territory
+    description: Daily downloads metrics (first time downloads, redownloads and total downloads) by territory and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - territory
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: territory
+        description: '{{ doc("territory") }}'
+      - name: first_time_downloads
+        description: '{{ doc("first_time_downloads") }}'
+      - name: redownloads
+        description: '{{ doc("redownloads") }}'
+      - name: total_downloads
+        description: '{{ doc("total_downloads") }}'
+
+  - name: stg_apple_store__sales_account
+    description: Table containing sales account data.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - account_id
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}" 
+      - name: account_id
+        description: '{{ doc("account_id") }}'
+      - name: account_name
+        description: '{{ doc("account_name")}}'
+
+  - name: stg_apple_store__sales_subscription_events
+    description: Daily subscription event report by account ID, app name, subscription name, event, country, state and device; this model is aggregated by date, app_name, account_id, country, state and subscription_name for easier transformations in the modeling package.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - account_id
+            - app_name
+            - subscription_name
+            - device
+            - event
+            - country
+            - state
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: account_id
+        description: '{{ doc("account_id") }}'
+      - name: app_name
+        description: '{{ doc("app_name") }}'
+      - name: subscription_name
+        description: '{{ doc("subscription_name") }}'
+      - name: event
+        description: '{{ doc("event") }}'
+      - name: country
+        description: '{{ doc("country") }}'
+      - name: state
+        description: '{{ doc("state") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: quantity
+        description: '{{ doc("quantity") }}'
+
+  - name: stg_apple_store__sales_subscription_summary
+    description: Daily subscription summary report by account ID, app name, country, state and subscription name; this model is aggregated by date, app_name, account_id, country, state and subscription_name for easier transformations in the modeling package.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - account_id
+            - app_name
+            - subscription_name
+            - device
+            - country
+            - state
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_name
+        description: '{{ doc("app_name") }}'
+      - name: account_id
+        description: '{{ doc("account_id") }}'
+      - name: country
+        description: '{{ doc("country") }}'
+      - name: state
+        description: '{{ doc("state") }}'
+      - name: subscription_name
+        description: '{{ doc("subscription_name") }}'
+      - name: active_free_trial_introductory_offer_subscriptions
+        description: '{{ doc("active_free_trial_introductory_offer_subscriptions") }}'
+      - name: active_pay_as_you_go_introductory_offer_subscriptions
+        description: '{{ doc("active_pay_as_you_go_introductory_offer_subscriptions") }}'
+      - name: active_pay_up_front_introductory_offer_subscriptions
+        description: '{{ doc("active_pay_up_front_introductory_offer_subscriptions") }}'
+      - name: active_standard_price_subscriptions
+        description: '{{ doc("active_standard_price_subscriptions") }}'
+
+  - name: stg_apple_store__usage_app_version
+    description: Daily usage metrics (active devices, active devices last 30 days, deletions, installations, sessions) by app version and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - app_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: app_version
+        description: '{{ doc("app_version") }}'
+      - name: active_devices
+        description: '{{ doc("active_devices") }}'
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_devices_last_30_days") }}'
+      - name: deletions
+        description: '{{ doc("deletions") }}'
+      - name: installations
+        description: '{{ doc("installations") }}'
+      - name: sessions
+        description: '{{ doc("sessions") }}'
+
+  - name: stg_apple_store__usage_device
+    description: Daily usage metrics (active devices, active devices last 30 days, deletions, installations, sessions) by device and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - device
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: active_devices
+        description: '{{ doc("active_devices") }}'
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_devices_last_30_days") }}'
+      - name: deletions
+        description: '{{ doc("deletions") }}'
+      - name: installations
+        description: '{{ doc("installations") }}'
+      - name: sessions
+        description: '{{ doc("sessions") }}'
+
+  - name: stg_apple_store__usage_platform_version
+    description: Daily usage metrics (active devices, active devices last 30 days, deletions, installations, sessions) by platform version and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - platform_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: platform_version
+        description: '{{ doc("platform_version") }}'
+      - name: active_devices
+        description: '{{ doc("active_devices") }}'
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_devices_last_30_days") }}'
+      - name: deletions
+        description: '{{ doc("deletions") }}'
+      - name: installations
+        description: '{{ doc("installations") }}'
+      - name: sessions
+        description: '{{ doc("sessions") }}'
+
+  - name: stg_apple_store__usage_territory 
+    description: Daily usage metrics (active devices, active devices last 30 days, deletions, installations, sessions) by territory and source type.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - date_day
+            - app_id
+            - source_type
+            - territory
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date_day") }}'
+      - name: app_id
+        description: '{{ doc("app_id") }}'
+      - name: source_type
+        description: '{{ doc("source_type") }}'
+      - name: territory
+        description: '{{ doc("territory") }}'
+      - name: active_devices
+        description: '{{ doc("active_devices") }}'
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_devices_last_30_days") }}'
+      - name: deletions
+        description: '{{ doc("deletions") }}'
+      - name: installations
+        description: '{{ doc("installations") }}'
+      - name: sessions
+        description: '{{ doc("sessions") }}'
+        
+seeds:
+  - name: apple_store_country_codes
+    description: ISO-3166 country mapping table
+    columns:
+      - name: country_name
+        description: '{{ doc("country_name") }}'
+      - name: alternative_country_name
+        description: '{{ doc("alternative_country_name") }}'
+      - name: country_code_numeric
+        description: '{{ doc("country_code_numeric") }}'
+      - name: country_code_alpha_2
+        description: '{{ doc("country_code_alpha_2") }}'
+      - name: country_code_alpha_3
+        description: '{{ doc("country_code_alpha_3") }}'
+      - name: region
+        description: '{{ doc("region") }}'
+      - name: region_code
+        description: '{{ doc("region_code") }}'
+      - name: sub_region
+        description: '{{ doc("sub_region") }}'
+      - name: sub_region_code
+        description: '{{ doc("sub_region_code") }}'

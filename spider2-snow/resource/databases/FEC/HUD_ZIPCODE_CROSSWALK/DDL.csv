@@ -1,0 +1,25 @@
+table_name,description,DDL
+CENSUS_TRACTS_TO_ZIPCODE,,"create or replace TABLE CENSUS_TRACTS_TO_ZIPCODE (
+	""census_tract_geoid"" VARCHAR(16777216),
+	""zip_code"" VARCHAR(16777216),
+	""residential_ratio"" NUMBER(38,9),
+	""business_ratio"" NUMBER(38,9),
+	""other_ratio"" NUMBER(38,9),
+	""total_ratio"" NUMBER(38,9)
+);"
+ZIPCODE_TO_CENSUS_TRACTS,,"create or replace TABLE ZIPCODE_TO_CENSUS_TRACTS (
+	""zip_code"" VARCHAR(16777216),
+	""census_tract_geoid"" VARCHAR(16777216),
+	""residential_ratio"" NUMBER(38,9),
+	""business_ratio"" NUMBER(38,9),
+	""other_ratio"" NUMBER(38,9),
+	""total_ratio"" NUMBER(38,9)
+);"
+ZIP_TO_COUNTY,,"create or replace TABLE ZIP_TO_COUNTY (
+	""zip_code"" VARCHAR(16777216),
+	""county_geoid"" VARCHAR(16777216),
+	""residential_ratio"" NUMBER(38,9),
+	""business_ratio"" NUMBER(38,9),
+	""other_ratio"" NUMBER(38,9),
+	""total_ratio"" NUMBER(38,9)
+);"

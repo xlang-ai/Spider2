@@ -1,0 +1,31 @@
+## ST_EXTERIORRING
+
+ST_EXTERIORRING(polygon_geography)
+
+**Description**
+
+Returns a linestring geography that corresponds to the outermost ring of a polygon geography.
+
+* If the input geography is a polygon, gets the outermost ring of the polygon geography and returns the corresponding linestring.
+* If the input is the full ` GEOGRAPHY ` , returns an empty geography.
+* Returns an error if the input is not a single polygon.
+
+Use the ` SAFE ` prefix to return ` NULL ` for invalid input instead of an error.
+
+**Return type**
+
+* Linestring ` GEOGRAPHY `
+* Empty ` GEOGRAPHY `
+
+**Examples**
+
+
+WITH geo as (SELECT ST_GEOGFROMTEXT('POLYGON((0 0, 1 4, 2 2, 0 0))') AS g UNION ALL SELECT ST_GEOGFROMTEXT('''POLYGON((1 1, 1 10, 5 10, 5 1, 1 1),
+(2 2, 3 4, 2 4, 2 2))''') as g) SELECT ST_EXTERIORRING(g) AS ring FROM geo;
+
+/*---------------------------------------*
+| ring                                  |
++---------------------------------------+
+| LINESTRING(2 2, 1 4, 0 0, 2 2)        |
+| LINESTRING(5 1, 5 10, 1 10, 1 1, 5 1) |
+*---------------------------------------*/

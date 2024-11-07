@@ -1,0 +1,45 @@
+## BOOL
+
+BOOL(json_expr)
+
+**Description**
+
+Converts a JSON boolean to a SQL ` BOOL ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON 'true'
+
+If the JSON value is not a boolean, an error is produced. If the expression is SQL ` NULL ` , the function returns SQL ` NULL ` .
+
+**Return type**
+
+` BOOL `
+
+**Examples**
+
+
+SELECT BOOL(JSON 'true') AS vacancy;
+
+/*---------*
+| vacancy |
++---------+
+| true    |
+*---------*/
+
+
+SELECT BOOL(JSON_QUERY(JSON '{"hotel class": "5-star", "vacancy": true}', "$.vacancy")) AS vacancy;
+
+/*---------*
+| vacancy |
++---------+
+| true    |
+*---------*/
+
+The following examples show how invalid requests are handled:
+
+
+-- An error is thrown if JSON is not of type bool.
+SELECT BOOL(JSON '123') AS result; -- Throws an error SELECT BOOL(JSON 'null') AS result; -- Throws an error SELECT SAFE.BOOL(JSON '123') AS result; -- Returns a SQL NULL

@@ -1,0 +1,18 @@
+table_name,ddl
+trade_capture_report,"CREATE TABLE `bigquery-public-data.cymbal_investments.trade_capture_report`
+(
+  SendingTime TIMESTAMP OPTIONS(description=""Time the message was sent""),
+  TargetCompID STRING OPTIONS(description=""Assigned value used to identify firm receiving message.""),
+  SenderCompID STRING OPTIONS(description=""Assigned value used to identify firm sending message.""),
+  Symbol STRING OPTIONS(description=""Trading symbol of the asset""),
+  Quantity INT64 OPTIONS(description=""Overall/total quantity (e.g. number of shares)""),
+  OrderID STRING OPTIONS(description=""Order identifier""),
+  TransactTime TIMESTAMP OPTIONS(description=""Time the transaction occured""),
+  StrikePrice FLOAT64 OPTIONS(description=""Price at which the CFD closed""),
+  LastPx FLOAT64 OPTIONS(description=""Price at which the CFD was entered""),
+  MaturityDate TIMESTAMP OPTIONS(description=""Date of contract expiry""),
+  TradeReportID STRING OPTIONS(description=""ID of this trade report""),
+  TradeDate DATE OPTIONS(description=""Date trade was executed""),
+  CFICode STRING OPTIONS(description=""Financial instrument classification code""),
+  Sides ARRAY<STRUCT<Side STRING OPTIONS(description=""Direction of the trade (long or short)""), OrderID STRING OPTIONS(description=""""), PartyIDs ARRAY<STRUCT<PartyID STRING OPTIONS(description=""Counterparty identifier""), PartyIDSource STRING, PartyRole STRING OPTIONS(description=""Counterparty irole"")>> OPTIONS(description="""")>>
+);"

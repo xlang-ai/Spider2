@@ -1,0 +1,2 @@
+1. please query `spider2-public-data.patents` and `bigquery-public-data.uspto_oce_assignment` and `bigquery-public-data.uspto_oce_cancer` and `bigquery-public-data.uspto_oce_claims` and `bigquery-public-data.uspto_oce_litigation` and `bigquery-public-data.uspto_ptab` database to solve this problem.
+2. Please complete the file result.csv with your answer.

@@ -1,0 +1,45 @@
+## TIME_DIFF
+
+TIME_DIFF(start_time, end_time, granularity)
+
+**Description**
+
+Gets the number of unit boundaries between two ` TIME ` values ( ` start_time
+` \- ` end_time ` ) at a particular time granularity.
+
+**Definitions**
+
+* ` start_time ` : The starting ` TIME ` value.
+* ` end_time ` : The ending ` TIME ` value.
+* ` granularity ` : The time part that represents the granularity. This can be:
+
+* ` MICROSECOND `
+* ` MILLISECOND `
+* ` SECOND `
+* ` MINUTE `
+* ` HOUR `
+
+**Details**
+
+If ` end_time ` is earlier than ` start_time ` , the output is negative.
+Produces an error if the computation overflows, such as if the difference in microseconds between the two ` TIME ` values overflows.
+
+**Note:** The behavior of the this function follows the type of arguments passed in. For example, ` TIME_DIFF(TIMESTAMP, TIMESTAMP, PART) ` behaves like
+` TIMESTAMP_DIFF(TIMESTAMP, TIMESTAMP, PART) ` .
+
+**Return Data Type**
+
+` INT64 `
+
+**Example**
+
+
+SELECT TIME "15:30:00" as first_time,
+TIME "14:35:00" as second_time,
+TIME_DIFF(TIME "15:30:00", TIME "14:35:00", MINUTE) as difference;
+
+/*----------------------------+------------------------+------------------------*
+| first_time                 | second_time            | difference             |
++----------------------------+------------------------+------------------------+
+| 15:30:00                   | 14:35:00               | 55                     |
+*----------------------------+------------------------+------------------------*/

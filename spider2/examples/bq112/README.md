@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.bls_qcew` and `bigquery-public-data.bls` and `bigquery-public-data.geo_us_boundaries` database to solve this problem.

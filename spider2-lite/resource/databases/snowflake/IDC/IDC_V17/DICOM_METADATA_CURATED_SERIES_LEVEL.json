@@ -1,0 +1,102 @@
+{
+    "table_name": "IDC_V17.DICOM_METADATA_CURATED_SERIES_LEVEL",
+    "table_fullname": "IDC.IDC_V17.DICOM_METADATA_CURATED_SERIES_LEVEL",
+    "column_names": [
+        "ObjectiveLensPower",
+        "max_TotalPixelMatrixRows",
+        "SeriesInstanceUID",
+        "Modality",
+        "primaryAnatomicStructure_code_designator_value_str",
+        "illuminationType_code_designator_value_str",
+        "illuminationType_CodeMeaning",
+        "min_PixelSpacing_2sf",
+        "primaryAnatomicStructure_CodeMeaning",
+        "max_TotalPixelMatrixColumns"
+    ],
+    "column_types": [
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "FLOAT",
+        "TEXT",
+        "NUMBER"
+    ],
+    "description": [
+        "Value of OpticalPathSequence[0] > ObjectiveLensPower (applicable in SM).",
+        "Minimum value of the Rows attribute across instances within the series. Contains first non-null value between the top-level Rows attribute and the one in TotalPixelMatrixRows (encountered in SM modality).",
+        "DICOM SeriesInstanceUID",
+        "DICOM Modality",
+        "Concatenated values of `CodingSchemeDesignator` and `CodeValue` separated by `:` from SpecimenDescriptionSequence[0] > PrimaryAnatomicStructureSequence[0] (applicable in SM).",
+        "Concatenated values of `CodingSchemeDesignator` and `CodeValue` separated by `:` from OpticalPathSequence[0].IlluminationTypeCodeSequence[0] (applicable in SM).",
+        "`CodeMeaning` from OpticalPathSequence[0].IlluminationTypeCodeSequence[0] (applicable in SM).",
+        "Minimum value of the first component of pixel spacing across all instances in the series. Contains first non-null value between first component of the top-level PixelSpacing attribute and the one in SharedFunctionalGroupSequence[0] > PixelMeasuresSequence[0]. Rounded to two significant figures.",
+        "`CodeMeaning` from SpecimenDescriptionSequence[0] > PrimaryAnatomicStructureSequence[0] (applicable in SM).",
+        "Minimum value of the Columns attribute across instances within the series. Contains first non-null value between the top-level Columns attribute and the one in TotalPixelMatrixColumns (encountered in SM modality)."
+    ],
+    "sample_rows": [
+        {
+            "SeriesInstanceUID": "1.3.6.1.4.1.14519.5.2.1.2103.7010.269874.1.2",
+            "min_PixelSpacing_2sf": null,
+            "max_TotalPixelMatrixColumns": null,
+            "max_TotalPixelMatrixRows": null,
+            "ObjectiveLensPower": null,
+            "primaryAnatomicStructure_code_designator_value_str": null,
+            "primaryAnatomicStructure_CodeMeaning": null,
+            "illuminationType_code_designator_value_str": null,
+            "illuminationType_CodeMeaning": null,
+            "Modality": "KO"
+        },
+        {
+            "SeriesInstanceUID": "1.3.6.1.4.1.14519.5.2.1.2103.7010.269874.1.1",
+            "min_PixelSpacing_2sf": null,
+            "max_TotalPixelMatrixColumns": null,
+            "max_TotalPixelMatrixRows": null,
+            "ObjectiveLensPower": null,
+            "primaryAnatomicStructure_code_designator_value_str": null,
+            "primaryAnatomicStructure_CodeMeaning": null,
+            "illuminationType_code_designator_value_str": null,
+            "illuminationType_CodeMeaning": null,
+            "Modality": "KO"
+        },
+        {
+            "SeriesInstanceUID": "1.3.6.1.4.1.14519.5.2.1.2103.7010.237254.1.2",
+            "min_PixelSpacing_2sf": null,
+            "max_TotalPixelMatrixColumns": null,
+            "max_TotalPixelMatrixRows": null,
+            "ObjectiveLensPower": null,
+            "primaryAnatomicStructure_code_designator_value_str": null,
+            "primaryAnatomicStructure_CodeMeaning": null,
+            "illuminationType_code_designator_value_str": null,
+            "illuminationType_CodeMeaning": null,
+            "Modality": "KO"
+        },
+        {
+            "SeriesInstanceUID": "1.3.6.1.4.1.14519.5.2.1.2103.7010.263376.2.1",
+            "min_PixelSpacing_2sf": null,
+            "max_TotalPixelMatrixColumns": null,
+            "max_TotalPixelMatrixRows": null,
+            "ObjectiveLensPower": null,
+            "primaryAnatomicStructure_code_designator_value_str": null,
+            "primaryAnatomicStructure_CodeMeaning": null,
+            "illuminationType_code_designator_value_str": null,
+            "illuminationType_CodeMeaning": null,
+            "Modality": "KO"
+        },
+        {
+            "SeriesInstanceUID": "1.3.6.1.4.1.14519.5.2.1.2103.7010.135953.2.2",
+            "min_PixelSpacing_2sf": null,
+            "max_TotalPixelMatrixColumns": null,
+            "max_TotalPixelMatrixRows": null,
+            "ObjectiveLensPower": null,
+            "primaryAnatomicStructure_code_designator_value_str": null,
+            "primaryAnatomicStructure_CodeMeaning": null,
+            "illuminationType_code_designator_value_str": null,
+            "illuminationType_CodeMeaning": null,
+            "Modality": "KO"
+        }
+    ]
+}

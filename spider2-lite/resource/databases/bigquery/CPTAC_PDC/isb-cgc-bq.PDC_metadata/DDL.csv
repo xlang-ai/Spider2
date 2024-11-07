@@ -1,0 +1,147 @@
+table_name,ddl
+refseq_mapping_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.refseq_mapping_current`
+(
+  uniprot_id STRING OPTIONS(description=""Unique identifier assigned to a sequence by UniProt, often containing biologically relevant information""),
+  uniprot_review_status STRING OPTIONS(description=""'unreviewed' records contain protein sequences associated with computationally generated annotation and large-scale functional characterization; 'reviewed' records are high quality, manually annotated and non-redundant""),
+  gene_symbol STRING OPTIONS(description=""Gene symbol, sourced by PDC from NCBI""),
+  refseq_id STRING OPTIONS(description=""Unique identifier given to a sequence in the NCBI RefSeq database"")
+)
+OPTIONS(
+  friendly_name=""REFSEQ UNIPROT MAPPING"",
+  description=""Data was extracted from UniProtKB REST API version 2023_03, downloaded from https://www.uniprot.org/uniprot/ in August 2023 "",
+  labels=[(""access"", ""open""), (""data_type"", ""proteome_annotation""), (""source"", ""uniprot""), (""category"", ""reference_database""), (""status"", ""current""), (""version"", ""2023_03"")]
+);"
+aliquot_to_case_mapping_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.aliquot_to_case_mapping_current`
+(
+  program_name STRING OPTIONS(description=""Name of the data's source program""),
+  project_name STRING OPTIONS(description=""Project name (e.g. CPTAC-2)""),
+  case_id STRING OPTIONS(description=""Unique identifier associated with a specific patient (e.g. 24cb0fcb-63d6-11e8-bcf1-0a2705229b82)""),
+  case_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific patient (e.g. 05BR016)""),
+  sample_id STRING OPTIONS(description=""Unique PDC identifier for this sample (e.g. e8d83eb9-693a-11ea-b1fd-0aad30af8a83)""),
+  sample_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific sample (e.g. Tumor Pat1)""),
+  sample_type STRING OPTIONS(description=""Text term to describe the source of a biospecimen used for a laboratory test""),
+  preservation_method STRING OPTIONS(description=""Text term that represents the method used to preserve the sample.""),
+  freezing_method STRING OPTIONS(description=""Text term that represents the method used for freezing the sample""),
+  time_between_clamping_and_freezing INT64 OPTIONS(description=""Numeric representation of the elapsed time between the surgical clamping of blood supply and freezing of the sample, measured in minutes""),
+  time_between_excision_and_freezing INT64 OPTIONS(description=""Numeric representation of the elapsed time between the excision and freezing of the sample, measured in minutes""),
+  days_to_collection INT64 OPTIONS(description=""Time interval from the date of biospecimen collection to the date of initial pathologic diagnosis, represented as a calculated number of days""),
+  initial_weight FLOAT64 OPTIONS(description=""Numeric value that represents the initial weight of the sample, measured in milligrams""),
+  current_weight FLOAT64 OPTIONS(description=""Numeric value that represents the current weight of the sample, measured in milligrams""),
+  shortest_dimension FLOAT64 OPTIONS(description=""Numeric value that represents the shortest dimension of the sample, measured in millimeters""),
+  intermediate_dimension FLOAT64 OPTIONS(description=""Intermediate dimension of the sample, in millimeters""),
+  longest_dimension FLOAT64 OPTIONS(description=""Numeric value that represents the longest dimension of the sample, measured in millimeters""),
+  aliquot_id STRING OPTIONS(description=""Unique PDC identifier for this aliquot (e.g. e8db124a-693a-11ea-b1fd-0aad30af8a83)""),
+  aliquot_submitter_id STRING OPTIONS(description=""Aliquot submitter id assigned by program (e.g. T14)"")
+)
+OPTIONS(
+  friendly_name=""PDC ALIQUOT IDS TO CASE IDS MAP"",
+  description=""Aliquot data was extracted from file metadata information provided by CDA in August 2024 from the PDC release V4.3."",
+  labels=[(""access"", ""open""), (""data_type"", ""file_metadata""), (""source_0"", ""cda""), (""source_1"", ""pdc""), (""category"", ""metadata""), (""status"", ""current""), (""version"", ""v4_3"")]
+);"
+studies_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.studies_current`
+(
+  study_name STRING OPTIONS(description=""Name of the study (e.g. Pediatric Brain Cancer Pilot Study - Phosphoproteome)""),
+  study_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter used for the study (e.g. S046-1-CompRef)""),
+  submitter_id_name STRING OPTIONS(description=""Name of the study as described by the data submitter""),
+  pdc_study_id STRING OPTIONS(description=""PDC study identifier (e.g. PDC000239)""),
+  study_id STRING OPTIONS(description=""An identifier (UUID) to uniquely identify the file in PDC (e.g. 58be6cbb-f1f7-11e9-9a07-0a80fada099c)""),
+  study_friendly_name STRING OPTIONS(description=""Component of study-level BigQuery table friendly names (e.g. CPTAC2-RETROSPECTIVE TCGA OVARIAN JHU PROTEOME); defined by ISB-CGC""),
+  study_grouping_name STRING OPTIONS(description=""Name used to associate PDC studies within a project that share cases; defined by ISB-CGC""),
+  analytical_fraction STRING OPTIONS(description=""Type of peptide or protein enrichment""),
+  disease_type STRING OPTIONS(description=""The text term used to describe the type of malignant disease, as categorized by the World Health Organization's (WHO) International Classification of Diseases for Oncology (ICD-O)""),
+  primary_site STRING OPTIONS(description=""The text term used to describe the general location of the malignant disease, as categorized by the World Health Organization's (WHO) International Classification of Diseases for Oncology (ICD-O)""),
+  acquisition_type STRING OPTIONS(description=""The modes of acquisition used in the LC-MS/MS experiments: data dependent acquisition (DDA), data independent acquisition (DIA)""),
+  experiment_type STRING OPTIONS(description=""General strategy used for differential analysis""),
+  project_id STRING OPTIONS(description=""PDC project UUID (e.g. edb4ca56-f1e8-11e9-9a07-0a80fada099c)""),
+  project_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific project (e.g. CPTAC3-Discovery)""),
+  project_name STRING OPTIONS(description=""Project name (e.g. CPTAC-2)""),
+  project_short_name STRING OPTIONS(description=""Project name abbreviation (e.g. pediatric_brain_cancer)""),
+  project_friendly_name STRING OPTIONS(description=""Component of project-level BigQuery table friendly names (e.g. PEDIATRIC BRAIN CANCER)""),
+  program_id STRING OPTIONS(description=""PDC program UUID (e.g. c3408b38-f1e8-11e9-9a07-0a80fada099c)""),
+  program_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific program (e.g. Clinical Proteomic Tumor Analysis Consortium)""),
+  program_name STRING OPTIONS(description=""Name of the data's source program""),
+  program_short_name STRING OPTIONS(description=""Program name abbreviation (e.g. CPTAC)""),
+  program_manager STRING OPTIONS(description=""Name of the program manager from the sponsoring agency""),
+  program_labels STRING OPTIONS(description=""BigQuery table 'program' label value(s), used for 'Program' filter in ISB-CGC BigQuery Table Search""),
+  start_date DATE OPTIONS(description=""Start date of the program""),
+  end_date STRING OPTIONS(description=""End date of the program"")
+)
+OPTIONS(
+  friendly_name=""STUDIES FOR PDC"",
+  description=""Study data was extracted from file metadata information provided by CDA in August 2024 from the PDC release V4.3."",
+  labels=[(""access"", ""open""), (""data_type"", ""file_metadata""), (""source_0"", ""cda""), (""source_1"", ""pdc""), (""category"", ""metadata""), (""status"", ""current""), (""version"", ""v4_3"")]
+);"
+file_metadata_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.file_metadata_current`
+(
+  file_id STRING OPTIONS(description=""An identifier (UUID) to uniquely identify the file in PDC (e.g. 795dd383-5efd-484b-9c2f-f061ae617fc7)""),
+  file_name STRING OPTIONS(description=""Name of file in PDC""),
+  pdc_study_ids STRING OPTIONS(description=""PDC study identifier (e.g. PDC000239); in cases where file exists in multiple studies, study ids are semicolon delimited (e.g. PDC000126;PDC000127)""),
+  study_run_metadata_id STRING OPTIONS(description=""An identifier (UUID) to uniquely identify the group the files generated in a single experimental run in PDC (e.g. f2c5c6bf-f40d-11e8-a44b-0a9c39d33490)""),
+  study_run_metadata_submitter_id STRING OPTIONS(description=""An identifier provided by the submitter to identify the group the files generated in a single experimental run (e.g. SRM25730263-1)""),
+  file_format STRING OPTIONS(description=""File format of the underlying data (eg BCR XML, BAM)""),
+  file_type STRING OPTIONS(description=""File type (e.g. aligned_reads, simple_somatic_mutation, gene_expression)""),
+  data_category STRING OPTIONS(description=""Category description of the underlying data (e.g. Clinical, Raw Sequencing Data, Simple Nucleotide Variation, Transcriptome Profiling)""),
+  file_size INT64 OPTIONS(description=""The size of the file measured in bytes""),
+  fraction_number STRING OPTIONS(description=""Number of fractions in the experimental run""),
+  experiment_type STRING OPTIONS(description=""General strategy used for differential analysis""),
+  plex_or_dataset_name STRING OPTIONS(description=""Plex or dataset name (e.g. 04CPTAC_P93P94Compref_Proteome_BI_20180916)""),
+  analyte STRING OPTIONS(description=""Type of peptide or protein enrichment""),
+  instrument STRING OPTIONS(description=""Make and model of the mass spectrometry instrument""),
+  md5sum STRING OPTIONS(description=""Md5sum for PDC data file""),
+  `access` STRING OPTIONS(description=""Data accessibility policy (open or controlled)"")
+)
+OPTIONS(
+  friendly_name=""FILE METADATA FOR PDC"",
+  description=""Data was extracted from file metadata information provided by CDA in August 2024 from the PDC release V4.3."",
+  labels=[(""access"", ""open""), (""data_type"", ""file_metadata""), (""source_0"", ""cda""), (""source_1"", ""pdc""), (""category"", ""metadata""), (""status"", ""current""), (""version"", ""v4_3"")]
+);"
+file_associated_entity_mapping_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.file_associated_entity_mapping_current`
+(
+  file_id STRING OPTIONS(description=""An identifier (UUID) to uniquely identify the file in PDC (e.g. 795dd383-5efd-484b-9c2f-f061ae617fc7)""),
+  case_id STRING OPTIONS(description=""Unique identifier associated with a specific patient (e.g. 24cb0fcb-63d6-11e8-bcf1-0a2705229b82)""),
+  entity_id STRING OPTIONS(description=""An identifier (UUID) to uniquely identify the entity in PDC  (e.g. 2a6b4244-6428-11e8-bcf1-0a2705229b82, which refers to an aliquot)""),
+  entity_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific entity (e.g. TCGA-61-1911-01A-32-2224-29)""),
+  entity_type STRING OPTIONS(description=""Associated entity type (e.g. aliquot or case)"")
+)
+OPTIONS(
+  friendly_name=""FILE METADATA ASSOCIATED ENTITIES FOR PDC"",
+  description=""Data for entity associations was extracted from file metadata information provided by CDA in August 2024 from the PDC release V4.3."",
+  labels=[(""access"", ""open""), (""data_type"", ""file_metadata""), (""source_0"", ""cda""), (""source_1"", ""pdc""), (""category"", ""metadata""), (""status"", ""current""), (""version"", ""v4_3"")]
+);"
+gene_info_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.gene_info_current`
+(
+  gene_id STRING OPTIONS(description=""Unique gene identifier assigned by PDC""),
+  NCBI_gene_id STRING OPTIONS(description=""NCBI gene identifier""),
+  organism STRING OPTIONS(description=""Gene organism, sourced by PDC from NCBI""),
+  chromosome STRING OPTIONS(description=""NCBI gene chromosome""),
+  locus STRING OPTIONS(description=""Gene cytoband, sourced by PDC from NCBI""),
+  proteins STRING OPTIONS(description=""Semi-colon separated list of protein accessions associated with the gene; includes identifiers from multiple sources (e.g. UniProt, NCBI RefSeq database)""),
+  assays STRING OPTIONS(description=""CPTAC Assay accessions for the peptides associated with the gene""),
+  authority STRING OPTIONS(description=""Designating authority for the gene id""),
+  authority_gene_id STRING OPTIONS(description=""Unique identifier assigned by authority (e.g. HGNC)""),
+  gene_symbol STRING OPTIONS(description=""Gene symbol, sourced by PDC from NCBI""),
+  gene_description STRING OPTIONS(description=""Description of the gene, sourced by PDC from NCBI""),
+  uniprotkb_id STRING OPTIONS(description=""Oldest UniProt id found in 'proteins' column list, derived programmatically""),
+  uniprotkb_ids STRING OPTIONS(description=""Every UniProt id found in 'proteins' column list"")
+)
+OPTIONS(
+  friendly_name=""GENE MAPPING FOR PDC"",
+  description=""Data was extracted from getPaginatedGenes API endpoint in PDC data release V3.4, downloaded August 2023."",
+  labels=[(""access"", ""open""), (""source"", ""pdc""), (""category"", ""reference_database""), (""data_type_1"", ""proteome_annotation""), (""data_type_0"", ""genome_annotation""), (""status"", ""current""), (""version"", ""v3_4"")]
+);"
+case_metadata_current,"CREATE TABLE `isb-cgc-bq.PDC_metadata.case_metadata_current`
+(
+  case_id STRING OPTIONS(description=""Unique identifier associated with a specific patient (e.g. 24cb0fcb-63d6-11e8-bcf1-0a2705229b82)""),
+  case_submitter_id STRING OPTIONS(description=""Unique identifier deriving from the data submitter that is associated with a specific patient (e.g. 05BR016)""),
+  primary_site STRING OPTIONS(description=""The text term used to describe the general location of the malignant disease, as categorized by the World Health Organization's (WHO) International Classification of Diseases for Oncology (ICD-O)""),
+  disease_type STRING OPTIONS(description=""The text term used to describe the type of malignant disease, as categorized by the World Health Organization's (WHO) International Classification of Diseases for Oncology (ICD-O)""),
+  project_name STRING OPTIONS(description=""Project name (e.g. CPTAC-2)""),
+  program_name STRING OPTIONS(description=""Name of the data's source program""),
+  project_id STRING OPTIONS(description=""PDC project UUID (e.g. edb4ca56-f1e8-11e9-9a07-0a80fada099c)""),
+  file_count INT64 OPTIONS(description=""Number of files associated with a certain case_id"")
+)
+OPTIONS(
+  friendly_name=""PDC CASE METADATA"",
+  description=""Case data was extracted from file metadata information provided by CDA in August 2024 from the PDC release V4.3."",
+  labels=[(""access"", ""open""), (""data_type"", ""file_metadata""), (""source_0"", ""cda""), (""source_1"", ""pdc""), (""category"", ""metadata""), (""status"", ""current""), (""version"", ""v4_3"")]
+);"

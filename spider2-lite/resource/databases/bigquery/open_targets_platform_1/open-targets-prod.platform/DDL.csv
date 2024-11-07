@@ -1,0 +1,414 @@
+table_name,ddl
+pharmacogenomics,"CREATE TABLE `open-targets-prod.platform.pharmacogenomics`
+(
+  datasourceId STRING,
+  datasourceVersion STRING,
+  datatypeId STRING,
+  directionality STRING,
+  evidenceLevel STRING,
+  genotype STRING,
+  genotypeAnnotationText STRING,
+  genotypeId STRING,
+  haplotypeFromSourceId STRING,
+  haplotypeId STRING,
+  literature STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  pgxCategory STRING,
+  phenotypeFromSourceId STRING,
+  phenotypeText STRING,
+  studyId STRING,
+  targetFromSourceId STRING,
+  variantFunctionalConsequenceId STRING,
+  variantRsId STRING,
+  isDirectTarget BOOL NOT NULL,
+  drugs STRUCT<list ARRAY<STRUCT<element STRUCT<drugFromSource STRING, drugId STRING> NOT NULL>>> NOT NULL
+);"
+interaction,"CREATE TABLE `open-targets-prod.platform.interaction`
+(
+  sourceDatabase STRING,
+  targetA STRING,
+  intA STRING,
+  intABiologicalRole STRING,
+  targetB STRING,
+  intB STRING,
+  intBBiologicalRole STRING,
+  speciesA STRUCT<mnemonic STRING, scientific_name STRING, taxon_id INT64>,
+  speciesB STRUCT<mnemonic STRING, scientific_name STRING, taxon_id INT64>,
+  count INT64 NOT NULL,
+  scoring FLOAT64
+);"
+drugWarnings,"CREATE TABLE `open-targets-prod.platform.drugWarnings`
+(
+  chemblIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  toxicityClass STRING,
+  country STRING,
+  description STRING,
+  id INT64,
+  references STRUCT<list ARRAY<STRUCT<element STRUCT<ref_id STRING, ref_type STRING, ref_url STRING>>>>,
+  warningType STRING,
+  year INT64,
+  efo_term STRING,
+  efo_id STRING,
+  efo_id_for_warning_class STRING
+);"
+interactionEvidence,"CREATE TABLE `open-targets-prod.platform.interactionEvidence`
+(
+  hostOrganismTissue STRUCT<fullName STRING, shortName STRING, xrefs STRUCT<list ARRAY<STRUCT<element STRING>>>>,
+  targetB STRING,
+  evidenceScore FLOAT64,
+  intBBiologicalRole STRING,
+  interactionResources STRUCT<databaseVersion STRING, sourceDatabase STRING>,
+  interactionTypeMiIdentifier STRING,
+  interactionDetectionMethodShortName STRING,
+  intA STRING,
+  intBSource STRING,
+  speciesB STRUCT<mnemonic STRING, scientificName STRING, taxonId INT64>,
+  interactionIdentifier STRING,
+  hostOrganismTaxId INT64,
+  participantDetectionMethodA STRUCT<list ARRAY<STRUCT<element STRUCT<miIdentifier STRING, shortName STRING>>>>,
+  expansionMethodShortName STRING,
+  speciesA STRUCT<mnemonic STRING, scientificName STRING, taxonId INT64>,
+  intASource STRING,
+  intB STRING,
+  pubmedId STRING,
+  intABiologicalRole STRING,
+  hostOrganismScientificName STRING,
+  interactionScore FLOAT64,
+  interactionTypeShortName STRING,
+  expansionMethodMiIdentifier STRING,
+  targetA STRING,
+  participantDetectionMethodB STRUCT<list ARRAY<STRUCT<element STRUCT<miIdentifier STRING, shortName STRING>>>>,
+  interactionDetectionMethodMiIdentifier STRING
+);"
+mechanismOfAction,"CREATE TABLE `open-targets-prod.platform.mechanismOfAction`
+(
+  actionType STRING,
+  mechanismOfAction STRING,
+  chemblIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  targetName STRING,
+  targetType STRING,
+  targets STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>>,
+  references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>> NOT NULL, urls STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>> NOT NULL> NOT NULL>>> NOT NULL
+);"
+associationByDatasourceIndirect,"CREATE TABLE `open-targets-prod.platform.associationByDatasourceIndirect`
+(
+  datatypeId STRING,
+  datasourceId STRING,
+  diseaseId STRING,
+  targetId STRING,
+  score FLOAT64,
+  evidenceCount INT64 NOT NULL
+);"
+targetEssentiality,"CREATE TABLE `open-targets-prod.platform.targetEssentiality`
+(
+  id STRING,
+  geneEssentiality STRUCT<list ARRAY<STRUCT<element STRUCT<depMapEssentiality STRUCT<list ARRAY<STRUCT<element STRUCT<screens STRUCT<list ARRAY<STRUCT<element STRUCT<cellLineName STRING, depmapId STRING, diseaseCellLineId STRING, diseaseFromSource STRING, expression FLOAT64, geneEffect FLOAT64, mutation STRING>>>>, tissueId STRING, tissueName STRING>>>>, isEssential BOOL> NOT NULL>>> NOT NULL
+);"
+diseases,"CREATE TABLE `open-targets-prod.platform.diseases`
+(
+  id STRING,
+  code STRING,
+  dbXRefs STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  description STRING,
+  name STRING,
+  directLocationIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  obsoleteTerms STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  parents STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  synonyms STRUCT<hasBroadSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasExactSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasNarrowSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>, hasRelatedSynonym STRUCT<list ARRAY<STRUCT<element STRING>>>>,
+  ancestors STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  descendants STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  children STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  therapeuticAreas STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  indirectLocationIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  ontology STRUCT<isTherapeuticArea BOOL, leaf BOOL NOT NULL, sources STRUCT<url STRING, name STRING> NOT NULL> NOT NULL
+);"
+knownDrugsAggregated,"CREATE TABLE `open-targets-prod.platform.knownDrugsAggregated`
+(
+  drugId STRING,
+  targetId STRING,
+  diseaseId STRING,
+  phase FLOAT64,
+  status STRING,
+  urls STRUCT<list ARRAY<STRUCT<element STRUCT<niceName STRING, url STRING>>>> NOT NULL,
+  ancestors STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  label STRING,
+  approvedSymbol STRING,
+  approvedName STRING,
+  targetClass STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  prefName STRING,
+  tradeNames STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  synonyms STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  drugType STRING,
+  mechanismOfAction STRING,
+  targetName STRING
+);"
+targets,"CREATE TABLE `open-targets-prod.platform.targets`
+(
+  id STRING,
+  approvedSymbol STRING,
+  biotype STRING,
+  transcriptIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  canonicalTranscript STRUCT<id STRING, chromosome STRING, start INT64, `end` INT64, strand STRING>,
+  canonicalExons STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  genomicLocation STRUCT<chromosome STRING, start INT64, `end` INT64, strand INT64> NOT NULL,
+  alternativeGenes STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  approvedName STRING NOT NULL,
+  go STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, source STRING, evidence STRING, aspect STRING, geneProduct STRING, ecoId STRING>>>>,
+  hallmarks STRUCT<attributes STRUCT<list ARRAY<STRUCT<element STRUCT<pmid INT64, description STRING, attribute_name STRING> NOT NULL>>>, cancerHallmarks STRUCT<list ARRAY<STRUCT<element STRUCT<pmid INT64, description STRING, impact STRING, label STRING> NOT NULL>>>>,
+  synonyms STRUCT<list ARRAY<STRUCT<element STRUCT<label STRING, source STRING>>>> NOT NULL,
+  symbolSynonyms STRUCT<list ARRAY<STRUCT<element STRUCT<label STRING, source STRING>>>> NOT NULL,
+  nameSynonyms STRUCT<list ARRAY<STRUCT<element STRUCT<label STRING, source STRING>>>> NOT NULL,
+  functionDescriptions STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  subcellularLocations STRUCT<list ARRAY<STRUCT<element STRUCT<location STRING, source STRING, termSL STRING, labelSL STRING>>>>,
+  targetClass STRUCT<list ARRAY<STRUCT<element STRUCT<id INT64, label STRING, level STRING NOT NULL> NOT NULL>>>,
+  obsoleteSymbols STRUCT<list ARRAY<STRUCT<element STRUCT<label STRING, source STRING>>>> NOT NULL,
+  obsoleteNames STRUCT<list ARRAY<STRUCT<element STRUCT<label STRING, source STRING>>>> NOT NULL,
+  constraint STRUCT<list ARRAY<STRUCT<element STRUCT<constraintType STRING NOT NULL, score FLOAT64, exp FLOAT64, obs INT64, oe FLOAT64, oeLower FLOAT64, oeUpper FLOAT64, upperRank INT64, upperBin INT64, upperBin6 INT64> NOT NULL>>>,
+  tep STRUCT<targetFromSourceId STRING, description STRING, therapeuticArea STRING, url STRING>,
+  proteinIds STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, source STRING> NOT NULL>>>,
+  dbXrefs STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, source STRING>>>> NOT NULL,
+  chemicalProbes STRUCT<list ARRAY<STRUCT<element STRUCT<control STRING, drugId STRING, id STRING, isHighQuality BOOL, mechanismOfAction STRUCT<list ARRAY<STRUCT<element STRING>>>, origin STRUCT<list ARRAY<STRUCT<element STRING>>>, probeMinerScore INT64, probesDrugsScore INT64, scoreInCells INT64, scoreInOrganisms INT64, targetFromSourceId STRING, urls STRUCT<list ARRAY<STRUCT<element STRUCT<niceName STRING, url STRING>>>>> NOT NULL>>>,
+  homologues STRUCT<list ARRAY<STRUCT<element STRUCT<speciesId STRING, speciesName STRING, homologyType STRING, targetGeneId STRING, isHighConfidence STRING, targetGeneSymbol STRING, queryPercentageIdentity FLOAT64, targetPercentageIdentity FLOAT64, priority INT64> NOT NULL>>>,
+  tractability STRUCT<list ARRAY<STRUCT<element STRUCT<modality STRING NOT NULL, id STRING NOT NULL, value BOOL NOT NULL> NOT NULL>>>,
+  safetyLiabilities STRUCT<list ARRAY<STRUCT<element STRUCT<event STRING, eventId STRING, effects STRUCT<list ARRAY<STRUCT<element STRUCT<direction STRING, dosing STRING>>>>, biosamples STRUCT<list ARRAY<STRUCT<element STRUCT<cellFormat STRING, cellLabel STRING, tissueId STRING, tissueLabel STRING>>>>, datasource STRING, literature STRING, url STRING, studies STRUCT<list ARRAY<STRUCT<element STRUCT<description STRING, name STRING, type STRING>>>>> NOT NULL>>>,
+  pathways STRUCT<list ARRAY<STRUCT<element STRUCT<pathwayId STRING, pathway STRING, topLevelTerm STRING> NOT NULL>>>
+);"
+mousePhenotypes,"CREATE TABLE `open-targets-prod.platform.mousePhenotypes`
+(
+  biologicalModels STRUCT<list ARRAY<STRUCT<element STRUCT<allelicComposition STRING, geneticBackground STRING, id STRING, literature STRUCT<list ARRAY<STRUCT<element STRING>>>>>>>,
+  modelPhenotypeClasses STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, label STRING>>>>,
+  modelPhenotypeId STRING,
+  modelPhenotypeLabel STRING,
+  targetFromSourceId STRING,
+  targetInModel STRING,
+  targetInModelEnsemblId STRING,
+  targetInModelMgiId STRING
+);"
+associationByDatasourceDirect,"CREATE TABLE `open-targets-prod.platform.associationByDatasourceDirect`
+(
+  datatypeId STRING,
+  datasourceId STRING,
+  diseaseId STRING,
+  targetId STRING,
+  score FLOAT64,
+  evidenceCount INT64 NOT NULL
+);"
+associationByDatatypeIndirect,"CREATE TABLE `open-targets-prod.platform.associationByDatatypeIndirect`
+(
+  diseaseId STRING,
+  targetId STRING,
+  datatypeId STRING,
+  score FLOAT64,
+  evidenceCount INT64
+);"
+ot_release,"CREATE TABLE `open-targets-prod.platform.ot_release`
+(
+  release STRING
+);"
+indication,"CREATE TABLE `open-targets-prod.platform.indication`
+(
+  id STRING,
+  indications STRUCT<list ARRAY<STRUCT<element STRUCT<disease STRING, efoName STRING, references STRUCT<list ARRAY<STRUCT<element STRUCT<source STRING, ids STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL> NOT NULL>>> NOT NULL, maxPhaseForIndication FLOAT64> NOT NULL>>> NOT NULL,
+  approvedIndications STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>> NOT NULL,
+  indicationCount INT64 NOT NULL
+);"
+go,"CREATE TABLE `open-targets-prod.platform.go`
+(
+  id STRING,
+  name STRING
+);"
+targetPrioritisation,"CREATE TABLE `open-targets-prod.platform.targetPrioritisation`
+(
+  targetId STRING,
+  isInMembrane INT64,
+  isSecreted INT64,
+  hasSafetyEvent INT64,
+  hasPocket INT64,
+  hasLigand INT64,
+  hasSmallMoleculeBinder INT64,
+  geneticConstraint FLOAT64,
+  paralogMaxIdentityPercentage FLOAT64,
+  mouseOrthologMaxIdentityPercentage FLOAT64,
+  isCancerDriverGene INT64,
+  hasTEP INT64,
+  mouseKOScore FLOAT64,
+  hasHighQualityChemicalProbes INT64,
+  maxClinicalTrialPhase FLOAT64,
+  tissueSpecificity FLOAT64,
+  tissueDistribution FLOAT64
+);"
+associationByOverallIndirect,"CREATE TABLE `open-targets-prod.platform.associationByOverallIndirect`
+(
+  diseaseId STRING,
+  targetId STRING,
+  score FLOAT64,
+  evidenceCount INT64
+);"
+associationByDatatypeDirect,"CREATE TABLE `open-targets-prod.platform.associationByDatatypeDirect`
+(
+  diseaseId STRING,
+  targetId STRING,
+  datatypeId STRING,
+  score FLOAT64,
+  evidenceCount INT64
+);"
+associationByOverallDirect,"CREATE TABLE `open-targets-prod.platform.associationByOverallDirect`
+(
+  diseaseId STRING,
+  targetId STRING,
+  score FLOAT64,
+  evidenceCount INT64
+);"
+diseaseToPhenotype,"CREATE TABLE `open-targets-prod.platform.diseaseToPhenotype`
+(
+  disease STRING,
+  phenotype STRING,
+  evidence STRUCT<list ARRAY<STRUCT<element STRUCT<aspect STRING, bioCuration STRING, diseaseFromSourceId STRING, diseaseFromSource STRING, diseaseName STRING, evidenceType STRING, frequency STRING, modifiers STRUCT<list ARRAY<STRUCT<element STRING>>>, onset STRUCT<list ARRAY<STRUCT<element STRING>>>, qualifier STRING, qualifierNot BOOL NOT NULL, references STRUCT<list ARRAY<STRUCT<element STRING>>>, sex STRING, resource STRING> NOT NULL>>> NOT NULL
+);"
+evidence,"CREATE TABLE `open-targets-prod.platform.evidence`
+(
+  datasourceId STRING,
+  targetId STRING,
+  _corrupt_record STRING,
+  alleleOrigins STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  allelicRequirements STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  ancestry STRING,
+  ancestryId STRING,
+  beta FLOAT64,
+  betaConfidenceIntervalLower FLOAT64,
+  betaConfidenceIntervalUpper FLOAT64,
+  biologicalModelAllelicComposition STRING,
+  biologicalModelGeneticBackground STRING,
+  biologicalModelId STRING,
+  biomarkerName STRING,
+  biomarkers STRUCT<geneExpression STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, name STRING>>>>, variant STRUCT<list ARRAY<STRUCT<element STRUCT<functionalConsequenceId STRING, id STRING, name STRING>>>>>,
+  biosamplesFromSource STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  cellType STRING,
+  clinicalPhase FLOAT64,
+  clinicalSignificances STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  clinicalStatus STRING,
+  cohortDescription STRING,
+  cohortId STRING,
+  cohortPhenotypes STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  cohortShortName STRING,
+  confidence STRING,
+  contrast STRING,
+  crisprScreenLibrary STRING,
+  datatypeId STRING,
+  diseaseCellLines STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, name STRING, tissue STRING, tissueId STRING>>>>,
+  diseaseFromSource STRING,
+  diseaseFromSourceId STRING,
+  diseaseFromSourceMappedId STRING,
+  diseaseModelAssociatedHumanPhenotypes STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, label STRING>>>>,
+  diseaseModelAssociatedModelPhenotypes STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, label STRING>>>>,
+  drugFromSource STRING,
+  drugId STRING,
+  drugResponse STRING,
+  geneticBackground STRING,
+  literature STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  log2FoldChangePercentileRank INT64,
+  log2FoldChangeValue FLOAT64,
+  mutatedSamples STRUCT<list ARRAY<STRUCT<element STRUCT<functionalConsequenceId STRING, numberMutatedSamples FLOAT64, numberSamplesTested FLOAT64, numberSamplesWithMutationType INT64>>>>,
+  oddsRatio FLOAT64,
+  oddsRatioConfidenceIntervalLower FLOAT64,
+  oddsRatioConfidenceIntervalUpper FLOAT64,
+  pValueExponent INT64,
+  pValueMantissa FLOAT64,
+  pathways STRUCT<list ARRAY<STRUCT<element STRUCT<id STRING, name STRING>>>>,
+  pmcIds STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  projectId STRING,
+  publicationFirstAuthor STRING,
+  publicationYear INT64,
+  reactionId STRING,
+  reactionName STRING,
+  releaseDate STRING,
+  releaseVersion STRING,
+  resourceScore FLOAT64,
+  sex STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  significantDriverMethods STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  statisticalMethod STRING,
+  statisticalMethodOverview STRING,
+  statisticalTestTail STRING,
+  studyCases INT64,
+  studyCasesWithQualifyingVariants INT64,
+  studyId STRING,
+  studyOverview STRING,
+  studySampleSize INT64,
+  studyStartDate STRING,
+  studyStopReason STRING,
+  studyStopReasonCategories STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  targetFromSource STRING,
+  targetFromSourceId STRING,
+  targetInModel STRING,
+  targetInModelEnsemblId STRING,
+  targetInModelMgiId STRING,
+  targetModulation STRING,
+  textMiningSentences STRUCT<list ARRAY<STRUCT<element STRUCT<dEnd INT64, dStart INT64, section STRING, tEnd INT64, tStart INT64, text STRING>>>>,
+  urls STRUCT<list ARRAY<STRUCT<element STRUCT<niceName STRING, url STRING>>>>,
+  variantAminoacidDescriptions STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  variantFunctionalConsequenceFromQtlId STRING,
+  variantFunctionalConsequenceId STRING,
+  variantHgvsId STRING,
+  variantId STRING,
+  variantRsId STRING,
+  diseaseId STRING,
+  id STRING,
+  score FLOAT64,
+  variantEffect STRING,
+  directionOnTrait STRING,
+  sourceId STRING
+);"
+reactome,"CREATE TABLE `open-targets-prod.platform.reactome`
+(
+  id STRING,
+  label STRING,
+  ancestors STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  descendants STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  children STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  parents STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  path STRUCT<list ARRAY<STRUCT<element STRUCT<list ARRAY<STRUCT<element STRING>>>>>>
+);"
+significantAdverseDrugReactions,"CREATE TABLE `open-targets-prod.platform.significantAdverseDrugReactions`
+(
+  chembl_id STRING,
+  event STRING,
+  count INT64 NOT NULL,
+  llr FLOAT64,
+  critval FLOAT64,
+  meddraCode STRING
+);"
+molecule,"CREATE TABLE `open-targets-prod.platform.molecule`
+(
+  id STRING,
+  canonicalSmiles STRING,
+  inchiKey STRING,
+  drugType STRING NOT NULL,
+  blackBoxWarning BOOL,
+  name STRING,
+  yearOfFirstApproval INT64,
+  maximumClinicalTrialPhase FLOAT64,
+  parentId STRING,
+  hasBeenWithdrawn BOOL,
+  isApproved BOOL,
+  tradeNames STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  synonyms STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL,
+  crossReferences STRUCT<key_value ARRAY<STRUCT<key STRING NOT NULL, value STRUCT<list ARRAY<STRUCT<element STRING>>>>>>,
+  childChemblIds STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>>,
+  linkedDiseases STRUCT<`rows` STRUCT<list ARRAY<STRUCT<element STRING>>> NOT NULL, count INT64 NOT NULL>,
+  linkedTargets STRUCT<`rows` STRUCT<list ARRAY<STRUCT<element STRING NOT NULL>>> NOT NULL, count INT64 NOT NULL>,
+  description STRING
+);"
+baselineExpression,"CREATE TABLE `open-targets-prod.platform.baselineExpression`
+(
+  id STRING,
+  tissues STRUCT<list ARRAY<STRUCT<element STRUCT<efo_code STRING, label STRING, organs STRUCT<list ARRAY<STRUCT<element STRING>>>, anatomical_systems STRUCT<list ARRAY<STRUCT<element STRING>>>, rna STRUCT<value FLOAT64, zscore INT64, level INT64, unit STRING> NOT NULL, protein STRUCT<reliability BOOL, level INT64, cell_type STRUCT<list ARRAY<STRUCT<element STRUCT<name STRING, reliability BOOL, level INT64> NOT NULL>>> NOT NULL> NOT NULL> NOT NULL>>> NOT NULL
+);"
+hpo,"CREATE TABLE `open-targets-prod.platform.hpo`
+(
+  dbXRefs STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  description STRING,
+  id STRING,
+  name STRING,
+  namespace STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  obsolete_terms STRUCT<list ARRAY<STRUCT<element STRING>>>,
+  parents STRUCT<list ARRAY<STRUCT<element STRING>>>
+);"
