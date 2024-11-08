@@ -5,7 +5,6 @@ A large quantities of databases in Spider2 are stored in BigQuery, including ind
 1. Register a BigQuery account and enable the BigQuery Sandbox function;
 > 🌹 You can get access to 70% SQLs of our benchmark, which query open-sourced databases in public Google Cloud Project `bigquery-public-data`.
 
-2. Submit a [form](https://docs.google.com/forms/d/e/1FAIpQLSdrsJX-oDZDL0McIaF-0uypLeO2pYW4SX-qDeNSd88iYR_3Gg/viewform) to us, fill in your BigQuery/Google account email and request the permission to our Google Cloud Project `spider2-public-data`, which affects about 30% SQLs. We will process your request in 12 hours 💪.
 
 If you are a beginner to BigQuery, please follow the guidelines below. We will walk you through
 
@@ -13,7 +12,6 @@ If you are a beginner to BigQuery, please follow the guidelines below. We will w
   - [How to Enable BigQuery Sandbox](#how-to-enable-bigquery-sandbox)
   - [How to Check BigQuery Public Databases](#how-to-check-bigquery-public-databases)
   - [How to Get BigQuery Credential](#how-to-get-bigquery-credential)
-  - [How to Get Access to `spider2-public-data`](#how-to-get-access-to-spider2-public-data)
 
 as well as
 
@@ -140,16 +138,3 @@ rows = query_job.result()  # Waits for query to finish
 for row in rows:
     print(row.name)
 ```
-
-## How to Get Access to `spider2-public-data`
-
-The Sandbox function of BigQuery restricts the consumption/quota of free users when querying databases. On account of the large volume of some DBs in `bigquery-public-data`, we create a public project `spider2-public-data` to decrease the data size of these DBs and resolve the quota limit problem when executing some SQLs (about 30%) in our benchmark. 
-`spider2-public-data` also contains other complex databases we collected from other Internet resources.
-
-To enable successful execution and evaluation on these 30% SQLs which querying `spider2-public-data`, please fill in this [form](https://docs.google.com/forms/d/e/1FAIpQLSdrsJX-oDZDL0McIaF-0uypLeO2pYW4SX-qDeNSd88iYR_3Gg/viewform), and we will grant you permanent access within 12 hours.
-
-> You only need to fill in the Bigquery account email.
-
-<p align="center">
-  <img src="bigquery-spider2-access.png" alt="Access to spider2" style="width: 60%; display: block; margin: 0 auto;" />
-</p>
