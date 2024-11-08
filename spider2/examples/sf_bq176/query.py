@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "TCGA_MITELMAN".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'PROD';
+        WHERE table_schema = 'TCGA_VERSIONED';
     """
     
 

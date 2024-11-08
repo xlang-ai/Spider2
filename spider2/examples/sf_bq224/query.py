@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "GITHUB_REPOS_DATE".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'GITHUB_REPOS';
+        WHERE table_schema = 'YEAR';
     """
     
 

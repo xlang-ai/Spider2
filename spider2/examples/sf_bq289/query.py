@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "GEO_OPENSTREETMAP_CENSUS_PLACES".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'GEO_OPENSTREETMAP';
+        WHERE table_schema = 'GEO_US_CENSUS_PLACES';
     """
     
 
