@@ -3,7 +3,9 @@
 
 ## 📰 News
 
-- **2024-11-04**: We released the paper along with the full dataset. Notably, we offer three settings: [`Spider 2.0`](https://github.com/xlang-ai/Spider2/tree/main/spider2), [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite), [`Spider 2.0-Snow`](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow).
+- **2024-11-08**: Participants no longer need to fill out the BigQuery form; you only need to fill out the Snowflake form.
+
+- **2024-11-04**: We released the dataset. Notably, we offer three settings: [`Spider 2.0`](https://github.com/xlang-ai/Spider2/tree/main/spider2), [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite), [`Spider 2.0-Snow`](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow).
 
 
 - **2024-08-28**: We released a smaller version of Spider 2.0 (~25% of the full dataset) containing 190 examples to give users early access. The full dataset and the paper will be available in two weeks. As this is a preliminary release, there may be errors. Your feedback would be invaluable in refining the dataset. Stay tuned!
@@ -72,7 +74,7 @@ Notably, as shown below, even the most advanced LLMs, including GPT-4, solve onl
 
 ### Sign Up for Your Own BigQuery and Snowflake Accounts
 
-1. To sign up for a BigQuery account, please follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md).
+1. To sign up for a BigQuery account, please follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md), get your own credentials.
 
 2. Follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) and fill out this [Spider2 Snowflake Access](https://docs.google.com/forms/d/e/1FAIpQLScbVIYcBkADVr-NcYm9fLMhlxR7zBAzg-jaew1VNRj6B8yD3Q/viewform?usp=sf_link), and we will send you an account sign-up email, which will allow you to access the Snowflake database.
 
