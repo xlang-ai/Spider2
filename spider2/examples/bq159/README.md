@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.pancancer_atlas_filtered` database to solve this problem.

@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.github_repos` and `githubarchive.day` and `githubarchive.month` and `githubarchive.year` database to solve this problem.

@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.idc_v17` database to solve this problem.

@@ -1,0 +1,2 @@
+1. please query `PATENTS_USPTO.USPTO_OCE_CANCER`, `PATENTS_USPTO.PATENTS`, `PATENTS_USPTO.USPTO_OCE_LITIGATION`, `PATENTS_USPTO.USPTO_OCE_CLAIMS`, `PATENTS_USPTO.USPTO_PTAB`, `PATENTS_USPTO.USPTO_OCE_ASSIGNMENT` database to solve this problem.
+2. Please complete the file result.csv with your answer.

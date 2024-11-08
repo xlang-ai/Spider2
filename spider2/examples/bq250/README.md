@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.geo_openstreetmap` and `spider2-public-data.worldpop` database to solve this problem.

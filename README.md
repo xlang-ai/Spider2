@@ -135,9 +135,9 @@ pip install -r requirements.txt
 cd spider2
 
 gdown 'https://drive.google.com/uc?id=1OxF-OuPwgb2miQxzftGLZBzPRQtLsyoV'
-gdown 'https://drive.google.com/uc?id=1WRmKgfRylZkRZ080U2QI1hjgph_3iUlq'
-gdown 'https://drive.google.com/uc?id=1sRSuvOC24qlI_ERoMdJRDUQ_cJs-MbcJ'
-gdown 'https://drive.google.com/uc?id=15nWtefZgxXOn_vzcIqF2gh4fLxmJC84F'
+gdown 'https://drive.google.com/uc?id=1gSB_30ey08GkDrMEXqj3LMJEH4ziQst1'
+gdown 'https://drive.google.com/uc?id=1N3f7BSWC4foj-V-1C9n8M2XmgV7FOcqL'
+gdown 'https://drive.google.com/uc?id=1s0USV_iQLo4oe05QqAMnhGGp5jeejCzp'
 
 ```
 

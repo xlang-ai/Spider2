@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.patents` database to solve this problem.

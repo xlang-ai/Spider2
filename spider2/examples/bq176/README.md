@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.TCGA_versioned` and `mitelman-db.prod` database to solve this problem.

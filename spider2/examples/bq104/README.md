@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.google_trends` database to solve this problem.

@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.word_vectors_us` database to solve this problem.

@@ -1,1 +1,0 @@
-1. please query `spider2-public-data.crypto_band` database to solve this problem.
