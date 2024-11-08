@@ -44,7 +44,7 @@
       <td><strong>Spider 2.0-Lite</strong></td>
       <td>Text-to-SQL task</td>
       <td>547</td>
-      <td>BigQuery(214), Snowflake(198), Postgres(10), SQLite(135)</td>
+      <td>BigQuery(214), Snowflake(198), SQLite(135)</td>
       <td>Some cost incurred</td>
     </tr>
   </table>
