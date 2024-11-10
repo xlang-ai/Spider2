@@ -61,11 +61,10 @@ This new benchmark offers a more realistic and challenging test of LLMs' perform
 
 Notably, as shown below, even the most advanced LLMs, including GPT-4, solve only 6.0% of Spider 2.0 tasks, compared to 86.6% on Spider 1.0 and 57.4% on BIRD, highlighting the significant challenges posed by Spider 2.0.
 
-|                   | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0 | Spider 2.0-Snow |
+|                   | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0-lite | Spider 2.0-snow |
 |-------------------|----------------|-----------------|-----------|------------|-----------------|
-| DailSQL + GPT-4   | 82.4           | 86.6            | 57.4      | 6.0        |                 |
-| CodeS-7B          | 85.4           | -               | 59.3      | 2.2        |                 |
-| Spider-Agent + GPT-4 | 85.4        | -               | 59.3      | 12.3       | 11.0            |
+| DailSQL + GPT-4   | 82.4           | 86.6            | 57.4      | 5.6        |    2.2             |
+| CodeS-15B          | 85.4           | -               | 59.3      | 0.7        |       0.0          |
 
 
 
