@@ -224,7 +224,9 @@ We only release the gold answer of about 50% examples of Spider 2.0, Spider 2.0-
 
 # 🙇‍♂️ Acknowledgement
 
-We would like to express our sincere gratitude to Snowflake for their generous support of our project, including providing quota to host the Snowflake databases and offering query quotas for users. Their contributions have been invaluable in enabling us to advance our research and provide innovative solutions to the text-to-SQL community.
+We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
+We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao and Binyuan Hui for their helpful feedback on this work.
+
 
 # ✍️ Citation
 If you find our work helpful, please cite as
