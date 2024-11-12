@@ -13,7 +13,7 @@ To align with research interests in **traditional Text2SQL settings** and **make
 
 
 
-#### Run Spider-Agent(Snow)
+### Run Spider-Agent(Snow)
 
 1. **Install Docker**. Follow the instructions in the [Docker setup guide](https://docs.docker.com/engine/install/) to install Docker on your machine. 
 2. **Install conda environment**.
@@ -41,6 +41,14 @@ export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
 ```
 
+
+### Run DAIL-SQL on Spider2-Snow
+
+1. Copy the `spider2-lite/baselines/dailsql` folder to `spider-snow/baselines/dailsql`.
+
+2. Change `DEV=spider2-lite` to `DEV=spider2-snow` in `spider-snow/baselines/dailsql/run.sh`.
+
+3. Run DAIL-SQL on `spider2-snow` in the same way as on `spider-lite`.
 
 
 ## Evaluation
