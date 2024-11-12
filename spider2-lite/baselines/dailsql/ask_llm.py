@@ -1,4 +1,4 @@
-# import debugpy; debugpy.connect(("127.0.0.1", 5688))
+# import debugpy; debugpy.connect(("127.0.0.1", 5690))
 import argparse
 import os
 import json

@@ -1,4 +1,4 @@
-# import debugpy; debugpy.connect(('127.0.0.1', 5688))
+# import debugpy; debugpy.connect(('127.0.0.1', 5690))
 import time
 from multiprocessing import Pool, set_start_method
 import json
@@ -30,7 +30,7 @@ def evaluate_instance(id, mode, pred_result_dir, gold_result_dir, gold_sql_dir, 
     for pred_sql_file in pred_sql_files:
         # score = 0
         pred_sql_query = open(os.path.join(pred_result_dir, pred_sql_file)).read()
-        if "bq" in id or "ga" in id:
+        if id.startswith("bq") or id.startswith("ga"):
             query_s_time = time.time()            
             exe_flag, dbms_error_info = get_bigquery_sql_result(pred_sql_query, True, credential_path, "temp", f"{id}_pred.csv")
             query_e_time = time.time()
@@ -81,7 +81,7 @@ def evaluate_instance(id, mode, pred_result_dir, gold_result_dir, gold_sql_dir, 
                 print(f"warning: score is not defined! This is because the missing csv for {id} in gold_result_dir. Please check!!")
                 
 
-        elif "local" in id:
+        elif id.startswith("local"):
             query_s_time = time.time()
             exe_flag, dbms_error_info = get_sqlite_result(f"../resource/databases/spider2-localdb/{spider2sql_metadata.get(id)['db']}.sqlite", pred_sql_query, "temp", f"{id}_pred.csv")
             query_e_time = time.time()
@@ -159,6 +159,10 @@ def evaluate_instance(id, mode, pred_result_dir, gold_result_dir, gold_sql_dir, 
                         score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
                         if score == 0 and error_info is None:
                             error_info = 'Result Error'  
+
+            if score == 1:
+                instance_correct = True
+                break                           
 
     # with open(f"{id}.txt", "w") as f:
     #     f.write("")
@@ -289,7 +293,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run evaluations for NLP models.")
     parser.add_argument("--dev", type=str, default="spider2-lite")
     parser.add_argument("--mode", type=str, choices=["sql", "exec_result"], default='sql', help="Mode of submission results")
-    parser.add_argument("--result_dir", type=str, default="spider2sql_example_submit_result", help="Result directory")
+    parser.add_argument("--result_dir", type=str, default="/home/jxchen/Spider2/spider2-lite/baselines/dailsql/postprocessed_data/1109pass@10_spider2-lite_CTX-200/RESULTS_MODEL-gpt-4o-2024-08-06-SQL-postprocessed", help="Result directory")
     parser.add_argument("--gold_dir", type=str, default="gold", help="Result directory")
     parser.add_argument("--is_sql_debug", action="store_true", default=False)
     parser.add_argument("--credential_path", type=str, default="./credentials/bigquery_credential.json")

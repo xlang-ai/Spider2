@@ -1,0 +1,143 @@
+/* A example question and corresponding SQL query are provided as follows: */
+/* Question: For US B2 patents granted in the first seven days of January 2018, tell me the publication number of each patent and the number of backward citations it has received in the SEA category. */
+/* SQL query: */
+WITH patents_sample AS (               -- name of our table
+SELECT 
+  t1.publication_number, 
+  t1.application_number 
+FROM 
+  `patents-public-data.patents.publications` t1 
+WHERE 
+  country_code = 'US'                                                        -- only consider US patents
+  AND grant_date between 20180101 AND 20180107                               -- grant dates between 2002 and 2006
+  AND grant_date != 0                                                        -- only consider granted patents
+  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+)
+
+SELECT
+  t1.publication_number,
+  -- count disctinct application numbers cited by our focal patent
+  COUNT(DISTINCT t3.application_number) AS backward_citations
+FROM
+  patents_sample t1
+LEFT OUTER JOIN (
+  SELECT
+    -- the publication number in the joined table is the citing publication number
+    x2.publication_number AS citing_publication_number,
+    -- the publication number in the unnested citation record is the cited publication number
+    citation_u.publication_number AS cited_publication_number,
+    -- the category in the unnested citation record is the category of the cited publication
+    citation_u.category AS cited_publication_category
+  FROM
+    `patents-public-data.patents.publications` x2,
+    UNNEST(citation) AS citation_u ) t2
+ON
+  t2.citing_publication_number = t1.publication_number
+  -- citation category has to contain 'SEA'
+  AND CONTAINS_SUBSTR(t2.cited_publication_category, 'SEA')
+  -- one more join to publications table to get the application number
+LEFT OUTER JOIN
+  `patents-public-data.patents.publications` t3
+ON
+  t2.cited_publication_number = t3.publication_number
+GROUP BY
+  t1.publication_number
+ORDER BY
+  t1.publication_number
+
+/* Question: What are the monthly statistics for new StackOverflow users created in 2021, including the percentage of new users who asked questions and the percentage of those who asked questions and then answered questions within their first 30 days? */
+/* SQL query: */
+DECLARE yr, conversion_window INT64;
+SET (yr, conversion_window) = (2021, 30);
+
+WITH users AS (
+  SELECT *
+  FROM `bigquery-public-data.stackoverflow.users`
+  WHERE EXTRACT(YEAR FROM creation_date) = yr
+),
+
+users_questions AS (
+  SELECT 
+    u.display_name, 
+    u.id AS user_id, 
+    u.creation_date AS signup, 
+    COUNT(q.id) AS questions, 
+    MIN(q.creation_date) AS first_question
+  FROM users u
+  LEFT JOIN `bigquery-public-data.stackoverflow.posts_questions` q 
+    ON q.owner_user_id = u.id 
+    AND DATE_DIFF(q.creation_date, u.creation_date, DAY) <= conversion_window
+  GROUP BY 
+    u.display_name, 
+    u.id, 
+    u.creation_date
+),
+
+users_questions_answers AS (
+  SELECT 
+    display_name, 
+    user_id, 
+    signup, 
+    questions, 
+    first_question, 
+    COUNT(a.id) AS answers_after_question
+  FROM users_questions uq
+  LEFT JOIN `bigquery-public-data.stackoverflow.posts_answers` a 
+    ON a.owner_user_id = uq.user_id 
+    AND a.creation_date > uq.first_question
+    AND DATE_DIFF(a.creation_date, uq.first_question, DAY) <= conversion_window
+  GROUP BY 
+    display_name, 
+    user_id, 
+    signup, 
+    questions, 
+    first_question
+)
+
+SELECT 
+  EXTRACT(MONTH FROM signup) AS month,
+  COUNT(user_id) AS new_users,
+  COUNT(DISTINCT CASE WHEN questions > 0 THEN user_id ELSE NULL END) AS asked,
+  ROUND(COUNT(DISTINCT CASE WHEN questions > 0 THEN user_id ELSE NULL END) / COUNT(user_id) * 100, 2) AS pct_asked,
+  COUNT(DISTINCT CASE WHEN answers_after_question > 0 THEN user_id ELSE NULL END) AS then_answered,
+  ROUND(COUNT(DISTINCT CASE WHEN answers_after_question > 0 THEN user_id ELSE NULL END) / COUNT(user_id) * 100, 2) AS pct_then_answered
+FROM users_questions_answers
+GROUP BY 
+  EXTRACT(MONTH FROM signup)
+ORDER BY 
+  month ASC;
+
+/* Question: For taxi trips with a duration rounded to the nearest minute, and between 1 and 50 minutes, if the trip durations are divided into 10 quantiles, what are the total number of trips and the average fare for each quantile? */
+/* SQL query: */
+SELECT
+  FORMAT('%02.0fm to %02.0fm', min_minutes, max_minutes) AS minutes_range,
+  SUM(trips) AS total_trips,
+  FORMAT('%3.2f', SUM(total_fare) / SUM(trips)) AS average_fare
+FROM (
+  SELECT
+    MIN(duration_in_minutes) OVER (quantiles) AS min_minutes,
+    MAX(duration_in_minutes) OVER (quantiles) AS max_minutes,
+    SUM(trips) AS trips,
+    SUM(total_fare) AS total_fare
+  FROM (
+    SELECT
+      ROUND(trip_seconds / 60) AS duration_in_minutes,
+      NTILE(10) OVER (ORDER BY trip_seconds / 60) AS quantile,
+      COUNT(1) AS trips,
+      SUM(fare) AS total_fare
+    FROM
+      `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+    WHERE
+      ROUND(trip_seconds / 60) BETWEEN 1 AND 50
+    GROUP BY
+      trip_seconds,
+      duration_in_minutes )
+  GROUP BY
+    duration_in_minutes,
+    quantile
+  WINDOW quantiles AS (PARTITION BY quantile)
+  )
+GROUP BY
+  minutes_range
+ORDER BY
+  Minutes_range

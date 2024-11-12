@@ -51,14 +51,15 @@ class SQLPrompt(BasicPrompt):
         prompt_extra_info = self.get_extra_info(example["db_id"])
 
         if example['instance_id'].startswith('local'):
-            dialect = 'SQLite'
+            dialect1, dialect2 = 'SQLite', 'SQLite'
         elif example['instance_id'].startswith('bq') or example['instance_id'].startswith('ga'):
-            dialect = 'Goole BigQuery'
+            dialect1, dialect2 = 'Goole_BigQuery', "Goole BigQuery. Don't apply `your_project.your_dataset` prefix to table names, I will fix this issue later"
         elif example['instance_id'].startswith('sf'):
-            dialect = 'Snowflake'
+            dialect1, dialect2 = 'Snowflake', 'Snowflake. Column names must be enclosed in double quotes, and table names must not be enclosed'
         else:
             raise NotImplementedError
-        prompt_question = self.template_question_optimized.format(dialect, dialect, example["question"])
+
+        prompt_question = self.template_question_optimized.format(dialect1, dialect2, example["question"])
 
         def check_length(prompt_components, new):
             result = "\n\n".join(prompt_components) + prompt_question + new  # type: str
@@ -79,7 +80,9 @@ class SQLPrompt(BasicPrompt):
                 prompt_components.append(new)
             else:
                 print("Sample rows info too long, skip. length: ", len(new))
+            print(example["instance_id"])
         if args.use_external_knowledge and example['external_knowledge'] is not None:
+            print(example['external_knowledge'])
             with open(osp.join(proj_dir, '../../resource/documents', example['external_knowledge']), "r", encoding="utf-8") as file:
                 content = file.read()
             new = self.external_knowledge_info.format(content)
@@ -104,7 +107,7 @@ class SQLPrompt(BasicPrompt):
                 print("Plan too long, skip. length: ", len(new))
 
         if args.use_few_shot:  # put few-shot examples at the end. for fair comparison 
-            with open(osp.join(proj_dir, f'../utils/{args.n_shots}-shot.txt'), 'r', encoding='utf-8') as file:
+            with open(osp.join(proj_dir, f'../utils/{args.n_shots}-shot-{dialect1}.txt'), 'r', encoding='utf-8') as file:
                 new = file.read()
             if check_length(prompt_components, new):
                 prompt_components.append(new)
