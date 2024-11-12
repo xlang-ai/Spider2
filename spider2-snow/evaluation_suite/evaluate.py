@@ -363,8 +363,6 @@ def evaluate_spider2sql(args):
                             if score == 0 and error_info is None:
                                 error_info = 'Result Error'                        
         elif mode == "exec_result":
-            
-            pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
             if '_' in id:
                 pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
             else:
@@ -372,13 +370,19 @@ def evaluate_spider2sql(args):
             all_files = os.listdir(gold_result_dir)
             csv_files = [file for file in all_files if pattern.match(file)]
 
-            if len(csv_files) == 1:
-                gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
-                score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-            elif len(csv_files) > 1:
-                gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
-                score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-        
+            try:
+                pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
+
+                if len(csv_files) == 1:
+                    gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
+                    score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+                elif len(csv_files) > 1:
+                    gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
+                    score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+            except Exception as e:
+                score = 0
+                error_info = 'Result Parsing Error:' + str(e)
+            
         output_results.append(
             {
                 "instance_id": id, 
@@ -390,7 +394,7 @@ def evaluate_spider2sql(args):
 
         
     print({item['instance_id']: item['score'] for item in output_results})      
-    score = sum([item['score'] for item in output_results]) / len(output_results)
+    score = sum([item['score'] for item in output_results]) / len(eval_standard_dict)
     print(f"Final score: {score}")
 
 
