@@ -3,6 +3,8 @@
 
 ## 📰 News
 
+- **2024-11-12**: We release the [paper](https://arxiv.org/abs/2411.07763).
+
 - **2024-11-08**: Participants no longer need to fill out the BigQuery form; you only need to fill out the Snowflake form.
 
 - **2024-11-04**: We released the dataset. Notably, we offer three settings: [`Spider 2.0`](https://github.com/xlang-ai/Spider2/tree/main/spider2), [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite), [`Spider 2.0-Snow`](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow).
@@ -230,7 +232,15 @@ We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yimin
 # ✍️ Citation
 If you find our work helpful, please cite as
 ```
-
+@misc{lei2024spider20evaluatinglanguage,
+      title={Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows}, 
+      author={Fangyu Lei and Jixuan Chen and Yuxiao Ye and Ruisheng Cao and Dongchan Shin and Hongjin Su and Zhaoqing Suo and Hongcheng Gao and Wenjing Hu and Pengcheng Yin and Victor Zhong and Caiming Xiong and Ruoxi Sun and Qian Liu and Sida Wang and Tao Yu},
+      year={2024},
+      eprint={2411.07763},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2411.07763}, 
+}
 
 
 ```
