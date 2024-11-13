@@ -3,6 +3,10 @@ import json.decoder
 import openai
 from utils.enums import LLM
 import time
+import os
+
+# os.environ["http_proxy"]="http://127.0.0.1:61081"
+# os.environ["https_proxy"]="http://127.0.0.1:61081"
 
 
 def init_chatgpt(OPENAI_API_KEY, OPENAI_GROUP_ID, model):
@@ -58,6 +62,37 @@ def ask_chat(model, messages: list, temperature, n, max_tokens):
         response=response_clean,
         **response["usage"]
     )
+
+
+# def ask_llm(model: str, batch: list, temperature: float, n:int, max_tokens):
+#     n_repeat = 0
+#     response = {"total_tokens": 0, "response": [["SELECT" for _ in range(n)]]}
+#     while n_repeat < 1:
+#         try:
+#             assert model in LLM.TASK_CHAT, "LLM.TASK_COMPLETIONS is too old. not supported."
+#             # batch size must be 1
+#             assert len(batch) == 1, "batch must be 1 in this mode"
+#             messages = [{"role": "user", "content": batch[0]}]
+#             response = ask_chat(model, messages, temperature, n, max_tokens)
+#             response['response'] = [response['response']]  # hard-code for batch_size=1
+#             break
+#         except openai.error.RateLimitError:
+#             n_repeat += 1
+#             print(f"Repeat for the {n_repeat} times for RateLimitError", end="\n")
+#             time.sleep(1)
+#             continue
+#         except json.decoder.JSONDecodeError:
+#             n_repeat += 1
+#             print(f"Repeat for the {n_repeat} times for JSONDecodeError", end="\n")
+#             time.sleep(1)
+#             continue
+#         except Exception as e:
+#             n_repeat += 1
+#             print(f"Repeat for the {n_repeat} times for exception: {e}", end="\n")
+#             time.sleep(1)
+#             continue
+        
+#     return response
 
 
 def ask_llm(model: str, batch: list, temperature: float, n:int, max_tokens):

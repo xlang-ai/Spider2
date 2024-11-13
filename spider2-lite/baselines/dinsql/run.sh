@@ -1,10 +1,9 @@
 #!/bin/bash
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# DEV=spide2-lite
-DEV=toy
+DEV=spide2-lite
 LLM=gpt-4o-2024-08-06
-COMMENT=1107
+COMMENT=1
 
 # step1. preprocess
 cd ${script_dir}  

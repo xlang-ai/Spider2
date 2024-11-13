@@ -14,11 +14,6 @@ sys.path = [osp.join(proj_dir, '../')] + sys.path
 
 from utils.utils import walk_metadata, get_special_function_summary
 
-
-def read_jsonl(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        return [json.loads(line) for line in file]
-
 def preprocess_table_json(args):
     os.makedirs(osp.join(proj_dir, f'preprocessed_data/{args.dev}'), exist_ok=True)
     db_stats_list = walk_metadata(args.dev)
@@ -113,7 +108,8 @@ def preprocess_table_json(args):
 
 def preprocess_dev_json(args):
 
-    data = read_jsonl(osp.join(proj_dir, f'../../{args.dev}.jsonl'))
+    with open(osp.join(proj_dir, f'../../{args.dev}.json'), 'r', encoding='utf-8') as file:
+        data = json.load(file)
     
     for item in data:
 
