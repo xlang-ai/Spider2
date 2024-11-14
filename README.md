@@ -226,7 +226,7 @@ We only release the gold answer of about 50% examples of Spider 2.0, Spider 2.0-
 
 # 🙇‍♂️ Acknowledgement
 
-<img src="assets/Snowflake.png" align="middle" width="25%">
+<img src="assets/Snowflake.png" align="middle" width="35%">
 
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
 We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao and Binyuan Hui for their helpful feedback on this work.
