@@ -64,10 +64,10 @@ This new benchmark offers a more realistic and challenging test of LLMs' perform
 
 Notably, as shown below, even the most advanced LLMs, including GPT-4, solve only 6.0% of Spider 2.0 tasks, compared to 86.6% on Spider 1.0 and 57.4% on BIRD, highlighting the significant challenges posed by Spider 2.0.
 
-|                   | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0-lite | Spider 2.0-snow |
-|-------------------|----------------|-----------------|-----------|------------|-----------------|
-| DailSQL + GPT-4   | 82.4           | 86.6            | 57.4      | 5.6        |    2.2             |
-| CodeS-15B          | 85.4           | -               | 59.3      | 0.7        |       0.0          |
+|                 | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0-lite | Spider 2.0-snow |
+| --------------- | -------------- | --------------- | --------- | --------------- | --------------- |
+| DailSQL + GPT-4 | 82.4           | 86.6            | 57.4      | 5.6             | 2.2             |
+| CodeS-15B       | 85.4           | -               | 59.3      | 0.7             | 0.0             |
 
 
 
@@ -226,6 +226,8 @@ We only release the gold answer of about 50% examples of Spider 2.0, Spider 2.0-
 
 # 🙇‍♂️ Acknowledgement
 
+<img src="assets/Snowflake.png" align="middle" width="25%">
+
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
 We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao and Binyuan Hui for their helpful feedback on this work.
 The leaderboard submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
@@ -242,6 +244,4 @@ If you find our work helpful, please cite as
       primaryClass={cs.CL},
       url={https://arxiv.org/abs/2411.07763}, 
 }
-
-
 ```
