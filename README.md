@@ -1,5 +1,9 @@
 # Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows
-
+<p align="center">
+  <a href="https://spider2-sql.github.io/">Website</a> •
+  <a href="https://arxiv.org/abs/2411.07763">Paper</a> •
+  <a href="https://github.com/xlang-ai/Spider2/blob/main/spider2/README.md">Data</a>
+</p>
 
 ## 📰 News
 
