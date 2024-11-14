@@ -235,7 +235,7 @@ The leaderboard submission guidelines are greatly inspired by [BIRD-SQL](https:/
 # ✍️ Citation
 If you find our work helpful, please cite as
 ```
-@misc{lei2024spider20evaluatinglanguage,
+@misc{lei2024spider2,
       title={Spider 2.0: Evaluating Language Models on Real-World Enterprise Text-to-SQL Workflows}, 
       author={Fangyu Lei and Jixuan Chen and Yuxiao Ye and Ruisheng Cao and Dongchan Shin and Hongjin Su and Zhaoqing Suo and Hongcheng Gao and Wenjing Hu and Pengcheng Yin and Victor Zhong and Caiming Xiong and Ruoxi Sun and Qian Liu and Sida Wang and Tao Yu},
       year={2024},
