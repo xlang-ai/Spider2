@@ -228,11 +228,14 @@ Usually, we will return your results in 10 days!
 
 # 🙇‍♂️ Acknowledgement
 
-<img src="assets/Snowflake.png" align="middle" width="35%">
-
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
-We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao and Binyuan Hui for their helpful feedback on this work.
+We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao, and Binyuan Hui for their helpful feedback on this work.
 The leaderboard submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
+
+<p align="center">
+  <img src="assets/Snowflake.png" width="35%">
+</p>
+
 
 # ✍️ Citation
 If you find our work helpful, please cite as
