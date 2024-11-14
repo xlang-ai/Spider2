@@ -228,7 +228,7 @@ We only release the gold answer of about 50% examples of Spider 2.0, Spider 2.0-
 
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
 We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao and Binyuan Hui for their helpful feedback on this work.
-
+The leaderboard submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
 
 # ✍️ Citation
 If you find our work helpful, please cite as
