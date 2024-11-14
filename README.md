@@ -14,9 +14,6 @@
 - **2024-11-04**: We released the dataset. Notably, we offer three settings: [`Spider 2.0`](https://github.com/xlang-ai/Spider2/tree/main/spider2), [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite), [`Spider 2.0-Snow`](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow).
 
 
-- **2024-08-28**: We released a smaller version of Spider 2.0 (~25% of the full dataset) containing 190 examples to give users early access. The full dataset and the paper will be available in two weeks. As this is a preliminary release, there may be errors. Your feedback would be invaluable in refining the dataset. Stay tuned!
-
-
 
 ## 👋 Overview
 
