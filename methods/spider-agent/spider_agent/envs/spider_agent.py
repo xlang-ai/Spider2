@@ -18,6 +18,7 @@ from spider_agent import configs
 from spider_agent.agent.action import Action, Bash, Terminate, CreateFile, EditFile, LOCAL_DB_SQL, BIGQUERY_EXEC_SQL, BQ_GET_TABLES, BQ_GET_TABLE_INFO, BQ_SAMPLE_ROWS
 from spider_agent.agent.action import SNOWFLAKE_EXEC_SQL, SF_GET_TABLES, SF_GET_TABLE_INFO, SF_SAMPLE_ROWS
 import signal
+import sys
 
 logger = logging.getLogger("spider_agent.env")
 
@@ -82,6 +83,9 @@ class Spider_Agent_Env(gym.Env):
         self.init_files_hash = self._get_env_files_hash()
         time.sleep(2)
         logger.info("Environment setup complete.")
+
+        signal.signal(signal.SIGINT, self._cleanup)
+        signal.signal(signal.SIGTERM, self._cleanup)
         
         
         
@@ -98,6 +102,12 @@ class Spider_Agent_Env(gym.Env):
         self.container.stop()
         self.container.remove()
         logger.info(f"Container {self.container_name} stopped and removed.")
+
+    def _cleanup(self, signum, frame):
+        if self.container:
+            self.container.remove(force=True)
+            print("remove container")
+        sys.exit(0)
         
     def _construct_container(self):
         
