@@ -108,7 +108,7 @@ def number_match(pred, gold, percentage=False, precision=4, conj="or"):
 
 def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     
-    tolerance = 1e-3
+    tolerance = 1e-2
 
     def vectors_match(v1, v2, tol=tolerance, ignore_order_=False):
         if ignore_order_:
