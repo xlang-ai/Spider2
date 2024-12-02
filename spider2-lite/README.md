@@ -5,7 +5,7 @@ To align with research interests in **traditional Text2SQL settings**, we releas
 
 ## 🚀 Quickstart
 
-1. Download  [local database](https://drive.usercontent.google.com/download?id=1WRmKgfRylZkRZ080U2QI1hjgph_3iUlq&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
+1. Download  [local database](https://drive.usercontent.google.com/download?id=1gSB_30ey08GkDrMEXqj3LMJEH4ziQst1&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
 
 2. Usage.
 - If your method doesn't require dynamic interaction with the databases, you can make full use of the data in the [`databases`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/databases) and the content in the [`documentation`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/documents).
