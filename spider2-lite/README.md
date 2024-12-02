@@ -7,11 +7,12 @@ To align with research interests in **traditional Text2SQL settings**, we releas
 
 1. Download  [local database](https://drive.usercontent.google.com/download?id=1gSB_30ey08GkDrMEXqj3LMJEH4ziQst1&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
 
-2. Usage.
-- If your method doesn't require dynamic interaction with the databases, you can make full use of the data in the [`databases`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/databases) and the content in the [`documentation`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/documents).
-- If your method requires dynamic interaction with the database, in addition to these, you can use the scripts in the [`interface`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/resource/interface) to interact with the cloud database.
+2. To sign up for a BigQuery account, please follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md), get your own credentials.
 
-In addition, if you want to view the data in more detail, you need to register for a BigQuery account. Here is a [Bigquery Guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md).
+3. Follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) and fill out this [Spider2 Snowflake Access](https://docs.google.com/forms/d/e/1FAIpQLScbVIYcBkADVr-NcYm9fLMhlxR7zBAzg-jaew1VNRj6B8yD3Q/viewform?usp=sf_link), and we will send you an account sign-up email, which will allow you to access the Snowflake database.
+
+4. Follow the baselines. We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation), [`Din-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dinsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation).
+
 
 The file `spider2-lite_0930.json` is an older version, while `spider2-lite.json` is the latest version. To address the high query costs associated with large datasets, we have sampled certain tables from `bigquery-public-data` and `patent-public-data` into `spider2-public-data`, making development more efficient and convenient.
 
