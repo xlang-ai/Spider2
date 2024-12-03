@@ -1,6 +1,6 @@
 # Snowflake Guideline
 
-1. You must fill out this form. Be sure to provide your username and email address; we will send you an email after creating your user account. We will do our best to create your account within 12 hours.
+1. You must fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLScbVIYcBkADVr-NcYm9fLMhlxR7zBAzg-jaew1VNRj6B8yD3Q/viewform?usp=sf_link). Be sure to provide your username and email address; we will send you an email after creating your user account. We will do our best to create your account within 12 hours.
 
 2. Click [this link](https://app.snowflake.com/rsrsbdk/ydb67606/#/homepage) to log in to the Snowflake Spider 2.0 Warehouse. We have automatically generated a password for you in the email.
 
