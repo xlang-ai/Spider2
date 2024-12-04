@@ -36,7 +36,7 @@ FROM (
     SELECT *
     FROM NOAA_DATA_PLUS.noaa_historic_severe_storms.storms_2024
 ) AS storms
-JOIN geo_us_boundaries.zip_codes ON ST_WITHIN(ST_GEOMFROMWKB(storms."event_point"), ST_GEOMFROMWKB("zip_code_geom"))
+JOIN geo_us_boundaries.zip_codes ON ST_WITHIN(ST_GEOGFROMWKB(storms."event_point"), ST_GEOGFROMWKB("zip_code_geom"))
 WHERE
    LOWER(storms."event_type") = 'hail'
 GROUP BY
