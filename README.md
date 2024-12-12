@@ -7,6 +7,8 @@
 
 ## 📰 News
 
+- **2024-12-12**: We released all the examples and gold answers!
+
 - **2024-11-12**: We release the [paper](https://arxiv.org/abs/2411.07763).
 
 - **2024-11-08**: Participants no longer need to fill out the BigQuery form; you only need to fill out the Snowflake form.
