@@ -1,0 +1,137 @@
+version: 2
+
+models:
+  - name: mrt_capacity_tariff
+    description: |
+      This model analyzes peak energy usage to determine the capacity tariff for each month. 
+      It calculates the peak energy usage for each month, tracks the timestamp and date of the peak, and provides additional information such as the day of the week, whether it was a holiday, and the 12-month rolling average of peak values. 
+      The model also calculates the percentage change in peak energy usage compared to the previous month.
+
+    refs:
+      - name: fct_electricity
+      - name: dim_dates
+      - name: dim_time
+
+    columns:
+      - name: month
+        description: "The month of the year when the peak energy usage occurred."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 12
+
+      - name: year
+        description: "The year when the peak energy usage occurred."
+        tests:
+          - not_null
+
+      - name: month_peak_timestamp
+        description: "The timestamp when the peak energy usage for the month occurred."
+        tests:
+          - not_null
+
+      - name: month_peak_timestamp_end
+        description: "The timestamp when the peak energy usage for the month ended."
+        tests:
+          - not_null
+
+      - name: month_peak_date
+        description: "The date of the peak energy usage for the month."
+        tests:
+          - not_null
+
+      - name: month_peak_day_of_week_name
+        description: "The name of the day of the week when the peak energy usage occurred."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - Monday
+                - Tuesday
+                - Wednesday
+                - Thursday
+                - Friday
+                - Saturday
+                - Sunday
+
+      - name: month_peak_day_of_month
+        description: "The day of the month when the peak energy usage occurred."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 1
+              max_value: 31
+
+      - name: month_peak_day_type
+        description: "The type of the day (weekday or weekend) when the peak energy usage occurred."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - weekday
+                - weekend
+
+      - name: month_peak_is_holiday
+        description: "Indicates whether the peak energy usage occurred on a holiday."
+        tests:
+          - not_null
+
+      - name: month_peak_part_of_day
+        description: "The part of the day (morning, afternoon, evening, or night) when the peak energy usage occurred."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - morning
+                - afternoon
+                - evening
+                - night
+
+      - name: month_peak_value
+        description: "The highest energy usage (in kWh) recorded during the month."
+        tests:
+          - not_null
+
+      - name: month_peak_12month_avg
+        description: "The rolling 12-month average of peak energy usage, used to determine the capacity tariff."
+        tests:
+          - not_null
+
+      - name: month_name_short
+        description: "The abbreviated name of the month (e.g., Jan, Feb)."
+        tests:
+          - not_null
+
+      - name: month_name
+        description: "The full name of the month."
+        tests:
+          - not_null
+
+      - name: month_start_date
+        description: "The start date of the month."
+        tests:
+          - not_null
+
+      - name: pct_change
+        description: "The percentage change in peak energy usage compared to the previous month."
+        tests:
+          - dbt_utils.at_least_one
+
+  - name: mrt_validated
+    description: |
+      Analyze which data was estimated and which data was validated.
+      Probably not the most useful model, but maybe it's something to keep an eye on.
+    columns:
+      - name: usage
+        description: Total electricity usage in kWh
+        tests:
+          - dbt_utils.at_least_one
+      - name: injection
+        description: Total electricity injection in kWh
+        tests:
+          - dbt_utils.at_least_one
+      - name: validated
+        description: Whether the data has been validated by Fluvius (bool)
+        tests:
+          - not_null

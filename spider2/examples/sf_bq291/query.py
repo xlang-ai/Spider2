@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "NOAA_GLOBAL_FORECAST_SYSTEM".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'GEO_OPENSTREETMAP';
+        WHERE table_schema = 'NOAA_GLOBAL_FORECAST_SYSTEM';
     """
     
 

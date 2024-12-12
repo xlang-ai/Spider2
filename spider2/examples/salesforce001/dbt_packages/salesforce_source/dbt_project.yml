@@ -1,0 +1,52 @@
+config-version: 2
+name: 'salesforce_source'
+version: '1.1.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  salesforce_source:
+    tmp:
+      materialized: view
+    materialized: table
+
+vars:
+  salesforce_source:
+    account: "{{ source('salesforce', 'account') }}"
+    opportunity: "{{ source('salesforce', 'opportunity') }}"
+    user: "{{ source('salesforce', 'user') }}"
+    user_role: "{{ source('salesforce', 'user_role') }}"
+    contact: "{{ source('salesforce', 'contact') }}"
+    lead: "{{ source('salesforce', 'lead') }}"
+    task: "{{ source('salesforce', 'task') }}"
+    event: "{{ source('salesforce', 'event') }}"
+    product_2: "{{ source('salesforce', 'product_2') }}"
+    order: "{{ source('salesforce', 'order') }}"
+    opportunity_line_item: "{{ source('salesforce', 'opportunity_line_item') }}"
+    
+    account_history: "{{ source('salesforce_history', 'account') }}"
+    contact_history: "{{ source('salesforce_history', 'contact') }}"
+    opportunity_history: "{{ source('salesforce_history', 'opportunity') }}"
+
+    salesforce__user_role_enabled: true
+    salesforce__lead_enabled: true
+    salesforce__event_enabled: true
+    salesforce__task_enabled: true
+    salesforce__opportunity_line_item_enabled: true
+    salesforce__order_enabled: true
+    salesforce__product_2_enabled: true
+
+    salesforce__account_history_enabled: false
+    salesforce__contact_history_enabled: false
+    salesforce__opportunity_history_enabled: false
+
+# Salesforce pass through columns.
+    salesforce__account_pass_through_columns: []
+    salesforce__contact_pass_through_columns: []
+    salesforce__event_pass_through_columns: []
+    salesforce__lead_pass_through_columns: []
+    salesforce__opportunity_pass_through_columns: []
+    salesforce__opportunity_line_item_pass_through_columns: []
+    salesforce__order_pass_through_columns: []
+    salesforce__product_2_pass_through_columns: []
+    salesforce__task_pass_through_columns: []
+    salesforce__user_role_pass_through_columns: []
+    salesforce__user_pass_through_columns: []

@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "NOAA_PORTS".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'GEO_INTERNATIONAL_PORTS';
+        WHERE table_schema = 'GEO_US_BOUNDARIES';
     """
     
 

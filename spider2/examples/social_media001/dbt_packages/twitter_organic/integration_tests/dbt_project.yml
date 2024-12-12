@@ -1,0 +1,23 @@
+name: 'twitter_organic_integration_tests'
+version: '0.3.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+  twitter_account_history_identifier: "account_history"
+  twitter_organic_tweet_report_identifier: "organic_tweet_report"
+  twitter_tweet_identifier: "tweet"
+  twitter_twitter_user_history_identifier: "twitter_user_history"
+  twitter_organic_schema: twitter_organic_integration_tests_1
+
+models:
+  +schema: "twitter_organic_{{ var('directed_schema','dev') }}"
+
+seeds:
+  twitter_organic_integration_tests:
+    tweet:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    organic_tweet_report:
+      +column_types:
+        organic_tweet_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

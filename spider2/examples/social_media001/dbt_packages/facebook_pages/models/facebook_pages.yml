@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: facebook_pages__posts_report
+    description: Each record represents the daily performance of a Facebook post.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - post_id
+            - date_day
+            - source_relation
+    columns:
+      - name: created_timestamp
+        description: The time the post was initially published. For a post about a life event, this is the date and time of the life event.
+      - name: post_id
+        description: The ID of the post.
+      - name: post_message
+        description: The status message in the post.
+      - name: post_url
+        description: The URL of the post.
+      - name: page_id
+        description: The ID of the page that posted the post.
+      - name: page_name
+        description: The name of the page that posted the post.
+      - name: date_day
+        description: The date of the metric performance.
+        tests: 
+          - not_null
+      - name: clicks
+        description: The number of times the post was clicked.
+      - name: impressions
+        description: The number of times the post was shown to users.
+      - name: video_avg_time_watched
+        description: The average amount of time users watched the video.
+      - name: video_view_time
+        description: The total amount of time users watched the video.
+      - name: video_views
+        description: The number of times users watched the video.
+      - name: video_views_10s
+        description: The number of times your Page's videos played for at least 10 seconds, or for nearly their total length if they're shorter than 10 seconds. During a single instance of a video playing, we'll exclude any time spent replaying the video.
+      - name: video_views_15s
+        description: The total number of views on the post longer than 15 seconds
+      - name: likes
+        description: The total amount of reactions with type 'like' on the post
+      - name: source_relation
+        description: The source of the record, if the unioning functionality is being used.
+      - name: is_most_recent_record
+        description: Boolean indicating if the record is the most recent record of the post.
+
+  - name: facebook_pages__pages_report
+    description: Each record represents the daily performance of a Facebook Page.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - page_id
+            - date_day
+            - source_relation
+    columns:
+      - name: page_id
+        description: The ID of the Page.
+        tests:
+          - not_null
+      - name: page_name
+        description: The name of the Page.
+      - name: date_day
+        description: The date of the metric performance.
+        tests:
+          - not_null
+      - name: actions_post_reactions_total
+        description: The total number of reactions on posts.
+      - name: fan_adds
+        description: The number of new fans added to the Page.
+      - name: fan_removes
+        description: The number of fans removed from the Page. 
+      - name: impressions
+        description: The number of times any content from your Page or about your Page entered a person's screen.
+      - name: post_engagements
+        description: The number of times people have engaged with your posts through reactions, comments, shares and more.
+      - name: posts_impressions
+        description: The number of times your Page's posts entered a person's screen. Posts include statuses, photos, links, videos and more.
+      - name: video_complete_views_30s
+        description: The number of times your Page's videos played for at least 30 seconds, or for nearly their total length if they're shorter than 30 seconds. During a single instance of a video playing, we'll exclude any time spent replaying the video.
+      - name: video_views
+        description: The number of times your Page's videos played for at least 3 seconds, or for nearly their total length if they're shorter than 3 seconds. During a single instance of a video playing, we'll exclude any time spent replaying the video.
+      - name: video_views_10s
+        description: The number of times your Page's videos played for at least 10 seconds, or for nearly their total length if they're shorter than 10 seconds. During a single instance of a video playing, we'll exclude any time spent replaying the video.
+      - name: views_total
+        description: The number of times a Page's profile has been viewed by people not logged in to Facebook.
+      - name: source_relation
+        description: The source of the record, if the unioning functionality is being used.

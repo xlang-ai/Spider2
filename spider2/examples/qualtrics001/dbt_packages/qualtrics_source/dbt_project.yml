@@ -1,0 +1,43 @@
+name: 'qualtrics_source'
+version: '0.2.2'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+models:
+  qualtrics_source:
+    +tags:
+      - "qualtrics"
+      - "fivetran_package"
+      - "staging"
+    +schema: qualtrics_source
+    +materialized: table
+    tmp:
+      +materialized: view
+
+vars:
+  qualtrics_source:
+    user: "{{ source('qualtrics', 'user') }}"
+    survey: "{{ source('qualtrics', 'survey') }}"
+    question: "{{ source('qualtrics', 'question') }}"
+    question_response: "{{ source('qualtrics', 'question_response') }}"
+    question_option: "{{ source('qualtrics', 'question_option') }}"
+    survey_response: "{{ source('qualtrics', 'survey_response') }}"
+    sub_question: "{{ source('qualtrics', 'sub_question') }}"
+    survey_version: "{{ source('qualtrics', 'survey_version') }}"
+    survey_embedded_data: "{{ source('qualtrics', 'survey_embedded_data') }}"
+    block: "{{ source('qualtrics', 'block') }}"
+    block_question: "{{ source('qualtrics', 'block_question') }}"
+    directory: "{{ source('qualtrics', 'directory') }}"
+    directory_contact: "{{ source('qualtrics', 'directory_contact') }}"
+    directory_mailing_list: "{{ source('qualtrics', 'directory_mailing_list') }}"
+    contact_mailing_list_membership: "{{ source('qualtrics', 'contact_mailing_list_membership') }}"
+    distribution: "{{ source('qualtrics', 'distribution') }}"
+    distribution_contact: "{{ source('qualtrics', 'distribution_contact') }}"
+    core_contact: "{{ source('qualtrics', 'core_contact') }}"
+    core_mailing_list: "{{ source('qualtrics', 'core_mailing_list') }}"
+
+  qualtrics__survey_pass_through_columns: []
+  qualtrics__directory_pass_through_columns: []
+  qualtrics__directory_contact_pass_through_columns: []
+  qualtrics__distribution_pass_through_columns: []
+  qualtrics__core_contact_pass_through_columns: []

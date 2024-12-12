@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "NOAA_DATA".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'NOAA_PRELIMINARY_SEVERE_STORMS';
+        WHERE table_schema = 'NOAA_GSOD';
     """
     
 

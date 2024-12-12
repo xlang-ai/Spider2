@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "CRYPTO".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'CRYPTO_BITCOIN';
+        WHERE table_schema = 'CRYPTO_ZILLIQA';
     """
     
 

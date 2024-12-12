@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.usda_nass_agriculture` database to solve this problem.

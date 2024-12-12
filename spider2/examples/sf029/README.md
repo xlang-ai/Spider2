@@ -1,0 +1,1 @@
+1. please query `AMAZON_VENDOR_ANALYTICS__SAMPLE_DATASET.PUBLIC` to solve this problem.

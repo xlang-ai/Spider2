@@ -1,0 +1,77 @@
+version: 2.1
+
+jobs:
+
+  integration-dbt-utils-databricks: &databricks-odbc
+    environment:
+      DBT_INVOCATION_ENV: circle
+      ODBC_DRIVER: Simba # TODO: move env var to Docker image
+    docker:
+      # image based on `fishtownanalytics/test-container` w/ Simba ODBC Spark driver installed
+      - image: 828731156495.dkr.ecr.us-east-1.amazonaws.com/dbt-spark-odbc-test-container:latest
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY_ID_STAGING
+          aws_secret_access_key: $AWS_SECRET_ACCESS_KEY_STAGING
+
+    steps:
+      - checkout
+      
+      - run: &pull-submodules
+          name: "Pull Submodules"
+          command: |
+            git submodule init
+            git submodule sync --recursive
+            git submodule foreach --recursive git fetch
+            git submodule update --init --recursive
+
+      - run: &setup-dbt
+          name: "Setup dbt"
+          command: |
+            python3.8 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip setuptools
+            pip install --pre --upgrade dbt-spark[ODBC]
+            mkdir -p ~/.dbt
+            cp integration_tests/ci/sample.profiles.yml ~/.dbt/profiles.yml
+
+      - run:
+          name: "Run Tests - dbt-utils"
+            
+          command: |
+            . venv/bin/activate
+            cd integration_tests/dbt_utils
+            dbt deps --target databricks-utils
+            dbt seed --target databricks-utils --full-refresh
+            dbt run --target databricks-utils --full-refresh
+            dbt test --target databricks-utils
+
+      - store_artifacts:
+          path: ./logs
+
+  integration-snowplow-databricks:
+    <<: *databricks-odbc
+    steps:
+      - checkout
+      - run: *pull-submodules
+      - run: *setup-dbt
+
+      - run:  
+          name: "Run Tests - Snowplow"
+          command: |
+            . venv/bin/activate
+            cd integration_tests/snowplow
+            dbt deps --target databricks-snowplow
+            dbt seed --target databricks-snowplow --full-refresh
+            dbt run --target databricks-snowplow --full-refresh --vars 'update: false'
+            dbt run --target databricks-snowplow --vars 'update: true'
+            dbt test --target databricks-snowplow
+
+      - store_artifacts:
+          path: ./logs
+
+workflows:
+  version: 2
+  test-shims:
+    jobs:
+      - integration-dbt-utils-databricks
+      - integration-snowplow-databricks

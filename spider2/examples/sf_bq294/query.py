@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "SAN_FRANCISCO_PLUS".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'SAN_FRANCISCO_FILM_LOCATIONS';
+        WHERE table_schema = 'SAN_FRANCISCO_TRANSIT_MUNI';
     """
     
 

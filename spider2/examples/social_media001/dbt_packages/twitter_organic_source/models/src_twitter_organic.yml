@@ -1,0 +1,203 @@
+version: 2
+
+sources:
+  - name: twitter
+    schema: "{{ var('twitter_organic_schema', 'twitter') }}"
+    database: "{% if target.type != 'spark'%}{{ var('twitter_organic_database', target.database) }}{% endif %}"
+    loader: Fivetran
+    loaded_at_field: _fivetran_synced
+    tables:
+      - name: account_history
+        identifier: "{{ var('twitter_account_history_identifier', 'account_history')}}"
+        description: Each record represents a version of a Twitter ad account.
+        columns:
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: approval_status
+            description: Approval status of the account in Twitter
+          - name: business_id
+            description: ID of the associated business in Twitter
+          - name: business_name
+            description: Name of the associated business in Twitter
+          - name: created_at
+            description: Date and time when the account was created
+          - name: deleted
+            description: Whether the account has been deleted
+          - name: id
+            description: ID of the account in Twitter
+          - name: industry_type
+            description: Industry type of the account in Twitter
+          - name: name
+            description: Name of the account in Twitter
+          - name: salt
+            description: Salt used to generate the account's unique ID
+          - name: timezone
+            description: Timezone of the account in Twitter
+          - name: updated_at
+            description: Date and time when the account was last updated
+      - name: organic_tweet_report
+        identifier: "{{ var('twitter_organic_tweet_report_identifier', 'organic_tweet_report')}}"
+        description: Each record represents metrics about a tweet on a specific date.
+        columns:
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: account_id
+            description: ID of the associated account in Twitter
+          - name: app_clicks
+            description: Number of clicks on app install campaigns
+          - name: card_engagements
+            description: Number of engagements on cards
+          - name: carousel_swipes
+            description: Number of swipes on carousels
+          - name: clicks
+            description: Number of clicks on tweet
+          - name: date
+            description: Date of the report
+          - name: engagements
+            description: Number of engagements on tweet
+          - name: follows
+            description: Number of follows as a result of the tweet
+          - name: impressions
+            description: Number of impressions on tweet
+          - name: likes
+            description: Number of likes on tweet
+          - name: organic_tweet_id
+            description: ID of the tweet in Twitter
+          - name: poll_card_vote
+            description: Number of votes on poll cards
+          - name: qualified_impressions
+            description: Number of qualified impressions on tweet
+          - name: replies
+            description: Number of replies on tweet
+          - name: retweets
+            description: Number of retweets on tweet
+          - name: unfollows
+            description: Number of unfollows as a result of the tweet
+          - name: url_clicks
+            description: Number of clicks on URLs in tweet
+          - name: video_15_s_views
+            description: Number of 15-second views on video
+          - name: video_3_s_100_pct_views
+            description: Total number of views where at least 3 seconds were played while 100% in view.
+          - name: video_6_s_views
+            description: Number of 6-second views on video
+          - name: video_content_starts
+            description: Number of times the video content started
+          - name: video_cta_clicks
+            description: Number of clicks on tweet call-to-actions
+          - name: video_total_views
+            description: Total number of views on video
+          - name: video_views_100
+            description: Total number of views where at least 100% of the video was viewed.
+          - name: video_views_25
+            description: Total number of views where at least 25% of the video was viewed.
+          - name: video_views_50
+            description: Total number of views where at least 50% of the video was viewed.
+          - name: video_views_75
+            description: Total number of views where at least 75% of the video was viewed.
+      - name: tweet
+        identifier: "{{ var('twitter_tweet_identifier', 'tweet')}}"  
+        description: Each record represents a tweet in Twitter
+        columns:
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: account_id
+            description: ID of the associated account in Twitter
+          - name: card_uri
+            description: URI of the associated card in Twitter
+          - name: created_at
+            description: Date and time when the tweet was created
+          - name: favorite_count
+            description: Number of times the tweet has been favorited
+          - name: favorited
+            description: Whether the tweet has been favorited
+          - name: followers
+            description: Number of followers the tweet generated
+          - name: full_text
+            description: The full text of the tweet
+          - name: id
+            description: The ID of the tweet in Twitter
+          - name: in_reply_to_screen_name
+            description: Screen name the tweet is in reply to
+          - name: in_reply_to_status_id
+            description: Status ID the tweet is in reply to
+          - name: in_reply_to_user_id
+            description: User ID the tweet is in reply to
+          - name: lang
+            description: Language of the tweet
+          - name: media_key
+            description: Key of associated media in media library table
+          - name: retweet_count
+            description: Number of times the tweet has been retweeted
+          - name: retweeted
+            description: Whether the tweet has been retweeted
+          - name: source
+            description: The source of the tweet
+          - name: truncated
+            description: Whether the tweet has been truncated
+          - name: tweet_type
+            description: The type of the tweet
+          - name: user_id
+            description: The ID of the user who tweeted the tweet
+      - name: twitter_user_history
+        identifier: "{{ var('twitter_twitter_user_history_identifier', 'twitter_user_history')}}"  
+        description: Each record represents a version of a Twitter user.
+        columns:
+          - name: _fivetran_synced
+            description: "{{ doc('_fivetran_synced') }}"
+          - name: contributors_enabled
+            description: Whether the user has contributors enabled
+          - name: created_at
+            description: Date and time when the user was created
+          - name: default_profile
+            description: When true, indicates that the user has not altered the theme or background of their user profile.
+          - name: default_profile_image
+            description: When true, indicates that the user has not uploaded their own profile image and a default image is used instead.
+          - name: description
+            description: The description on the user's profile
+          - name: favourites_count
+            description: Number of times the user has favorited a tweet
+          - name: followers_count
+            description: Number of followers the user has
+          - name: friends_count
+            description: Number of friends the user has
+          - name: geo_enabled
+            description: Whether the user has enabled geotagging
+          - name: id
+            description: The ID of the user in Twitter
+          - name: is_translation_enabled
+            description: Whether the user has translation enabled
+          - name: is_translator
+            description: Whether the user is a translator
+          - name: lang
+            description: The language of the user's account
+          - name: location
+            description: The location of the user's account
+          - name: name
+            description: The name of the user
+          - name: profile_background_image_url
+            description: URL of the user's profile background image
+          - name: profile_background_image_url_https
+            description: URL of the user's profile background image in HTTPS
+          - name: profile_banner_url
+            description: URL of the user's profile banner
+          - name: profile_image_url
+            description: URL of the user's profile image
+          - name: profile_image_url_https
+            description: URL of the user's profile image in HTTPS
+          - name: profile_use_background_image
+            description: Whether the user has a custom profile background image
+          - name: protected_user
+            description: Whether the user is protected
+          - name: screen_name
+            description: The screen name of the user
+          - name: statuses_count
+            description: Number of tweets the user has made
+          - name: time_zone
+            description: The time zone of the user's account
+          - name: url
+            description: The URL of the user's page
+          - name: utc_offset
+            description: The UTC offset of the user's account
+          - name: verified
+            description: Whether the user has verified their account

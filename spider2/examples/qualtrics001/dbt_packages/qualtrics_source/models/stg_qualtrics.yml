@@ -1,0 +1,716 @@
+version: 2
+
+models:
+  - name: stg_qualtrics__user
+    description: These are the users in your organizations, not the contacts for whom you are building content like surveys and messages.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - user_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: account_created_at
+        description: "{{ doc('account_creation_date') }}"
+      - name: account_expires_at
+        description: "{{ doc('account_expiration_date') }}"
+      - name: account_status
+        description: "{{ doc('account_status') }}"
+      - name: division_id
+        description: "{{ doc('division_id') }}"
+      - name: email
+        description: "{{ doc('email') }}"
+      - name: first_name
+        description: "{{ doc('user_first_name') }}"
+      - name: user_id
+        description: "{{ doc('user_id') }}"
+        tests:
+          - not_null
+      - name: language
+        description: "{{ doc('language') }}"
+      - name: last_login_at
+        description: "{{ doc('last_login_date') }}"
+      - name: last_name
+        description: "{{ doc('user_last_name') }}"
+      - name: organization_id
+        description: "{{ doc('organization_id') }}"
+      - name: password_expires_at
+        description: "{{ doc('password_expiration_date') }}"
+      - name: password_last_changed_at
+        description: "{{ doc('password_last_changed_date') }}"
+      - name: response_count_auditable
+        description: "{{ doc('response_count_auditable') }}"
+      - name: response_count_deleted
+        description: "{{ doc('response_count_deleted') }}"
+      - name: response_count_generated
+        description: "{{ doc('response_count_generated') }}"
+      - name: time_zone
+        description: "{{ doc('time_zone') }}"
+      - name: is_unsubscribed
+        description: "{{ doc('unsubscribed') }}"
+      - name: user_type
+        description: "{{ doc('user_type') }}"
+      - name: username
+        description: "{{ doc('username') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__survey
+    description: Qualtrics survey.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - survey_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: auto_scoring_category
+        description: "{{ doc('auto_scoring_category') }}"
+      - name: brand_base_url
+        description: "{{ doc('brand_base_url') }}"
+      - name: brand_id
+        description: "{{ doc('brand_id') }}"
+      - name: bundle_short_name
+        description: "{{ doc('bundle_short_name') }}"
+      - name: composition_type
+        description: "{{ doc('composition_type') }}"
+      - name: creator_user_id
+        description: "{{ doc('creator_id') }}"
+      - name: default_scoring_category
+        description: "{{ doc('default_scoring_category') }}"
+      - name: division_id
+        description: "{{ doc('division_id') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+        tests:
+          - not_null
+      - name: last_accessed_at
+        description: "{{ doc('last_accessed') }}"
+      - name: last_activated_at
+        description: "{{ doc('last_activated') }}"
+      - name: last_modified_at
+        description: "{{ doc('last_modified_date') }}"
+      - name: owner_user_id
+        description: "{{ doc('owner_id') }}"
+      - name: project_category
+        description: "{{ doc('project_category') }}"
+      - name: project_type
+        description: "{{ doc('project_type') }}"
+      - name: registry_sha
+        description: "{{ doc('registry_sha') }}"
+      - name: registry_version
+        description: "{{ doc('registry_version') }}"
+      - name: schema_version
+        description: "{{ doc('schema_version') }}"
+      - name: scoring_summary_after_questions
+        description: "{{ doc('scoring_summary_after_questions') }}"
+      - name: scoring_summary_after_survey
+        description: "{{ doc('scoring_summary_after_survey') }}"
+      - name: scoring_summary_category
+        description: "{{ doc('scoring_summary_category') }}"
+      - name: survey_name
+        description: "{{ doc('survey_name') }}"
+      - name: survey_status
+        description: "{{ doc('survey_status') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__question
+    description: Questions within a survey.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - question_id
+            - survey_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: data_export_tag
+        description: "{{ doc('data_export_tag') }}"
+      - name: is_data_hidden
+        description: "{{ doc('data_visibility_hidden') }}"
+      - name: is_data_private
+        description: "{{ doc('data_visibility_private') }}"
+      - name: question_id
+        description: "{{ doc('question_id') }}"
+      - name: next_answer_id
+        description: "{{ doc('next_answer_id') }}"
+      - name: next_choice_id
+        description: "{{ doc('next_choice_id') }}"
+      - name: question_description
+        description: "{{ doc('question_description') }}"
+      - name: question_description_option
+        description: "{{ doc('question_description_option') }}"
+      - name: question_text
+        description: "{{ doc('question_text') }}"
+      - name: question_text_unsafe
+        description: "{{ doc('question_text_unsafe') }}"
+      - name: question_type
+        description: "{{ doc('question_type') }}"
+      - name: selector
+        description: "{{ doc('selector') }}"
+      - name: sub_selector
+        description: "{{ doc('sub_selector') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: validation_setting_force_response
+        description: "{{ doc('validation_setting_force_response') }}"
+      - name: validation_setting_force_response_type
+        description: "{{ doc('validation_setting_force_response_type') }}"
+      - name: validation_setting_type
+        description: "{{ doc('validation_setting_type') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__question_response
+    description: Responses to individual questions (and their sub-questions).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - _fivetran_id
+            - source_relation
+    columns:
+      - name: _fivetran_id
+        description: "{{ doc('question_response_fivetran_id') }}"
+        tests:
+          - not_null
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: loop_id
+        description: "{{ doc('loop_id') }}"
+      - name: question
+        description: "{{ doc('question') }}"
+      - name: question_id
+        description: "{{ doc('question_id') }}"
+      - name: question_option_key
+        description: "{{ doc('question_option_key') }}"
+      - name: response_id
+        description: "{{ doc('response_id') }}"
+      - name: sub_question_key
+        description: "{{ doc('sub_question_key') }}"
+      - name: sub_question_text
+        description: "{{ doc('sub_question_text') }}"
+      - name: value
+        description: "{{ doc('response_value') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__question_option
+    description: Choice options for survey questions.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - question_id
+            - survey_id
+            - key
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: key
+        description: "{{ doc('question_option_key') }}"
+      - name: question_id
+        description: "{{ doc('question_id') }}"
+      - name: recode_value
+        description: "{{ doc('recode_value') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: text
+        description: "{{ doc('question_option_text') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+        
+  - name: stg_qualtrics__survey_response
+    description: >
+      Individual responses to surveys. A response becomes "recorded" when a respondent submits a survey, 
+      a survey is manually closed from the Responses in Progress page, or a survey session expires.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - response_id
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: distribution_channel
+        description: "{{ doc('distribution_channel') }}"
+      - name: duration_in_seconds
+        description: "{{ doc('duration_in_seconds') }}"
+      - name: finished_at
+        description: "{{ doc('end_date') }}"
+      - name: is_finished
+        description: "{{ doc('finished') }}"
+      - name: response_id
+        description: "{{ doc('response_id') }}"
+        tests:
+          - not_null
+      - name: ip_address
+        description: "{{ doc('ip_address') }}"
+      - name: last_modified_at
+        description: "{{ doc('last_modified_date') }}"
+      - name: location_latitude
+        description: "{{ doc('location_latitude') }}"
+      - name: location_longitude
+        description: "{{ doc('location_longitude') }}"
+      - name: progress
+        description: "{{ doc('progress') }}"
+      - name: recipient_email
+        description: "{{ doc('recipient_email') }}"
+      - name: recipient_first_name
+        description: "{{ doc('recipient_first_name') }}"
+      - name: recipient_last_name
+        description: "{{ doc('recipient_last_name') }}"
+      - name: recorded_date
+        description: "{{ doc('recorded_date') }}"
+      - name: started_at
+        description: "{{ doc('start_date') }}"
+      - name: status
+        description: "{{ doc('status') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: user_language
+        description: "{{ doc('user_language') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__sub_question
+    description: Sub-questions of questions.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - question_id
+            - survey_id
+            - key
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: choice_data_export_tag
+        description: "{{ doc('choice_data_export_tag') }}"
+      - name: key
+        description: "{{ doc('sub_question_key') }}"
+      - name: question_id
+        description: "{{ doc('question_id') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: text
+        description: "{{ doc('sub_question_text') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__survey_version
+    description: Published and un-published versions of surveys.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - version_id
+            - survey_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: created_at
+        description: "{{ doc('creation_date') }}"
+      - name: version_description
+        description: "{{ doc('survey_version_description') }}"
+      - name: version_id
+        description: "{{ doc('version_id') }}"
+      - name: is_published
+        description: "{{ doc('published') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: publisher_user_id
+        description: "{{ doc('publisher_user_id') }}"
+      - name: version_number
+        description: "{{ doc('version_number') }}"
+      - name: was_published
+        description: "{{ doc('was_published') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__survey_embedded_data
+    description: Any extra information you would like recorded in addition to the question responses.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - import_id
+            - response_id
+            - key
+            - value
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: import_id
+        description: "{{ doc('import_id') }}"
+      - name: key
+        description: "{{ doc('key') }}"
+      - name: response_id
+        description: "{{ doc('response_id') }}"
+      - name: value
+        description: "{{ doc('value') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__block
+    description: Groups of questions, used to organize longer surveys and conditionally display sets of questions.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - block_id
+            - survey_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: is_locked
+        description: "{{ doc('block_locking') }}"
+      - name: block_visibility
+        description: "{{ doc('block_visibility') }}"
+      - name: description
+        description: "{{ doc('block_description') }}"
+      - name: block_id
+        description: "{{ doc('block_id') }}"
+      - name: randomize_questions
+        description: "{{ doc('randomize_questions') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: type
+        description: "{{ doc('block_type') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__block_question
+    description: Table relating questions and blocks together.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - block_id
+            - question_id
+            - survey_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: block_id
+        description: "{{ doc('block_id') }}"
+      - name: question_id
+        description: "{{ doc('question_id') }}"
+      - name: survey_id
+        description: "{{ doc('survey_id') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__directory
+    description: A directory is an address book for the entire brand and contains all of the contacts that have been added by your users.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - directory_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: is_deduped_on_email
+        description: "{{ doc('deduplication_criteria_email') }}"
+      - name: is_deduped_on_ext_ref
+        description: "{{ doc('deduplication_criteria_external_data_reference') }}"
+      - name: is_deduped_on_first_name
+        description: "{{ doc('deduplication_criteria_first_name') }}"
+      - name: is_deduped_on_last_name
+        description: "{{ doc('deduplication_criteria_last_name') }}"
+      - name: is_deduped_on_phone
+        description: "{{ doc('deduplication_criteria_phone') }}"
+      - name: directory_id
+        description: "{{ doc('directory_id') }}"
+        tests:
+          - not_null
+      - name: is_default
+        description: "{{ doc('is_default') }}"
+      - name: name
+        description: "{{ doc('directory_name') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__directory_contact
+    description: Tablle relating contacts to the directories they are a part of.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - directory_id
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: created_at
+        description: "{{ doc('creation_date') }}"
+      - name: directory_id
+        description: "{{ doc('directory_id') }}"
+      - name: unsubscribed_from_directory_at
+        description: "{{ doc('directory_unsubscribe_date') }}"
+      - name: is_unsubscribed_from_directory
+        description: "{{ doc('directory_unsubscribed') }}"
+      - name: email
+        description: "{{ doc('contact_email') }}"
+      - name: email_domain
+        description: "{{ doc('email_domain') }}"
+      - name: ext_ref
+        description: "{{ doc('ext_ref') }}"
+      - name: first_name
+        description: "{{ doc('contact_first_name') }}"
+      - name: contact_id
+        description: "{{ doc('contact_id') }}"
+      - name: language
+        description: "{{ doc('language') }}"
+      - name: last_modified_at
+        description: "{{ doc('last_modified_date') }}"
+      - name: last_name
+        description: "{{ doc('contact_last_name') }}"
+      - name: phone
+        description: "{{ doc('phone') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__distribution
+    description: Use distributions to reach out to contacts in the XM Directory platform, with or without a survey attached.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - distribution_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: created_at
+        description: "{{ doc('creation_date') }}"
+      - name: header_from_email
+        description: "{{ doc('header_from_email') }}"
+      - name: header_from_name
+        description: "{{ doc('header_from_name') }}"
+      - name: header_reply_to_email
+        description: "{{ doc('header_reply_to_email') }}"
+      - name: header_subject
+        description: "{{ doc('header_subject') }}"
+      - name: distribution_id
+        description: "{{ doc('distribution_id') }}"
+        tests:
+          - not_null
+      - name: message_library_id
+        description: "{{ doc('message_library_id') }}"
+      - name: message_id
+        description: "{{ doc('message_message_id') }}"
+      - name: message_text
+        description: "{{ doc('message_message_text') }}"
+      - name: last_modified_at
+        description: "{{ doc('last_modified_date') }}"
+      - name: organization_id
+        description: "{{ doc('organization_id') }}"
+      - name: owner_user_id
+        description: "{{ doc('owner_id') }}"
+      - name: parent_distribution_id
+        description: "{{ doc('parent_distribution_id') }}"
+      - name: recipient_contact_id
+        description: "{{ doc('recipient_contact_id') }}"
+      - name: recipient_library_id
+        description: "{{ doc('recipient_library_id') }}"
+      - name: recipient_mailing_list_id
+        description: "{{ doc('recipient_mailing_list_id') }}"
+      - name: recipient_sample_id
+        description: "{{ doc('recipient_sample_id') }}"
+      - name: request_status
+        description: "{{ doc('request_status') }}"
+      - name: request_type
+        description: "{{ doc('request_type') }}"
+      - name: send_at
+        description: "{{ doc('send_date') }}"
+      - name: survey_link_expires_at
+        description: "{{ doc('survey_link_expiration_date') }}"
+      - name: survey_link_type
+        description: "{{ doc('survey_link_link_type') }}"
+      - name: survey_id
+        description: "{{ doc('survey_link_survey_id') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__distribution_contact
+    description: Table relating contacts to distributions they've been a part of.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - contact_lookup_id
+            - distribution_id
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: contact_frequency_rule_id
+        description: "{{ doc('contact_frequency_rule_id') }}"
+      - name: contact_id
+        description: "{{ doc('contact_id') }}"
+      - name: contact_lookup_id
+        description: "{{ doc('contact_lookup_id') }}"
+      - name: distribution_id
+        description: "{{ doc('distribution_id') }}"
+      - name: opened_at
+        description: "{{ doc('opened_at') }}"
+      - name: response_completed_at
+        description: "{{ doc('response_completed_at') }}"
+      - name: response_id
+        description: "{{ doc('distribution_response_id') }}"
+      - name: response_started_at
+        description: "{{ doc('response_started_at') }}"
+      - name: sent_at
+        description: "{{ doc('sent_at') }}"
+      - name: status
+        description: "{{ doc('distribution_status') }}"
+      - name: survey_link
+        description: "{{ doc('survey_link') }}"
+      - name: survey_session_id
+        description: "{{ doc('survey_session_id') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__directory_mailing_list
+    description: Mailing lists are lists of contacts that can receive emails and survey invitations. You can create mailing lists either through file upload or manually.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - mailing_list_id
+            - directory_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: created_at
+        description: "{{ doc('creation_date') }}"
+      - name: directory_id
+        description: "{{ doc('directory_id') }}"
+      - name: mailing_list_id
+        description: "{{ doc('mailing_list_id') }}"
+      - name: last_modified_at
+        description: "{{ doc('last_modified_date') }}"
+      - name: name
+        description: "{{ doc('mailing_list_name') }}"
+      - name: owner_user_id
+        description: "{{ doc('owner_id') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__contact_mailing_list_membership
+    description: Table relating contacts to mailing lists they are a part of.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_lookup_id
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: contact_id
+        description: "{{ doc('contact_id') }}"
+      - name: contact_lookup_id
+        description: "{{ doc('contact_lookup_id') }}"
+        tests:
+          - not_null
+      - name: directory_id
+        description: "{{ doc('directory_id') }}"
+      - name: mailing_list_id
+        description: "{{ doc('mailing_list_id') }}"
+      - name: name
+        description: "{{ doc('mailing_list_name') }}"
+      - name: owner_user_id
+        description: "{{ doc('owner_id') }}"
+      - name: unsubscribed_at
+        description: "{{ doc('mailing_list_unsubscribe_date') }}"
+      - name: is_unsubscribed
+        description: "{{ doc('mailing_list_unsubscribed') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+
+  - name: stg_qualtrics__core_contact
+    description: Research Core contacts (non-XM directory).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - mailing_list_id
+            - source_relation
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: contact_id
+        description: "{{ doc('mailing_list_contact_id') }}"
+      - name: mailing_list_id
+        description: "{{ doc('mailing_list_id') }}"
+      - name: first_name
+        description: "{{ doc('contact_first_name') }}"
+      - name: last_name
+        description: "{{ doc('contact_last_name') }}"
+      - name: email
+        description: "{{ doc('contact_email') }}"
+      - name: external_data_reference
+        description: "{{ doc('ext_ref') }}"
+      - name: language
+        description: "{{ doc('language') }}"
+      - name: is_unsubscribed
+        description: "{{ doc('unsubscribed') }}"
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: email_domain
+        description: "{{ doc('email_domain') }}"
+
+  - name: stg_qualtrics__core_mailing_list
+    description: Research Core mailing list (non xm-directory).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - mailing_list_id
+            - source_relation
+    columns:
+      - name: is_deleted
+        description: "{{ doc('_fivetran_deleted') }}"
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: mailing_list_id
+        description: "{{ doc('mailing_list_id') }}"
+        tests:
+          - not_null
+      - name: library_id
+        description: "{{ doc('library_id') }}"
+      - name: name
+        description: "{{ doc('mailing_list_name') }}"
+      - name: category
+        description: "{{ doc('mailing_list_category') }}"
+      - name: folder
+        description: "{{ doc('folder') }}"
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"

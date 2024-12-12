@@ -1,0 +1,1 @@
+1. please query `bigquery-public-data.fdic_banks` and `bigquery-public-data.fda_food` and `bigquery-public-data.census_utility` and `bigquery-public-data.geo_census_blockgroups` and `bigquery-public-data.geo_us_boundaries` database to solve this problem.
