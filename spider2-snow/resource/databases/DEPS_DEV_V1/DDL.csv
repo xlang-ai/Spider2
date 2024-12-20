@@ -1,0 +1,99 @@
+table_name,description,DDL
+PROJECTS,,"create or replace TABLE PROJECTS (
+	""SnapshotAt"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""OpenIssuesCount"" NUMBER(38,0),
+	""StarsCount"" NUMBER(38,0),
+	""ForksCount"" NUMBER(38,0),
+	""Licenses"" VARIANT,
+	""Description"" VARCHAR(16777216),
+	""Homepage"" VARCHAR(16777216),
+	""OSSFuzz"" VARIANT
+);"
+DEPENDENCIES,,"create or replace TABLE DEPENDENCIES (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""Dependency"" VARIANT,
+	""MinimumDepth"" NUMBER(38,0)
+);"
+DEPENDENCYGRAPHEDGES,,"create or replace TABLE DEPENDENCYGRAPHEDGES (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""Requirement"" VARCHAR(16777216),
+	""From"" VARIANT,
+	""To"" VARIANT
+);"
+DEPENDENTS,,"create or replace TABLE DEPENDENTS (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""Dependent"" VARIANT,
+	""MinimumDepth"" NUMBER(38,0),
+	""DependentIsHighestReleaseWithResolution"" BOOLEAN
+);"
+PACKAGEVERSIONHASHES,,"create or replace TABLE PACKAGEVERSIONHASHES (
+	""SnapshotAt"" NUMBER(38,0),
+	""Hash"" VARCHAR(16777216),
+	""HashType"" VARCHAR(16777216),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216)
+);"
+SNAPSHOTS,,"create or replace TABLE SNAPSHOTS (
+	""Time"" NUMBER(38,0)
+);"
+ADVISORIES,,"create or replace TABLE ADVISORIES (
+	""SnapshotAt"" NUMBER(38,0),
+	""Source"" VARCHAR(16777216),
+	""SourceID"" VARCHAR(16777216),
+	""SourceURL"" VARCHAR(16777216),
+	""Title"" VARCHAR(16777216),
+	""Description"" VARCHAR(16777216),
+	""ReferenceURLs"" VARIANT,
+	""CVSS3Score"" NUMBER(38,9),
+	""Severity"" VARCHAR(16777216),
+	""GitHubSeverity"" VARCHAR(16777216),
+	""Disclosed"" NUMBER(38,0),
+	""Packages"" VARIANT,
+	""Aliases"" VARIANT
+);"
+PACKAGEVERSIONS,,"create or replace TABLE PACKAGEVERSIONS (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""Licenses"" VARIANT,
+	""Links"" VARIANT,
+	""Advisories"" VARIANT,
+	""VersionInfo"" VARIANT,
+	""Hashes"" VARIANT,
+	""DependenciesProcessed"" BOOLEAN,
+	""DependencyError"" BOOLEAN,
+	""UpstreamPublishedAt"" NUMBER(38,0),
+	""Registries"" VARIANT,
+	""SLSAProvenance"" VARIANT,
+	""UpstreamIdentifiers"" VARIANT,
+	""Purl"" VARCHAR(16777216)
+);"
+PACKAGEVERSIONTOPROJECT,,"create or replace TABLE PACKAGEVERSIONTOPROJECT (
+	""SnapshotAt"" NUMBER(38,0),
+	""System"" VARCHAR(16777216),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""ProjectType"" VARCHAR(16777216),
+	""ProjectName"" VARCHAR(16777216),
+	""RelationProvenance"" VARCHAR(16777216),
+	""RelationType"" VARCHAR(16777216)
+);"
+NUGETREQUIREMENTS,,"create or replace TABLE NUGETREQUIREMENTS (
+	""SnapshotAt"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""Version"" VARCHAR(16777216),
+	""DependencyGroups"" VARIANT
+);"
