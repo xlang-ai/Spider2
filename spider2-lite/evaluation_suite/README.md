@@ -29,12 +29,7 @@ Please organize your submissions in the following structure:
 
 ### Credential
 
-You need to first extract the pre-prepared credential file.
-
-```
-unzip credentials.zip
-
-```
+Put your own `bigquery_credential.json` and `snowflake_credential.json` in this folder.
 
 ### Evaluation
 
