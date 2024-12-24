@@ -51,11 +51,9 @@ def load_jsonl_to_dict(jsonl_file):
     return data_dict
 
 def load_json_list_to_dict(json_file_path):
-    data_dict = {}
     with open(json_file_path, 'r', encoding='utf-8') as file:
-        for line in file:
-            item = json.loads(line)
-            data_dict[item['instance_id']] = item
+        data_list = json.load(file)
+    data_dict = {item['instance_id']: item for item in data_list}
     return data_dict
 
 
@@ -169,11 +167,12 @@ def get_snowflake_sql_result(sql_query, is_save, save_dir=None, file_name="resul
     is_save = True, output a 'result.csv'
     if_save = False, output a string
     """
-    snowflake_credential = json.load(open('./credentials/snowflake_credential.json'))
+    snowflake_credential = json.load(open('snowflake_credential.json'))
     conn = snowflake.connector.connect(
         **snowflake_credential
     )
     cursor = conn.cursor()
+    
     try:
         cursor.execute(sql_query)
         results = cursor.fetchall()
@@ -227,7 +226,8 @@ def evaluate_spider2sql(args):
     pred_result_dir = args.result_dir
     
     eval_standard_dict = load_jsonl_to_dict(os.path.join(args.gold_dir, "spider2snow_eval.jsonl"))
-    spider2sql_metadata = load_json_list_to_dict("../spider2-snow.jsonl")
+    spider2sql_metadata = load_jsonl_to_dict("../spider2-snow.jsonl")
+    
 
         
     gold_ids = []
@@ -252,7 +252,7 @@ def evaluate_spider2sql(args):
         error_info = None
         if mode == "sql":
             pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
-            if "bq" in id or "ga" in id:
+            if id.startswith("bq") or id.startswith("ga"):
                 exe_flag, dbms_error_info = get_bigquery_sql_result(pred_sql_query, True, "temp", f"{id}_pred.csv")  
                 if exe_flag == False: 
                     score = 0
@@ -293,7 +293,7 @@ def evaluate_spider2sql(args):
                             if score == 0 and error_info is None:
                                 error_info = 'Result Error'
 
-            elif "local" in id:
+            elif id.startswith("local"):
 
                 exe_flag, dbms_error_info = get_sqlite_result(f"../resource/databases/spider2-localdb/{spider2sql_metadata.get(id)['db']}.sqlite", pred_sql_query, "temp", f"{id}_pred.csv" )
                 if exe_flag == False:
@@ -363,6 +363,8 @@ def evaluate_spider2sql(args):
                             if score == 0 and error_info is None:
                                 error_info = 'Result Error'                        
         elif mode == "exec_result":
+
+            pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
             if '_' in id:
                 pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
             else:
@@ -370,19 +372,13 @@ def evaluate_spider2sql(args):
             all_files = os.listdir(gold_result_dir)
             csv_files = [file for file in all_files if pattern.match(file)]
 
-            try:
-                pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
-
-                if len(csv_files) == 1:
-                    gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
-                    score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-                elif len(csv_files) > 1:
-                    gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
-                    score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-            except Exception as e:
-                score = 0
-                error_info = 'Result Parsing Error:' + str(e)
-            
+            if len(csv_files) == 1:
+                gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
+                score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+            elif len(csv_files) > 1:
+                gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
+                score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+        
         output_results.append(
             {
                 "instance_id": id, 
@@ -394,7 +390,7 @@ def evaluate_spider2sql(args):
 
         
     print({item['instance_id']: item['score'] for item in output_results})      
-    score = sum([item['score'] for item in output_results]) / len(eval_standard_dict)
+    score = sum([item['score'] for item in output_results]) / len(output_results)
     print(f"Final score: {score}")
 
 
@@ -404,7 +400,6 @@ def evaluate_spider2sql(args):
     ) as f:
         json.dump(output_results, f, indent=4)
 
-    print(TOTAL_GB_PROCESSED)
 
 
 
