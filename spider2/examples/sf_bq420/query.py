@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "PATENTS_USPTO".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'USPTO_OCE_CANCER';
+        WHERE table_schema = 'USPTO_OCE_ASSIGNMENT';
     """
     
 

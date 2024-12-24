@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "NOAA_DATA".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'NOAA_PASSIVE_ACOUSTIC_INDEX';
+        WHERE table_schema = 'NOAA_SIGNIFICANT_EARTHQUAKES';
     """
     
 

@@ -61,10 +61,10 @@ if __name__ == "__main__":
     
     sql_query = """
         SELECT table_name, comment
-        FROM "NOAA_DATA".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'NOAA_GSOD';
+        FROM "NEW_YORK_CITIBIKE_1".INFORMATION_SCHEMA.TABLES
+        WHERE table_schema = 'NEW_YORK_CITIBIKE';
     """
     
 
-    database_name = 'NOAA_DATA'
+    database_name = 'NEW_YORK_CITIBIKE_1'
     query_data(sql_query, database_name, is_save=True, save_path="result.csv")

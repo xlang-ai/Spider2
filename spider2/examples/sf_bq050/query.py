@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "NEW_YORK_CITIBIKE_1".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'CYCLISTIC';
+        WHERE table_schema = 'NOAA_GSOD';
     """
     
 

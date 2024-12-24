@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "TCGA_HG38_DATA_V0".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'TCGA_HG38_DATA_V0';
+        WHERE table_schema = 'TCGA_BIOCLIN_V0';
     """
     
 

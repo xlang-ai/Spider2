@@ -62,7 +62,7 @@ if __name__ == "__main__":
     sql_query = """
         SELECT table_name, comment
         FROM "AUSTIN".INFORMATION_SCHEMA.TABLES
-        WHERE table_schema = 'AUSTIN_311';
+        WHERE table_schema = 'AUSTIN_INCIDENTS';
     """
     
 
