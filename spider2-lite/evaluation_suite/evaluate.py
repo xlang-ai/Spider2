@@ -129,7 +129,7 @@ def get_bigquery_sql_result(sql_query, is_save, save_dir=None, file_name="result
     is_save = True, output a 'result.csv'
     if_save = False, output a string
     """
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "./credentials/bigquery_credential.json"
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "bigquery_credential.json"
     client = bigquery.Client()
 
 
@@ -167,11 +167,12 @@ def get_snowflake_sql_result(sql_query, is_save, save_dir=None, file_name="resul
     is_save = True, output a 'result.csv'
     if_save = False, output a string
     """
-    snowflake_credential = json.load(open('./credentials/snowflake_credential.json'))
+    snowflake_credential = json.load(open('snowflake_credential.json'))
     conn = snowflake.connector.connect(
         **snowflake_credential
     )
     cursor = conn.cursor()
+    
     try:
         cursor.execute(sql_query)
         results = cursor.fetchall()
@@ -225,7 +226,8 @@ def evaluate_spider2sql(args):
     pred_result_dir = args.result_dir
     
     eval_standard_dict = load_jsonl_to_dict(os.path.join(args.gold_dir, "spider2lite_eval.jsonl"))
-    spider2sql_metadata = load_json_list_to_dict("../spider2-lite.jsonl")
+    spider2sql_metadata = load_jsonl_to_dict("../spider2-lite.jsonl")
+    
 
         
     gold_ids = []
@@ -250,7 +252,7 @@ def evaluate_spider2sql(args):
         error_info = None
         if mode == "sql":
             pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
-            if "bq" in id or "ga" in id:
+            if id.startswith("bq") or id.startswith("ga"):
                 exe_flag, dbms_error_info = get_bigquery_sql_result(pred_sql_query, True, "temp", f"{id}_pred.csv")  
                 if exe_flag == False: 
                     score = 0
@@ -291,7 +293,7 @@ def evaluate_spider2sql(args):
                             if score == 0 and error_info is None:
                                 error_info = 'Result Error'
 
-            elif "local" in id:
+            elif id.startswith("local"):
 
                 exe_flag, dbms_error_info = get_sqlite_result(f"../resource/databases/spider2-localdb/{spider2sql_metadata.get(id)['db']}.sqlite", pred_sql_query, "temp", f"{id}_pred.csv" )
                 if exe_flag == False:
@@ -398,7 +400,7 @@ def evaluate_spider2sql(args):
     ) as f:
         json.dump(output_results, f, indent=4)
 
-    print(TOTAL_GB_PROCESSED)
+    print("TOTAL_GB_PROCESSED: ",TOTAL_GB_PROCESSED)
 
 
 
