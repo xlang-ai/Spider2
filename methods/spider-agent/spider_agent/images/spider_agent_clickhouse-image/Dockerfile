@@ -27,19 +27,13 @@ RUN pip install --upgrade pip
 
 RUN pip install pyarrow db-dtypes pandas numpy scipy tabulate clickhouse_driver
 
-# Install ClickHouse
+WORKDIR /opt/clickhouse
+
 RUN curl https://clickhouse.com/ | sh
 
-# 自动接受许可协议
-ENV CLICKHOUSE_ACCEPT_AND_CONSIDER_NOTED=1
+RUN chmod +x ./clickhouse
 
-# Copy the entrypoint script
-COPY entrypoint.sh .
 
-# 设置可执行权限
-RUN chmod +x ./entrypoint.sh
+WORKDIR /workspace
 
-ENTRYPOINT ["./entrypoint.sh"]
-
-# Default command
-CMD ["bash"]
+CMD ["sh", "-c", "cd /opt/clickhouse && exec ./clickhouse server"]
