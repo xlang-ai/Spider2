@@ -223,9 +223,7 @@ We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](ht
 # 📋 Leaderboard Submission 
 
 We only release the gold answer of about partial examples of Spider 2.0, Spider 2.0-Lite and Spider 2.0-Snow.
-You must follow this [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing) to get your score on Spider 2.0 FULL dataset. 
-For submission, provide a clear README, compressed code that passes your dev evaluation, any additional API keys required, and a report of prompt token counts for cost estimation. 
-Usually, we will return your results in 10 days!
+You must follow this [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing) to upload your score to leaderboard.
 
 
 # 🙇‍♂️ Acknowledgement
