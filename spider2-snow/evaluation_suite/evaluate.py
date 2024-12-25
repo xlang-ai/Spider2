@@ -348,6 +348,7 @@ def evaluate_spider2sql(args):
                         all_files = os.listdir(gold_result_dir)
                         csv_files = [file for file in all_files if pattern.match(file)]
                         if len(csv_files) == 1:
+                            
                             gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
                             try:
                                 score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])

@@ -51,7 +51,7 @@ AggregatedData AS (
 
 SELECT 
     total_count,
-    assignee_name,
+    REPLACE(assignee_name, '"', '') AS assignee_name,
     year_cnt,
     filing_year,
     country_code

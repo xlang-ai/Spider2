@@ -29,7 +29,7 @@ highway_info AS (
 )
 
 SELECT 
-  highway_type
+  REPLACE(highway_type, '"', '') AS highway_type
 FROM
   highway_info
 ORDER BY 

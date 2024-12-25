@@ -41,7 +41,7 @@ tech_class AS (
 cit AS (
   SELECT
     p."family_id",
-    LISTAGG(crossover."family_id", ',') AS "citation"
+    LISTAGG(crossover."family_id", ',') WITHIN GROUP (ORDER BY crossover."family_id" ASC) AS "citation"
   FROM
     "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS p
     CROSS JOIN LATERAL FLATTEN(input => p."citation") AS citation
@@ -71,7 +71,7 @@ tmp_gpr AS (
 gpr AS (
   SELECT
     tmp_gpr."family_id",
-    LISTAGG(crossover."family_id", ',') AS "cited_by"
+    LISTAGG(crossover."family_id", ',') WITHIN GROUP (ORDER BY crossover."family_id" ASC) AS "cited_by"
   FROM
     tmp_gpr
     CROSS JOIN LATERAL FLATTEN(input => SPLIT(tmp_gpr."cited_by_publication_number", ',')) AS cited_by_publication_number

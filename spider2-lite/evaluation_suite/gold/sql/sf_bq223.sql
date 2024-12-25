@@ -1,5 +1,5 @@
 SELECT
-    citing_assignee,
+    REPLACE(citing_assignee, '"', '') AS citing_assignee,
     cpcdef."titleFull" AS cpc_title,
     COUNT(*) AS number
 FROM (
