@@ -43,12 +43,12 @@ Reorganize run results into a standard submission format, here we store the answ
 
 ```python
 python get_spider2snow_submission_data.py --experiment_suffix <The name of this experiment> --results_folder_name <Standard Submission Folders>
-python get_spider2snow_submission_data.py --experiment_suffix gpt-4o-test1 --results_folder_name ../../spider2/evaluation_suite/gpt-4o-test1
+python get_spider2snow_submission_data.py --experiment_suffix gpt-4o-test1 --results_folder_name ../../spider2-snow/evaluation_suite/gpt-4o-test1
 ```
 
 #### Run Evaluation Scripts
 
-You can run `evaluate.py` in the [evaluation suite](https://github.com/xlang-ai/Spider2/tree/main/spider2/evaluation_suite) folder of `Spider 2.0` to get the evaluation results.
+You can run `evaluate.py` in the [evaluation suite](https://github.com/xlang-ai/Spider2/tree/main/spider2/evaluation_suite) folder of `spider2-snow` to get the evaluation results.
 
 
 
