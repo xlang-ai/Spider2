@@ -51,4 +51,8 @@ python get_spider2snow_submission_data.py --experiment_suffix gpt-4o-test1 --res
 You can run `evaluate.py` in the [evaluation suite](https://github.com/xlang-ai/Spider2/tree/main/spider2/evaluation_suite) folder of `spider2-snow` to get the evaluation results.
 
 
+```bash
+python evaluate.py --result_dir gpt-4o-test1 --mode exec_result
+```
+
 
