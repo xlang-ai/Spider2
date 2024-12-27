@@ -45,12 +45,24 @@ Put your own `bigquery_credential.json` and `snowflake_credential.json` in this 
 ### Evaluation
 
 ```
-python evaluate.py --result_dir <your_predicted_sqls_folder>
+python evaluate.py --result_dir <your_predicted_sqls_folder> --model sql
 ```
 
-We provide a sample submissions, `example_submission_folder` 
+or
 
 ```
-python evaluate.py --result_dir example_submission_folder
+python evaluate.py --result_dir <your_predicted_CSVs_folder> --model exec_result
+```
 
+
+We provide a sample submissions, `example_submission_folder` and `example_submission_folder_csv`
+
+```
+python evaluate.py --result_dir example_submission_folder --mode sql
+```
+
+or
+
+```
+python evaluate.py --result_dir example_submission_folder_csv --mode exec_result
 ```
