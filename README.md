@@ -91,6 +91,15 @@ Notably, as shown below, even the most advanced LLMs, including GPT-4, solve onl
 - If you only want access to the **FULL dataset** of Spider 2.0-Snow, you only need to complete **Step2**.
 
 
+### Spider 2.0-Snow and Spider 2.0-Lite
+
+We highly recommend that you directly use Spider2-snow and Spider2-lite for benchmarking and research. First, run the Spider-Agent Framework!!
+
+For more details, please refer to the following links:
+
+- [spider-agent-lite](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite)
+- [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow)
+
 
 
 ### Spider 2.0
