@@ -4,7 +4,7 @@ import argparse
 import os
 import json
 import shutil
-
+import csv
 
 def copy_folder(src, dest, files_to_copy=None):
     """
@@ -73,7 +73,16 @@ def postprocess(args):
         
         if answer_or_path == '':
             results_metadata.append({'instance_id': instance_id, 'answer_or_path': '', 'answer_type': 'answer'})
-            continue        
+
+            # Create a new CSV file in the submission directory with the instance_id as the file name
+            csv_file_path = os.path.join(submission_dir, f'{instance_id}.csv')
+
+            # Write the answer_or_path into the CSV file
+            with open(csv_file_path, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(['output'])  # Write the column header
+                writer.writerow([answer_or_path])  # Write the content
+
         elif os.path.exists(os.path.join(result_folder_root_path,answer_or_path)):
             results_metadata.append({'instance_id': instance_id, 'answer_or_path': answer_or_path, 'answer_type': 'file'})
             try:
@@ -82,6 +91,15 @@ def postprocess(args):
                 import pdb; pdb.set_trace()
         elif not os.path.exists(os.path.join(result_folder_root_path,answer_or_path)):
             results_metadata.append({'instance_id': instance_id, 'answer_or_path': answer_or_path, 'answer_type': 'answer'})
+
+            # Create a new CSV file in the submission directory with the instance_id as the file name
+            csv_file_path = os.path.join(submission_dir, f'{instance_id}.csv')
+
+            # Write the answer_or_path into the CSV file
+            with open(csv_file_path, mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow(['output'])  # Write the column header
+                writer.writerow([answer_or_path])  # Write the content
     
     # with open(os.path.join(submission_dir, 'results_metadata.jsonl'), 'w') as file:
     #     for entry in results_metadata:

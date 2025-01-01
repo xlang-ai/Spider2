@@ -363,22 +363,24 @@ def evaluate_spider2sql(args):
                             if score == 0 and error_info is None:
                                 error_info = 'Result Error'                        
         elif mode == "exec_result":
+            try:
+                pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
+                if '_' in id:
+                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+                else:
+                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+                all_files = os.listdir(gold_result_dir)
+                csv_files = [file for file in all_files if pattern.match(file)]
 
-            pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
-            if '_' in id:
-                pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-            else:
-                pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-            all_files = os.listdir(gold_result_dir)
-            csv_files = [file for file in all_files if pattern.match(file)]
+                if len(csv_files) == 1:
+                    gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
+                    score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+                elif len(csv_files) > 1:
+                    gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
+                    score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+            except:
+                print("{id} ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-            if len(csv_files) == 1:
-                gold_pd = pd.read_csv(os.path.join(gold_result_dir, f"{id}.csv"))
-                score = compare_pandas_table(pred_pd, gold_pd, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-            elif len(csv_files) > 1:
-                gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
-                score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
-        
         output_results.append(
             {
                 "instance_id": id, 
@@ -389,9 +391,11 @@ def evaluate_spider2sql(args):
         )
 
         
-    print({item['instance_id']: item['score'] for item in output_results})      
-    score = sum([item['score'] for item in output_results]) / len(output_results)
-    print(f"Final score: {score}")
+    print({item['instance_id']: item['score'] for item in output_results})  
+    correct_examples = sum([item['score'] for item in output_results]) 
+
+    print(f"Final score: {correct_examples / len(output_results)}, Correct examples: {correct_examples}, Total examples: {len(output_results)}")
+    print(f"Real score: {correct_examples / 547}, Correct examples: {correct_examples}, Total examples: 547")
 
 
     DEBUG_PREFIX = "SQL_DEBUG_" if args.is_sql_debug else ""
