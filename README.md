@@ -13,8 +13,6 @@
 
 - **2024-11-12**: We release the [paper](https://arxiv.org/abs/2411.07763).
 
-- **2024-11-08**: Participants no longer need to fill out the BigQuery form; you only need to fill out the Snowflake form.
-
 - **2024-11-04**: We released the dataset. Notably, we offer three settings: [`Spider 2.0`](https://github.com/xlang-ai/Spider2/tree/main/spider2), [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite), [`Spider 2.0-Snow`](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow).
 
 
