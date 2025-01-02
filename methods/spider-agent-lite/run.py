@@ -54,7 +54,7 @@ def config() -> argparse.Namespace:
     
     parser.add_argument("--max_steps", type=int, default=20)
     
-    parser.add_argument("--max_memory_length", type=int, default=30)
+    parser.add_argument("--max_memory_length", type=int, default=25)
     parser.add_argument("--suffix", '-s', type=str, default="gpt-4-try1")
     
     parser.add_argument("--model", type=str, default="gpt-4o")
@@ -148,10 +148,13 @@ def test(
         task_type = None
         if task_config["instance_id"].startswith("bq") or task_config["instance_id"].startswith("ga"):
             task_type = 'bq'
+            task_config['type'] = 'Bigquery'
         elif task_config["instance_id"].startswith("local"):
             task_type = 'local'
+            task_config['type'] = 'Local'
         elif task_config["instance_id"].startswith("sf"):
             task_type = 'sf'
+            task_config['type'] = 'Snowflake'
         else:
             task_type = 'dbt'
 

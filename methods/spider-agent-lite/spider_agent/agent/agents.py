@@ -62,8 +62,6 @@ class PromptAgent:
         self.codes = []
         self.history_messages = []
         self.instruction = self.env.task_config['question']
-        if 'plan' in self.env.task_config:
-            self.reference_plan = self.env.task_config['plan']
 
         if self.env.task_config['type'] == 'Bigquery':
             self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, BIGQUERY_EXEC_SQL, CreateFile, EditFile]
