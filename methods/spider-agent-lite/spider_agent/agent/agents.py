@@ -62,16 +62,28 @@ class PromptAgent:
         self.codes = []
         self.history_messages = []
         self.instruction = self.env.task_config['question']
-        # if 'plan' in self.env.task_config:
-        #     self.reference_plan = self.env.task_config['plan']
+        if 'plan' in self.env.task_config:
+            self.reference_plan = self.env.task_config['plan']
 
-        self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, SNOWFLAKE_EXEC_SQL, CreateFile, EditFile]
-        action_space = "".join([action_cls.get_action_description() for action_cls in self._AVAILABLE_ACTION_CLASSES])
-        self.system_message = SNOWFLAKE_SYSTEM.format(work_dir=self.work_dir, action_space=action_space, task=self.instruction, max_steps=self.max_steps)
-    
-
-        # if self.use_plan:
-        #     self.system_message += REFERENCE_PLAN_SYSTEM.format(plan=self.reference_plan)
+        if self.env.task_config['type'] == 'Bigquery':
+            self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, BIGQUERY_EXEC_SQL, CreateFile, EditFile]
+            action_space = "".join([action_cls.get_action_description() for action_cls in self._AVAILABLE_ACTION_CLASSES])
+            self.system_message = BIGQUERY_SYSTEM.format(work_dir=self.work_dir, action_space=action_space, task=self.instruction, max_steps=self.max_steps)
+        elif self.env.task_config['type'] == 'Snowflake':
+            self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, SNOWFLAKE_EXEC_SQL, CreateFile, EditFile]
+            action_space = "".join([action_cls.get_action_description() for action_cls in self._AVAILABLE_ACTION_CLASSES])
+            self.system_message = SNOWFLAKE_SYSTEM.format(work_dir=self.work_dir, action_space=action_space, task=self.instruction, max_steps=self.max_steps)
+        elif self.env.task_config['type'] == 'Local':
+            self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, CreateFile, EditFile, LOCAL_DB_SQL]
+            action_space = "".join([action_cls.get_action_description() for action_cls in self._AVAILABLE_ACTION_CLASSES])
+            self.system_message = LOCAL_SYSTEM.format(work_dir=self.work_dir, action_space=action_space, task=self.instruction, max_steps=self.max_steps)
+        elif self.env.task_config['type'] == 'DBT':
+            self._AVAILABLE_ACTION_CLASSES = [Bash, Terminate, CreateFile, EditFile, LOCAL_DB_SQL]
+            action_space = "".join([action_cls.get_action_description() for action_cls in self._AVAILABLE_ACTION_CLASSES])
+            self.system_message = DBT_SYSTEM.format(work_dir=self.work_dir, action_space=action_space, task=self.instruction, max_steps=self.max_steps)
+        
+        if self.use_plan:
+            self.system_message += REFERENCE_PLAN_SYSTEM.format(plan=self.reference_plan)
         
 
         
