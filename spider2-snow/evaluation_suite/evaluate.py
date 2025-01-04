@@ -254,12 +254,12 @@ def evaluate_spider2sql(args):
         if mode == "sql":
             pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
             if id.startswith("bq") or id.startswith("ga"):
-                exe_flag, dbms_error_info = get_bigquery_sql_result(pred_sql_query, True, "temp", f"{id}_pred.csv")  
+                exe_flag, dbms_error_info = get_bigquery_sql_result(pred_sql_query, True, "temp", f"{id}.csv")  
                 if exe_flag == False: 
                     score = 0
                     error_info = dbms_error_info
                 else:                    
-                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}_pred.csv"))  
+                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
                     if '_' in id:
                         pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     else:
@@ -296,12 +296,12 @@ def evaluate_spider2sql(args):
 
             elif id.startswith("local"):
 
-                exe_flag, dbms_error_info = get_sqlite_result(f"../resource/databases/spider2-localdb/{spider2sql_metadata.get(id)['db']}.sqlite", pred_sql_query, "temp", f"{id}_pred.csv" )
+                exe_flag, dbms_error_info = get_sqlite_result(f"../resource/databases/spider2-localdb/{spider2sql_metadata.get(id)['db']}.sqlite", pred_sql_query, "temp", f"{id}.csv" )
                 if exe_flag == False:
                     score = 0
                     error_info = dbms_error_info
                 else:
-                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}_pred.csv"))  
+                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
                     if '_' in id:
                         pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     else:
@@ -326,12 +326,12 @@ def evaluate_spider2sql(args):
                             error_info = 'Result Error'
             elif id.startswith("sf"):
                 database_id = spider2sql_metadata[id]['db_id']
-                exe_flag, dbms_error_info = get_snowflake_sql_result(pred_sql_query, database_id, True, "temp", f"{id}_pred.csv")  
+                exe_flag, dbms_error_info = get_snowflake_sql_result(pred_sql_query, database_id, True, "temp", f"{id}.csv")  
                 if exe_flag == False: 
                     score = 0
                     error_info = dbms_error_info
                 else:                    
-                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}_pred.csv"))  
+                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
                     if '_' in id:
                         pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     else:
@@ -352,7 +352,10 @@ def evaluate_spider2sql(args):
                             error_info = 'Result Error'     
                     elif len(csv_files) > 1:
                         gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
-                        score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+                        try:
+                            score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
+                        except:
+                            score = 0
                         if score == 0 and error_info is None:
                             error_info = 'Result Error'                        
         elif mode == "exec_result":
