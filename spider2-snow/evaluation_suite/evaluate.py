@@ -58,7 +58,7 @@ def load_json_list_to_dict(json_file_path):
 
 
 def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False):
-    # print('multi_condition_cols', multi_condition_cols)
+    print('multi_condition_cols', multi_condition_cols)
 
     if multi_condition_cols == [] or multi_condition_cols == [[]] or multi_condition_cols == [None] or multi_condition_cols == None:
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
@@ -84,7 +84,7 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
         ignore_order (bool, optional): _description_. Defaults to False.
 
     """
-    # print('condition_cols', condition_cols)
+    print('condition_cols', condition_cols)
     
     tolerance = 1e-2
 
