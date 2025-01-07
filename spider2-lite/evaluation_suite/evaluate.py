@@ -58,7 +58,7 @@ def load_json_list_to_dict(json_file_path):
 
 
 def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False):
-    print('multi_condition_cols', multi_condition_cols)
+    # print('multi_condition_cols', multi_condition_cols)
 
     if multi_condition_cols == [] or multi_condition_cols == [[]] or multi_condition_cols == [None] or multi_condition_cols == None:
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
@@ -84,7 +84,7 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
         ignore_order (bool, optional): _description_. Defaults to False.
 
     """
-    print('condition_cols', condition_cols)
+    # print('condition_cols', condition_cols)
     
     tolerance = 1e-2
 
@@ -278,6 +278,7 @@ def evaluate_spider2sql(args):
                         if score == 0 and error_info is None:
                             error_info = 'Result Error'     
                     elif len(csv_files) > 1:
+                        csv_files = sorted(csv_files)
                         gold_pds = [pd.read_csv(os.path.join(gold_result_dir, file)) for file in csv_files]
                         score = compare_multi_pandas_table(pred_pd, gold_pds, eval_standard_dict.get(id)['condition_cols'], eval_standard_dict.get(id)['ignore_order'])
                         if score == 0 and error_info is None:
