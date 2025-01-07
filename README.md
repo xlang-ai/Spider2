@@ -2,10 +2,13 @@
 <p align="center">
   <a href="https://spider2-sql.github.io/">Website</a> •
   <a href="https://arxiv.org/abs/2411.07763">Paper</a> •
-  <a href="https://github.com/xlang-ai/Spider2/blob/main/spider2/README.md">Data</a>
+  <a href="https://github.com/xlang-ai/Spider2/blob/main/spider2/README.md">Data</a> •
+  <a href="https://docs.google.com/document/d/1a69mxO7m1nMndXp8H_-aggvYDbcbiS3rV9GPXEw-DeM/edit?usp=sharing">Data Update Log</a>
 </p>
 
 ## 📰 News
+
+- **2025-01-06**: Please refer to the [data update log](https://docs.google.com/document/d/1a69mxO7m1nMndXp8H_-aggvYDbcbiS3rV9GPXEw-DeM/edit?usp=sharing) to track changes in the evaluation examples. The leaderboard results will also change dynamically accordingly.
 
 - **2024-12-26**: **Using Spider-Agent to benchmark your LLMs!** Considering the widespread attention to the traditional text-to-SQL setting, we now recommend using [spider-agent-lite](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) to work with [spider2-lite](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite) and [spider2-snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow/evaluation_suite) for benchmarking your LLMs. The final output should be CSV files, not SQLs.
 
