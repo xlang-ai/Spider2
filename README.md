@@ -104,7 +104,6 @@ For more details, please refer to the following links:
 - [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow)
 
 
----
 
 
 ## 🚀 Quickstart (Old Version)
