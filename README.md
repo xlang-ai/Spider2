@@ -105,7 +105,7 @@ For more details, please refer to the following links:
 
 
 
-### Spider 2.0
+<!-- ### Spider 2.0
 
 For [`Spider 2.0`](./spider2/README.md), all evaluation examples are aggregated in file [`spider2.jsonl`](./spider2/examples/spider2.jsonl), where each data point contains the following field:
 ```json
@@ -128,10 +128,10 @@ For each instance, we also provide a separate folder [`./spider2/examples/{instr
 
 
 
-The agent has to interact with complex SQL workflows, process extremely long contexts, perform intricate reasoning, and generate multiple SQL queries with diverse operations, often exceeding 100 lines across multiple turns.
+The agent has to interact with complex SQL workflows, process extremely long contexts, perform intricate reasoning, and generate multiple SQL queries with diverse operations, often exceeding 100 lines across multiple turns. -->
 
 
-#### Run Spider-Agent
+<!-- #### Run Spider-Agent
 
 For Spider 2.0, we proposed an agent framework [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent) based on Docker environment. 
 
@@ -148,9 +148,9 @@ cd methods/spider-agent
 # Install required dependencies
 pip install -r requirements.txt
 ```
-3. **Configure credential**: follow this [instruction](https://github.com/xlang-ai/Spider2/tree/main/spider2#configure-credential) to configure BigQuery for running the SQL queries. follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) to get your own Snowflake username and password in our snowflake database. You must update `bigquery_credential.json` and `snowflake_credential.json`.
+1. **Configure credential**: follow this [instruction](https://github.com/xlang-ai/Spider2/tree/main/spider2#configure-credential) to configure BigQuery for running the SQL queries. follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) to get your own Snowflake username and password in our snowflake database. You must update `bigquery_credential.json` and `snowflake_credential.json`.
 
-4. **Download Spider 2.0 Database Source**
+2. **Download Spider 2.0 Database Source**
 ```
 cd spider2
 
@@ -172,7 +172,7 @@ python setup.py
 cd ../../methods/spider-agent
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
-```
+``` -->
 
 
 ### Spider 2.0-Snow
@@ -182,7 +182,7 @@ We would like to thank Snowflake for sponsoring our project. To better align wit
 We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) and other text-to-SQL baselines to this setting. 
 
 
-#### Run Spider-Agent(Snow)
+<!-- #### Run Spider-Agent(Snow)
 
 1. **Install Docker**. Follow the instructions in the [Docker setup guide](https://docs.docker.com/engine/install/) to install Docker on your machine. 
 2. **Install conda environment**.
@@ -208,7 +208,7 @@ python spider_agent_setup_snow.py
 ```
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
-```
+``` -->
 
 
 
