@@ -105,7 +105,74 @@ For more details, please refer to the following links:
 
 
 
-<!-- ### Spider 2.0
+
+### Spider 2.0-Snow
+
+We would like to thank Snowflake for sponsoring our project. To better align with the research interests of the text-to-SQL community, we are offering [Spider 2.0-Snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow), which hosts all databases from Spider 2.0 in the Snowflake data warehouse. This arrangement facilitates users in developing advanced text-to-SQL systems more conveniently.
+
+We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) and other text-to-SQL baselines to this setting. 
+
+
+<!-- #### Run Spider-Agent(Snow)
+
+1. **Install Docker**. Follow the instructions in the [Docker setup guide](https://docs.docker.com/engine/install/) to install Docker on your machine. 
+2. **Install conda environment**.
+```
+git clone https://github.com/xlang-ai/Spider2.git
+cd methods/spider-agent-snow
+
+# Optional: Create a Conda environment for Spider 2.0
+# conda create -n spider2 python=3.11
+# conda activate spider2
+
+# Install required dependencies
+pip install -r requirements.txt
+```
+3. **Configure credential**: Follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) to get your own Snowflake username and password in our snowflake database. You must update `snowflake_credential.json`.
+
+4. **Spider 2.0-Snow Setup**
+```
+python spider_agent_setup_snow.py
+```
+
+5. **Run agent**
+```
+export OPENAI_API_KEY=your_openai_api_key
+python run.py --model gpt-4o -s test1
+``` -->
+
+
+
+
+### Spider 2.0-Lite
+
+To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation.
+
+You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
+```
+from datasets import load_dataset
+ds = load_dataset("xlangai/spider2-lite")
+```
+
+Each file in `spider2-lite.json` contains the following fields:
+- `instance_id`: the unique example id
+- `db`: the database id to which this question is addressed
+- `question`: the natural language question
+- `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents
+
+
+We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation), with evaluation results reported :test_tube:.
+
+
+
+
+
+
+
+
+
+
+### Spider 2.0
 
 For [`Spider 2.0`](./spider2/README.md), all evaluation examples are aggregated in file [`spider2.jsonl`](./spider2/examples/spider2.jsonl), where each data point contains the following field:
 ```json
@@ -172,65 +239,9 @@ python setup.py
 cd ../../methods/spider-agent
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
-``` -->
-
-
-### Spider 2.0-Snow
-
-We would like to thank Snowflake for sponsoring our project. To better align with the research interests of the text-to-SQL community, we are offering [Spider 2.0-Snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow), which hosts all databases from Spider 2.0 in the Snowflake data warehouse. This arrangement facilitates users in developing advanced text-to-SQL systems more conveniently.
-
-We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) and other text-to-SQL baselines to this setting. 
-
-
-<!-- #### Run Spider-Agent(Snow)
-
-1. **Install Docker**. Follow the instructions in the [Docker setup guide](https://docs.docker.com/engine/install/) to install Docker on your machine. 
-2. **Install conda environment**.
-```
-git clone https://github.com/xlang-ai/Spider2.git
-cd methods/spider-agent-snow
-
-# Optional: Create a Conda environment for Spider 2.0
-# conda create -n spider2 python=3.11
-# conda activate spider2
-
-# Install required dependencies
-pip install -r requirements.txt
-```
-3. **Configure credential**: Follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) to get your own Snowflake username and password in our snowflake database. You must update `snowflake_credential.json`.
-
-4. **Spider 2.0-Snow Setup**
-```
-python spider_agent_setup_snow.py
 ```
 
-5. **Run agent**
-```
-export OPENAI_API_KEY=your_openai_api_key
-python run.py --model gpt-4o -s test1
-``` -->
 
-
-
-
-### Spider 2.0-Lite
-
-To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation.
-
-You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
-```
-from datasets import load_dataset
-ds = load_dataset("xlangai/spider2-lite")
-```
-
-Each file in `spider2-lite.json` contains the following fields:
-- `instance_id`: the unique example id
-- `db`: the database id to which this question is addressed
-- `question`: the natural language question
-- `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents
-
-
-We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation), with evaluation results reported :test_tube:.
 
 
 
