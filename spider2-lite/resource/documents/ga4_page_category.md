@@ -47,5 +47,5 @@ PDPs, which focus on individual products, are marked by:
   - Stationery
   - Wearables
 
-### Conclusion
-This detailed classification approach enables a more nuanced analysis of user pathways and interactions on our platform. By distinguishing between general browsing (PLPs) and targeted product interest (PDPs), we can tailor our content and design strategies to better meet the needs of our users, ultimately enhancing the shopping experience and improving business outcomes.
+### Note
+Please note that the page classification keywords are case-insensitive. Additionally, when identifying URLs as described above, spaces are typically replaced by the '+' sign.
