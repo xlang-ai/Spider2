@@ -211,7 +211,6 @@ cd ../../methods/spider-agent
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
 ``` -->
- -->
 
 
 
@@ -220,14 +219,14 @@ python run.py --model gpt-4o -s test1
 # 📋 Leaderboard Submission 
 
 We only release the gold answer of about partial examples of Spider 2.0, Spider 2.0-Lite and Spider 2.0-Snow.
-You must follow this [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing) to upload your score to leaderboard.
+You must follow this [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing) to upload your score to [leaderboard](https://spider2-sql.github.io/).
 
 
 # 🙇‍♂️ Acknowledgement
 
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
 We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao, and Binyuan Hui for their helpful feedback on this work.
-The leaderboard submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
+The website and submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
 
 <p align="center">
   <img src="assets/Snowflake.png" width="35%">
