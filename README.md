@@ -105,7 +105,7 @@ For more details, please refer to the following links:
 
 
 
-## 🚀 Quickstart (Old Version)
+<!-- ## 🚀 Quickstart (Old Version)
 
 
 ### Spider 2.0-Snow
@@ -118,7 +118,7 @@ We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/sp
 
 ### Spider 2.0-Lite
 
-To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation.
+To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation. -->
 
 <!-- You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
 ```
@@ -133,10 +133,10 @@ Each file in `spider2-lite.json` contains the following fields:
 - `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents -->
 
 
-We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and other text-to-SQL baselines to this setting. 
+<!-- We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and other text-to-SQL baselines to this setting. 
 
 We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation), with evaluation results reported :test_tube:.
-
+ -->
 
 
 
@@ -169,7 +169,7 @@ For each instance, we also provide a separate folder [`./spider2/examples/{instr
 The agent has to interact with complex SQL workflows, process extremely long contexts, perform intricate reasoning, and generate multiple SQL queries with diverse operations, often exceeding 100 lines across multiple turns. -->
 
 
-#### Run Spider-Agent
+<!-- #### Run Spider-Agent
 
 For Spider 2.0, we proposed an agent framework [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent) based on Docker environment. 
 
@@ -211,7 +211,7 @@ cd ../../methods/spider-agent
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
 ``` -->
-
+ -->
 
 
 
