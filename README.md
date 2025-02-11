@@ -120,7 +120,7 @@ We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/sp
 
 To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation.
 
-You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
+<!-- You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
 ```
 from datasets import load_dataset
 ds = load_dataset("xlangai/spider2-lite")
@@ -130,8 +130,10 @@ Each file in `spider2-lite.json` contains the following fields:
 - `instance_id`: the unique example id
 - `db`: the database id to which this question is addressed
 - `question`: the natural language question
-- `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents
+- `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents -->
 
+
+We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and other text-to-SQL baselines to this setting. 
 
 We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation), with evaluation results reported :test_tube:.
 
@@ -140,7 +142,7 @@ We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](ht
 
 
 
-
+<!-- 
 ### Spider 2.0
 
 For [`Spider 2.0`](./spider2/README.md), all evaluation examples are aggregated in file [`spider2.jsonl`](./spider2/examples/spider2.jsonl), where each data point contains the following field:
@@ -208,7 +210,7 @@ python setup.py
 cd ../../methods/spider-agent
 export OPENAI_API_KEY=your_openai_api_key
 python run.py --model gpt-4o -s test1
-```
+``` -->
 
 
 
