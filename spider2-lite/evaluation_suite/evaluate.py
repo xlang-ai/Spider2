@@ -382,20 +382,6 @@ def evaluate_spider2sql(args):
     print(f"Real score: {correct_examples / 547}, Correct examples: {correct_examples}, Total examples: 547")
 
 
-    correct_ids = [item['instance_id'] for item in output_results if item['score'] == 1]
-
-    csv_file = f"{args.result_dir}-ids.csv"
-    import csv
-    with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
-        writer = csv.writer(file)
-        writer.writerow(['instance_id'])
-        for item in correct_ids:
-            if item.startswith(('bq', 'ga', 'local')):
-                item = 'sf_' + item
-            writer.writerow([item])
-
-    print("TOTAL_GB_PROCESSED: ",TOTAL_GB_PROCESSED)
-
 
 
 if __name__ == "__main__":
