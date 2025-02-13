@@ -76,6 +76,15 @@ Notably, as shown below, even the most advanced LLMs, including GPT-4, solve onl
 | CodeS-15B       | 85.4           | -               | 59.3      | 0.7             | 0.0             |
 
 
+### Data
+
+The questions/instructions are in [spider2-lite.jsonl](https://github.com/xlang-ai/Spider2/blob/main/spider2-lite/spider2-lite.jsonl) and [spider2-snow.jsonl](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow.jsonl).
+
+We also release some gold SQLs to help users design prompts and methods, **note that we do not recommend using the Spider 2.0 Gold SQL we released for fine-tuning**.
+
+- [spider2-lite-goldSQL](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite/gold/sql)
+- [spider2-snow-goldSQL](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow/evaluation_suite/gold/sql)
+
 
 
 ## 🚀 Quickstart
@@ -101,15 +110,6 @@ For more details, please refer to the following links:
 
 - [spider-agent-lite](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite)
 - [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow)
-
-### Data
-
-The questions/instructions are in [spider2-lite.jsonl](https://github.com/xlang-ai/Spider2/blob/main/spider2-lite/spider2-lite.jsonl) and [spider2-snow.jsonl](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow.jsonl).
-
-We also release some gold SQLs to help users design prompts and methods, **note that we do not recommend using the Spider 2.0 Gold SQL we released for fine-tuning**.
-
-- [spider2-lite-goldSQL](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite/gold/sql)
-- [spider2-snow-goldSQL](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow/evaluation_suite/gold/sql)
 
 
 
