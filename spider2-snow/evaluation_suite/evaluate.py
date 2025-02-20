@@ -1,4 +1,3 @@
-# import debugpy; debugpy.connect(('127.0.0.1', 5688))
 import json
 import re
 import pandas as pd
@@ -148,14 +147,14 @@ def get_bigquery_sql_result(sql_query, is_save, save_dir=None, file_name="result
         if results.empty:
             print("No data found for the specified query.")
             results.to_csv(os.path.join(save_dir, file_name), index=False)
-            return None, None
+            return False, None
         else:
             if is_save:
                 results.to_csv(os.path.join(save_dir, file_name), index=False)
-                return None, None
+                return True, None
             else:
                 value = results.iat[0, 0]
-                return value, None
+                return True, None
     except Exception as e:
         print("Error occurred while fetching data: ", e)  
         return False, str(e)
@@ -181,10 +180,11 @@ def get_snowflake_sql_result(sql_query, database_id, is_save, save_dir=None, fil
         df = pd.DataFrame(results, columns=columns)
         if df.empty:
             print("No data found for the specified query.")
+            return False, None
         else:
             if is_save:
                 df.to_csv(os.path.join(save_dir, file_name), index=False)
-                return None, None
+                return True, None
     except Exception as e:
         print("Error occurred while fetching data: ", e)  
         return False, str(e)
