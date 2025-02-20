@@ -58,7 +58,7 @@ def load_json_list_to_dict(json_file_path):
 
 
 def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False):
-    print('multi_condition_cols', multi_condition_cols)
+    # print('multi_condition_cols', multi_condition_cols)
 
     if multi_condition_cols == [] or multi_condition_cols == [[]] or multi_condition_cols == [None] or multi_condition_cols == None:
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
@@ -84,7 +84,7 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
         ignore_order (bool, optional): _description_. Defaults to False.
 
     """
-    print('condition_cols', condition_cols)
+    # print('condition_cols', condition_cols)
     
     tolerance = 1e-2
 
@@ -148,14 +148,14 @@ def get_bigquery_sql_result(sql_query, is_save, save_dir=None, file_name="result
         if results.empty:
             print("No data found for the specified query.")
             results.to_csv(os.path.join(save_dir, file_name), index=False)
-            return None, None
+            return False, None
         else:
             if is_save:
                 results.to_csv(os.path.join(save_dir, file_name), index=False)
-                return None, None
+                return True, None
             else:
                 value = results.iat[0, 0]
-                return value, None
+                return True, None
     except Exception as e:
         print("Error occurred while fetching data: ", e)  
         return False, str(e)
@@ -181,10 +181,11 @@ def get_snowflake_sql_result(sql_query, database_id, is_save, save_dir=None, fil
         df = pd.DataFrame(results, columns=columns)
         if df.empty:
             print("No data found for the specified query.")
+            return False, None
         else:
             if is_save:
                 df.to_csv(os.path.join(save_dir, file_name), index=False)
-                return None, None
+                return True, None
     except Exception as e:
         print("Error occurred while fetching data: ", e)  
         return False, str(e)
@@ -249,7 +250,7 @@ def evaluate_spider2sql(args):
     
     
     for id in tqdm(eval_ids):
-        print(f">>>Evaluating {id}...")
+        # print(f">>>Evaluating {id}...")
         error_info = None
         if mode == "sql":
             pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
@@ -375,12 +376,26 @@ def evaluate_spider2sql(args):
         )
 
         
-    print({item['instance_id']: item['score'] for item in output_results if item['score']==1})  
+    # print({item['instance_id']: item['score'] for item in output_results if item['score']==1})  
     correct_examples = sum([item['score'] for item in output_results]) 
 
     print(f"Final score: {correct_examples / len(output_results)}, Correct examples: {correct_examples}, Total examples: {len(output_results)}")
     print(f"Real score: {correct_examples / 547}, Correct examples: {correct_examples}, Total examples: 547")
 
+
+    correct_ids = [item['instance_id'] for item in output_results if item['score'] == 1]
+
+    csv_file = f"{args.result_dir}-ids.csv"
+    import csv
+    with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(['instance_id'])
+        for item in correct_ids:
+            if item.startswith(('bq', 'ga', 'local')):
+                item = 'sf_' + item
+            writer.writerow([item])
+
+    print("TOTAL_GB_PROCESSED: ",TOTAL_GB_PROCESSED)
 
 
 
