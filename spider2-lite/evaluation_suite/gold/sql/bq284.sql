@@ -1,4 +1,4 @@
-bq413SELECT 
+SELECT 
   category,
   COUNT(*) AS number_total_by_category,  
   CASE 

@@ -10,9 +10,7 @@ FROM
       UNNEST(T.event_params) AS event_params
     WHERE
       event_params.key = 'engagement_time_msec' AND event_params.value.int_value > 0
-      /* Has engaged in last M = 7 days */
       AND event_timestamp > UNIX_MICROS(TIMESTAMP_SUB(TIMESTAMP('2021-01-07 23:59:59'), INTERVAL 7 DAY))
-      /* Include only relevant tables based on the fixed timestamp */
       AND _TABLE_SUFFIX BETWEEN '20210101' AND '20210107'
   ) AS MDaysUsers
 LEFT JOIN
@@ -25,9 +23,7 @@ LEFT JOIN
       UNNEST(T.event_params) AS event_params
     WHERE
       event_params.key = 'engagement_time_msec' AND event_params.value.int_value > 0
-      /* Has engaged in last N = 2 days */
       AND event_timestamp > UNIX_MICROS(TIMESTAMP_SUB(TIMESTAMP('2021-01-07 23:59:59'), INTERVAL 2 DAY))
-      /* Include only relevant tables based on the fixed timestamp */
       AND _TABLE_SUFFIX BETWEEN '20210105' AND '20210107'
   ) AS NDaysUsers
 ON MDaysUsers.user_pseudo_id = NDaysUsers.user_pseudo_id
