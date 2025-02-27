@@ -2,41 +2,26 @@
 
 The RFM (Recency, Frequency, Monetary) model segments and scores customers based on three key dimensions:
 
-Recency: The time since the customer's last purchase. Customers who made a purchase more recently are more likely to buy again.
+• Recency (R): How long it has been since the customer’s last purchase. A lower R score (e.g., R = 1) indicates a very recent purchase, while a higher R score (e.g., R = 5) indicates a longer time since the last purchase.
 
-Frequency: The number of purchases made by the customer within a given period. Customers with higher purchase frequency are generally more valuable.
+• Frequency (F): How often the customer purchases within a given time period. A lower F score (e.g., F = 1) signifies that the customer buys very frequently, whereas a higher F score (e.g., F = 5) indicates less frequent purchasing.
 
-Monetary: The total amount of money spent by the customer. Customers who spend more are typically considered more valuable.
+• Monetary (M): The total amount of money the customer spends. A lower M score (e.g., M = 1) indicates higher overall spending, while a higher M score (e.g., M = 5) signifies lower spending over the measured period.
 
-Using these three dimensions, the SQL assigns each customer a score based on their historical order data and classifies them into different customer segments (RFM Buckets).
-
-By taking the values for each customer, bucketing them to produce a score from 1 (lowest) to 5 (highest) and then concatenating all three scores together you get an easy way to divide-up your customers into segments (or “RFM cells”; high-spending new purchasers (514, 5 for recency, 1 for frequency and 4 for monetary value), almost-lost but previously loyal customers (153, 1 for recency, 5 for frequency and 3 for monetary value) and so on.
-
-One of the most popular ways to visualize your customer RFM segments is by using a grid such as the one below, with each segment labelled and sized proportionate to the volume of customers each contains.
+Each customer’s R, F, and M scores are determined by their respective percentiles when compared to other customers. By concatenating the three scores, you get an “RFM cell”—for instance, a customer with R=1, F=5, and M=2 would fall into the 152 segment.
 
 # RFM Segmentation Calculation
 
+After scoring customers on Recency, Frequency, and Monetary values, the next step is to group them into segments that require different marketing or sales strategies. Typically:
 
-RFM analysis is particularly useful for sales and customer teams needing to focus their limited time and money on those customers for whom a change in behavior — from lapsed to active, or first-time to repeat shopper for example — would have the most impact on your bottom line.
+1. Determine each customer’s recency score (R) from 1 to 5 (1 = very recent purchase, 5 = not recent).  
+2. Determine each customer’s frequency score (F) from 1 to 5 (1 = most frequent purchases, 5 = least frequent).  
+3. Determine each customer’s monetary score (M) from 1 to 5 (1 = highest spending, 5 = lowest spending).  
+4. Concatenate these three scores into an RFM score (e.g., 153, 514).
 
-For example, by focusing retention efforts on customers who used to be frequent, loyal and high-value purchasers (RFM segment 355) the revenue upside is obviously much greater than if they managed to retain customers who were previously infrequent low-value purchasers (RFM segment 132).
+By analyzing the distribution of RFM scores and placing them into buckets—for example, “Champions,” “Loyal Customers,” “At Risk,” “Lost,” etc.—you can tailor marketing, sales, and retention strategies to maximize the potential of each segment. 
 
-Similarly, there’s little point in incentivising customers who are already your most loyal, frequent and high-spending customers (RFM segment 555) when spending those incentives on customers who’ve just made their first purchase and have the potential to also become loyal and valuable repeat customers (RFM segment 514, for example)
-
-Building an RFM model is often one of the first projects our clients’ data teams ask us to help deliver as the concept is straightforward, the data required has usually just been centralized and the output is immediately actionable by customer and marketing teams keen to focus their time on customer activity that has the greatest potential to retain or increase revenue.
-
-We’ve created an RFM model using the project timesheets and invoicing data we centralise in our Google BigQuery data warehouse and used it to create the RFM analysis dashboard shown in the screenshot at the start of this blog; in the rest of this blog I’ll walk through how we build the model using dbt and LookML and used the visualization features in Looker to help analyze and make the data actionable.
-
-For the purposes of the RFM model we created for our consulting business, we defined our Recency, Frequency and Monetary Value measures as:
-
-Recency: the number of months since the last invoice raised for a customer
-
-Frequency : the number of invoices raised for the customer in the 12 months leading-up to their last invoice
-
-Monetary Value : the total value of invoices raised for the customer over the 12 months leading-up to their last invoice
-
-The RFM (Recency, Frequency, Monetary) model categorizes customers based on three dimensions: **Recency**, **Frequency**, and **Monetary**. This helps in identifying high-value customers, those at risk of leaving, and others who require attention. Below is a detailed explanation of how customers are grouped based on these three factors.
-
+For instance, a “Champion” (R=1, F=1, M=1) is a recent, frequent, and high-spending user who is highly valuable to your business, whereas a “Lost” customer (e.g., R=5, F=5, M=5) may require re-engagement offers or might no longer be cost-effective to target. Different segments can thus be prioritized based on their profitability and likelihood of responding positively to marketing efforts.
 
 ## RFM Segmentation Logic
 
