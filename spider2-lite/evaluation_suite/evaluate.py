@@ -317,7 +317,7 @@ def evaluate_spider2sql(args):
                         if score == 0 and error_info is None:
                             error_info = 'Result Error'
             elif id.startswith("sf"):
-                database_id = spider2sql_metadata[id]['db_id']
+                database_id = spider2sql_metadata[id]['db']
                 exe_flag, dbms_error_info = get_snowflake_sql_result(pred_sql_query, database_id, True, "temp", f"{id}.csv") 
                 if exe_flag == False: 
                     score = 0
