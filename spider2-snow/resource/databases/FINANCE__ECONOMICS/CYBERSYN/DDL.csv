@@ -5,7 +5,7 @@ FINANCE__ECONOMICS.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_ATTRIBUTES,"Finan
 
 The Bank for International Settlements (BIS) is an international financial organization that provides data series on Property Prices (real estate market trends), Central Bank Policy Rates (global monetary policy), Locational and Consolidated Banking Statistics (international banking activities and risks), Credit to the Non-Financial Sector (credit availability), Global Liquidity Indicators, and Consumer Prices (inflationary activity).
 
-Provides a wide format breakdown of variables included in the bank_for_international_settlements_timeseries table. The BIS Series ID is provided for reference.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the bank_for_international_settlements_timeseries table. The BIS Series ID is provided for reference.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_ATTRIBUTES (
     COUNTERPARTY_GEO_NAME TEXT,
     VARIABLE_NAME TEXT,
     MEASURE TEXT,
@@ -41,7 +41,7 @@ The OpenFIGI Composite ID is an identifier from the Bloomberg OpenFIGI system th
 
 The OpenFIGI Share Class ID is an identifier from the Bloomberg OpenFIGI system that distinguishes different classes of shares (such as Class A, Class B, etc.) issued by a company. Different share classes may have varying voting rights, dividend policies, or other characteristics.
 
-The OpenFIGI FIGI ID is a unique identifier for any financial instrument itself, not limited to shares. It covers a wider range of securities, such as bonds, derivatives, and others.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.COMPANY_SECURITY_RELATIONSHIPS (
+The OpenFIGI FIGI ID is a unique identifier for any financial instrument itself, not limited to shares. It covers a wider range of securities, such as bonds, derivatives, and others.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.COMPANY_SECURITY_RELATIONSHIPS (
     SECURITY_ID TEXT,
     SECURITY_NAME TEXT,
     SECURITY_ID_TYPE TEXT,
@@ -57,7 +57,7 @@ FINANCE__ECONOMICS.CYBERSYN.EUROPEAN_CENTRAL_BANK_ATTRIBUTES,"Consumer price ind
 
 The European Central Bank (ECB) is a central institution of the Eurozone, primarily responsible for managing the euro and framing and implementing EU economic & monetary policy. Our ECB data covers the following: (1) Consumer Price Indices for a wide range of consumer goods, (2) Residential Property Prices, and (3) Residential Property Valuations. Data is provided for European countries as well as the European country groups.
 
-Provides a wide format breakdown of variables included in the european_central_bank_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.EUROPEAN_CENTRAL_BANK_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the european_central_bank_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.EUROPEAN_CENTRAL_BANK_ATTRIBUTES (
     SEASONALLY_ADJUSTED TEXT,
     ITEM_DESCRIPTION TEXT,
     VARIABLE TEXT,
@@ -110,7 +110,7 @@ FINANCE__ECONOMICS.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_TIMESERIES,"Count
 
 The Bank for International Settlements (BIS) is an international financial organization that provides data series on Property Prices (real estate market trends), Central Bank Policy Rates (global monetary policy), Locational and Consolidated Banking Statistics (international banking activities and risks), Credit to the Non-Financial Sector (credit availability), Global Liquidity Indicators, and Consumer Prices (inflationary activity).
 
-Each row represents a distinct timeseries, date, and value by primary and counterparty geographic entities (if available). Each variable is detailed in the bank_for_international_settlements_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by primary and counterparty geographic entities (if available). Each variable is detailed in the bank_for_international_settlements_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BANK_FOR_INTERNATIONAL_SETTLEMENTS_TIMESERIES (
     COUNTERPARTY_GEO_ID TEXT,
     GEO_ID TEXT,
     UNIT TEXT,
@@ -135,7 +135,7 @@ The Federal Deposit Insurance Corporation (FDIC) is an independent agency of the
 
 Provides a wide format overview of each banking institutions' branches by FDIC_BRANCH_ID.
 
-The table includes an ID and name for each branch and its associated institution and holding company. It also includes branch-specific location information as well as institution-level regulatory and insurance data.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FDIC_BRANCH_LOCATIONS_INDEX (
+The table includes an ID and name for each branch and its associated institution and holding company. It also includes branch-specific location information as well as institution-level regulatory and insurance data.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FDIC_BRANCH_LOCATIONS_INDEX (
     FDIC_REGIONAL_OFFICE TEXT,
     FDIC_INSTITUTION_CERTIFICATE_NUMBER TEXT,
     HOLDING_COMPANY_TYPE TEXT,
@@ -178,7 +178,7 @@ The Federal Housing Finance Agency (FHFA) provides the House Price Index (HPI), 
 
 Provides a wide format breakdown of variables included in the fhfa_house_price_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including its property classification (traditional, distress-free, non-metro), how the index is measured (all-transactions, purchase-only, expanded-data), the frequency of the measurement, whether the variable is seasonally adjusted, and its unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_HOUSE_PRICE_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including its property classification (traditional, distress-free, non-metro), how the index is measured (all-transactions, purchase-only, expanded-data), the frequency of the measurement, whether the variable is seasonally adjusted, and its unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_HOUSE_PRICE_ATTRIBUTES (
     PROPERTY_CLASSIFICATION TEXT,
     SEASONALLY_ADJUSTED BOOLEAN,
     VARIABLE_NAME TEXT,
@@ -193,7 +193,7 @@ FRED, published by the St. Louis Federal Reserve, includes information aggregate
 
 Provides a wide format breakdown of variables included in the financial_fred_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, the specific FRED release, the release source, if the variable is seasonally adjusted, its unit of measurement, frequency of measurement, and measurement methodology.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_FRED_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, the specific FRED release, the release source, if the variable is seasonally adjusted, its unit of measurement, frequency of measurement, and measurement methodology.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_FRED_ATTRIBUTES (
     MEASUREMENT_METHOD TEXT,
     UNIT TEXT,
     SEASONALLY_ADJUSTED BOOLEAN,
@@ -204,7 +204,7 @@ The table includes a unique variable ID and a human-readable variable name. Addi
     VARIABLE_NAME TEXT,
     RELEASE_SOURCE TEXT
 );"
-FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_HIERARCHY,"The Geography Hierarchy table provides hierarchical relationships between a PARENT_GEO_ID and GEO_ID (e.g., country/USA is parent to geoID/01, which is representative of the state of Alabama).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.GEOGRAPHY_HIERARCHY (
+FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_HIERARCHY,"The Geography Hierarchy table provides hierarchical relationships between a PARENT_GEO_ID and GEO_ID (e.g., country/USA is parent to geoID/01, which is representative of the state of Alabama).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_HIERARCHY (
     GEO_ID TEXT,
     PARENT_GEO_ID TEXT
 );"
@@ -234,12 +234,12 @@ OWID is an online publication that presents empirical research and data on globa
 Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the our_world_in_data_attributes table.",
 FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK,"Map between FRED's reported SERIES_ID and Cybersyn's VARIABLE identifier, along with the associated GEO_ID.
 
-FRED, published by the St. Louis Federal Reserve, includes information aggregated from various government sources. It features various economic metrics such as monthly retail sales, foreign exchange rates, and industrial production as well as, financial-institution-specific data (e.g. flow of deposits for small and large banks, total bank liabilities, outstanding balance of commercial real estate loans).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK (
+FRED, published by the St. Louis Federal Reserve, includes information aggregated from various government sources. It features various economic metrics such as monthly retail sales, foreign exchange rates, and industrial production as well as, financial-institution-specific data (e.g. flow of deposits for small and large banks, total bank liabilities, outstanding balance of commercial real estate loans).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK (
     SERIES_ID TEXT,
     GEO_ID TEXT,
     VARIABLE TEXT
 );"
-FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
+FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
     RELATED_GEO_NAME TEXT,
     RELATED_LEVEL TEXT,
     RELATIONSHIP_TYPE TEXT,
@@ -270,7 +270,7 @@ FINANCE__ECONOMICS.CYBERSYN.SEC_REPORT_INDEX,"Index of filings (ADSH) submitted 
 Provides a wide format breakdown of each report (ADSH) filed by an entity (CIK). Each row represents a distinct report submission type and date by entity (CIK).",
 FINANCE__ECONOMICS.CYBERSYN.STOCK_PRICE_TIMESERIES,"Cybersyn publishes daily prices (open/close, high/low) & trading volumes of US securities executed on the Nasdaq. The data is sourced from Databento's direct feed with Nasdaq TotalView. Cybersyn makes data from the previous trading day available around 6am ET.
 
-Trading volume, open/close, and high/low prices are based on full day trading, inclusive of pre-market, regular trading, and after hours sessions. For example, the open price will reflect the price of the first trade of the day in the pre-market. The trading volume will reflect the total number of trades executed on the Nasdaq throughout all sessions. ","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.STOCK_PRICE_TIMESERIES (
+Trading volume, open/close, and high/low prices are based on full day trading, inclusive of pre-market, regular trading, and after hours sessions. For example, the open price will reflect the price of the first trade of the day in the pre-market. The trading volume will reflect the total number of trades executed on the Nasdaq throughout all sessions. ","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.STOCK_PRICE_TIMESERIES (
     PRIMARY_EXCHANGE_NAME TEXT,
     ASSET_CLASS TEXT,
     VALUE FLOAT,
@@ -297,7 +297,7 @@ FINANCE__ECONOMICS.CYBERSYN.US_ECONOMIC_CENSUS_ATTRIBUTES,"Detailed economic dat
 
 The Economic Census is a survey conducted by the US Census Bureau every 5 years on number of firms, number of establishments; number of employees, payroll and sales, value and percentage of product shipments, revenue by geographic area for establishments and firms by NAICS code.
 
-Provides a wide format breakdown of variables included in the us_economic_census_timeseries table. Following attributes are provides for reference: NAICS industry classification, type of operation run by the establishment, establishment's tax status, Products and Services Code and sources of credit card services income.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.US_ECONOMIC_CENSUS_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the us_economic_census_timeseries table. Following attributes are provides for reference: NAICS industry classification, type of operation run by the establishment, establishment's tax status, Products and Services Code and sources of credit card services income.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.US_ECONOMIC_CENSUS_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     CREDIT_CARD_SERVICES_INCOME TEXT,
     MEASURE TEXT,
@@ -314,7 +314,7 @@ FINANCE__ECONOMICS.CYBERSYN.US_ECONOMIC_CENSUS_TIMESERIES,"Detailed economic dat
 
 The Economic Census is a survey conducted by the US Census Bureau every 5 years on number of firms, number of establishments; number of employees, payroll and sales, value and percentage of product shipments, revenue by geographic area for establishments and firms by NAICS code.
   
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the us_economic_census_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.US_ECONOMIC_CENSUS_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the us_economic_census_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.US_ECONOMIC_CENSUS_TIMESERIES (
     VARIABLE TEXT,
     UNIT TEXT,
     DATE TEXT,
@@ -358,7 +358,7 @@ The OpenFIGI FIGI ID is a unique identifier for any financial instrument itself,
 
 Provides a wide format overview of security details by TOP_LEVEL_OPENFIGI_ID.
 
-This table provides detailed information for each OpenFIGI ID by type of FIGI ID, including its primary ticker, security name, asset class, security type, security subtypes, global tickers, exchange codes, and related OpenFIGI IDs.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.OPENFIGI_SECURITY_INDEX (
+This table provides detailed information for each OpenFIGI ID by type of FIGI ID, including its primary ticker, security name, asset class, security type, security subtypes, global tickers, exchange codes, and related OpenFIGI IDs.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.OPENFIGI_SECURITY_INDEX (
     PRIMARY_TICKER TEXT,
     EXCHANGE_CODES ARRAY,
     ASSET_CLASS TEXT,
@@ -395,7 +395,7 @@ FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_ATTRIBUTES,"Em
 
 The US Bureau of Labor Statistics (BLS) produces granular employment reports: Local Area Unemployment Statistics (LAUS) provides monthly and annual employment, unemployment, and labor force data for states and localities; Job Openings and Labor Turnover Survey (JOLTS) covers labor demand and turnover rates, including data on job openings, hires, and separations; and State and Metro Employment (SAE) delivers employment and wage data across various industries at state and metropolitan levels.
 
-Provides a wide format breakdown of variables included in the bureau_of_labor_statistics_employment_timeseries table. The BLS report is provided for reference. Additionally, variables are defined by seasonal adjustment, related industry, and size of the establishment referenced.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the bureau_of_labor_statistics_employment_timeseries table. The BLS report is provided for reference. Additionally, variables are defined by seasonal adjustment, related industry, and size of the establishment referenced.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_ATTRIBUTES (
     MEASURE TEXT,
     INDUSTRY TEXT,
     SEASONALLY_ADJUSTED BOOLEAN,
@@ -415,7 +415,7 @@ FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_BRANCH_ENTITIES,"All bank branch locations
 
 The Federal Financial Institutions Examination Council (FFIEC) is a U.S. government interagency body that prescribes uniform principles, standards, and report forms for the federal examination of financial institutions. It does not provide deposit insurance. The FFIEC provides detailed branch-level data for these institutions, which includes information on branch locations, deposits, and other financial metrics. This data is provided to support the public and regulatory oversight, promoting understanding and informed decision-making regarding the nation's financial systems and aiding in the assessment of local banking market conditions.
 
-Provides a wide format overview of bank branches monitored by the FFIEC by ID_RSSD.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_BRANCH_ENTITIES (
+Provides a wide format overview of bank branches monitored by the FFIEC by ID_RSSD.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_BRANCH_ENTITIES (
     CATEGORY TEXT,
     ID_COUNTRY TEXT,
     IS_ACTIVE BOOLEAN,
@@ -448,7 +448,7 @@ FINANCE__ECONOMICS.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES,"Loan-level mor
 
 The Federal Housing Finance Agency (FHFA) in partnership with the Consumer Financial Protection Bureau (CFPB) developed the National Mortgage Database (NMDB), a nationally representative 5% sample of residential mortgages in the US. It details loan-level data covering mortgage originations, terms, and performance, along with borrower demographics.; and indicates rates of delayed payments, foreclosures and bankruptcies, and forbearance. The data is grouped by geographic levels (national, state, CBSA/MSD level) and includes both Enterprise and non-Enterprise individual mortgages from 2002 onwards.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_mortgage_performance_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_mortgage_performance_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES (
     DATE DATE,
     GEO_ID TEXT,
     UNIT TEXT,
@@ -472,7 +472,7 @@ The Federal Reserve Bank of New York (or New York Fed) provides data on economic
 
 Provides historical values for each variable collected.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the newyorkfed_consumer_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.NEWYORKFED_CONSUMER_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the newyorkfed_consumer_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.NEWYORKFED_CONSUMER_TIMESERIES (
     VARIABLE TEXT,
     UNIT TEXT,
     DATE DATE,
@@ -486,7 +486,7 @@ The OECD, or Organisation for Economic Co-operation and Development, conducts re
 
 Provides a wide format breakdown of variables included in the oecd_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, unit of measurement, frequency of aggregations, and details on adjustments applied to the data.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.OECD_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, unit of measurement, frequency of aggregations, and details on adjustments applied to the data.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.OECD_ATTRIBUTES (
     MEASUREMENT_TYPE TEXT,
     MEASURE TEXT,
     FREQUENCY TEXT,
@@ -501,7 +501,7 @@ The OECD, or Organisation for Economic Co-operation and Development, conducts re
 
 Provides historical values for each variable collected.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the oecd_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.OECD_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the oecd_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.OECD_TIMESERIES (
     VALUE FLOAT,
     VARIABLE_NAME TEXT,
     UNIT TEXT,
@@ -545,7 +545,7 @@ FINANCE__ECONOMICS.CYBERSYN.INTERNATIONAL_MONETARY_FUND_TIMESERIES,"Economic and
 
 The International Monetary Fund (IMF) provides data on the following topics: Primary Commodity Price System (prices of commodities by country); Balance of Payments (countries’ economic transactions with the rest of the world, including trade balances, capital flows, and official reserves); Fiscal Monitor (detailed government finances); International Financial Statistics (macroeconomic and financial indicators); Coordinated Portfolio Investment Survey (cross-border holdings of equity and debt securities); Africa Regional Economic Outlook (economic indicators for Africa); Asia and Pacific Regional Economic Outlook (economic indicators for the Asia and Pacific region).
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the international_monetary_fund_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.INTERNATIONAL_MONETARY_FUND_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the international_monetary_fund_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.INTERNATIONAL_MONETARY_FUND_TIMESERIES (
     GEO_ID TEXT,
     VALUE FLOAT,
     UNIT TEXT,
@@ -577,7 +577,7 @@ Cybersyn has compiled a list of public and private companies companies through v
 
 The EIN (Employer Identification Number) is issued by the US Internal Revenue Service (IRS) and is a unique 9-digit number used to identify business entities for tax purposes. The CIK (Central Index Key) is issued by the US Securities and Exchange Commission (SEC) and is a unique number assigned to corporations, individuals, and foreign governments who are required to file disclosures with the SEC. The LEI (Legal Entity Identifier) is a 20-character, alpha-numeric code based on the ISO 17442 standard, assigned to distinct legal entities that engage in financial transactions and administered by the Global Legal Entity Identifier Foundation (GLEIF). The PERMID_COMPANY_ID is issued by PermID from Refinitiv and is a permanent identifier that they publish for organization entities.  
 
-Provides a wide format overview of companies by COMPANY_ID, which can be used across Cybersyn's datasets as a unique identifier for corporate entities.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.COMPANY_INDEX (
+Provides a wide format overview of companies by COMPANY_ID, which can be used across Cybersyn's datasets as a unique identifier for corporate entities.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.COMPANY_INDEX (
     PRIMARY_EXCHANGE_NAME TEXT,
     PRIMARY_TICKER TEXT,
     ENTITY_LEVEL TEXT,
@@ -594,7 +594,7 @@ FINANCE__ECONOMICS.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_ATTRIBUTES,"Deposit data fo
 
 The Federal Deposit Insurance Corporation (FDIC) is an independent agency of the US government that insures deposits at banks and thrift institutions, up to an insured limit, and promotes the safety and soundness of these financial institutions by identifying, monitoring, and addressing risks. They monitor financial institutions at 3 levels: (1) holding company, (2) institution, and (3) branch. On an annual basis, they conduct the Summary of Deposits survey that gathers data on the deposits held at each FDIC-insured banks' branches (if the bank has at least one branch).
 
-Provides a wide format breakdown of variables included in the fdic_summary_of_deposits_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the fdic_summary_of_deposits_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     UNIT TEXT,
     MEASURE TEXT,
@@ -625,7 +625,7 @@ The FDIC BankSuite provides a comprehensive array of financial data and reports 
 
 Provides a wide format breakdown of FDIC-insured entities by ID_RSSD.
 
-The table includes a unique institution ID (ID_RSSD), geographic location, start and end dates, charter types, other identifiers for the institution, associated NAICS codes, and more.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_INSTITUTION_ENTITIES (
+The table includes a unique institution ID (ID_RSSD), geographic location, start and end dates, charter types, other identifiers for the institution, associated NAICS codes, and more.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_ENTITIES (
     ADDRESS TEXT,
     STATE_ABBREVIATION TEXT,
     NAME TEXT,
@@ -661,7 +661,7 @@ FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_TIMESERIES,"Financial metrics 
 
 The FDIC BankSuite provides a comprehensive array of financial data and reports on FDIC-insured institutions in the United States. This suite typically includes detailed information such as bank financial statements, call reports (quarterly financial reports filed by banks), and Uniform Bank Performance Reports (UBPRs) which analyze the financial condition and performance of individual banks.
 
-Each row represents a distinct timeseries, date, and banking institution entity (ID_RSSD). Each variable is detailed in the financial_institution_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_INSTITUTION_TIMESERIES (
+Each row represents a distinct timeseries, date, and banking institution entity (ID_RSSD). Each variable is detailed in the financial_institution_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_TIMESERIES (
     VARIABLE TEXT,
     ID_RSSD TEXT,
     VALUE NUMBER,
@@ -678,7 +678,7 @@ FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_TIMESERIES,"E
 
 The Cybersyn Financial & Economic Indicators tables include data aggregated from various government sources. It features various economic metrics, such as the Census Bureau's retail sales, Federal Reserve's commercial paper and consumer credit, New York Fed's SOFR and EFFR data, Freddie Mac's house price index and mortgage rates, the Department of Labor's weekly unemployment claims, Bureau of Economic Analysis GDP estimates, Bureau of Labor Statistics employment and CPI data, and more.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the cybersyn_financial_economic_indicators_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the cybersyn_financial_economic_indicators_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_TIMESERIES (
     UNIT TEXT,
     GEO_ID TEXT,
     DATE DATE,
@@ -692,7 +692,7 @@ FRED, published by the St. Louis Federal Reserve, includes information aggregate
 
 Provides historical values for variables collected by FRED by GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the financial_fred_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_FRED_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the financial_fred_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_FRED_TIMESERIES (
     VARIABLE TEXT,
     VALUE FLOAT,
     GEO_ID TEXT,
@@ -709,7 +709,7 @@ FINANCE__ECONOMICS.CYBERSYN.INTERNATIONAL_MONETARY_FUND_ATTRIBUTES,"Economic and
 
 The International Monetary Fund (IMF) provides data on the following topics: Primary Commodity Price System (prices of commodities by country); Balance of Payments (countries’ economic transactions with the rest of the world, including trade balances, capital flows, and official reserves); Fiscal Monitor (detailed government finances); International Financial Statistics (macroeconomic and financial indicators); Coordinated Portfolio Investment Survey (cross-border holdings of equity and debt securities); Africa Regional Economic Outlook (economic indicators for Africa); Asia and Pacific Regional Economic Outlook (economic indicators for the Asia and Pacific region).
 
-Provides a wide format breakdown of variables included in the international_monetary_fund_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.INTERNATIONAL_MONETARY_FUND_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the international_monetary_fund_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.INTERNATIONAL_MONETARY_FUND_ATTRIBUTES (
     FREQUENCY TEXT,
     MEASUREMENT_TYPE TEXT,
     MEASURE TEXT,
@@ -735,7 +735,7 @@ FINANCE__ECONOMICS.CYBERSYN.NEWYORKFED_CONSUMER_ATTRIBUTES,"Monthly household ec
 
 The Federal Reserve Bank of New York (or New York Fed) provides data on economic perspectives and behaviors of US households in the Survey of Consumer Expectations (SCE) and the Household Debt and Credit Report. The Survey of Consumer Expectations (SCE) collects monthly data on households' economic expectations and behavior on inflation, the labor market, and personal finance. This survey is unique in its detailed questioning regarding the probability of certain events occurring in the respondents' financial lives (e.g., inflation, spending, income), serving as a tool for understanding future consumer behavior and economic trends. The Household Debt and Credit Report provides quarterly updates on trends in consumer debt and credit, including breakdowns by debt type and credit score. It draws from a nationally representative sample of anonymized Equifax credit data to report on developments in mortgage, student loan, auto loan, and credit card balances, as well as bankruptcy filings and delinquencies.
 
-Provides a wide format breakdown of variables included in the newyorkfed_consumer_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.NEWYORKFED_CONSUMER_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the newyorkfed_consumer_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.NEWYORKFED_CONSUMER_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     FREQUENCY TEXT,
     REPORT TEXT,
@@ -757,7 +757,7 @@ FINANCE__ECONOMICS.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_TIMESERIES,"Deposit data fo
 
 The Federal Deposit Insurance Corporation (FDIC) is an independent agency of the US government that insures deposits at banks and thrift institutions, up to an insured limit, and promotes the safety and soundness of these financial institutions by identifying, monitoring, and addressing risks. They monitor financial institutions at 3 levels: (1) holding company, (2) institution, and (3) branch. On an annual basis, they conduct the Summary of Deposits survey that gathers data on the deposits held at each FDIC-insured banks' branches (if the bank has at least one branch).
 
-Each row represents a distinct timeseries, date, and value by FDIC institution and branch. Each variable is detailed in the fdic_summary_of_deposits_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by FDIC institution and branch. Each variable is detailed in the fdic_summary_of_deposits_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FDIC_SUMMARY_OF_DEPOSITS_TIMESERIES (
     VALUE NUMBER,
     DATE DATE,
     FDIC_INSTITUTION_ID TEXT,
@@ -770,7 +770,7 @@ FINANCE__ECONOMICS.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES,"Loan-level mor
 
 The Federal Housing Finance Agency (FHFA) in partnership with the Consumer Financial Protection Bureau (CFPB) developed the National Mortgage Database (NMDB), a nationally representative 5% sample of residential mortgages in the US. It details loan-level data covering mortgage originations, terms, and performance, along with borrower demographics.; and indicates rates of delayed payments, foreclosures and bankruptcies, and forbearance. The data is grouped by geographic levels (national, state, CBSA/MSD level) and includes both Enterprise and non-Enterprise individual mortgages from 2002 onwards.
 
-Provides a wide format breakdown of variables included in the fhfa_mortgage_performance_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the fhfa_mortgage_performance_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES (
     UNIT TEXT,
     VARIABLE_GROUP TEXT,
     FREQUENCY TEXT,
@@ -782,7 +782,7 @@ FINANCE__ECONOMICS.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES,"Single-family hom
 
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
-Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES (
     VARIABLE_GROUP TEXT,
     VARIABLE_NAME TEXT,
     CATEGORY TEXT,
@@ -792,7 +792,7 @@ Provides a wide format breakdown of variables included in the fhfa_uniform_appra
     FREQUENCY TEXT,
     VARIABLE TEXT
 );"
-FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.GEOGRAPHY_INDEX (
+FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_INDEX (
     LEVEL TEXT,
     ISO_ALPHA2 TEXT,
     GEO_ID TEXT,
@@ -820,7 +820,7 @@ The FDIC BankSuite provides a comprehensive array of financial data and reports 
 
 Provides a wide format breakdown of variables included in the financial_institution_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the definition of the variable, its reporting frequency, and unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_INSTITUTION_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the definition of the variable, its reporting frequency, and unit of measurement.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_ATTRIBUTES (
     UNIT TEXT,
     DEFINITION TEXT,
     VARIABLE TEXT,
@@ -838,7 +838,7 @@ FINANCE__ECONOMICS.CYBERSYN.PERMID_SECURITY_INDEX,"Refinitiv's PermID, or Perman
 
 Provides a wide format overview of each PERMID_SECURITY_ID.
 
-This table provides details on each security with a PermID, including the security's name, its primary ticker, asset class, primary exchange, and security status (e.g., Active, Inactive), as well as related global tickers.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.PERMID_SECURITY_INDEX (
+This table provides details on each security with a PermID, including the security's name, its primary ticker, asset class, primary exchange, and security status (e.g., Active, Inactive), as well as related global tickers.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.PERMID_SECURITY_INDEX (
     ASSET_CLASS TEXT,
     EXCHANGE_CODE ARRAY,
     PRIMARY_TICKER TEXT,
@@ -852,7 +852,7 @@ This table provides details on each security with a PermID, including the securi
 );"
 FINANCE__ECONOMICS.CYBERSYN.PUBLIC_HOLIDAY_CALENDAR,"The Public Holiday Calendar provides reference data containing government-designated holidays for 119 countries since 1970, as well as the financial market holidays for the European Central Bank (ECB) and New York Stock Exchange (NYSE).
 Provides historical values for each public holiday by GEO_ID.
-Each row represents a distinct timeseries, date, and holiday name by geographic entity. It identifies whether the holiday is financial.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.PUBLIC_HOLIDAY_CALENDAR (
+Each row represents a distinct timeseries, date, and holiday name by geographic entity. It identifies whether the holiday is financial.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.PUBLIC_HOLIDAY_CALENDAR (
     SUBDIVISION TEXT,
     HOLIDAY_NAME TEXT,
     ISO_ALPHA2 TEXT,
@@ -908,7 +908,7 @@ FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_TIMESERIES,"Em
 
 The US Bureau of Labor Statistics (BLS) produces granular employment reports: Local Area Unemployment Statistics (LAUS) provides monthly and annual employment, unemployment, and labor force data for states and localities; Job Openings and Labor Turnover Survey (JOLTS) covers labor demand and turnover rates, including data on job openings, hires, and separations; and State and Metro Employment (SAE) delivers employment and wage data across various industries at state and metropolitan levels.
 
-Each row represents a distinct timeseries collected by the BLS reports (LAUS, JOLTS, and SAE), date, and value by geographic entity JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the bureau_of_labor_statistics_employment_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_TIMESERIES (
+Each row represents a distinct timeseries collected by the BLS reports (LAUS, JOLTS, and SAE), date, and value by geographic entity JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the bureau_of_labor_statistics_employment_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_EMPLOYMENT_TIMESERIES (
     DATE DATE,
     VARIABLE_NAME TEXT,
     GEO_ID TEXT,
@@ -919,7 +919,7 @@ FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_ATTRIBUTES,"US CPI 
 
 The US Bureau of Labor Statistics (BLS) releases the Consumer Price Index (CPI) report, which measures the average change in prices paid by consumers for goods and services over time. This report serves as a key indicator of inflation. The Average Price report provides estimates of price levels (i.e. average price paid by the consumer for a good or service).
 
-Provides a wide format breakdown of variables included in the bureau_of_labor_statistics_price_timeseries table. The BLS report is provided for reference. Additionally, variables are defined by seasonal adjustment, consumer product, and CPI base type (e.g., standard or alternative).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the bureau_of_labor_statistics_price_timeseries table. The BLS report is provided for reference. Additionally, variables are defined by seasonal adjustment, consumer product, and CPI base type (e.g., standard or alternative).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_ATTRIBUTES (
     SEASONALLY_ADJUSTED BOOLEAN,
     PRODUCT TEXT,
     UNIT TEXT,
@@ -933,7 +933,7 @@ FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_TIMESERIES,"US CPI 
 
 The US Bureau of Labor Statistics (BLS) releases the Consumer Price Index (CPI) report, which measures the average change in prices paid by consumers for goods and services over time. This report serves as a key indicator of inflation. The Average Price report provides estimates of price levels (i.e. average price paid by the consumer for a good or service).
 
-Each row represents a distinct timeseries from the CPI & Average Price BLS reports, date, and value by geographic entity, joinable to Cybersyn's geography entity tables. Each variable is detailed in the bureau_of_labor_statistics_price_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_TIMESERIES (
+Each row represents a distinct timeseries from the CPI & Average Price BLS reports, date, and value by geographic entity, joinable to Cybersyn's geography entity tables. Each variable is detailed in the bureau_of_labor_statistics_price_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.BUREAU_OF_LABOR_STATISTICS_PRICE_TIMESERIES (
     GEO_ID TEXT,
     VALUE FLOAT,
     VARIABLE TEXT,
@@ -950,7 +950,7 @@ FINANCE__ECONOMICS.CYBERSYN.CLIMATE_WATCH_TIMESERIES,"Country-level greenhouse g
 Managed by the World Resources Institute, Climate Watch is a global coalition of countries and institutions collaborating to ensure nations receive the technical and financial support to achieve climate targets under the Paris Agreement. Climate Watch's historical emissions dataset provides a record of past greenhouse gas emissions across various sectors and gases, categorized by both geographic and sector-specific divisions, and presents future emission scenarios, each predicated on distinct assumptions regarding economic growth, technological advancements, and policy implementations. These scenarios facilitate exploration into potential future states of global emissions.
 
 Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the climate_watch_attributes table.",
-FINANCE__ECONOMICS.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent relationships, joinable to Cybersyn's company_index table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.COMPANY_RELATIONSHIPS (
+FINANCE__ECONOMICS.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent relationships, joinable to Cybersyn's company_index table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.COMPANY_RELATIONSHIPS (
     COMPANY_NAME TEXT,
     RELATIONSHIP_TYPE TEXT,
     RELATIONSHIP_START_DATE DATE,
@@ -961,7 +961,7 @@ FINANCE__ECONOMICS.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent
     RELATED_ENTITY_LEVEL TEXT,
     RELATED_COMPANY_NAME TEXT
 );"
-FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.CYBERSYN_DATA_CATALOG (
+FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_DATA_CATALOG (
     DATA_SOURCE ARRAY,
     LICENSE_URL ARRAY,
     LISTING_NAME ARRAY,
@@ -982,7 +982,7 @@ FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_ATTRIBUTES,"E
 
 The Cybersyn Financial & Economic Indicators tables include data aggregated from various government sources. It features various economic metrics, such as the Census Bureau's retail sales, Federal Reserve's commercial paper and consumer credit, New York Fed's SOFR and EFFR data, Freddie Mac's house price index and mortgage rates, the Department of Labor's weekly unemployment claims, Bureau of Economic Analysis GDP estimates, Bureau of Labor Statistics employment and CPI data, and more.
 
-Provides a wide format breakdown of variables included in the cybersyn_financial_economic_indicators_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the cybersyn_financial_economic_indicators_timeseries table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN_FINANCIAL_ECONOMIC_INDICATORS_ATTRIBUTES (
     UNIT TEXT,
     RELEASE_SOURCE TEXT,
     MEASURE TEXT,
@@ -999,7 +999,7 @@ FINANCE__ECONOMICS.CYBERSYN.EUROPEAN_CENTRAL_BANK_TIMESERIES,"Consumer price ind
 
 The European Central Bank (ECB) is a central institution of the Eurozone, primarily responsible for managing the euro and framing and implementing EU economic & monetary policy. Our ECB data covers the following: (1) Consumer Price Indices for a wide range of consumer goods, (2) Residential Property Prices, and (3) Residential Property Valuations. Data is provided for European countries as well as the European country groups.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the european_central_bank_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.EUROPEAN_CENTRAL_BANK_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the european_central_bank_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.EUROPEAN_CENTRAL_BANK_TIMESERIES (
     VARIABLE_NAME TEXT,
     UNIT TEXT,
     DATE DATE,
@@ -1026,7 +1026,7 @@ The Consumer Financial Protection Bureau (CFPB) publishes the Consumer Complaint
 
 Provides a wide format overview of each complaint submitted to the CFPB.
 
-The table provides information on each complaint, including the product, issue, associated company, complaint narrative, public response from the company, and complaint submission details.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_CFPB_COMPLAINT (
+The table provides information on each complaint, including the product, issue, associated company, complaint narrative, public response from the company, and complaint submission details.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_CFPB_COMPLAINT (
     DATE_SENT_TO_COMPANY DATE,
     TIMELY_RESPONSE BOOLEAN,
     SUBMITTED_VIA TEXT,
@@ -1051,7 +1051,7 @@ FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_EVENTS,"Bank events data relat
 
 The FDIC BankSuite provides a comprehensive array of financial data and reports on FDIC-insured institutions in the United States. This suite typically includes detailed information such as bank financial statements, call reports (quarterly financial reports filed by banks), and Uniform Bank Performance Reports (UBPRs) which analyze the financial condition and performance of individual banks.
 
-The table includes ID_RSSDs for the predecessor and successor of different event types. Events include splits, discontinued charters, sale of assets, retained charters, and failures. It details the transaction date and the merge accounting method utilized.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_INSTITUTION_EVENTS (
+The table includes ID_RSSDs for the predecessor and successor of different event types. Events include splits, discontinued charters, sale of assets, retained charters, and failures. It details the transaction date and the merge accounting method utilized.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_EVENTS (
     NAME_SUCCESSOR TEXT,
     TRANSFORMATION_TYPE TEXT,
     CATEGORY_SUCCESSOR TEXT,
@@ -1070,7 +1070,7 @@ The FDIC BankSuite provides a comprehensive array of financial data and reports 
 
 Provides a wide format breakdown of relationships between various levels of financial institutions by ID_RSSD_PARENT and ID_RSSD_OFFSPRING.
 
-Each row represents a unique relationship between two financial institutions, the category definition of each institution, the type of relationship and percent control, and whether the relationship is active.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FINANCIAL_INSTITUTION_HIERARCHY (
+Each row represents a unique relationship between two financial institutions, the category definition of each institution, the type of relationship and percent control, and whether the relationship is active.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FINANCIAL_INSTITUTION_HIERARCHY (
     CATEGORY_PARENT TEXT,
     CATEGORY_OFFSPRING TEXT,
     NAME_OFFSPRING TEXT,
@@ -1089,7 +1089,7 @@ FINANCE__ECONOMICS.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_TIMESERIES,"Greenhouse
 The Food and Agriculture Organization (FAO) is a specialized agency of the United Nations leading the international effort to increase food security and nutrition standards. The FAOSTAT database reports greenhouse gas emissions data related to agriculture, forestry, and other land use activities (including carbon dioxide, methane, nitrous oxide gases, etc.).
   
 Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the food_agriculture_organization_attributes table.",
-FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_OVERLAPS,"The Geography Overlaps table provides overlapping geographic relationships between the GEO_ID and OVERLAPS_WITH (e.g., overlap between a county and a zip code).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.GEOGRAPHY_OVERLAPS (
+FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_OVERLAPS,"The Geography Overlaps table provides overlapping geographic relationships between the GEO_ID and OVERLAPS_WITH (e.g., overlap between a county and a zip code).","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_OVERLAPS (
     GEO_ID TEXT,
     OVERLAPS_WITH TEXT
 );"
@@ -1109,7 +1109,7 @@ The Federal Housing Finance Agency (FHFA) provides the House Price Index (HPI), 
 
 Provides historical values for each variable collected by the FHFA HPI by GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_house_price_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_HOUSE_PRICE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_house_price_attributes table.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_HOUSE_PRICE_TIMESERIES (
     VALUE NUMBER,
     UNIT TEXT,
     DATE DATE,
@@ -1121,7 +1121,7 @@ FINANCE__ECONOMICS.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES,"Single-family hom
 
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_uniform_appraisal_attributes. The table also flags values that were suppressed due to privacy reasons.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_uniform_appraisal_attributes. The table also flags values that were suppressed due to privacy reasons.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES (
     UNIT TEXT,
     VARIABLE_NAME TEXT,
     VARIABLE TEXT,
@@ -1172,7 +1172,7 @@ Foreign exchange (FX) rates are the rates at which one currency can be exchanged
 
 Provides historical values for each currency pair collected by BASE_CURRENCY_ID and QUOTE_CURRENCY_ID.
 
-Each row represents a distinct timeseries, date, and value by currency pair.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.CYBERSYN.FX_RATES_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by currency pair.","CREATE TABLE FINANCE__ECONOMICS.CYBERSYN.FX_RATES_TIMESERIES (
     BASE_CURRENCY_NAME TEXT,
     VARIABLE TEXT,
     QUOTE_CURRENCY_NAME TEXT,

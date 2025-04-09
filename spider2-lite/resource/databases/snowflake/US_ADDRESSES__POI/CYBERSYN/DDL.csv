@@ -142,7 +142,7 @@ Each row represents a distinct timeseries, date, and value by geographic entity.
 US_ADDRESSES__POI.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK,"Map between FRED's reported SERIES_ID and Cybersyn's VARIABLE identifier, along with the associated GEO_ID.
 
 FRED, published by the St. Louis Federal Reserve, includes information aggregated from various government sources. It features various economic metrics such as monthly retail sales, foreign exchange rates, and industrial production as well as, financial-institution-specific data (e.g. flow of deposits for small and large banks, total bank liabilities, outstanding balance of commercial real estate loans).",
-US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
+US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
     RELATED_GEO_NAME TEXT,
     RELATED_GEO_ID TEXT,
     RELATED_LEVEL TEXT,
@@ -162,7 +162,7 @@ US_ADDRESSES__POI.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS,"Map betwee
 
 Sourced from OpenAddresses and Overture Maps Foundation. OpenAddresses is a collaborative project that compiles and provides free and open global address data, aggregating crowd-sourced and publicly available datasets to create a comprehensive, unified resource. Overture Maps Foundation, though not exclusively an address database, aims to provide a comprehensive, open-source, global mapping platform that includes address data among various other geographical and location-based information, enhancing the detail and usability of open mapping data. It is an open data project steered by Amazon, Meta, Microsoft, and TomTom that aggregates map data from multiple sources.
 
-Provides a long format overview of relationships between a POI_ID and ADDRESS_ID.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS (
+Provides a long format overview of relationships between a POI_ID and ADDRESS_ID.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS (
     POI_ID TEXT,
     RELATIONSHIP_TYPE TEXT,
     RELATIONSHIP_START_DATE DATE,
@@ -333,7 +333,7 @@ OpenAddresses is a collaborative project that compiles and provides free and ope
 The National Address Database, developed by the US Department of Transportation, is an initiative to create a single, public-domain database of address information, focusing on nationwide coverage to support governmental and emergency response needs. 
 Overture Maps Foundation, though not exclusively an address database, aims to provide a comprehensive, open-source, global mapping platform that includes address data among various other geographical and location-based information, enhancing the detail and usability of open mapping data.
 
-Provides a wide format overview of US addresses by ADDRESS_ID. This table represents each unique address with geographic information mappable to other Cybersyn tables, latitude and longitude coordinates, and other address specifics.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.US_ADDRESSES (
+Provides a wide format overview of US addresses by ADDRESS_ID. This table represents each unique address with geographic information mappable to other Cybersyn tables, latitude and longitude coordinates, and other address specifics.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.US_ADDRESSES (
     STREET_DIRECTIONAL_SUFFIX TEXT,
     STREET_DIRECTIONAL_PREFIX TEXT,
     ID_ZIP TEXT,
@@ -504,7 +504,7 @@ US_ADDRESSES__POI.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES,"Single-family home
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
 Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.",
-US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.GEOGRAPHY_INDEX (
+US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_INDEX (
     LEVEL TEXT,
     ISO_ALPHA2 TEXT,
     GEO_ID TEXT,
@@ -618,7 +618,7 @@ Managed by the World Resources Institute, Climate Watch is a global coalition of
 
 Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the climate_watch_attributes table.",
 US_ADDRESSES__POI.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent relationships, joinable to Cybersyn's company_index table.",
-US_ADDRESSES__POI.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.CYBERSYN_DATA_CATALOG (
+US_ADDRESSES__POI.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN_DATA_CATALOG (
     DATA_SOURCE ARRAY,
     LICENSE_URL ARRAY,
     CREATED_DATE DATE,
@@ -704,7 +704,7 @@ US_ADDRESSES__POI.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES,"Single-family home
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
 Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_uniform_appraisal_attributes. The table also flags values that were suppressed due to privacy reasons.",
-US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_CHARACTERISTICS,"The Geography Characteristics table provides various types of geographic characteristic relationships (e.g., GEOJSON coordinates, WKT coordinates, state abbreviations, and FIPS 10-4 codes) with an associated RELATIONSHIP_START_DATE and RELATIONSHIP_END_DATE by GEO_ID.""","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.GEOGRAPHY_CHARACTERISTICS (
+US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_CHARACTERISTICS,"The Geography Characteristics table provides various types of geographic characteristic relationships (e.g., GEOJSON coordinates, WKT coordinates, state abbreviations, and FIPS 10-4 codes) with an associated RELATIONSHIP_START_DATE and RELATIONSHIP_END_DATE by GEO_ID.""","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.GEOGRAPHY_CHARACTERISTICS (
     GEO_NAME TEXT,
     RELATIONSHIP_END_DATE DATE,
     RELATIONSHIP_START_DATE DATE,
@@ -778,7 +778,7 @@ Overture Maps Foundation, though not exclusively an address database, aims to pr
 
 Provides a wide format overview of US points of interest (POIs) by unique POI_ID.
 
-This table provides information on unique US points of interest (POIs), including its name and detailed categorical information on the type of location. POIs can be mapped to their addresses using the point_of_interest_addresses_relationship table.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.CYBERSYN.POINT_OF_INTEREST_INDEX (
+This table provides information on unique US points of interest (POIs), including its name and detailed categorical information on the type of location. POIs can be mapped to their addresses using the point_of_interest_addresses_relationship table.","CREATE TABLE US_ADDRESSES__POI.CYBERSYN.POINT_OF_INTEREST_INDEX (
     CATEGORY_MAIN TEXT,
     POI_NAME TEXT,
     CATEGORY_ALTERNATE ARRAY,

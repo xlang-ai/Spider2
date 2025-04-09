@@ -55,7 +55,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FEMA_DISASTER_DECLARATION_INDEX,"Financial assista
 
 The Federal Emergency Management Agency (FEMA) provides extensive data on emergency management in the United States. This data encompasses disaster declarations, declared recovery programs, and the National Flood Insurance Program (NFIP) policies and claims. The disaster declaration process involves a collaboration between FEMA and the federal government, where state or tribal governments formally request federal assistance through FEMA after a significant disaster overwhelms their capabilities. Upon receiving the request, FEMA evaluates the situation and advises the President, who then decides whether to declare a federal disaster, enabling the allocation of federal funds and resources to assist in recovery efforts.
 
-Provides a wide format breakdown of federally-declared disasters, including financial assistance values (e.g., the number of approved applications, as well as individual, public assistance, and hazard mitigation grant amounts).","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_DISASTER_DECLARATION_INDEX (
+Provides a wide format breakdown of federally-declared disasters, including financial assistance values (e.g., the number of approved applications, as well as individual, public assistance, and hazard mitigation grant amounts).","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_DISASTER_DECLARATION_INDEX (
     DISASTER_END_DATE DATE,
     STATE_OBLIGATED_PUBLIC_ASSISTANCE_CATEGORY_C_TO_G_AMOUNT FLOAT,
     DISASTER_DECLARATION_TYPE TEXT,
@@ -93,7 +93,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_TIMESERIES,"Emissions da
 
 The Emissions Database for Global Atmospheric Research (EDGAR), developed by the European Commission, compiles and presents global emissions data from both human activities and natural sources. The database offers emissions data on a range of substances, including carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and various fluorinated gases (F-gases). EDGAR tracks emissions data by country and industry, encompassing both biogenic and fossil fuel sources.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the european_commission_edgar_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the european_commission_edgar_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_TIMESERIES (
     VALUE FLOAT,
     DATE DATE,
     VARIABLE_NAME TEXT,
@@ -120,7 +120,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_ATTRIBUTES,"Emissions da
 
 The Emissions Database for Global Atmospheric Research (EDGAR), developed by the European Commission, compiles and presents global emissions data from both human activities and natural sources. The database offers emissions data on a range of substances, including carbon dioxide (CO2), methane (CH4), nitrous oxide (N2O), and various fluorinated gases (F-gases). EDGAR tracks emissions data by country and industry, encompassing both biogenic and fossil fuel sources.
 
-Provides a wide format breakdown of variables included in the european_commission_edgar_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the european_commission_edgar_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.EUROPEAN_COMMISSION_EDGAR_ATTRIBUTES (
     VARIABLE TEXT,
     FREQUENCY TEXT,
     IPCC_INDUSTRY TEXT,
@@ -173,7 +173,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.OUR_WORLD_IN_DATA_TIMESERIES,"Global CO2 emissions
 
 OWID is an online publication that presents empirical research and data on global development. 
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the our_world_in_data_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.OUR_WORLD_IN_DATA_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the our_world_in_data_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.OUR_WORLD_IN_DATA_TIMESERIES (
     GEO_ID TEXT,
     DATE DATE,
     VARIABLE TEXT,
@@ -184,7 +184,7 @@ Each row represents a distinct timeseries, date, and value by geographic entity.
 WEATHER__ENVIRONMENT.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK,"Map between FRED's reported SERIES_ID and Cybersyn's VARIABLE identifier, along with the associated GEO_ID.
 
 FRED, published by the St. Louis Federal Reserve, includes information aggregated from various government sources. It features various economic metrics such as monthly retail sales, foreign exchange rates, and industrial production as well as, financial-institution-specific data (e.g. flow of deposits for small and large banks, total bank liabilities, outstanding balance of commercial real estate loans).",
-WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
+WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
     RELATED_GEO_NAME TEXT,
     RELATED_GEO_ID TEXT,
     RELATED_LEVEL TEXT,
@@ -199,7 +199,7 @@ The National Centers for Environmental Information (NCEI), a division of the Nat
 
 Provides a wide format breakdown of variables included in the noaa_weather_metrics_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, its measurement type as specified by the NCEI, unit of measurement, and frequency of measurement.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.NOAA_WEATHER_METRICS_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the type of value being measured, its measurement type as specified by the NCEI, unit of measurement, and frequency of measurement.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.NOAA_WEATHER_METRICS_ATTRIBUTES (
     VARIABLE TEXT,
     VARIABLE_NAME TEXT,
     UNIT TEXT,
@@ -230,7 +230,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_ATTRIBUTES,"Greenhou
 
 The Food and Agriculture Organization (FAO) is a specialized agency of the United Nations leading the international effort to increase food security and nutrition standards. The FAOSTAT database reports greenhouse gas emissions data related to agriculture, forestry, and other land use activities (including carbon dioxide, methane, nitrous oxide gases, etc.).
 
-Provides a wide format breakdown of variables included in the food_agriculture_organization_timeseries table, including type of emission and source of data.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the food_agriculture_organization_timeseries table, including type of emission and source of data.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_ATTRIBUTES (
     UNIT TEXT,
     VARIABLE_NAME TEXT,
     MEASURE TEXT,
@@ -336,7 +336,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.EIA_ENERGY_TIMESERIES,"Natural gas, electricity, a
 
 The Energy Information Administration (EIA) is part of the U.S. Department of Energy and serves as a primary source of data on energy production, consumption, and related topics.
 
-Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the eia_energy_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.EIA_ENERGY_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the eia_energy_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.EIA_ENERGY_TIMESERIES (
     VARIABLE_NAME TEXT,
     UNIT TEXT,
     IMPORTER_GEO_ID TEXT,
@@ -386,7 +386,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_CLAIM_INDEX,
 
 The Federal Emergency Management Agency (FEMA) provides extensive data on emergency management in the United States. This data encompasses disaster declarations, declared recovery programs, and the National Flood Insurance Program (NFIP) policies and claims. The Federal Insurance and Mitigation Administration (FIMA) National Flood Insurance Program (NFIP) Claims data provides comprehensive information on claims made under the NFIP. It serves as a resource for understanding the financial impact of flood events on communities.
 
-Provides a wide format breakdown of claims made under the NFIP, including financial details of the claim and property specifications.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_CLAIM_INDEX (
+Provides a wide format breakdown of claims made under the NFIP, including financial details of the claim and property specifications.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_CLAIM_INDEX (
     LATITUDE FLOAT,
     ICC_COVERAGE NUMBER,
     REPLACEMENT_COST_BASIS TEXT,
@@ -522,7 +522,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FEMA_MISSION_ASSIGNMENT_INDEX,"List of FEMA missio
 
 The Federal Emergency Management Agency (FEMA) provides extensive data on emergency management in the United States. This data encompasses disaster declarations, declared recovery programs, and the National Flood Insurance Program (NFIP) policies and claims. FEMA issues mission assignments in anticipation of, or in response to, a Presidential declaration of an emergency or major disaster. Mission Assignments are distinct because they allow for deployment, employment and assistance from the full range of federal resources to support disaster needs.
 
-Provides a wide format breakdown of mission assignments, including detailed statements of work and associated federal and state funding.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_MISSION_ASSIGNMENT_INDEX (
+Provides a wide format breakdown of mission assignments, including detailed statements of work and associated federal and state funding.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_MISSION_ASSIGNMENT_INDEX (
     REQUESTED_ASSISTANCE_DESCRIPTION TEXT,
     CITY TEXT,
     STATE_COST_SHARE_PERCENT FLOAT,
@@ -547,7 +547,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_POLICY_INDEX
 
 The Federal Emergency Management Agency (FEMA) provides extensive data on emergency management in the United States. This data encompasses disaster declarations, declared recovery programs, and the National Flood Insurance Program (NFIP) policies and claims. The Federal Insurance and Mitigation Administration's (FIMA) National Flood Insurance Program (NFIP) Policy Data offers insights into the flood insurance policies issued under the program. This data includes information on the number of policies in effect, coverage amounts, premiums, and the geographical distribution of policyholders. It's a key resource for analyzing flood insurance coverage trends and understanding the reach and impact of the NFIP in mitigating flood risks across the United States.
 
-Provides a wide format breakdown of NFIP policies, including the policy specifications and the building specifications.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_POLICY_INDEX (
+Provides a wide format breakdown of NFIP policies, including the policy specifications and the building specifications.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_NATIONAL_FLOOD_INSURANCE_PROGRAM_POLICY_INDEX (
     LATITUDE FLOAT,
     LONGITUDE FLOAT,
     ORIGINAL_FLOOD_POLICY_DATE DATE,
@@ -674,7 +674,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.OUR_WORLD_IN_DATA_ATTRIBUTES,"Global CO2 emissions
 
 OWID is an online publication that presents empirical research and data on global development.
 
-Provides a wide format breakdown of variables included in the our_world_in_data_timeseries table. OWID charts are provided for reference.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.OUR_WORLD_IN_DATA_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the our_world_in_data_timeseries table. OWID charts are provided for reference.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.OUR_WORLD_IN_DATA_ATTRIBUTES (
     UNIT TEXT,
     VARIABLE TEXT,
     MEASURE TEXT,
@@ -702,7 +702,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES,"Single-family h
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
 Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.",
-WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.GEOGRAPHY_INDEX (
+WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.GEOGRAPHY_INDEX (
     LEVEL TEXT,
     ISO_ALPHA2 TEXT,
     GEO_ID TEXT,
@@ -723,7 +723,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FEMA_DISASTER_DECLARATION_AREAS_INDEX,"Federally-d
 
 The Federal Emergency Management Agency (FEMA) provides extensive data on emergency management in the United States. This data encompasses disaster declarations, declared recovery programs, and the National Flood Insurance Program (NFIP) policies and claims. The disaster declaration process involves a collaboration between FEMA and the federal government, where state or tribal governments formally request federal assistance through FEMA after a significant disaster overwhelms their capabilities. Upon receiving the request, FEMA evaluates the situation and advises the President, who then decides whether to declare a federal disaster, enabling the allocation of federal funds and resources to assist in recovery efforts.
 
-Provides a wide format breakdown of federally-declared disasters and associated geographies. This includes details on the disaster and authorized programs.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_DISASTER_DECLARATION_AREAS_INDEX (
+Provides a wide format breakdown of federally-declared disasters and associated geographies. This includes details on the disaster and authorized programs.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_DISASTER_DECLARATION_AREAS_INDEX (
     STATE_GEO_ID TEXT,
     DECLARED_PROGRAMS_DETAILED ARRAY,
     FEMA_REGION_ID NUMBER,
@@ -823,7 +823,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.CLIMATE_WATCH_ATTRIBUTES,"Tracked greenhouse gas e
 
 Managed by the World Resources Institute, Climate Watch is a global coalition of countries and institutions collaborating to ensure nations receive the technical and financial support to achieve climate targets under the Paris Agreement. Climate Watch's historical emissions dataset provides a record of past greenhouse gas emissions across various sectors and gases, categorized by both geographic and sector-specific divisions, and presents future emission scenarios, each predicated on distinct assumptions regarding economic growth, technological advancements, and policy implementations. These scenarios facilitate exploration into potential future states of global emissions.
 
-Provides a wide format breakdown of variables included in the climate_watch_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.CLIMATE_WATCH_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the climate_watch_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CLIMATE_WATCH_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     EMISSION_TYPE TEXT,
     SCENARIO TEXT,
@@ -838,7 +838,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.CLIMATE_WATCH_TIMESERIES,"Country-level greenhouse
 
 Managed by the World Resources Institute, Climate Watch is a global coalition of countries and institutions collaborating to ensure nations receive the technical and financial support to achieve climate targets under the Paris Agreement. Climate Watch's historical emissions dataset provides a record of past greenhouse gas emissions across various sectors and gases, categorized by both geographic and sector-specific divisions, and presents future emission scenarios, each predicated on distinct assumptions regarding economic growth, technological advancements, and policy implementations. These scenarios facilitate exploration into potential future states of global emissions.
 
-Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the climate_watch_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.CLIMATE_WATCH_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the climate_watch_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CLIMATE_WATCH_TIMESERIES (
     VARIABLE TEXT,
     VALUE FLOAT,
     VARIABLE_NAME TEXT,
@@ -847,7 +847,7 @@ Each row represents a distinct timeseries, date, and value by geographic entity,
     DATE DATE
 );"
 WEATHER__ENVIRONMENT.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent relationships, joinable to Cybersyn's company_index table.",
-WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.CYBERSYN_DATA_CATALOG (
+WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN_DATA_CATALOG (
     DATA_SOURCE ARRAY,
     LICENSE_URL ARRAY,
     TABLE_NAME_PROPER TEXT,
@@ -885,7 +885,7 @@ The Federal Emergency Management Agency (FEMA) provides extensive data on emerge
 
 FEMA region headquarters are primarily used for coordinating disaster response and recovery efforts within their respective regions. These regional offices work closely with state and local governments, as well as with tribal and territorial authorities, to prepare for, protect against, respond to, recover from, and mitigate all hazards. By having regional headquarters, FEMA ensures a more localized, immediate, and effective response to emergencies and disasters.
 
-Provides a wide format breakdown of FEMA's regions, including the address for each region's headquarters and region geo-location details.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FEMA_REGION_INDEX (
+Provides a wide format breakdown of FEMA's regions, including the address for each region's headquarters and region geo-location details.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FEMA_REGION_INDEX (
     FEMA_REGION_ID TEXT,
     LATITUDE FLOAT,
     LONGITUDE FLOAT,
@@ -919,7 +919,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_TIMESERIES,"Greenhou
 
 The Food and Agriculture Organization (FAO) is a specialized agency of the United Nations leading the international effort to increase food security and nutrition standards. The FAOSTAT database reports greenhouse gas emissions data related to agriculture, forestry, and other land use activities (including carbon dioxide, methane, nitrous oxide gases, etc.).
   
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the food_agriculture_organization_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the food_agriculture_organization_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.FOOD_AGRICULTURE_ORGANIZATION_TIMESERIES (
     VARIABLE_NAME TEXT,
     UNIT TEXT,
     GEO_ID TEXT,
@@ -932,7 +932,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.NOAA_WEATHER_METRICS_TIMESERIES,"Daily global clim
 
 The National Centers for Environmental Information (NCEI), a division of the National Oceanic and Atmospheric Administration (NOAA), distributes the Global Historical Climatology Network-Daily (GHCNd),  a global database of daily climate summaries collected from land surface weather stations by numerous sources. The GHCNd database encompasses various meteorological measurements such as temperature, precipitation, snowfall, and snow depth, from over 80K+ weather stations around the world.
 
-Each row represents a distinct timeseries, date, and value by NOAA weather station from 2000 onwards. Each variable is detailed in the noaa_weather_metrics_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.NOAA_WEATHER_METRICS_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by NOAA weather station from 2000 onwards. Each variable is detailed in the noaa_weather_metrics_attributes table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.NOAA_WEATHER_METRICS_TIMESERIES (
     VARIABLE TEXT,
     VALUE NUMBER,
     NOAA_WEATHER_STATION_ID TEXT,
@@ -945,7 +945,7 @@ WEATHER__ENVIRONMENT.CYBERSYN.EIA_ENERGY_ATTRIBUTES,"Natural gas, electricity, a
 
 The Energy Information Administration (EIA) is part of the U.S. Department of Energy and serves as a primary source of data on energy production, consumption, and related topics.
 
-Provides a wide format breakdown of variables included in the eia_energy_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.EIA_ENERGY_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the eia_energy_timeseries table.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.EIA_ENERGY_ATTRIBUTES (
     REPORT TEXT,
     SECTOR TEXT,
     MEASURE TEXT,
@@ -984,7 +984,7 @@ The National Centers for Environmental Information (NCEI), a division of the Nat
 
 Provides a wide format overview of NOAA land surface weather stations included in the noaa_weather_metrics_timeseries table.
 
-The table includes a unique ID for each NOAA land surface weather station, geographic details on its location, including GEO_IDs which can be mapped to the GEOGRAPHY_INDEX GEO_ID field, where data for this weather station is sourced, and the weather station's associated organizations.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.CYBERSYN.NOAA_WEATHER_STATION_INDEX (
+The table includes a unique ID for each NOAA land surface weather station, geographic details on its location, including GEO_IDs which can be mapped to the GEOGRAPHY_INDEX GEO_ID field, where data for this weather station is sourced, and the weather station's associated organizations.","CREATE TABLE WEATHER__ENVIRONMENT.CYBERSYN.NOAA_WEATHER_STATION_INDEX (
     NOAA_WEATHER_STATION_NAME TEXT,
     LATITUDE FLOAT,
     ZIP_NAME TEXT,

@@ -67,7 +67,7 @@ The Internal Revenue Service (IRS), which is the revenue service of the US feder
 
 Provides historical values for each variable collected by the IRS by GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the irs_individual_income_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.IRS_INDIVIDUAL_INCOME_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the irs_individual_income_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.IRS_INDIVIDUAL_INCOME_TIMESERIES (
     SUPPRESSED BOOLEAN,
     DATE DATE,
     VARIABLE TEXT,
@@ -114,7 +114,7 @@ The Federal Housing Finance Agency (FHFA) provides the House Price Index (HPI), 
 
 Provides a wide format breakdown of variables included in the fhfa_house_price_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including its property classification (traditional, distress-free, non-metro), how the index is measured (all-transactions, purchase-only, expanded-data), the frequency of the measurement, whether the variable is seasonally adjusted, and its unit of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_HOUSE_PRICE_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including its property classification (traditional, distress-free, non-metro), how the index is measured (all-transactions, purchase-only, expanded-data), the frequency of the measurement, whether the variable is seasonally adjusted, and its unit of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_HOUSE_PRICE_ATTRIBUTES (
     PROPERTY_CLASSIFICATION TEXT,
     VARIABLE_NAME TEXT,
     SEASONALLY_ADJUSTED BOOLEAN,
@@ -137,7 +137,7 @@ The Home Mortgage Disclosure Act (HMDA) requires many financial and lending inst
 
 Provides a wide format breakdown of loan applications reported by the HMDA.
 
-The table includes details for every home loan application in the US from financial institutions required to file HMDA reports. Institutions that meet criteria such as certain asset thresholds must report HMDA data. Data includes the year of the loan, detailed geographic and demographic information on the applicant, the name of the financial institution, denial rationale, loan terms, and more.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.HOME_MORTGAGE_DISCLOSURE_ATTRIBUTES (
+The table includes details for every home loan application in the US from financial institutions required to file HMDA reports. Institutions that meet criteria such as certain asset thresholds must report HMDA data. Data includes the year of the loan, detailed geographic and demographic information on the applicant, the name of the financial institution, denial rationale, loan terms, and more.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.HOME_MORTGAGE_DISCLOSURE_ATTRIBUTES (
     TOTAL_POINTS_AND_FEES NUMBER,
     OCCUPANCY_TYPE TEXT,
     CENSUSTRACT_MEDIAN_AGE_OF_HOUSING_UNITS NUMBER,
@@ -220,7 +220,7 @@ The Internal Revenue Service (IRS), which is the revenue service of the US feder
 
 Provides historical values for each variable collected by the IRS by GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the irs_migration_by_characteristic_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.IRS_MIGRATION_BY_CHARACTERISTIC_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the irs_migration_by_characteristic_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.IRS_MIGRATION_BY_CHARACTERISTIC_TIMESERIES (
     VARIABLE_NAME TEXT,
     VARIABLE TEXT,
     UNIT TEXT,
@@ -236,7 +236,7 @@ Each row represents a distinct timeseries, date, and value by geographic entity.
 US_REAL_ESTATE.CYBERSYN.FINANCIAL_FRED_VARIABLE_SERIES_ID_CROSSWALK,"Map between FRED's reported SERIES_ID and Cybersyn's VARIABLE identifier, along with the associated GEO_ID.
 
 FRED, published by the St. Louis Federal Reserve, includes information aggregated from various government sources. It features various economic metrics such as monthly retail sales, foreign exchange rates, and industrial production as well as, financial-institution-specific data (e.g. flow of deposits for small and large banks, total bank liabilities, outstanding balance of commercial real estate loans).",
-US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
+US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_RELATIONSHIPS,"The Geography Relationships table provides details on relationships between geographic entities of differing levels. This table includes relationships of type 'overlaps' and type 'contains'. For example, it provides a GEO_ID for a zip code that overlaps with a city, and it details a GEO_ID for a state that contains a particular census tract.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_RELATIONSHIPS (
     RELATED_GEO_NAME TEXT,
     RELATED_LEVEL TEXT,
     RELATED_GEO_ID TEXT,
@@ -256,7 +256,7 @@ US_REAL_ESTATE.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS,"Map between P
 
 Sourced from OpenAddresses and Overture Maps Foundation. OpenAddresses is a collaborative project that compiles and provides free and open global address data, aggregating crowd-sourced and publicly available datasets to create a comprehensive, unified resource. Overture Maps Foundation, though not exclusively an address database, aims to provide a comprehensive, open-source, global mapping platform that includes address data among various other geographical and location-based information, enhancing the detail and usability of open mapping data. It is an open data project steered by Amazon, Meta, Microsoft, and TomTom that aggregates map data from multiple sources.
 
-Provides a long format overview of relationships between a POI_ID and ADDRESS_ID.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS (
+Provides a long format overview of relationships between a POI_ID and ADDRESS_ID.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.POINT_OF_INTEREST_ADDRESSES_RELATIONSHIPS (
     RELATIONSHIP_TYPE TEXT,
     POI_ID TEXT,
     RELATIONSHIP_START_DATE DATE,
@@ -304,7 +304,7 @@ The US Real Estate tables encompass data on the construction and real estate sec
 The BPS, an indicator of future construction activity, records new building permits, signaling future residential and commercial projects. 
 Construction Spending data quantifies actual expenditures on construction projects, categorized into residential, non-residential, and public sectors.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the us_real_estate_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.US_REAL_ESTATE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the us_real_estate_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.US_REAL_ESTATE_TIMESERIES (
     GEO_ID TEXT,
     UNIT TEXT,
     VARIABLE_NAME TEXT,
@@ -389,7 +389,7 @@ US_REAL_ESTATE.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES,"Loan-level mortgag
 
 The Federal Housing Finance Agency (FHFA) in partnership with the Consumer Financial Protection Bureau (CFPB) developed the National Mortgage Database (NMDB), a nationally representative 5% sample of residential mortgages in the US. It details loan-level data covering mortgage originations, terms, and performance, along with borrower demographics.; and indicates rates of delayed payments, foreclosures and bankruptcies, and forbearance. The data is grouped by geographic levels (national, state, CBSA/MSD level) and includes both Enterprise and non-Enterprise individual mortgages from 2002 onwards.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_mortgage_performance_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_mortgage_performance_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_TIMESERIES (
     DATE DATE,
     UNIT TEXT,
     GEO_ID TEXT,
@@ -401,7 +401,7 @@ US_REAL_ESTATE.CYBERSYN.FREDDIE_MAC_HOUSING_ATTRIBUTES,"House price index tracki
 
 Freddie Mac, formally known as the Federal Home Loan Mortgage Corporation, is a government-sponsored enterprise in the US that purchases and securitizes mortgages. Freddie Mac creates a House Price Index (HPI) from data collected on residential property sales and appraisals. This index tracks price movements for both single-family homes and condominiums in the US. Additionally, Freddie Mac provides the Primary Mortgage Market Survey (PMMS), which is a weekly report on mortgage interest rates in the US. This tracks the borrowing costs for homebuyers and refinancers. The PMMS collects data on fixed-rate and adjustable-rate mortgage products, presenting averages for various loan terms.
 
-Provides a wide format breakdown of variables included in the freddie_mac_housing_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FREDDIE_MAC_HOUSING_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the freddie_mac_housing_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FREDDIE_MAC_HOUSING_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     VARIABLE TEXT,
     UNIT TEXT,
@@ -447,7 +447,7 @@ OpenAddresses is a collaborative project that compiles and provides free and ope
 The National Address Database, developed by the US Department of Transportation, is an initiative to create a single, public-domain database of address information, focusing on nationwide coverage to support governmental and emergency response needs. 
 Overture Maps Foundation, though not exclusively an address database, aims to provide a comprehensive, open-source, global mapping platform that includes address data among various other geographical and location-based information, enhancing the detail and usability of open mapping data.
 
-Provides a wide format overview of US addresses by ADDRESS_ID. This table represents each unique address with geographic information mappable to other Cybersyn tables, latitude and longitude coordinates, and other address specifics.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.US_ADDRESSES (
+Provides a wide format overview of US addresses by ADDRESS_ID. This table represents each unique address with geographic information mappable to other Cybersyn tables, latitude and longitude coordinates, and other address specifics.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.US_ADDRESSES (
     STREET_DIRECTIONAL_SUFFIX TEXT,
     STREET_DIRECTIONAL_PREFIX TEXT,
     LONGITUDE FLOAT,
@@ -472,7 +472,7 @@ The US Real Estate tables encompass data on the construction and real estate sec
 The BPS, an indicator of future construction activity, records new building permits, signaling future residential and commercial projects. 
 Construction Spending data quantifies actual expenditures on construction projects, categorized into residential, non-residential, and public sectors.
 
-Provides a wide format breakdown of variables included in the us_real_estate_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.US_REAL_ESTATE_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the us_real_estate_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.US_REAL_ESTATE_ATTRIBUTES (
     SEASONALLY_ADJUSTED BOOLEAN,
     MEASUREMENT_TYPE TEXT,
     UNIT TEXT,
@@ -504,7 +504,7 @@ The Internal Revenue Service (IRS), which is the revenue service of the US feder
 
 Provides historical values for each variable collected by the IRS by FROM_GEO_ID and TO_GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.IRS_ORIGIN_DESTINATION_MIGRATION_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.IRS_ORIGIN_DESTINATION_MIGRATION_TIMESERIES (
     SUPPRESSED NUMBER,
     FROM_GEO_ID TEXT,
     VARIABLE_NAME TEXT,
@@ -569,7 +569,7 @@ US_REAL_ESTATE.CYBERSYN.FREDDIE_MAC_HOUSING_TIMESERIES,"House price index tracki
 
 Freddie Mac, formally known as the Federal Home Loan Mortgage Corporation, is a government-sponsored enterprise in the US that purchases and securitizes mortgages. Freddie Mac creates a House Price Index (HPI) from data collected on residential property sales and appraisals. This index tracks price movements for both single-family homes and condominiums in the US. Additionally, Freddie Mac provides the Primary Mortgage Market Survey (PMMS), which is a weekly report on mortgage interest rates in the US. This tracks the borrowing costs for homebuyers and refinancers. The PMMS collects data on fixed-rate and adjustable-rate mortgage products, presenting averages for various loan terms.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the freddie_mac_housing_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FREDDIE_MAC_HOUSING_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the freddie_mac_housing_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FREDDIE_MAC_HOUSING_TIMESERIES (
     VALUE FLOAT,
     VARIABLE_NAME TEXT,
     DATE DATE,
@@ -612,7 +612,7 @@ The Internal Revenue Service (IRS), which is the revenue service of the US feder
 
 Provides a wide format breakdown of variables included in the irs_migration_by_characteristic_timeseries table.
 
-The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the associated income bracket, return group, age group, unit of measurement, and frequency of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.IRS_MIGRATION_BY_CHARACTERISTIC_ATTRIBUTES (
+The table includes a unique variable ID and a human-readable variable name. Additionally, each column represents a characteristic of the variable, including the associated income bracket, return group, age group, unit of measurement, and frequency of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.IRS_MIGRATION_BY_CHARACTERISTIC_ATTRIBUTES (
     AGE_GROUP TEXT,
     UNIT TEXT,
     RETURN_GROUP TEXT,
@@ -646,7 +646,7 @@ US_REAL_ESTATE.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES,"Loan-level mortgag
 
 The Federal Housing Finance Agency (FHFA) in partnership with the Consumer Financial Protection Bureau (CFPB) developed the National Mortgage Database (NMDB), a nationally representative 5% sample of residential mortgages in the US. It details loan-level data covering mortgage originations, terms, and performance, along with borrower demographics.; and indicates rates of delayed payments, foreclosures and bankruptcies, and forbearance. The data is grouped by geographic levels (national, state, CBSA/MSD level) and includes both Enterprise and non-Enterprise individual mortgages from 2002 onwards.
 
-Provides a wide format breakdown of variables included in the fhfa_mortgage_performance_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the fhfa_mortgage_performance_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_MORTGAGE_PERFORMANCE_ATTRIBUTES (
     VARIABLE_GROUP TEXT,
     UNIT TEXT,
     FREQUENCY TEXT,
@@ -658,7 +658,7 @@ US_REAL_ESTATE.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES,"Single-family home ap
 
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
-Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the fhfa_uniform_appraisal_timeseries table, including the reason for the appraisal request (e.g., Purchase, Refinance), the characteristic for category grouping based on home features, important home features, and unit of measurement.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_UNIFORM_APPRAISAL_ATTRIBUTES (
     VARIABLE_GROUP TEXT,
     VARIABLE_NAME TEXT,
     CATEGORY TEXT,
@@ -668,7 +668,7 @@ Provides a wide format breakdown of variables included in the fhfa_uniform_appra
     FREQUENCY TEXT,
     VARIABLE TEXT
 );"
-US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.GEOGRAPHY_INDEX (
+US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_INDEX,"The Geography Index table provides a unique GEO_ID with its associated GEO_NAME and LEVEL (e.g., City, CensusZipCodeTabulationArea, County, etc.). ISO codes are provided for a geography where applicable.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_INDEX (
     LEVEL TEXT,
     ISO_ALPHA2 TEXT,
     GEO_ID TEXT,
@@ -782,7 +782,7 @@ Managed by the World Resources Institute, Climate Watch is a global coalition of
 
 Each row represents a distinct timeseries, date, and value by geographic entity, JOINABLE to Cybersyn's geography entity tables. Each variable is detailed in the climate_watch_attributes table.",
 US_REAL_ESTATE.CYBERSYN.COMPANY_RELATIONSHIPS,"Company subsidiary and parent relationships, joinable to Cybersyn's company_index table.",
-US_REAL_ESTATE.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.CYBERSYN_DATA_CATALOG (
+US_REAL_ESTATE.CYBERSYN.CYBERSYN_DATA_CATALOG,"A catalog of all Cybersyn tables. Metadata about the tables includes descriptions, data sources, related tables, and more.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN_DATA_CATALOG (
     LICENSE_URL ARRAY,
     DATA_SOURCE ARRAY,
     TABLE_NAME_PROPER TEXT,
@@ -862,7 +862,7 @@ The Federal Housing Finance Agency (FHFA) provides the House Price Index (HPI), 
 
 Provides historical values for each variable collected by the FHFA HPI by GEO_ID.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_house_price_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_HOUSE_PRICE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_house_price_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_HOUSE_PRICE_TIMESERIES (
     VALUE NUMBER,
     UNIT TEXT,
     DATE DATE,
@@ -874,7 +874,7 @@ US_REAL_ESTATE.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES,"Single-family home ap
 
 The Federal Housing Finance Agency (FHFA) provides the Uniform Appraisal Dataset (UAD), which details trends found in single family appraisals (i.e. home values) collected by Fannie Mae and Freddie Mac for both new purchases and refinances since 2013. It is based on a 5% nationally representative random sample of appraisals for single-family mortgages acquired by the Enterprises.
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_uniform_appraisal_attributes. The table also flags values that were suppressed due to privacy reasons.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the fhfa_uniform_appraisal_attributes. The table also flags values that were suppressed due to privacy reasons.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.FHFA_UNIFORM_APPRAISAL_TIMESERIES (
     UNIT TEXT,
     VARIABLE_NAME TEXT,
     GEO_ID TEXT,
@@ -883,7 +883,7 @@ Each row represents a distinct timeseries, date, and value by geographic entity.
     VALUE FLOAT,
     DATE DATE
 );"
-US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_CHARACTERISTICS,"The Geography Characteristics table provides various types of geographic characteristic relationships (e.g., GEOJSON coordinates, WKT coordinates, state abbreviations, and FIPS 10-4 codes) with an associated RELATIONSHIP_START_DATE and RELATIONSHIP_END_DATE by GEO_ID.""","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.GEOGRAPHY_CHARACTERISTICS (
+US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_CHARACTERISTICS,"The Geography Characteristics table provides various types of geographic characteristic relationships (e.g., GEOJSON coordinates, WKT coordinates, state abbreviations, and FIPS 10-4 codes) with an associated RELATIONSHIP_START_DATE and RELATIONSHIP_END_DATE by GEO_ID.""","CREATE TABLE US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_CHARACTERISTICS (
     RELATIONSHIP_START_DATE DATE,
     RELATIONSHIP_END_DATE DATE,
     GEO_NAME TEXT,
@@ -900,7 +900,7 @@ US_REAL_ESTATE.CYBERSYN.IRS_INDIVIDUAL_INCOME_ATTRIBUTES,"Aggregated individual 
 
 The Internal Revenue Service (IRS), which is the revenue service of the US federal government, is responsible for collecting taxes and administering the Internal Revenue Code. The IRS publishes aggregated individual income tax statistics based on annual returns. This data illustrates underlying economic conditions at a zip code and state level as well as measuring population and aggregate income changes between counties and states. It also allows for specific measurement of county-to-county population flow.
 
-Provides a wide format breakdown of variables included in the irs_individual_income_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.IRS_INDIVIDUAL_INCOME_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the irs_individual_income_timeseries table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.IRS_INDIVIDUAL_INCOME_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     SEASONALLY_ADJUSTED BOOLEAN,
     INCOME_BRACKET TEXT,
@@ -964,7 +964,7 @@ Overture Maps Foundation, though not exclusively an address database, aims to pr
 
 Provides a wide format overview of US points of interest (POIs) by unique POI_ID.
 
-This table provides information on unique US points of interest (POIs), including its name and detailed categorical information on the type of location. POIs can be mapped to their addresses using the point_of_interest_addresses_relationship table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.POINT_OF_INTEREST_INDEX (
+This table provides information on unique US points of interest (POIs), including its name and detailed categorical information on the type of location. POIs can be mapped to their addresses using the point_of_interest_addresses_relationship table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.POINT_OF_INTEREST_INDEX (
     CATEGORY_MAIN TEXT,
     POI_NAME TEXT,
     CATEGORY_ALTERNATE ARRAY,
@@ -982,7 +982,7 @@ US_REAL_ESTATE.CYBERSYN.USPS_ADDRESS_CHANGE_ATTRIBUTES,"Aggregated inbound and o
 
 The United States Postal Service (USPS) provides the aggregate number of inbound and outbound change of address requests at the zip code level. An individual, family, or business may make a change of address request for mail-forwarding purposes when moving from one mailing address to another. The request type can be temporary or permanent. 
 
-Provides a wide format breakdown of variables included in the usps_address_change_timeseries table. Additionally, the categorization of the request (which can be grouped as temporal, by the requestor type, or total) is provided for reference.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.USPS_ADDRESS_CHANGE_ATTRIBUTES (
+Provides a wide format breakdown of variables included in the usps_address_change_timeseries table. Additionally, the categorization of the request (which can be grouped as temporal, by the requestor type, or total) is provided for reference.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.USPS_ADDRESS_CHANGE_ATTRIBUTES (
     VARIABLE_NAME TEXT,
     UNIT TEXT,
     REQUEST_TYPE TEXT,
@@ -994,7 +994,7 @@ US_REAL_ESTATE.CYBERSYN.USPS_ADDRESS_CHANGE_TIMESERIES,"Aggregated inbound and o
 
 The United States Postal Service (USPS) provides the aggregate number of inbound and outbound change of address requests at the zip code level. An individual, family, or business may make a change of address request for mail-forwarding purposes when moving from one mailing address to another. The request type can be temporary or permanent. 
 
-Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the usps_address_change_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.CYBERSYN.USPS_ADDRESS_CHANGE_TIMESERIES (
+Each row represents a distinct timeseries, date, and value by geographic entity. Each variable is detailed in the usps_address_change_attributes table.","CREATE TABLE US_REAL_ESTATE.CYBERSYN.USPS_ADDRESS_CHANGE_TIMESERIES (
     VARIABLE_NAME TEXT,
     DATE DATE,
     VARIABLE TEXT,

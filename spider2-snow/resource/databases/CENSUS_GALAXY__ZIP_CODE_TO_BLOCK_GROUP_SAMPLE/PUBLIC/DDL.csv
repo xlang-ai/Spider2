@@ -1,20 +1,20 @@
 table_name,description,DDL
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_TractToZip_Residential,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Xref_TractToZip_Residential (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_TractToZip_Residential,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_TractToZip_Residential (
     FromStateCountyTractID TEXT,
     ToZipCode TEXT,
     ResidentialMappingRatioTZ NUMBER
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_ZipToTract_Residential,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Xref_ZipToTract_Residential (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_ZipToTract_Residential,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Xref_ZipToTract_Residential (
     FromZipCode TEXT,
     ToStateCountyTractID TEXT,
     ResidentialMappingRatioZT NUMBER
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Fact_CensusValues_ACS2021 (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021 (
     CensusValue FLOAT,
     MetricID TEXT,
     BlockGroupID TEXT
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusMetrics,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Dim_CensusMetrics (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusMetrics,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusMetrics (
     Type TEXT,
     Descriptor2 TEXT,
     MetricCategory TEXT,
@@ -26,12 +26,12 @@ CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusMetrics,,"CREATE 
     MetricGroup TEXT,
     Descriptor3 TEXT
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021_ByZip,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Fact_CensusValues_ACS2021_ByZip (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021_ByZip,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_CensusValues_ACS2021_ByZip (
     CensusValueByZip NUMBER,
     MetricID TEXT,
     ZipCode TEXT
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.LU_GeographyExpanded,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.LU_GeographyExpanded (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.LU_GeographyExpanded,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.LU_GeographyExpanded (
     ZipCodeCentroidPoint TEXT,
     ZipCode TEXT,
     ZipCodePolygon TEXT,
@@ -43,7 +43,7 @@ CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.LU_GeographyExpanded,,"CREA
     PreferredStateName TEXT,
     ZipCodeCentroidLat TEXT
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Dim_CensusGeography (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography (
     StateAbbrev TEXT,
     BlockGroupPolygon TEXT,
     BlockGroupCode TEXT,
@@ -64,7 +64,7 @@ CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Dim_CensusGeography,,"CREAT
     StateFIPS TEXT,
     CountyFIPS TEXT
 );"
-CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_StateBenchmark_ACS2021,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.public.Fact_StateBenchmark_ACS2021 (
+CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_StateBenchmark_ACS2021,,"CREATE TABLE CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.public.Fact_StateBenchmark_ACS2021 (
     TotalStatePopulation NUMBER,
     MetricID TEXT,
     StateBenchmarkValue FLOAT,
