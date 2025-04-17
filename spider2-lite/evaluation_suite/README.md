@@ -30,7 +30,7 @@ Please organize your submissions in the following structure:
 
 ### Preliminary TODO
 
-1. Download  [local database](https://drive.usercontent.google.com/download?id=1gSB_30ey08GkDrMEXqj3LMJEH4ziQst1&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
+1. Download  [local database](https://drive.usercontent.google.com/download?id=1coEVsCZq-Xvj9p2TnhBFoFTsY-UoYGmG&export=download&authuser=0), unzip and put all the `.sqlite` files into directory `spider2-lite/resource/databases/spider2-localdb`.
 
 2. To sign up for a BigQuery account, please follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Bigquery_Guideline.md), get your own credentials.
 
