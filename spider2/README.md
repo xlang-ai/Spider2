@@ -69,7 +69,7 @@ Follow the instructions in the [Docker setup guide](https://docs.docker.com/engi
 cd spider2
 
 gdown 'https://drive.google.com/uc?id=1OxF-OuPwgb2miQxzftGLZBzPRQtLsyoV'
-gdown 'https://drive.google.com/uc?id=1gSB_30ey08GkDrMEXqj3LMJEH4ziQst1'
+gdown 'https://drive.google.com/uc?id=1coEVsCZq-Xvj9p2TnhBFoFTsY-UoYGmG'
 gdown 'https://drive.google.com/uc?id=1N3f7BSWC4foj-V-1C9n8M2XmgV7FOcqL'
 gdown 'https://drive.google.com/uc?id=1s0USV_iQLo4oe05QqAMnhGGp5jeejCzp'
 
