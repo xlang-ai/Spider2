@@ -1,26 +1,26 @@
 
-spider2/evaluation_suite/*
-spider2/release_spider2/spider2c.jsonl
-spider2/evaluation_suite/gold/spider2c_eval.jsonl
-spider2/evaluation_suite/gold/**/*.duckdb
-spider2/delete.py
+spider2-dbt/evaluation_suite/*
+spider2-dbt/release_spider2/spider2c.jsonl
+spider2-dbt/evaluation_suite/gold/spider2c_eval.jsonl
+spider2-dbt/evaluation_suite/gold/**/*.duckdb
+spider2-dbt/delete.py
 get_doc.py
 get_bigquery_schema.py
 .vscode/*
 
-spider2/resource/databases/local/*.sqlite
-spider2/examples/**/DB_schema/
-spider2/examples/**/*.sqlite
-spider2/examples/**/*.duckdb
-spider2/examples/airbnb002/seeds/RAW_REVIEWS.csv
+spider2-dbt/resource/databases/local/*.sqlite
+spider2-dbt/examples/**/DB_schema/
+spider2-dbt/examples/**/*.sqlite
+spider2-dbt/examples/**/*.duckdb
+spider2-dbt/examples/airbnb002/seeds/RAW_REVIEWS.csv
 
-!spider2/resource/databases/local/local-map.jsonl
+!spider2-dbt/resource/databases/local/local-map.jsonl
 
-methods/spider-agent/logs/*
-methods/spider-agent/output/*
-methods/spider-agent/examples/*
-!methods/spider-agent/logs/README.md
-!methods/spider-agent/output/README.md
+methods/spider-agent-dbt/logs/*
+methods/spider-agent-dbt/output/*
+methods/spider-agent-dbt/examples/*
+!methods/spider-agent-dbt/logs/README.md
+!methods/spider-agent-dbt/output/README.md
 
 methods/spider-agent-snow/logs/*
 methods/spider-agent-snow/output/*
@@ -53,13 +53,13 @@ spider2-lite/resource/databases/local/*.sqlite
 
 
 # Do not ignore specific files and directories
-!spider2/evaluation_suite/README.md
-!spider2/evaluation_suite/evaluate.py
-!spider2/evaluation_suite/evaluate_beta.py
-!spider2/evaluation_suite/gold/
-!spider2/evaluation_suite/gold_temp/
-!spider2/evaluation_suite/eval_utils.py
-!spider2/evaluation_suite/example_submission_folder/
+!spider2-dbt/evaluation_suite/README.md
+!spider2-dbt/evaluation_suite/evaluate.py
+!spider2-dbt/evaluation_suite/evaluate_beta.py
+!spider2-dbt/evaluation_suite/gold/
+!spider2-dbt/evaluation_suite/gold_temp/
+!spider2-dbt/evaluation_suite/eval_utils.py
+!spider2-dbt/evaluation_suite/example_submission_folder/
 
 
 # Byte-compiled / optimized / DLL files
@@ -97,6 +97,9 @@ spider2-lite/baselines/dinsql/postprocessed_data/*
 !spider2-lite/baselines/dinsql/postprocessed_data/spider2_postprocess.py
 
 
+!methods/spider-agent-lite/bigquery_credential.json
+!methods/spider-agent-lite/snowflake_credential.json
+!spider2-lite/evaluation_suite/example_submission_folder_csv
 
 
 # yuxiao's tmp code
@@ -120,8 +123,8 @@ spider2-lite/baselines/yyx_tmp/
 
 
 # **/snowflake_credential.json
-**/bigquery_credential.json
-**/bigquery_credential*.json
+# **/bigquery_credential.json
+# **/bigquery_credential*.json
 
 spider-agent/bigquery_credential.json
 spider2-lite/bigquery_credential.json
