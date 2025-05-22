@@ -1,0 +1,336 @@
+version: 2
+
+models:
+  - name: stg_jira__comment
+    description: Table of comments made on issues.
+    columns:
+      - name: comment_id 
+        description: Unique ID of the comment.
+        tests:
+          - unique
+          - not_null
+      - name: author_user_id
+        description: Foreign key referencing the `user` id of the comment's author.
+      - name: body
+        description: Content of the comment.
+      - name: created_at
+        description: Timestamp of when the comment was created. TODO - get timezone clarification
+      - name: is_public
+        description: Boolean that is true if the comment is visible to all users.
+      - name: issue_id 
+        description: Foreign key referencing the id of the `issue` that was commented on.
+      - name: last_update_user_id
+        description: Foreign key referencing the id of the `user` who last updated this comment.
+      - name: last_updated_at 
+        description: Timestamp of when the comment was last updated.
+
+  - name: stg_jira__component
+    description: Table of project components (subsections to group issues).
+    columns:
+      - name: component_id
+        description: ID of the component.
+        tests:
+          - unique
+          - not_null
+      - name: component_description
+        description: Description given to the component.
+      - name: component_name
+        description: UI-facing name of the component.
+      - name: project_id
+        description: Foreign key referencing the id of the component's `project`.
+
+  - name: stg_jira__field 
+    description: Table of all issue fields.
+    columns:
+      - name: field_id
+        description: >
+          Unique ID of the field. Default fields will have descriptive IDs, whereas custom
+          field IDs will be `'customfield_#####'`.
+        tests:
+          - unique
+          - not_null
+      - name: is_array
+        description: Boolean that is true if a field can have multiple values (is mulitselect).
+      - name: is_custom
+        description: >
+          Boolean that is true if the field is custom to this organization, and false if 
+          it is default to Jira.
+      - name: field_name
+        description: Name of the field as it appears on issue cards.
+
+  - name: stg_jira__field_option
+    description: Table of all options related to custom fields.
+    columns:
+      - name: field_id
+        description: The ID of the custom field.
+        tests:
+          - not_null
+      - name: parent_field_id
+        description: The ID of the parent custom field.
+      - name: field_option_name
+        description: Name of the field option.
+
+  - name: stg_jira__issue_link 
+    description: >
+      Table of relationships (links) created between issues. Issue links can include blockers, clones/duplicates, and general relationships.
+    columns:
+      - name: issue_id
+        description: Foreign key referencing the ID of the `issue` that is the subject of this relationship (the linker).
+      - name: related_issue_id
+        description: Foreign key referencing the ID of the `issue` that is the object of this relationship (the linkee).
+      - name: relationship
+        description: The nature of the link between the two issues ("blocks", "is duplicated by", "relates to", etc.)
+
+  - name: stg_jira__issue
+    description: Table of all issues in your organization's Jira (captures soft deletes).
+    columns:
+      - name: issue_id
+        description: Unique ID of the issue. 
+        tests:
+          - unique
+          - not_null
+      - name: assignee_user_id
+        description: Foreign key referencing the ID of the `user` currently assigned to this task.
+      - name: created_at
+        description: Timestamp of when the issue was created (in UTC).
+      - name: creator_user_id
+        description: Foreign key referencing the `user` who first created the issue. Cannot be changed.
+      - name: issue_description
+        description: The issue description, if given.
+      - name: due_date
+        description: Calendar day on which the issue is due, if a due date is provided.
+      - name: environment
+        description: Text field describing the environment in which the issue occurred (ie "IE9 on Windows 7").
+      - name: issue_type_id
+        description: Foreign key referencing the ID of the `issue_type`. 
+      - name: issue_key
+        description: UI-facing id of the issue.
+      - name: original_estimate_seconds
+        description: The original estimate of how long working on this issue would take, in seconds.
+      - name: parent_issue_id
+        description: Self-referencing ID of the parent `issue`. 
+      - name: priority_id
+        description: Foreign key referencing the ID of the issue's current `priority`.
+      - name: project_id
+        description: Foreign key referencing the ID of the `project` that the issue belongs to.
+      - name: remaining_estimate_seconds
+        description: The estimate of how much longer working on this issue will take, in seconds.
+      - name: reporter_user_id
+        description: >
+          Foreign key referencing the ID of the `user` who reported the issue. This differs from the `creator` column 
+          in that the reporter can be changed in-app.
+      - name: resolution_id
+        description: Foreign key referencing the ID of the issue's type of `resolution`.
+      - name: resolved_at
+        description: >
+          Timestamp of when the issue was resolved (ie completed, marked as duplicate). If an issue
+          is un-resolved, this will be null.
+      - name: status_id
+        description: >
+          Foreign key referencing the ID of the issue's `status` (the step that the issue is currently at 
+          in the project's workflow).
+      - name: status_changed_at
+        description: Timestamp of when the status was last changed.
+      - name: issue_name
+        description: Title of the issue.
+      - name: time_spent_seconds
+        description: The time that was spent working on this issue, in seconds.
+      - name: updated_at
+        description: Timestamp of when the issue was last updated in some way.
+      - name: work_ratio
+        description: >
+          The percentage of work that has been logged against the issue (time_spent) vs the original estimate of worktime.
+          Equals -1.0 when the fields required for calculation are not provided.
+
+  - name: stg_jira__issue_field_history
+    description: Table of every value that each **custom non-array** (not multiselect) field has been set to.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - field_id
+            - issue_id  
+            - updated_at
+    columns:
+      - name: field_id
+        description: Foreign key referencing the ID of the `field` that was changed.
+      - name: issue_id
+        description: Foreign key referencing the ID of the `issue` whose field was updated.
+      - name: updated_at
+        description: Timestamp of when the issue field was set to this value.
+      - name: field_value
+        description: Content of the value of that the field was set to.
+
+  - name: stg_jira__issue_multiselect_history
+    description: >
+      Table of every value that each array-type (multiselect) field has been set to. Each row will pertain to **one** value.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns: 
+            - _fivetran_id
+            - updated_at
+    columns:
+      - name: _fivetran_id 
+        description: Fivetran-generated ID hashed on field, issue, and value.
+      - name: updated_at
+        description: Timestamp of when the issue field was updated to included this value.
+      - name: field_id
+        description: Foreign key referencing the ID of the `field` that was changed.
+      - name: issue_id
+        description: Foreign key referencing the ID of the `issue` whose field was updated.
+      - name: field_value
+        description: Content of the value of that the field was set to. 
+
+  - name: stg_jira__issue_type
+    description: >
+      Table containing information about issue types. Issue types can have identical names in different projects, but they may have 
+      differing descriptions.
+    columns:
+      - name: issue_type_id 
+        description: Unique ID of the issue type. 
+        tests:
+          - unique
+          - not_null
+      - name: description
+        description: Project-level description given to the issue type.
+      - name: issue_type_name
+        description: Name of the issue type (ie Epic, Task, Subtask, any custom types)
+      - name: is_subtask
+        description: Boolean that is true if this type of issue is a subtask.
+
+  - name: stg_jira__priority
+    description: Table of issue priority levels (global).
+    columns:
+      - name: priority_id
+        description: Unique ID of the priority level.
+        tests:
+          - unique
+          - not_null
+      - name: priority_description
+        description: Description of the priority level.
+      - name: priority_name
+        description: Name of the priority as it appears in the UI.
+
+  - name: stg_jira__project
+    description: Table of all projects in your organization.
+    columns:
+      - name: project_id
+        description: Unique ID of the project.
+        tests:
+          - unique
+          - not_null
+      - name: project_description
+        description: Description of the project, if given.
+      - name: project_key
+        description: UI-facing ID of the project. This becomes the default prefix for tasks created within this project.
+      - name: project_lead_user_id
+        description: Foreign key referencing the ID of the `user` who leads this project.
+      - name: project_name
+        description: Title of the project. 
+      - name: permission_scheme_id
+        description: Foreign key referencing the ID of the `permission_scheme` that the project ascribes to. 
+      - name: project_category_id
+        description: Foreign key referencing the ID of the `project_category` that the project is associated with, if any.
+
+  - name: stg_jira__resolution
+    description: Table storing the types of resolutions used by your organization.
+    columns: 
+      - name: resolution_id
+        description: Unique ID of the resolution type.
+        tests:
+          - unique
+          - not_null
+      - name: resolution_description
+        description: Description given to the resolution.
+      - name: resolution_name 
+        description: Display name of the resolution.
+
+  - name: stg_jira__sprint
+    description: Table of all sprints.
+    columns:
+      - name: sprint_id
+        description: Unique ID of the sprint.
+        tests:
+          - unique
+          - not_null
+      - name: board_id
+        description: Foreign key referencing the ID of the `board` that the sprint lives in.
+      - name: completed_at
+        description: Timestamp of when the sprint was completed.
+      - name: ended_at
+        description: Timestamp of when the sprint is planned to end.
+      - name: sprint_name  
+        description: Title of the sprint.
+      - name: started_at
+        description: Timestamp of when the sprint began. 
+
+  - name: stg_jira__status
+    description: Table of project-level statuses (which may have the same umbrella `status_category`).
+    columns:
+      - name: status_id
+        description: Unique ID of the project status.
+        tests:
+          - unique
+          - not_null
+      - name: status_description
+        description: >
+          Description of the project status. Different projects may all have a status called "Backlog", but their definitions 
+          of "backlog" may differ.
+      - name: status_name
+        description: Title of the status.
+      - name: status_category_id
+        description: Foreign key referencing the ID of the `status_category` that this project status falls under.
+
+  - name: stg_jira__status_category
+    description: Table of umbrella status categories.
+    columns:
+      - name: status_category_id
+        description: Unique ID of the status category.
+        tests:
+          - unique
+          - not_null
+      - name: status_category_name
+        description: Title of the status category.
+
+  - name: stg_jira__user
+    description: Table of users associated with your organization.
+    columns:
+      - name: user_id  
+        description: Unique ID of the user. 
+        tests:
+          - unique
+          - not_null
+      - name: email
+        description: Email associated with the user acccount.
+      - name: locale
+        description: The Java locale of the user. 
+      - name: user_display_name
+        description: Name of the user as it appears in the UI.
+      - name: time_zone
+        description: The user's timezone, as defined in their settings.
+      - name: username
+        description: Account username.
+
+  - name: stg_jira__version
+    description: Table of project versions in your organization.
+    columns:
+      - name: is_archived
+        description: Boolean that is true if the project version has been archived.
+      - name: description
+        description: The optional description given to the version.
+      - name: version_id
+        description: Unique ID of the version.
+        tests:
+          - unique
+          - not_null
+      - name: version_name
+        description: Unique name of the version.
+      - name: is_overdue
+        description: Boolean that is true if the version is past its optional release date, false if it is not or if it does not have a due date.
+      - name: project_id
+        description: Foreign key referencing the `PROJECT` to which this version is attached.
+      - name: release_date
+        description: The optional release date of the version. Expressed in ISO 8601 format (yyyy-mm-dd).
+      - name: is_released
+        description: Boolean that is true if the version has been released. If the version is released a request to release again is ignored
+      - name: start_date
+        description: The start date of the version. Expressed in ISO 8601 format (yyyy-mm-dd).

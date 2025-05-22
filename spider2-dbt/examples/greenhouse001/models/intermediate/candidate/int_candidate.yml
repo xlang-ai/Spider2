@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: int_greenhouse__candidate_users
+    description: Table storing candidates and the internal users involved with coordinating them. 
+    columns:
+      - name: current_company
+        description: The company at which the candidate currently works.
+      - name: coordinator_user_id
+        description: Foreign key referencing the USER who is responsible for coordinating this candidate.
+      - name: created_at
+        description: Timestamp of when the candidate profile was created. 
+      - name: full_name
+        description: First and last name of the candidate.
+      - name: candidate_id
+        description: Unique ID of the candidate in Greenhouse.
+        tests:
+          - unique
+          - not_null
+      - name: is_private
+        description: Boolean that is true if the candidate is private. 
+      - name: last_activity_at
+        description: Timestamp of when the last activity was performed on this candidate.
+      - name: new_candidate_id
+        description: >
+          Self-referencing ID of the candidate's new candidate ID (ie they were a prospect and converted). Only deleted
+          candidates should have a non-null new_candidate_id.
+      - name: recruiter_user_id
+        description: Foreign key referencing the USER who is the recruiter assigned to this candidate.
+      - name: current_title
+        description: The candidate's current title.
+      - name: last_updated_at
+        description: Timestamp of when the candidate profile was last updated.
+      - name: phone
+        description: Comma-separated aggregated list of the candidate's phone numbers and the type of phone they are.
+      - name: email
+        description: Comma-separated list of the candidate's email addresses. 
+      - name: resume_url
+        description: URL of the candidate's most recently uploaded resume. 
+      - name: linkedin_url
+        description: URL of the candidate's most recently added LinkedIn link. 
+      - name: github_url
+        description: URL of the candidate's most recently added Github link. 
+      - name: coordinator_name
+        description: Full name of the user who is responsible for coordinating with this candidate.
+      - name: recruiter_name
+        description: Full name of the candidate's assigned recruiter.
+      - name: coordinator_email
+        description: Email of the user who is responsible for coordinating with this candidate.
+      - name: recruiter_email
+        description: Email of the candidate's assigned recruiter.
+
+  - name: int_greenhouse__candidate_contacts
+    description: Table storing candidates and their contact + social media information.
+    columns:
+      - name: current_company
+        description: The company at which the candidate currently works.
+      - name: coordinator_user_id
+        description: Foreign key referencing the USER who is responsible for coordinating this candidate.
+      - name: created_at
+        description: Timestamp of when the candidate profile was created. 
+      - name: full_name
+        description: First and last name of the candidate.
+      - name: candidate_id
+        description: Unique ID of the candidate in Greenhouse.
+        tests:
+          - unique
+          - not_null
+      - name: is_private
+        description: Boolean that is true if the candidate is private. 
+      - name: last_activity_at
+        description: Timestamp of when the last activity was performed on this candidate.
+      - name: new_candidate_id
+        description: >
+          Self-referencing ID of the candidate's new candidate ID (ie they were a prospect and converted). Only deleted
+          candidates should have a non-null new_candidate_id.
+      - name: recruiter_user_id
+        description: Foreign key referencing the USER who is the recruiter assigned to this candidate.
+      - name: current_title
+        description: The candidate's current title.
+      - name: last_updated_at
+        description: Timestamp of when the candidate profile was last updated.
+      - name: phone
+        description: Comma-separated aggregated list of the candidate's phone numbers and the type of phone they are.
+      - name: email
+        description: Comma-separated list of the candidate's email addresses. 
+      - name: resume_url
+        description: URL of the candidate's most recently uploaded resume. 
+      - name: linkedin_url
+        description: URL of the candidate's most recently added LinkedIn link. 
+      - name: github_url
+        description: URL of the candidate's most recently added Github link. 
+
+  - name: int_greenhouse__candidate_tags
+    description: Table aggregating tags associated with candidates. 
+    columns:
+      - name: candidate_id
+        description: Foreign key referencing the CANDIDATE who has these tags.
+        tests:
+          - unique
+          - not_null
+      - name: tags
+        description: Comma-separated list of tags attached to this candidate. 

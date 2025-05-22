@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: covid_cases
+    description: |
+      This model joins the cleaned COVID-19 case data with country codes to provide a more readable view of cases and deaths by country.
+      It maps the `geo_id` from the COVID-19 dataset to country names using the `ref__country_codes` reference table.
+
+    refs:
+      - name: stg_covid__cases
+      - name: ref__country_codes
+
+    columns:
+      - name: cases
+        description: "The number of new COVID-19 cases reported on the given date."
+        tests:
+          - not_null
+
+      - name: deaths
+        description: "The number of new deaths due to COVID-19 reported on the given date."
+        tests:
+          - not_null
+
+      - name: country
+        description: "The name of the country reporting the data, mapped from the geographical identifier (geo_id)."
+        tests:
+          - not_null
+
+      - name: report_date
+        description: "The date on which the cases and deaths were reported."
+        tests:
+          - not_null

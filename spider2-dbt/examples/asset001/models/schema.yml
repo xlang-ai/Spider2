@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: asset_mgmt
+    schema: main
+    tables:
+      - name: trades
+      - name: quotes
+      - name: positions
+      - name: sentiment
+      - name: market_trades
+
+models:
+
+
+  - name: trades
+
+  - name: quotes
+
+  - name: stg_executions
+
+  - name: stg_quotes
+
+  - name: bar_quotes
+    description: "Aggregates and computes average bid, ask, and mid prices for each ticker on a daily basis."
+    columns:
+      - name: date
+        description: "The date associated with the quote."
+        tests:
+          - not_null
+      - name: tt_key
+        description: "A unique key combining the ticker and timestamp for each quote."
+        tests:
+          - unique
+          - not_null
+      - name: ts
+        description: "Timestamp for when the quote was recorded."
+        tests:
+          - not_null
+      - name: ticker
+        description: "The stock ticker symbol."
+        tests:
+          - not_null
+      - name: avg_bid_pr
+        description: "The average bid price for the ticker on the specified date."
+        tests:
+          - not_null
+      - name: avg_ask_pr
+        description: "The average ask price for the ticker on the specified date."
+        tests:
+          - not_null
+      - name: avg_mid_pr
+        description: "The average mid price for the ticker, calculated as the midpoint between bid and ask prices."
+        tests:
+          - not_null
+
+  - name: book_value
+    description: "Calculates the total book value of shares using the average mid price for each ticker."
+    columns:
+      - name: tt_key
+        description: "A unique key combining the ticker and timestamp for each position."
+        tests:
+          - unique
+          - not_null
+      - name: ticker
+        description: "The stock ticker symbol."
+        tests:
+          - not_null
+      - name: ts
+        description: "Timestamp associated with the position and price."
+        tests:
+          - not_null
+      - name: shares
+        description: "The number of shares held."
+        tests:
+          - not_null
+      - name: value
+        description: "The total value of the position calculated as shares multiplied by the average mid price."
+        tests:
+          - not_null

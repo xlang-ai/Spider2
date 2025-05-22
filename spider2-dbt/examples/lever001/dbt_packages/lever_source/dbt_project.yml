@@ -1,0 +1,41 @@
+name: 'lever_source'
+version: '0.6.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+
+  lever_using_posting_tag: true
+  lever_using_requisitions: true
+  lever_source:
+    application: "{{ source('lever', 'application') }}"
+    archive_reason: "{{ source('lever', 'archive_reason') }}"
+    feedback_form_field: "{{ source('lever', 'feedback_form_field') }}"
+    feedback_form: "{{ source('lever', 'feedback_form') }}"
+    interview_feedback: "{{ source('lever', 'interview_feedback') }}"
+    interview: "{{ source('lever', 'interview') }}"
+    interviewer_user: "{{ source('lever', 'interviewer_user') }}"
+    offer: "{{ source('lever', 'offer') }}"
+    opportunity_source: "{{ source('lever', 'opportunity_source') }}"
+    opportunity_stage_history: "{{ source('lever', 'opportunity_stage_history') }}"
+    opportunity_tag: "{{ source('lever', 'opportunity_tag') }}"
+    opportunity: "{{ source('lever', 'opportunity') }}"
+    panel_application: "{{ source('lever', 'panel_application') }}"
+    panel_interview: "{{ source('lever', 'panel_interview') }}"
+    panel: "{{ source('lever', 'panel') }}"
+    posting_interview: "{{ source('lever', 'posting_interview') }}"
+    posting_tag: "{{ source('lever', 'posting_tag') }}"
+    posting: "{{ source('lever', 'posting') }}"
+    requisition_posting: "{{ source('lever', 'requisition_posting') }}"
+    requisition: "{{ source('lever', 'requisition') }}"
+    requisition_offer: "{{ source('lever', 'requisition_offer') }}"
+    stage: "{{ source('lever', 'stage') }}"
+    user: "{{ source('lever', 'user') }}"
+    contact_email: "{{ source('lever', 'contact_email') }}"
+    contact_phone: "{{ source('lever', 'contact_phone') }}"
+    contact_link: "{{ source('lever', 'contact_link') }}"
+    resume: "{{ source('lever', 'resume') }}"
+models:
+  lever_source:
+    tmp:
+      materialized: view
+    materialized: table

@@ -1,0 +1,54 @@
+
+# HEY! This file is used in the dbt package integrations tests with Buildkite.
+# You should __NEVER__ check credentials into version control. Thanks for reading :)
+
+config:
+    send_anonymous_usage_stats: False
+    use_colors: True
+
+integration_tests:
+  target: redshift
+  outputs:
+    redshift:
+      type: redshift
+      host: "{{ env_var('CI_REDSHIFT_DBT_HOST') }}"
+      user: "{{ env_var('CI_REDSHIFT_DBT_USER') }}"
+      pass: "{{ env_var('CI_REDSHIFT_DBT_PASS') }}"
+      dbname: "{{ env_var('CI_REDSHIFT_DBT_DBNAME') }}"
+      port: 5439
+      schema: instagram_biz_source_integrations_tests
+      threads: 8
+    bigquery:
+      type: bigquery
+      method: service-account-json
+      project: 'dbt-package-testing'
+      schema: instagram_biz_source_integrations_tests
+      threads: 8
+      keyfile_json: "{{ env_var('GCLOUD_SERVICE_KEY') | as_native }}"
+    snowflake:
+      type: snowflake
+      account: "{{ env_var('CI_SNOWFLAKE_DBT_ACCOUNT') }}"
+      user: "{{ env_var('CI_SNOWFLAKE_DBT_USER') }}"
+      password: "{{ env_var('CI_SNOWFLAKE_DBT_PASS') }}"
+      role: "{{ env_var('CI_SNOWFLAKE_DBT_ROLE') }}"
+      database: "{{ env_var('CI_SNOWFLAKE_DBT_DATABASE') }}"
+      warehouse: "{{ env_var('CI_SNOWFLAKE_DBT_WAREHOUSE') }}"
+      schema: instagram_biz_source_integrations_tests
+      threads: 8
+    postgres:
+      type: postgres
+      host: "{{ env_var('CI_POSTGRES_DBT_HOST') }}"
+      user: "{{ env_var('CI_POSTGRES_DBT_USER') }}"
+      pass: "{{ env_var('CI_POSTGRES_DBT_PASS') }}"
+      dbname: "{{ env_var('CI_POSTGRES_DBT_DBNAME') }}"
+      port: 5432
+      schema: instagram_biz_source_integrations_tests
+      threads: 8
+    databricks:
+      catalog: null
+      host: "{{ env_var('CI_DATABRICKS_DBT_HOST') }}"
+      http_path: "{{ env_var('CI_DATABRICKS_DBT_HTTP_PATH') }}"
+      schema: instagram_biz_source_integrations_tests
+      threads: 2
+      token: "{{ env_var('CI_DATABRICKS_DBT_TOKEN') }}"
+      type: databricks

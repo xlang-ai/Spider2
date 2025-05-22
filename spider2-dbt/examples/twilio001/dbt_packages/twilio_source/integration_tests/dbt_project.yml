@@ -1,0 +1,39 @@
+config-version: 2
+name: 'twilio_source_integration_tests'
+version: '0.3.0'
+profile: 'integration_tests'
+
+vars:
+  twilio_source:
+    twilio_schema: twilio_source_integration_tests_5
+    twilio_account_history_identifier:  "twilio_account_history_data"
+    twilio_address_identifier:  "twilio_address_data"
+    twilio_incoming_phone_number_identifier:  "twilio_incoming_phone_number_data"
+    twilio_messaging_service_identifier:  "twilio_messaging_service_data"
+    twilio_outgoing_caller_id_identifier:   "twilio_outgoing_caller_id_data"
+    twilio_usage_record_identifier:   "twilio_usage_record_data"
+    twilio_call_identifier:   "twilio_call_data"
+    twilio_message_identifier:   "twilio_message_data"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+
+seeds:
+  twilio_source_integration_tests:
+    +column_types:
+      to: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+      from: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+      forwarded_from: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+      phone_number: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+      friendly_name: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+    twilio_call_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+    twilio_message_data:
+      +enabled: "{{ true if target.type != 'snowflake' else false }}"
+    twilio_message_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+      +alias: twilio_message_data
+    twilio_call_data_snowflake:
+      +enabled: "{{ true if target.type == 'snowflake' else false }}"
+      +alias: twilio_call_data

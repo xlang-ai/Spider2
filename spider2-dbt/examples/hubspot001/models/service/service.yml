@@ -1,0 +1,113 @@
+version: 2
+
+models:
+
+  - name: hubspot__daily_ticket_history
+    description: >
+      Each record represents a ticket's day in Hubspot with tracked properties from THE `TICKET_PROPERTY_HISTORY` source table pivoted out into columns. Enabled by setting `hubspot_service_enabled` to `True`.
+
+      By default, tracks the ticket's pipeline, pipeline stage, and state. Additional properties can be tracked by configuring the `hubspot__ticket_property_history_columns` variable.
+
+      The start of a ticket's history is its creation date, and its end is by default the close date (or the current date if still open).
+      The history of ticket can be extended past its close date by configuring the `ticket_history_extension_days` variable. 
+    columns:
+      - name: ticket_day_id 
+        description: Unique surrogate key hashed on `date_day` and `ticket_id`.
+        tests:
+          - unique
+          - not_null
+      - name: date_day
+        description: Date on which the ticket had these values.
+      - name: ticket_id
+        description: Unique id of a ticket in Hubspot.
+      - name: ticket_state
+        description: State of the ticket based on its pipeline stage. Either OPEN or CLOSED.
+      - name: hs_pipeline_label
+        description: The human-readable label for the ticket pipeline. The label is used when showing the pipeline in HubSpot.
+      - name: hs_pipeline_stage_label
+        description: The human-readable label for the ticket's stage. The label is used when showing the stage in HubSpot.
+      - name: hs_pipeline
+        description: ID of the ticket pipeline.
+      - name: hs_pipeline_stage
+        description: ID of the ticket pipeline stage.
+
+  - name: hubspot__tickets
+    description: >
+      Each record represents a ticket in Hubspot. Enabled by setting `hubspot_service_enabled` to `True`.
+
+      Custom columns from `TICKET` can be included by configuring the `hubspot__ticket_pass_through_columns` variable.
+      Custom calculated ticket fields can be added by configuring the `hubspot__ticket_calculated_fields` variable.
+    columns:
+      - name: ticket_id 
+        description: Unique id of a ticket in Hubspot.
+        tests:
+          - unique
+          - not_null
+      - name: is_ticket_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: closed_date
+        description: The date the ticket was closed.
+      - name: created_date
+        description: The date the ticket was created.
+      - name: first_agent_reply_at
+        description: the date for the first agent reply on the ticket.
+      - name: ticket_pipeline_id
+        description: The ID of the ticket's pipeline.
+      - name: ticket_pipeline_stage_id
+        description: The ID of the ticket's pipeline stage.
+      - name: ticket_priority
+        description: The priority of the ticket.
+      - name: ticket_category
+        description: The category of the ticket.
+      - name: owner_id
+        description: Foreign key referencing the ID of the deal's `OWNER`.
+      - name: ticket_subject
+        description: Short summary of ticket.
+      - name: ticket_content
+        description: Text in body of the ticket.
+      - name: ticket_state
+        description: State of the ticket based on its pipeline stage. Either OPEN or CLOSED.
+      - name: is_closed
+        description: Boolean indicating if the pipeline stage is closed.
+      - name: pipeline_stage_label
+        description: The human-readable label for the ticket's stage. The label is used when showing the stage in HubSpot.
+      - name: pipeline_label
+        description: The human-readable label for the ticket pipeline. The label is used when showing the pipeline in HubSpot.
+      - name: pipeline_stage_order
+        description: Order of the ticket's current stage within its given pipeline.
+      - name: is_ticket_pipeline_deleted
+        description: Boolean indicating whether the ticket's pipeline is deleted.
+      - name: is_ticket_pipeline_stage_deleted
+        description: Boolean indicating whether the ticket's pipeline stage is deleted.
+      - name: owner_email
+        description: The email address of the ticket's owner.
+      - name: owner_full_name
+        description: Full name of the ticket's owner.
+      - name: deal_ids
+        description: Array of `DEAL` ids associated with the ticket.
+      - name: deal_names
+        description: Array of `DEAL` names associated with the ticket.
+      - name: company_ids
+        description: Array of `COMPANY` ids associated with the ticket.
+      - name: company_names
+        description: Array of `COMPANY` names associated with the ticket.
+      - name: contact_ids
+        description: Array of `CONTACT` ids associated with the ticket.
+      - name: contact_emails
+        description: Array of `CONTACT` emails associated with the ticket.
+      - name: count_engagement_notes
+        description: "{{ doc('count_engagement_notes') }}"
+      - name: count_engagement_tasks
+        description: "{{ doc('count_engagement_tasks') }}"
+      - name: count_engagement_calls
+        description: "{{ doc('count_engagement_calls') }}"
+      - name: count_engagement_meetings
+        description: "{{ doc('count_engagement_meetings') }}"
+      - name: count_engagement_emails
+        description: "{{ doc('count_engagement_emails') }}"
+      - name: count_engagement_incoming_emails
+        description: "{{ doc('count_engagement_incoming_emails') }}"
+      - name: count_engagement_forwarded_emails
+        description: "{{ doc('count_engagement_forwarded_emails') }}"

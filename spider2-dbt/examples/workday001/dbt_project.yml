@@ -1,0 +1,86 @@
+config-version: 2
+name: 'workday'
+version: '0.2.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+profile: 'workday'
+
+
+
+models:
+  +materialized: table  # workday_history 模型也存为 'table'
+
+vars:
+  workday_schema: main
+  workday:
+    workday_job_profile_identifier: "workday_job_profile_data"
+    workday_job_family_job_profile_identifier: "workday_job_family_job_profile_data"
+    workday_job_family_job_family_group_identifier: "workday_job_family_job_family_group_data"
+    workday_job_family_identifier: "workday_job_family_data"
+    workday_job_family_group_identifier: "workday_job_family_group_data"
+    workday_organization_role_identifier: "workday_organization_role_data"
+    workday_organization_role_worker_identifier: "workday_organization_role_worker_data"
+    workday_organization_job_family_identifier: "workday_organization_job_family_data"
+    workday_organization_identifier: "workday_organization_data"
+    workday_position_organization_identifier: "workday_position_organization_data"
+    workday_position_identifier: "workday_position_data"
+    workday_position_job_profile_identifier: "workday_position_job_profile_data"
+    workday_worker_history_identifier: "workday_worker_history_data"
+    workday_personal_information_history_identifier: "workday_personal_information_history_data"
+    workday_person_name_identifier: "workday_person_name_data"
+    workday_personal_information_ethnicity_identifier: "workday_personal_information_ethnicity_data"
+    workday_military_service_identifier: "workday_military_service_data"
+    workday_person_contact_email_address_identifier: "workday_person_contact_email_address_data"
+    workday_worker_position_history_identifier: "workday_worker_position_history_data"
+    workday_worker_leave_status_identifier: "workday_worker_leave_status_data"
+    workday_worker_position_organization_history_identifier: "workday_worker_position_organization_history_data"
+
+
+
+
+
+seeds:
+  +quote_columns: "{{ true if target.type in ('redshift', 'postgres') else false }}"
+  +column_types:
+    _fivetran_synced: timestamp
+    _fivetran_start: timestamp
+    _fivetran_end: timestamp
+    _fivetran_active: boolean
+  workday_integration_tests:
+    workday_position_data:
+      primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      primary_compensation_basis_amount_change: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      primary_compensation_basis_percent_change: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+    workday_worker_history_data:
+      annual_currency_summary_primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      annual_currency_summary_total_base_pay: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      annual_currency_summary_total_salary_and_allowances: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      annual_summary_primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}" 
+      annual_summary_total_base_pay: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      annual_summary_total_salary_and_allowances: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      contract_pay_rate: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      days_unemployed: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      employee_compensation_primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      employee_compensation_total_base_pay: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      employee_compensation_total_salary_and_allowances: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}" 
+      hourly_frequency_primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      hourly_frequency_total_base_pay: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      hourly_frequency_total_salary_and_allowances: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      months_continuous_prior_employment: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      pay_group_frequency_primary_compensation_basis: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      pay_group_frequency_total_base_pay: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      pay_group_frequency_total_salary_and_allowances: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+    workday_worker_leave_status_data:
+      age_of_dependent: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      leave_entitlement_override: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      leave_percentage: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      number_of_babies_adopted_children: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      number_of_child_dependents: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      number_of_previous_births: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      number_of_previous_maternity_leaves: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+    workday_worker_position_history_data: 
+      academic_pay_setup_data_annual_work_period_work_percent_of_year: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      business_site_summary_scheduled_weekly_hours: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      default_weekly_hours: "{{ 'FLOAT64' if target.type == 'bigquery' else 'float' }}"
+      start_date: "timestamp"
+      end_date: "timestamp"

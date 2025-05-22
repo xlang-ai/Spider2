@@ -1,0 +1,15 @@
+name: 'facebook_pages_source'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+  post_history: "{{ source('facebook_pages','post_history') }}"
+  page: "{{ source('facebook_pages','page') }}"
+  lifetime_post_metrics_total: "{{ source('facebook_pages','lifetime_post_metrics_total') }}"
+  daily_page_metrics_total: "{{ source('facebook_pages','daily_page_metrics_total') }}"
+models:
+  facebook_pages_source:
+    +schema: stg_facebook_pages
+    +materialized: table
+    tmp:
+      +materialized: view

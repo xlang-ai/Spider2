@@ -1,0 +1,984 @@
+version: 2
+
+sources:
+  - name: workday
+    database: '{% if target.type not in ("spark") %}{{ var("workday_database", target.database) }}{% endif %}'
+    schema: '{{ var("workday_schema", "workday") }}'
+    tables:
+      - name: job_profile
+        identifier: '{{ var("workday_job_profile_identifier", "job_profile") }}'
+        description: '{{ doc("job_profile") }}'
+        columns:
+          - name: id
+            description: '{{ doc("job_profile_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: additional_job_description
+            description: '{{ doc("additional_job_description") }}'
+          - name: compensation_grade_id
+            description: '{{ doc("compensation_grade_id") }}'
+          - name: critical_job
+            description: '{{ doc("critical_job") }}'
+          - name: description
+            description: '{{ doc("job_profile_description") }}'
+          - name: difficulty_to_fill
+            description: '{{ doc("difficulty_to_fill") }}'
+          - name: effective_date
+            description: '{{ doc("effective_date") }}'
+          - name: inactive
+            description: '{{ doc("inactive") }}'
+          - name: include_job_code_in_name
+            description: '{{ doc("include_job_code_in_name") }}'
+          - name: job_category_id
+            description: '{{ doc("job_category_id") }}'
+          - name: job_profile_code
+            description: '{{ doc("job_profile_code") }}'
+          - name: level
+            description: '{{ doc("level") }}'
+          - name: management_level
+            description: '{{ doc("management_level") }}'
+          - name: private_title
+            description: '{{ doc("private_title") }}'
+          - name: public_job
+            description: '{{ doc("public_job") }}'
+          - name: referral_payment_plan
+            description: '{{ doc("referral_payment_plan") }}'
+          - name: summary
+            description: '{{ doc("summary") }}'
+          - name: title
+            description: '{{ doc("title") }}'
+          - name: union_code
+            description: '{{ doc("union_code") }}'
+          - name: union_membership_requirement
+            description: '{{ doc("union_membership_requirement") }}'
+          - name: work_shift_required
+            description: '{{ doc("work_shift_required") }}'
+          - name: work_study_award_source_code
+            description: '{{ doc("work_study_award_source_code") }}'
+          - name: work_study_requirement_option_code
+            description: '{{ doc("work_study_requirement_option_code") }}'
+
+      - name: job_family_job_profile
+        identifier: '{{ var("workday_job_family_job_profile_identifier", "job_family_job_profile") }}'
+        description: '{{ doc("job_family_job_profile") }}'
+        columns:
+          - name: job_family_id
+            description: '{{ doc("job_family_id") }}'
+          - name: job_profile_id
+            description: '{{ doc("job_profile_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: job_family
+        identifier: '{{ var("workday_job_family_identifier", "job_family") }}'
+        description: '{{ doc("job_family") }}'
+        columns:
+          - name: id
+            description: '{{ doc("id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: effective_date
+            description: '{{ doc("effective_date") }}'
+          - name: inactive
+            description: '{{ doc("inactive") }}'
+          - name: job_family_code
+            description: '{{ doc("job_family_code") }}'
+          - name: summary
+            description: '{{ doc("summary") }}'
+
+      - name: job_family_job_family_group
+        identifier: '{{ var("workday_job_family_job_family_group_identifier", "job_family_job_family_group") }}'
+        description: '{{ doc("job_family_job_family_group") }}'
+        columns:
+          - name: job_family_id
+            description: '{{ doc("job_family_id") }}'
+          - name: job_family_group_id
+            description: '{{ doc("job_family_group_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+
+      - name: job_family_group
+        identifier: '{{ var("workday_job_family_group_identifier", "job_family_group") }}'
+        description: '{{ doc("job_family_group") }}'
+        columns:
+          - name: id
+            description: '{{ doc("job_family_group_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: effective_date
+            description: '{{ doc("effective_date") }}'
+          - name: inactive
+            description: '{{ doc("inactive") }}'
+          - name: job_family_group_code
+            description: '{{ doc("job_family_group_code") }}'
+          - name: summary
+            description: '{{ doc("summary") }}'
+
+      - name: organization_role
+        identifier: '{{ var("workday_organization_role_identifier", "organization_role") }}'
+        description: '{{ doc("organization_role") }}'
+        columns:
+          - name: organization_id
+            description: '{{ doc("organization_id") }}'
+          - name: role_id
+            description: '{{ doc("role_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: organization_role_code
+            description: '{{ doc("organization_role_code") }}'
+
+      - name: organization_role_worker
+        identifier: '{{ var("workday_organization_role_worker_identifier", "organization_role_worker") }}'
+        description: '{{ doc("organization_role_worker") }}'
+        columns:
+          - name: associated_worker_id
+            description: '{{ doc("associated_worker_id") }}'
+          - name: organization_id
+            description: '{{ doc("organization_id") }}'
+          - name: role_id
+            description: '{{ doc("role_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: organization_job_family
+        identifier: '{{ var("workday_organization_job_family_identifier", "organization_job_family") }}'
+        description: '{{ doc("organization_job_family") }}'
+        columns:
+          - name: job_family_id
+            description: '{{ doc("job_family_id") }}'
+          - name: organization_id
+            description: '{{ doc("organization_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: job_family_group_id
+            description: '{{ doc("job_family_group_id") }}'
+
+      - name: organization
+        identifier: '{{ var("workday_organization_identifier", "organization") }}'
+        description: '{{ doc("organization") }}'
+        columns:
+          - name: id
+            description: '{{ doc("organization_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: availability_date
+            description: '{{ doc("availability_date") }}'
+          - name: available_for_hire
+            description: '{{ doc("available_for_hire") }}'
+          - name: code
+            description: '{{ doc("code") }}'
+          - name: description
+            description: '{{ doc("organization_description") }}'
+          - name: external_url
+            description: '{{ doc("external_url") }}'
+          - name: hiring_freeze
+            description: '{{ doc("hiring_freeze") }}'
+          - name: inactive
+            description: '{{ doc("inactive") }}'
+          - name: inactive_date
+            description: '{{ doc("inactive_date") }}'
+          - name: include_manager_in_name
+            description: '{{ doc("include_manager_in_name") }}'
+          - name: include_organization_code_in_name
+            description: '{{ doc("include_organization_code_in_name") }}'
+          - name: last_updated_date_time
+            description: '{{ doc("last_updated_date_time") }}'
+          - name: location
+            description: '{{ doc("location") }}'
+          - name: manager_id
+            description: '{{ doc("manager_id") }}'
+          - name: name
+            description: '{{ doc("organization_name") }}'
+          - name: organization_code
+            description: '{{ doc("organization_code") }}'
+          - name: organization_owner_id
+            description: '{{ doc("organization_owner_id") }}'
+          - name: staffing_model
+            description: '{{ doc("staffing_model") }}'
+          - name: sub_type
+            description: '{{ doc("organization_sub_type") }}'
+          - name: superior_organization_id
+            description: '{{ doc("superior_organization_id") }}'
+          - name: supervisory_position_availability_date
+            description: '{{ doc("supervisory_position_availability_date") }}'
+          - name: supervisory_position_earliest_hire_date
+            description: '{{ doc("supervisory_position_earliest_hire_date") }}'
+          - name: supervisory_position_time_type
+            description: '{{ doc("supervisory_position_time_type") }}'
+          - name: supervisory_position_worker_type
+            description: '{{ doc("supervisory_position_worker_type") }}'
+          - name: top_level_organization_id
+            description: '{{ doc("top_level_organization_id") }}'
+          - name: type
+            description: '{{ doc("organization_type") }}'
+          - name: visibility
+            description: '{{ doc("visibility") }}'
+
+      - name: position_organization
+        identifier: '{{ var("workday_position_organization_identifier", "position_organization") }}'
+        description: '{{ doc("position_organization") }}'
+        columns:
+          - name: organization_id
+            description: '{{ doc("organization_id") }}'
+          - name: position_id
+            description: '{{ doc("position_id") }}'
+          - name: type
+            description: '{{ doc("position_organization_type") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+
+      - name: position
+        identifier: '{{ var("workday_position_identifier", "position") }}'
+        description: '{{ doc("position") }}'
+        columns:
+          - name: id
+            description: '{{ doc("id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: academic_tenure_eligible
+            description: '{{ doc("academic_tenure_eligible") }}'
+          - name: availability_date
+            description: '{{ doc("availability_date") }}'
+          - name: available_for_hire
+            description: '{{ doc("available_for_hire") }}'
+          - name: available_for_overlap
+            description: '{{ doc("available_for_overlap") }}'
+          - name: available_for_recruiting
+            description: '{{ doc("available_for_recruiting") }}'
+          - name: closed
+            description: '{{ doc("closed") }}'
+          - name: compensation_grade_code
+            description: '{{ doc("compensation_grade_code") }}'
+          - name: compensation_grade_profile_code
+            description: '{{ doc("compensation_grade_profile_code") }}'
+          - name: compensation_package_code
+            description: '{{ doc("compensation_package_code") }}'
+          - name: compensation_step_code
+            description: '{{ doc("compensation_step_code") }}'
+          - name: critical_job
+            description: '{{ doc("critical_job") }}'
+          - name: difficulty_to_fill_code
+            description: '{{ doc("difficulty_to_fill_code") }}'
+          - name: earliest_hire_date
+            description: '{{ doc("earliest_hire_date") }}'
+          - name: earliest_overlap_date
+            description: '{{ doc("earliest_overlap_date") }}'
+          - name: effective_date
+            description: '{{ doc("effective_date") }}'
+          - name: hiring_freeze
+            description: '{{ doc("hiring_freeze") }}'
+          - name: job_description
+            description: '{{ doc("job_description") }}'
+          - name: job_description_summary
+            description: '{{ doc("job_description_summary") }}'
+          - name: job_posting_title
+            description: '{{ doc("job_posting_title") }}'
+          - name: position_code
+            description: '{{ doc("position_code") }}'
+          - name: position_time_type_code
+            description: '{{ doc("position_time_type_code") }}'
+          - name: primary_compensation_basis
+            description: '{{ doc("primary_compensation_basis") }}'
+          - name: primary_compensation_basis_amount_change
+            description: '{{ doc("primary_compensation_basis_amount_change") }}'
+          - name: primary_compensation_basis_percent_change
+            description: '{{ doc("primary_compensation_basis_percent_change") }}'
+          - name: supervisory_organization_id
+            description: '{{ doc("supervisory_organization_id") }}'
+          - name: work_shift_required
+            description: '{{ doc("work_shift_required") }}'
+          - name: worker_for_filled_position_id
+            description: '{{ doc("worker_for_filled_position_id") }}'
+          - name: worker_position_id
+            description: '{{ doc("worker_position_id") }}'
+          - name: worker_type_code
+            description: '{{ doc("worker_type_code") }}'
+
+      - name: position_job_profile
+        identifier: '{{ var("workday_position_job_profile_identifier", "position_job_profile") }}'
+        description: '{{ doc("position_job_profile") }}'
+        columns:
+          - name: job_profile_id
+            description: '{{ doc("job_profile_id") }}'
+          - name: position_id
+            description: '{{ doc("position_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: difficulty_to_fill_code
+            description: '{{ doc("difficulty_to_fill_code") }}'
+          - name: is_critical_job
+            description: '{{ doc("is_critical_job") }}'
+          - name: job_category_code
+            description: '{{ doc("job_category_code") }}'
+          - name: management_level_code
+            description: '{{ doc("management_level_code") }}'
+          - name: name
+            description: '{{ doc("position_job_profile_name") }}'
+          - name: work_shift_required
+            description: '{{ doc("work_shift_required") }}'
+
+      - name: worker_history
+        identifier: '{{ var("workday_worker_history_identifier", "worker_history") }}'
+        description: '{{ doc("worker") }}'
+        columns:
+          - name: id
+            description: '{{ doc("worker_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: academic_tenure_date
+            description: '{{ doc("academic_tenure_date") }}'
+          - name: active
+            description: '{{ doc("active") }}'
+          - name: active_status_date
+            description: '{{ doc("active_status_date") }}'
+          - name: annual_currency_summary_currency
+            description: '{{ doc("annual_currency_summary_currency") }}'
+          - name: annual_currency_summary_frequency
+            description: '{{ doc("annual_currency_summary_frequency") }}'
+          - name: annual_currency_summary_primary_compensation_basis
+            description: '{{ doc("annual_currency_summary_primary_compensation_basis") }}'
+          - name: annual_currency_summary_total_base_pay
+            description: '{{ doc("annual_currency_summary_total_base_pay") }}'
+          - name: annual_currency_summary_total_salary_and_allowances
+            description: '{{ doc("annual_currency_summary_total_salary_and_allowances") }}'
+          - name: annual_summary_currency
+            description: '{{ doc("annual_summary_currency") }}'
+          - name: annual_summary_frequency
+            description: '{{ doc("annual_summary_frequency") }}'
+          - name: annual_summary_primary_compensation_basis
+            description: '{{ doc("annual_summary_primary_compensation_basis") }}'
+          - name: annual_summary_total_base_pay
+            description: '{{ doc("annual_summary_total_base_pay") }}'
+          - name: annual_summary_total_salary_and_allowances
+            description: '{{ doc("annual_summary_total_salary_and_allowances") }}'
+          - name: benefits_service_date
+            description: '{{ doc("benefits_service_date") }}'
+          - name: company_service_date
+            description: '{{ doc("company_service_date") }}'
+          - name: compensation_effective_date
+            description: '{{ doc("compensation_effective_date") }}'
+          - name: compensation_grade_id
+            description: '{{ doc("compensation_grade_id") }}'
+          - name: compensation_grade_profile_id
+            description: '{{ doc("compensation_grade_profile_id") }}'
+          - name: continuous_service_date
+            description: '{{ doc("continuous_service_date") }}'
+          - name: contract_assignment_details
+            description: '{{ doc("contract_assignment_details") }}'
+          - name: contract_currency_code
+            description: '{{ doc("contract_currency_code") }}'
+          - name: contract_end_date
+            description: '{{ doc("contract_end_date") }}'
+          - name: contract_frequency_name
+            description: '{{ doc("contract_frequency_name") }}'
+          - name: contract_pay_rate
+            description: '{{ doc("contract_pay_rate") }}'
+          - name: contract_vendor_name
+            description: '{{ doc("contract_vendor_name") }}'
+          - name: date_entered_workforce
+            description: '{{ doc("date_entered_workforce") }}'
+          - name: days_unemployed
+            description: '{{ doc("days_unemployed") }}'
+          - name: eligible_for_hire
+            description: '{{ doc("eligible_for_hire") }}'
+          - name: eligible_for_rehire_on_latest_termination
+            description: '{{ doc("eligible_for_rehire_on_latest_termination") }}'
+          - name: employee_compensation_currency
+            description: '{{ doc("employee_compensation_currency") }}'
+          - name: employee_compensation_frequency
+            description: '{{ doc("employee_compensation_frequency") }}'
+          - name: employee_compensation_primary_compensation_basis
+            description: '{{ doc("employee_compensation_primary_compensation_basis") }}'
+          - name: employee_compensation_total_base_pay
+            description: '{{ doc("employee_compensation_total_base_pay") }}'
+          - name: employee_compensation_total_salary_and_allowances
+            description: '{{ doc("employee_compensation_total_salary_and_allowances") }}'
+          - name: end_employment_date
+            description: '{{ doc("end_employment_date") }}'
+          - name: expected_date_of_return
+            description: '{{ doc("expected_date_of_return") }}'
+          - name: expected_retirement_date
+            description: '{{ doc("expected_retirement_date") }}'
+          - name: first_day_of_work
+            description: '{{ doc("first_day_of_work") }}'
+          - name: has_international_assignment
+            description: '{{ doc("has_international_assignment") }}'
+          - name: hire_date
+            description: '{{ doc("hire_date") }}'
+          - name: hire_reason
+            description: '{{ doc("hire_reason") }}'
+          - name: hire_rescinded
+            description: '{{ doc("hire_rescinded") }}'
+          - name: home_country
+            description: '{{ doc("home_country") }}'
+          - name: hourly_frequency_currency
+            description: '{{ doc("hourly_frequency_currency") }}'
+          - name: hourly_frequency_frequency
+            description: '{{ doc("hourly_frequency_frequency") }}'
+          - name: hourly_frequency_primary_compensation_basis
+            description: '{{ doc("hourly_frequency_primary_compensation_basis") }}'
+          - name: hourly_frequency_total_base_pay
+            description: '{{ doc("hourly_frequency_total_base_pay") }}'
+          - name: hourly_frequency_total_salary_and_allowances
+            description: '{{ doc("hourly_frequency_total_salary_and_allowances") }}'
+          - name: last_datefor_which_paid
+            description: '{{ doc("last_datefor_which_paid") }}'
+          - name: local_termination_reason
+            description: '{{ doc("local_termination_reason") }}'
+          - name: months_continuous_prior_employment
+            description: '{{ doc("months_continuous_prior_employment") }}'
+          - name: not_returning
+            description: '{{ doc("not_returning") }}'
+          - name: original_hire_date
+            description: '{{ doc("original_hire_date") }}'
+          - name: pay_group_frequency_currency
+            description: '{{ doc("pay_group_frequency_currency") }}'
+          - name: pay_group_frequency_frequency
+            description: '{{ doc("pay_group_frequency_frequency") }}'
+          - name: pay_group_frequency_primary_compensation_basis
+            description: '{{ doc("pay_group_frequency_primary_compensation_basis") }}'
+          - name: pay_group_frequency_total_base_pay
+            description: '{{ doc("pay_group_frequency_total_base_pay") }}'
+          - name: pay_group_frequency_total_salary_and_allowances
+            description: '{{ doc("pay_group_frequency_total_salary_and_allowances") }}'
+          - name: pay_through_date
+            description: '{{ doc("pay_through_date") }}'
+          - name: primary_termination_category
+            description: '{{ doc("primary_termination_category") }}'
+          - name: primary_termination_reason
+            description: '{{ doc("primary_termination_reason") }}'
+          - name: probation_end_date
+            description: '{{ doc("probation_end_date") }}'
+          - name: probation_start_date
+            description: '{{ doc("probation_start_date") }}'
+          - name: reason_reference_id
+            description: '{{ doc("reason_reference_id") }}'
+          - name: regrettable_termination
+            description: '{{ doc("regrettable_termination") }}'
+          - name: rehire
+            description: '{{ doc("rehire") }}'
+          - name: resignation_date
+            description: '{{ doc("resignation_date") }}'
+          - name: retired
+            description: '{{ doc("retired") }}'
+          - name: retirement_date
+            description: '{{ doc("retirement_date") }}'
+          - name: retirement_eligibility_date
+            description: '{{ doc("retirement_eligibility_date") }}'
+          - name: return_unknown
+            description: '{{ doc("return_unknown") }}'
+          - name: seniority_date
+            description: '{{ doc("seniority_date") }}'
+          - name: severance_date
+            description: '{{ doc("severance_date") }}'
+          - name: terminated
+            description: '{{ doc("terminated") }}'
+          - name: termination_date
+            description: '{{ doc("termination_date") }}'
+          - name: termination_involuntary
+            description: '{{ doc("termination_involuntary") }}'
+          - name: termination_last_day_of_work
+            description: '{{ doc("termination_last_day_of_work") }}'
+          - name: time_off_service_date
+            description: '{{ doc("time_off_service_date") }}'
+          - name: universal_id
+            description: '{{ doc("universal_id") }}'
+          - name: user_id
+            description: '{{ doc("user_id") }}'
+          - name: vesting_date
+            description: '{{ doc("vesting_date") }}'
+          - name: worker_code
+            description: '{{ doc("worker_code") }}'
+
+      - name: personal_information_history
+        identifier: '{{ var("workday_personal_information_history_identifier", "personal_information_history") }}'
+        description: '{{ doc("personal_information") }}'
+        columns:
+          - name: id
+            description: '{{ doc("personal_information_id") }}'
+          - name: _fivetran_active
+            description: '{{ doc("_fivetran_active") }}'
+          - name: _fivetran_start
+            description: '{{ doc("_fivetran_start") }}'
+          - name: _fivetran_end
+            description: '{{ doc("_fivetran_end") }}'          
+          - name: type
+            description: '{{ doc("personal_information_type") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: additional_nationality
+            description: '{{ doc("additional_nationality") }}'
+          - name: blood_type
+            description: '{{ doc("blood_type") }}'
+          - name: citizenship_status
+            description: '{{ doc("citizenship_status") }}'
+          - name: city_of_birth
+            description: '{{ doc("city_of_birth") }}'
+          - name: city_of_birth_code
+            description: '{{ doc("city_of_birth_code") }}'
+          - name: country_of_birth
+            description: '{{ doc("country_of_birth") }}'
+          - name: date_of_birth
+            description: '{{ doc("date_of_birth") }}'
+          - name: date_of_death
+            description: '{{ doc("date_of_death") }}'
+          - name: gender
+            description: '{{ doc("gender") }}'
+          - name: hispanic_or_latino
+            description: '{{ doc("hispanic_or_latino") }}'
+          - name: hukou_locality
+            description: '{{ doc("hukou_locality") }}'
+          - name: hukou_postal_code
+            description: '{{ doc("hukou_postal_code") }}'
+          - name: hukou_region
+            description: '{{ doc("hukou_region") }}'
+          - name: hukou_subregion
+            description: '{{ doc("hukou_subregion") }}'
+          - name: hukou_type
+            description: '{{ doc("hukou_type") }}'
+          - name: last_medical_exam_date
+            description: '{{ doc("last_medical_exam_date") }}'
+          - name: last_medical_exam_valid_to
+            description: '{{ doc("last_medical_exam_valid_to") }}'
+          - name: local_hukou
+            description: '{{ doc("local_hukou") }}'
+          - name: marital_status
+            description: '{{ doc("marital_status") }}'
+          - name: marital_status_date
+            description: '{{ doc("marital_status_date") }}'
+          - name: medical_exam_notes
+            description: '{{ doc("medical_exam_notes") }}'
+          - name: native_region
+            description: '{{ doc("native_region") }}'
+          - name: native_region_code
+            description: '{{ doc("native_region_code") }}'
+          - name: personnel_file_agency
+            description: '{{ doc("personnel_file_agency") }}'
+          - name: political_affiliation
+            description: '{{ doc("political_affiliation") }}'
+          - name: primary_nationality
+            description: '{{ doc("primary_nationality") }}'
+          - name: region_of_birth
+            description: '{{ doc("region_of_birth") }}'
+          - name: region_of_birth_code
+            description: '{{ doc("region_of_birth_code") }}'
+          - name: religion
+            description: '{{ doc("religion") }}'
+          - name: social_benefit
+            description: '{{ doc("social_benefit") }}'
+          - name: tobacco_use
+            description: '{{ doc("tobacco_use") }}'
+
+      - name: person_name
+        identifier: '{{ var("workday_person_name_identifier", "person_name") }}'
+        description: '{{ doc("person_name") }}'
+        columns:
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: personal_info_system_id
+            description: '{{ doc("personal_info_system_id") }}'
+          - name: type
+            description: '{{ doc("person_name_type") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: academic_suffix
+            description: '{{ doc("academic_suffix") }}'
+          - name: additional_name_type
+            description: '{{ doc("additional_name_type") }}'
+          - name: country
+            description: '{{ doc("country") }}'
+          - name: first_name
+            description: '{{ doc("first_name") }}'
+          - name: full_name_singapore_malaysia
+            description: '{{ doc("full_name_singapore_malaysia") }}'
+          - name: hereditary_suffix
+            description: '{{ doc("hereditary_suffix") }}'
+          - name: honorary_suffix
+            description: '{{ doc("honorary_suffix") }}'
+          - name: last_name
+            description: '{{ doc("last_name") }}'
+          - name: local_first_name
+            description: '{{ doc("local_first_name") }}'
+          - name: local_first_name_2
+            description: '{{ doc("local_first_name_2") }}'
+          - name: local_last_name
+            description: '{{ doc("local_last_name") }}'
+          - name: local_last_name_2
+            description: '{{ doc("local_last_name_2") }}'
+          - name: local_middle_name
+            description: '{{ doc("local_middle_name") }}'
+          - name: local_middle_name_2
+            description: '{{ doc("local_middle_name_2") }}'
+          - name: local_secondary_last_name
+            description: '{{ doc("local_secondary_last_name") }}'
+          - name: local_secondary_last_name_2
+            description: '{{ doc("local_secondary_last_name_2") }}'
+          - name: middle_name
+            description: '{{ doc("middle_name") }}'
+          - name: prefix_salutation
+            description: '{{ doc("prefix_salutation") }}'
+          - name: prefix_title
+            description: '{{ doc("prefix_title") }}'
+          - name: prefix_title_code
+            description: '{{ doc("prefix_title_code") }}'
+          - name: professional_suffix
+            description: '{{ doc("professional_suffix") }}'
+          - name: religious_suffix
+            description: '{{ doc("religious_suffix") }}'
+          - name: royal_suffix
+            description: '{{ doc("royal_suffix") }}'
+          - name: secondary_last_name
+            description: '{{ doc("secondary_last_name") }}'
+          - name: social_suffix
+            description: '{{ doc("social_suffix") }}'
+          - name: social_suffix_id
+            description: '{{ doc("social_suffix_id") }}'
+          - name: tertiary_last_name
+            description: '{{ doc("tertiary_last_name") }}'
+
+      - name: personal_information_ethnicity
+        identifier: '{{ var("workday_personal_information_ethnicity_identifier", "personal_information_ethnicity") }}'
+        description: '{{ doc("personal_information_ethnicity") }}'
+        columns:
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: personal_info_system_id
+            description: '{{ doc("personal_info_system_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: ethnicity_code
+            description: '{{ doc("ethnicity_code") }}'
+          - name: ethnicity_id
+            description: '{{ doc("ethnicity_id") }}'
+
+      - name: military_service
+        identifier: '{{ var("workday_military_service_identifier", "military_service") }}'
+        description: '{{ doc("military_service") }}'
+        columns:
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: personal_info_system_id
+            description: '{{ doc("personal_info_system_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: discharge_date
+            description: '{{ doc("discharge_date") }}'
+          - name: notes
+            description: '{{ doc("notes") }}'
+          - name: rank
+            description: '{{ doc("rank") }}'
+          - name: service
+            description: '{{ doc("service") }}'
+          - name: service_type
+            description: '{{ doc("service_type") }}'
+          - name: status
+            description: '{{ doc("status") }}'
+          - name: status_begin_date
+            description: '{{ doc("status_begin_date") }}'
+
+      - name: person_contact_email_address
+        identifier: '{{ var("workday_person_contact_email_address_identifier", "person_contact_email_address") }}'
+        description: '{{ doc("person_contact_email_address") }}'
+        columns:
+          - name: id
+            description: '{{ doc("id") }}'
+          - name: personal_info_system_id
+            description: '{{ doc("personal_info_system_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: email_address
+            description: '{{ doc("email_address") }}'
+          - name: email_code
+            description: '{{ doc("email_code") }}'
+          - name: email_comment
+            description: '{{ doc("email_comment") }}'
+
+      - name: worker_position_history
+        identifier: '{{ var("workday_worker_position_history_identifier", "worker_position_history") }}'
+        description: '{{ doc("worker_position") }}'
+        columns:
+          - name: position_id
+            description: '{{ doc("position_id") }}'
+          - name: worker_id
+            description: '{{ doc("worker_id") }}'
+          - name: _fivetran_active
+            description: '{{ doc("_fivetran_active") }}'
+          - name: _fivetran_start
+            description: '{{ doc("_fivetran_start") }}'
+          - name: _fivetran_end
+            description: '{{ doc("_fivetran_end") }}'  
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: academic_pay_setup_data_annual_work_period_end_date
+            description: '{{ doc("academic_pay_setup_data_annual_work_period_end_date") }}'
+          - name: academic_pay_setup_data_annual_work_period_start_date
+            description: '{{ doc("academic_pay_setup_data_annual_work_period_start_date") }}'
+          - name: academic_pay_setup_data_annual_work_period_work_percent_of_year
+            description: '{{ doc("academic_pay_setup_data_annual_work_period_work_percent_of_year") }}'
+          - name: academic_pay_setup_data_disbursement_plan_period_end_date
+            description: '{{ doc("academic_pay_setup_data_disbursement_plan_period_end_date") }}'
+          - name: academic_pay_setup_data_disbursement_plan_period_start_date
+            description: '{{ doc("academic_pay_setup_data_disbursement_plan_period_start_date") }}'
+          - name: business_site_summary_display_language
+            description: '{{ doc("business_site_summary_display_language") }}'
+          - name: business_site_summary_local
+            description: '{{ doc("business_site_summary_local") }}'
+          - name: business_site_summary_location
+            description: '{{ doc("business_site_summary_location") }}'
+          - name: business_site_summary_location_type
+            description: '{{ doc("business_site_summary_location_type") }}'
+          - name: business_site_summary_name
+            description: '{{ doc("business_site_summary_name") }}'
+          - name: business_site_summary_scheduled_weekly_hours
+            description: '{{ doc("business_site_summary_scheduled_weekly_hours") }}'
+          - name: business_site_summary_time_profile
+            description: '{{ doc("business_site_summary_time_profile") }}'
+          - name: business_title
+            description: '{{ doc("business_title") }}'
+          - name: critical_job
+            description: '{{ doc("critical_job") }}'
+          - name: default_weekly_hours
+            description: '{{ doc("default_weekly_hours") }}'
+          - name: difficulty_to_fill
+            description: '{{ doc("difficulty_to_fill") }}'
+          - name: effective_date
+            description: '{{ doc("effective_date") }}'
+          - name: employee_type
+            description: '{{ doc("employee_type") }}'
+          - name: end_date
+            description: '{{ doc("end_date") }}'
+          - name: end_employment_date
+            description: '{{ doc("end_employment_date") }}'
+          - name: exclude_from_head_count
+            description: '{{ doc("exclude_from_head_count") }}'
+          - name: expected_assignment_end_date
+            description: '{{ doc("expected_assignment_end_date") }}'
+          - name: external_employee
+            description: '{{ doc("external_employee") }}'
+          - name: federal_withholding_fein
+            description: '{{ doc("federal_withholding_fein") }}'
+          - name: frequency
+            description: '{{ doc("frequency") }}'
+          - name: full_time_equivalent_percentage
+            description: '{{ doc("full_time_equivalent_percentage") }}'
+          - name: headcount_restriction_code
+            description: '{{ doc("headcount_restriction_code") }}'
+          - name: home_country
+            description: '{{ doc("home_country") }}'
+          - name: host_country
+            description: '{{ doc("host_country") }}'
+          - name: international_assignment_type
+            description: '{{ doc("international_assignment_type") }}'
+          - name: is_primary_job
+            description: '{{ doc("is_primary_job") }}'
+          - name: job_exempt
+            description: '{{ doc("job_exempt") }}'
+          - name: job_profile_id
+            description: '{{ doc("job_profile_id") }}'
+          - name: management_level_code
+            description: '{{ doc("management_level_code") }}'
+          - name: paid_fte
+            description: '{{ doc("paid_fte") }}'
+          - name: pay_group
+            description: '{{ doc("pay_group") }}'
+          - name: pay_rate
+            description: '{{ doc("pay_rate") }}'
+          - name: pay_rate_type
+            description: '{{ doc("pay_rate_type") }}'
+          - name: pay_through_date
+            description: '{{ doc("pay_through_date") }}'
+          - name: payroll_entity
+            description: '{{ doc("payroll_entity") }}'
+          - name: payroll_file_number
+            description: '{{ doc("payroll_file_number") }}'
+          - name: regular_paid_equivalent_hours
+            description: '{{ doc("regular_paid_equivalent_hours") }}'
+          - name: scheduled_weekly_hours
+            description: '{{ doc("scheduled_weekly_hours") }}'
+          - name: specify_paid_fte
+            description: '{{ doc("specify_paid_fte") }}'
+          - name: specify_working_fte
+            description: '{{ doc("specify_working_fte") }}'
+          - name: start_date
+            description: '{{ doc("start_date") }}'
+          - name: start_international_assignment_reason
+            description: '{{ doc("start_international_assignment_reason") }}'
+          - name: work_hours_profile
+            description: '{{ doc("work_hours_profile") }}'
+          - name: work_shift
+            description: '{{ doc("work_shift") }}'
+          - name: work_shift_required
+            description: '{{ doc("work_shift_required") }}'
+          - name: work_space
+            description: '{{ doc("work_space") }}'
+          - name: worker_hours_profile_classification
+            description: '{{ doc("worker_hours_profile_classification") }}'
+          - name: working_fte
+            description: '{{ doc("working_fte") }}'
+          - name: working_time_frequency
+            description: '{{ doc("working_time_frequency") }}'
+          - name: working_time_unit
+            description: '{{ doc("working_time_unit") }}'
+          - name: working_time_value
+            description: '{{ doc("working_time_value") }}'
+
+      - name: worker_leave_status
+        identifier: '{{ var("workday_worker_leave_status_identifier", "worker_leave_status") }}'
+        description: '{{ doc("worker_leave_status") }}'
+        columns:
+          - name: leave_request_event_id
+            description: '{{ doc("leave_request_event_id") }}'
+          - name: worker_id
+            description: '{{ doc("worker_id") }}'
+          - name: _fivetran_deleted
+            description: '{{ doc("_fivetran_deleted") }}'
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: adoption_notification_date
+            description: '{{ doc("adoption_notification_date") }}'
+          - name: adoption_placement_date
+            description: '{{ doc("adoption_placement_date") }}'
+          - name: age_of_dependent
+            description: '{{ doc("age_of_dependent") }}'
+          - name: benefits_effect
+            description: '{{ doc("benefits_effect") }}'
+          - name: caesarean_section_birth
+            description: '{{ doc("caesarean_section_birth") }}'
+          - name: child_birth_date
+            description: '{{ doc("child_birth_date") }}'
+          - name: child_sdate_of_death
+            description: '{{ doc("child_sdate_of_death") }}'
+          - name: continuous_service_accrual_effect
+            description: '{{ doc("continuous_service_accrual_effect") }}'
+          - name: date_baby_arrived_home_from_hospital
+            description: '{{ doc("date_baby_arrived_home_from_hospital") }}'
+          - name: date_child_entered_country
+            description: '{{ doc("date_child_entered_country") }}'
+          - name: date_of_recall
+            description: '{{ doc("date_of_recall") }}'
+          - name: description
+            description: '{{ doc("leave_description") }}'
+          - name: estimated_leave_end_date
+            description: '{{ doc("estimated_leave_end_date") }}'
+          - name: expected_due_date
+            description: '{{ doc("expected_due_date") }}'
+          - name: first_day_of_work
+            description: '{{ doc("first_day_of_work") }}'
+          - name: last_date_for_which_paid
+            description: '{{ doc("last_date_for_which_paid") }}'
+          - name: leave_end_date
+            description: '{{ doc("leave_end_date") }}'
+          - name: leave_entitlement_override
+            description: '{{ doc("leave_entitlement_override") }}'
+          - name: leave_last_day_of_work
+            description: '{{ doc("leave_last_day_of_work") }}'
+          - name: leave_of_absence_type
+            description: '{{ doc("leave_of_absence_type") }}'
+          - name: leave_percentage
+            description: '{{ doc("leave_percentage") }}'
+          - name: leave_return_event
+            description: '{{ doc("leave_return_event") }}'
+          - name: leave_start_date
+            description: '{{ doc("leave_start_date") }}'
+          - name: leave_status_code
+            description: '{{ doc("leave_status_code") }}'
+          - name: leave_type_reason
+            description: '{{ doc("leave_type_reason") }}'
+          - name: location_during_leave
+            description: '{{ doc("location_during_leave") }}'
+          - name: multiple_child_indicator
+            description: '{{ doc("multiple_child_indicator") }}'
+          - name: number_of_babies_adopted_children
+            description: '{{ doc("number_of_babies_adopted_children") }}'
+          - name: number_of_child_dependents
+            description: '{{ doc("number_of_child_dependents") }}'
+          - name: number_of_previous_births
+            description: '{{ doc("number_of_previous_births") }}'
+          - name: number_of_previous_maternity_leaves
+            description: '{{ doc("number_of_previous_maternity_leaves") }}'
+          - name: on_leave
+            description: '{{ doc("on_leave") }}'
+          - name: paid_time_off_accrual_effect
+            description: '{{ doc("paid_time_off_accrual_effect") }}'
+          - name: payroll_effect
+            description: '{{ doc("payroll_effect") }}'
+          - name: single_parent_indicator
+            description: '{{ doc("single_parent_indicator") }}'
+          - name: social_security_disability_code
+            description: '{{ doc("social_security_disability_code") }}'
+          - name: stock_vesting_effect
+            description: '{{ doc("stock_vesting_effect") }}'
+          - name: stop_payment_date
+            description: '{{ doc("stop_payment_date") }}'
+          - name: week_of_confinement
+            description: '{{ doc("week_of_confinement") }}'
+          - name: work_related
+            description: '{{ doc("work_related") }}'
+
+      - name: worker_position_organization_history
+        identifier: '{{ var("workday_worker_position_organization_history_identifier", "worker_position_organization_history") }}'
+        description: '{{ doc("worker_position_organization") }}'
+        columns:
+          - name: source_relation
+            description: '{{ doc("source_relation") }}'
+          - name: position_id
+            description: '{{ doc("position_id") }}'
+          - name: worker_id
+            description: '{{ doc("worker_id") }}'
+          - name: _fivetran_active
+            description: '{{ doc("_fivetran_active") }}'
+          - name: _fivetran_start
+            description: '{{ doc("_fivetran_start") }}'
+          - name: _fivetran_end
+            description: '{{ doc("_fivetran_end") }}' 
+          - name: _fivetran_synced
+            description: '{{ doc("_fivetran_synced") }}'
+          - name: index
+            description: '{{ doc("index") }}'
+          - name: date_of_pay_group_assignment
+            description: '{{ doc("date_of_pay_group_assignment") }}'
+          - name: organization_id
+            description: '{{ doc("organization_id") }}'
+          - name: primary_business_site
+            description: '{{ doc("primary_business_site") }}'
+          - name: is_used_in_change_organization_assignments
+            description: '{{ doc("used_in_change_organization_assignments") }}'

@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_apple_store__overview
+    description: >
+      Intermediate model for summarizing key performance metrics for apps in the Apple Store, including downloads, deletions, page views, and crashes.
+    columns:
+      - name: source_relation
+        description: "Source of the Apple Store overview data."
+      - name: date_day
+        description: "Date of the overview data."
+      - name: app_platform
+        description: "The platform of the app, in this case, 'apple_store'."
+      - name: app_name
+        description: "The name of the app."
+      - name: downloads
+        description: "Total number of downloads for the app on the specified date."
+      - name: deletions
+        description: "Total number of deletions for the app on the specified date."
+      - name: page_views
+        description: "Total number of page views for the app on the specified date."
+      - name: crashes
+        description: "Total number of crashes for the app on the specified date."
+    refs:
+      - name: apple_store__overview_report
+        description: "Source table containing raw Apple Store overview data."
+
+  - name: int_google_play__overview
+    description: >
+      Intermediate model for summarizing key performance metrics for apps in Google Play, including downloads, deletions, page views, and crashes.
+    columns:
+      - name: source_relation
+        description: "Source of the Google Play overview data."
+      - name: date_day
+        description: "Date of the overview data."
+      - name: app_platform
+        description: "The platform of the app, in this case, 'google_play'."
+      - name: app_name
+        description: "The name of the app."
+      - name: downloads
+        description: "Total number of downloads (device installs) for the app on the specified date."
+      - name: deletions
+        description: "Total number of deletions (device uninstalls) for the app on the specified date."
+      - name: page_views
+        description: "Total number of store listing visitors for the app on the specified date."
+      - name: crashes
+        description: "Total number of crashes for the app on the specified date."
+    refs:
+      - name: google_play__overview_report
+        description: "Source table containing raw Google Play overview data."

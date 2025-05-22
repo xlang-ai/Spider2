@@ -1,0 +1,403 @@
+version: 2
+
+models:
+  - name: recharge__billing_history
+    description: Each record represents an order, enriched with metrics about related charges and line items.
+    columns:
+      - name: order_id
+        description: "{{ doc('order_id') }}"
+        tests: 
+          - not_null
+          - unique
+      - name: external_order_id_ecommerce
+        description: The ID for the order in your external ecommerce platform.
+      - name: external_order_number_ecommerce
+        description: The order number in your external ecommerce platform.
+      - name: customer_id
+        description: Unique numeric identifier for the customer associated with the order.
+      - name: email
+        description: The email address of the customer.
+      - name: order_created_at
+        description: The date and time the order was created.
+      - name: order_status
+        description: "{{ doc('order_status') }}"
+      - name: order_updated_at
+        description: The date and time the order was last updated.
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+      - name: charge_created_at
+        description: The date and time the charge was created.
+      - name: transaction_id
+        description: The unique identifier of the transaction.
+      - name: charge_status
+        description: "{{ doc('charge_status') }}"
+      - name: is_prepaid
+        description: Boolean indicating if the Order is prepaid.
+      - name: order_type
+        description: "{{ doc('type') }}"
+      - name: charge_type
+        description: "{{ doc('type') }}"
+      - name: order_processed_at
+        description: The date and time the order was processed.
+      - name: order_scheduled_at
+        description: The date time of when the associated order is/was scheduled to process.
+      - name: order_shipped_date
+        description: The date and time the order was shipped.
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: is_deleted
+        description: Boolean indicating if the order (record) is deleted.
+      - name: payment_processor
+        description: The name of the payment processor.
+      - name: orders_count
+        description: The number of orders generated from this charge (Will be >1 for prepaid).
+      - name: tags
+        description: A comma-separated list of tags on the charge.
+      - name: charge_total_price
+        description: The total amount due of the charge.
+      - name: order_total_price
+        description: The total amount due of the order.
+      - name: calculated_order_total_price
+        description: The `charge_total_price` divided equally amongst all orders stemming from the same charge
+      - name: charge_subtotal_price
+        description: The combined price of all charge line_items minus any discounts. Does not include taxes and shipping.
+      - name: calculated_order_subtotal_price
+        description: The `charge_subtotal_price` divided equally amongst all orders stemming from the same charge.
+      - name: charge_tax_lines
+        description: The tax lines associated with the charge.
+      - name: calculated_order_tax_lines
+        description: The charge_tax_lines divided equally amongst all orders stemming from the same charge.
+      - name: charge_total_discounts
+        description: The sum of the discounts applied to the charge.
+      - name: calculated_order_total_discounts
+        description: The charge_total_discounts divided equally amongst all orders stemming from the same charge.
+      - name: charge_total_refunds
+        description: The sum of all refunds that were applied to the charge.
+      - name: calculated_order_total_refunds
+        description: The charge_total_refunds divided equally amongst all orders stemming from the same charge.
+      - name: charge_total_tax
+        description: The total tax due associated with the charge.
+      - name: calculated_order_total_tax
+        description: The charge_total_tax divided equally amongst all orders stemming from the same charge.
+      - name: charge_total_weight_grams
+        description: The total weight of all items in the charge in grams.
+      - name: calculated_order_total_weight_grams
+        description: The charge_total_weight_grams divided equally amongst all orders stemming from the same charge.
+      - name: charge_total_shipping
+        description: The total shipping costs associated with the charge.
+      - name: calculated_order_total_shipping
+        description: The charge_total_shipping divided equally amongst all orders stemming from the same charge.
+      - name: order_item_quantity
+        description: The total number of items in the order.
+      - name: order_line_item_total
+        description: The total price of all line items in the order. Does not include discounts, shipping, or tax.
+      - name: total_net_charge_value
+        description: The total net value of the charge, calculated as the total price minus total discounts.
+      - name: total_calculated_net_order_value
+        description: The `total_net_charge_value` divided equally amongst all orders stemming from the same charge.
+
+  - name: recharge__charge_line_item_history
+    description: Each record represents a specific line item charge, refund, or other line item that accumulates into final charges.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - charge_id
+            - charge_row_num
+    columns:
+      - name: charge_id
+        description: "{{ doc('charge_id') }}"
+        tests:
+          - not_null
+      - name: charge_row_num
+        description: Unique row number assigned to line items with the same `charge_id`.
+      - name: source_index
+        description: The line item's primary key `index` carried over from its source.
+      - name: charge_created_at
+        description: The date and time the charge was created.
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: amount
+        description: The amount charged for the line item.
+      - name: title
+        description: The title of the line item.
+      - name: line_item_type
+        description: The type of the line item. Possible values are (charge line, discount, shipping, tax, or refund).
+
+  - name: recharge__customer_daily_rollup
+    description: 
+      Each record represents a customer's daily transaction metrics, including totals and running totals for all associated orders, charges, and refunds. The model captures detailed breakdowns of recurring and one-time orders, discounts, taxes, refunds, and net amounts for a specific day, with metrics aggregated on a daily, weekly, monthly, and yearly basis. This provides insights into customer activity and lifetime value (LTV) over time.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - customer_id
+            - date_day
+    columns:
+      - name: customer_id
+        description: 
+          The unique identifier for the customer whose transaction data is being aggregated.
+      - name: date_day
+        description: 
+          The specific day on which the transaction metrics were calculated.
+      - name: date_week
+        description: 
+          The week associated with the transaction data.
+      - name: date_month
+        description: 
+          The month associated with the transaction data.
+      - name: date_year
+        description: 
+          The year associated with the transaction data.
+      - name: no_of_orders
+        description: 
+          The total number of orders placed by the customer on the given day.
+      - name: recurring_orders
+        description: 
+          The number of recurring orders (subscriptions) created for the customer on the given day.
+      - name: one_time_orders
+        description: 
+          The number of one-time purchases made by the customer on the given day.
+      - name: total_charges
+        description: 
+          The total amount of charges associated with the customer’s orders on the given day, including all items.
+      - name: charge_total_discounts_realized
+        description: 
+          The total discounts applied to successful orders for the customer on the given day.
+      - name: charge_total_discounts_running_total
+        description: 
+          The running total of discounts applied to successful orders by the customer up to the current day.
+      - name: calculated_order_total_discounts_realized
+        description: 
+          The realized discounts divided equally among all orders stemming from the same charge for the customer on the given day.
+      - name: calculated_order_total_discounts_running_total
+        description: 
+          The running total of calculated order discounts divided equally among all orders stemming from the same charge.
+      - name: charge_total_tax_realized
+        description: 
+          The total tax applied to successful orders by the customer on the given day.
+      - name: charge_total_tax_running_total
+        description: 
+          The running total of taxes applied to successful orders by the customer up to the current day.
+      - name: calculated_order_total_tax_realized
+        description: 
+          The total tax for orders divided equally among all orders from the same charge for the customer on the given day.
+      - name: calculated_order_total_tax_running_total
+        description: 
+          The running total of calculated order taxes divided equally among all orders stemming from the same charge.
+      - name: charge_total_price_realized
+        description: 
+          The total price for successful orders by the customer on the given day.
+      - name: charge_total_price_running_total
+        description: 
+          The running total of the price for all successful orders by the customer.
+      - name: calculated_order_total_price_realized
+        description: 
+          The total price divided equally among all orders stemming from the same charge for the customer on the given day.
+      - name: calculated_order_total_price_running_total
+        description: 
+          The running total of the calculated order price divided equally among all orders stemming from the same charge.
+      - name: charge_total_refunds_realized
+        description: 
+          The total amount of refunds applied to successful orders by the customer on the given day.
+      - name: charge_total_refunds_running_total
+        description: 
+          The running total of refunds applied to successful orders by the customer.
+      - name: calculated_order_total_refunds_realized
+        description: 
+          The total refunds divided equally among all orders stemming from the same charge for the customer on the given day.
+      - name: calculated_order_total_refunds_running_total
+        description: 
+          The running total of calculated refunds divided equally among all orders stemming from the same charge.
+      - name: order_line_item_total_realized
+        description: 
+          The total of line item amounts for successful orders by the customer on the given day.
+      - name: order_line_item_total_running_total
+        description: 
+          The running total of line item amounts for successful orders by the customer.
+      - name: order_item_quantity_realized
+        description: 
+          The total quantity of items successfully ordered by the customer on the given day.
+      - name: order_item_quantity_running_total
+        description: 
+          The running total of items successfully ordered by the customer.
+      - name: active_months_to_date
+        description: 
+          The number of months the customer has been active up to the given day, calculated from their first charge.
+      - name: charge_recurring_net_amount_realized
+        description: 
+          The total net value of recurring charges on the given day, calculated as the total price minus total refunds for successful recurring orders.
+      - name: charge_recurring_net_amount_running_total
+        description: 
+          The running total of the net value of recurring charges for the customer.
+      - name: charge_one_time_net_amount_realized
+        description: 
+          The total net value of one-time charges on the given day, calculated as the total price minus total refunds for successful one-time orders.
+      - name: charge_one_time_net_amount_running_total
+        description: 
+          The running total of the net value of one-time charges for the customer.
+      - name: calculated_order_recurring_net_amount_realized
+        description: 
+          The recurring net amount divided equally among all orders stemming from the same recurring charge.
+      - name: calculated_order_recurring_net_amount_running_total
+        description: 
+          The running total of calculated recurring order net amounts for the customer.
+      - name: calculated_order_one_time_net_amount_realized
+        description: 
+          The one-time net amount divided equally among all orders stemming from the same one-time charge.
+      - name: calculated_order_one_time_net_amount_running_total
+        description: 
+          The running total of calculated one-time order net amounts for the customer.
+
+
+  - name: recharge__customer_details
+    description: Each record represents a customer, enriched with metrics about their associated transactions.
+    columns:
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+        tests: 
+          - not_null
+          - unique
+      - name: customer_hash
+        description: The unique string identifier used in a customer portal link.
+      - name: external_customer_id_ecommerce
+        description: The ID for the customer in your external ecommerce platform.
+      - name: email
+        description: The email address of the customer.
+      - name: first_name
+        description: The customer's first name.
+      - name: last_name
+        description: The customer's last name.
+      - name: customer_created_at
+        description: The date and time the customer was created.
+      - name: customer_updated_at
+        description: The date and time the customer was last updated.
+      - name: first_charge_processed_at
+        description: The date and time of the customer's first processed charge.
+      - name: subscriptions_active_count
+        description: The number of active subscriptions associated with the customer.
+      - name: subscriptions_total_count
+        description: The total number of subscriptions associated with the customer.
+      - name: has_valid_payment_method
+        description: Boolean indicating if the payment value is valid.
+      - name: has_payment_method_in_dunning
+        description: Boolean indicating if the customer has a credit card in dunning.
+      - name: tax_exempt
+        description: Boolean indicating if the customer is tax exempt.
+      - name: total_orders
+        description: The total number of orders associated with the customer.
+      - name: total_amount_ordered
+        description: The total amount associated with the customer.
+      - name: avg_order_amount
+        description: The average order amount for the customer.
+      - name: total_order_line_item_total
+        description: The total price of all line items in the customer's orders.
+      - name: avg_order_line_item_total
+        description: The average price of line items in the customer's orders.
+      - name: avg_item_quantity_per_order
+        description: The average quantity of items per order for the customer.
+      - name: total_amount_taxed
+        description: The total amount of tax applied to the customer's orders.
+      - name: total_amount_discounted
+        description: The total amount of discounts applied to the customer's orders.
+      - name: total_refunds
+        description: The total refunds issued for the customer.
+      - name: total_one_time_purchases
+        description: The total number of one-time purchases made by the customer.
+      - name: total_amount_charged
+        description: The total amount charged to the customer.
+      - name: avg_amount_charged
+        description: The average amount charged to the customer.
+      - name: charges_count
+        description: The total number of charges made to the customer.
+      - name: total_net_spend
+        description: The total net spend of the customer, calculated as the total amount charged minus total refunds.
+      - name: calculated_subscriptions_active_count
+        description: >
+          The number of active subscriptions for the customer, calculated as the sum of subscriptions with status ACTIVE. 
+          Note - this value may differ from the Recharge-provided subscriptions_active_count. See DECISIONLOG for more information.
+      - name: is_currently_subscribed
+        description: Indicates whether the customer currently has an active subscription.
+      - name: is_new_customer
+        description: Indicates whether the customer has made their first charge in the past 30 days.
+      - name: active_months
+        description: The number of months since making their first charge. 
+      - name: orders_monthly_average
+        description: The monthly average number of orders placed by the customer.
+      - name: amount_ordered_monthly_average
+        description: The monthly average amount ordered by the customer.
+      - name: one_time_purchases_monthly_average
+        description: The monthly average number of one-time purchases made by the customer.
+      - name: amount_charged_monthly_average
+        description: The monthly average amount charged to the customer.
+      - name: amount_discounted_monthly_average
+        description: The monthly average amount discounted for the customer.
+      - name: amount_taxed_monthly_average
+        description: The monthly average amount taxed for the customer.
+      - name: net_spend_monthly_average
+        description: The monthly average net spend of the customer, calculated as the total amount charged minus total refunds, divided by the number of months since the first charge.
+
+  - name: recharge__subscription_overview
+    description: Each record represents a subscription, enriched with customer and charge information.
+    columns:
+      - name: subscription_id
+        description: "{{ doc('subscription_id') }}"
+        tests: 
+          - not_null
+          - unique
+      - name: customer_id
+        description: "{{ doc('customer_id') }}"
+      - name: address_id
+        description: "{{ doc('address_id') }}"
+      - name: subscription_created_at
+        description: The date and time the subscription was created.
+      - name: external_product_id_ecommerce
+        description: The ID of the product in your external ecommerce platform.
+      - name: product_title
+        description: The name of the product in a shop's catalog.
+      - name: external_variant_id_ecommerce
+        description: The ID of the variant in your external ecommerce platform.
+      - name: variant_title
+        description: The name of the variant in a shop's catalog.
+      - name: sku
+        description: The unique identifier of the item in fulfillment.
+      - name: price
+        description: The price of the item before discounts, taxes, or shipping have been applied.
+      - name: quantity
+        description: The number of items in the subscription.
+      - name: subscription_status
+        description: "{{ doc('subscription_status') }}"
+      - name: charge_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each charge.
+      - name: order_interval_unit
+        description: The frequency with which a subscription should have the order created with (valid values are “day”, “week”, and “month”).
+      - name: order_interval_frequency
+        description: The number of units (specified in order_interval_unit) between each order.
+      - name: order_day_of_month
+        description: The set day of the month order is created. Default is that there isn’t a strict day of the month when the order is created.
+      - name: order_day_of_week
+        description: The set day of the week order is created. Default is that there isn’t a strict day of the week order is created.
+      - name: expire_after_specific_number_of_charges
+        description: Set number of charges until subscription expires.
+      - name: subscription_updated_at
+        description: The date and time the subscription was last updated.
+      - name: subscription_next_charge_scheduled_at
+        description: The date and time of the next scheduled charge for the subscription.
+      - name: subscription_cancelled_at
+        description: The date and time the subscription was cancelled.
+      - name: cancellation_reason
+        description: Reason provided for cancellation.
+      - name: cancellation_reason_comments
+        description: Additional comments related to the cancellation of the subscription.
+      - name: is_most_recent_record
+        description: A flag indicating if the record is the most recent for the subscription.
+      - name: count_successful_charges
+        description: The count of successful charges for the subscription.
+      - name: count_queued_charges
+        description: The count of queued charges for the subscription.
+      - name: charges_until_expiration
+        description: The number of charges until the subscription expires.
+      - name: charge_interval_frequency_days
+        description: The number of days between charges for the subscription.
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"

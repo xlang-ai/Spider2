@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: int_pendo__feature_info
+  - name: int_pendo__guide_alltime_metrics
+    description: >
+      This model calculates alltime metrics for guides. This is is necessary as different kinds of guide events are tracked (whereas only
+      clicks are tracked for features, and views for pages). Thus, we are dynamically pivoting out different event type metrics, and need 
+      to store this in a model file (instead of a CTE in `pendo__guide`) in order to use `dbt_utils.star()`
+  - name: int_pendo__guide_info
+  - name: int_pendo__page_info
+
+
+# the models in the daily_metrics folder support the final daily metrics models
+  - name: int_pendo__account_daily_metrics
+  - name: int_pendo__calendar_spine
+    description: Incrementally materialized model that just creates a date spine to be joined with different objects' daily metrics.
+  - name: int_pendo__feature_daily_metrics
+  - name: int_pendo__guide_daily_metrics
+  - name: int_pendo__page_daily_metrics
+  - name: int_pendo__visitor_daily_metrics
+
+
+# the models in the latest_history folder just turn history tables into current-state ones
+  - name: int_pendo__latest_account
+  - name: int_pendo__latest_application
+  - name: int_pendo__latest_feature
+  - name: int_pendo__latest_guide_step
+  - name: int_pendo__latest_guide
+  - name: int_pendo__latest_nps_rating
+    description: This model captures visitors' latest response to an NPS Poll.
+  - name: int_pendo__latest_page_rule
+  - name: int_pendo__latest_page 
+  - name: int_pendo__latest_visitor_account
+  - name: int_pendo__latest_visitor
+  

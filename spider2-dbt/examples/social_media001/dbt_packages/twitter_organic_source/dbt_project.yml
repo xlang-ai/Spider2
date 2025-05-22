@@ -1,0 +1,15 @@
+name: 'twitter_organic_source'
+version: '0.3.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+  account_history: "{{ source('twitter','account_history') }}"
+  organic_tweet_report: "{{ source('twitter','organic_tweet_report') }}"
+  tweet: "{{ source('twitter','tweet') }}"
+  twitter_user_history: "{{ source('twitter','twitter_user_history') }}"
+models:
+  twitter_organic_source:
+    +schema: stg_twitter_organic
+    +materialized: view
+    tmp:
+      +materialized: table

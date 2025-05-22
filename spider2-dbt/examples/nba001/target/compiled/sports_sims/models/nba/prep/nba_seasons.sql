@@ -1,0 +1,1 @@
+select a.season from "nba"."main"."nba_elo_history" a group by all order by a.season

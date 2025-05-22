@@ -1,0 +1,13 @@
+
+    
+    
+    
+    create table "nba"."main"."nba_results" ("Date" text,"Start (ET)" text,"Visitor/Neutral" text,"PTS" integer,"Home/Neutral" text,"PTS_2" integer,"g" text,"h" text,"Attend." integer,"Arena" text,"Notes" text)
+  ;
+    -- dbt seed --
+    
+          COPY "nba"."main"."nba_results" FROM '/Users/leifangyu/workspace/Spider2-C/evaluation_examples/dbt/source/dbt_nba/data/nba/nba_results.csv' (FORMAT CSV, HEADER TRUE, DELIMITER ',')
+        
+
+;
+  

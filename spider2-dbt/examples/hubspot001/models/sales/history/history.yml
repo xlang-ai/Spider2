@@ -1,0 +1,81 @@
+version: 2
+
+models:
+
+  - name: hubspot__company_history
+    description: Each record represents a change to company record in Hubspot; the grain of this model is company_id -> field_name -> valid_to.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - company_id
+            - field_name
+            - valid_to
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: change_source
+        description: '{{ doc("history_source") }}'
+
+      - name: change_source_id
+        description: '{{ doc("history_source_id") }}'
+
+      - name: valid_from
+        description: The timestamp the change was valid from.
+
+      - name: valid_to
+        description: The timestamp the change was valid to. Null if still valid.
+
+      - name: company_id
+        description: The ID of the related company record.
+
+      - name: field_name
+        description: '{{ doc("history_name") }}'
+
+      - name: new_value
+        description: '{{ doc("history_value") }}'
+
+      - name: id
+        description: The ID of the change.
+        tests:
+          - unique
+          - not_null
+
+  - name: hubspot__deal_history
+    description: Each record represents a change to deal record in Hubspot; the grain of this model is deal_id -> field_name -> valid_to.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - deal_id
+            - field_name
+            - valid_to
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+
+      - name: change_source
+        description: '{{ doc("history_source") }}'
+
+      - name: change_source_id
+        description: '{{ doc("history_source_id") }}'
+
+      - name: valid_from
+        description: The timestamp the change was valid from.
+
+      - name: valid_to
+        description: The timestamp the change was valid to. Null if still valid.
+
+      - name: deal_id
+        description: The ID of the related deal record.
+
+      - name: field_name
+        description: '{{ doc("history_name") }}'
+
+      - name: new_value
+        description: '{{ doc("history_value") }}'
+
+      - name: id
+        description: The ID of the change.
+        tests:
+          - unique
+          - not_null

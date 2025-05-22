@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_playlist
+    description: "Contains list of playlists"
+    columns:
+      - name: playlist_id
+        description: "Playlist identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: playlist_name
+        description: "Name of the playlist"
+        tests:
+          - not_null

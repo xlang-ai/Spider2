@@ -1,0 +1,62 @@
+
+name: 'claim_to_fame'
+version: '1.0.0'
+config-version: 2
+
+
+profile: 'maturity'
+
+source-paths: ["models"]
+analysis-paths: ["analysis"]
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  
+clean-targets:         
+    - "target"
+    - "dbt_modules"
+
+on-run-end: 
+  - "{{ report_metrics() }}"
+
+seeds:
+  claim_to_fame:
+    billing_data:
+      claims:
+        +column_types:
+          pat_id: bigint
+          doc_id: bigint
+          car_id: bigint
+          npi: bigint
+          prac_id: bigint
+    ehr_data:
+      doc_specialties:
+        +column_types:
+          doc_id: bigint
+      patients:
+        +column_types:
+          id: bigint
+          prac_id: bigint
+      doctors:
+        +column_types:
+          npi: bigint
+          id: bigint
+          prac_id: bigint
+
+
+
+models:
+  +materialized: table
+  claim_to_fame:
+    marts:
+      +tags:
+        - bi
+      +schema: billing_analytics
+      +materialized: table
+    staging:
+      +tags:
+        - staging
+      +schema: staging
+    

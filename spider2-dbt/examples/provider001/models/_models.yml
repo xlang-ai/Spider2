@@ -1,0 +1,132 @@
+version: 2
+
+models:
+# Intermediate
+  - name: specialty_mapping
+    description: >
+      Maps Medicare specialties to the NUCC taxonomy, deduplicating Medicare specialties by prioritizing the most specific specialty. 
+      It joins the Medicare specialty crosswalk data with the NUCC taxonomy, ensuring that Medicare specialties are appropriately matched 
+      or otherwise defaulting to NUCC specialization or classification where necessary.
+
+    columns:
+      - name: taxonomy_code
+        description: "Taxonomy code from the NUCC taxonomy."
+        tests:
+          - not_null
+      - name: medicare_specialty_code
+        description: "Medicare specialty code, prioritized to ensure only one specialty per provider taxonomy code."
+        tests:
+          - not_null
+      - name: description
+        description: >
+          Cleaned description of the specialty. Based on Medicare provider supplier type description where available, 
+          otherwise defaults to NUCC specialization or classification.
+        tests:
+          - not_null
+
+  - name: taxonomy_unpivot
+    description: Unpivot provider taxonomies from NPPES data
+    columns:
+      - name: npi
+      - name: taxonomy_col
+      - name: taxonomy_code
+      - name: switch col
+      - name: taxonomy_switch
+
+
+  - name: provider
+    description: >
+      Combines provider details from the NPI source table with their primary taxonomy and associated specialty. 
+      It provides a comprehensive view of the provider, including business practice location details, taxonomy, and specialty.
+
+    columns:
+      - name: npi
+        description: "National Provider Identifier (NPI) of the provider."
+        tests:
+          - not_null
+          - unique
+      - name: entity_type_code
+        description: "The entity type code indicating whether the provider is an individual or an organization."
+        tests:
+          - not_null
+      - name: entity_type_description
+        description: "Description of the entity type based on the entity_type_code ('Individual' or 'Organization')."
+        tests:
+          - not_null
+      - name: primary_taxonomy_code
+        description: "The primary taxonomy code for the provider."
+        tests:
+          - not_null
+      - name: primary_specialty_description
+        description: "The specialty description for the provider's primary taxonomy code."
+        tests:
+          - not_null
+      - name: provider_first_name
+        description: "The first name of the provider (formatted in title case)."
+        tests:
+          - not_null
+      - name: provider_last_name
+        description: "The last name of the provider (formatted in title case)."
+        tests:
+          - not_null
+      - name: provider_organization_name
+        description: "The legal business name of the provider's organization (formatted in title case)."
+      - name: parent_organization_name
+        description: "The parent organization name of the provider (formatted in title case)."
+      - name: practice_address_line_1
+        description: "First line of the provider's business practice location address (formatted in title case)."
+        tests:
+          - not_null
+      - name: practice_address_line_2
+        description: "Second line of the provider's business practice location address (formatted in title case)."
+      - name: practice_city
+        description: "The city of the provider's business practice location (formatted in title case)."
+        tests:
+          - not_null
+      - name: practice_state
+        description: "The state of the provider's business practice location."
+        tests:
+          - not_null
+      - name: practice_zip_code
+        description: "The postal code of the provider's business practice location."
+        tests:
+          - not_null
+      - name: last_updated
+        description: "The last update date for the provider's information."
+        tests:
+          - not_null
+      - name: deactivation_date
+        description: "The deactivation date of the provider's NPI, if applicable."
+      - name: deactivation_flag
+        description: >
+          A flag indicating whether the provider's NPI has been deactivated (1 if deactivated, 0 if not).
+        tests:
+          - not_null
+
+  - name: other_provider_taxonomy
+    description: >
+      Handles provider records that do not indicate a primary taxonomy code. It uses logic based on the order and switch 
+      flags of the taxonomy codes to determine the most likely primary taxonomy for a provider, adding primary flags to the taxonomy codes.
+
+    columns:
+      - name: npi
+        description: "National Provider Identifier (NPI) of the provider."
+        tests:
+          - not_null
+      - name: taxonomy_code
+        description: "Taxonomy code associated with the provider."
+        tests:
+          - not_null
+      - name: medicare_specialty_code
+        description: "Medicare specialty code mapped from the taxonomy code, when available."
+      - name: description
+        description: >
+          Specialty description, either based on Medicare specialty mapping or NUCC taxonomy.
+        tests:
+          - not_null
+      - name: primary_flag
+        description: >
+          A flag indicating whether this taxonomy code is the primary one for the provider, determined based on the 
+          ordering logic and switch flags.
+        tests:
+          - not_null

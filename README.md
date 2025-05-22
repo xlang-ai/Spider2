@@ -8,6 +8,8 @@
 
 ## 📰 News
 
+- **2025-05-22**: We have created a new task setting, `Spider2-DBT`, and removed the original Spider2 setting. [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) consists of only 68 tasks, enabling quick and smooth benchmarking with [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt). It is a comprehensive, repository-level text-to-SQL task.
+
 - **2025-04-20**: We provide the [ground-truth tables](https://github.com/xlang-ai/Spider2/tree/main/methods/gold-tables) for spider2-lite and spider2-snow to help quick benchmarking and analysis. However, when using this setting, you must indicate that you are using `oracle tables`.
 
 - **2025-01-10**: Please refer to the [data update log](https://docs.google.com/document/d/1a69mxO7m1nMndXp8H_-aggvYDbcbiS3rV9GPXEw-DeM/edit?usp=sharing) to track changes in the evaluation examples. The [leaderboard](https://spider2-sql.github.io/) results will also change dynamically accordingly.
@@ -19,7 +21,9 @@
 - **2024-12-24**: Considering the many evaluation requirements, we have decided to **release all examples and gold answers for self-evaluation**. However, only a small amount of gold SQL is available. The leaderboard is still active. To have your method officially validated and upload your scores to the leaderboard, please follow the [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing).
 
 
+## 🏆 Milestone
 
+As of now, all methods combined can solve 63.8% (349/547) of the examples in Spider 2.0!
 
 
 ## 👋 Overview
@@ -51,11 +55,11 @@
       <td>Some cost incurred</td>
     </tr>
     <tr>
-      <td><strong>Spider 2.0</strong></td>
+      <td><strong>Spider 2.0-DBT</strong></td>
       <td>Code agent task</td>
-      <td>632</td>
-      <td>BigQuery(214), Snowflake(198), Postgres(10), ClickHouse(7), SQLite(135), DuckDB (DBT)(68)</td>
-      <td>Some cost incurred</td>
+      <td>68</td>
+      <td>DuckDB (DBT)(68)</td>
+      <td>NO COST!😊</td>
     </tr>
   </table>
 </div>
@@ -88,7 +92,7 @@ We also release some gold SQLs to help users design prompts and methods, **note 
 
 
 
-## 🚀 Quickstart
+## 🚀 Quickstart (Spider2-lite/snow)
 
 ### Sign Up for Your Own BigQuery and Snowflake Accounts
 
@@ -114,120 +118,18 @@ For more details, please refer to the following links:
 
 
 
-<!-- ## 🚀 Quickstart (Old Version)
+## 🚀 Quickstart (Spider2-dbt)
 
+For more details, please refer to the following links:
 
-### Spider 2.0-Snow
-
-We would like to thank Snowflake for sponsoring our project. To better align with the research interests of the text-to-SQL community, we are offering [Spider 2.0-Snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow), which hosts all databases from Spider 2.0 in the Snowflake data warehouse. This arrangement facilitates users in developing advanced text-to-SQL systems more conveniently.
-
-We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) and other text-to-SQL baselines to this setting. 
-
-
-
-### Spider 2.0-Lite
-
-To align with research interests in **traditional Text2SQL settings**, we also release [`Spider 2.0-Lite`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite#spider-20-lite). This set is more self-contained, with well-prepared database metadata and documentation, making it a text-in, text-out task that supports faster development and evaluation. -->
-
-<!-- You can also access the Spider 2.0-Lite by [huggingface dataset](https://huggingface.co/datasets/xlangai/spider2-lite).🤗
-```
-from datasets import load_dataset
-ds = load_dataset("xlangai/spider2-lite")
-```
-
-Each file in `spider2-lite.json` contains the following fields:
-- `instance_id`: the unique example id
-- `db`: the database id to which this question is addressed
-- `question`: the natural language question
-- `external_knowledge`: the filenames of external knowledge, documentation, and information required to answer this question are stored in documents -->
-
-
-<!-- We adapt [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and other text-to-SQL baselines to this setting. 
-
-We proposed baselines based on the widely used text2sql methods: [`Dail-SQL`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/dailsql#installation) and [`CodeS`](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/baselines/codes#installation), with evaluation results reported :test_tube:.
- -->
-
-
-
-
-
-<!-- 
-### Spider 2.0
-
-For [`Spider 2.0`](./spider2/README.md), all evaluation examples are aggregated in file [`spider2.jsonl`](./spider2/examples/spider2.jsonl), where each data point contains the following field:
-```json
-{
-    "instance_id": "ga001",
-    "instruction": "I want to know the preferences of customers who purchased the Google Navy Speckled Tee in December 2020. What other product was purchased with the highest total quantity alongside this item?",
-    "type": "Bigquery"
-}
-```
-For each instance, we also provide a separate folder [`./spider2/examples/{instruction_id}`](./spider2/examples/) as its **Execution Context** to simulate the agentic setting. Each folder may have the following files:
-
-- `README.md`: detailed requirements of the `instruction` field for the current example with `instance_id`;
-- `*_credential.json`: credential file connecting to realistic enterprise-level databases, e.g., BigQuery. Can be replaced with your OWN;
-- `result.csv`: CSV file to store the execution results;
-- other instance-specific materials which assist in finishing the current task:
-    - 🏗️ partial project, e.g., [`dbt_project/`](./spider2/examples/airbnb001/).
-    - 📝 reference documentation: [`ga4_dimensions_and_metrics.md`](./spider2/examples/ga010/ga4_dimensions_and_metrics.md), [`retention_rate.md`](./spider2/examples/ga022/retention_rate.md), etc.
-    - 🔍 query interface: We have predefined how to access the diverse database systems.
-    - 🎞️ query history or samples, e.g., [`QUERY_HISTORY/`](./spider2/examples/ga003/FIREBASE_QUERY_HISTORY/), etc.
-
-
-
-The agent has to interact with complex SQL workflows, process extremely long contexts, perform intricate reasoning, and generate multiple SQL queries with diverse operations, often exceeding 100 lines across multiple turns. -->
-
-
-<!-- #### Run Spider-Agent
-
-For Spider 2.0, we proposed an agent framework [Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent) based on Docker environment. 
-
-1. **Install Docker**. Follow the instructions in the [Docker setup guide](https://docs.docker.com/engine/install/) to install Docker on your machine. 
-2. **Install conda environment**.
-```
-git clone https://github.com/xlang-ai/Spider2.git
-cd methods/spider-agent
-
-# Optional: Create a Conda environment for Spider 2.0
-# conda create -n spider2 python=3.11
-# conda activate spider2
-
-# Install required dependencies
-pip install -r requirements.txt
-```
-1. **Configure credential**: follow this [instruction](https://github.com/xlang-ai/Spider2/tree/main/spider2#configure-credential) to configure BigQuery for running the SQL queries. follow this [guideline](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md) to get your own Snowflake username and password in our snowflake database. You must update `bigquery_credential.json` and `snowflake_credential.json`.
-
-2. **Download Spider 2.0 Database Source**
-```
-cd spider2
-
-gdown 'https://drive.google.com/uc?id=1OxF-OuPwgb2miQxzftGLZBzPRQtLsyoV'
-gdown 'https://drive.google.com/uc?id=1coEVsCZq-Xvj9p2TnhBFoFTsY-UoYGmG'
-gdown 'https://drive.google.com/uc?id=1N3f7BSWC4foj-V-1C9n8M2XmgV7FOcqL'
-gdown 'https://drive.google.com/uc?id=1s0USV_iQLo4oe05QqAMnhGGp5jeejCzp'
-
-```
-
-
-5. **Spider 2.0 Setup**
-```
-python setup.py
-```
-
-6. **Run agent**
-```
-cd ../../methods/spider-agent
-export OPENAI_API_KEY=your_openai_api_key
-python run.py --model gpt-4o -s test1
-``` -->
-
-
+- [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) (The Data)
+- [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt) (The Method)
 
 
 
 # 📋 Leaderboard Submission 
 
-We only release the gold answer of about partial examples of Spider 2.0, Spider 2.0-Lite and Spider 2.0-Snow.
+We only release the gold answer of about partial examples of Spider 2.0-Lite, Spider 2.0-Snow and Spider 2.0-DBT.
 You must follow this [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing) to upload your score to [leaderboard](https://spider2-sql.github.io/).
 
 

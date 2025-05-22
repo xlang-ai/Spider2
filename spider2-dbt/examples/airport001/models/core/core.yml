@@ -1,0 +1,172 @@
+version: 2
+
+models:
+  - name: fct_arrivals__malaysia_summary
+    description: >
+      This model provides a summary of flight arrivals to Malaysian airports, including information on the airport's name, location, and the number of arriving flights for the most recent available date. 
+      The data is filtered to include only non-code-shared flights.
+
+    refs:
+      - name: base_airports
+      - name: base_arrivals__malaysia
+
+    columns:
+      - name: airport_id
+        description: "Unique OpenFlights identifier for each airport."
+        tests:
+          - unique
+          - not_null
+
+      - name: name
+        description: "Name of the airport. May or may not contain the city name."
+        tests:
+          - not_null
+
+      - name: latitude
+        description: "Latitude of the airport in decimal degrees. Negative is South, positive is North."
+        tests:
+          - not_null
+
+      - name: longitude
+        description: "Longitude of the airport in decimal degrees. Negative is West, positive is East."
+        tests:
+          - not_null
+
+      - name: flight_count
+        description: >
+          The total number of flight arrivals to each airport on the most recent available date, excluding code-share flights.
+        tests:
+          - not_null
+
+  - name: fct_airports__malaysia_distances_km
+    description: >
+      This model provides a matrix showing the relative distances (in kilometers) between different Malaysian airports. The distances are calculated between pairs of airports, with each row representing the distance between a reference airport and all other airports.
+
+    refs:
+      - name: stg_airports__malaysia_distances
+
+    columns:
+      - name: a_name
+        description: "The name of the reference airport."
+        tests:
+          - not_null
+
+      - name: Bakalalan_Airport
+        description: "The distance (in kilometers) between Bakalalan Airport and the airport specified in the `a_name` column."
+      
+      - name: Bario_Airport
+        description: "The distance (in kilometers) between Bario Airport and the airport specified in the `a_name` column."
+
+      - name: Belaga_Airport
+        description: "The distance (in kilometers) between Belaga Airport and the airport specified in the `a_name` column."
+
+      - name: Bintulu_Airport
+        description: "The distance (in kilometers) between Bintulu Airport and the airport specified in the `a_name` column."
+
+      - name: Butterworth_Airport
+        description: "The distance (in kilometers) between Butterworth Airport and the airport specified in the `a_name` column."
+
+      - name: Kerteh_Airport
+        description: "The distance (in kilometers) between Kerteh Airport and the airport specified in the `a_name` column."
+
+      - name: Kluang_Airport
+        description: "The distance (in kilometers) between Kluang Airport and the airport specified in the `a_name` column."
+
+      - name: Kota_Kinabalu_International_Airport
+        description: "The distance (in kilometers) between Kota Kinabalu International Airport and the airport specified in the `a_name` column."
+
+      - name: Kuala_Lumpur_International_Airport
+        description: "The distance (in kilometers) between Kuala Lumpur International Airport and the airport specified in the `a_name` column."
+
+      - name: Kuantan_Airport
+        description: "The distance (in kilometers) between Kuantan Airport and the airport specified in the `a_name` column."
+
+      - name: Kuching_International_Airport
+        description: "The distance (in kilometers) between Kuching International Airport and the airport specified in the `a_name` column."
+
+      - name: Kudat_Airport
+        description: "The distance (in kilometers) between Kudat Airport and the airport specified in the `a_name` column."
+
+      - name: Labuan_Airport
+        description: "The distance (in kilometers) between Labuan Airport and the airport specified in the `a_name` column."
+
+      - name: Lahad_Datu_Airport
+        description: "The distance (in kilometers) between Lahad Datu Airport and the airport specified in the `a_name` column."
+
+      - name: Langkawi_International_Airport
+        description: "The distance (in kilometers) between Langkawi International Airport and the airport specified in the `a_name` column."
+
+      - name: Lawas_Airport
+        description: "The distance (in kilometers) between Lawas Airport and the airport specified in the `a_name` column."
+
+      - name: Limbang_Airport
+        description: "The distance (in kilometers) between Limbang Airport and the airport specified in the `a_name` column."
+
+      - name: Long_Akah_Airport
+        description: "The distance (in kilometers) between Long Akah Airport and the airport specified in the `a_name` column."
+
+      - name: Long_Lellang_Airport
+        description: "The distance (in kilometers) between Long Lellang Airport and the airport specified in the `a_name` column."
+
+      - name: Long_Seridan_Airport
+        description: "The distance (in kilometers) between Long Seridan Airport and the airport specified in the `a_name` column."
+
+      - name: LTS_Pulau_Redang_Airport
+        description: "The distance (in kilometers) between LTS Pulau Redang Airport and the airport specified in the `a_name` column."
+
+      - name: Malacca_Airport
+        description: "The distance (in kilometers) between Malacca Airport and the airport specified in the `a_name` column."
+
+      - name: Marudi_Airport
+        description: "The distance (in kilometers) between Marudi Airport and the airport specified in the `a_name` column."
+
+      - name: Miri_Airport
+        description: "The distance (in kilometers) between Miri Airport and the airport specified in the `a_name` column."
+
+      - name: Mukah_Airport
+        description: "The distance (in kilometers) between Mukah Airport and the airport specified in the `a_name` column."
+
+      - name: Mulu_Airport
+        description: "The distance (in kilometers) between Mulu Airport and the airport specified in the `a_name` column."
+
+      - name: Penang_International_Airport
+        description: "The distance (in kilometers) between Penang International Airport and the airport specified in the `a_name` column."
+
+      - name: Pulau_Pangkor_Airport
+        description: "The distance (in kilometers) between Pulau Pangkor Airport and the airport specified in the `a_name` column."
+
+      - name: Pulau_Tioman_Airport
+        description: "The distance (in kilometers) between Pulau Tioman Airport and the airport specified in the `a_name` column."
+
+      - name: Sandakan_Airport
+        description: "The distance (in kilometers) between Sandakan Airport and the airport specified in the `a_name` column."
+
+      - name: Senai_International_Airport
+        description: "The distance (in kilometers) between Senai International Airport and the airport specified in the `a_name` column."
+
+      - name: Sibu_Airport
+        description: "The distance (in kilometers) between Sibu Airport and the airport specified in the `a_name` column."
+
+      - name: Simpang_Airport
+        description: "The distance (in kilometers) between Simpang Airport and the airport specified in the `a_name` column."
+
+      - name: Sultan_Abdul_Aziz_Shah_International_Airport
+        description: "The distance (in kilometers) between Sultan Abdul Aziz Shah International Airport and the airport specified in the `a_name` column."
+
+      - name: Sultan_Abdul_Halim_Airport
+        description: "The distance (in kilometers) between Sultan Abdul Halim Airport and the airport specified in the `a_name` column."
+
+      - name: Sultan_Azlan_Shah_Airport
+        description: "The distance (in kilometers) between Sultan Azlan Shah Airport and the airport specified in the `a_name` column."
+
+      - name: Sultan_Ismail_Petra_Airport
+        description: "The distance (in kilometers) between Sultan Ismail Petra Airport and the airport specified in the `a_name` column."
+
+      - name: Sultan_Mahmud_Airport
+        description: "The distance (in kilometers) between Sultan Mahmud Airport and the airport specified in the `a_name` column."
+
+      - name: Tawau_Airport
+        description: "The distance (in kilometers) between Tawau Airport and the airport specified in the `a_name` column."
+
+      - name: Tomanggong_Airport
+        description: "The distance (in kilometers) between Tomanggong Airport and the airport specified in the `a_name` column."

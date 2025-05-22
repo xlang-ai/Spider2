@@ -1,0 +1,33 @@
+name: 'facebook_pages_integration_tests'
+version: '0.3.0'
+profile: 'integration_tests'
+config-version: 2
+
+vars:
+  facebook_pages_source:
+    facebook_pages_daily_page_metrics_total_identifier: "facebook_pages_daily_page_metrics_total_data"
+    facebook_pages_lifetime_post_metrics_total_identifier: "facebook_pages_lifetime_post_metrics_total_data"
+    facebook_pages_page_identifier: "facebook_pages_page_data"
+    facebook_pages_post_history_identifier: "facebook_pages_post_history_data"
+    facebook_pages_schema: facebook_pages_integrations_tests_1
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']
+
+seeds:
+  facebook_pages_integration_tests:
+    facebook_pages_post_history_data:
+      +column_types:
+        id: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+        promotable_id: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+        page_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    facebook_pages_lifetime_post_metrics_total_data:
+      +column_types:
+        post_id: "{{ 'string' if target.type in ['bigquery', 'spark', 'databricks'] else 'varchar' }}"
+    facebook_pages_page_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    facebook_pages_daily_page_metrics_total_data:
+      +column_types:
+        page_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"

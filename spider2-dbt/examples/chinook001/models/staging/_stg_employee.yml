@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_employee
+    description: "Contains list of employees"
+    columns:
+      - name: employee_id
+        description: "Employee identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: employee_first_name
+        description: "First name of the employee"
+        tests:
+          - not_null
+      - name: employee_last_name
+        description: "Last name of the employee"
+        tests:
+          - not_null
+      - name: employee_title
+        description: "Title of the employee"
+        tests:
+          - not_null
+      - name: employee_reports_to
+        description: "Direct reports employee identifier key"
+      - name: employee_birth_date
+        description: "Birth date of the Employee"
+        tests:
+          - not_null
+      - name: employee_hire_date
+        description: "Hire date of the employee"
+        tests:
+          - not_null
+      - name: employee_country
+        description: "Country of the customery"
+        tests:
+          - not_null
+      - name: employee_phone
+        description: "Phone number of the customery"
+        tests:
+          - not_null
+      - name: employee_postal_code
+        description: "Postal Code of the customery"
+        tests:
+          - not_null
+      - name: employee_fax
+        description: "Fax address of the customery)"
+        tests:
+          - not_null
+      - name: employee_email
+        description: "Email address of the customery"
+        tests:
+          - not_null
+      - name: employee_address
+        description: "Address of the employee"
+        tests:
+          - not_null

@@ -1,0 +1,56 @@
+version: 2
+models:
+### DIM ####
+  - name: dim_hosts
+    columns:
+      - name: HOST_ID
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_listings
+    columns:
+      - name: LISTING_ID
+        tests:
+          - unique
+          - not_null
+      - name: MINIMUM_NIGHTS
+        tests:
+          - test_positive_values
+
+  - name: dim_listings_hosts
+    columns:
+      - name: HOST_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_hosts')
+              field: HOST_ID
+      - name: LISTING_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_listings')
+              field: LISTING_ID
+      - name: LISTING_HOST_ID
+        tests:
+          - unique
+          - not_null
+
+### FACT ###
+  - name: fct_reviews
+    columns: 
+      - name: REVIEW_SENTIMENT
+        tests:
+          - accepted_values:
+              values: ['positive','negative','neutral']
+              quote: true
+      - name: LISTING_ID
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_listings')
+              field: LISTING_ID
+          - relationships:
+              to: ref('dim_listings_hosts')
+              field: LISTING_ID

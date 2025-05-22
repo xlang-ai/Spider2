@@ -1,0 +1,42 @@
+
+version: 2
+
+models:
+  - name: stg_track
+    description: "Contains list of tracks"
+    columns:
+      - name: track_id
+        description: "Track identifier key"
+        tests:
+          - not_null
+          - unique
+      - name: track_name
+        description: "Name of the track"
+        tests:
+          - not_null
+      - name: album_id
+        description: "Album identifier key"
+        tests:
+          - not_null
+      - name: media_type_id
+        description: "Media type identifier key"
+        tests:
+          - not_null
+      - name: genre_id
+        description: "Genre identifier key"
+        tests:
+          - not_null
+      - name: track_composer_name
+        description: "Name of the composer"
+      - name: track_milliseconds
+        description: "Length of the track in milliseconds"
+        tests:
+          - not_null
+      - name: track_bytes
+        description: "Size of the track in bytes"
+        tests:
+          - not_null
+      - name: track_unit_price
+        description: "Price of the track (USD)"
+        tests:
+          - not_null
