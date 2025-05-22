@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.nhtsa_traffic_fatalities` and `bigquery-public-data.census_bureau_usa` and `bigquery-public-data.utility_us` database to solve this problem.

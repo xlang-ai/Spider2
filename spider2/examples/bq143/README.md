@@ -1,1 +1,0 @@
-1. please query `isb-cgc-bq.CPTAC` and `isb-cgc-bq.PDC_metadata` database to solve this problem.

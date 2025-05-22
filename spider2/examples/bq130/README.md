@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.covid19_nyt` database to solve this problem.

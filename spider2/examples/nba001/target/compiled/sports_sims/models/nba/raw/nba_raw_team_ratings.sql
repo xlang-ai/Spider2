@@ -1,1 +1,0 @@
-select * from 'data/nba/nba_team_ratings.csv'

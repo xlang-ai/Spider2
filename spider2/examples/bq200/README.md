@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.baseball` database to solve this problem.

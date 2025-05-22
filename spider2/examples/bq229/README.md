@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.open_images` database to solve this problem.

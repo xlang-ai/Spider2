@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.dimensions_ai_covid19` database to solve this problem.

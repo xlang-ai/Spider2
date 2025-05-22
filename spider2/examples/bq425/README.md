@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.ebi_chembl` database to solve this problem.

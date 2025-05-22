@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.usa_names` database to solve this problem.

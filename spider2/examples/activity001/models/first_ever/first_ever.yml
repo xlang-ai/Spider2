@@ -1,9 +1,0 @@
-version: 2
-
-models:
-
-  - name: dataset__first_ever_1
-    description: dataset used to validate that the `first_ever` relationship is implemented properly. Also selects a parsed json feature from both the primary and appended activity to validate that json parsing works as expected when developers specify columns packed in the `feature_json` in the `included_columns` argument of the `activity` macro.
-    tests:
-      - dbt_utils.equality:
-          compare_model: ref("output__first_ever_1")

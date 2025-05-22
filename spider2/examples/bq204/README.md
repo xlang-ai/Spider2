@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.eclipse_megamovie` database to solve this problem.

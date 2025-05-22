@@ -1,1 +1,0 @@
-1. please query `GITHUB_REPOS_DATE.MONTH`, `GITHUB_REPOS_DATE.GITHUB_REPOS`, `GITHUB_REPOS_DATE.YEAR`, `GITHUB_REPOS_DATE.DAY` database to solve this problem.

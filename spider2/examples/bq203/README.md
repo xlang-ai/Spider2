@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.new_york_subway` and `bigquery-public-data.new_york_taxi_trips` and `bigquery-public-data.new_york_trees` and `bigquery-public-data.new_york_mv_collisions` and `bigquery-public-data.new_york_citibike` and `bigquery-public-data.new_york_311` database to solve this problem.

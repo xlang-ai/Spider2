@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.cymbal_investments` database to solve this problem.

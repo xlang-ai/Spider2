@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.gbif` database to solve this problem.

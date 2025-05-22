@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.census_bureau_international` database to solve this problem.

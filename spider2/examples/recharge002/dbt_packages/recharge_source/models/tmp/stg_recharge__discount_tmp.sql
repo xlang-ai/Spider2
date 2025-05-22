@@ -1,3 +1,0 @@
-
-select *
-from {{ var('discount') }}

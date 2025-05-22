@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.fdic_banks` and `bigquery-public-data.fec` and `bigquery-public-data.census_bureau_acs` and `bigquery-public-data.hud_zipcode_crosswalk` and `bigquery-public-data.geo_census_tracts` database to solve this problem.

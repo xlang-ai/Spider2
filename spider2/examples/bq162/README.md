@@ -1,1 +1,0 @@
-1. please query `isb-cgc-bq.HTAN_versioned` database to solve this problem.

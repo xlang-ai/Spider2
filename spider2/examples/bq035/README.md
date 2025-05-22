@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.san_francisco` database to solve this problem.

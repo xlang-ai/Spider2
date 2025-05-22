@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.census_bureau_usa` and `bigquery-public-data.iowa_liquor_sales` database to solve this problem.

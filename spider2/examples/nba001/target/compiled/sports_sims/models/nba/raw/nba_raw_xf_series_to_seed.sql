@@ -1,1 +1,0 @@
-select * from 'data/nba/xf_series_to_seed.csv' group by all

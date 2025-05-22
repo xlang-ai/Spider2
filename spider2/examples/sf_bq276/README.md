@@ -1,2 +1,0 @@
-1. please query `NOAA_PORTS.GEO_US_BOUNDARIES`, `NOAA_PORTS.GEO_INTERNATIONAL_PORTS`, `NOAA_PORTS.NOAA_HURRICANES` database to solve this problem.
-2. Please complete the file result.csv with your answer.

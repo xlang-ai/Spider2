@@ -1,1 +1,0 @@
-1. please query `isb-cgc-bq.pancancer_atlas` database to solve this problem.

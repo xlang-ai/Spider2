@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.openaq` and `bigquery-public-data.epa_historical_air_quality` database to solve this problem.

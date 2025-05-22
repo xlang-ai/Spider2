@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.nppes` database to solve this problem.

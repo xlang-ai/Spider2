@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.ghcn_d` database to solve this problem.

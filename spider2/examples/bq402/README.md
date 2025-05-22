@@ -1,1 +1,0 @@
-1. please query `data-to-insights.ecommerce` database to solve this problem.

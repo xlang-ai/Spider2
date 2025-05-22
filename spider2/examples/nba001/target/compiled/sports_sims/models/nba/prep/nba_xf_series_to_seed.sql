@@ -1,1 +1,0 @@
-select series_id, seed from "nba"."main"."nba_raw_xf_series_to_seed"

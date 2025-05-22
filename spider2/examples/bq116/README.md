@@ -1,1 +1,0 @@
-1. please query `bigquery-public-data.sec_quarterly_financials` database to solve this problem.
