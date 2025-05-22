@@ -234,7 +234,7 @@ You must follow this [submission guidance](https://docs.google.com/document/d/1s
 # 🙇‍♂️ Acknowledgement
 
 We thank Snowflake for their generous support in hosting the Spider 2.0 Challenge.
-We also thank Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao, and Binyuan Hui for their helpful feedback on this work.
+We also thank Minghang Deng, Tianbao Xie, Yiheng Xu, Fan Zhou, Yuting Lan, Per Jacobsson, Yiming Huang, Canwen Xu, Zhewei Yao, and Binyuan Hui for their helpful feedback on this work.
 The website and submission guidelines are greatly inspired by [BIRD-SQL](https://bird-bench.github.io/), and we thank them for their contributions.
 
 <p align="center">
