@@ -20,12 +20,12 @@ With this configuration, the system automatically uses the default warehouse `CO
 
 ## Why Change the Warehouse?
 
-The default warehouse (`COMPUTE_WH_PARTICIPANT`) may experience slower query performance due to high usage. To improve query speed, you can switch to one of two alternative warehouses: `COMPUTE_WH_PARTICIPANT_1` or `COMPUTE_WH_PARTICIPANT_2`. These warehouses have fewer users, faster computation, and no queuing.
+The default warehouse (`COMPUTE_WH_PARTICIPANT`) may experience slower query performance due to high usage. To improve query speed, you can switch to another warehouse: `COMPUTE_WH_PARTICIPANT_1`. These warehouses have fewer users, faster computation, and no queuing.
 
 
 ## How to Update the Warehouse
 
-If you notice slow query response times, you can manually modify your `snowflake_credential.json` file to use one of our alternative warehouses:
+If you notice slow query response times, you can manually modify your `snowflake_credential.json` file to use another warehouse:
 
 ```json
 {
@@ -33,16 +33,5 @@ If you notice slow query response times, you can manually modify your `snowflake
     "password": "your_password",
     "account": "RSRSBDK-YDB67606",
     "warehouse": "COMPUTE_WH_PARTICIPANT_1" 
-}
-```
-
-Or alternatively:
-
-```json
-{
-    "user": "your_username",
-    "password": "your_password",
-    "account": "RSRSBDK-YDB67606",
-    "warehouse": "COMPUTE_WH_PARTICIPANT_2"
 }
 ```
