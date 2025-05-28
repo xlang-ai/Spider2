@@ -8,6 +8,8 @@
 
 ## 📰 News
 
+- **2025-05-28**: If you think your database query speed is slow, please refer to [How to change snowflake compute WH](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake-wh-change.md). 
+
 - **2025-05-22**: We have created a new task setting, `Spider2-DBT`, and removed the original Spider2 setting. [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) consists of only 68 tasks, enabling quick and smooth benchmarking with [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt). It is a comprehensive, repository-level text-to-SQL task.
 
 - **2025-04-20**: We provide the [ground-truth tables](https://github.com/xlang-ai/Spider2/tree/main/methods/gold-tables) for spider2-lite and spider2-snow to help quick benchmarking and analysis. However, when using this setting, you must indicate that you are using `oracle tables`.
@@ -102,7 +104,7 @@ We also release some gold SQLs to help users design prompts and methods, **note 
 
 **Important Notes:**
 
-- If you want to access the **FULL dataset** of Spider 2.0 or Spider 2.0-Lite, you must complete **Step1** and **Step2**.
+- If you want to access the **FULL dataset** of Spider 2.0-Lite, you must complete **Step1** and **Step2**.
 
 - If you only want access to the **FULL dataset** of Spider 2.0-Snow, you only need to complete **Step2**.
 
