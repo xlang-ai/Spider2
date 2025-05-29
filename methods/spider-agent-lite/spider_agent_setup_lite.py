@@ -3,6 +3,7 @@ import json
 import shutil
 import zipfile
 import argparse
+from tqdm import tqdm
 
 JSONL_PATH = '../../spider2-lite/spider2-lite.jsonl'
 DATABASE_PATH_BQ = '../../spider2-lite/resource/databases/bigquery/'
@@ -96,7 +97,7 @@ def add_agent_setting():
     shutil.copy(JSONL_PATH, agent_dir_path)
 
 
-    for example in examples:
+    for example in tqdm(examples):
         instance_id = example['instance_id']
         example_path = os.path.join(agent_dir_path, f"{instance_id}")
         if not os.path.exists(example_path):
@@ -106,7 +107,7 @@ def add_agent_setting():
             shutil.copy(os.path.join(DOCUMENT_PATH, external_knowledge), example_path)
 
 
-    for example in examples:
+    for example in tqdm(examples):
         instance_id = example['instance_id']
 
         if instance_id.startswith('bq') or instance_id.startswith('ga'):
@@ -142,7 +143,7 @@ def add_agent_setting():
 
 
 
-    for example in examples:
+    for example in tqdm(examples):
         instance_id = example['instance_id']
         credential_path_sf = 'snowflake_credential.json'
         credential_path_bq = 'bigquery_credential.json'
