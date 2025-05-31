@@ -6,9 +6,7 @@
   <a href="https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing">Submission Guidance</a>
 </p>
 
-## 📰 News
-
-- **2025-05-28**: If you think your database query speed is slow, please refer to [How to change snowflake compute WH](https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake-wh-change.md). 
+## 📰 News 
 
 - **2025-05-22**: We have created a new task setting, `Spider2-DBT`, and removed the original Spider2 setting. [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) consists of only 68 tasks, enabling quick and smooth benchmarking with [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt). It is a comprehensive, repository-level text-to-SQL task.
 
