@@ -21,11 +21,9 @@ class BasePromptBuilder:
     
     
     def build_initial_prompt(self, item, args):
-        """Build initial conversation prompt - 子类需要实现"""
         raise NotImplementedError
 
 class SpiderAgentPromptBuilder(BasePromptBuilder):
-    """默认提示构建器"""
 
     def get_database_info(self, db_id, args):
         """Get database directory listing"""
