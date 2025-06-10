@@ -8,22 +8,24 @@
 
 ## 📰 News 
 
+- **2025-06-10**: We implemented a [tool-call-based Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-tc) for Spider 2.0-Snow that requires no Docker and significantly improves runtime performance.
+
 - **2025-05-22**: We have created a new task setting, `Spider2-DBT`, and removed the original Spider2 setting. [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) consists of only 68 tasks, enabling quick and smooth benchmarking with [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt). It is a comprehensive, repository-level text-to-SQL task.
 
 - **2025-04-20**: We provide the [ground-truth tables](https://github.com/xlang-ai/Spider2/tree/main/methods/gold-tables) for spider2-lite and spider2-snow to help quick benchmarking and analysis. However, when using this setting, you must indicate that you are using `oracle tables`.
 
 - **2025-01-10**: Please refer to the [data update log](https://docs.google.com/document/d/1a69mxO7m1nMndXp8H_-aggvYDbcbiS3rV9GPXEw-DeM/edit?usp=sharing) to track changes in the evaluation examples. The [leaderboard](https://spider2-sql.github.io/) results will also change dynamically accordingly.
 
-- **2025-01-07**: Please note that we do not recommend using the Spider 2.0 Gold SQL we released for SFT, as it may affect the fairness of evaluation and hinder better benchmarking of the model's SQL capabilities. The release of Gold SQL is intended to help users design prompts.
+<!-- - **2025-01-07**: Please note that we do not recommend using the Spider 2.0 Gold SQL we released for SFT, as it may affect the fairness of evaluation and hinder better benchmarking of the model's SQL capabilities. The release of Gold SQL is intended to help users design prompts.
 
-- **2024-12-26**: **Using Spider-Agent to benchmark your LLMs!** Considering the widespread attention to the traditional text-to-SQL setting, we now recommend using [spider-agent-lite](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) to work with [spider2-lite](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite) and [spider2-snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow/evaluation_suite) for benchmarking your LLMs. The final output should be CSV files, not SQLs.
+- **2024-12-26**: **Using Spider-Agent to benchmark your LLMs!** Considering the widespread attention to the traditional text-to-SQL setting, we now recommend using [spider-agent-lite](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-lite) and [spider-agent-snow](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-snow) to work with [spider2-lite](https://github.com/xlang-ai/Spider2/tree/main/spider2-lite/evaluation_suite) and [spider2-snow](https://github.com/xlang-ai/Spider2/tree/main/spider2-snow/evaluation_suite) for benchmarking your LLMs. The final output should be CSV files, not SQLs. -->
 
 - **2024-12-24**: Considering the many evaluation requirements, we have decided to **release all examples and gold answers for self-evaluation**. However, only a small amount of gold SQL is available. The leaderboard is still active. To have your method officially validated and upload your scores to the leaderboard, please follow the [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing).
 
 
 ## 🏆 Milestone
 
-As of now, all methods combined can solve 63.8% (349/547) of the examples in Spider 2.0!
+As of now, all methods combined can solve 66.91% (366/547) of the examples in Spider 2.0!
 
 
 ## 👋 Overview
@@ -65,7 +67,7 @@ As of now, all methods combined can solve 63.8% (349/547) of the examples in Spi
 </div>
 
 
-### Why Spider 2.0?
+<!-- ### Why Spider 2.0?
 
 In 2018, we introduced [Spider 1.0](https://yale-lily.github.io/spider), [SParC](https://yale-lily.github.io/sparc), and [CoSQL](https://yale-lily.github.io/cosql) as part of the Yale Semantic Parsing and Text-to-SQL Challenge Series, attracting over 300 submissions from leading research labs worldwide.
 
@@ -78,7 +80,7 @@ Notably, as shown below, even the most advanced LLMs, including GPT-4, solve onl
 |                 | Spider 1.0 dev | Spider 1.0 test | BIRD test | Spider 2.0-lite | Spider 2.0-snow |
 | --------------- | -------------- | --------------- | --------- | --------------- | --------------- |
 | DailSQL + GPT-4 | 82.4           | 86.6            | 57.4      | 5.6             | 2.2             |
-| CodeS-15B       | 85.4           | -               | 59.3      | 0.7             | 0.0             |
+| CodeS-15B       | 85.4           | -               | 59.3      | 0.7             | 0.0             | -->
 
 
 ### Data
@@ -107,7 +109,12 @@ We also release some gold SQLs to help users design prompts and methods, **note 
 - If you only want access to the **FULL dataset** of Spider 2.0-Snow, you only need to complete **Step2**.
 
 
-### Spider 2.0-Snow and Spider 2.0-Lite (UPDATE 2024-12-26)
+### Spider 2.0-Snow (Tool-call Format, UPDATE 2025-06-10)
+A Docker-free and ultra-fast Spider-Agent implementation for rapid benchmarking of any model.
+
+- [spider-agent-tool-call](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-tc)
+
+### Spider 2.0-Snow and Spider 2.0-Lite (Based on Docker)
 
 **We highly recommend that you directly use Spider2-snow and Spider2-lite for benchmarking and research. First, run the Spider-Agent Framework!!**
 
