@@ -25,7 +25,7 @@
 
 ## 🏆 Milestone
 
-As of now, all methods combined can solve 66.91% (366/547) of the examples in Spider 2.0!
+As of now, all methods combined can solve 72.21% (395/547) of the examples in Spider 2.0!
 
 
 ## 👋 Overview
