@@ -8,7 +8,7 @@
 
 ## 📰 News 
 
-- **2025-07-13**: We update `spider2-snow.jsonl` to resolve ambiguities, with the previous version renamed to `spider2-snow-0713.jsonl` for reference.
+- **2025-07-13**: We update [`spider2-snow.jsonl`](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow.jsonl) to resolve ambiguities, with the previous version renamed to [`spider2-snow-0713.jsonl`](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow-0713.jsonl) for reference.
 
 - **2025-06-10**: We implemented a [tool-call-based Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-tc) for Spider 2.0-Snow that requires no Docker and significantly improves runtime performance.
 
