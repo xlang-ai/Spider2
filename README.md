@@ -8,6 +8,8 @@
 
 ## 📰 News 
 
+- **2025-07-13**: We update `spider2-snow.jsonl` to resolve ambiguities, with the previous version renamed to `spider2-snow-0713.jsonl` for reference.
+
 - **2025-06-10**: We implemented a [tool-call-based Spider-Agent](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-tc) for Spider 2.0-Snow that requires no Docker and significantly improves runtime performance.
 
 - **2025-05-22**: We have created a new task setting, `Spider2-DBT`, and removed the original Spider2 setting. [spider2-dbt](https://github.com/xlang-ai/Spider2/tree/main/spider2-dbt) consists of only 68 tasks, enabling quick and smooth benchmarking with [spider-agent-dbt](https://github.com/xlang-ai/Spider2/tree/main/methods/spider-agent-dbt). It is a comprehensive, repository-level text-to-SQL task.
