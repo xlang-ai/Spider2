@@ -1,16 +1,4 @@
 table_name,description,DDL
-LOGS,,"create or replace TABLE LOGS (
-	""block_hash"" VARCHAR(16777216),
-	""block_number"" NUMBER(38,0),
-	""block_timestamp"" NUMBER(38,0),
-	""transaction_hash"" VARCHAR(16777216),
-	""transaction_index"" NUMBER(38,0),
-	""log_index"" NUMBER(38,0),
-	""address"" VARCHAR(16777216),
-	""data"" VARCHAR(16777216),
-	""topics"" VARIANT,
-	""removed"" BOOLEAN
-);"
 DECODED_EVENTS,,"create or replace TABLE DECODED_EVENTS (
 	BLOCK_HASH VARCHAR(16777216),
 	BLOCK_NUMBER NUMBER(38,0),
@@ -24,4 +12,16 @@ DECODED_EVENTS,,"create or replace TABLE DECODED_EVENTS (
 	TOPICS VARIANT,
 	ARGS VARCHAR(16777216),
 	REMOVED BOOLEAN
+);"
+LOGS,,"create or replace TABLE LOGS (
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""transaction_hash"" VARCHAR(16777216),
+	""transaction_index"" NUMBER(38,0),
+	""log_index"" NUMBER(38,0),
+	""address"" VARCHAR(16777216),
+	""data"" VARCHAR(16777216),
+	""topics"" VARIANT,
+	""removed"" BOOLEAN
 );"
