@@ -25,9 +25,6 @@
 - **2024-12-24**: Considering the many evaluation requirements, we have decided to **release all examples and gold answers for self-evaluation**. However, only a small amount of gold SQL is available. The leaderboard is still active. To have your method officially validated and upload your scores to the leaderboard, please follow the [submission guidance](https://docs.google.com/document/d/1sCobAqJZcko-Vl3biOycwvCIR7kTwBPrhsgVfvaX1Fg/edit?usp=sharing).
 
 
-## 🏆 Milestone
-
-As of now, all methods combined can solve 72.21% (395/547) of the examples in Spider 2.0!
 
 
 ## 👋 Overview
