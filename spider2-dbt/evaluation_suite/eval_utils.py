@@ -111,20 +111,23 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     tolerance = 1e-2
 
     def vectors_match(v1, v2, tol=tolerance, ignore_order_=False):
-        if ignore_order_:
-            v1, v2 = (sorted(v1, key=lambda x: (x is None, str(x), isinstance(x, (int, float)))),
-                    sorted(v2, key=lambda x: (x is None, str(x), isinstance(x, (int, float)))))
-        if len(v1) != len(v2):
-            return False
-        for a, b in zip(v1, v2):
-            if pd.isna(a) and pd.isna(b):
-                continue
-            elif isinstance(a, (int, float)) and isinstance(b, (int, float)):
-                if not math.isclose(float(a), float(b), abs_tol=tol):
-                    return False
-            elif a != b:
+        try:
+            if ignore_order_:
+                v1, v2 = (sorted(v1, key=lambda x: (x is None, str(x), isinstance(x, (int, float)))),
+                        sorted(v2, key=lambda x: (x is None, str(x), isinstance(x, (int, float)))))
+            if len(v1) != len(v2):
                 return False
-        return True
+            for a, b in zip(v1, v2):
+                if pd.isna(a) and pd.isna(b):
+                    continue
+                elif isinstance(a, (int, float)) and isinstance(b, (int, float)):
+                    if not math.isclose(float(a), float(b), abs_tol=tol):
+                        return False
+                elif a != b:
+                    return False
+            return True
+        except Exception as e:
+            return False
     
     if condition_cols != []:
         gold_cols = gold.iloc[:, condition_cols]
