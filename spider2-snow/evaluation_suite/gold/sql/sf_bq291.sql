@@ -65,7 +65,8 @@ WITH daily_forecasts AS (
         "NOAA_GLOBAL_FORECAST_SYSTEM"."NOAA_GLOBAL_FORECAST_SYSTEM"."NOAA_GFS0P25" AS "TRI"
     CROSS JOIN LATERAL FLATTEN(input => "TRI"."forecast") AS "forecast"
     WHERE
-        TO_TIMESTAMP_NTZ(TO_NUMBER("TRI"."creation_time") / 1000000) BETWEEN '2019-07-01' AND '2021-07-31'  
+        TO_TIMESTAMP_NTZ(TO_NUMBER("TRI"."creation_time")/1000000) >= '2019-07-01'
+          AND TO_TIMESTAMP_NTZ(TO_NUMBER("TRI"."creation_time")/1000000) <  '2019-08-01'  
         AND ST_DWITHIN(
             ST_GEOGFROMWKB("TRI"."geography"),
             ST_POINT(26.75, 51.5),
