@@ -260,12 +260,8 @@ def evaluate_spider2sql(args):
                     score = 0
                     error_info = dbms_error_info
                 else:                    
-                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
-                    if '_' in id:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                    else:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                        
+                    pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))
+                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     all_files = os.listdir(gold_result_dir)
                     csv_files = [file for file in all_files if pattern.match(file)]
                     csv_files = sorted(csv_files)
@@ -293,11 +289,7 @@ def evaluate_spider2sql(args):
                     error_info = dbms_error_info
                 else:
                     pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
-                    if '_' in id:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                    else:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-
+                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     all_files = os.listdir(gold_result_dir)
                     csv_files = [file for file in all_files if pattern.match(file)]
                     csv_files = sorted(csv_files)
@@ -324,11 +316,7 @@ def evaluate_spider2sql(args):
                     error_info = dbms_error_info
                 else:                    
                     pred_pd = pd.read_csv(os.path.join("temp", f"{id}.csv"))  
-                    if '_' in id:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                    else:
-                        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                        
+                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     all_files = os.listdir(gold_result_dir)
                     csv_files = [file for file in all_files if pattern.match(file)]
                     csv_files = sorted(csv_files)
@@ -350,10 +338,7 @@ def evaluate_spider2sql(args):
         elif mode == "exec_result":
             try:
                 pred_pd = pd.read_csv(os.path.join(args.result_dir, f"{id}.csv"))
-                if '_' in id:
-                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                else:
-                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+                pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                 all_files = os.listdir(gold_result_dir)
                 csv_files = [file for file in all_files if pattern.match(file)]
                 csv_files = sorted(csv_files)

@@ -206,10 +206,7 @@ def evaluate_single_sql_instance(id, eval_standard_dict, spider2sql_metadata, pr
                     shutil.copy2(os.path.join(thread_temp_dir, f"{id}.csv"), 
                                os.path.join(result_csv_dir, f"{id}.csv"))
                 
-                if '_' in id:
-                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-                else:
-                    pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+                pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
                     
                 all_files = os.listdir(gold_result_dir)
                 csv_files = [file for file in all_files if pattern.match(file)]
@@ -254,10 +251,7 @@ def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir
     try:
         pred_pd = pd.read_csv(os.path.join(pred_result_dir, f"{id}.csv"))
         
-        if '_' in id:
-            pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
-        else:
-            pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
+        pattern = re.compile(rf'^{re.escape(id)}(_[a-z])?\.csv$')
             
         all_files = os.listdir(gold_result_dir)
         csv_files = [file for file in all_files if pattern.match(file)]
