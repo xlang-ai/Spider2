@@ -1,0 +1,40 @@
+## ST_LINEINTERPOLATEPOINT
+
+ST_LINEINTERPOLATEPOINT(linestring_geography, fraction)
+
+**Description**
+
+Gets a point at a specific fraction in a linestring ` GEOGRAPHY ` value.
+
+**Definitions**
+
+* ` linestring_geography ` : A linestring ` GEOGRAPHY ` on which the target point is located.
+* ` fraction ` : A ` FLOAT64 ` value that represents a fraction along the linestring ` GEOGRAPHY ` where the target point is located. This should be an inclusive value between ` 0 ` (start of the linestring) and ` 1 ` (end of the linestring).
+
+**Details**
+
+* Returns ` NULL ` if any input argument is ` NULL ` .
+* Returns an empty geography if ` linestring_geography ` is an empty geography.
+* Returns an error if ` linestring_geography ` is not a linestring or an empty geography, or if ` fraction ` is outside the ` [0, 1] ` range.
+
+**Return Type**
+
+` GEOGRAPHY `
+
+**Example**
+
+The following query returns a few points on a linestring. Notice that the midpoint of the linestring ` LINESTRING(1 1, 5 5) ` is slightly different from
+` POINT(3 3) ` because the ` GEOGRAPHY ` type uses geodesic line segments.
+
+
+WITH fractions AS ( SELECT 0 AS fraction UNION ALL SELECT 0.5 UNION ALL SELECT 1 UNION ALL SELECT NULL ) SELECT fraction,
+ST_LINEINTERPOLATEPOINT(ST_GEOGFROMTEXT('LINESTRING(1 1, 5 5)'), fraction) AS point FROM fractions
+
+/*-------------+-------------------------------------------*
+| fraction    | point                                     |
++-------------+-------------------------------------------+
+| 0           | POINT(1 1)                                |
+| 0.5         | POINT(2.99633827268976 3.00182528336078)  |
+| 1           | POINT(5 5)                                |
+| NULL        | NULL                                      |
+*-------------+-------------------------------------------*/

@@ -1,0 +1,1 @@
+SELECT day_of_week, SUM(`qty_sold(kg)` * `unit_selling_px_rmb/kg`) AS total_revenue FROM veg_txn_df GROUP BY day_of_week;

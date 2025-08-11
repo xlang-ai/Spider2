@@ -1,0 +1,1 @@
+SELECT region, AVG(sales) AS avg_sales FROM weekly_sales GROUP BY region HAVING AVG(sales) > (SELECT AVG(sales) FROM weekly_sales);

@@ -1,0 +1,43 @@
+table_name,description,DDL
+TOP_TERMS,,"create or replace TABLE TOP_TERMS (
+	""dma_name"" VARCHAR(16777216),
+	""dma_id"" NUMBER(38,0),
+	""term"" VARCHAR(16777216),
+	""week"" DATE,
+	""score"" NUMBER(38,0),
+	""rank"" NUMBER(38,0),
+	""refresh_date"" DATE
+);"
+TOP_RISING_TERMS,,"create or replace TABLE TOP_RISING_TERMS (
+	""dma_id"" NUMBER(38,0),
+	""term"" VARCHAR(16777216),
+	""week"" DATE,
+	""score"" NUMBER(38,0),
+	""rank"" NUMBER(38,0),
+	""percent_gain"" NUMBER(38,0),
+	""refresh_date"" DATE,
+	""dma_name"" VARCHAR(16777216)
+);"
+INTERNATIONAL_TOP_RISING_TERMS,,"create or replace TABLE INTERNATIONAL_TOP_RISING_TERMS (
+	""percent_gain"" NUMBER(38,0),
+	""region_name"" VARCHAR(16777216),
+	""term"" VARCHAR(16777216),
+	""week"" DATE,
+	""score"" NUMBER(38,0),
+	""refresh_date"" DATE,
+	""country_name"" VARCHAR(16777216),
+	""country_code"" VARCHAR(16777216),
+	""region_code"" VARCHAR(16777216),
+	""rank"" NUMBER(38,0)
+);"
+INTERNATIONAL_TOP_TERMS,,"create or replace TABLE INTERNATIONAL_TOP_TERMS (
+	""term"" VARCHAR(16777216),
+	""refresh_date"" DATE,
+	""region_code"" VARCHAR(16777216),
+	""country_code"" VARCHAR(16777216),
+	""region_name"" VARCHAR(16777216),
+	""week"" DATE,
+	""score"" NUMBER(38,0),
+	""rank"" NUMBER(38,0),
+	""country_name"" VARCHAR(16777216)
+);"

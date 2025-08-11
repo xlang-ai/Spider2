@@ -1,0 +1,135 @@
+table_name,DDL
+hardware_dim_customer,"CREATE TABLE hardware_dim_customer (
+    customer_code INTEGER,
+    customer TEXT,
+    platform TEXT,
+    channel TEXT,
+    market TEXT,
+    sub_zone TEXT,
+    region TEXT
+);"
+hardware_fact_pre_invoice_deductions,"CREATE TABLE hardware_fact_pre_invoice_deductions (
+    customer_code INTEGER,
+    fiscal_year INTEGER,
+    pre_invoice_discount_pct REAL
+);"
+web_sales_reps,"CREATE TABLE web_sales_reps (
+    id INTEGER,
+    name TEXT,
+    region_id INTEGER
+);"
+hardware_dim_product,"CREATE TABLE hardware_dim_product (
+    product_code TEXT,
+    division TEXT,
+    segment TEXT,
+    category TEXT,
+    product TEXT,
+    variant TEXT
+);"
+web_orders,"CREATE TABLE web_orders (
+    id INTEGER,
+    account_id INTEGER,
+    occurred_at TEXT,
+    standard_qty INTEGER,
+    gloss_qty INTEGER,
+    poster_qty INTEGER,
+    total INTEGER,
+    standard_amt_usd REAL,
+    gloss_amt_usd REAL,
+    poster_amt_usd REAL,
+    total_amt_usd REAL
+);"
+StaffHours,"CREATE TABLE StaffHours (
+    StaffMember TEXT,
+    EventDate TEXT,
+    EventTime TEXT,
+    EventType TEXT
+);"
+university_enrollment,"CREATE TABLE university_enrollment (
+    OfferNo INTEGER,
+    StdNo INTEGER,
+    EnrGrade REAL
+);"
+university_faculty,"CREATE TABLE university_faculty (
+    FacNo INTEGER,
+    FacFirstName TEXT,
+    FacLastName TEXT,
+    FacCity TEXT,
+    FacState TEXT,
+    FacDept TEXT,
+    FacRank TEXT,
+    FacSalary INTEGER,
+    FacSupervisor REAL,
+    FacHireDate TEXT,
+    FacZipCode TEXT
+);"
+university_student,"CREATE TABLE university_student (
+    StdNo INTEGER,
+    StdFirstName TEXT,
+    StdLastName TEXT,
+    StdCity TEXT,
+    StdState TEXT,
+    StdZip TEXT,
+    StdMajor TEXT,
+    StdClass TEXT,
+    StdGPA REAL
+);"
+university_offering,"CREATE TABLE university_offering (
+    OfferNo INTEGER,
+    CourseNo TEXT,
+    OffTerm TEXT,
+    OffYear INTEGER,
+    OffLocation TEXT,
+    OffTime TEXT,
+    FacNo REAL,
+    OffDays TEXT
+);"
+web_accounts,"CREATE TABLE web_accounts (
+    id INTEGER,
+    name TEXT,
+    website TEXT,
+    lat REAL,
+    long REAL,
+    primary_poc TEXT,
+    sales_rep_id INTEGER
+);"
+web_events,"CREATE TABLE web_events (
+    id INTEGER,
+    account_id INTEGER,
+    occurred_at TEXT,
+    channel TEXT
+);"
+SalaryDataset,"CREATE TABLE SalaryDataset (
+    index INTEGER,
+    CompanyName TEXT,
+    JobTitle TEXT,
+    SalariesReported REAL,
+    Location TEXT,
+    Salary TEXT
+);"
+web_region,"CREATE TABLE web_region (
+    id INTEGER,
+    name TEXT
+);"
+hardware_fact_gross_price,"CREATE TABLE hardware_fact_gross_price (
+    product_code TEXT,
+    fiscal_year INTEGER,
+    gross_price REAL
+);"
+hardware_fact_manufacturing_cost,"CREATE TABLE hardware_fact_manufacturing_cost (
+    product_code TEXT,
+    cost_year INTEGER,
+    manufacturing_cost REAL
+);"
+university_course,"CREATE TABLE university_course (
+    CourseNo TEXT,
+    CrsDesc TEXT,
+    CrsUnits INTEGER
+);"
+hardware_fact_sales_monthly,"CREATE TABLE hardware_fact_sales_monthly (
+    date TEXT,
+    product_code TEXT,
+    customer_code INTEGER,
+    sold_quantity INTEGER,
+    fiscal_year INTEGER
+);"

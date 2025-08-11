@@ -1,0 +1,156 @@
+table_name,description,DDL
+DCLDE_2020_DETECTION_README,,"create or replace TABLE DCLDE_2020_DETECTION_README (
+	""table"" VARCHAR(16777216),
+	""field"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216)
+);"
+DCLDE_2020_1705_ARRAY,,"create or replace TABLE DCLDE_2020_1705_ARRAY (
+	""array_start_local"" NUMBER(38,0),
+	""array_end_local"" NUMBER(38,0),
+	""array_start_utc"" NUMBER(38,0),
+	""array_end_utc"" NUMBER(38,0),
+	""array1"" VARCHAR(16777216),
+	""array2"" VARCHAR(16777216),
+	""hp1_dist"" FLOAT,
+	""hp1_ad"" NUMBER(38,0),
+	""hp2_dist"" FLOAT,
+	""hp2_ad"" NUMBER(38,0),
+	""hp3_dist"" FLOAT,
+	""hp3_ad"" NUMBER(38,0),
+	""hp4_dist"" FLOAT,
+	""hp4_ad"" NUMBER(38,0),
+	""hp5_dist"" FLOAT,
+	""hp5_ad"" NUMBER(38,0),
+	""hp6_dist"" FLOAT,
+	""hp6_ad"" NUMBER(38,0)
+);"
+DCLDE_2020_1705_ODONTOCETE_DETECTIONS,,"create or replace TABLE DCLDE_2020_1705_ODONTOCETE_DETECTIONS (
+	""detection_time_start_local"" NUMBER(38,0),
+	""detection_time_start_utc"" NUMBER(38,0),
+	""detection_time_end_utc"" NUMBER(38,0),
+	""acoustic_detection_number"" VARCHAR(16777216),
+	""sighting_number"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608),
+	""first_angle"" NUMBER(38,0),
+	""first_distance"" NUMBER(38,0),
+	""beam_distance"" NUMBER(38,0),
+	""beam_time_utc"" NUMBER(38,0),
+	""detection_distance"" NUMBER(38,0),
+	""species1_id"" VARCHAR(16777216),
+	""species2_id"" VARCHAR(16777216),
+	""species3_id"" VARCHAR(16777216)
+);"
+DCLDE_2020_1705_VISUAL_SIGHTINGS,,"create or replace TABLE DCLDE_2020_1705_VISUAL_SIGHTINGS (
+	""local_ship_date"" DATE,
+	""sighting_local_time"" TIME(9),
+	""sighting_number"" VARCHAR(16777216),
+	""species_id"" VARCHAR(16777216),
+	""effort"" VARCHAR(16777216),
+	""effort_type"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608),
+	""bearing"" NUMBER(38,0),
+	""distance"" FLOAT,
+	""total_best"" FLOAT,
+	""total_high"" NUMBER(38,0),
+	""total_low"" NUMBER(38,0)
+);"
+DCLDE_2020_1705_MINKE_DETECTIONS,,"create or replace TABLE DCLDE_2020_1705_MINKE_DETECTIONS (
+	""detection_time_start_local"" NUMBER(38,0),
+	""detection_time_start_utc"" NUMBER(38,0),
+	""detection_time_end_utc"" NUMBER(38,0),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608)
+);"
+DCLDE_2020_1706_VISUAL_SIGHTINGS,,"create or replace TABLE DCLDE_2020_1706_VISUAL_SIGHTINGS (
+	""local_ship_date"" DATE,
+	""sighting_local_time"" TIME(9),
+	""sighting_number"" VARCHAR(16777216),
+	""species_id"" VARCHAR(16777216),
+	""effort"" VARCHAR(16777216),
+	""effort_type"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608),
+	""bearing"" NUMBER(38,0),
+	""distance"" FLOAT,
+	""total_best"" FLOAT,
+	""total_high"" NUMBER(38,0),
+	""total_low"" NUMBER(38,0)
+);"
+DCLDE_2020_SPECIES_LOOKUP,,"create or replace TABLE DCLDE_2020_SPECIES_LOOKUP (
+	""code"" VARCHAR(16777216),
+	""common_name"" VARCHAR(16777216),
+	""species_name"" VARCHAR(16777216)
+);"
+DCLDE_SETTE_ARRAY_DEPTH,,"create or replace TABLE DCLDE_SETTE_ARRAY_DEPTH (
+	""utc_time"" NUMBER(38,0),
+	""local_time"" NUMBER(38,0),
+	""inline_depth"" FLOAT,
+	""end_depth"" FLOAT
+);"
+DCLDE_2020_1706_ARRAY,,"create or replace TABLE DCLDE_2020_1706_ARRAY (
+	""array_start_local"" NUMBER(38,0),
+	""array_end_local"" NUMBER(38,0),
+	""array_start_utc"" NUMBER(38,0),
+	""array_end_utc"" NUMBER(38,0),
+	""array1"" VARCHAR(16777216),
+	""array2"" VARCHAR(16777216),
+	""hp1_dist"" FLOAT,
+	""hp1_ad"" NUMBER(38,0),
+	""hp2_dist"" FLOAT,
+	""hp2_ad"" NUMBER(38,0),
+	""hp3_dist"" FLOAT,
+	""hp3_ad"" NUMBER(38,0),
+	""hp4_dist"" VARCHAR(16777216),
+	""hp4_ad"" VARCHAR(16777216),
+	""hp5_dist"" VARCHAR(16777216),
+	""hp5_ad"" VARCHAR(16777216),
+	""hp6_dist"" VARCHAR(16777216),
+	""hp6_ad"" VARCHAR(16777216)
+);"
+DCLDE_LASKER_ARRAY_DEPTH,,"create or replace TABLE DCLDE_LASKER_ARRAY_DEPTH (
+	""utc_time"" NUMBER(38,0),
+	""local_time"" NUMBER(38,0),
+	""inline_depth"" FLOAT,
+	""end_depth"" FLOAT
+);"
+DCLDE_LASKER_GPS,,"create or replace TABLE DCLDE_LASKER_GPS (
+	""utc_time"" NUMBER(38,0),
+	""local_time"" NUMBER(38,0),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""speed"" FLOAT,
+	""effort"" NUMBER(38,0)
+);"
+DCLDE_SETTE_GPS,,"create or replace TABLE DCLDE_SETTE_GPS (
+	""utc_time"" NUMBER(38,0),
+	""local_time"" NUMBER(38,0),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608),
+	""speed"" FLOAT,
+	""effort"" NUMBER(38,0)
+);"
+DCLDE_2020_1706_ODONTOCETE_DETECTIONS,,"create or replace TABLE DCLDE_2020_1706_ODONTOCETE_DETECTIONS (
+	""detection_time_start_local"" NUMBER(38,0),
+	""detection_time_start_utc"" NUMBER(38,0),
+	""detection_time_end_utc"" NUMBER(38,0),
+	""acoustic_detection_number"" VARCHAR(16777216),
+	""sighting_number"" NUMBER(38,0),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""point"" BINARY(8388608),
+	""first_angle"" NUMBER(38,0),
+	""first_distance"" NUMBER(38,0),
+	""beam_distance"" NUMBER(38,0),
+	""beam_time_utc"" NUMBER(38,0),
+	""detection_distance"" NUMBER(38,0),
+	""species1_id"" VARCHAR(16777216),
+	""species2_id"" VARCHAR(16777216),
+	""species3_id"" VARCHAR(16777216)
+);"

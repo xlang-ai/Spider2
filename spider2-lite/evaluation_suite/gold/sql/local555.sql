@@ -1,0 +1,1 @@
+SELECT txn_type, COUNT(*) AS txn_count FROM customer_transactions WHERE customer_id = 456 GROUP BY txn_type;

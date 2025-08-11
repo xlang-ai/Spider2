@@ -1,0 +1,1 @@
+SELECT item_name FROM veg_cat WHERE category_name = 'Leafy Greens';

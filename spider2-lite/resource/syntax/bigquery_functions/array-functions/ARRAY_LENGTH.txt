@@ -1,0 +1,24 @@
+## ARRAY_LENGTH
+
+ARRAY_LENGTH(array_expression)
+
+**Description**
+
+Returns the size of the array. Returns 0 for an empty array. Returns ` NULL `
+if the ` array_expression ` is ` NULL ` .
+
+**Return type**
+
+` INT64 `
+
+**Examples**
+
+
+WITH items AS (SELECT ["coffee", NULL, "milk" ] as list UNION ALL SELECT ["cake", "pie"] as list) SELECT ARRAY_TO_STRING(list, ', ', 'NULL'), ARRAY_LENGTH(list) AS size FROM items ORDER BY size DESC;
+
+/*--------------------+------*
+| list               | size |
++--------------------+------+
+| coffee, NULL, milk | 3    |
+| cake, pie          | 2    |
+*--------------------+------*/

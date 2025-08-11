@@ -1,0 +1,36 @@
+/* A example question and corresponding SQL query are provided as follows: */
+/* Question: Can you provide the initial publication numbers for our top 100 independent patent claims with the highest word count? */
+/* SQL query: */
+WITH table_a AS (
+    SELECT 
+        "pat_no", "claim_no", "word_ct"
+    FROM uspto_oce_claims.patent_claims_stats
+    WHERE "ind_flg" = '1'
+), matched_publn AS (
+    SELECT
+        uspto_oce_claims.match."publication_number",
+        "claim_no",
+        CAST("word_ct" AS INT) AS "word_ct"  -- Cast word_ct to INT
+    FROM table_a
+    INNER JOIN uspto_oce_claims.match ON table_a."pat_no" = uspto_oce_claims.match."pat_no"
+), matched_appln AS (
+    SELECT
+        "application_number" AS "appln_nr",
+        matched_publn."publication_number" AS "publn_nr",
+        "claim_no",
+        "word_ct"
+    FROM matched_publn
+    INNER JOIN (
+        SELECT 
+            "publication_number", "application_number", "country_code",
+            ROW_NUMBER() OVER (PARTITION BY "application_number" ORDER BY "publication_date" ASC) AS "row_num",
+            "kind_code", "publication_date"
+        FROM patents.publications
+    ) AS sub ON matched_publn."publication_number" = sub."publication_number"
+    WHERE "row_num" = 1
+)
+
+SELECT *
+FROM matched_appln
+ORDER BY "word_ct" DESC
+LIMIT 100;

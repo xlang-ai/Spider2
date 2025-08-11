@@ -1,0 +1,1 @@
+SELECT DISTINCT customer_id FROM customer_transactions WHERE txn_amount < 0;

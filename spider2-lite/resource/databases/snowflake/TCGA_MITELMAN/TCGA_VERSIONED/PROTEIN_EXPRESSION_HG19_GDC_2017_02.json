@@ -1,0 +1,110 @@
+{
+    "table_name": "PROTEIN_EXPRESSION_HG19_GDC_2017_02",
+    "table_fullname": "TCGA_MITELMAN.TCGA_VERSIONED.PROTEIN_EXPRESSION_HG19_GDC_2017_02",
+    "column_names": [
+        "case_barcode",
+        "protein_name",
+        "protein_expression",
+        "project_short_name",
+        "phospho",
+        "gene_name",
+        "antibody_source",
+        "validation_status",
+        "sample_barcode",
+        "aliquot_barcode",
+        "protein_base_name"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "FLOAT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Original TCGA case barcode, eg TCGA-12-1089  --  note that each case typically has a primary-tumor sample and a matched-normal (blood or adjacent tissue) sample; please refer to the TCGA Biospecimen table for more details",
+        "Protein symbol with phosphorylation status, eg ACC_pS79",
+        "Expression level of protein as measured by reverse-phase protein arrays. https://bioinformatics.mdanderson.org/public-software/tcpa/",
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc.",
+        "If the antibody targets a phosphorylated protein, this field will contain that information, eg pS473  --  otherwise this field will be null",
+        "Gene name e.g. eg TTN, DDR1, etc",
+        "Animal of origin for the antibody M (Mouse), R (Rabbit), G (Goat)",
+        "Validation status of antibody by correlation of RPPA data with Western blot: V, E, C. For more information: https://bioinformatics.mdanderson.org/public-software/mclp/",
+        "Original TCGA sample barcode, eg TCGA-12-1089-01A  --  note that one sample may have multiple aliquots and therefore multiple sets of CN segmentations; so be sure to use GROUP BY appropriately in your queries",
+        "Original TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-01",
+        "Protein name e.g. AR, MAPK"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-CHOL",
+            "case_barcode": "TCGA-W5-AA2Q",
+            "sample_barcode": "TCGA-W5-AA2Q-01A",
+            "aliquot_barcode": "TCGA-W5-AA2Q-01A-21-A45N-20",
+            "gene_name": "AR",
+            "protein_base_name": "AR",
+            "phospho": null,
+            "protein_name": "AR",
+            "protein_expression": -0.000939914500000028,
+            "antibody_source": "R",
+            "validation_status": "V"
+        },
+        {
+            "project_short_name": "TCGA-CHOL",
+            "case_barcode": "TCGA-WD-A7RX",
+            "sample_barcode": "TCGA-WD-A7RX-01A",
+            "aliquot_barcode": "TCGA-WD-A7RX-01A-21-A45N-20",
+            "gene_name": "AR",
+            "protein_base_name": "AR",
+            "phospho": null,
+            "protein_name": "AR",
+            "protein_expression": -0.312209695,
+            "antibody_source": "R",
+            "validation_status": "V"
+        },
+        {
+            "project_short_name": "TCGA-CHOL",
+            "case_barcode": "TCGA-W5-AA2R",
+            "sample_barcode": "TCGA-W5-AA2R-01A",
+            "aliquot_barcode": "TCGA-W5-AA2R-01A-21-A45N-20",
+            "gene_name": "AR",
+            "protein_base_name": "AR",
+            "phospho": null,
+            "protein_name": "AR",
+            "protein_expression": -0.0339963165,
+            "antibody_source": "R",
+            "validation_status": "V"
+        },
+        {
+            "project_short_name": "TCGA-UVM",
+            "case_barcode": "TCGA-V4-A9EA",
+            "sample_barcode": "TCGA-V4-A9EA-01A",
+            "aliquot_barcode": "TCGA-V4-A9EA-01A-21-A41Z-20",
+            "gene_name": "AR",
+            "protein_base_name": "AR",
+            "phospho": null,
+            "protein_name": "AR",
+            "protein_expression": -0.0883969254999999,
+            "antibody_source": "R",
+            "validation_status": "V"
+        },
+        {
+            "project_short_name": "TCGA-CHOL",
+            "case_barcode": "TCGA-4G-AAZT",
+            "sample_barcode": "TCGA-4G-AAZT-01A",
+            "aliquot_barcode": "TCGA-4G-AAZT-01A-21-A45N-20",
+            "gene_name": "AR",
+            "protein_base_name": "AR",
+            "phospho": null,
+            "protein_name": "AR",
+            "protein_expression": 0.42619968075,
+            "antibody_source": "R",
+            "validation_status": "V"
+        }
+    ]
+}

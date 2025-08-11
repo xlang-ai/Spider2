@@ -1,0 +1,1 @@
+SELECT customer_id, SUM(txn_amount) AS total_amount FROM customer_transactions GROUP BY customer_id ORDER BY total_amount DESC;

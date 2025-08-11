@@ -1,0 +1,1 @@
+SELECT platform, segment, SUM(sales) AS total_sales FROM weekly_sales GROUP BY platform, segment;

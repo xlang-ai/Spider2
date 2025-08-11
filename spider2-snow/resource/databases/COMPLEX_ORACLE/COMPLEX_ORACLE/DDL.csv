@@ -1,0 +1,161 @@
+table_name,description,DDL
+COUNTRIES,,"create or replace TABLE COUNTRIES (
+	""country_id"" NUMBER(38,0),
+	""country_iso_code"" VARCHAR(16777216),
+	""country_name"" VARCHAR(16777216),
+	""country_subregion"" VARCHAR(16777216),
+	""country_subregion_id"" NUMBER(38,0),
+	""country_region"" VARCHAR(16777216),
+	""country_region_id"" NUMBER(38,0),
+	""country_total"" VARCHAR(16777216),
+	""country_total_id"" NUMBER(38,0)
+);"
+SUPPLEMENTARY_DEMOGRAPHICS,,"create or replace TABLE SUPPLEMENTARY_DEMOGRAPHICS (
+	""cust_id"" NUMBER(38,0),
+	""education"" VARCHAR(16777216),
+	""occupation"" VARCHAR(16777216),
+	""household_size"" VARCHAR(16777216),
+	""yrs_residence"" NUMBER(38,0),
+	""affinity_card"" NUMBER(38,0),
+	""cricket"" NUMBER(38,0),
+	""baseball"" NUMBER(38,0),
+	""tennis"" NUMBER(38,0),
+	""soccer"" NUMBER(38,0),
+	""golf"" NUMBER(38,0),
+	""unknown"" NUMBER(38,0),
+	""misc"" NUMBER(38,0),
+	""comments"" VARCHAR(16777216)
+);"
+COSTS,,"create or replace TABLE COSTS (
+	""prod_id"" NUMBER(38,0),
+	""time_id"" VARCHAR(16777216),
+	""promo_id"" NUMBER(38,0),
+	""channel_id"" NUMBER(38,0),
+	""unit_cost"" FLOAT,
+	""unit_price"" FLOAT
+);"
+CURRENCY,,"create or replace TABLE CURRENCY (
+	""country"" VARCHAR(16777216),
+	""year"" NUMBER(38,0),
+	""month"" NUMBER(38,0),
+	""to_us"" FLOAT
+);"
+CUSTOMERS,,"create or replace TABLE CUSTOMERS (
+	""cust_id"" NUMBER(38,0),
+	""cust_first_name"" VARCHAR(16777216),
+	""cust_last_name"" VARCHAR(16777216),
+	""cust_gender"" VARCHAR(16777216),
+	""cust_year_of_birth"" NUMBER(38,0),
+	""cust_marital_status"" VARCHAR(16777216),
+	""cust_street_address"" VARCHAR(16777216),
+	""cust_postal_code"" VARCHAR(16777216),
+	""cust_city"" VARCHAR(16777216),
+	""cust_city_id"" NUMBER(38,0),
+	""cust_state_province"" VARCHAR(16777216),
+	""cust_state_province_id"" NUMBER(38,0),
+	""country_id"" NUMBER(38,0),
+	""cust_main_phone_number"" VARCHAR(16777216),
+	""cust_income_level"" VARCHAR(16777216),
+	""cust_credit_limit"" FLOAT,
+	""cust_email"" VARCHAR(16777216),
+	""cust_total"" VARCHAR(16777216),
+	""cust_total_id"" NUMBER(38,0),
+	""cust_src_id"" VARCHAR(16777216),
+	""cust_eff_from"" VARCHAR(16777216),
+	""cust_eff_to"" VARCHAR(16777216),
+	""cust_valid"" VARCHAR(16777216)
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	""prod_id"" NUMBER(38,0),
+	""prod_name"" VARCHAR(16777216),
+	""prod_desc"" VARCHAR(16777216),
+	""prod_subcategory"" VARCHAR(16777216),
+	""prod_subcategory_id"" NUMBER(38,0),
+	""prod_subcategory_desc"" VARCHAR(16777216),
+	""prod_category"" VARCHAR(16777216),
+	""prod_category_id"" NUMBER(38,0),
+	""prod_category_desc"" VARCHAR(16777216),
+	""prod_weight_class"" NUMBER(38,0),
+	""prod_unit_of_measure"" VARCHAR(16777216),
+	""prod_pack_size"" VARCHAR(16777216),
+	""supplier_id"" NUMBER(38,0),
+	""prod_status"" VARCHAR(16777216),
+	""prod_list_price"" FLOAT,
+	""prod_min_price"" FLOAT,
+	""prod_total"" VARCHAR(16777216),
+	""prod_total_id"" NUMBER(38,0),
+	""prod_src_id"" VARCHAR(16777216),
+	""prod_eff_from"" VARCHAR(16777216),
+	""prod_eff_to"" VARCHAR(16777216),
+	""prod_valid"" VARCHAR(16777216)
+);"
+TIMES,,"create or replace TABLE TIMES (
+	""time_id"" VARCHAR(16777216),
+	""day_name"" VARCHAR(16777216),
+	""day_number_in_week"" NUMBER(38,0),
+	""day_number_in_month"" NUMBER(38,0),
+	""calendar_week_number"" NUMBER(38,0),
+	""fiscal_week_number"" NUMBER(38,0),
+	""week_ending_day"" VARCHAR(16777216),
+	""week_ending_day_id"" NUMBER(38,0),
+	""calendar_month_number"" NUMBER(38,0),
+	""fiscal_month_number"" NUMBER(38,0),
+	""calendar_month_desc"" VARCHAR(16777216),
+	""calendar_month_id"" NUMBER(38,0),
+	""fiscal_month_desc"" VARCHAR(16777216),
+	""fiscal_month_id"" NUMBER(38,0),
+	""days_in_cal_month"" NUMBER(38,0),
+	""days_in_fis_month"" NUMBER(38,0),
+	""end_of_cal_month"" VARCHAR(16777216),
+	""end_of_fis_month"" VARCHAR(16777216),
+	""calendar_month_name"" VARCHAR(16777216),
+	""fiscal_month_name"" VARCHAR(16777216),
+	""calendar_quarter_desc"" VARCHAR(16777216),
+	""calendar_quarter_id"" NUMBER(38,0),
+	""fiscal_quarter_desc"" VARCHAR(16777216),
+	""fiscal_quarter_id"" NUMBER(38,0),
+	""days_in_cal_quarter"" NUMBER(38,0),
+	""days_in_fis_quarter"" NUMBER(38,0),
+	""end_of_cal_quarter"" VARCHAR(16777216),
+	""end_of_fis_quarter"" VARCHAR(16777216),
+	""calendar_quarter_number"" NUMBER(38,0),
+	""fiscal_quarter_number"" NUMBER(38,0),
+	""calendar_year"" NUMBER(38,0),
+	""calendar_year_id"" NUMBER(38,0),
+	""fiscal_year"" NUMBER(38,0),
+	""fiscal_year_id"" NUMBER(38,0),
+	""days_in_cal_year"" NUMBER(38,0),
+	""days_in_fis_year"" NUMBER(38,0),
+	""end_of_cal_year"" VARCHAR(16777216),
+	""end_of_fis_year"" VARCHAR(16777216)
+);"
+CHANNELS,,"create or replace TABLE CHANNELS (
+	""channel_id"" NUMBER(38,0),
+	""channel_desc"" VARCHAR(16777216),
+	""channel_class"" VARCHAR(16777216),
+	""channel_class_id"" NUMBER(38,0),
+	""channel_total"" VARCHAR(16777216),
+	""channel_total_id"" NUMBER(38,0)
+);"
+PROMOTIONS,,"create or replace TABLE PROMOTIONS (
+	""promo_id"" NUMBER(38,0),
+	""promo_name"" VARCHAR(16777216),
+	""promo_subcategory"" VARCHAR(16777216),
+	""promo_subcategory_id"" NUMBER(38,0),
+	""promo_category"" VARCHAR(16777216),
+	""promo_category_id"" NUMBER(38,0),
+	""promo_cost"" FLOAT,
+	""promo_begin_date"" VARCHAR(16777216),
+	""promo_end_date"" VARCHAR(16777216),
+	""promo_total"" VARCHAR(16777216),
+	""promo_total_id"" NUMBER(38,0)
+);"
+SALES,,"create or replace TABLE SALES (
+	""prod_id"" NUMBER(38,0),
+	""cust_id"" NUMBER(38,0),
+	""time_id"" VARCHAR(16777216),
+	""channel_id"" NUMBER(38,0),
+	""promo_id"" NUMBER(38,0),
+	""quantity_sold"" NUMBER(38,0),
+	""amount_sold"" FLOAT
+);"

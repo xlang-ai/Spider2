@@ -1,0 +1,1 @@
+SELECT region, week_date, sales, SUM(sales) OVER (PARTITION BY region ORDER BY week_date) AS running_total FROM weekly_sales ORDER BY region, week_date;

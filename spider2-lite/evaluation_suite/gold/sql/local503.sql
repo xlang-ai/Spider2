@@ -1,0 +1,1 @@
+SELECT i.interest_name FROM interest_metrics m JOIN interest_map i ON m.interest_id = i.id WHERE m.month_year = '2023-05' AND m.ranking = 1;

@@ -1,0 +1,59 @@
+config-version: 2
+name: 'pendo'
+version: '0.5.0'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+profile: 'pendo'
+
+vars:
+  pendo_schema: main
+  pendo_source:
+    pendo_account_history_identifier: "account_history"
+    pendo_application_history_identifier: "application_history"
+    pendo_event_identifier: "event"
+    pendo_feature_event_identifier: "feature_event"
+    pendo_feature_history_identifier: "feature_history"
+    pendo_group_identifier: "group_data" # Uncomment when generating docs; remember to comment out before committing
+    pendo_guide_event_identifier: "guide_event"
+    pendo_guide_history_identifier: "guide_history"
+    pendo_guide_step_history_identifier: "guide_step_history"
+    pendo_page_event_identifier: "page_event"
+    pendo_page_history_identifier: "page_history"
+    pendo_page_rule_history_identifier: "page_rule_history"
+    pendo_user_identifier: "user"
+    pendo_visitor_history_identifier: "visitor_history"
+    pendo_poll_identifier: "poll"
+    pendo_poll_event_identifier: "poll_event"
+    pendo_visitor_account_history_identifier: "visitor_account_history"
+    pendo__event_pass_through_columns: []
+    pendo__feature_event_pass_through_columns: []
+    pendo__page_event_pass_through_columns: []
+    pendo__account_history_pass_through_columns: []
+    pendo__visitor_history_pass_through_columns: []
+
+
+  pendo:
+    account_history: "{{ ref('stg_pendo__account_history') }}"
+    application_history: "{{ ref('stg_pendo__application_history') }}"
+    event: "{{ ref('stg_pendo__event') }}"
+    feature_event: "{{ ref('stg_pendo__feature_event') }}"
+    feature_history: "{{ ref('stg_pendo__feature_history') }}"
+    group: "{{ ref('stg_pendo__group') }}"
+    guide_event: "{{ ref('stg_pendo__guide_event') }}"
+    guide_history: "{{ ref('stg_pendo__guide_history') }}"
+    guide_step_history: "{{ ref('stg_pendo__guide_step_history') }}"
+    page_event: "{{ ref('stg_pendo__page_event') }}"
+    page_history: "{{ ref('stg_pendo__page_history') }}"
+    page_rule_history: "{{ ref('stg_pendo__page_rule_history') }}"
+    user: "{{ ref('stg_pendo__user') }}"
+    visitor_history: "{{ ref('stg_pendo__visitor_history') }}"
+    poll: "{{ ref('stg_pendo__poll') }}"
+    poll_event: "{{ ref('stg_pendo__poll_event') }}"
+    visitor_account_history: "{{ ref('stg_pendo__visitor_account_history') }}"
+    pendo__event_pass_through_columns: []
+    pendo__feature_event_pass_through_columns: []
+    pendo__page_event_pass_through_columns: []
+    pendo__account_history_pass_through_columns: []
+    pendo__visitor_history_pass_through_columns: []

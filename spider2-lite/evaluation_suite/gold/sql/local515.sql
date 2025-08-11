@@ -1,0 +1,1 @@
+SELECT SUBSTR(txn_time, 1, 2) AS hour, COUNT(*) AS transaction_count FROM bitcoin_transactions GROUP BY SUBSTR(txn_time, 1, 2) ORDER BY transaction_count DESC;

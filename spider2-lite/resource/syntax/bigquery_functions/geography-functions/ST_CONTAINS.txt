@@ -1,0 +1,34 @@
+## ST_CONTAINS
+
+ST_CONTAINS(geography_1, geography_2)
+
+**Description**
+
+Returns ` TRUE ` if no point of ` geography_2 ` is outside ` geography_1 ` ,
+and the interiors intersect; returns ` FALSE ` otherwise.
+
+NOTE: A ` GEOGRAPHY ` _does not_ contain its own boundary. Compare with  `
+ST_COVERS ` .
+
+**Return type**
+
+` BOOL `
+
+**Example**
+
+The following query tests whether the polygon ` POLYGON((1 1, 20 1, 10 20, 1 1)) ` contains each of the three points ` (0, 0) ` , ` (1, 1) ` , and ` (10,
+10) ` , which lie on the exterior, the boundary, and the interior of the polygon respectively.
+
+
+SELECT ST_GEOGPOINT(i, i) AS p,
+ST_CONTAINS(ST_GEOGFROMTEXT('POLYGON((1 1, 20 1, 10 20, 1 1))'),
+ST_GEOGPOINT(i, i)) AS `contains`
+FROM UNNEST([0, 1, 10]) AS i;
+
+/*--------------+----------*
+| p            | contains |
++--------------+----------+
+| POINT(0 0)   | FALSE    |
+| POINT(1 1)   | FALSE    |
+| POINT(10 10) | TRUE     |
+*--------------+----------*/

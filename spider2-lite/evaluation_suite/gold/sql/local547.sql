@@ -1,0 +1,1 @@
+SELECT vc.item_name, vw.`whsle_px_rmb-kg` FROM veg_cat vc JOIN veg_whsle_df vw ON vc.item_code = vw.item_code;

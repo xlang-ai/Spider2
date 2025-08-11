@@ -1,0 +1,45 @@
+## ERROR
+
+ERROR(error_message)
+
+**Description**
+
+Returns an error.
+
+**Definitions**
+
+* ` error_message ` : A ` STRING ` value that represents the error message to produce. Any whitespace characters beyond a single space are trimmed from the results.
+
+**Details**
+
+` ERROR ` is treated like any other expression that may result in an error:
+there is no special guarantee of evaluation order.
+
+**Return Data Type**
+
+GoogleSQL infers the return type in context.
+
+**Examples**
+
+In the following example, the query returns an error message if the value of the row does not match one of two defined values.
+
+
+SELECT CASE WHEN value = 'foo' THEN 'Value is foo.'
+WHEN value = 'bar' THEN 'Value is bar.'
+ELSE ERROR(CONCAT('Found unexpected value: ', value)) END AS new_value FROM ( SELECT 'foo' AS value UNION ALL SELECT 'bar' AS value UNION ALL SELECT 'baz' AS value);
+
+-- Found unexpected value: baz
+
+In the following example, GoogleSQL may evaluate the ` ERROR ` function before or after the  ` x > 0 ` condition, because GoogleSQL generally provides no ordering guarantees between ` WHERE ` clause conditions and there are no special guarantees for the ` ERROR ` function.
+
+
+SELECT *
+FROM (SELECT -1 AS x) WHERE x > 0 AND ERROR('Example error');
+
+In the next example, the ` WHERE ` clause evaluates an ` IF ` condition, which ensures that GoogleSQL only evaluates the ` ERROR ` function if the condition fails.
+
+
+SELECT *
+FROM (SELECT -1 AS x) WHERE IF(x > 0, true, ERROR(FORMAT('Error: x must be positive but is %t', x)));
+
+-- Error: x must be positive but is -1

@@ -1,0 +1,30 @@
+## REPLACE
+
+REPLACE(original_value, from_pattern, to_pattern)
+
+**Description**
+
+Replaces all occurrences of ` from_pattern ` with ` to_pattern ` in `
+original_value ` . If ` from_pattern ` is empty, no replacement is made.
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH desserts AS (SELECT 'apple pie' as dessert UNION ALL SELECT 'blackberry pie' as dessert UNION ALL SELECT 'cherry pie' as dessert)
+
+SELECT REPLACE (dessert, 'pie', 'cobbler') as example FROM desserts;
+
+/*--------------------*
+| example            |
++--------------------+
+| apple cobbler      |
+| blackberry cobbler |
+| cherry cobbler     |
+*--------------------*/

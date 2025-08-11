@@ -1,0 +1,86 @@
+{
+    "table_name": "STACKOVERFLOW.POST_HISTORY",
+    "table_fullname": "STACKOVERFLOW_PLUS.STACKOVERFLOW.POST_HISTORY",
+    "column_names": [
+        "creation_date",
+        "post_history_type_id",
+        "comment",
+        "user_id",
+        "post_id",
+        "revision_guid",
+        "text",
+        "id"
+    ],
+    "column_types": [
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "NUMBER"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "id": 86091483,
+            "creation_date": 1426663800027000,
+            "post_id": 29116345,
+            "post_history_type_id": 2,
+            "revision_guid": "6509ef7b-52e9-4e14-bd54-274c531ef947",
+            "user_id": 2170106,
+            "text": "Use [PHP Date function][1]\n\n    date('Y-m-d',strtotime($_GET['searchKeyword']))\n\n\n  [1]: http://php.net/manual/en/function.date.php",
+            "comment": null
+        },
+        {
+            "id": 85632228,
+            "creation_date": 1426112450947000,
+            "post_id": 28998490,
+            "post_history_type_id": 1,
+            "revision_guid": "8e1fce66-6346-4ea1-978d-9d871c55a4a6",
+            "user_id": 4660474,
+            "text": "How to change the width of a CSS flex-box column?",
+            "comment": null
+        },
+        {
+            "id": 85632229,
+            "creation_date": 1426112450947000,
+            "post_id": 28998490,
+            "post_history_type_id": 3,
+            "revision_guid": "8e1fce66-6346-4ea1-978d-9d871c55a4a6",
+            "user_id": 4660474,
+            "text": "<html><css><flex>",
+            "comment": null
+        },
+        {
+            "id": 85637305,
+            "creation_date": 1426119474033000,
+            "post_id": 28999843,
+            "post_history_type_id": 2,
+            "revision_guid": "6c8c07dd-e85b-4e86-945d-0f6c42faf117",
+            "user_id": 4660730,
+            "text": "I can't figure out why my code won't save to my .accdb database.\n\nI am fetching data from a .accdb database file and displaying it in a DataGridView, and then allowing changes to be made to it there. (This is a stock control system.) After making changes, the user is meant to be able to send the data back so it is saved in the .accdb file.\n\nI have looked online everywhere and tried multiple different ways of doing this. This is the way I am currently using to solve the problem, but when running the code it does not save to the .accdb file. (However, it throws up no errors.)\n\n    Public Class Database\n    Dim datatable As DataTable\n    Dim adapter As OleDb.OleDbDataAdapter\n    Dim dbCon As New OleDb.OleDbConnection\n    Dim dbProvider As String = \"PROVIDER=Microsoft.ACE.OLEDB.12.0;\"\n    Dim dbRsrc As String = \"Data Source =\" & System.IO.Directory.GetCurrentDirectory & \"/Resources/List.accdb\"\n    Dim binding As BindingSource\n    Dim cmdBuilder As OleDb.OleDbCommandBuilder\n\n    Private Sub Database_Load(sender As Object, e As EventArgs) Handles MyBase.Load\n        dbCon.ConnectionString = dbProvider & dbRsrc\n        dbCon.Open()\n        adapter = New OleDb.OleDbDataAdapter(\"Select * FROM List\", dbCon)\n        datatable = New DataTable\n        adapter.FillSchema(datatable, SchemaType.Source)\n        adapter.Fill(datatable)\n        binding = New BindingSource\n        binding.DataSource = datatable\n        dbCon.Close()\n        StockTable.DataSource = binding\n    End Sub\n\n    Private Sub SaveBtn_Click(sender As Object, e As EventArgs) Handles SaveBtn.Click\n        'insert validation here\n        Try\n            dbCon.ConnectionString = dbProvider & dbRsrc\n            dbCon.Open()\n            cmdBuilder = New OleDb.OleDbCommandBuilder(adapter)\n            adapter.AcceptChangesDuringUpdate = True\n            adapter.Update(datatable)\n            dbCon.Close()\n        Catch ex As Exception\n            MsgBox(ex.Message.ToString() & \" Save Unsuccessful.\")\n        End Try\n    End Sub \n    End Class\n\nNot sure where I'm going wrong - when I hit the 'save' button, it should connect to the database, build a SQL query to update it and then update my datatable + .accdb database, right? \nTo test it, I've tried editing multiple columns and saving it, but when opening the file it still says the same values as it had before.\n\nAny suggestions/pointers? I'm pretty newbie to VB.NET, learnt it about 3 months ago and only just starting to get fully into it.",
+            "comment": null
+        },
+        {
+            "id": 85637306,
+            "creation_date": 1426119474033000,
+            "post_id": 28999843,
+            "post_history_type_id": 1,
+            "revision_guid": "6c8c07dd-e85b-4e86-945d-0f6c42faf117",
+            "user_id": 4660730,
+            "text": "VB.NET - .accdb database not saving changes",
+            "comment": null
+        }
+    ]
+}

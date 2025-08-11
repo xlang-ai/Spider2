@@ -1,0 +1,27 @@
+name: 'jira_source'
+version: '0.7.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+  jira_source:
+    issue: "{{ source('jira', 'issue') }}"
+    project: "{{ source('jira', 'project') }}"
+    user: "{{ source('jira', 'user') }}"
+    issue_type: "{{ source('jira', 'issue_type') }}"
+    status: "{{ source('jira', 'status') }}"
+    status_category: "{{ source('jira', 'status_category') }}"
+    resolution: "{{ source('jira', 'resolution') }}"
+    priority: "{{ source('jira', 'priority') }}"
+    issue_multiselect_history: "{{ source('jira', 'issue_multiselect_history') }}"
+    issue_field_history: "{{ source('jira', 'issue_field_history') }}"
+    comment: "{{ source('jira', 'comment') }}"
+    issue_link: "{{ source('jira', 'issue_link') }}"
+    component: "{{ source('jira', 'component') }}"
+    field: "{{ source('jira', 'field') }}"
+    field_option: "{{ source('jira', 'field_option') }}"
+    sprint: "{{ source('jira', 'sprint') }}"
+    version: "{{ source('jira', 'version') }}"
+models:
+  jira_source:
+    +materialized: view
+    +schema: jira_source

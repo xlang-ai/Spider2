@@ -1,0 +1,96 @@
+## RANGE
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+RANGE(lower_bound, upper_bound)
+
+**Description**
+
+Constructs a range of [ ` DATE ` ](/bigquery/docs/reference/standard-sql/data-
+types#date_type) , [ ` DATETIME ` ](/bigquery/docs/reference/standard-
+sql/data-types#datetime_type) , or [ ` TIMESTAMP `
+](/bigquery/docs/reference/standard-sql/data-types#timestamp_type) values.
+
+**Definitions**
+
+* ` lower_bound ` : The range starts from this value. This can be a ` DATE ` , ` DATETIME ` , or ` TIMESTAMP ` value. If this value is ` NULL ` , the range doesn't include a lower bound.
+* ` upper_bound ` : The range ends before this value. This can be a ` DATE ` , ` DATETIME ` , or ` TIMESTAMP ` value. If this value is ` NULL ` , the range doesn't include an upper bound.
+
+**Details**
+
+` lower_bound ` and ` upper_bound ` must be of the same data type.
+
+Produces an error if ` lower_bound ` is greater than or equal to ` upper_bound
+` . To return ` NULL ` instead, add the ` SAFE. ` prefix to the function name.
+
+**Return type**
+
+` RANGE<T> ` , where ` T ` is the same data type as the input.
+
+**Examples**
+
+The following query constructs a date range:
+
+
+SELECT RANGE(DATE '2022-12-01', DATE '2022-12-31') AS results;
+
+/*--------------------------+
+| results                  |
++--------------------------+
+| [2022-12-01, 2022-12-31) |
++--------------------------*/
+
+The following query constructs a datetime range:
+
+
+SELECT RANGE(DATETIME '2022-10-01 14:53:27',
+DATETIME '2022-10-01 16:00:00') AS results;
+
+/*---------------------------------------------+
+| results                                     |
++---------------------------------------------+
+| [2022-10-01T14:53:27, 2022-10-01T16:00:00)  |
++---------------------------------------------*/
+
+The following query constructs a timestamp range:
+
+
+SELECT RANGE(TIMESTAMP '2022-10-01 14:53:27 America/Los_Angeles',
+TIMESTAMP '2022-10-01 16:00:00 America/Los_Angeles') AS results;
+
+-- Results depend upon where this query was executed.
+/*------------------------------------------------------------------+
+| results                                                          |
++------------------------------------------------------------------+
+| [2022-10-01 21:53:27.000000 UTC, 2022-10-01 23:00:00.000000 UTC) |
++------------------------------------------------------------------*/
+
+The following query constructs a date range with no lower bound:
+
+
+SELECT RANGE(NULL, DATE '2022-12-31') AS results;
+
+/*-------------------------+
+| results                 |
++-------------------------+
+| [UNBOUNDED, 2022-12-31) |
++-------------------------*/
+
+The following query constructs a date range with no upper bound:
+
+
+SELECT RANGE(DATE '2022-10-01', NULL) AS results;
+
+/*--------------------------+
+| results                  |
++--------------------------+
+| [2022-10-01, UNBOUNDED)  |
++--------------------------*/

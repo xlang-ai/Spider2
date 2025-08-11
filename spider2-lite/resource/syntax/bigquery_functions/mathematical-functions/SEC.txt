@@ -1,0 +1,30 @@
+## SEC
+
+SEC(X)
+
+**Description**
+
+Computes the secant for the angle of ` X ` , where ` X ` is specified in radians. ` X ` can be any data type that [ coerces to ` FLOAT64 `
+](/bigquery/docs/reference/standard-sql/conversion_rules#conversion_rules) .
+
+X  |  SEC(X)
+---|---
+` +inf ` |  ` NaN `
+` -inf ` |  ` NaN `
+` NaN ` |  ` NaN `
+` NULL ` |  ` NULL `
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Example**
+
+
+SELECT SEC(100) AS a, SEC(-1) AS b;
+
+/*----------------+---------------*
+| a              | b             |
++----------------+---------------+
+| 1.159663822905 | 1.85081571768 |
+*----------------+---------------*/

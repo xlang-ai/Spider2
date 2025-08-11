@@ -1,0 +1,1 @@
+SELECT month_number, SUM(sales) AS monthly_sales FROM cleaned_weekly_sales WHERE calendar_year = 2023 GROUP BY month_number ORDER BY month_number;

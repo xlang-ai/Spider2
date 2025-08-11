@@ -1,0 +1,1 @@
+SELECT vc.item_name, vt.`qty_sold(kg)` FROM veg_txn_df vt JOIN veg_cat vc ON vt.item_code = vc.item_code;

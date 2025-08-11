@@ -1,0 +1,1 @@
+SELECT * FROM interest_metrics WHERE _month = 5 AND _year = 2024;

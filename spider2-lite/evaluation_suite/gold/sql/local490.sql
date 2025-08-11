@@ -1,0 +1,1 @@
+SELECT page_name FROM shopping_cart_page_hierarchy WHERE product_category = 'Checkout';

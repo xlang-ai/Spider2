@@ -1,0 +1,1 @@
+SELECT bm.first_name, bt.quantity FROM bitcoin_transactions bt JOIN bitcoin_members bm ON bt.member_id = bm.member_id WHERE bt.ticker = 'BTC';

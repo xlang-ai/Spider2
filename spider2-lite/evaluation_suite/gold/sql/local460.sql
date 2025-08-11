@@ -1,0 +1,1 @@
+SELECT customer_type, SUM(sales) AS total_sales FROM weekly_sales WHERE segment = 'Retail' GROUP BY customer_type;

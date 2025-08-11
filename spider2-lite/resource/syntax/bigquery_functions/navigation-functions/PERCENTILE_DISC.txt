@@ -1,0 +1,69 @@
+## PERCENTILE_DISC
+
+PERCENTILE_DISC (value_expression, percentile [{RESPECT | IGNORE} NULLS]) OVER over_clause
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+
+
+**Description**
+
+Computes the specified percentile value for a discrete ` value_expression ` .
+The returned value is the first sorted value of ` value_expression ` with cumulative distribution greater than or equal to the given ` percentile `
+value.
+
+This function ignores ` NULL ` values unless ` RESPECT NULLS ` is present.
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Supported Argument Types**
+
+* ` value_expression ` can be any orderable type.
+* ` percentile ` must be a literal in the range ` [0, 1] ` , with one of the following types:
+* ` NUMERIC `
+* ` BIGNUMERIC `
+* ` FLOAT64 `
+
+**Return Data Type**
+
+Same type as ` value_expression ` .
+
+**Examples**
+
+The following example computes the value for some percentiles from a column of values while ignoring nulls.
+
+
+SELECT x,
+PERCENTILE_DISC(x, 0) OVER() AS min,
+PERCENTILE_DISC(x, 0.5) OVER() AS median,
+PERCENTILE_DISC(x, 1) OVER() AS max FROM UNNEST(['c', NULL, 'b', 'a']) AS x;
+
+/*------+-----+--------+-----*
+| x    | min | median | max |
++------+-----+--------+-----+
+| c    | a   | b      | c   |
+| NULL | a   | b      | c   |
+| b    | a   | b      | c   |
+| a    | a   | b      | c   |
+*------+-----+--------+-----*/
+
+The following example computes the value for some percentiles from a column of values while respecting nulls.
+
+
+SELECT x,
+PERCENTILE_DISC(x, 0 RESPECT NULLS) OVER() AS min,
+PERCENTILE_DISC(x, 0.5 RESPECT NULLS) OVER() AS median,
+PERCENTILE_DISC(x, 1 RESPECT NULLS) OVER() AS max FROM UNNEST(['c', NULL, 'b', 'a']) AS x;
+
+/*------+------+--------+-----*
+| x    | min  | median | max |
++------+------+--------+-----+
+| c    | NULL | a      | c   |
+| NULL | NULL | a      | c   |
+| b    | NULL | a      | c   |
+| a    | NULL | a      | c   |
+*------+------+--------+-----*/

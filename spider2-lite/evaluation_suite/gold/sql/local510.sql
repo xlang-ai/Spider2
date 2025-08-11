@@ -1,0 +1,1 @@
+SELECT market_date, high, low FROM bitcoin_prices WHERE ticker = 'BTC' AND market_date BETWEEN '2023-03-01' AND '2023-03-31';

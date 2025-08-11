@@ -1,0 +1,305 @@
+## FORMAT
+
+FORMAT(format_string_expression, data_type_expression[, ...])
+
+**Description**
+
+` FORMAT ` formats a data type expression as a string.
+
+* ` format_string_expression ` : Can contain zero or more  format specifiers  . Each format specifier is introduced by the ` % ` symbol, and must map to one or more of the remaining arguments. In general, this is a one-to-one mapping, except when the ` * ` specifier is present. For example, ` %.*i ` maps to two arguments—a length argument and a signed integer argument. If the number of arguments related to the format specifiers is not the same as the number of arguments, an error occurs.
+* ` data_type_expression ` : The value to format as a string. This can be any GoogleSQL data type.
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+Description  |  Statement  |  Result
+---|---|---
+Simple integer  |  FORMAT('%d', 10)  |  10 Integer with left blank padding  |  FORMAT('|%10d|', 11)  |  | 11|
+Integer with left zero padding  |  FORMAT('+%010d+', 12)  |  +0000000012+
+Integer with commas  |  FORMAT("%'d", 123456789)  |  123,456,789 STRING  |  FORMAT('-%s-', 'abcd efg')  |  -abcd efg-
+FLOAT64  |  FORMAT('%f %E', 1.1, 2.2)  |  1.100000 2.200000E+00 DATE  |  FORMAT('%t', date '2015-09-01')  |  2015-09-01 TIMESTAMP  |  FORMAT('%t', timestamp '2015-09-01 12:34:56 America/Los_Angeles')  |  2015‑09‑01 19:34:56+00
+
+The ` FORMAT() ` function does not provide fully customizable formatting for all types and values, nor formatting that is sensitive to locale.
+
+If custom formatting is necessary for a type, you must first format it using type-specific format functions, such as ` FORMAT_DATE() ` or `
+FORMAT_TIMESTAMP() ` . For example:
+
+
+SELECT FORMAT('date: %s!', FORMAT_DATE('%B %d, %Y', date '2015-01-02'));
+
+Returns
+
+
+date: January 02, 2015!
+
+####  Supported format specifiers
+
+
+%[flags][width][.precision]specifier
+
+A  format specifier  adds formatting when casting a value to a string. It can optionally contain these sub-specifiers:
+
+* Flags
+* Width
+* Precision
+
+Additional information about format specifiers:
+
+* %g and %G behavior
+* %p and %P behavior
+* %t and %T behavior
+* Error conditions
+* NULL argument handling
+* Additional semantic rules
+
+#####  Format specifiers
+
+Specifier  |  Description  |  Examples  |  Types
+---|---|---|---
+` d ` or ` i ` |  Decimal integer  |  392  |  ` INT64 `
+
+` o ` |  Octal
+
+Note: If an ` INT64 ` value is negative, an error is produced.  |  610  |  `
+INT64 `
+
+` x ` |  Hexadecimal integer
+
+Note: If an ` INT64 ` value is negative, an error is produced.  |  7fa  |  `
+INT64 `
+
+` X ` |  Hexadecimal integer (uppercase)
+
+Note: If an ` INT64 ` value is negative, an error is produced.  |  7FA  |  `
+INT64 `
+
+` f ` |  Decimal notation, in [-](integer part).(fractional part) for finite values, and in lowercase for non-finite values  |  392.650000 inf nan  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` F ` |  Decimal notation, in [-](integer part).(fractional part) for finite values, and in uppercase for non-finite values  |  392.650000 INF NAN  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` e ` |  Scientific notation (mantissa/exponent), lowercase  |  3.926500e+02 inf nan  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` E ` |  Scientific notation (mantissa/exponent), uppercase  |  3.926500E+02 INF NAN  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` g ` |  Either decimal notation or scientific notation, depending on the input value's exponent and the specified precision. Lowercase. See  %g and %G behavior  for details.  |  392.65 3.9265e+07 inf nan  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` G ` |  Either decimal notation or scientific notation, depending on the input value's exponent and the specified precision. Uppercase. See  %g and %G behavior  for details.  |  392.65 3.9265E+07 INF NAN  |  ` NUMERIC `
+` BIGNUMERIC `
+` FLOAT64 `
+
+` p ` |  Produces a one-line printable string representing JSON. See  %p and
+%P behavior  .  |
+
+
+{"month":10,"year":2019}
+
+|  ` JSON `
+
+` P ` |  Produces a multi-line printable string representing JSON. See  %p and
+%P behavior  .  |
+
+
+{
+"month": 10,
+"year": 2019
+}
+
+|  ` JSON `
+
+` s ` |  String of characters  |  sample  |  ` STRING `
+
+` t ` |  Returns a printable string representing the value. Often looks similar to casting the argument to ` STRING ` . See  %t and %T behavior  .  |
+sample 2014‑01‑01  |  Any type
+` T ` |  Produces a string that is a valid GoogleSQL constant with a similar type to the value's type (maybe wider, or maybe string). See  %t and %T behavior  .  |  'sample'
+b'bytes sample'
+1234 2.3 date '2014‑01‑01'  |  Any type
+` % ` |  '%%' produces a single '%'  |  %  |  n/a
+
+The format specifier can optionally contain the sub-specifiers identified above in the specifier prototype.
+
+These sub-specifiers must comply with the following specifications.
+
+#####  Flags
+
+Flags  |  Description
+---|---
+` - ` |  Left-justify within the given field width; Right justification is the default (see width sub-specifier)
+` + ` |  Forces to precede the result with a plus or minus sign ( ` + ` or ` -
+` ) even for positive numbers. By default, only negative numbers are preceded with a ` - ` sign
+<space> |  If no sign is going to be written, a blank space is inserted before the value
+` # ` |
+
+* For `%o`, `%x`, and `%X`, this flag means to precede the value with 0, 0x or 0X respectively for values different than zero.
+* For `%f`, `%F`, `%e`, and `%E`, this flag means to add the decimal point even when there is no fractional part, unless the value is non-finite.
+* For `%g` and `%G`, this flag means to add the decimal point even when there is no fractional part unless the value is non-finite, and never remove the trailing zeros after the decimal point.
+
+` 0 ` |  Left-pads the number with zeroes (0) instead of spaces when padding is specified (see width sub-specifier)
+` ' ` |
+
+Formats integers using the appropriating grouping character. For example:
+
+* ` FORMAT("%'d", 12345678) ` returns ` 12,345,678 `
+* ` FORMAT("%'x", 12345678) ` returns ` bc:614e `
+* ` FORMAT("%'o", 55555) ` returns ` 15,4403 `
+
+This flag is only relevant for decimal, hex, and octal values.
+
+
+Flags may be specified in any order. Duplicate flags are not an error. When flags are not relevant for some element type, they are ignored.
+
+#####  Width
+
+Width  |  Description
+---|---
+<number> |  Minimum number of characters to be printed. If the value to be printed is shorter than this number, the result is padded with blank spaces.
+The value is not truncated even if the result is larger
+` * ` |  The width is not specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted
+
+#####  Precision
+
+Precision  |  Description
+---|---
+` . ` <number> |
+
+* For integer specifiers `%d`, `%i`, `%o`, `%u`, `%x`, and `%X`: precision specifies the minimum number of digits to be written. If the value to be written is shorter than this number, the result is padded with trailing zeros. The value is not truncated even if the result is longer. A precision of 0 means that no character is written for the value 0.
+* For specifiers `%a`, `%A`, `%e`, `%E`, `%f`, and `%F`: this is the number of digits to be printed after the decimal point. The default value is 6.
+* For specifiers `%g` and `%G`: this is the number of significant digits to be printed, before the removal of the trailing zeros after the decimal point. The default value is 6.
+
+` .* ` |  The precision is not specified in the format string, but as an additional integer value argument preceding the argument that has to be formatted
+
+#####  %g and %G behavior
+
+The ` %g ` and ` %G ` format specifiers choose either the decimal notation (like the ` %f ` and ` %F ` specifiers) or the scientific notation (like the `
+%e ` and ` %E ` specifiers), depending on the input value's exponent and the specified  precision  .
+
+Let p stand for the specified  precision  (defaults to 6; 1 if the specified precision is less than 1). The input value is first converted to scientific notation with precision = (p - 1). If the resulting exponent part x is less than -4 or no less than p, the scientific notation with precision = (p - 1) is used; otherwise the decimal notation with precision = (p - 1 - x) is used.
+
+Unless  ` # ` flag  is present, the trailing zeros after the decimal point are removed, and the decimal point is also removed if there is no digit after it.
+
+#####  %p and %P behavior
+
+The ` %p ` format specifier produces a one-line printable string. The ` %P `
+format specifier produces a multi-line printable string. You can use these format specifiers with the following data types:
+
+**Type** |  **%p** |  **%P**
+---|---|---
+JSON  |
+
+JSON input:
+
+
+JSON '
+{
+"month": 10,
+"year": 2019
+}
+'
+
+Produces a one-line printable string representing JSON:
+
+
+{"month":10,"year":2019}
+
+|
+
+JSON input:
+
+
+JSON '
+{
+"month": 10,
+"year": 2019
+}
+'
+
+Produces a multi-line printable string representing JSON:
+
+
+{
+"month": 10,
+"year": 2019
+}
+
+#####  %t and %T behavior
+
+The ` %t ` and ` %T ` format specifiers are defined for all types. The  width
+,  precision  , and  flags  act as they do for ` %s ` : the  width  is the minimum width and the ` STRING ` will be padded to that size, and  precision is the maximum width of content to show and the ` STRING ` will be truncated to that size, prior to padding to width.
+
+The ` %t ` specifier is always meant to be a readable form of the value.
+
+The ` %T ` specifier is always a valid SQL literal of a similar type, such as a wider numeric type. The literal will not include casts or a type name,
+except for the special case of non-finite floating point values.
+
+The ` STRING ` is formatted as follows:
+
+**Type** |  **%t** |  **%T**
+---|---|---
+` NULL ` of any type  |  NULL  |  NULL
+` INT64 `
+|  123  |  123 NUMERIC  |  123.0 _(always with .0)_ |  NUMERIC "123.0"
+FLOAT64  |  123.0 _(always with .0)_
+123e+10
+` inf `
+` -inf `
+` NaN ` |  123.0 _(always with .0)_
+123e+10 CAST("inf" AS <type>) CAST("-inf" AS <type>) CAST("nan" AS <type>) STRING  |  unquoted string value  |  quoted string literal BYTES  |  unquoted escaped bytes e.g., abc\x01\x02  |  quoted bytes literal e.g., b"abc\x01\x02"
+BOOL  |  boolean value  |  boolean value DATE  |  2011-02-03  |  DATE "2011-02-03"
+TIMESTAMP  |  2011-02-03 04:05:06+00  |  TIMESTAMP "2011-02-03 04:05:06+00"
+INTERVAL  |  1-2 3 4:5:6.789  |  INTERVAL "1-2 3 4:5:6.789" YEAR TO SECOND ARRAY  |  [value, value, ...]
+where values are formatted with %t  |  [value, value, ...]
+where values are formatted with %T STRUCT  |  (value, value, ...) where fields are formatted with %t  |  (value, value, ...) where fields are formatted with %T
+
+Special cases:
+Zero fields: STRUCT() One field: STRUCT(value) JSON  |  one-line printable string representing JSON.
+
+
+{"name":"apple","stock":3}
+
+|  one-line printable string representing a JSON literal.
+
+
+JSON '{"name":"apple","stock":3}'
+
+#####  Error conditions
+
+If a format specifier is invalid, or is not compatible with the related argument type, or the wrong number or arguments are provided, then an error is produced. For example, the following ` <format_string> ` expressions are invalid:
+
+
+FORMAT('%s', 1)
+
+
+FORMAT('%')
+
+#####  NULL argument handling
+
+A ` NULL ` format string results in a ` NULL ` output ` STRING ` . Any other arguments are ignored in this case.
+
+The function generally produces a ` NULL ` value if a ` NULL ` argument is present. For example, ` FORMAT('%i', NULL_expression) ` produces a ` NULL STRING ` as output.
+
+However, there are some exceptions: if the format specifier is %t or %T (both of which produce ` STRING ` s that effectively match CAST and literal value semantics), a ` NULL ` value produces 'NULL' (without the quotes) in the result ` STRING ` . For example, the function:
+
+
+FORMAT('00-%t-00', NULL_expression);
+
+Returns
+
+
+00-NULL-00
+
+#####  Additional semantic rules
+
+` FLOAT64 ` values can be ` +/-inf ` or ` NaN ` . When an argument has one of those values, the result of the format specifiers ` %f ` , ` %F ` , ` %e ` , `
+%E ` , ` %g ` , ` %G ` , and ` %t ` are ` inf ` , ` -inf ` , or ` nan ` (or the same in uppercase) as appropriate. This is consistent with how GoogleSQL casts these values to ` STRING ` . For ` %T ` , GoogleSQL returns quoted strings for ` FLOAT64 ` values that don't have non-string literal representations.

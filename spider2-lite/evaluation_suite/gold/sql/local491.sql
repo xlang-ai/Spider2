@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT e.cookie_id) AS users_who_added FROM shopping_cart_events e JOIN shopping_cart_event_identifier ie ON e.event_type = ie.event_type WHERE ie.event_name = 'Add to Cart';

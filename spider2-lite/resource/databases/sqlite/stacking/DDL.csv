@@ -1,0 +1,74 @@
+table_name,DDL
+problem,"CREATE TABLE problem (
+    name TEXT,
+    path TEXT,
+    type TEXT,
+    target TEXT
+);"
+eda,"CREATE TABLE eda (
+    name TEXT,
+    version INTEGER,
+    feature TEXT,
+    type TEXT,
+    range BLOB,
+    drop_user INTEGER,
+    drop_correlation INTEGER,
+    target INTEGER
+);"
+feature_importance,"CREATE TABLE feature_importance (
+    name TEXT,
+    version INTEGER,
+    step INTEGER,
+    feature TEXT,
+    importance NUMERIC
+);"
+solution,"CREATE TABLE solution (
+    name TEXT,
+    version INTEGER,
+    correlation NUMERIC,
+    nb_model INTEGER,
+    nb_feature INTEGER,
+    score NUMERIC,
+    test_size NUMERIC,
+    resampling INTEGER
+);"
+model_score,"CREATE TABLE model_score (
+    name TEXT,
+    version INTEGER,
+    step INTEGER,
+    model TEXT,
+    train_score NUMERIC,
+    test_score NUMERIC
+);"
+model_importance,"CREATE TABLE model_importance (
+    name TEXT,
+    version INTEGER,
+    step INTEGER,
+    model TEXT,
+    importance NUMERIC
+);"
+model,"CREATE TABLE model (
+    name TEXT,
+    version INTEGER,
+    step INTEGER,
+    L1_model TEXT
+);"
+stack_ok,"CREATE TABLE stack_ok (
+    name TEXT,
+    version INTEGER,
+    step INTEGER,
+    L1_model TEXT,
+    status 
+);"
+solution_ext,"CREATE TABLE solution_ext (
+    name TEXT,
+    version INTEGER,
+    L1_model TEXT
+);"
+stack_ok_score,"CREATE TABLE stack_ok_score (
+    name TEXT,
+    version INTEGER,
+    score_1 NUMERIC,
+    score_2 NUMERIC,
+    score_3 NUMERIC
+);"

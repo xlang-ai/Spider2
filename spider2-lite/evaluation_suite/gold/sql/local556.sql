@@ -1,0 +1,1 @@
+SELECT SUM(txn_amount) AS total_amount FROM customer_transactions WHERE customer_id = 123;

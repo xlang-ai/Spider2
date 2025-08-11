@@ -1,0 +1,21 @@
+version: 2
+
+models:
+
+  - name: dataset__last_in_between_1
+    description: A dataset model used to test basic functionality of `last_in_between` relationship.
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__last_in_between_1")
+
+  - name: dataset__last_in_between_2
+    description: A dataset model used to test a case where the `last_in_between` value of a column from an appended activity is not the maximum value for that column.
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__last_in_between_2")
+
+  - name: dataset__last_in_between_3
+    description: A dataset model used to test a case where the `last_in_between` value of a column from an appended activity is not the maximum value for that column.
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__last_in_between_3")

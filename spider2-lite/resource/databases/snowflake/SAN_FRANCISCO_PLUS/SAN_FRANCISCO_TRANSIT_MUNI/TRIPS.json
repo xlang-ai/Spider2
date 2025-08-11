@@ -1,0 +1,86 @@
+{
+    "table_name": "TRIPS",
+    "table_fullname": "SAN_FRANCISCO_PLUS.SAN_FRANCISCO_TRANSIT_MUNI.TRIPS",
+    "column_names": [
+        "trip_headsign",
+        "trip_id",
+        "block_id",
+        "route_id",
+        "shape_id",
+        "trip_shape",
+        "service_category",
+        "direction"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "BINARY",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Contains the text that appears on signage that identifies the trip's destination to riders. Use this field to distinguish between different patterns of service on the same route.",
+        "Unique identifier for each trip",
+        "Identifies the block to which the trip belongs. A block consists of a single trip or many sequential trips made with the same vehicle. The trips are grouped into a block by the use of a shared service day andblock_id. A block_id can include trips with different service days, which then makes distinct blocks. For more details, see: https://developers.google.com/transit/gtfs/reference/#example-showing-blocks-and-service-day",
+        "Unique identifier for each route. A single route will have multiple trips",
+        "Unique identifier for the geospatial shape that describes the vehicle travel for a trip along individual points. Use to JOIN with the shapes available in the shapes table",
+        "Geographical representation of the trip's entire route.",
+        "Indicates the type of service for this trip",
+        "\"Indicates the direction of travel for a trip. The following values are valid:   -  O: Outbound travel -  I: Inbound travel  This field is not used in routing, but instead provides a way to separate trips by direction\""
+    ],
+    "sample_rows": [
+        {
+            "trip_id": "8999873",
+            "route_id": "83X",
+            "direction": "O",
+            "block_id": "8302",
+            "service_category": null,
+            "trip_headsign": "Caltrain Depot",
+            "shape_id": "174188",
+            "trip_shape": null
+        },
+        {
+            "trip_id": "8999875",
+            "route_id": "83X",
+            "direction": "O",
+            "block_id": "8301",
+            "service_category": null,
+            "trip_headsign": "Caltrain Depot",
+            "shape_id": "174188",
+            "trip_shape": null
+        },
+        {
+            "trip_id": "8999872",
+            "route_id": "83X",
+            "direction": "O",
+            "block_id": "8302",
+            "service_category": null,
+            "trip_headsign": "Caltrain Depot",
+            "shape_id": "174188",
+            "trip_shape": null
+        },
+        {
+            "trip_id": "8999871",
+            "route_id": "83X",
+            "direction": "O",
+            "block_id": "8301",
+            "service_category": null,
+            "trip_headsign": "Caltrain Depot",
+            "shape_id": "174188",
+            "trip_shape": null
+        },
+        {
+            "trip_id": "8999893",
+            "route_id": "83X",
+            "direction": "O",
+            "block_id": "8302",
+            "service_category": null,
+            "trip_headsign": "Caltrain Depot",
+            "shape_id": "174188",
+            "trip_shape": null
+        }
+    ]
+}

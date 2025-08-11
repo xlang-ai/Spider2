@@ -1,0 +1,42 @@
+{
+    "table_name": "FARES",
+    "table_fullname": "SAN_FRANCISCO_PLUS.SAN_FRANCISCO_TRANSIT_MUNI.FARES",
+    "column_names": [
+        "transfer_duration",
+        "rider_id",
+        "transfers_permitted",
+        "payment_method",
+        "rider_desc",
+        "fare_id",
+        "price"
+    ],
+    "column_types": [
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "NUMBER"
+    ],
+    "description": [
+        "Specifies the length of time, in seconds, before a transfer expires. When used with a transfers_permitted value of 0, the transfer_duration field indicates how long a ticket is valid for a fare where no transfers are allowed.",
+        "Unique identifier a rider category. Rider categories are used to assign different pricing to different groups of individuals",
+        "Specifies the number of transfers permitted on this fare.  -  0: No transfers are permitted on this fare. -  1: One transfer is permitted on this fare. -  2: Two transfers are permitted on this fare. -  NULL: Unlimited transfers are permitted on this fare.",
+        "Indicates when the fare must be paid. The following are valid values for this field: -  during: Indicates the fare is paid when riders board -  before: Indicates fare must be paid before riders board",
+        "Text description of the rider category",
+        "Unique identifier a fare class.",
+        "Contains the fare price, in USD"
+    ],
+    "sample_rows": [
+        {
+            "fare_id": "5398",
+            "rider_id": "2",
+            "rider_desc": "Senior",
+            "price": "3.000000000",
+            "payment_method": "0",
+            "transfers_permitted": null,
+            "transfer_duration": 5400
+        }
+    ]
+}

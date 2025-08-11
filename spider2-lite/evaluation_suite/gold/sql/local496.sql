@@ -1,0 +1,1 @@
+SELECT event_name FROM shopping_cart_event_identifier WHERE event_type = 2;

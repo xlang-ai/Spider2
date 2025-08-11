@@ -1,0 +1,39 @@
+## TO_BASE64
+
+TO_BASE64(bytes_expr)
+
+**Description**
+
+Converts a sequence of ` BYTES ` into a base64-encoded ` STRING ` . To convert a base64-encoded ` STRING ` into ` BYTES ` , use  FROM_BASE64  .
+
+There are several base64 encodings in common use that vary in exactly which alphabet of 65 ASCII characters are used to encode the 64 digits and padding.
+See [ RFC 4648 ](https://tools.ietf.org/html/rfc4648#section-4) for details.
+This function adds padding and uses the alphabet ` [A-Za-z0-9+/=] ` .
+
+**Return type**
+
+` STRING `
+
+**Example**
+
+
+SELECT TO_BASE64(b'\377\340') AS base64_string;
+
+/*---------------*
+| base64_string |
++---------------+
+| /+A=          |
+*---------------*/
+
+To work with an encoding using a different base64 alphabet, you might need to compose ` TO_BASE64 ` with the ` REPLACE ` function. For instance, the `
+base64url ` url-safe and filename-safe encoding commonly used in web programming uses ` -_= ` as the last characters rather than ` +/= ` . To encode a ` base64url ` -encoded string, replace ` + ` and ` / ` with ` - ` and
+` _ ` respectively.
+
+
+SELECT REPLACE(REPLACE(TO_BASE64(b'\377\340'), '+', '-'), '/', '_') as websafe_base64;
+
+/*----------------*
+| websafe_base64 |
++----------------+
+| _-A=           |
+*----------------*/

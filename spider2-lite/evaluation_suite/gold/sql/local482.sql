@@ -1,0 +1,1 @@
+SELECT * FROM shopping_cart_users WHERE start_date = '2025-01-01';

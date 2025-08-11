@@ -1,0 +1,93 @@
+## TO_JSON
+
+TO_JSON(sql_value[, stringify_wide_numbers=>{ TRUE | FALSE }])
+
+**Description**
+
+Converts a SQL value to a JSON value.
+
+Arguments:
+
+* ` sql_value ` : The SQL value to convert to a JSON value. You can review the GoogleSQL data types that this function supports and their JSON encodings  here  .
+* ` stringify_wide_numbers ` : Optional mandatory-named argument that is either ` TRUE ` or ` FALSE ` (default).
+
+* If ` TRUE ` , numeric values outside of the ` FLOAT64 ` type domain are encoded as strings.
+* If ` FALSE ` (default), numeric values outside of the ` FLOAT64 ` type domain are not encoded as strings, but are stored as JSON numbers. If a numerical value cannot be stored in JSON without loss of precision, an error is thrown.
+
+The following numerical data types are affected by the `
+stringify_wide_numbers ` argument:
+
+* ` INT64 `
+
+* ` NUMERIC `
+
+* ` BIGNUMERIC `
+
+If one of these numerical data types appears in a container data type such as an ` ARRAY ` or ` STRUCT ` , the ` stringify_wide_numbers ` argument is applied to the numerical data types in the container data type.
+
+**Return type**
+
+` JSON `
+
+**Examples**
+
+In the following example, the query converts rows in a table to JSON values.
+
+
+With CoordinatesTable AS ( (SELECT 1 AS id, [10, 20] AS coordinates) UNION ALL (SELECT 2 AS id, [30, 40] AS coordinates) UNION ALL (SELECT 3 AS id, [50, 60] AS coordinates)) SELECT TO_JSON(t) AS json_objects FROM CoordinatesTable AS t;
+
+/*--------------------------------*
+| json_objects                   |
++--------------------------------+
+| {"coordinates":[10,20],"id":1} |
+| {"coordinates":[30,40],"id":2} |
+| {"coordinates":[50,60],"id":3} |
+*--------------------------------*/
+
+In the following example, the query returns a large numerical value as a JSON string.
+
+
+SELECT TO_JSON(9007199254740993, stringify_wide_numbers=>TRUE) as stringify_on;
+
+/*--------------------*
+| stringify_on       |
++--------------------+
+| "9007199254740993" |
+*--------------------*/
+
+In the following example, both queries return a large numerical value as a JSON number.
+
+
+SELECT TO_JSON(9007199254740993, stringify_wide_numbers=>FALSE) as stringify_off;
+SELECT TO_JSON(9007199254740993) as stringify_off;
+
+/*------------------*
+| stringify_off    |
++------------------+
+| 9007199254740993 |
+*------------------*/
+
+In the following example, only large numeric values are converted to JSON strings.
+
+
+With T1 AS ( (SELECT 9007199254740993 AS id) UNION ALL (SELECT 2 AS id)) SELECT TO_JSON(t, stringify_wide_numbers=>TRUE) AS json_objects FROM T1 AS t;
+
+/*---------------------------*
+| json_objects              |
++---------------------------+
+| {"id":"9007199254740993"} |
+| {"id":2}                  |
+*---------------------------*/
+
+In this example, the values ` 9007199254740993 ` ( ` INT64 ` ) and ` 2.1 ` ( `
+FLOAT64 ` ) are converted to the common supertype ` FLOAT64 ` , which is not affected by the ` stringify_wide_numbers ` argument.
+
+
+With T1 AS ( (SELECT 9007199254740993 AS id) UNION ALL (SELECT 2.1 AS id)) SELECT TO_JSON(t, stringify_wide_numbers=>TRUE) AS json_objects FROM T1 AS t;
+
+/*------------------------------*
+| json_objects                 |
++------------------------------+
+| {"id":9.007199254740992e+15} |
+| {"id":2.1}                   |
+*------------------------------*/

@@ -1,0 +1,127 @@
+table_name,description,DDL
+ACCESS_LOG,,"create or replace TABLE ACCESS_LOG (
+	""session"" VARCHAR(16777216),
+	""user_id"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""stamp"" VARCHAR(16777216)
+);"
+MST_USERS_WITH_CARD_NUMBER,,"create or replace TABLE MST_USERS_WITH_CARD_NUMBER (
+	""user_id"" VARCHAR(16777216),
+	""card_number"" VARCHAR(16777216)
+);"
+INVALID_ACTION_LOG,,"create or replace TABLE INVALID_ACTION_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""user_id"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""products"" VARCHAR(16777216),
+	""amount"" FLOAT
+);"
+ACTION_LOG,,"create or replace TABLE ACTION_LOG (
+	""session"" VARCHAR(16777216),
+	""user_id"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""products"" VARCHAR(16777216),
+	""amount"" FLOAT,
+	""stamp"" VARCHAR(16777216)
+);"
+ACTIVITY_LOG,,"create or replace TABLE ACTIVITY_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""option"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""search_type"" VARCHAR(16777216)
+);"
+APP1_MST_USERS,,"create or replace TABLE APP1_MST_USERS (
+	""user_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216)
+);"
+APP2_MST_USERS,,"create or replace TABLE APP2_MST_USERS (
+	""user_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216)
+);"
+DUP_ACTION_LOG,,"create or replace TABLE DUP_ACTION_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""user_id"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""products"" VARCHAR(16777216)
+);"
+ACTION_LOG_WITH_IP,,"create or replace TABLE ACTION_LOG_WITH_IP (
+	""session"" VARCHAR(16777216),
+	""user_id"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""ip"" VARCHAR(16777216),
+	""stamp"" VARCHAR(16777216)
+);"
+ACTION_LOG_WITH_NOISE,,"create or replace TABLE ACTION_LOG_WITH_NOISE (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""products"" VARCHAR(16777216),
+	""url"" VARCHAR(16777216),
+	""ip"" VARCHAR(16777216),
+	""user_agent"" VARCHAR(16777216)
+);"
+FORM_LOG,,"create or replace TABLE FORM_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""status"" VARCHAR(16777216)
+);"
+MST_CATEGORIES,,"create or replace TABLE MST_CATEGORIES (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""stamp"" VARCHAR(16777216)
+);"
+MST_PRODUCTS_20170101,,"create or replace TABLE MST_PRODUCTS_20170101 (
+	""product_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""price"" NUMBER(38,0),
+	""updated_at"" VARCHAR(16777216)
+);"
+PURCHASE_LOG,,"create or replace TABLE PURCHASE_LOG (
+	""purchase_id"" NUMBER(38,0),
+	""user_id"" VARCHAR(16777216),
+	""amount"" NUMBER(38,0),
+	""stamp"" VARCHAR(16777216)
+);"
+MST_USERS,,"create or replace TABLE MST_USERS (
+	""user_id"" VARCHAR(16777216),
+	""sex"" VARCHAR(16777216),
+	""birth_date"" VARCHAR(16777216),
+	""register_date"" VARCHAR(16777216),
+	""register_device"" VARCHAR(16777216),
+	""withdraw_date"" VARCHAR(16777216)
+);"
+FORM_ERROR_LOG,,"create or replace TABLE FORM_ERROR_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""form"" VARCHAR(16777216),
+	""field"" VARCHAR(16777216),
+	""error_type"" VARCHAR(16777216),
+	""value"" VARCHAR(16777216)
+);"
+MST_PRODUCTS_20161201,,"create or replace TABLE MST_PRODUCTS_20161201 (
+	""product_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""price"" NUMBER(38,0),
+	""updated_at"" VARCHAR(16777216)
+);"
+READ_LOG,,"create or replace TABLE READ_LOG (
+	""stamp"" VARCHAR(16777216),
+	""session"" VARCHAR(16777216),
+	""action"" VARCHAR(16777216),
+	""url"" VARCHAR(16777216)
+);"
+PRODUCT_SALES,,"create or replace TABLE PRODUCT_SALES (
+	""category_name"" VARCHAR(16777216),
+	""product_id"" VARCHAR(16777216),
+	""sales"" NUMBER(38,0)
+);"

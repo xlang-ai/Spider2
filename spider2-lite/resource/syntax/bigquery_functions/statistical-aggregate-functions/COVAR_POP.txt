@@ -1,0 +1,109 @@
+## COVAR_POP
+
+COVAR_POP( X1, X2 )
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns the population [ covariance
+](https://en.wikipedia.org/wiki/Covariance) of a set of number pairs. The first number is the dependent variable; the second number is the independent variable. The return result is between ` -Inf ` and ` +Inf ` .
+
+All numeric types are supported. If the input is ` NUMERIC ` or ` BIGNUMERIC `
+then the internal aggregation is stable with the final output converted to a `
+FLOAT64 ` . Otherwise the input is converted to a ` FLOAT64 ` before aggregation, resulting in a potentially unstable result.
+
+This function ignores any input pairs that contain one or more ` NULL `
+values. If there is no input pair without ` NULL ` values, this function returns ` NULL ` . If there is exactly one input pair without ` NULL ` values,
+this function returns ` 0 ` .
+
+` NaN ` is produced if:
+
+* Any input value is ` NaN `
+* Any input value is positive infinity or negative infinity.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+This function can be used with the [ ` AGGREGATION_THRESHOLD ` clause
+](/bigquery/docs/reference/standard-sql/query-syntax#agg_threshold_clause) .
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+**Return Data Type**
+
+` FLOAT64 `
+
+**Examples**
+
+
+SELECT COVAR_POP(y, x) AS results FROM UNNEST(
+[
+STRUCT(1.0 AS y, 1.0 AS x),
+(2.0, 6.0),
+(9.0, 3.0),
+(2.0, 6.0),
+(9.0, 3.0)])
+
+/*---------------------*
+| results             |
++---------------------+
+| -1.6800000000000002 |
+*---------------------*/
+
+
+SELECT COVAR_POP(y, x) AS results FROM UNNEST([STRUCT(1.0 AS y, NULL AS x),(9.0, 3.0)])
+
+/*---------*
+| results |
++---------+
+| 0       |
+*---------*/
+
+
+SELECT COVAR_POP(y, x) AS results FROM UNNEST([STRUCT(1.0 AS y, NULL AS x),(9.0, NULL)])
+
+/*---------*
+| results |
++---------+
+| NULL    |
+*---------*/
+
+
+SELECT COVAR_POP(y, x) AS results FROM UNNEST(
+[
+STRUCT(1.0 AS y, 1.0 AS x),
+(2.0, 6.0),
+(9.0, 3.0),
+(2.0, 6.0),
+(NULL, 3.0)])
+
+/*---------*
+| results |
++---------+
+| -1      |
+*---------*/
+
+
+SELECT COVAR_POP(y, x) AS results FROM UNNEST(
+[
+STRUCT(1.0 AS y, 1.0 AS x),
+(2.0, 6.0),
+(9.0, 3.0),
+(2.0, 6.0),
+(CAST('Infinity' as FLOAT64), 3.0)])
+
+/*---------*
+| results |
++---------+
+| NaN     |
+*---------*/

@@ -1,0 +1,46 @@
+{
+    "sample_rows": [
+        {
+            "FromZipCode": "13666",
+            "ToStateCountyTractID": "36089492501",
+            "ResidentialMappingRatioZT": "1.000000000000000"
+        },
+        {
+            "FromZipCode": "12160",
+            "ToStateCountyTractID": "36095740400",
+            "ResidentialMappingRatioZT": "0.500000000000000"
+        },
+        {
+            "FromZipCode": "12160",
+            "ToStateCountyTractID": "36057072800",
+            "ResidentialMappingRatioZT": "0.032863849765258"
+        },
+        {
+            "FromZipCode": "12854",
+            "ToStateCountyTractID": "36115084001",
+            "ResidentialMappingRatioZT": "1.000000000000000"
+        },
+        {
+            "FromZipCode": "12814",
+            "ToStateCountyTractID": "36113078000",
+            "ResidentialMappingRatioZT": "0.995645863570392"
+        }
+    ],
+    "table_name": "Xref_ZipToTract_Residential",
+    "table_fullname": "CENSUS_GALAXY__ZIP_CODE_TO_BLOCK_GROUP_SAMPLE.PUBLIC.Xref_ZipToTract_Residential",
+    "column_names": [
+        "FromZipCode",
+        "ToStateCountyTractID",
+        "ResidentialMappingRatioZT"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "NUMBER"
+    ],
+    "description": [
+        "The U.S. Postal Service Zip Code that relates to the StateCountyTractID based on the ratio of residents in that geographical region. Many Tracts can overlap parts of Zip Codes, and many Zip Codes can overlap parts of Tracts.",
+        "A unique identifier compound key that uses StateFIPS, CountyFIPS, and Tract for a specific within a geographic area. This field (and table) is for rolling metrics and values from the Zip Code to the Census block group or Tract level.",
+        "The ratios of residents in each Zip Code that are made up by that connected Tract. \u201cZT\u201d as the suffix designates the direction of the data , Zip Code to Tract (usually larger polygons into smaller ones)."
+    ]
+}

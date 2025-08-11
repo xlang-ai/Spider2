@@ -1,0 +1,1 @@
+SELECT calendar_year, SUM(sales) AS total_sales FROM cleaned_weekly_sales GROUP BY calendar_year;

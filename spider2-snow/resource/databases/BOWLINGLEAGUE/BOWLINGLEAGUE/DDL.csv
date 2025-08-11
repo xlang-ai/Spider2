@@ -1,0 +1,81 @@
+table_name,description,DDL
+BOWLER_SCORES_ARCHIVE,,"create or replace TABLE BOWLER_SCORES_ARCHIVE (
+	""MatchID"" VARCHAR(16777216),
+	""GameNumber"" VARCHAR(16777216),
+	""BowlerID"" VARCHAR(16777216),
+	""RawScore"" VARCHAR(16777216),
+	""HandiCapScore"" VARCHAR(16777216),
+	""WonGame"" VARCHAR(16777216)
+);"
+MATCH_GAMES,,"create or replace TABLE MATCH_GAMES (
+	""MatchID"" NUMBER(38,0),
+	""GameNumber"" NUMBER(38,0),
+	""WinningTeamID"" NUMBER(38,0)
+);"
+MATCH_GAMES_ARCHIVE,,"create or replace TABLE MATCH_GAMES_ARCHIVE (
+	""MatchID"" VARCHAR(16777216),
+	""GameNumber"" VARCHAR(16777216),
+	""WinningTeamID"" VARCHAR(16777216)
+);"
+TOURNEY_MATCHES_ARCHIVE,,"create or replace TABLE TOURNEY_MATCHES_ARCHIVE (
+	""MatchID"" VARCHAR(16777216),
+	""TourneyID"" VARCHAR(16777216),
+	""Lanes"" VARCHAR(16777216),
+	""OddLaneTeamID"" VARCHAR(16777216),
+	""EvenLaneTeamID"" VARCHAR(16777216)
+);"
+WAZIPS,,"create or replace TABLE WAZIPS (
+	ZIP VARCHAR(16777216),
+	""City"" VARCHAR(16777216),
+	""State"" VARCHAR(16777216)
+);"
+SQLITE_SEQUENCE,,"create or replace TABLE SQLITE_SEQUENCE (
+	""name"" VARCHAR(16777216),
+	""seq"" NUMBER(38,0)
+);"
+TOURNAMENTS,,"create or replace TABLE TOURNAMENTS (
+	""TourneyID"" NUMBER(38,0),
+	""TourneyDate"" VARCHAR(16777216),
+	""TourneyLocation"" VARCHAR(16777216)
+);"
+TOURNEY_MATCHES,,"create or replace TABLE TOURNEY_MATCHES (
+	""MatchID"" NUMBER(38,0),
+	""TourneyID"" NUMBER(38,0),
+	""Lanes"" VARCHAR(16777216),
+	""OddLaneTeamID"" NUMBER(38,0),
+	""EvenLaneTeamID"" NUMBER(38,0)
+);"
+BOWLERS,,"create or replace TABLE BOWLERS (
+	""BowlerID"" NUMBER(38,0),
+	""BowlerLastName"" VARCHAR(16777216),
+	""BowlerFirstName"" VARCHAR(16777216),
+	""BowlerMiddleInit"" VARCHAR(16777216),
+	""BowlerAddress"" VARCHAR(16777216),
+	""BowlerCity"" VARCHAR(16777216),
+	""BowlerState"" VARCHAR(16777216),
+	""BowlerZip"" VARCHAR(16777216),
+	""BowlerPhoneNumber"" VARCHAR(16777216),
+	""TeamID"" NUMBER(38,0),
+	""BowlerTotalPins"" NUMBER(38,0),
+	""BowlerGamesBowled"" NUMBER(38,0),
+	""BowlerCurrentAverage"" NUMBER(38,0),
+	""BowlerCurrentHcp"" NUMBER(38,0)
+);"
+BOWLER_SCORES,,"create or replace TABLE BOWLER_SCORES (
+	""MatchID"" NUMBER(38,0),
+	""GameNumber"" NUMBER(38,0),
+	""BowlerID"" NUMBER(38,0),
+	""RawScore"" NUMBER(38,0),
+	""HandiCapScore"" NUMBER(38,0),
+	""WonGame"" NUMBER(38,0)
+);"
+TEAMS,,"create or replace TABLE TEAMS (
+	""TeamID"" NUMBER(38,0),
+	""TeamName"" VARCHAR(16777216),
+	""CaptainID"" NUMBER(38,0)
+);"
+TOURNAMENTS_ARCHIVE,,"create or replace TABLE TOURNAMENTS_ARCHIVE (
+	""TourneyID"" VARCHAR(16777216),
+	""TourneyDate"" VARCHAR(16777216),
+	""TourneyLocation"" VARCHAR(16777216)
+);"

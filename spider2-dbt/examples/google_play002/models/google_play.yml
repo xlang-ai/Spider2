@@ -1,0 +1,389 @@
+version: 2
+
+models:
+  - name: google_play__device_report
+    description: >
+      Daily report on installs and ratings by app and device model type. 
+      Records with `NULL` device types (ie did not consent to being tracked) are aggregated together into daily batches.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - package_name
+            - date_day
+            - device
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_device_installs") }}'
+      - name: device
+        description: '{{ doc("device") }}'
+      - name: device_installs
+        description: '{{ doc("daily_device_installs") }}'
+      - name: device_uninstalls
+        description: '{{ doc("daily_device_uninstalls") }}'
+      - name: device_upgrades
+        description: '{{ doc("daily_device_upgrades") }}'
+      - name: user_installs
+        description: '{{ doc("daily_user_installs") }}'
+      - name: user_uninstalls
+        description: '{{ doc("daily_user_uninstalls") }}'
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: install_events
+        description: '{{ doc("install_events") }}'
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: uninstall_events
+        description: '{{ doc("uninstall_events") }}'
+      - name: update_events
+        description: '{{ doc("update_events") }}'
+      - name: rolling_total_average_rating
+        description: '{{ doc("total_average_rating") }}'
+      - name: average_rating
+        description: '{{ doc("daily_average_rating") }}'
+      - name: total_device_installs
+        description: '{{ doc("total_device_installs") }}'
+      - name: total_device_uninstalls
+        description: '{{ doc("total_device_uninstalls") }}'
+      - name: net_device_installs
+        description: '{{ doc("net_device_installs") }}'  
+
+    refs:
+      - name: stats_installs_device
+        description: "Source table containing install data by device."
+      - name: stats_ratings_device
+        description: "Source table containing ratings data by device."
+
+
+  - name: google_play__country_report
+    description: >
+      Daily report on installs, ratings, and store performance by app and user country. 
+      Records with `NULL` countries (ie did not consent to being tracked) are aggregated together into daily batches.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - package_name
+            - date_day
+            - country_short
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_device_installs") }}'
+      - name: country_short
+        description: '{{ doc("country") }}'
+      - name: country_long
+        description: Full name of the country.
+      - name: region
+        description: Geographical region of the country.
+      - name: sub_region
+        description: Geographical subregion of the country.
+      - name: device_installs
+        description: '{{ doc("daily_device_installs") }}'
+      - name: device_uninstalls
+        description: '{{ doc("daily_device_uninstalls") }}'
+      - name: device_upgrades
+        description: '{{ doc("daily_device_upgrades") }}'
+      - name: user_installs
+        description: '{{ doc("daily_user_installs") }}'
+      - name: user_uninstalls
+        description: '{{ doc("daily_user_uninstalls") }}'
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: install_events
+        description: '{{ doc("install_events") }}'
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: uninstall_events
+        description: '{{ doc("uninstall_events") }}'
+      - name: update_events
+        description: '{{ doc("update_events") }}'
+      - name: rolling_total_average_rating
+        description: '{{ doc("total_average_rating") }}'
+      - name: average_rating
+        description: '{{ doc("daily_average_rating") }}'
+      - name: total_device_installs
+        description: '{{ doc("total_device_installs") }}'
+      - name: total_device_uninstalls
+        description: '{{ doc("total_device_uninstalls") }}'
+      - name: net_device_installs
+        description: '{{ doc("net_device_installs") }}' 
+      - name: store_listing_acquisitions
+        description: '{{ doc("store_listing_acquisitions") }}'
+      - name: store_listing_conversion_rate
+        description: '{{ doc("store_listing_conversion_rate") }}'
+      - name: store_listing_visitors
+        description: '{{ doc("store_listing_visitors") }}'
+      - name: total_store_acquisitions
+        description: '{{ doc("total_store_acquisitions") }}'
+      - name: total_store_visitors
+        description: '{{ doc("total_store_visitors") }}'
+      - name: rolling_store_conversion_rate
+        description: '{{ doc("rolling_store_conversion_rate") }}'
+
+    refs:
+      - name: stats_installs_country
+        description: "Source table containing install data by country."
+      - name: stats_ratings_country
+        description: "Source table containing ratings data by country."
+      - name: stats_store_performance_country
+        description: "Source table containing store performance metrics by country."
+      - name: country_codes
+        description: "Source table containing country codes for mapping countries and regions."
+  
+  - name: google_play__finance_report
+    description: >
+      Daily report on revenue (in merchant currency) and subscriptions by product (defined by 'sku_id') and buyer country. 
+      Includes financial metrics for each type of transaction that your app has completed.
+      Note that this table draws from the `earnings` report and NOT `sales`. The Google Play UI draws from the `sales`
+      data, and therefore this model will NOT tie out with the UI revenue reports. Google recommends using
+      `earnings` data for financial analyses despite this -- `sales` does not include chargebacks and the like, making 
+      it more appropriate for trend analyses than accounting ([source](https://support.google.com/googleplay/android-developer/answer/6135870)).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - sku_id
+            - country_short
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: country_short
+        description: '{{ doc("country") }}'
+      - name: country_long
+        description: Full name of the country.
+      - name: region
+        description: Geographical region of the country.
+      - name: sub_region
+        description: Geographical subregion of the country.
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: sku_id
+        description: '{{ doc("sku_id") }}' 
+      - name: merchant_currency
+        description: Currency to which the order was converted. This is the local currency you are paid in.
+      - name: new_subscriptions
+        description: '{{ doc("new_subscriptions") }}'
+      - name: cancelled_subscriptions
+        description: '{{ doc("cancelled_subscriptions") }}'
+      - name: total_active_subscriptions
+        description: '{{ doc("total_active_subscriptions") }}'
+      - name: net_amount
+        description: Net amount of revenue summed across the different transaction types.
+      - name: charge_amount
+        description: Amount of revenue brought in through `charge` transaction types (ie charging a customer for a subscription).
+      - name: charge_transactions
+        description: Number of distinct orders of the `charge` transaction type. 
+      - name: google_fee_amount
+        description: Amount of revenue paid to Google in fees. Transactions made in the European Economic Area will not include Google fees.
+      - name: google_fee_transactions
+        description: Number of distinct transactions of the `charge` transaction type. 
+      - name: tax_amount
+        description: Amount paid in taxes. 
+      - name: tax_transactions
+        description: Number of distinct transactions of `tax` type.
+      - name: charge_refund_amount
+        description: Amount paid in refunding users' charges.
+      - name: charge_refund_transactions
+        description: Number of distinct charge refunds made. 
+      - name: google_fee_refund_amount
+        description: Amount of revenue refunded to you from Google fees. 
+      - name: google_fee_refund_transactions
+        description: Number of distinct Google fee refunds made.
+      - name: tax_refund_amount
+        description: Amount of tax refunds paid to you.
+      - name: tax_refund_transactions
+        description: Number of distinct tax refunds made.
+      - name: other_amount
+        description: Amount of revenue from `other` or `NULL` transaction types.
+      - name: other_transactions
+        description: Number of distinct transactions of `other` or `NULL` transaction types.
+      - name: transactions 
+        description: Total number of distinct transactions made.
+      - name: product_title
+        description: Developer-specified name of the product. Shown in the buyer's locale.
+
+  - name: google_play__app_version_report
+    description: >
+      Daily report on installs, crashes and ANRs, and ratings by app and app_version. 
+      Records with `NULL` app version codes are aggregated together into daily batches.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - package_name
+            - date_day
+            - app_version_code
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_device_installs") }}'
+      - name: app_version_code
+        description: '{{ doc("app_version_code") }}'
+      - name: device_installs
+        description: '{{ doc("daily_device_installs") }}'
+      - name: device_uninstalls
+        description: '{{ doc("daily_device_uninstalls") }}'
+      - name: device_upgrades
+        description: '{{ doc("daily_device_upgrades") }}'
+      - name: user_installs
+        description: '{{ doc("daily_user_installs") }}'
+      - name: user_uninstalls
+        description: '{{ doc("daily_user_uninstalls") }}'
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: install_events
+        description: '{{ doc("install_events") }}'
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: uninstall_events
+        description: '{{ doc("uninstall_events") }}'
+      - name: update_events
+        description: '{{ doc("update_events") }}'
+      - name: anrs
+        description: '{{ doc("daily_anrs") }}'
+      - name: crashes
+        description: '{{ doc("daily_crashes") }}'
+      - name: rolling_total_average_rating
+        description: '{{ doc("total_average_rating") }}'
+      - name: average_rating
+        description: '{{ doc("daily_average_rating") }}'
+      - name: total_device_installs
+        description: '{{ doc("total_device_installs") }}'
+      - name: total_device_uninstalls
+        description: '{{ doc("total_device_uninstalls") }}'
+      - name: net_device_installs
+        description: '{{ doc("net_device_installs") }}'
+
+  - name: google_play__os_version_report
+    description: >
+      Daily report on installs, crashes and ANRs, and ratings by app and android os version. 
+      Records with `NULL` os versions (ie they do not consent to being tracked) are aggregated together into daily batches.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - package_name
+            - date_day
+            - android_os_version
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_device_installs") }}'
+      - name: android_os_version
+        description: '{{ doc("android_os_version") }}'
+      - name: device_installs
+        description: '{{ doc("daily_device_installs") }}'
+      - name: device_uninstalls
+        description: '{{ doc("daily_device_uninstalls") }}'
+      - name: device_upgrades
+        description: '{{ doc("daily_device_upgrades") }}'
+      - name: user_installs
+        description: '{{ doc("daily_user_installs") }}'
+      - name: user_uninstalls
+        description: '{{ doc("daily_user_uninstalls") }}'
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: install_events
+        description: '{{ doc("install_events") }}'
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: uninstall_events
+        description: '{{ doc("uninstall_events") }}'
+      - name: update_events
+        description: '{{ doc("update_events") }}'
+      - name: anrs
+        description: '{{ doc("daily_anrs") }}'
+      - name: crashes
+        description: '{{ doc("daily_crashes") }}'
+      - name: rolling_total_average_rating
+        description: '{{ doc("total_average_rating") }}'
+      - name: average_rating
+        description: '{{ doc("daily_average_rating") }}'
+      - name: total_device_installs
+        description: '{{ doc("total_device_installs") }}'
+      - name: total_device_uninstalls
+        description: '{{ doc("total_device_uninstalls") }}'
+      - name: net_device_installs
+        description: '{{ doc("net_device_installs") }}'
+
+  - name: google_play__overview_report
+    description: >
+      Daily overview report on installs, crashes and ANRs, ratings, and store performance by app. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - package_name
+            - date_day
+    columns:
+      - name: source_relation
+        description: "{{ doc('source_relation') }}"
+      - name: active_devices_last_30_days
+        description: '{{ doc("active_device_installs") }}'
+      - name: android_os_version
+        description: '{{ doc("android_os_version") }}'
+      - name: device_installs
+        description: '{{ doc("daily_device_installs") }}'
+      - name: device_uninstalls
+        description: '{{ doc("daily_device_uninstalls") }}'
+      - name: device_upgrades
+        description: '{{ doc("daily_device_upgrades") }}'
+      - name: user_installs
+        description: '{{ doc("daily_user_installs") }}'
+      - name: user_uninstalls
+        description: '{{ doc("daily_user_uninstalls") }}'
+      - name: date_day
+        description: '{{ doc("date") }}'
+      - name: install_events
+        description: '{{ doc("install_events") }}'
+      - name: package_name
+        description: '{{ doc("package_name") }}'
+      - name: uninstall_events
+        description: '{{ doc("uninstall_events") }}'
+      - name: update_events
+        description: '{{ doc("update_events") }}'
+      - name: anrs
+        description: '{{ doc("daily_anrs") }}'
+      - name: crashes
+        description: '{{ doc("daily_crashes") }}'
+      - name: rolling_total_average_rating
+        description: '{{ doc("total_average_rating") }}'
+      - name: average_rating
+        description: '{{ doc("daily_average_rating") }}'
+      - name: total_device_installs
+        description: '{{ doc("total_device_installs") }}'
+      - name: total_device_uninstalls
+        description: '{{ doc("total_device_uninstalls") }}'
+      - name: net_device_installs
+        description: '{{ doc("net_device_installs") }}'
+      - name: store_listing_acquisitions
+        description: '{{ doc("store_listing_acquisitions") }}'
+      - name: store_listing_conversion_rate
+        description: '{{ doc("store_listing_conversion_rate") }}'
+      - name: store_listing_visitors
+        description: '{{ doc("store_listing_visitors") }}'
+      - name: total_store_acquisitions
+        description: '{{ doc("total_store_acquisitions") }}'
+      - name: total_store_visitors
+        description: '{{ doc("total_store_visitors") }}'
+      - name: rolling_store_conversion_rate
+        description: '{{ doc("rolling_store_conversion_rate") }}'
+
+  refs:
+    - name: int_google_play__store_performance
+      description: "Intermediate model that rolls up Google Play store performance metrics for each country."
+    - name: stats_installs_overview
+      description: "Source table containing an overview of install metrics by app."
+    - name: stats_ratings_overview
+      description: "Source table containing app rating metrics by app."
+    - name: stats_crashes_overview
+      description: "Source table containing crash and ANR metrics by app."

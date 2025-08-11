@@ -1,0 +1,1 @@
+SELECT * FROM veg_whsle_df WHERE `whsle_px_rmb-kg` > 20;

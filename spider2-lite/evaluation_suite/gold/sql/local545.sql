@@ -1,0 +1,1 @@
+SELECT AVG(vt.`unit_selling_px_rmb/kg`) - AVG(vw.`whsle_px_rmb-kg`) AS profit_margin FROM veg_txn_df vt JOIN veg_cat vc ON vt.item_code = vc.item_code JOIN veg_whsle_df vw ON vt.item_code = vw.item_code AND vt.txn_date = vw.whsle_date WHERE vc.item_name = 'Tomato';

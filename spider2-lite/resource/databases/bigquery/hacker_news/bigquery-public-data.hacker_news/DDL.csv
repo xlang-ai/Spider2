@@ -1,0 +1,21 @@
+table_name,ddl
+full,"CREATE TABLE `bigquery-public-data.hacker_news.full`
+(
+  title STRING OPTIONS(description=""Story title""),
+  url STRING OPTIONS(description=""Story url""),
+  text STRING OPTIONS(description=""Story or comment text""),
+  dead BOOL OPTIONS(description=""Is dead?""),
+  `by` STRING OPTIONS(description=""The username of the item's author.""),
+  score INT64 OPTIONS(description=""Story score""),
+  time INT64 OPTIONS(description=""Unix time""),
+  timestamp TIMESTAMP OPTIONS(description=""Timestamp for the unix time""),
+  type STRING OPTIONS(description=""type of details (comment comment_ranking poll story job pollopt)""),
+  id INT64 OPTIONS(description=""The item's unique id.""),
+  parent INT64 OPTIONS(description=""Parent comment ID""),
+  descendants INT64 OPTIONS(description=""Number of story or poll descendants""),
+  ranking INT64 OPTIONS(description=""Comment ranking""),
+  deleted BOOL OPTIONS(description=""Is deleted?"")
+)
+OPTIONS(
+  description=""A full daily update of all the stories and comments in Hacker News.""
+);"

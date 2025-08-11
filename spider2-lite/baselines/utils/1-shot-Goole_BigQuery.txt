@@ -1,0 +1,46 @@
+/* A example question and corresponding SQL query are provided as follows: */
+/* Question: For US B2 patents granted in the first seven days of January 2018, tell me the publication number of each patent and the number of backward citations it has received in the SEA category. */
+/* SQL query: */
+WITH patents_sample AS (               -- name of our table
+SELECT 
+  t1.publication_number, 
+  t1.application_number 
+FROM 
+  `patents-public-data.patents.publications` t1 
+WHERE 
+  country_code = 'US'                                                        -- only consider US patents
+  AND grant_date between 20180101 AND 20180107                               -- grant dates between 2002 and 2006
+  AND grant_date != 0                                                        -- only consider granted patents
+  AND publication_number LIKE '%B2%'                                         -- only consider patents with kind code B2
+)
+
+SELECT
+  t1.publication_number,
+  -- count disctinct application numbers cited by our focal patent
+  COUNT(DISTINCT t3.application_number) AS backward_citations
+FROM
+  patents_sample t1
+LEFT OUTER JOIN (
+  SELECT
+    -- the publication number in the joined table is the citing publication number
+    x2.publication_number AS citing_publication_number,
+    -- the publication number in the unnested citation record is the cited publication number
+    citation_u.publication_number AS cited_publication_number,
+    -- the category in the unnested citation record is the category of the cited publication
+    citation_u.category AS cited_publication_category
+  FROM
+    `patents-public-data.patents.publications` x2,
+    UNNEST(citation) AS citation_u ) t2
+ON
+  t2.citing_publication_number = t1.publication_number
+  -- citation category has to contain 'SEA'
+  AND CONTAINS_SUBSTR(t2.cited_publication_category, 'SEA')
+  -- one more join to publications table to get the application number
+LEFT OUTER JOIN
+  `patents-public-data.patents.publications` t3
+ON
+  t2.cited_publication_number = t3.publication_number
+GROUP BY
+  t1.publication_number
+ORDER BY
+  t1.publication_number

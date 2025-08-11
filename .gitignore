@@ -1,0 +1,152 @@
+
+spider2-dbt/evaluation_suite/*
+spider2-dbt/release_spider2/spider2c.jsonl
+spider2-dbt/evaluation_suite/gold/spider2c_eval.jsonl
+spider2-dbt/evaluation_suite/gold/**/*.duckdb
+spider2-dbt/delete.py
+get_doc.py
+get_bigquery_schema.py
+.vscode/*
+
+spider2-dbt/resource/databases/local/*.sqlite
+spider2-dbt/examples/**/DB_schema/
+spider2-dbt/examples/**/*.sqlite
+spider2-dbt/examples/**/*.duckdb
+spider2-dbt/examples/airbnb002/seeds/RAW_REVIEWS.csv
+
+!spider2-dbt/resource/databases/local/local-map.jsonl
+
+methods/spider-agent-dbt/logs/*
+methods/spider-agent-dbt/output/*
+methods/spider-agent-dbt/examples/*
+!methods/spider-agent-dbt/logs/README.md
+!methods/spider-agent-dbt/output/README.md
+
+methods/spider-agent-snow/logs/*
+methods/spider-agent-snow/output/*
+methods/spider-agent-snow/examples/*
+!methods/spider-agent-snow/logs/README.md
+!methods/spider-agent-snow/output/README.md
+
+spider2-lite/evaluation_suite/*
+spider2-lite/fix_rows.py
+spider2-lite/query_local.py
+
+# 1102: currently, we don't release the sql
+spider2-lite/spider2-lite.json  
+
+spider2-lite/resource/databases/local/*.db
+spider2-lite/resource/databases/local/*.sqlite
+
+!spider2-lite/evaluation_suite/README.md
+!spider2-lite/evaluation_suite/gold/
+!spider2-lite/evaluation_suite/gold-1108/
+!spider2-lite/evaluation_suite/gold-1104/
+!spider2-lite/evaluation_suite/gold/sql/bq001.sql
+!spider2-lite/evaluation_suite/gold/sql/bq002.sql
+!spider2-lite/evaluation_suite/gold/spider2lite_eval.jsonl
+!spider2-lite/evaluation_suite/evaluate.py
+!spider2-lite/evaluation_suite/evaluate_yx.py
+!spider2-lite/evaluation_suite/evaluate_utils.py
+!spider2-lite/evaluation_suite/spider2sql_eval_config_file.py
+!spider2-lite/evaluation_suite/example_submission_folder/
+
+
+# Do not ignore specific files and directories
+!spider2-dbt/evaluation_suite/README.md
+!spider2-dbt/evaluation_suite/evaluate.py
+!spider2-dbt/evaluation_suite/evaluate_beta.py
+!spider2-dbt/evaluation_suite/gold/
+!spider2-dbt/evaluation_suite/gold_temp/
+!spider2-dbt/evaluation_suite/eval_utils.py
+!spider2-dbt/evaluation_suite/example_submission_folder/
+
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+**/launch.json
+
+*.DS_Store
+*.pyc
+
+
+
+# Dail-SQL
+spider2-lite/baselines/dailsql/third_party/
+spider2-lite/baselines/dailsql/vector_cache/
+
+spider2-lite/baselines/dailsql/preprocessed_data/*
+!spider2-lite/baselines/dailsql/preprocessed_data/spider2_preprocess.py
+spider2-lite/baselines/dailsql/postprocessed_data/*
+!spider2-lite/baselines/dailsql/postprocessed_data/spider2_postprocess.py
+
+
+# CodeS
+spider2-lite/baselines/codes/sic_ckpts/
+spider2-lite/baselines/codes/SimCSE/
+spider2-lite/baselines/codes/preprocessed_data/*
+!spider2-lite/baselines/codes/preprocessed_data/spider2_preprocess.py
+spider2-lite/baselines/codes/postprocessed_data/*
+!spider2-lite/baselines/codes/postprocessed_data/spider2_postprocess.py
+!spider2-lite/evaluation_suite/credentials.zip
+
+# DIN-SQL
+spider2-lite/baselines/dinsql/preprocessed_data/*
+!spider2-lite/baselines/dinsql/preprocessed_data/spider2_preprocess.py
+spider2-lite/baselines/dinsql/postprocessed_data/*
+!spider2-lite/baselines/dinsql/postprocessed_data/spider2_postprocess.py
+
+
+!methods/spider-agent-lite/bigquery_credential.json
+!methods/spider-agent-lite/snowflake_credential.json
+!spider2-lite/evaluation_suite/example_submission_folder_csv
+
+
+# yuxiao's tmp code
+spider2-lite/baselines/yyx_tmp/
+
+**/toy*.json
+**/yyx_run.sh
+**/0825*.json
+**/subset*.json
+**/local*.json
+**/multi_db_40.json
+**/yyx*.sh
+**/yyx*.py
+**/yyx*.json
+
+**/subset*.json
+**/run_check.sh
+**/sitecustomize.py
+
+
+
+
+# **/snowflake_credential.json
+# **/bigquery_credential.json
+# **/bigquery_credential*.json
+
+spider-agent/bigquery_credential.json
+spider2-lite/bigquery_credential.json
+# spider2-lite/snowflake_credential.json
+spider2/bigquery_credential.json
+
+
+
+# local DB
+spider2-lite/resource/databases/spider2-localdb
+
+
+# Ignore any folder named 'credentials'
+credentials/
+**/credentials/
+
+
+# Clean reset additions to prevent large files and generated outputs
+.env
+spider2-lite/evaluation_suite/gold/exec_result/
+spider2-lite/evaluation_suite/gold/**/exec_result/
+spider2-lite/evaluation_suite/gold/**/*.csv
+spider2-lite/temp/
+spider2-lite/errors.log
+spider2-lite/log.txt

@@ -1,0 +1,1 @@
+SELECT item_name FROM veg_loss_rate_df WHERE `loss_rate_%` > 5;

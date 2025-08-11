@@ -1,0 +1,69 @@
+table_name,description,DDL
+PLAYER_MATCH,,"create or replace TABLE PLAYER_MATCH (
+	""match_id"" NUMBER(38,0),
+	""player_id"" NUMBER(38,0),
+	""role"" VARCHAR(16777216),
+	""team_id"" NUMBER(38,0)
+);"
+PLAYER,,"create or replace TABLE PLAYER (
+	""player_id"" NUMBER(38,0),
+	""player_name"" VARCHAR(16777216),
+	""dob"" VARCHAR(16777216),
+	""batting_hand"" VARCHAR(16777216),
+	""bowling_skill"" VARCHAR(16777216),
+	""country_name"" VARCHAR(16777216)
+);"
+BATSMAN_SCORED,,"create or replace TABLE BATSMAN_SCORED (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""runs_scored"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0)
+);"
+WICKET_TAKEN,,"create or replace TABLE WICKET_TAKEN (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""player_out"" NUMBER(38,0),
+	""kind_out"" VARCHAR(16777216),
+	""innings_no"" NUMBER(38,0)
+);"
+BALL_BY_BALL,,"create or replace TABLE BALL_BY_BALL (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0),
+	""team_batting"" NUMBER(38,0),
+	""team_bowling"" NUMBER(38,0),
+	""striker_batting_position"" NUMBER(38,0),
+	""striker"" NUMBER(38,0),
+	""non_striker"" NUMBER(38,0),
+	""bowler"" NUMBER(38,0)
+);"
+EXTRA_RUNS,,"create or replace TABLE EXTRA_RUNS (
+	""match_id"" NUMBER(38,0),
+	""over_id"" NUMBER(38,0),
+	""ball_id"" NUMBER(38,0),
+	""extra_type"" VARCHAR(16777216),
+	""extra_runs"" NUMBER(38,0),
+	""innings_no"" NUMBER(38,0)
+);"
+MATCH,,"create or replace TABLE MATCH (
+	""match_id"" NUMBER(38,0),
+	""team_1"" NUMBER(38,0),
+	""team_2"" NUMBER(38,0),
+	""match_date"" VARCHAR(16777216),
+	""season_id"" NUMBER(38,0),
+	""venue"" VARCHAR(16777216),
+	""toss_winner"" NUMBER(38,0),
+	""toss_decision"" VARCHAR(16777216),
+	""win_type"" VARCHAR(16777216),
+	""win_margin"" NUMBER(38,0),
+	""outcome_type"" VARCHAR(16777216),
+	""match_winner"" NUMBER(38,0),
+	""man_of_the_match"" NUMBER(38,0)
+);"
+TEAM,,"create or replace TABLE TEAM (
+	""team_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"

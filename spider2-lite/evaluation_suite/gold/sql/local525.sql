@@ -1,0 +1,1 @@
+SELECT DISTINCT ct.customer_id FROM customer_transactions ct WHERE NOT EXISTS (SELECT 1 FROM customer_nodes cn WHERE cn.customer_id = ct.customer_id);

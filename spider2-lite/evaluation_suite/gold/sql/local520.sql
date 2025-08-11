@@ -1,0 +1,1 @@
+SELECT SUM(t.quantity * p.price) AS total_value FROM bitcoin_transactions t JOIN bitcoin_prices p ON t.ticker = p.ticker AND t.txn_date = p.market_date WHERE t.ticker = 'BTC' AND t.txn_type = 'BUY' AND t.txn_date = '2023-04-12';

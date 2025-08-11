@@ -1,0 +1,1 @@
+SELECT * FROM interest_map WHERE last_modified < '2024-06-01';

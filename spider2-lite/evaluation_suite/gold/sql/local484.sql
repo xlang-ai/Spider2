@@ -1,0 +1,1 @@
+SELECT user_id, start_date FROM shopping_cart_users ORDER BY start_date LIMIT 10;

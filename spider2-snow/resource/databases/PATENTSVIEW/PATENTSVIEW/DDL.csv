@@ -1,0 +1,423 @@
+table_name,description,DDL
+BRF_SUM_TEXT,,"create or replace TABLE BRF_SUM_TEXT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216)
+);"
+CLAIMS_2021,,"create or replace TABLE CLAIMS_2021 (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""dependent"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0),
+	""num"" VARCHAR(16777216),
+	""exemplary"" NUMBER(38,0)
+);"
+FIGURES,,"create or replace TABLE FIGURES (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""num_figures"" NUMBER(38,0),
+	""num_sheets"" NUMBER(38,0)
+);"
+FOREIGNCITATION,,"create or replace TABLE FOREIGNCITATION (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+INVENTOR_GENDER,,"create or replace TABLE INVENTOR_GENDER (
+	""disamb_inventor_id_20170808"" VARCHAR(16777216),
+	""disamb_inventor_id_20181127"" VARCHAR(16777216),
+	""disamb_inventor_id_20190312"" VARCHAR(16777216),
+	""male"" VARCHAR(16777216)
+);"
+LOCATION,,"create or replace TABLE LOCATION (
+	""id"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""county"" VARCHAR(16777216),
+	""state_fips"" FLOAT,
+	""county_fips"" VARCHAR(16777216)
+);"
+OTHERREFERENCE,,"create or replace TABLE OTHERREFERENCE (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+PATENT,,"create or replace TABLE PATENT (
+	""id"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""abstract"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216),
+	""num_claims"" NUMBER(38,0),
+	""filename"" VARCHAR(16777216),
+	""withdrawn"" NUMBER(38,0)
+);"
+RAWLOCATION,,"create or replace TABLE RAWLOCATION (
+	""id"" VARCHAR(16777216),
+	""location_id"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""latlong"" VARCHAR(16777216)
+);"
+USAPPLICATIONCITATION,,"create or replace TABLE USAPPLICATIONCITATION (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""application_id"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+USPC,,"create or replace TABLE USPC (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""mainclass_id"" VARCHAR(16777216),
+	""subclass_id"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+NBER_SUBCATEGORY,,"create or replace TABLE NBER_SUBCATEGORY (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+NON_INVENTOR_APPLICANT,,"create or replace TABLE NON_INVENTOR_APPLICANT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""rawlocation_id"" VARCHAR(16777216),
+	""lname"" VARCHAR(16777216),
+	""fname"" VARCHAR(16777216),
+	""organization"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0),
+	""designation"" VARCHAR(16777216),
+	""applicant_type"" VARCHAR(16777216)
+);"
+PERSISTENT_ASSIGNEE_DISAMBIG,,"create or replace TABLE PERSISTENT_ASSIGNEE_DISAMBIG (
+	""rawassignee_id"" VARCHAR(16777216),
+	""disamb_assignee_id_20181127"" VARCHAR(16777216),
+	""disamb_assignee_id_20190312"" VARCHAR(16777216),
+	""disamb_assignee_id_20190820"" VARCHAR(16777216),
+	""disamb_assignee_id_20191008"" VARCHAR(16777216),
+	""disamb_assignee_id_20191231"" VARCHAR(16777216),
+	""disamb_assignee_id_20200331"" VARCHAR(16777216),
+	""disamb_assignee_id_20200630"" VARCHAR(16777216),
+	""disamb_assignee_id_20200929"" VARCHAR(16777216)
+);"
+SUBCLASS,,"create or replace TABLE SUBCLASS (
+	""id"" VARCHAR(16777216)
+);"
+US_TERM_OF_GRANT,,"create or replace TABLE US_TERM_OF_GRANT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""lapse_of_patent"" VARCHAR(16777216),
+	""disclaimer_date"" VARCHAR(16777216),
+	""term_disclaimer"" VARCHAR(16777216),
+	""term_grant"" VARCHAR(16777216),
+	""term_extension"" VARCHAR(16777216)
+);"
+ASSIGNEE,,"create or replace TABLE ASSIGNEE (
+	""id"" VARCHAR(16777216),
+	""type"" FLOAT,
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""organization"" VARCHAR(16777216)
+);"
+CLAIM,,"create or replace TABLE CLAIM (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""dependent"" VARCHAR(16777216),
+	""sequence"" VARCHAR(16777216),
+	""exemplary"" VARCHAR(16777216)
+);"
+CPC_GROUP,,"create or replace TABLE CPC_GROUP (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+DRAW_DESC_TEXT_2021,,"create or replace TABLE DRAW_DESC_TEXT_2021 (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+INVENTOR,,"create or replace TABLE INVENTOR (
+	""id"" VARCHAR(16777216),
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""male_flag"" FLOAT,
+	""attribution_status"" NUMBER(38,0)
+);"
+IPCR,,"create or replace TABLE IPCR (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""classification_level"" VARCHAR(16777216),
+	""section"" VARCHAR(16777216),
+	""ipc_class"" VARCHAR(16777216),
+	""subclass"" VARCHAR(16777216),
+	""main_group"" VARCHAR(16777216),
+	""subgroup"" VARCHAR(16777216),
+	""symbol_position"" VARCHAR(16777216),
+	""classification_value"" VARCHAR(16777216),
+	""classification_status"" VARCHAR(16777216),
+	""classification_data_source"" VARCHAR(16777216),
+	""action_date"" VARCHAR(16777216),
+	""ipc_version_indicator"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+PATENT_LAWYER,,"create or replace TABLE PATENT_LAWYER (
+	""patent_id"" VARCHAR(16777216),
+	""lawyer_id"" VARCHAR(16777216)
+);"
+RAWASSIGNEE,,"create or replace TABLE RAWASSIGNEE (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""assignee_id"" VARCHAR(16777216),
+	""rawlocation_id"" VARCHAR(16777216),
+	""type"" FLOAT,
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""organization"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+DETAIL_DESC_TEXT_2021,,"create or replace TABLE DETAIL_DESC_TEXT_2021 (
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""length"" NUMBER(38,0)
+);"
+MATCH,,"create or replace TABLE MATCH (
+	""patent_id"" VARCHAR(16777216),
+	""publication_number"" VARCHAR(16777216)
+);"
+USPATENTCITATION,,"create or replace TABLE USPATENTCITATION (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""citation_id"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+GOVERNMENT_ORGANIZATION,,"create or replace TABLE GOVERNMENT_ORGANIZATION (
+	""organization_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""level_one"" VARCHAR(16777216),
+	""level_two"" VARCHAR(16777216),
+	""level_three"" VARCHAR(16777216)
+);"
+WIPO_FIELD,,"create or replace TABLE WIPO_FIELD (
+	""id"" VARCHAR(16777216),
+	""sector_title"" VARCHAR(16777216),
+	""field_title"" VARCHAR(16777216)
+);"
+APPLICATION,,"create or replace TABLE APPLICATION (
+	""id"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""series_code"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216)
+);"
+BOTANIC,,"create or replace TABLE BOTANIC (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""latin_name"" VARCHAR(16777216),
+	""variety"" VARCHAR(16777216)
+);"
+CPC_SUBSECTION,,"create or replace TABLE CPC_SUBSECTION (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+GOVERNMENT_INTEREST,,"create or replace TABLE GOVERNMENT_INTEREST (
+	""patent_id"" VARCHAR(16777216),
+	""gi_statement"" VARCHAR(16777216)
+);"
+LAWYER,,"create or replace TABLE LAWYER (
+	""id"" VARCHAR(16777216),
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""organization"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216)
+);"
+PATENT_ASSIGNEE,,"create or replace TABLE PATENT_ASSIGNEE (
+	""patent_id"" VARCHAR(16777216),
+	""assignee_id"" VARCHAR(16777216),
+	""location_id"" VARCHAR(16777216)
+);"
+PATENT_GOVINTORG,,"create or replace TABLE PATENT_GOVINTORG (
+	""patent_id"" VARCHAR(16777216),
+	""organization_id"" NUMBER(38,0)
+);"
+PERSISTENT_INVENTOR_DISAMB,,"create or replace TABLE PERSISTENT_INVENTOR_DISAMB (
+	""rawinventor_id"" VARCHAR(16777216),
+	""disamb_inventor_id_20170307"" VARCHAR(16777216),
+	""disamb_inventor_id_20170808"" VARCHAR(16777216)
+);"
+PATENT_INVENTOR,,"create or replace TABLE PATENT_INVENTOR (
+	""patent_id"" VARCHAR(16777216),
+	""inventor_id"" VARCHAR(16777216),
+	""location_id"" VARCHAR(16777216)
+);"
+PCT_DATA,,"create or replace TABLE PCT_DATA (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""rel_id"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""_371_date"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216),
+	""doc_type"" VARCHAR(16777216),
+	""_102_date"" VARCHAR(16777216)
+);"
+PERSISTENT_INVENTOR_DISAMBIG,,"create or replace TABLE PERSISTENT_INVENTOR_DISAMBIG (
+	""rawinventor_id"" VARCHAR(16777216),
+	""disamb_inventor_id_20170808"" VARCHAR(16777216),
+	""disamb_inventor_id_20171003"" VARCHAR(16777216),
+	""disamb_inventor_id_20171226"" VARCHAR(16777216),
+	""disamb_inventor_id_20180528"" VARCHAR(16777216),
+	""disamb_inventor_id_20181127"" VARCHAR(16777216),
+	""disamb_inventor_id_20190312"" VARCHAR(16777216),
+	""disamb_inventor_id_20190820"" VARCHAR(16777216),
+	""disamb_inventor_id_20191008"" VARCHAR(16777216),
+	""disamb_inventor_id_20191231"" VARCHAR(16777216),
+	""disamb_inventor_id_20200331"" VARCHAR(16777216),
+	""disamb_inventor_id_20200630"" VARCHAR(16777216),
+	""disamb_inventor_id_20200929"" VARCHAR(16777216),
+	""disamb_inventor_id_20201229"" VARCHAR(16777216)
+);"
+RAWLAWYER,,"create or replace TABLE RAWLAWYER (
+	""uuid"" VARCHAR(16777216),
+	""lawyer_id"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""organization"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+WIPO,,"create or replace TABLE WIPO (
+	""patent_id"" VARCHAR(16777216),
+	""field_id"" VARCHAR(16777216),
+	""sequence"" VARCHAR(16777216)
+);"
+RAWINVENTOR,,"create or replace TABLE RAWINVENTOR (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""inventor_id"" VARCHAR(16777216),
+	""rawlocation_id"" VARCHAR(16777216),
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0),
+	""rule_47"" VARCHAR(16777216),
+	""deceased"" VARCHAR(16777216)
+);"
+CPC_CURRENT,,"create or replace TABLE CPC_CURRENT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""section_id"" VARCHAR(16777216),
+	""subsection_id"" VARCHAR(16777216),
+	""group_id"" VARCHAR(16777216),
+	""subgroup_id"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"
+CPC_SUBGROUP,,"create or replace TABLE CPC_SUBGROUP (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+DRAW_DESC_TEXT,,"create or replace TABLE DRAW_DESC_TEXT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216),
+	""sequence"" VARCHAR(16777216)
+);"
+LOCATION_ASSIGNEE,,"create or replace TABLE LOCATION_ASSIGNEE (
+	""location_id"" VARCHAR(16777216),
+	""assignee_id"" VARCHAR(16777216)
+);"
+LOCATION_INVENTOR,,"create or replace TABLE LOCATION_INVENTOR (
+	""location_id"" VARCHAR(16777216),
+	""inventor_id"" VARCHAR(16777216)
+);"
+MAINCLASS_CURRENT,,"create or replace TABLE MAINCLASS_CURRENT (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+NBER_CATEGORY,,"create or replace TABLE NBER_CATEGORY (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+PATENT_CONTRACTAWARDNUMBER,,"create or replace TABLE PATENT_CONTRACTAWARDNUMBER (
+	""patent_id"" VARCHAR(16777216),
+	""contract_award_number"" VARCHAR(16777216)
+);"
+RAWEXAMINER,,"create or replace TABLE RAWEXAMINER (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""name_first"" VARCHAR(16777216),
+	""name_last"" VARCHAR(16777216),
+	""role"" VARCHAR(16777216),
+	""group"" VARCHAR(16777216)
+);"
+REL_APP_TEXT,,"create or replace TABLE REL_APP_TEXT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""text"" VARCHAR(16777216)
+);"
+SUBCLASS_CURRENT,,"create or replace TABLE SUBCLASS_CURRENT (
+	""id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+USRELDOC,,"create or replace TABLE USRELDOC (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""doctype"" VARCHAR(16777216),
+	""relkind"" VARCHAR(16777216),
+	""reldocno"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""status"" VARCHAR(16777216),
+	""sequence"" VARCHAR(16777216),
+	""kind"" VARCHAR(16777216)
+);"
+MAINCLASS,,"create or replace TABLE MAINCLASS (
+	""id"" VARCHAR(16777216)
+);"
+NBER,,"create or replace TABLE NBER (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""category_id"" VARCHAR(16777216),
+	""subcategory_id"" VARCHAR(16777216)
+);"
+FOREIGN_PRIORITY,,"create or replace TABLE FOREIGN_PRIORITY (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0),
+	""kind"" VARCHAR(16777216),
+	""number"" VARCHAR(16777216),
+	""date"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""country_transformed"" VARCHAR(16777216)
+);"
+USPC_CURRENT,,"create or replace TABLE USPC_CURRENT (
+	""uuid"" VARCHAR(16777216),
+	""patent_id"" VARCHAR(16777216),
+	""mainclass_id"" VARCHAR(16777216),
+	""subclass_id"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0)
+);"

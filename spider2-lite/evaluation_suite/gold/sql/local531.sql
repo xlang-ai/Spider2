@@ -1,0 +1,1 @@
+SELECT customer_id, COUNT(*) AS transaction_count, AVG(txn_amount) AS avg_transaction, SUM(txn_amount) AS total_value FROM customer_transactions GROUP BY customer_id ORDER BY total_value DESC;

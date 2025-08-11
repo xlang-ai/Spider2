@@ -1,0 +1,1 @@
+SELECT vc.item_name, AVG(vt.`unit_selling_px_rmb/kg`) AS avg_selling_price FROM veg_txn_df vt JOIN veg_cat vc ON vt.item_code = vc.item_code GROUP BY vc.item_name;

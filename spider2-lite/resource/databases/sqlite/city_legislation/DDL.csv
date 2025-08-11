@@ -1,0 +1,164 @@
+table_name,DDL
+aliens_details,"CREATE TABLE aliens_details (
+    detail_id INTEGER,
+    favorite_food TEXT,
+    feeding_frequency TEXT,
+    aggressive INTEGER
+);"
+skills_dim,"CREATE TABLE skills_dim (
+    skill_id INTEGER,
+    skills TEXT,
+    type TEXT
+);"
+legislators_terms,"CREATE TABLE legislators_terms (
+    id_bioguide TEXT,
+    term_number INTEGER,
+    term_id TEXT,
+    term_type TEXT,
+    term_start TEXT,
+    term_end TEXT,
+    state TEXT,
+    district REAL,
+    class REAL,
+    party TEXT,
+    how TEXT,
+    url TEXT,
+    address TEXT,
+    phone TEXT,
+    fax TEXT,
+    contact_form TEXT,
+    office TEXT,
+    state_rank TEXT,
+    rss_url TEXT,
+    caucus TEXT
+);"
+cities_currencies,"CREATE TABLE cities_currencies (
+    currency_id INTEGER,
+    country_code_2 TEXT,
+    currency_name TEXT,
+    currency_code TEXT
+);"
+legislators,"CREATE TABLE legislators (
+    full_name TEXT,
+    first_name TEXT,
+    last_name TEXT,
+    middle_name TEXT,
+    nickname TEXT,
+    suffix TEXT,
+    other_names_end TEXT,
+    other_names_middle REAL,
+    other_names_last TEXT,
+    birthday TEXT,
+    gender TEXT,
+    id_bioguide TEXT,
+    id_bioguide_previous_0 TEXT,
+    id_govtrack INTEGER,
+    id_icpsr REAL,
+    id_wikipedia TEXT,
+    id_wikidata TEXT,
+    id_google_entity_id TEXT,
+    id_house_history REAL,
+    id_house_history_alternate REAL,
+    id_thomas REAL,
+    id_cspan REAL,
+    id_votesmart REAL,
+    id_lis TEXT,
+    id_ballotpedia TEXT,
+    id_opensecrets TEXT,
+    id_fec_0 TEXT,
+    id_fec_1 TEXT,
+    id_fec_2 TEXT
+);"
+skills_job_dim,"CREATE TABLE skills_job_dim (
+    job_id INTEGER,
+    skill_id INTEGER
+);"
+job_postings_fact,"CREATE TABLE job_postings_fact (
+    job_id INTEGER,
+    company_id INTEGER,
+    job_title_short TEXT,
+    job_title TEXT,
+    job_location TEXT,
+    job_via TEXT,
+    job_schedule_type TEXT,
+    job_work_from_home INTEGER,
+    search_location TEXT,
+    job_posted_date TEXT,
+    job_no_degree_mention INTEGER,
+    job_health_insurance INTEGER,
+    job_country TEXT,
+    salary_rate TEXT,
+    salary_year_avg REAL,
+    salary_hour_avg REAL
+);"
+alien_data,"CREATE TABLE alien_data (
+    id INTEGER,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    gender TEXT,
+    type TEXT,
+    birth_year INTEGER,
+    age INTEGER,
+    favorite_food TEXT,
+    feeding_frequency TEXT,
+    aggressive INTEGER,
+    occupation TEXT,
+    current_location TEXT,
+    state TEXT,
+    us_region TEXT,
+    country TEXT
+);"
+cities_countries,"CREATE TABLE cities_countries (
+    country_id INTEGER,
+    country_name TEXT,
+    country_code_2 TEXT,
+    country_code_3 TEXT,
+    region TEXT,
+    sub_region TEXT,
+    intermediate_region TEXT,
+    created_on TEXT
+);"
+legislation_date_dim,"CREATE TABLE legislation_date_dim (
+    date TEXT,
+    month_name TEXT,
+    day_of_month INTEGER
+);"
+cities,"CREATE TABLE cities (
+    city_id INTEGER,
+    city_name TEXT,
+    latitude REAL,
+    longitude REAL,
+    country_code_2 TEXT,
+    capital INTEGER,
+    population REAL,
+    insert_date TEXT
+);"
+aliens_location,"CREATE TABLE aliens_location (
+    loc_id INTEGER,
+    current_location TEXT,
+    state TEXT,
+    country TEXT,
+    occupation TEXT
+);"
+aliens,"CREATE TABLE aliens (
+    id INTEGER,
+    first_name TEXT,
+    last_name TEXT,
+    email TEXT,
+    gender TEXT,
+    type TEXT,
+    birth_year INTEGER
+);"
+cities_languages,"CREATE TABLE cities_languages (
+    language_id INTEGER,
+    language TEXT,
+    country_code_2 TEXT
+);"
+job_company,"CREATE TABLE job_company (
+    company_id INTEGER,
+    name TEXT,
+    link TEXT,
+    link_google TEXT,
+    thumbnail TEXT
+);"

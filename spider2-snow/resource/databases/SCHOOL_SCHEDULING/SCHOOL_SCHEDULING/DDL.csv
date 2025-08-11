@@ -1,0 +1,110 @@
+table_name,description,DDL
+BUILDINGS,,"create or replace TABLE BUILDINGS (
+	""BuildingCode"" VARCHAR(16777216),
+	""BuildingName"" VARCHAR(16777216),
+	""NumberOfFloors"" NUMBER(38,0),
+	""ElevatorAccess"" NUMBER(38,0),
+	""SiteParkingAvailable"" NUMBER(38,0)
+);"
+CLASS_ROOMS,,"create or replace TABLE CLASS_ROOMS (
+	""ClassRoomID"" NUMBER(38,0),
+	""BuildingCode"" VARCHAR(16777216),
+	""PhoneAvailable"" NUMBER(38,0)
+);"
+STAFF,,"create or replace TABLE STAFF (
+	""StaffID"" NUMBER(38,0),
+	""StfFirstName"" VARCHAR(16777216),
+	""StfLastname"" VARCHAR(16777216),
+	""StfStreetAddress"" VARCHAR(16777216),
+	""StfCity"" VARCHAR(16777216),
+	""StfState"" VARCHAR(16777216),
+	""StfZipCode"" VARCHAR(16777216),
+	""StfAreaCode"" VARCHAR(16777216),
+	""StfPhoneNumber"" VARCHAR(16777216),
+	""Salary"" FLOAT,
+	""DateHired"" VARCHAR(16777216),
+	""Position"" VARCHAR(16777216)
+);"
+STUDENT_CLASS_STATUS,,"create or replace TABLE STUDENT_CLASS_STATUS (
+	""ClassStatus"" NUMBER(38,0),
+	""ClassStatusDescription"" VARCHAR(16777216)
+);"
+SUBJECTS,,"create or replace TABLE SUBJECTS (
+	""SubjectID"" NUMBER(38,0),
+	""CategoryID"" VARCHAR(16777216),
+	""SubjectCode"" VARCHAR(16777216),
+	""SubjectName"" VARCHAR(16777216),
+	""SubjectPreReq"" VARCHAR(16777216),
+	""SubjectDescription"" VARCHAR(16777216)
+);"
+FACULTY_CATEGORIES,,"create or replace TABLE FACULTY_CATEGORIES (
+	""StaffID"" NUMBER(38,0),
+	""CategoryID"" VARCHAR(16777216)
+);"
+FACULTY_SUBJECTS,,"create or replace TABLE FACULTY_SUBJECTS (
+	""StaffID"" NUMBER(38,0),
+	""SubjectID"" NUMBER(38,0),
+	""ProficiencyRating"" FLOAT
+);"
+MAJORS,,"create or replace TABLE MAJORS (
+	""MajorID"" NUMBER(38,0),
+	""Major"" VARCHAR(16777216)
+);"
+SQLITE_SEQUENCE,,"create or replace TABLE SQLITE_SEQUENCE (
+	""name"" VARCHAR(16777216),
+	""seq"" NUMBER(38,0)
+);"
+STUDENT_SCHEDULES,,"create or replace TABLE STUDENT_SCHEDULES (
+	""StudentID"" NUMBER(38,0),
+	""ClassID"" NUMBER(38,0),
+	""ClassStatus"" NUMBER(38,0),
+	""Grade"" FLOAT
+);"
+CATEGORIES,,"create or replace TABLE CATEGORIES (
+	""CategoryID"" VARCHAR(16777216),
+	""CategoryDescription"" VARCHAR(16777216),
+	""DepartmentID"" NUMBER(38,0)
+);"
+CLASSES,,"create or replace TABLE CLASSES (
+	""ClassID"" NUMBER(38,0),
+	""SubjectID"" NUMBER(38,0),
+	""ClassRoomID"" NUMBER(38,0),
+	""Credits"" NUMBER(38,0),
+	""StartDate"" VARCHAR(16777216),
+	""StartTime"" VARCHAR(16777216),
+	""Duration"" NUMBER(38,0),
+	""MondaySchedule"" NUMBER(38,0),
+	""TuesdaySchedule"" NUMBER(38,0),
+	""WednesdaySchedule"" NUMBER(38,0),
+	""ThursdaySchedule"" NUMBER(38,0),
+	""FridaySchedule"" NUMBER(38,0),
+	""SaturdaySchedule"" NUMBER(38,0)
+);"
+STUDENTS,,"create or replace TABLE STUDENTS (
+	""StudentID"" NUMBER(38,0),
+	""StudFirstName"" VARCHAR(16777216),
+	""StudLastName"" VARCHAR(16777216),
+	""StudStreetAddress"" VARCHAR(16777216),
+	""StudCity"" VARCHAR(16777216),
+	""StudState"" VARCHAR(16777216),
+	""StudZipCode"" VARCHAR(16777216),
+	""StudAreaCode"" VARCHAR(16777216),
+	""StudPhoneNumber"" VARCHAR(16777216),
+	""StudGPA"" FLOAT,
+	""StudMajor"" FLOAT
+);"
+FACULTY_CLASSES,,"create or replace TABLE FACULTY_CLASSES (
+	""ClassID"" NUMBER(38,0),
+	""StaffID"" NUMBER(38,0)
+);"
+DEPARTMENTS,,"create or replace TABLE DEPARTMENTS (
+	""DepartmentID"" NUMBER(38,0),
+	""DeptName"" VARCHAR(16777216),
+	""DeptChair"" NUMBER(38,0)
+);"
+FACULTY,,"create or replace TABLE FACULTY (
+	""StaffID"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216),
+	""Status"" VARCHAR(16777216),
+	""Tenured"" NUMBER(38,0)
+);"

@@ -1,0 +1,1 @@
+SELECT age_band, demographic, SUM(sales) AS total_sales FROM cleaned_weekly_sales GROUP BY age_band, demographic;

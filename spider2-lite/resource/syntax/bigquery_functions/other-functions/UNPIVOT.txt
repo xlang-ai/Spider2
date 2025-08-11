@@ -1,0 +1,179 @@
+## UNPIVOT
+
+FROM from_item[, ...] unpivot_operator
+
+unpivot_operator:
+UNPIVOT [ { INCLUDE NULLS | EXCLUDE NULLS } ] (
+{ single_column_unpivot | multi_column_unpivot }
+) [unpivot_alias]
+
+single_column_unpivot:
+values_column FOR name_column IN (columns_to_unpivot)
+
+multi_column_unpivot:
+values_column_set FOR name_column IN (column_sets_to_unpivot)
+
+values_column_set:
+(values_column[, ...])
+
+columns_to_unpivot:
+unpivot_column [row_value_alias][, ...]
+
+column_sets_to_unpivot:
+(unpivot_column [row_value_alias][, ...])
+
+unpivot_alias and row_value_alias:
+[AS] alias
+
+The ` UNPIVOT ` operator rotates columns into rows. ` UNPIVOT ` is part of the
+` FROM ` clause.
+
+* ` UNPIVOT ` can be used to modify any table expression.
+* Combining ` UNPIVOT ` with ` FOR SYSTEM_TIME AS OF ` is not allowed, although users may use ` UNPIVOT ` against a subquery input which itself uses ` FOR SYSTEM_TIME AS OF ` .
+* A ` WITH OFFSET ` clause immediately preceding the ` UNPIVOT ` operator is not allowed.
+* ` PIVOT ` aggregations cannot be reversed with ` UNPIVOT ` .
+
+Conceptual example:
+
+
+-- Before UNPIVOT is used to rotate Q1, Q2, Q3, Q4 into sales and quarter columns:
+/*---------+----+----+----+----*
+| product | Q1 | Q2 | Q3 | Q4 |
++---------+----+----+----+----+
+| Kale    | 51 | 23 | 45 | 3  |
+| Apple   | 77 | 0  | 25 | 2  |
+*---------+----+----+----+----*/
+
+-- After UNPIVOT is used to rotate Q1, Q2, Q3, Q4 into sales and quarter columns:
+/*---------+-------+---------*
+| product | sales | quarter |
++---------+-------+---------+
+| Kale    | 51    | Q1      |
+| Kale    | 23    | Q2      |
+| Kale    | 45    | Q3      |
+| Kale    | 3     | Q4      |
+| Apple   | 77    | Q1      |
+| Apple   | 0     | Q2      |
+| Apple   | 25    | Q3      |
+| Apple   | 2     | Q4      |
+*---------+-------+---------*/
+
+**Definitions**
+
+Top-level definitions:
+
+* ` from_item ` : The table or subquery on which to perform a pivot operation. The ` from_item ` must  follow these rules  .
+* ` unpivot_operator ` : The pivot operation to perform on a ` from_item ` .
+
+` unpivot_operator ` definitions:
+
+* ` INCLUDE NULLS ` : Add rows with ` NULL ` values to the result.
+* ` EXCLUDE NULLS ` : don't add rows with ` NULL ` values to the result. By default, ` UNPIVOT ` excludes rows with ` NULL ` values.
+* ` single_column_unpivot ` : Rotates columns into one ` values_column ` and one ` name_column ` .
+* ` multi_column_unpivot ` : Rotates columns into multiple ` values_column ` s and one ` name_column ` .
+* ` unpivot_alias ` : An alias for the results of the ` UNPIVOT ` operation. This alias can be referenced elsewhere in the query.
+
+` single_column_unpivot ` definitions:
+
+* ` values_column ` : A column to contain the row values from ` columns_to_unpivot ` .  Follow these rules  when creating a values column.
+* ` name_column ` : A column to contain the column names from ` columns_to_unpivot ` .  Follow these rules  when creating a name column.
+* ` columns_to_unpivot ` : The columns from the ` from_item ` to populate ` values_column ` and ` name_column ` .  Follow these rules  when creating an unpivot column.
+* ` row_value_alias ` : An optional alias for a column that is displayed for the column in ` name_column ` . If not specified, the string value of the column name is used.  Follow these rules  when creating a row value alias.
+
+` multi_column_unpivot ` definitions:
+
+* ` values_column_set ` : A set of columns to contain the row values from ` columns_to_unpivot ` .  Follow these rules  when creating a values column.
+* ` name_column ` : A set of columns to contain the column names from ` columns_to_unpivot ` .  Follow these rules  when creating a name column.
+* ` column_sets_to_unpivot ` : The columns from the ` from_item ` to unpivot.  Follow these rules  when creating an unpivot column.
+* ` row_value_alias ` : An optional alias for a column set that is displayed for the column set in ` name_column ` . If not specified, a string value for the column set is used and each column in the string is separated with an underscore ( ` _ ` ). For example, ` (col1, col2) ` outputs ` col1_col2 ` .  Follow these rules  when creating a row value alias.
+
+**Rules**
+
+Rules for a ` from_item ` passed to ` UNPIVOT ` :
+
+* The ` from_item ` may consist of any table or subquery result.
+* The ` from_item ` may not produce a value table.
+* Duplicate columns in a ` from_item ` cannot be referenced in the ` UNPIVOT ` clause.
+
+Rules for ` unpivot_operator ` :
+
+* Expressions are not permitted.
+* Qualified names are not permitted. For example, ` mytable.mycolumn ` is not allowed.
+* In the case where the ` UNPIVOT ` result has duplicate column names:
+* ` SELECT * ` is allowed.
+* ` SELECT values_column ` causes ambiguity.
+
+Rules for ` values_column ` :
+
+* It cannot be a name used for a ` name_column ` or an ` unpivot_column ` .
+* It can be the same name as a column from the ` from_item ` .
+
+Rules for ` name_column ` :
+
+* It cannot be a name used for a ` values_column ` or an ` unpivot_column ` .
+* It can be the same name as a column from the ` from_item ` .
+
+Rules for ` unpivot_column ` :
+
+* Must be a column name from the ` from_item ` .
+* It cannot reference duplicate ` from_item ` column names.
+* All columns in a column set must have equivalent data types.
+* Data types cannot be coerced to a common supertype.
+* If the data types are exact matches (for example, a struct with different field names), the data type of the first input is the data type of the output.
+* You cannot have the same name in the same column set. For example, ` (emp1, emp1) ` results in an error.
+* You can have a the same name in different column sets. For example, ` (emp1, emp2), (emp1, emp3) ` is valid.
+
+Rules for ` row_value_alias ` :
+
+* This can be a string or an ` INT64 ` literal.
+* The data type for all ` row_value_alias ` clauses must be the same.
+* If the value is an ` INT64 ` , the ` row_value_alias ` for each ` unpivot_column ` must be specified.
+
+**Examples**
+
+The following examples reference a table called ` Produce ` that looks like this:
+
+
+WITH Produce AS ( SELECT 'Kale' as product, 51 as Q1, 23 as Q2, 45 as Q3, 3 as Q4 UNION ALL SELECT 'Apple', 77, 0, 25, 2) SELECT * FROM Produce
+
+/*---------+----+----+----+----*
+| product | Q1 | Q2 | Q3 | Q4 |
++---------+----+----+----+----+
+| Kale    | 51 | 23 | 45 | 3  |
+| Apple   | 77 | 0  | 25 | 2  |
+*---------+----+----+----+----*/
+
+With the ` UNPIVOT ` operator, the columns ` Q1 ` , ` Q2 ` , ` Q3 ` , and ` Q4
+` are rotated. The values of these columns now populate a new column called `
+Sales ` and the names of these columns now populate a new column called `
+Quarter ` . This is a single-column unpivot operation.
+
+
+SELECT * FROM Produce UNPIVOT(sales FOR quarter IN (Q1, Q2, Q3, Q4))
+
+/*---------+-------+---------*
+| product | sales | quarter |
++---------+-------+---------+
+| Kale    | 51    | Q1      |
+| Kale    | 23    | Q2      |
+| Kale    | 45    | Q3      |
+| Kale    | 3     | Q4      |
+| Apple   | 77    | Q1      |
+| Apple   | 0     | Q2      |
+| Apple   | 25    | Q3      |
+| Apple   | 2     | Q4      |
+*---------+-------+---------*/
+
+In this example, we ` UNPIVOT ` four quarters into two semesters. This is a multi-column unpivot operation.
+
+
+SELECT * FROM Produce UNPIVOT( (first_half_sales, second_half_sales) FOR semesters IN ((Q1, Q2) AS 'semester_1', (Q3, Q4) AS 'semester_2'))
+
+/*---------+------------------+-------------------+------------*
+| product | first_half_sales | second_half_sales | semesters  |
++---------+------------------+-------------------+------------+
+| Kale    | 51               | 23                | semester_1 |
+| Kale    | 45               | 3                 | semester_2 |
+| Apple   | 77               | 0                 | semester_1 |
+| Apple   | 25               | 2                 | semester_2 |
+*---------+------------------+-------------------+------------*/

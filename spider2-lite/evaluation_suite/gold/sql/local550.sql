@@ -1,0 +1,1 @@
+SELECT vt.*, vc.item_name FROM veg_txn_df vt JOIN veg_cat vc ON vt.item_code = vc.item_code ORDER BY (vt.`qty_sold(kg)` * vt.`unit_selling_px_rmb/kg`) DESC LIMIT 5;

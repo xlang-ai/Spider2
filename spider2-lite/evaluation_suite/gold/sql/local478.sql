@@ -1,0 +1,1 @@
+SELECT ws.week_date, cws.sales, cws.demographic FROM weekly_sales ws JOIN cleaned_weekly_sales cws ON ws.week_date = cws.week_date;

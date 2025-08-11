@@ -1,0 +1,37 @@
+name: 'google_play_source'
+version: '0.4.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+vars:
+  google_play_source:
+    earnings: "{{ source('google_play', 'earnings') }}"
+    financial_stats_subscriptions_country: "{{ source('google_play', 'financial_stats_subscriptions_country') }}"
+    stats_crashes_app_version: "{{ source('google_play', 'stats_crashes_app_version') }}"
+    stats_crashes_os_version: "{{ source('google_play', 'stats_crashes_os_version') }}"
+    stats_crashes_overview: "{{ source('google_play', 'stats_crashes_overview') }}"
+    stats_installs_app_version: "{{ source('google_play', 'stats_installs_app_version') }}"
+    stats_installs_country: "{{ source('google_play', 'stats_installs_country') }}"
+    stats_installs_device: "{{ source('google_play', 'stats_installs_device') }}"
+    stats_installs_os_version: "{{ source('google_play', 'stats_installs_os_version') }}"
+    stats_installs_overview: "{{ source('google_play', 'stats_installs_overview') }}"
+    stats_ratings_app_version: "{{ source('google_play', 'stats_ratings_app_version') }}"
+    stats_ratings_country: "{{ source('google_play', 'stats_ratings_country') }}"
+    stats_ratings_device: "{{ source('google_play', 'stats_ratings_device') }}"
+    stats_ratings_os_version: "{{ source('google_play', 'stats_ratings_os_version') }}"
+    stats_ratings_overview: "{{ source('google_play', 'stats_ratings_overview') }}"
+    stats_store_performance_country: "{{ source('google_play', 'stats_store_performance_country') }}"
+    stats_store_performance_traffic_source: "{{ source('google_play', 'stats_store_performance_traffic_source') }}"
+models:
+  google_play_source:
+    +schema: google_play_source
+    +materialized: table
+    tmp:
+      +materialized: view
+seeds:
+  google_play_source:
+    +schema: google_play_source
+    +column_types:
+      country_name: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(255)' }}"
+      alternative_country_name: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(255)' }}"
+      region: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(255)' }}"
+      sub_region: "{{ 'string' if target.type in ['bigquery','spark','databricks'] else 'varchar(255)' }}"

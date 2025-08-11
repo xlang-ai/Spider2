@@ -1,0 +1,1 @@
+SELECT week_date, sales FROM weekly_sales WHERE sales > 10000;

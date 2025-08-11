@@ -1,0 +1,40 @@
+table_name,ddl
+wind_reports,"CREATE TABLE `bigquery-public-data.noaa_preliminary_severe_storms.wind_reports`
+(
+  timestamp TIMESTAMP OPTIONS(description=""Timestamp in UTC""),
+  time STRING OPTIONS(description=""Hour in UTC""),
+  speed INT64 OPTIONS(description=""Speed in Miles per hour""),
+  location STRING OPTIONS(description=""Location of report""),
+  county STRING OPTIONS(description=""""),
+  state STRING OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""Latitude to two decimal places""),
+  longitude FLOAT64 OPTIONS(description=""Longitude to two decimal places""),
+  comments STRING OPTIONS(description=""""),
+  report_point GEOGRAPHY OPTIONS(description="""")
+);"
+tornado_reports,"CREATE TABLE `bigquery-public-data.noaa_preliminary_severe_storms.tornado_reports`
+(
+  timestamp TIMESTAMP OPTIONS(description=""Timestamp in UTC""),
+  time STRING OPTIONS(description=""Hour in UTC""),
+  f_scale STRING OPTIONS(description=""The F-Scale classifies F0-F5 damage as calibrated by engineers and meteorologists across 28 different types of damage indicators (mainly various kinds of buildings, but also a few other structures as well as trees).""),
+  location STRING OPTIONS(description=""Location of report""),
+  county STRING OPTIONS(description=""""),
+  state STRING OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""Latitude to two decimal places""),
+  longitude FLOAT64 OPTIONS(description=""Longitude to two decimal places""),
+  comments STRING OPTIONS(description=""""),
+  report_point GEOGRAPHY OPTIONS(description="""")
+);"
+hail_reports,"CREATE TABLE `bigquery-public-data.noaa_preliminary_severe_storms.hail_reports`
+(
+  timestamp TIMESTAMP OPTIONS(description=""Timestamp in UTC""),
+  time STRING OPTIONS(description=""Hour in UTC""),
+  size INT64 OPTIONS(description=""Size in 1/100 of an Inch (175 = 1.75\"")""),
+  location STRING OPTIONS(description=""Location of report""),
+  county STRING OPTIONS(description=""""),
+  state STRING OPTIONS(description=""""),
+  latitude FLOAT64 OPTIONS(description=""Latitude to two decimal places""),
+  longitude FLOAT64 OPTIONS(description=""Longitude to two decimal places""),
+  comments STRING OPTIONS(description=""""),
+  report_point GEOGRAPHY OPTIONS(description="""")
+);"

@@ -1,0 +1,31 @@
+## UPPER
+
+UPPER(value)
+
+**Description**
+
+For ` STRING ` arguments, returns the original string with all alphabetic characters in uppercase. Mapping between uppercase and lowercase is done according to the [ Unicode Character Database ](http://unicode.org/ucd/) without taking into account language-specific mappings.
+
+For ` BYTES ` arguments, the argument is treated as ASCII text, with all bytes greater than 127 left intact.
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+WITH items AS (SELECT
+'foo' as item UNION ALL SELECT
+'bar' as item UNION ALL SELECT
+'baz' as item)
+
+SELECT UPPER(item) AS example FROM items;
+
+/*---------*
+| example |
++---------+
+| FOO     |
+| BAR     |
+| BAZ     |
+*---------*/

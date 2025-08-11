@@ -1,0 +1,1 @@
+SELECT age_band, AVG(avg_transaction) AS avg_transaction_value FROM cleaned_weekly_sales GROUP BY age_band;

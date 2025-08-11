@@ -1,0 +1,113 @@
+version: 2
+
+models:
+  - name: int_marketo__lead
+  
+  - name: marketo__bounces__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__clicks__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__deliveries__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__opens__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__unsubscribes__by_sent_email
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_details
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_pivot
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__change_data_scd
+    columns:
+      - name: lead_day_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_campaign
+    columns:
+      - name: campaign_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_email_template
+    description: "Aggregated email performance metrics by email template"
+    columns:
+      - name: email_template_id
+        description: "The unique identifier for the email template"
+        tests:
+          - not_null
+          - unique
+      - name: count_sends
+        description: "Total number of email sends for this template"
+      - name: count_opens
+        description: "Total number of email opens for this template"
+      - name: count_bounces
+        description: "Total number of bounces for this template"
+      - name: count_clicks
+        description: "Total number of email clicks for this template"
+      - name: count_deliveries
+        description: "Total number of email deliveries for this template"
+      - name: count_unsubscribes
+        description: "Total number of unsubscribes for this template"
+      - name: count_unique_opens
+        description: "Unique email opens for this template"
+      - name: count_unique_clicks
+        description: "Unique email clicks for this template"
+
+  - name: marketo__email_stats__by_lead
+    columns:
+      - name: lead_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_stats__by_program
+    columns:
+      - name: program_id
+        tests:
+          - not_null
+          - unique
+
+  - name: marketo__email_sends_deduped
+    columns:
+      - name: email_send_id
+        tests:
+          - not_null
+          - unique

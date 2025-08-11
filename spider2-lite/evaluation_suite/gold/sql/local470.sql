@@ -1,0 +1,1 @@
+SELECT region FROM weekly_sales INTERSECT SELECT region FROM bitcoin_members;

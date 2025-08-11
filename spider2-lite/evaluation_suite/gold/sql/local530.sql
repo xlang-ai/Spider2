@@ -1,0 +1,1 @@
+SELECT strftime('%Y-%m', txn_date) AS month, COUNT(*) AS transaction_count FROM customer_transactions GROUP BY strftime('%Y-%m', txn_date) ORDER BY month;

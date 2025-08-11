@@ -1,0 +1,348 @@
+version: 2
+
+models:
+  - name: workday__employee_overview
+    description: '{{ doc("workday__employee_overview") }}'
+    columns:
+      - name: employee_id
+        description: '{{ doc("employee_id") }}'
+        tests:
+          - unique
+          - not_null
+
+      - name: worker_id
+        description: '{{ doc("worker_id") }}'
+        tests:
+          - not_null
+
+      - name: position_id
+        description: '{{ doc("position_id") }}' 
+
+      - name: source_relation
+        description: '{{ doc("source_relation") }}'
+
+      - name: worker_code
+        description: '{{ doc("worker_code") }}'
+
+      - name: user_id
+        description: '{{ doc("user_id") }}'
+
+      - name: universal_id
+        description: '{{ doc("universal_id") }}'
+
+      - name: is_user_active
+        description: '{{ doc("is_user_active") }}'
+
+      - name: is_employed
+        description: '{{ doc("is_employed") }}' 
+
+      - name: hire_date
+        description: '{{ doc("hire_date") }}' 
+
+      - name: departure_date
+        description: '{{ doc("departure_date") }}' 
+
+      - name: days_as_worker
+        description: '{{ doc("days_as_worker") }}' 
+
+      - name: is_terminated
+        description: '{{ doc("is_terminated") }}' 
+
+      - name: primary_termination_category
+        description: '{{ doc("primary_termination_category") }}' 
+      
+      - name: primary_termination_reason
+        description: '{{ doc("primary_termination_reason") }}' 
+
+      - name: is_regrettable_termination
+        description: '{{ doc("is_regrettable_termination") }}' 
+
+      - name: compensation_effective_date
+        description: '{{ doc("compensation_effective_date") }}' 
+
+      - name: employee_compensation_frequency
+        description: '{{ doc("employee_compensation_frequency") }}' 
+
+      - name: annual_currency_summary_currency
+        description: '{{ doc("annual_currency_summary_currency") }}' 
+
+      - name: annual_currency_summary_total_base_pay
+        description: '{{ doc("annual_currency_summary_total_base_pay") }}' 
+      
+      - name: annual_currency_summary_primary_compensation_basis
+        description: '{{ doc("annual_currency_summary_primary_compensation_basis") }}' 
+
+      - name: annual_summary_currency
+        description: '{{ doc("annual_summary_currency") }}' 
+
+      - name: annual_summary_total_base_pay
+        description: '{{ doc("annual_summary_total_base_pay") }}' 
+
+      - name: annual_summary_primary_compensation_basis
+        description: '{{ doc("annual_summary_primary_compensation_basis") }}' 
+
+      - name: compensation_grade_id
+        description: '{{ doc("compensation_grade_id") }}' 
+
+      - name: compensation_grade_profile_id
+        description: '{{ doc("compensation_grade_profile_id") }}' 
+      
+      - name: date_of_birth
+        description: '{{ doc("date_of_birth") }}' 
+
+      - name: days_as_worker
+        description: '{{ doc("days_as_worker") }}' 
+
+      - name: employee_type
+        description: '{{ doc("employee_type") }}' 
+
+      - name: management_level_code
+        description: '{{ doc("management_level_code") }}' 
+
+      - name: gender
+        description: '{{ doc("gender") }}' 
+
+      - name: is_hispanic_or_latino
+        description: '{{ doc("hispanic_or_latino") }}' 
+
+      - name: first_name
+        description: '{{ doc("first_name") }}' 
+
+      - name: last_name
+        description: '{{ doc("last_name") }}' 
+
+      - name: email_address
+        description: '{{ doc("email_address") }}' 
+      
+      - name: ethnicity_codes
+        description: '{{ doc("ethnicity_codes") }}' 
+
+      - name: military_status
+        description: '{{ doc("military_status") }}' 
+
+      - name: business_title
+        description: '{{ doc("business_title") }}' 
+
+      - name: job_profile_id
+        description: '{{ doc("job_profile_id") }}' 
+
+      - name: fte_percent
+        description: '{{ doc("fte_percent") }}' 
+
+      - name: position_start_date
+        description: '{{ doc("position_start_date") }}' 
+
+      - name: position_end_date
+        description: '{{ doc("position_end_date") }}' 
+
+      - name: position_effective_date
+        description: '{{ doc("position_effective_date") }}'
+
+      - name: position_location
+        description: '{{ doc("position_location") }}'  
+
+      - name: days_employed
+        description: '{{ doc("days_employed") }}' 
+
+      - name: is_employed_one_year
+        description: '{{ doc("employed_one_year") }}' 
+      
+      - name: is_employed_five_years
+        description: '{{ doc("employed_five_years") }}' 
+
+      - name: is_employed_ten_years
+        description: '{{ doc("employed_ten_years") }}'
+
+      - name: is_employed_twenty_years
+        description: '{{ doc("employed_twenty_years") }}' 
+
+      - name: is_employed_thirty_years
+        description: '{{ doc("employed_thirty_years") }}' 
+
+      - name: is_current_employee_one_year
+        description: '{{ doc("is_current_employee_one_year") }}' 
+
+      - name: is_current_employee_five_years
+        description: '{{ doc("is_current_employee_five_years") }}' 
+      
+      - name: is_current_employee_ten_years
+        description: '{{ doc("is_current_employee_ten_years") }}' 
+
+      - name: is_current_employee_twenty_years
+        description: '{{ doc("is_current_employee_twenty_years") }}' 
+
+      - name: is_current_employee_thirty_years
+        description: '{{ doc("is_current_employee_thirty_years") }}' 
+
+  - name: workday__job_overview
+    description: '{{ doc("workday__job_overview") }}'
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - job_profile_id
+
+    columns:
+      - name: job_profile_id
+        description: '{{ doc("job_profile_id") }}'
+        tests:
+          - not_null
+
+      - name: source_relation
+        description: '{{ doc("source_relation") }}'
+
+      - name: job_profile_code
+        description: '{{ doc("job_profile_code") }}' 
+
+      - name: job_title
+        description: '{{ doc("job_title") }}' 
+      
+      - name: private_title
+        description: '{{ doc("job_private_title") }}' 
+
+      - name: job_summary
+        description: '{{ doc("job_summary") }}' 
+
+      - name: job_description
+        description: '{{ doc("job_profile_description") }}' 
+
+      - name: job_family_codes
+        description: '{{ doc("job_family_codes") }}' 
+      
+      - name: job_family_summaries
+        description: '{{ doc("job_family_summaries") }}' 
+
+      - name: job_family_group_codes
+        description: '{{ doc("job_family_group_codes") }}' 
+
+      - name: job_family_group_summaries
+        description: '{{ doc("job_family_group_summaries") }}'  
+
+  - name: workday__position_overview
+    description: '{{ doc("workday__position_overview") }}'
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - position_id
+
+    columns:
+      - name: position_id
+        description: '{{ doc("position_id") }}' 
+        tests:
+          - not_null
+
+      - name: source_relation
+        description: '{{ doc("source_relation") }}'
+
+      - name: position_code
+        description: '{{ doc("position_code") }}' 
+
+      - name: job_posting_title
+        description: '{{ doc("job_posting_title") }}' 
+      
+      - name: effective_date
+        description: '{{ doc("effective_date") }}' 
+ 
+      - name: is_closed
+        description: '{{ doc("closed") }}' 
+
+      - name: is_hiring_freeze
+        description: '{{ doc("hiring_freeze") }}' 
+
+      - name: is_available_for_hire
+        description: '{{ doc("available_for_hire") }}' 
+
+      - name: availability_date
+        description: '{{ doc("availability_date") }}' 
+      
+      - name: is_available_for_recruiting
+        description: '{{ doc("available_for_recruiting") }}' 
+
+      - name: earliest_hire_date
+        description: '{{ doc("earliest_hire_date") }}' 
+
+      - name: is_available_for_overlap
+        description: '{{ doc("available_for_overlap") }}' 
+
+      - name: earliest_overlap_date
+        description: '{{ doc("earliest_overlap_date") }}' 
+
+      - name: worker_for_filled_position_id
+        description: '{{ doc("worker_for_filled_position_id") }}' 
+
+      - name: worker_type_code
+        description: '{{ doc("worker_type_code") }}' 
+      
+      - name: position_time_type_code
+        description: '{{ doc("position_time_type_code") }}' 
+
+      - name: supervisory_organization_id
+        description: '{{ doc("supervisory_organization_id") }}' 
+
+      - name: job_profile_id
+        description: '{{ doc("job_profile_id") }}' 
+
+      - name: compensation_package_code
+        description: '{{ doc("compensation_package_code") }}' 
+
+      - name: compensation_grade_code
+        description: '{{ doc("compensation_grade_code") }}' 
+
+      - name: compensation_grade_profile_code
+        description: '{{ doc("compensation_grade_profile_code") }}'
+
+  - name: workday__organization_overview
+    description: '{{ doc("workday__organization_overview") }}'
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - source_relation
+            - organization_id
+            - organization_role_id
+            - position_id
+            - worker_id
+
+    columns:
+      - name: organization_id
+        description: '{{ doc("organization_id") }}' 
+        tests:
+          - not_null
+    
+      - name: organization_role_id
+        description: '{{ doc("organization_role_id") }}' 
+        tests:
+          - not_null
+
+      - name: position_id
+        description: '{{ doc("position_id") }}' 
+
+      - name: worker_id
+        description: '{{ doc("worker_id") }}' 
+
+      - name: source_relation
+        description: '{{ doc("source_relation") }}'
+
+      - name: organization_code
+        description: '{{ doc("organization_code") }}' 
+
+      - name: organization_name
+        description: '{{ doc("organization_name") }}' 
+      
+      - name: organization_type
+        description: '{{ doc("organization_type") }}' 
+
+      - name: organization_sub_type
+        description: '{{ doc("organization_sub_type") }}' 
+
+      - name: superior_organization_id
+        description: '{{ doc("superior_organization_id") }}' 
+
+      - name: top_level_organization_id
+        description: '{{ doc("top_level_organization_id") }}' 
+
+      - name: manager_id
+        description: '{{ doc("manager_id") }}' 
+
+      - name: organization_role_code
+        description: '{{ doc("organization_role_code") }}' 

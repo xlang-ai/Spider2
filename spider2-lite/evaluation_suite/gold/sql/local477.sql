@@ -1,0 +1,1 @@
+SELECT week_number, SUM(sales) AS weekly_sales FROM cleaned_weekly_sales WHERE calendar_year = 2023 GROUP BY week_number ORDER BY weekly_sales DESC LIMIT 1;

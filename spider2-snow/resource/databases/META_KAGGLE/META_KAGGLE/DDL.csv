@@ -1,0 +1,296 @@
+table_name,description,DDL
+DATASETS,,"create or replace TABLE DATASETS (
+	""Id"" NUMBER(38,0),
+	""CreatorUserId"" NUMBER(38,0),
+	""OwnerUserId"" NUMBER(38,0),
+	""OwnerOrganizationId"" NUMBER(38,0),
+	""CurrentDatasetVersionId"" NUMBER(38,0),
+	""CurrentDatasourceVersionId"" NUMBER(38,0),
+	""ForumId"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""CreationDate"" NUMBER(38,0),
+	""LastActivityDate"" DATE,
+	""TotalViews"" NUMBER(38,0),
+	""TotalDownloads"" NUMBER(38,0),
+	""TotalVotes"" NUMBER(38,0),
+	""TotalKernels"" NUMBER(38,0)
+);"
+DATASETTAGS,,"create or replace TABLE DATASETTAGS (
+	""Id"" NUMBER(38,0),
+	""DatasetId"" NUMBER(38,0),
+	""TagId"" NUMBER(38,0)
+);"
+DATASETTASKSUBMISSIONS,,"create or replace TABLE DATASETTASKSUBMISSIONS (
+	""Id"" NUMBER(38,0),
+	""DatasetTaskId"" NUMBER(38,0),
+	""SubmittedUserId"" NUMBER(38,0),
+	""CreationDate"" NUMBER(38,0),
+	""KernelId"" NUMBER(38,0),
+	""DatasetId"" NUMBER(38,0),
+	""AcceptedDate"" NUMBER(38,0)
+);"
+EPISODES,,"create or replace TABLE EPISODES (
+	""Id"" NUMBER(38,0),
+	""Type"" NUMBER(38,0),
+	""CompetitionId"" NUMBER(38,0),
+	""CreateTime"" NUMBER(38,0),
+	""EndTime"" NUMBER(38,0)
+);"
+FORUMMESSAGEVOTES,,"create or replace TABLE FORUMMESSAGEVOTES (
+	""Id"" NUMBER(38,0),
+	""ForumMessageId"" NUMBER(38,0),
+	""FromUserId"" NUMBER(38,0),
+	""ToUserId"" NUMBER(38,0),
+	""VoteDate"" DATE
+);"
+FORUMTOPICS,,"create or replace TABLE FORUMTOPICS (
+	""TotalReplies"" NUMBER(38,0),
+	""LastCommentDate"" NUMBER(38,0),
+	""FirstForumMessageId"" FLOAT,
+	""IsSticky"" BOOLEAN,
+	""ForumId"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216),
+	""TotalMessages"" NUMBER(38,0),
+	""Id"" NUMBER(38,0),
+	""LastForumMessageId"" FLOAT,
+	""CreationDate"" NUMBER(38,0),
+	""TotalViews"" NUMBER(38,0),
+	""KernelId"" FLOAT,
+	""Score"" NUMBER(38,0)
+);"
+KERNELS,,"create or replace TABLE KERNELS (
+	""Id"" NUMBER(38,0),
+	""AuthorUserId"" NUMBER(38,0),
+	""CurrentKernelVersionId"" NUMBER(38,0),
+	""ForkParentKernelVersionId"" NUMBER(38,0),
+	""ForumTopicId"" NUMBER(38,0),
+	""FirstKernelVersionId"" NUMBER(38,0),
+	""CreationDate"" NUMBER(38,0),
+	""EvaluationDate"" DATE,
+	""MadePublicDate"" DATE,
+	""IsProjectLanguageTemplate"" BOOLEAN,
+	""CurrentUrlSlug"" VARCHAR(16777216),
+	""Medal"" NUMBER(38,0),
+	""MedalAwardDate"" DATE,
+	""TotalViews"" NUMBER(38,0),
+	""TotalComments"" NUMBER(38,0),
+	""TotalVotes"" NUMBER(38,0)
+);"
+KERNELVERSIONS,,"create or replace TABLE KERNELVERSIONS (
+	""LinesUnchangedFromFork"" FLOAT,
+	""LinesChangedFromFork"" FLOAT,
+	""LinesDeletedFromFork"" FLOAT,
+	""LinesUnchangedFromPrevious"" FLOAT,
+	""TotalLines"" FLOAT,
+	""IsChange"" BOOLEAN,
+	""VersionNumber"" FLOAT,
+	""LinesInsertedFromPrevious"" FLOAT,
+	""EvaluationDate"" DATE,
+	""CreationDate"" NUMBER(38,0),
+	""LinesChangedFromPrevious"" FLOAT,
+	""ScriptId"" NUMBER(38,0),
+	""ScriptLanguageId"" NUMBER(38,0),
+	""ParentScriptVersionId"" VARCHAR(16777216),
+	""TotalVotes"" NUMBER(38,0),
+	""AuthorUserId"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216),
+	""LinesInsertedFromFork"" FLOAT,
+	""Id"" NUMBER(38,0)
+);"
+SUBMISSIONS,,"create or replace TABLE SUBMISSIONS (
+	""Id"" NUMBER(38,0),
+	""SubmittedUserId"" NUMBER(38,0),
+	""TeamId"" NUMBER(38,0),
+	""SourceKernelVersionId"" VARCHAR(16777216),
+	""SubmissionDate"" DATE,
+	""ScoreDate"" DATE,
+	""IsAfterDeadline"" BOOLEAN,
+	""PublicScoreLeaderboardDisplay"" FLOAT,
+	""PublicScoreFullPrecision"" FLOAT,
+	""PrivateScoreLeaderboardDisplay"" FLOAT,
+	""PrivateScoreFullPrecision"" FLOAT
+);"
+TEAMMEMBERSHIPS,,"create or replace TABLE TEAMMEMBERSHIPS (
+	""Id"" NUMBER(38,0),
+	""TeamId"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""RequestDate"" DATE
+);"
+USERFOLLOWERS,,"create or replace TABLE USERFOLLOWERS (
+	""Id"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""FollowingUserId"" NUMBER(38,0),
+	""CreationDate"" DATE
+);"
+KERNELVERSIONDATASETSOURCES,,"create or replace TABLE KERNELVERSIONDATASETSOURCES (
+	""Id"" NUMBER(38,0),
+	""KernelVersionId"" NUMBER(38,0),
+	""SourceDatasetVersionId"" NUMBER(38,0)
+);"
+KERNELVOTES,,"create or replace TABLE KERNELVOTES (
+	""Id"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""KernelVersionId"" NUMBER(38,0),
+	""VoteDate"" DATE
+);"
+COMPETITIONS,,"create or replace TABLE COMPETITIONS (
+	""ValidationSetValue"" VARCHAR(16777216),
+	""EnableSubmissionModelAttachments"" BOOLEAN,
+	""TotalCompetitors"" NUMBER(38,0),
+	""TotalTeams"" NUMBER(38,0),
+	""CanQualifyTiers"" BOOLEAN,
+	""EnableSubmissionModelHashes"" BOOLEAN,
+	""UserRankMultiplier"" FLOAT,
+	""RewardType"" VARCHAR(16777216),
+	""CompetitionTypeId"" NUMBER(38,0),
+	""NumPrizes"" NUMBER(38,0),
+	""MaxTeamSize"" NUMBER(38,0),
+	""NumScoredSubmissions"" NUMBER(38,0),
+	""ValidationSetName"" VARCHAR(16777216),
+	""EvaluationAlgorithmAbbreviation"" VARCHAR(16777216),
+	""Slug"" VARCHAR(16777216),
+	""HasLeaderboard"" BOOLEAN,
+	""HasKernels"" BOOLEAN,
+	""FinalLeaderboardHasBeenVerified"" BOOLEAN,
+	""ModelSubmissionDeadlineDate"" NUMBER(38,0),
+	""EvaluationAlgorithmIsMax"" BOOLEAN,
+	""DeadlineDate"" NUMBER(38,0),
+	""TotalSubmissions"" NUMBER(38,0),
+	""EnabledDate"" NUMBER(38,0),
+	""OnlyAllowKernelSubmissions"" BOOLEAN,
+	""EvaluationAlgorithmDescription"" VARCHAR(16777216),
+	""ProhibitNewEntrantsDeadlineDate"" NUMBER(38,0),
+	""HostName"" VARCHAR(16777216),
+	""MaxDailySubmissions"" NUMBER(38,0),
+	""OrganizationId"" FLOAT,
+	""Subtitle"" VARCHAR(16777216),
+	""TeamModelDeadlineDate"" NUMBER(38,0),
+	""EvaluationAlgorithmName"" VARCHAR(16777216),
+	""LeaderboardPercentage"" NUMBER(38,0),
+	""EnableTeamModels"" BOOLEAN,
+	""BanTeamMergers"" BOOLEAN,
+	""Id"" NUMBER(38,0),
+	""RewardQuantity"" FLOAT,
+	""HostSegmentTitle"" VARCHAR(16777216),
+	""TeamMergerDeadlineDate"" NUMBER(38,0),
+	""ForumId"" NUMBER(38,0),
+	""ScoreTruncationNumDecimals"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216)
+);"
+KERNELVERSIONCOMPETITIONSOURCES,,"create or replace TABLE KERNELVERSIONCOMPETITIONSOURCES (
+	""Id"" NUMBER(38,0),
+	""KernelVersionId"" NUMBER(38,0),
+	""SourceCompetitionId"" NUMBER(38,0)
+);"
+TAGS,,"create or replace TABLE TAGS (
+	""Id"" NUMBER(38,0),
+	""ParentTagId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""Slug"" VARCHAR(16777216),
+	""FullPath"" VARCHAR(16777216),
+	""Description"" VARCHAR(16777216),
+	""DatasetCount"" NUMBER(38,0),
+	""CompetitionCount"" NUMBER(38,0),
+	""KernelCount"" NUMBER(38,0)
+);"
+USERORGANIZATIONS,,"create or replace TABLE USERORGANIZATIONS (
+	""Id"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""OrganizationId"" NUMBER(38,0),
+	""JoinDate"" DATE
+);"
+EPISODEAGENTS,,"create or replace TABLE EPISODEAGENTS (
+	""Id"" NUMBER(38,0),
+	""EpisodeId"" NUMBER(38,0),
+	""Index"" NUMBER(38,0),
+	""Reward"" FLOAT,
+	""State"" NUMBER(38,0),
+	""SubmissionId"" NUMBER(38,0),
+	""InitialConfidence"" FLOAT,
+	""InitialScore"" FLOAT,
+	""UpdatedConfidence"" FLOAT,
+	""UpdatedScore"" FLOAT
+);"
+USERS,,"create or replace TABLE USERS (
+	""Id"" NUMBER(38,0),
+	""UserName"" VARCHAR(16777216),
+	""DisplayName"" VARCHAR(16777216),
+	""RegisterDate"" VARCHAR(16777216),
+	""PerformanceTier"" NUMBER(38,0),
+	""Country"" VARCHAR(16777216)
+);"
+COMPETITIONTAGS,,"create or replace TABLE COMPETITIONTAGS (
+	""Id"" NUMBER(38,0),
+	""CompetitionId"" NUMBER(38,0),
+	""TagId"" NUMBER(38,0)
+);"
+DATASETVOTES,,"create or replace TABLE DATASETVOTES (
+	""Id"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""DatasetVersionId"" NUMBER(38,0),
+	""VoteDate"" DATE
+);"
+FORUMMESSAGES,,"create or replace TABLE FORUMMESSAGES (
+	""Id"" NUMBER(38,0),
+	""ForumTopicId"" NUMBER(38,0),
+	""PostUserId"" NUMBER(38,0),
+	""PostDate"" VARCHAR(16777216),
+	""ReplyToForumMessageId"" FLOAT,
+	""Message"" VARCHAR(16777216),
+	""RawMarkdown"" VARCHAR(16777216),
+	""Medal"" FLOAT,
+	""MedalAwardDate"" VARCHAR(16777216)
+);"
+FORUMS,,"create or replace TABLE FORUMS (
+	""Id"" NUMBER(38,0),
+	""ParentForumId"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216)
+);"
+KERNELLANGUAGES,,"create or replace TABLE KERNELLANGUAGES (
+	""Id"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""DisplayName"" VARCHAR(16777216),
+	""IsNotebook"" BOOLEAN
+);"
+DATASETTASKS,,"create or replace TABLE DATASETTASKS (
+	""TotalVotes"" NUMBER(38,0),
+	""Subtitle"" VARCHAR(16777216),
+	""ForumId"" VARCHAR(16777216),
+	""Description"" VARCHAR(16777216),
+	""CreationDate"" NUMBER(38,0),
+	""OwnerUserId"" NUMBER(38,0),
+	""DatasetId"" NUMBER(38,0),
+	""Deadline"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216),
+	""Id"" NUMBER(38,0)
+);"
+DATASOURCES,,"create or replace TABLE DATASOURCES (
+	""Id"" NUMBER(38,0),
+	""CreatorUserId"" NUMBER(38,0),
+	""CreationDate"" NUMBER(38,0),
+	""Type"" VARCHAR(16777216),
+	""CurrentDatasourceVersionId"" NUMBER(38,0)
+);"
+KERNELTAGS,,"create or replace TABLE KERNELTAGS (
+	""Id"" NUMBER(38,0),
+	""KernelId"" NUMBER(38,0),
+	""TagId"" NUMBER(38,0)
+);"
+USERACHIEVEMENTS,,"create or replace TABLE USERACHIEVEMENTS (
+	""Id"" NUMBER(38,0),
+	""UserId"" NUMBER(38,0),
+	""AchievementType"" VARCHAR(16777216),
+	""Tier"" NUMBER(38,0),
+	""TierAchievementDate"" DATE,
+	""Points"" NUMBER(38,0),
+	""CurrentRanking"" NUMBER(38,0),
+	""HighestRanking"" NUMBER(38,0),
+	""TotalGold"" NUMBER(38,0),
+	""TotalSilver"" NUMBER(38,0),
+	""TotalBronze"" NUMBER(38,0)
+);"
+KERNELVERSIONKERNELSOURCES,,"create or replace TABLE KERNELVERSIONKERNELSOURCES (
+	""Id"" NUMBER(38,0),
+	""KernelVersionId"" NUMBER(38,0),
+	""SourceKernelVersionId"" NUMBER(38,0)
+);"

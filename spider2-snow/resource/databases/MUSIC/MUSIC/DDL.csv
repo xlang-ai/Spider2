@@ -1,0 +1,87 @@
+table_name,description,DDL
+ALBUM,,"create or replace TABLE ALBUM (
+	""AlbumId"" NUMBER(38,0),
+	""Title"" VARCHAR(16777216),
+	""ArtistId"" NUMBER(38,0)
+);"
+ARTIST,,"create or replace TABLE ARTIST (
+	""ArtistId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216)
+);"
+GENRE,,"create or replace TABLE GENRE (
+	""GenreId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216)
+);"
+INVOICE,,"create or replace TABLE INVOICE (
+	""InvoiceId"" NUMBER(38,0),
+	""CustomerId"" NUMBER(38,0),
+	""InvoiceDate"" VARCHAR(16777216),
+	""BillingAddress"" VARCHAR(16777216),
+	""BillingCity"" VARCHAR(16777216),
+	""BillingState"" VARCHAR(16777216),
+	""BillingCountry"" VARCHAR(16777216),
+	""BillingPostalCode"" VARCHAR(16777216),
+	""Total"" FLOAT
+);"
+CUSTOMER,,"create or replace TABLE CUSTOMER (
+	""CustomerId"" NUMBER(38,0),
+	""FirstName"" VARCHAR(16777216),
+	""LastName"" VARCHAR(16777216),
+	""Company"" VARCHAR(16777216),
+	""Address"" VARCHAR(16777216),
+	""City"" VARCHAR(16777216),
+	""State"" VARCHAR(16777216),
+	""Country"" VARCHAR(16777216),
+	""PostalCode"" VARCHAR(16777216),
+	""Phone"" VARCHAR(16777216),
+	""Fax"" VARCHAR(16777216),
+	""Email"" VARCHAR(16777216),
+	""SupportRepId"" NUMBER(38,0)
+);"
+EMPLOYEE,,"create or replace TABLE EMPLOYEE (
+	""EmployeeId"" NUMBER(38,0),
+	""LastName"" VARCHAR(16777216),
+	""FirstName"" VARCHAR(16777216),
+	""Title"" VARCHAR(16777216),
+	""ReportsTo"" FLOAT,
+	""BirthDate"" VARCHAR(16777216),
+	""HireDate"" VARCHAR(16777216),
+	""Address"" VARCHAR(16777216),
+	""City"" VARCHAR(16777216),
+	""State"" VARCHAR(16777216),
+	""Country"" VARCHAR(16777216),
+	""PostalCode"" VARCHAR(16777216),
+	""Phone"" VARCHAR(16777216),
+	""Fax"" VARCHAR(16777216),
+	""Email"" VARCHAR(16777216)
+);"
+INVOICELINE,,"create or replace TABLE INVOICELINE (
+	""InvoiceLineId"" NUMBER(38,0),
+	""InvoiceId"" NUMBER(38,0),
+	""TrackId"" NUMBER(38,0),
+	""UnitPrice"" FLOAT,
+	""Quantity"" NUMBER(38,0)
+);"
+PLAYLIST,,"create or replace TABLE PLAYLIST (
+	""PlaylistId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216)
+);"
+PLAYLISTTRACK,,"create or replace TABLE PLAYLISTTRACK (
+	""PlaylistId"" NUMBER(38,0),
+	""TrackId"" NUMBER(38,0)
+);"
+MEDIATYPE,,"create or replace TABLE MEDIATYPE (
+	""MediaTypeId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216)
+);"
+TRACK,,"create or replace TABLE TRACK (
+	""TrackId"" NUMBER(38,0),
+	""Name"" VARCHAR(16777216),
+	""AlbumId"" NUMBER(38,0),
+	""MediaTypeId"" NUMBER(38,0),
+	""GenreId"" NUMBER(38,0),
+	""Composer"" VARCHAR(16777216),
+	""Milliseconds"" NUMBER(38,0),
+	""Bytes"" NUMBER(38,0),
+	""UnitPrice"" FLOAT
+);"

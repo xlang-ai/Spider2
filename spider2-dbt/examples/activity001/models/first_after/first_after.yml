@@ -1,0 +1,18 @@
+version: 2
+
+models:
+
+  - name: dataset__first_after_1
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__first_after_1")
+
+  - name: dataset__first_after_2
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__first_after_2")
+
+  - name: dataset__first_after_3
+    tests:
+      - dbt_utils.equality:
+          compare_model: ref("output__first_after_3")

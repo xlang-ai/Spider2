@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT user_id) AS unique_users FROM shopping_cart_users;

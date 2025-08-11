@@ -1,0 +1,126 @@
+table_name,description,DDL
+EMPLOYEES,,"create or replace TABLE EMPLOYEES (
+	""employeeid"" NUMBER(38,0),
+	""lastname"" VARCHAR(16777216),
+	""firstname"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216),
+	""titleofcourtesy"" VARCHAR(16777216),
+	""birthdate"" VARCHAR(16777216),
+	""hiredate"" VARCHAR(16777216),
+	""address"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""postalcode"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""homephone"" VARCHAR(16777216),
+	""extension"" VARCHAR(16777216),
+	""photo"" VARCHAR(16777216),
+	""notes"" VARCHAR(16777216),
+	""reportsto"" FLOAT,
+	""photopath"" VARCHAR(16777216)
+);"
+REGION,,"create or replace TABLE REGION (
+	""regionid"" NUMBER(38,0),
+	""regiondescription"" VARCHAR(16777216)
+);"
+TERRITORIES,,"create or replace TABLE TERRITORIES (
+	""territoryid"" VARCHAR(16777216),
+	""territorydescription"" VARCHAR(16777216),
+	""regionid"" NUMBER(38,0)
+);"
+CUSTOMERGROUPTHRESHOLD,,"create or replace TABLE CUSTOMERGROUPTHRESHOLD (
+	""groupname"" VARCHAR(16777216),
+	""rangebottom"" NUMBER(38,0),
+	""rangetop"" FLOAT
+);"
+EMPLOYEETERRITORIES,,"create or replace TABLE EMPLOYEETERRITORIES (
+	""employeeid"" NUMBER(38,0),
+	""territoryid"" VARCHAR(16777216)
+);"
+USSTATES,,"create or replace TABLE USSTATES (
+	""stateid"" NUMBER(38,0),
+	""statename"" VARCHAR(16777216),
+	""stateabbr"" VARCHAR(16777216),
+	""stateregion"" VARCHAR(16777216)
+);"
+CUSTOMERDEMOGRAPHICS,,"create or replace TABLE CUSTOMERDEMOGRAPHICS (
+	""customertypeid"" VARCHAR(16777216),
+	""customerdesc"" VARCHAR(16777216)
+);"
+ORDERS,,"create or replace TABLE ORDERS (
+	""orderid"" NUMBER(38,0),
+	""customerid"" VARCHAR(16777216),
+	""employeeid"" NUMBER(38,0),
+	""orderdate"" VARCHAR(16777216),
+	""requireddate"" VARCHAR(16777216),
+	""shippeddate"" VARCHAR(16777216),
+	""shipvia"" NUMBER(38,0),
+	""freight"" FLOAT,
+	""shipname"" VARCHAR(16777216),
+	""shipaddress"" VARCHAR(16777216),
+	""shipcity"" VARCHAR(16777216),
+	""shipregion"" VARCHAR(16777216),
+	""shippostalcode"" VARCHAR(16777216),
+	""shipcountry"" VARCHAR(16777216)
+);"
+ORDER_DETAILS,,"create or replace TABLE ORDER_DETAILS (
+	""orderid"" NUMBER(38,0),
+	""productid"" NUMBER(38,0),
+	""unitprice"" FLOAT,
+	""quantity"" NUMBER(38,0),
+	""discount"" FLOAT
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	""productid"" NUMBER(38,0),
+	""productname"" VARCHAR(16777216),
+	""supplierid"" NUMBER(38,0),
+	""categoryid"" NUMBER(38,0),
+	""quantityperunit"" VARCHAR(16777216),
+	""unitprice"" FLOAT,
+	""unitsinstock"" NUMBER(38,0),
+	""unitsonorder"" NUMBER(38,0),
+	""reorderlevel"" NUMBER(38,0),
+	""discontinued"" NUMBER(38,0)
+);"
+SHIPPERS,,"create or replace TABLE SHIPPERS (
+	""shipperid"" NUMBER(38,0),
+	""companyname"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216)
+);"
+CUSTOMERS,,"create or replace TABLE CUSTOMERS (
+	""customerid"" VARCHAR(16777216),
+	""companyname"" VARCHAR(16777216),
+	""contactname"" VARCHAR(16777216),
+	""contacttitle"" VARCHAR(16777216),
+	""address"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""postalcode"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216),
+	""fax"" VARCHAR(16777216)
+);"
+CATEGORIES,,"create or replace TABLE CATEGORIES (
+	""categoryid"" NUMBER(38,0),
+	""categoryname"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216),
+	""picture"" VARCHAR(16777216)
+);"
+CUSTOMERCUSTOMERDEMO,,"create or replace TABLE CUSTOMERCUSTOMERDEMO (
+	""customerid"" VARCHAR(16777216),
+	""customertypeid"" VARCHAR(16777216)
+);"
+SUPPLIERS,,"create or replace TABLE SUPPLIERS (
+	""supplierid"" NUMBER(38,0),
+	""companyname"" VARCHAR(16777216),
+	""contactname"" VARCHAR(16777216),
+	""contacttitle"" VARCHAR(16777216),
+	""address"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""postalcode"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216),
+	""fax"" VARCHAR(16777216),
+	""homepage"" VARCHAR(16777216)
+);"

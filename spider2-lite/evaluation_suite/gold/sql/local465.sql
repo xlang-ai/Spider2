@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT region) AS unique_regions FROM weekly_sales;

@@ -1,0 +1,1 @@
+SELECT txn_type, AVG(percentage_fee) AS avg_fee FROM bitcoin_transactions GROUP BY txn_type;

@@ -1,0 +1,1 @@
+SELECT m.member_id, m.first_name FROM bitcoin_members m LEFT JOIN bitcoin_transactions t ON m.member_id = t.member_id WHERE t.txn_id IS NULL;

@@ -1,0 +1,1 @@
+SELECT interest_id FROM interest_metrics ORDER BY percentile_ranking DESC LIMIT 5;

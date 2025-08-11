@@ -1,0 +1,1 @@
+SELECT AVG(m.percentile_ranking) AS avg_percentile FROM interest_metrics m JOIN interest_map i ON m.interest_id = i.id WHERE i.interest_name = 'Machine Learning';

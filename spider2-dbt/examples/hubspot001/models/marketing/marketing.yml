@@ -1,0 +1,314 @@
+version: 2
+
+models:
+
+  - name: hubspot__email_sends
+    description: Each record represents a SENT email event.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: bcc_emails
+        description: The 'cc' field of the email message.
+      - name: cc_emails
+        description: The 'bcc' field of the email message.
+      - name: email_subject
+        description: The subject line of the email message.
+      - name: event_id
+        description: The ID of the event.
+        tests:
+          - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
+      - name: from_email
+        description: The 'from' field of the email message.
+      - name: reply_to_email
+        description: The 'reply-to' field of the email message.
+      - name: created_timestamp
+        description: The created timestamp of the event.
+      - name: email_campaign_id
+        description: The ID of the related email campaign.
+      - name: recipient_email_address
+        description: The email address of the contact related to the event.
+      - name: email_send_timestamp
+        description: The timestamp of the SENT event related to this event.
+      - name: email_send_id
+        description: The event ID which uniquely identifies the email message's SENT event. If not applicable, this property is omitted.
+      - name: contact_id
+        description: The ID of the related contact.
+      - name: bounces
+        description: "{{ doc('bounces') }}"
+      - name: clicks
+        description: "{{ doc('clicks') }}"
+      - name: deferrals
+        description: "{{ doc('deferrals') }}"
+      - name: deliveries
+        description: "{{ doc('deliveries') }}"
+      - name: drops
+        description: "{{ doc('drops') }}"
+      - name: forwards
+        description: "{{ doc('forwards') }}"
+      - name: opens
+        description: "{{ doc('opens') }}"
+      - name: prints
+        description: "{{ doc('prints') }}"
+      - name: spam_reports
+        description: "{{ doc('spam_reports') }}"
+      - name: unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      - name: was_bounced
+        description: Whether the email was bounced.
+      - name: was_clicked
+        description: Whether the email was clicked.
+      - name: was_deferred
+        description: Whether the email was deferred.
+      - name: was_delivered
+        description: Whether the email was delivered.
+      - name: was_forwarded
+        description: Whether the email was forwarded.
+      - name: was_opened
+        description: Whether the email was opened.
+      - name: was_printed
+        description: Whether the email was printed.
+      - name: was_spam_reported
+        description: Whether the email was spam reported.
+      - name: was_unsubcribed
+        description: Whether the email was unsubcribed.
+
+  - name: hubspot__email_campaigns
+    description: Each record represents an email campaign in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: app_id
+        description: The app ID.
+      - name: app_name
+        description: The app name.
+      - name: content_id
+        description: The ID of the content.
+      - name: email_campaign_id
+        description: The ID of the email campaign.
+        tests:
+          - unique
+          - not_null
+      - name: email_campaign_name
+        description: The name of the email campaign.
+      - name: email_campaign_sub_type
+        description: The email campaign sub-type.
+      - name: email_campaign_subject
+        description: The subject of the email campaign.
+      - name: email_campaign_type
+        description: The email campaign type.
+      - name: num_included
+        description: The number of messages included as part of the email campaign.
+      - name: num_queued
+        description: The number of messages queued as part of the email campaign.
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+      - name: total_prints
+        description: "{{ doc('prints') }}"
+      - name: total_spam_reports
+        description: "{{ doc('spam_reports') }}"
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      - name: total_unique_bounces
+        description: "{{ doc('unique_bounces') }}"
+      - name: total_unique_clicks
+        description: "{{ doc('unique_clicks') }}"
+      - name: total_unique_deferrals
+        description: "{{ doc('unique_deferrals') }}"
+      - name: total_unique_deliveries
+        description: "{{ doc('unique_deliveries') }}"
+      - name: total_unique_drops
+        description: "{{ doc('unique_drops') }}"
+      - name: total_unique_forwards
+        description: "{{ doc('unique_forwards') }}"
+      - name: total_unique_opens
+        description: "{{ doc('unique_opens') }}"
+      - name: total_unique_prints
+        description: "{{ doc('unique_prints') }}"
+      - name: total_unique_spam_reports
+        description: "{{ doc('unique_spam_reports') }}"
+      - name: total_unique_unsubscribes
+        description: "{{ doc('unique_unsubscribes') }}"
+
+  - name: hubspot__contacts
+    description: Each record represents a contact in Hubspot.
+    columns:
+      - name: is_contact_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: contact_id
+        description: The ID of the contact.
+        tests:
+          - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_deleted, false)"
+      - name: contact_company
+        description: The name of the contact's company
+      - name: first_name
+        description: The contact's first name.
+      - name: last_name
+        description: The contact's last name.
+      - name: email
+        description: The email address of the contact.
+      - name: created_date
+        description: The date that the contact was created in your HubSpot account.
+      - name: job_title
+        description: The contact's job title.
+      - name: company_annual_revenue
+        description: The contact's annual company revenue.
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+      - name: total_prints
+        description: "{{ doc('prints') }}"
+      - name: total_spam_reports
+        description: "{{ doc('spam_reports') }}"
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      - name: total_unique_bounces
+        description: "{{ doc('unique_bounces') }}"
+      - name: total_unique_clicks
+        description: "{{ doc('unique_clicks') }}"
+      - name: total_unique_deferrals
+        description: "{{ doc('unique_deferrals') }}"
+      - name: total_unique_deliveries
+        description: "{{ doc('unique_deliveries') }}"
+      - name: total_unique_drops
+        description: "{{ doc('unique_drops') }}"
+      - name: total_unique_forwards
+        description: "{{ doc('unique_forwards') }}"
+      - name: total_unique_opens
+        description: "{{ doc('unique_opens') }}"
+      - name: total_unique_prints
+        description: "{{ doc('unique_prints') }}"
+      - name: total_unique_spam_reports
+        description: "{{ doc('unique_spam_reports') }}"
+      - name: total_unique_unsubscribes
+        description: "{{ doc('unique_unsubscribes') }}"
+      - name: count_engagement_notes
+        description: "{{ doc('count_engagement_notes') }}"
+      - name: count_engagement_tasks
+        description: "{{ doc('count_engagement_tasks') }}"
+      - name: count_engagement_calls
+        description: "{{ doc('count_engagement_calls') }}"
+      - name: count_engagement_meetings
+        description: "{{ doc('count_engagement_meetings') }}"
+      - name: count_engagement_emails
+        description: "{{ doc('count_engagement_emails') }}"
+      - name: count_engagement_incoming_emails
+        description: "{{ doc('count_engagement_incoming_emails') }}"
+      - name: count_engagement_forwarded_emails
+        description: "{{ doc('count_engagement_forwarded_emails') }}"
+      - name: calculated_merged_vids
+        description: >
+          List of mappings representing contact IDs that have been merged into the contact at hand.
+          Format: <merged_contact_id>:<merged_at_in_epoch_time>;<second_merged_contact_id>:<merged_at_in_epoch_time>
+          This field has replaced the `CONTACT_MERGE_AUDIT` table, which was deprecated by the Hubspot v3 CRM API.
+
+  - name: hubspot__contact_lists
+    description: Each record represents a contact list in Hubspot.
+    columns:
+      - name: _fivetran_synced
+        description: '{{ doc("_fivetran_synced") }}'
+      - name: contact_list_id
+        description: The ID of the contact list.
+        tests:
+          - not_null
+          - unique:
+              config:
+                where: "not coalesce(is_contact_list_deleted, false)"
+      - name: contact_list_name
+        description: The name of the contact list.
+      - name: is_contact_list_deleted
+        description: '{{ doc("is_deleted") }}'
+      - name: created_timestamp
+        description: A timestamp of the time the list was created.
+      - name: is_deletable
+        description: If this is false, this is a system list and cannot be deleted.
+      - name: is_dynamic
+        description: Whether the contact list is dynamic.
+      - name: metadata_error
+        description: Any errors that happened the last time the list was processed.
+      - name: metadata_last_processing_state_change_at
+        description: A timestamp of the last time that the processing state changed.
+      - name: metadata_last_size_change_at
+        description: A timestamp of the last time that the size of the list changed.
+      - name: metadata_processing
+        description: |
+              One of DONE, REFRESHING, INITIALIZING, or PROCESSING. 
+              DONE indicates the list has finished processing, any other value indicates that list membership is being evaluated.
+      - name: metadata_size
+        description: The approximate number of contacts in the list.
+      - name: portal_id
+        description: '{{ doc("portal_id") }}'
+      - name: updated_timestamp
+        description: A timestamp of the time that the list was last modified.
+      - name: total_bounces
+        description: "{{ doc('bounces') }}"
+      - name: total_clicks
+        description: "{{ doc('clicks') }}"
+      - name: total_deferrals
+        description: "{{ doc('deferrals') }}"
+      - name: total_deliveries
+        description: "{{ doc('deliveries') }}"
+      - name: total_drops
+        description: "{{ doc('drops') }}"
+      - name: total_forwards
+        description: "{{ doc('forwards') }}"
+      - name: total_opens
+        description: "{{ doc('opens') }}"
+      - name: total_prints
+        description: "{{ doc('prints') }}"
+      - name: total_spam_reports
+        description: "{{ doc('spam_reports') }}"
+      - name: total_unsubscribes
+        description: "{{ doc('unsubscribes') }}"
+      - name: total_unique_bounces
+        description: "{{ doc('unique_bounces') }}"
+      - name: total_unique_clicks
+        description: "{{ doc('unique_clicks') }}"
+      - name: total_unique_deferrals
+        description: "{{ doc('unique_deferrals') }}"
+      - name: total_unique_deliveries
+        description: "{{ doc('unique_deliveries') }}"
+      - name: total_unique_drops
+        description: "{{ doc('unique_drops') }}"
+      - name: total_unique_forwards
+        description: "{{ doc('unique_forwards') }}"
+      - name: total_unique_opens
+        description: "{{ doc('unique_opens') }}"
+      - name: total_unique_prints
+        description: "{{ doc('unique_prints') }}"
+      - name: total_unique_spam_reports
+        description: "{{ doc('unique_spam_reports') }}"
+      - name: total_unique_unsubscribes
+        description: "{{ doc('unique_unsubscribes') }}"

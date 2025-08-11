@@ -1,0 +1,102 @@
+{
+    "table_name": "SCHEMA_CURRENT",
+    "table_fullname": "HTAN_2.HTAN.SCHEMA_CURRENT",
+    "column_names": [
+        "Attribute",
+        "Validation_Rules",
+        "DependsOn",
+        "DependsOn_Component",
+        "Required",
+        "Properties",
+        "Valid_Values",
+        "Description",
+        "Parent",
+        "Source"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Key characteristic X of the assay, related protocol, or downstream data that we want to record as metadata feature.",
+        "What type of data is allowed in the Valid Values column. Only relevant if Valid Values are not present in the row. E.g. string, list, integer",
+        "Important characteristics, if any, of attribute X that need to be recorded as metadata features given attribute X is specified. These characteristics could be attributes or properties of attributes (i.e. they are listed in the 'Attribute' column and/or under the 'Properties' column). Comma separated.",
+        "Each component is a high level ontology class in which entities/objects are categorized/componentized; a component is an entity on its own that needs to be defined in the schema",
+        "Indicate if specifying value for attribute X is mandatory or optional by default. Set to TRUE or FALSE. If TRUE, a data contributor must provide a value for attribute X (e.g. one of the valid values in 'Valid Values', if any are specified). If FALSE, a data contributor may select between 'Not Applicable' or 'Not Specified' as a value for attribute X. Note that an attribute may not be required by default (i.e. 'Required' is set to FALSE), but it could be required by virtue of being an attribute of another required attribute (e.g. see ERCC).",
+        "Properties specific to a particular attribute; note that properties could be attributes themselves (i.e. listed under the 'Attributes' column).",
+        "The range of attribute X: the values that can be assigned to attribute X; these values can include/be other attributes (i.e. listed in the 'Attribute' columns) themselves. Comma separated. If none provided any non-null value is valid for attribute X.",
+        "Provide a definition or a reference containing the definition of attribute X. Preferably provide a source ontology link or code in addition to the definition. Leave blank if the final description is pending.",
+        "Parent class of this attribute - i.e. where to 'hook' this attribute into an existing schema. Note that this assumes a single existing schema/a single json-ld schema context; if we need to support classes/attributes/properties defined across multiple schemas/json-ld contexts we'd need to add a schema/context column that specifies the context of each attribute, if different from the context of the attribute's parent.",
+        "The source for the description of the term, usually an URI. Ontologies can be used as sources. E.g. Library Construction Method has source: http://purl.obolibrary.org/obo/OBI_0000711"
+    ],
+    "sample_rows": [
+        {
+            "Attribute": "Component",
+            "Description": "Category of metadata (e.g. Diagnosis, Biospecimen, scRNA-seq Level 1, etc.); provide the same one for all items/rows.",
+            "Valid_Values": null,
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": null,
+            "DependsOn_Component": null,
+            "Source": "https://w3id.org/biolink/vocab/category",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Spike In Concentration",
+            "Description": "The final concentration or dilution (for commercial sets) of the spike in mix [PMID:21816910]",
+            "Valid_Values": null,
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "ERCC",
+            "DependsOn_Component": null,
+            "Source": "https://www.ncbi.nlm.nih.gov/pubmed/21816910",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "HTAN Parent Data File ID",
+            "Description": "HTAN Data File Identifier indicating the file(s) from which these files were derived",
+            "Valid_Values": null,
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "File",
+            "DependsOn_Component": null,
+            "Source": null,
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "PhysicalSizeXUnit",
+            "Description": "The units of the physical size of a pixel. See OME enumeration of allowed values for the UnitsLength attribute -- default: microns (um)",
+            "Valid_Values": "cm, mm, \u00b5m, nm, \u00c5",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging",
+            "DependsOn_Component": null,
+            "Source": "https://www.miti-consortium.org/",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Imaging Object Class Description",
+            "Description": "Free text description of object class [string]",
+            "Valid_Values": null,
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Imaging",
+            "DependsOn_Component": null,
+            "Source": "https://www.miti-consortium.org/",
+            "Validation_Rules": null
+        }
+    ]
+}

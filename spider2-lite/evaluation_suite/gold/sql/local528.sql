@@ -1,0 +1,1 @@
+SELECT customer_id, COUNT(DISTINCT region_id) AS region_count FROM customer_nodes GROUP BY customer_id HAVING region_count > 1;

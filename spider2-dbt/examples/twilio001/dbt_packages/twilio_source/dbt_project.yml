@@ -1,0 +1,21 @@
+
+name: 'twilio_source'
+version: '0.3.0'
+config-version: 2
+
+models:
+  twilio_source:
+    +materialized: table
+    +schema: twilio_source
+    tmp:
+      +materialized: view
+vars:
+  twilio_source:
+    account_history: "{{ source('twilio', 'account_history') }}"
+    address: "{{ source('twilio', 'address') }}"
+    call: "{{ source('twilio', 'call') }}"
+    incoming_phone_number: "{{ source('twilio', 'incoming_phone_number') }}"
+    message: "{{ source('twilio', 'message') }}"
+    messaging_service: "{{ source('twilio', 'messaging_service') }}"
+    outgoing_caller_id: "{{ source('twilio', 'outgoing_caller_id') }}"
+    usage_record: "{{ source('twilio', 'usage_record') }}"

@@ -1,0 +1,39 @@
+table_name,description,DDL
+IMAGES,,"create or replace TABLE IMAGES (
+	""image_id"" VARCHAR(16777216),
+	""subset"" VARCHAR(16777216),
+	""original_url"" VARCHAR(16777216),
+	""original_landing_url"" VARCHAR(16777216),
+	""license"" VARCHAR(16777216),
+	""author_profile_url"" VARCHAR(16777216),
+	""author"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216),
+	""original_size"" NUMBER(38,0),
+	""original_md5"" VARCHAR(16777216),
+	""thumbnail_300k_url"" VARCHAR(16777216)
+);"
+DICT,,"create or replace TABLE DICT (
+	""label_name"" VARCHAR(16777216),
+	""label_display_name"" VARCHAR(16777216)
+);"
+ANNOTATIONS_BBOX,,"create or replace TABLE ANNOTATIONS_BBOX (
+	""image_id"" VARCHAR(16777216),
+	""source"" VARCHAR(16777216),
+	""label_name"" VARCHAR(16777216),
+	""confidence"" FLOAT,
+	""x_min"" FLOAT,
+	""x_max"" FLOAT,
+	""y_min"" FLOAT,
+	""y_max"" FLOAT,
+	""is_occluded"" BOOLEAN,
+	""is_truncated"" BOOLEAN,
+	""is_group_of"" BOOLEAN,
+	""is_depiction"" BOOLEAN,
+	""is_inside"" BOOLEAN
+);"
+LABELS,,"create or replace TABLE LABELS (
+	""image_id"" VARCHAR(16777216),
+	""source"" VARCHAR(16777216),
+	""label_name"" VARCHAR(16777216),
+	""confidence"" FLOAT
+);"

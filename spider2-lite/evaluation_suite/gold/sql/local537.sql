@@ -1,0 +1,1 @@
+SELECT CASE WHEN day_of_week IN ('Saturday', 'Sunday') THEN 'Weekend' ELSE 'Weekday' END AS day_type, SUM(`qty_sold(kg)` * `unit_selling_px_rmb/kg`) AS total_sales FROM veg_txn_df GROUP BY day_type;

@@ -1,0 +1,1 @@
+SELECT customer_id FROM customer_transactions WHERE txn_type = 'deposit' INTERSECT SELECT customer_id FROM customer_transactions WHERE txn_type = 'withdrawal';

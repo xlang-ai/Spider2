@@ -1,0 +1,38 @@
+table_name,description,DDL
+MASK_USE_BY_COUNTY,,"create or replace TABLE MASK_USE_BY_COUNTY (
+	""county_fips_code"" VARCHAR(16777216),
+	""never"" FLOAT,
+	""rarely"" FLOAT,
+	""sometimes"" FLOAT,
+	""frequently"" FLOAT,
+	""always"" FLOAT
+);"
+EXCESS_DEATHS,,"create or replace TABLE EXCESS_DEATHS (
+	""country"" VARCHAR(16777216),
+	""placename"" VARCHAR(16777216),
+	""frequency"" VARCHAR(16777216),
+	""start_date"" DATE,
+	""end_date"" DATE,
+	""year"" VARCHAR(16777216),
+	""month"" NUMBER(38,0),
+	""week"" NUMBER(38,0),
+	""deaths"" NUMBER(38,0),
+	""expected_deaths"" NUMBER(38,0),
+	""excess_deaths"" NUMBER(38,0),
+	""baseline"" VARCHAR(16777216)
+);"
+US_COUNTIES,,"create or replace TABLE US_COUNTIES (
+	""date"" DATE,
+	""county"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""county_fips_code"" VARCHAR(16777216),
+	""confirmed_cases"" NUMBER(38,0),
+	""deaths"" NUMBER(38,0)
+);"
+US_STATES,,"create or replace TABLE US_STATES (
+	""date"" DATE,
+	""state_name"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""confirmed_cases"" NUMBER(38,0),
+	""deaths"" NUMBER(38,0)
+);"

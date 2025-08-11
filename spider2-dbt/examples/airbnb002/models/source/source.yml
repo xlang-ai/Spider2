@@ -1,0 +1,104 @@
+version: 2
+
+models:
+  - name: src_hosts
+    description: |
+      This model extracts raw host data from the Airbnb dataset, selecting key fields like host ID, name, and superhost status. 
+      The data is used to track information about hosts, including when they were created and last updated.
+
+    sources:
+      - name: airbnb
+        tables:
+          - name: hosts
+
+    columns:
+      - name: HOST_ID
+        description: "The unique identifier for each host."
+        tests:
+          - not_null
+          - unique
+
+      - name: HOST_NAME
+        description: "The name of the host."
+
+      - name: IS_SUPERHOST
+        description: "Indicates whether the host is a 'Superhost'."
+
+      - name: CREATED_AT
+        description: "The timestamp when the host was created."
+
+      - name: UPDATED_AT
+        description: "The timestamp when the host's information was last updated."
+
+
+  - name: src_listings
+    description: |
+      This model extracts listing data from the Airbnb dataset, selecting key fields like listing ID, name, room type, and price. 
+      The data provides information about the listing and its host, including the URL, minimum nights required, and creation and update times.
+
+    sources:
+      - name: airbnb
+        tables:
+          - name: listings
+
+    columns:
+      - name: LISTING_ID
+        description: "The unique identifier for each listing."
+        tests:
+          - not_null
+          - unique
+
+      - name: LISTING_NAME
+        description: "The name of the listing."
+
+      - name: LISTING_URL
+        description: "The URL of the listing."
+
+      - name: ROOM_TYPE
+        description: "The type of room offered in the listing (e.g., entire home, private room)."
+
+      - name: MINIMUM_NIGHTS
+        description: "The minimum number of nights required to book the listing."
+
+      - name: HOST_ID
+        description: "The unique identifier for the host of the listing."
+        tests:
+          - not_null
+
+      - name: PRICE_STR
+        description: "The price of the listing as a string."
+
+      - name: CREATED_AT
+        description: "The timestamp when the listing was created."
+
+      - name: UPDATED_AT
+        description: "The timestamp when the listing's information was last updated."
+
+
+  - name: src_reviews
+    description: |
+      This model extracts review data from the Airbnb dataset, selecting key fields like listing ID, review date, reviewer name, review text, and sentiment. 
+      The data provides insights into the reviews left by guests, including the sentiment associated with the review.
+
+    sources:
+      - name: airbnb
+        tables:
+          - name: reviews
+
+    columns:
+      - name: LISTING_ID
+        description: "The unique identifier for the listing being reviewed."
+        tests:
+          - not_null
+
+      - name: REVIEW_DATE
+        description: "The date the review was left."
+
+      - name: REVIEWER_NAME
+        description: "The name of the person who left the review."
+
+      - name: REVIEW_TEXT
+        description: "The text of the review left by the guest."
+
+      - name: REVIEW_SENTIMENT
+        description: "The sentiment of the review, such as positive, neutral, or negative."

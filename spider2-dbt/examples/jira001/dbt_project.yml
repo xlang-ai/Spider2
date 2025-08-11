@@ -1,0 +1,59 @@
+name: 'jira'
+version: '0.17.0'
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: 'jira'
+
+vars:
+
+  jira_source:
+    jira_schema: main
+    jira_comment_identifier: "comment"
+    jira_component_identifier: "component"
+    jira_epic_identifier: "epic"
+    jira_field_identifier: "field"
+    jira_field_option_identifier: "field_option"
+    jira_issue_field_history_identifier: "issue_field_history"
+    jira_issue_link_identifier: "issue_link"
+    jira_issue_multiselect_history_identifier: "issue_multiselect_history"
+    jira_issue_type_identifier: "issue_type"
+    jira_issue_identifier: "issue"
+    jira_priority_identifier: "priority"
+    jira_project_board_identifier: "project_board"
+    jira_project_category_identifier: "project_category"
+    jira_project_identifier: "project"
+    jira_resolution_identifier: "resolution"
+    jira_sprint_identifier: "sprint"
+    jira_status_category_identifier: "status_category"
+    jira_status_identifier: "status"
+    jira_user_group_identifier: "user_group"
+    jira_user_identifier: "user"
+    jira_version_identifier: "version"
+
+  jira:
+    issue: "{{ ref('stg_jira__issue') }}"
+    project: "{{ ref('stg_jira__project') }}"
+    user: "{{ ref('stg_jira__user') }}"
+    issue_type: "{{ ref('stg_jira__issue_type') }}"
+    status: "{{ ref('stg_jira__status') }}"
+    status_category: "{{ ref('stg_jira__status_category') }}"
+    resolution: "{{ ref('stg_jira__resolution') }}"
+    priority: "{{ ref('stg_jira__priority') }}"
+    issue_multiselect_history: "{{ ref('stg_jira__issue_multiselect_history') }}"
+    issue_field_history: "{{ ref('stg_jira__issue_field_history') }}"
+    comment: "{{ ref('stg_jira__comment') }}"
+    issue_link: "{{ ref('stg_jira__issue_link') }}"
+    component: "{{ ref('stg_jira__component') }}"
+    field: "{{ ref('stg_jira__field') }}"
+    field_option: "{{ ref('stg_jira__field_option') }}"
+    sprint: "{{ ref('stg_jira__sprint') }}"
+    version: "{{ ref('stg_jira__version') }}"
+    jira_issue_history_buffer: 1
+models:
+  jira:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral
+      +schema: int_jira

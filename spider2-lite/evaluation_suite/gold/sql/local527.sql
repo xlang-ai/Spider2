@@ -1,0 +1,1 @@
+SELECT AVG(julianday(end_date) - julianday(start_date)) AS avg_days_active FROM customer_nodes;

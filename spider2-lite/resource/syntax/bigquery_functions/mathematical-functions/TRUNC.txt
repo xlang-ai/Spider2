@@ -1,0 +1,24 @@
+## TRUNC
+
+TRUNC(X [, N])
+
+**Description**
+
+If only X is present, ` TRUNC ` rounds X to the nearest integer whose absolute value is not greater than the absolute value of X. If N is also present, `
+TRUNC ` behaves like ` ROUND(X, N) ` , but always rounds towards zero and never overflows.
+
+X  |  TRUNC(X)
+---|---
+2.0  |  2.0 2.3  |  2.0 2.8  |  2.0 2.5  |  2.0
+-2.3  |  -2.0
+-2.8  |  -2.0
+-2.5  |  -2.0 0  |  0
+` +inf ` |  ` +inf `
+` -inf ` |  ` -inf `
+` NaN ` |  ` NaN `
+
+**Return Data Type**
+
+INPUT  |  ` INT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `
+---|---|---|---|---
+OUTPUT  |  ` FLOAT64 ` |  ` NUMERIC ` |  ` BIGNUMERIC ` |  ` FLOAT64 `

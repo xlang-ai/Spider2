@@ -1,0 +1,45 @@
+## STRING
+
+STRING(json_expr)
+
+**Description**
+
+Converts a JSON string to a SQL ` STRING ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '"purple"'
+
+If the JSON value is not a string, an error is produced. If the expression is SQL ` NULL ` , the function returns SQL ` NULL ` .
+
+**Return type**
+
+` STRING `
+
+**Examples**
+
+
+SELECT STRING(JSON '"purple"') AS color;
+
+/*--------*
+| color  |
++--------+
+| purple |
+*--------*/
+
+
+SELECT STRING(JSON_QUERY(JSON '{"name": "sky", "color": "blue"}', "$.color")) AS color;
+
+/*-------*
+| color |
++-------+
+| blue  |
+*-------*/
+
+The following examples show how invalid requests are handled:
+
+
+-- An error is thrown if the JSON is not of type string.
+SELECT STRING(JSON '123') AS result; -- Throws an error SELECT STRING(JSON 'null') AS result; -- Throws an error SELECT SAFE.STRING(JSON '123') AS result; -- Returns a SQL NULL

@@ -1,0 +1,138 @@
+/* A example question and corresponding SQL query are provided as follows: */
+/* Question: Can you provide the initial publication numbers for our top 100 independent patent claims with the highest word count? */
+/* SQL query: */
+WITH table_a AS (
+    SELECT 
+        "pat_no", "claim_no", "word_ct"
+    FROM uspto_oce_claims.patent_claims_stats
+    WHERE "ind_flg" = '1'
+), matched_publn AS (
+    SELECT
+        uspto_oce_claims.match."publication_number",
+        "claim_no",
+        CAST("word_ct" AS INT) AS "word_ct"  -- Cast word_ct to INT
+    FROM table_a
+    INNER JOIN uspto_oce_claims.match ON table_a."pat_no" = uspto_oce_claims.match."pat_no"
+), matched_appln AS (
+    SELECT
+        "application_number" AS "appln_nr",
+        matched_publn."publication_number" AS "publn_nr",
+        "claim_no",
+        "word_ct"
+    FROM matched_publn
+    INNER JOIN (
+        SELECT 
+            "publication_number", "application_number", "country_code",
+            ROW_NUMBER() OVER (PARTITION BY "application_number" ORDER BY "publication_date" ASC) AS "row_num",
+            "kind_code", "publication_date"
+        FROM patents.publications
+    ) AS sub ON matched_publn."publication_number" = sub."publication_number"
+    WHERE "row_num" = 1
+)
+
+SELECT *
+FROM matched_appln
+ORDER BY "word_ct" DESC
+LIMIT 100;
+
+/* Question: How many U.S. publications related to IoT (where the abstract includes the phrase 'internet of things') were filed each month from 2008 to 2022, including months with no filings? */
+/* SQL query: */
+WITH RECURSIVE Date_Series_Table AS (
+    SELECT DATE '2008-01-01' AS day
+    UNION ALL
+    SELECT DATEADD(day, 1, day)
+    FROM Date_Series_Table
+    WHERE day < DATE '2022-12-31'
+),
+
+Patent_Matches_Raw AS (
+    SELECT
+      "application_number" AS Patent_Application_Number,
+      TRY_TO_DATE(TRIM("filing_date"), 'YYYYMMDD') AS Patent_Filing_Date,
+      abstract_info.value:text AS Patent_Title,
+      abstract_info.value:language AS Patent_Title_Language
+    FROM
+      publications AS patentsdb,
+      LATERAL FLATTEN(input => "abstract_localized") AS abstract_info
+    WHERE
+      LOWER(abstract_info.value:text) LIKE '%internet of things%'
+      AND "country_code" = 'US'
+),
+
+Patent_Matches AS (
+    SELECT
+      Patent_Filing_Date,
+      Patent_Application_Number,
+      MAX(Patent_Title) AS Patent_Title,
+      MAX(Patent_Title_Language) AS Patent_Title_Language
+    FROM
+      Patent_Matches_Raw
+    WHERE
+      Patent_Filing_Date IS NOT NULL  -- Ensuring date is valid
+    GROUP BY
+      Patent_Application_Number, Patent_Filing_Date
+)
+
+SELECT
+  TO_CHAR(Date_Series_Table.day, 'YYYY-MM') AS Patent_Date_YearMonth,
+  COUNT(Patent_Matches.Patent_Application_Number) AS Number_of_Patent_Applications
+FROM
+  Date_Series_Table
+  LEFT JOIN Patent_Matches
+    ON Date_Series_Table.day = Patent_Matches.Patent_Filing_Date
+GROUP BY
+  Patent_Date_YearMonth
+ORDER BY
+  Patent_Date_YearMonth;
+
+/* Question: What is the total number of severe storm events that occurred in the most affected month over the past 15 years according to NOAA records, considering only the top 100 storm events with the highest property damage? */
+/* SQL query: */
+WITH base_info AS (
+  SELECT
+    "episode_id", 
+    CONCAT(CAST(EXTRACT(MONTH FROM MIN("event_begin_time"::Date)) AS STRING), '-', CAST(EXTRACT(YEAR FROM MIN("event_begin_time"::Date)) AS STRING)) AS "episode_month",
+    EXTRACT(MONTH FROM MIN("event_begin_time"::Date)) AS "month",
+    SUM("damage_property") / 1000000000 AS "damage_property_in_billions"
+  FROM (
+    SELECT * FROM noaa_historic_severe_storms.storms_2010
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2011
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2012
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2013
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2014
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2015
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2016
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2017
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2018
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2019
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2020
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2021
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2022
+    UNION ALL
+    SELECT * FROM noaa_historic_severe_storms.storms_2023
+  )
+  WHERE
+    EXTRACT(YEAR FROM "event_begin_time"::Date) BETWEEN (EXTRACT(YEAR FROM CURRENT_DATE()) - 15) AND EXTRACT(YEAR FROM CURRENT_DATE())
+  GROUP BY
+    "episode_id"
+  ORDER BY
+    "damage_property_in_billions" DESC
+  LIMIT 100
+)
+
+SELECT COUNT(*) AS "month_count"
+FROM base_info
+GROUP BY "month"
+ORDER BY "month_count" DESC
+LIMIT 1

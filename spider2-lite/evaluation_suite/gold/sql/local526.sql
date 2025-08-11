@@ -1,0 +1,1 @@
+SELECT cn.customer_id, cr.region_name FROM customer_nodes cn JOIN customer_regions cr ON cn.region_id = cr.region_id WHERE cn.end_date IS NULL;

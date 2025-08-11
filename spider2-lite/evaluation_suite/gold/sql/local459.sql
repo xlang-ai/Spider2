@@ -1,0 +1,1 @@
+SELECT platform, SUM(transactions) AS total_transactions FROM weekly_sales GROUP BY platform ORDER BY total_transactions DESC LIMIT 1;

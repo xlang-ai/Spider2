@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "FROM_GEO_ID": "geoId/37081",
+            "TO_GEO_ID": "geoId/08031",
+            "VARIABLE_NAME": "Number of Individuals",
+            "DATE": "2012-12-31",
+            "VALUE": 16,
+            "UNIT": "Individuals",
+            "SUPPRESSED": 0
+        },
+        {
+            "FROM_GEO_ID": "geoId/12021",
+            "TO_GEO_ID": "geoId/12031",
+            "VARIABLE_NAME": "Number of Returns",
+            "DATE": "2020-12-31",
+            "VALUE": 40,
+            "UNIT": "Returns",
+            "SUPPRESSED": 0
+        },
+        {
+            "FROM_GEO_ID": "geoId/40011",
+            "TO_GEO_ID": "geoId/40039",
+            "VARIABLE_NAME": "Adjusted Gross Income",
+            "DATE": "2019-12-31",
+            "VALUE": 1826000,
+            "UNIT": "USD",
+            "SUPPRESSED": 0
+        },
+        {
+            "FROM_GEO_ID": "geoId/36071",
+            "TO_GEO_ID": "geoId/12009",
+            "VARIABLE_NAME": "Number of Returns",
+            "DATE": "2018-12-31",
+            "VALUE": 32,
+            "UNIT": "Returns",
+            "SUPPRESSED": 0
+        },
+        {
+            "FROM_GEO_ID": "geoId/48113",
+            "TO_GEO_ID": "geoId/06053",
+            "VARIABLE_NAME": "Number of Returns",
+            "DATE": "2012-12-31",
+            "VALUE": 12,
+            "UNIT": "Returns",
+            "SUPPRESSED": 0
+        }
+    ],
+    "table_name": "IRS_ORIGIN_DESTINATION_MIGRATION_TIMESERIES",
+    "table_fullname": "US_REAL_ESTATE.CYBERSYN.IRS_ORIGIN_DESTINATION_MIGRATION_TIMESERIES",
+    "column_names": [
+        "SUPPRESSED",
+        "FROM_GEO_ID",
+        "VARIABLE_NAME",
+        "TO_GEO_ID",
+        "UNIT",
+        "DATE",
+        "VALUE"
+    ],
+    "column_types": [
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "DATE",
+        "NUMBER"
+    ],
+    "description": [
+        "Boolean indicating whether the value has been suppressed in the underlying data for privacy purposes. Suppressed values appear as NULL",
+        "A unique identifier for a place (state, county) from which the variable originates in the first year",
+        "Human readable name for the variable",
+        "A unique identifier for a place (state, county) to which the variable moves to in the second year",
+        "Unit of measure for the value, examples: returns, individuals, USD",
+        "Date associated with the value, for inflow data it is the last day of the second year being reported",
+        "The actual numeric value for the variable. Suppressed values are Null."
+    ]
+}

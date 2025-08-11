@@ -1,0 +1,1 @@
+SELECT MAX(index_value) AS max_index FROM interest_metrics;

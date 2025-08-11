@@ -1,0 +1,207 @@
+/* A example question and corresponding SQL query are provided as follows: */
+/* Question: Please help me find the top 3 bowlers who conceded the maximum runs in a single over, along with the corresponding matches. */
+/* SQL query: */
+WITH combined_runs AS (
+    SELECT match_id, over_id, ball_id, innings_no, runs_scored AS runs
+    FROM batsman_scored
+    UNION ALL
+    SELECT match_id, over_id, ball_id, innings_no, extra_runs AS runs
+    FROM extra_runs
+),
+over_runs AS (
+    SELECT match_id, innings_no, over_id, SUM(runs) AS runs_scored
+    FROM combined_runs
+    GROUP BY match_id, innings_no, over_id
+),
+max_over_runs AS (
+    SELECT match_id, MAX(runs_scored) AS max_runs
+    FROM over_runs
+    GROUP BY match_id
+),
+top_overs AS (
+    SELECT o.match_id, o.innings_no, o.over_id, o.runs_scored
+    FROM over_runs o
+    JOIN max_over_runs m ON o.match_id = m.match_id AND o.runs_scored = m.max_runs
+),
+top_bowlers AS (
+    SELECT
+        bb.match_id,
+        t.runs_scored AS maximum_runs,
+        bb.bowler
+    FROM ball_by_ball bb
+    JOIN top_overs t ON bb.match_id = t.match_id
+    AND bb.innings_no = t.innings_no
+    AND bb.over_id = t.over_id
+    GROUP BY bb.match_id, t.runs_scored, bb.bowler
+)
+SELECT
+    b.match_id,
+    p.player_name
+FROM (
+    SELECT *
+    FROM top_bowlers
+    ORDER BY maximum_runs DESC
+    LIMIT 3
+) b
+JOIN player p ON p.player_id = b.bowler
+
+
+/* Question: Could you review our records in June 2022 and identify which countries have the longest streak of consecutive inserted city dates? Please list the 2-letter length country codes of these countries. */
+/* SQL query: */
+WITH get_dates AS (
+    SELECT
+        insert_date,
+        country_code_2
+    FROM (
+        SELECT
+            insert_date,
+            country_code_2,
+            ROW_NUMBER() OVER (PARTITION BY insert_date, country_code_2 ORDER BY insert_date) AS row_num
+        FROM
+            cities
+        WHERE
+            insert_date BETWEEN '2022-06-01' AND '2022-06-30'
+    )
+    WHERE row_num = 1
+),
+get_diff AS (
+    SELECT
+        country_code_2,
+        insert_date,
+        CAST(strftime('%d', insert_date) AS INTEGER) - ROW_NUMBER() OVER (PARTITION BY country_code_2 ORDER BY insert_date) AS diff
+    FROM (
+        SELECT
+            country_code_2,
+            insert_date,
+            ROW_NUMBER() OVER (PARTITION BY country_code_2 ORDER BY insert_date) AS row_num
+        FROM
+            get_dates
+    )
+),
+get_diff_count AS (
+    SELECT
+        country_code_2,
+        insert_date,
+        COUNT(*) OVER (PARTITION BY country_code_2, diff) AS diff_count
+    FROM
+        get_diff
+),
+get_rank AS (
+    SELECT
+        country_code_2,
+        DENSE_RANK() OVER (PARTITION BY country_code_2 ORDER BY diff_count DESC) AS rnk,
+        insert_date
+    FROM
+        get_diff_count
+),
+count_rank AS(
+	SELECT
+		country_code_2,
+		COUNT(rnk) AS diff_count
+	FROM
+		get_rank
+	GROUP BY 
+		country_code_2,
+		rnk
+)
+SELECT
+    country_code_2 AS country
+FROM
+    count_rank
+WHERE
+	diff_count = (
+		SELECT
+            MAX(diff_count)
+        FROM
+            count_rank
+	);
+
+/* Question: Can you provide a breakdown of how many times each product was viewed, how many times they were added to the shopping cart, and how many times they were left in the cart without being purchased? Also, give me the count of actual purchases for each product. Ensure that products with a page id in (1, 2, 12, 13) are filtered out. */
+/* SQL query: */
+WITH product_viewed AS (
+    SELECT
+        t1.page_id,
+        SUM(CASE WHEN event_type = 1 THEN 1 ELSE 0 END) AS n_page_views,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS n_added_to_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+    GROUP BY
+        t1.page_id
+),
+product_purchased AS (
+    SELECT
+        t2.page_id,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS purchased_from_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+        AND EXISTS (
+            SELECT
+                visit_id
+            FROM
+                shopping_cart_events
+            WHERE
+                event_type = 3
+                AND t2.visit_id = visit_id
+        )
+        AND t1.page_id NOT IN (1, 2, 12, 13)
+    GROUP BY
+        t2.page_id
+),
+product_abandoned AS (
+    SELECT
+        t2.page_id,
+        SUM(CASE WHEN event_type = 2 THEN 1 ELSE 0 END) AS abandoned_in_cart
+    FROM
+        shopping_cart_page_hierarchy AS t1
+    JOIN
+        shopping_cart_events AS t2
+    ON
+        t1.page_id = t2.page_id
+    WHERE
+        t1.product_id IS NOT NULL
+        AND NOT EXISTS (
+            SELECT
+                visit_id
+            FROM
+                shopping_cart_events
+            WHERE
+                event_type = 3
+                AND t2.visit_id = visit_id
+        )
+        AND t1.page_id NOT IN (1, 2, 12, 13)
+    GROUP BY
+        t2.page_id
+)
+SELECT
+    t1.page_id,
+    t1.page_name,
+    t2.n_page_views AS 'number of product being viewed',
+    t2.n_added_to_cart AS 'number added to the cart',
+    t4.abandoned_in_cart AS 'without being purchased in cart',
+    t3.purchased_from_cart AS 'count of actual purchases'
+FROM
+    shopping_cart_page_hierarchy AS t1
+JOIN
+    product_viewed AS t2 
+ON
+    t2.page_id = t1.page_id
+JOIN
+    product_purchased AS t3 
+ON 
+    t3.page_id = t1.page_id
+JOIN
+    product_abandoned AS t4 
+ON 
+    t4.page_id = t1.page_id;

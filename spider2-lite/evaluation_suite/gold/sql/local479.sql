@@ -1,0 +1,1 @@
+SELECT region, SUM(sales) * 1.0 / NULLIF(SUM(transactions), 0) AS avg_sales_per_transaction FROM cleaned_weekly_sales GROUP BY region;

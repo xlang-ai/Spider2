@@ -1,0 +1,110 @@
+## TF_IDF
+
+TF_IDF(tokenized_document) OVER()
+
+
+TF_IDF(tokenized_document, max_distinct_tokens) OVER()
+
+
+TF_IDF(tokenized_document, max_distinct_tokens, frequency_threshold) OVER()
+
+**Description**
+
+Evaluates how relevant a term is to a tokenized document in a set of tokenized documents, using the TF-IDF (term frequency-inverse document frequency) algorithm.
+
+**Definitions**
+
+* ` tokenized_document ` : ` ARRAY<STRING> ` value that represents a document that has been tokenized. A tokenized document is a collection of terms (tokens), which are used for text analysis.
+* ` max_distinct_tokens ` : Optional argument. Takes a non-negative ` INT64 ` value, which represents the size of the dictionary, excluding the unknown term.
+
+Terms are added to the dictionary until this threshold is met. So, if this value is ` 20 ` , the first 20 unique terms are added and then no additional terms are added.
+
+If this argument is not provided, the default value is ` 32000 ` . If this argument is specified, the maximum value is ` 1048576 ` .
+
+* ` frequency_threshold ` : Optional argument. Takes a non-negative ` INT64 ` value that represents the minimum number of times a term must appear in a tokenized document to be included in the dictionary. So, if this value is ` 3 ` , a term must appear at least three times in the tokenized document to be added to the dictionary.
+
+If this argument is not provided, the default value is ` 5 ` .
+
+**Details**
+
+This function uses a TF-IDF (term frequency-inverse document frequency) algorithm to compute the relevance of terms in a set of tokenized documents.
+TF-IDF multiplies two metrics: how many times a term appears in a document (term frequency), and the inverse document frequency of the term across a collection of documents (inverse document frequency).
+
+* TDIF:
+
+term frequency * inverse document frequency
+
+* term frequency:
+
+(count of term in document) / (document size)
+
+* inverse document frequency:
+
+log(1 + document set size / (1 + count of documents containing term))
+
+Terms are added to a dictionary of terms if they satisfy the criteria for `
+max_distinct_tokens ` and ` frequency_threshold ` , otherwise they are considered the _unknown term_ . The unknown term is always the first term in the dictionary and represented as ` NULL ` . The rest of the dictionary is ordered by term frequency rather than alphabetically.
+
+**Return type**
+
+` ARRAY<STRUCT<term STRING, tf_idf DOUBLE>> `
+
+Definitions:
+
+* ` term ` : The unique term that was added to the dictionary.
+* ` tf_idf ` : The TF-IDF computation for the term.
+
+**Examples**
+
+The following query computes the relevance of up to 10 terms that appear at least twice in a set of tokenized documents. In this example, the named arguments are passed in positionally. ` 10 ` represents ` max_distinct_tokens
+` and ` 2 ` represents ` frequency_threshold ` :
+
+
+WITH ExampleTable AS ( SELECT 1 AS id, ['I', 'like', 'pie', 'pie', 'pie', NULL] AS f UNION ALL SELECT 2 AS id, ['yum', 'yum', 'pie', NULL] AS f UNION ALL SELECT 3 AS id, ['I', 'yum', 'pie', NULL] AS f UNION ALL SELECT 4 AS id, ['you', 'like', 'pie', 'too', NULL] AS f ) SELECT id, TF_IDF(f, 10, 2) OVER() AS results FROM ExampleTable ORDER BY id;
+
+/*----+-------------------------------------------------*
+| id | results                                         |
++----+-------------------------------------------------+
+| 1  | [{"index":null,"value":"0.1304033435859887"},   |
+|    |  {"index":"I","value":"0.1412163100645339"},    |
+|    |  {"index":"like","value":"0.1412163100645339"}, |
+|    |  {"index":"pie","value":"0.29389333245105953"}] |
++----+-------------------------------------------------+
+| 2  | [{"index":null,"value":"0.1956050153789831"},   |
+|    |  {"index":"pie","value":"0.14694666622552977"}, |
+|    |  {"index":"yum","value":"0.4236489301936017"}]  |
++----+-------------------------------------------------+
+| 3  | [{"index":null,"value":"0.1956050153789831"},   |
+|    |  {"index":"I","value":"0.21182446509680086"},   |
+|    |  {"index":"pie","value":"0.14694666622552977"}, |
+|    |  {"index":"yum","value":"0.21182446509680086"}] |
++----+-------------------------------------------------+
+| 4  | [{"index":null,"value":"0.4694520369095594"},   |
+|    |  {"index":"like","value":"0.1694595720774407"}, |
+|    |  {"index":"pie","value":"0.11755733298042381"}] |
+*----+-------------------------------------------------*/
+
+The following query computes the relevance of up to three terms that appear at least once in a set of tokenized documents:
+
+
+WITH ExampleTable AS ( SELECT 1 AS id, ['I', 'like', 'pie', 'pie', 'pie', NULL] AS f UNION ALL SELECT 2 AS id, ['yum', 'yum', 'pie', NULL] AS f UNION ALL SELECT 3 AS id, ['I', 'yum', 'pie', NULL] AS f UNION ALL SELECT 4 AS id, ['you', 'like', 'pie', 'too', NULL] AS f ) SELECT id, TF_IDF(f, 3, 2) OVER() AS results FROM ExampleTable ORDER BY id;
+
+/*----+-------------------------------------------------*
+| id | results                                         |
++----+-------------------------------------------------+
+| 1  | [{"index":null,"value":"0.12679902142647365"},  |
+|    |  {"index":"I","value":"0.1412163100645339"},    |
+|    |  {"index":"like","value":"0.1412163100645339"}, |
+|    |  {"index":"pie","value":"0.29389333245105953"}] |
++----+-------------------------------------------------+
+| 2  | [{"index":null,"value":"0.5705955964191315"},   |
+|    |  {"index":"pie","value":"0.14694666622552977"}] |
++----+-------------------------------------------------+
+| 3  | [{"index":null,"value":"0.380397064279421"},    |
+|    |  {"index":"I","value":"0.21182446509680086"},   |
+|    |  {"index":"pie","value":"0.14694666622552977"}] |
++----+-------------------------------------------------+
+| 4  | [{"index":null,"value":"0.45647647713530515"},  |
+|    |  {"index":"like","value":"0.1694595720774407"}, |
+|    |  {"index":"pie","value":"0.11755733298042381"}] |
+*----+-------------------------------------------------*/

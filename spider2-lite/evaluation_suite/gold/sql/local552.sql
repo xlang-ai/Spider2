@@ -1,0 +1,1 @@
+SELECT * FROM veg_whsle_df WHERE item_code = 101;

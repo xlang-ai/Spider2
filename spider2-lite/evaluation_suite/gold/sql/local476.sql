@@ -1,0 +1,1 @@
+SELECT demographic, SUM(sales) AS total_sales FROM cleaned_weekly_sales GROUP BY demographic ORDER BY total_sales DESC;

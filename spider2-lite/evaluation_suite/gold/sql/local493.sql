@@ -1,0 +1,1 @@
+SELECT CAST(SUM(CASE WHEN ie.event_name = 'Add to Cart' THEN 1 ELSE 0 END) AS REAL) * 100.0 / NULLIF(SUM(CASE WHEN ie.event_name = 'Page View' THEN 1 ELSE 0 END), 0) AS conversion_rate FROM shopping_cart_events e JOIN shopping_cart_event_identifier ie ON e.event_type = ie.event_type;

@@ -1,0 +1,64 @@
+table_name,description,DDL
+OUTPUTS,,"create or replace TABLE OUTPUTS (
+	""transaction_hash"" VARCHAR(16777216),
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""index"" NUMBER(38,0),
+	""script_asm"" VARCHAR(16777216),
+	""script_hex"" VARCHAR(16777216),
+	""required_signatures"" NUMBER(38,0),
+	""type"" VARCHAR(16777216),
+	""addresses"" VARIANT,
+	""value"" NUMBER(38,9)
+);"
+BLOCKS,,"create or replace TABLE BLOCKS (
+	""hash"" VARCHAR(16777216),
+	""size"" NUMBER(38,0),
+	""stripped_size"" NUMBER(38,0),
+	""weight"" NUMBER(38,0),
+	""number"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""merkle_root"" VARCHAR(16777216),
+	""timestamp"" NUMBER(38,0),
+	""timestamp_month"" DATE,
+	""nonce"" VARCHAR(16777216),
+	""bits"" VARCHAR(16777216),
+	""coinbase_param"" VARCHAR(16777216),
+	""transaction_count"" NUMBER(38,0)
+);"
+INPUTS,,"create or replace TABLE INPUTS (
+	""transaction_hash"" VARCHAR(16777216),
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""index"" NUMBER(38,0),
+	""spent_transaction_hash"" VARCHAR(16777216),
+	""spent_output_index"" NUMBER(38,0),
+	""script_asm"" VARCHAR(16777216),
+	""script_hex"" VARCHAR(16777216),
+	""sequence"" NUMBER(38,0),
+	""required_signatures"" NUMBER(38,0),
+	""type"" VARCHAR(16777216),
+	""addresses"" VARIANT,
+	""value"" NUMBER(38,9)
+);"
+TRANSACTIONS,,"create or replace TABLE TRANSACTIONS (
+	""hash"" VARCHAR(16777216),
+	""size"" NUMBER(38,0),
+	""virtual_size"" NUMBER(38,0),
+	""version"" NUMBER(38,0),
+	""lock_time"" NUMBER(38,0),
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" NUMBER(38,0),
+	""block_timestamp_month"" DATE,
+	""input_count"" NUMBER(38,0),
+	""output_count"" NUMBER(38,0),
+	""input_value"" NUMBER(38,9),
+	""output_value"" NUMBER(38,9),
+	""is_coinbase"" BOOLEAN,
+	""fee"" NUMBER(38,9),
+	""inputs"" VARIANT,
+	""outputs"" VARIANT
+);"

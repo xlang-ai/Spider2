@@ -1,0 +1,54 @@
+table_name,description,DDL
+EXPERIMENTS_V1,,"create or replace TABLE EXPERIMENTS_V1 (
+	""expID"" NUMBER(38,0),
+	""exp_assayType"" VARCHAR(16777216),
+	""exp_assayValueLow"" FLOAT,
+	""exp_assayValueMedian"" FLOAT,
+	""exp_assayValueHigh"" FLOAT,
+	""exp_assayUnits"" VARCHAR(16777216),
+	""exp_assayRelation"" VARCHAR(16777216),
+	""exp_assayDescription"" VARCHAR(16777216),
+	""exp_assaySpecies"" VARCHAR(16777216),
+	""exp_parentSource"" VARCHAR(16777216),
+	""sourceID"" NUMBER(38,0),
+	""PubMedID"" VARCHAR(16777216),
+	""databaseName"" VARCHAR(16777216),
+	""db_version"" VARCHAR(16777216),
+	""db_downloadURL"" VARCHAR(16777216),
+	""db_downloadDate"" VARCHAR(16777216)
+);"
+INTERACTIONS_V1,,"create or replace TABLE INTERACTIONS_V1 (
+	""interactionID"" NUMBER(38,0),
+	""drugID"" NUMBER(38,0),
+	""targetID"" NUMBER(38,0),
+	""interactionType"" VARCHAR(16777216),
+	""drugName"" VARCHAR(16777216),
+	""drug_approvalDate"" VARCHAR(16777216),
+	""drug_atcClassID"" VARCHAR(16777216),
+	""drug_atcClassName"" VARCHAR(16777216),
+	""drug_atcClassStatus"" VARCHAR(16777216),
+	""drug_epcClassID"" VARCHAR(16777216),
+	""drug_epcClassName"" VARCHAR(16777216),
+	""targetName"" VARCHAR(16777216),
+	""targetType"" VARCHAR(16777216),
+	""target_uniprotID"" VARCHAR(16777216),
+	""targetSpecies"" VARCHAR(16777216),
+	""sourceID"" NUMBER(38,0),
+	""expID"" NUMBER(38,0)
+);"
+SOURCES_V1,,"create or replace TABLE SOURCES_V1 (
+	""sourceID"" NUMBER(38,0),
+	""PubMedID"" VARCHAR(16777216),
+	""databaseName"" VARCHAR(16777216),
+	""db_version"" VARCHAR(16777216),
+	""db_downloadURL"" VARCHAR(16777216),
+	""db_downloadDate"" VARCHAR(16777216)
+);"
+DRUG_SYNONYMS_V1,,"create or replace TABLE DRUG_SYNONYMS_V1 (
+	""drugID"" NUMBER(38,0),
+	""synonym"" VARCHAR(16777216)
+);"
+TARGET_SYNONYMS_V1,,"create or replace TABLE TARGET_SYNONYMS_V1 (
+	""targetID"" NUMBER(38,0),
+	""synonym"" VARCHAR(16777216)
+);"

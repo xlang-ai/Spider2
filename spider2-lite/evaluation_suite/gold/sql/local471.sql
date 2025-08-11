@@ -1,0 +1,1 @@
+SELECT region, SUM(sales) AS region_sales, ROUND(SUM(sales) * 100.0 / (SELECT SUM(sales) FROM weekly_sales), 2) AS percentage FROM weekly_sales GROUP BY region;

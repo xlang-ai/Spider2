@@ -1,0 +1,86 @@
+{
+    "table_name": "TCGA_VERSIONED.MIRNASEQ_HG38_GDC_R14",
+    "table_fullname": "TCGA.TCGA_VERSIONED.MIRNASEQ_HG38_GDC_R14",
+    "column_names": [
+        "reads_per_million_miRNA_mapped",
+        "aliquot_barcode",
+        "cross_mapped",
+        "read_count",
+        "mirna_id",
+        "sample_barcode",
+        "case_barcode",
+        "project_short_name"
+    ],
+    "column_types": [
+        "FLOAT",
+        "TEXT",
+        "TEXT",
+        "NUMBER",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Read count normalized by total reads mapped divided by 1 million",
+        "TCGA aliquot barcode, eg TCGA-12-1089-01A-01D-0517-28",
+        "A short isomiR read may map exactly to mature strands whose sequences are similar but not identical, when the read sequence does not capture the bases that distinguish these miRNAs (e.g. hsa-mir-30a at 6q13 and hsa-mir-30e at 1p34.2, which differ at position 18). We report such a <line_feed> read as cross-mapped, and we increment the read count for each MIMAT that it mapped to. Either Y or N -- fewer than 2% are Y",
+        "Number of reads that were mapped to this mirna_id",
+        "Unique miRNA id (aka symbol), eg hsa-mir-21  --  relevant reference information can be found in the isb-cgc:genome_reference dataset in the tables miRBase_v21 and miRBase_v21_hsa_gff3",
+        "TCGA sample barcode, eg TCGA-12-1089-01A. One sample may have multiple sets of CN segmentations corresponding to multiple aliquots; use GROUP BY appropriately in queries",
+        "Original TCGA case barcode, eg TCGA-DX-A8BN",
+        "Project name abbreviation; the program name appended with a project name abbreviation; eg. TCGA-OV, etc"
+    ],
+    "sample_rows": [
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-6803",
+            "read_count": 10,
+            "reads_per_million_miRNA_mapped": 2.874773,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-223",
+            "read_count": 477,
+            "reads_per_million_miRNA_mapped": 137.126693,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-8085",
+            "read_count": 1,
+            "reads_per_million_miRNA_mapped": 0.287477,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-151a",
+            "read_count": 8868,
+            "reads_per_million_miRNA_mapped": 2549.349079,
+            "cross_mapped": "N"
+        },
+        {
+            "project_short_name": "TCGA-OV",
+            "case_barcode": "TCGA-04-1331",
+            "sample_barcode": "TCGA-04-1331-01A",
+            "aliquot_barcode": "TCGA-04-1331-01A-01R-1569-13",
+            "mirna_id": "hsa-mir-425",
+            "read_count": 1174,
+            "reads_per_million_miRNA_mapped": 337.498401,
+            "cross_mapped": "N"
+        }
+    ]
+}

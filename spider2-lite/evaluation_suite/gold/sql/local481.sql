@@ -1,0 +1,1 @@
+SELECT CASE WHEN month_number IN (12,1,2) THEN 'Winter' WHEN month_number IN (3,4,5) THEN 'Spring' WHEN month_number IN (6,7,8) THEN 'Summer' ELSE 'Fall' END AS season, AVG(sales) AS avg_sales FROM cleaned_weekly_sales GROUP BY season;

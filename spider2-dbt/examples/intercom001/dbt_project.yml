@@ -1,0 +1,130 @@
+config-version: 2
+name: 'intercom'
+version: '0.9.1'
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+models:
+  +materialized: table
+
+
+profile: 'intercom'
+
+vars:
+  intercom_schema: main
+  intercom_source:
+    intercom_admin_identifier: "admin_data"
+    intercom_company_history_identifier: "company_history_data"
+    intercom_company_tag_history_identifier: "company_tag_history_data"
+    intercom_contact_company_history_identifier: "contact_company_history_data"
+    intercom_contact_history_identifier: "contact_history_data"
+    intercom_contact_tag_history_identifier: "contact_tag_history_data"
+    intercom_conversation_contact_history_identifier: "conversation_contact_history_data"
+    intercom_conversation_history_identifier: "conversation_history_data"
+    intercom_conversation_part_history_identifier: "conversation_part_history_data"
+    intercom_conversation_tag_history_identifier: "conversation_tag_history_data"
+    intercom_tag_identifier: "tag_data"
+    intercom_team_admin_identifier: "team_admin_data"
+    intercom_team_identifier: "team_data"
+
+  intercom:
+    admin: "{{ ref('stg_intercom__admin') }}"
+    company_history: "{{ ref('stg_intercom__company_history') }}"
+    company_tag_history: "{{ ref('stg_intercom__company_tag_history') }}"
+    contact_company_history: "{{ ref('stg_intercom__contact_company_history') }}"
+    contact_history: "{{ ref('stg_intercom__contact_history') }}"
+    contact_tag_history: "{{ ref('stg_intercom__contact_tag_history') }}"
+    conversation_contact_history: "{{ ref('stg_intercom__conversation_contact_history') }}"
+    conversation_history: "{{ ref('stg_intercom__conversation_history') }}"
+    conversation_part_history: "{{ ref('stg_intercom__conversation_part_history') }}"
+    conversation_tag_history: "{{ ref('stg_intercom__conversation_tag_history') }}"
+    tag: "{{ ref('stg_intercom__tag') }}"
+    team_admin: "{{ ref('stg_intercom__team_admin') }}"
+    team: "{{ ref('stg_intercom__team') }}"
+    intercom__using_contact_company: true
+    intercom__using_company_tags: true
+    intercom__using_contact_tags: true
+    intercom__using_conversation_tags: true
+    intercom__using_team: true
+    intercom__company_history_pass_through_columns: []
+    intercom__contact_history_pass_through_columns: []
+    intercom__conversation_history_pass_through_columns: []
+clean-targets:
+- target
+- dbt_modules
+- dbt_packages
+
+
+
+seeds:
+  main:
+    +quote_columns: "{{ true if target.type == 'redshift' else false }}"
+    +column_types:
+      _fivetran_synced: timestamp
+      _fivetran_start: timestamp
+      _fivetran_end: timestamp
+      _fivetran_active: boolean
+    admin_data:
+      +column_types:
+        id: "{{ 'varchar(100)'  if target.type in ('redshift', 'postgres') else 'string'}}"
+    company_history_data:
+      +column_types:
+        created_at: timestamp
+        updated_at: timestamp
+    company_tag_history_data:
+      +column_types:
+        company_updated_at: timestamp
+        tag_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    contact_company_history_data:
+      +column_types:
+        contact_updated_at: timestamp
+    contact_history_data:
+      +column_types:
+        created_at: timestamp
+        signed_up_at: timestamp
+        last_replied_at: timestamp
+        last_contacted_at: timestamp
+        last_email_clicked_at: timestamp
+        last_email_opened_at: timestamp
+    contact_tag_history_data:
+      +column_types:
+        contact_updated_at: timestamp
+        tag_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    conversation_contact_history_data:
+      +column_types:
+        conversation_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversation_updated_at: timestamp
+    conversation_history_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        created_at: timestamp
+        first_contact_reply_created_at: timestamp
+        updated_at: timestamp
+        waiting_since: timestamp
+        snoozed_until: timestamp
+    conversation_part_history_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        author_id: "{{ 'varchar(100)'  if target.type in ('redshift', 'postgres') else 'string'}}"
+        created_at: timestamp
+        conversation_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversation_updated_at: timestamp
+        updated_at: timestamp
+        assigned_to_type: "{{ 'varchar(100)'  if target.type in ('redshift', 'postgres') else 'string'}}"
+    conversation_tag_history_data:
+      +column_types:
+        conversation_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+        conversation_updated_at: timestamp
+        tag_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    tag_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    team_admin_data:
+      +column_types:
+        admin_id: "{{ 'varchar(100)'  if target.type in ('redshift', 'postgres') else 'string'}}"
+        team_id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+    team_data:
+      +column_types:
+        id: "{{ 'int64' if target.type == 'bigquery' else 'bigint' }}"
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['spark_utils', 'dbt_utils']

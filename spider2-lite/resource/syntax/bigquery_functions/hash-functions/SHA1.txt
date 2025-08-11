@@ -1,0 +1,29 @@
+## SHA1
+
+SHA1(input)
+
+**Description**
+
+Computes the hash of the input using the [ SHA-1 algorithm
+](https://en.wikipedia.org/wiki/SHA-1) . The input can either be ` STRING ` or
+` BYTES ` . The string version treats the input as an array of bytes.
+
+This function returns 20 bytes.
+
+**Warning:** SHA1 is no longer considered secure. For increased security, use another hashing function.
+
+**Return type**
+
+` BYTES `
+
+**Example**
+
+
+SELECT SHA1("Hello World") as sha1;
+
+-- Note that the result of SHA1 is of type BYTES, displayed as a base64-encoded string.
+/*------------------------------*
+| sha1                         |
++------------------------------+
+| Ck1VqNd45QIvq3AZd8XYQLvEhtA= |
+*------------------------------*/

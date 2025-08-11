@@ -1,0 +1,237 @@
+version: 2
+
+models:
+  - name: stg_xero__account
+    description: Each record in this table represents an account in Xero.
+    tests: 
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - source_relation
+    columns:
+      - name: account_id
+        description: Xero identifier for the account.
+        tests:
+          - not_null
+      - name: account_name
+        description: The name of the account.
+      - name: account_code
+        description: Customer defined alpha numeric account code e.g 200 or SALES
+      - name: account_type
+        description: The type of account, e.g. CURRENT, EQUITY, SALES
+      - name: account_class
+        description: The class of account, e.g. ASSET, EQUITY, EXPENSE, LIABILITY, REVENUE
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+
+
+  - name: stg_xero__contact
+    description: Each record in this table represents a contact in Xero.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - contact_id
+            - source_relation    
+    columns:
+      - name: contact_id
+        description: Xero identifier for the contact.
+        tests:
+          - not_null
+      - name: contact_name
+        description: The name of the contact.
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+
+
+  - name: stg_xero__invoice_line_item
+    description: Each record in this able represents an invoice line item in Xero.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - line_item_id
+            - source_relation  
+    columns:
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: account_code
+        description: Customer defined alpha numeric account code e.g 200 or SALES
+      - name: line_item_description
+        description: The description of the line item
+      - name: discount_entered_as_percent
+        description: The discount rate for the line item as a percentage.
+      - name: discount_rate
+        description: Percentage discount being applied to a line item.
+      - name: invoice_id
+        description: The Xero identifier for the invoice the line items belongs to.
+      - name: item_code
+        description: User defined item code.
+      - name: line_amount
+        description: The line amount reflects the discounted price if a DiscountRate has been used.
+      - name: line_item_id
+        description: Xero identifier for the line item.
+        tests:
+          - not_null
+      - name: quantity
+        description: The quantity of the line item.
+      - name: tax_amount
+        description: The tax amount is auto calculated as a percentage of the line amount based on the tax rate.
+      - name: tax_type
+        description: Used as an override if the default Tax Code for the selected AccountCode is not correct.
+      - name: unit_amount
+        description: The unit amount of each line item. 
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+
+  - name: stg_xero__invoice
+    description: Each record in this table represents an invoice in Xero.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - invoice_id
+            - source_relation  
+    columns:
+      - name: invoice_id
+        description: Xero identifier for the invoice
+        tests:
+          - not_null
+      - name: contact_id
+        description: The Xero identifier for the associated contact.
+      - name: invoice_date
+        description: The date the invoice was issued.
+      - name: updated_date
+        description: The date the invoice was last modified.
+      - name: planned_payment_date
+        description: The planned payment date of the invoice, when set.
+      - name: due_date
+        description: The date the invoice is/was due.
+      - name: expected_payment_date
+        description: The expected payment date of the invoice, when set.
+      - name: fully_paid_on_date
+        description: The date the invoice was fully paid. Only returned on fully paid invoices
+      - name: _fivetran_synced
+        description: "{{ doc('_fivetran_synced') }}"
+      - name: currency_code
+        description: The currency that invoice has been raised in
+      - name: currency_rate
+        description: The currency rate for a multicurrency invoice
+      - name: invoice_number
+        description: Alpha numeric code identifying invoice
+      - name: reference
+        description: Additional reference number. For accounts receivable only.
+      - name: is_sent_to_contact
+        description: Boolean to indicate whether the invoice in the Xero app displays as "sent"
+      - name: invoice_status
+        description: The status of the invoice
+      - name: type
+        description: The type of the invoice.
+      - name: url
+        description: URL link to a source document
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+
+  - name: stg_xero__journal_line
+    description: Each record represents a journal line in Xero.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - journal_line_id
+            - source_relation  
+    columns:
+      - name: journal_line_id
+        description: Xero identifier for the journal line.
+        tests:
+          - not_null
+      - name: account_code
+        description: Customer defined alpha numeric account code e.g 200 or SALES
+      - name: account_id
+        description: The Xero identifier for the related account.
+      - name: account_name
+        description: The name of the related account.
+      - name: account_type
+        description: The type of the related account.
+      - name: description
+        description: The description from the source transaction line item.
+      - name: gross_amount
+        description: Gross amount of journal line (NetAmount + TaxAmount).
+      - name: journal_id
+        description: The Xero identifier for the related journal entry.
+      - name: net_amount
+        description: Net amount of journal line. This will be a positive value for a debit and negative for a credit
+      - name: tax_amount
+        description: Total tax on a journal line
+      - name: tax_name
+        description: The name of the tax rate.
+      - name: tax_type
+        description: The type of the tax rate.
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+
+  - name: stg_xero__journal
+    description: Each record represents a journal in Xero
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - journal_id
+            - source_relation  
+    columns:
+      - name: journal_id
+        description: Xero identifier for the journal entry
+        tests:
+          - not_null
+      - name: created_date_utc
+        description: The created date of the journal entry
+      - name: journal_date
+        description: The date the journal was posted
+      - name: journal_number
+        description: Xero generated journal number
+      - name: reference
+        description: The associated reference to the journal, if present.
+      - name: source_id
+        description: The identifier for the source transaction. This can be used to join to other Xero tables.
+      - name: source_type
+        description: The journal source type. This can be used to know which table to join to for additional information.
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.
+        
+
+  - name: stg_xero__organization
+    description: Each record represents an organization in Xero.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - organisation_id
+            - source_relation  
+    columns:
+      - name: organisation_id
+        description: Xero identifier for the organisation.
+        tests:
+          - not_null
+      - name: financial_year_end_month
+        description: Calendar Month e.g. 1-12
+      - name: financial_year_end_day
+        description: Calendar day e.g. 0-31
+      - name: source_relation
+        description: >
+          The source where this data was pulled from. If you are making use of the `union_schemas` variable, this will be the source schema.
+          If you are making use of the `union_databases` variable, this will be the source database. If you are not unioining together multiple
+          sources, this will be an empty string.

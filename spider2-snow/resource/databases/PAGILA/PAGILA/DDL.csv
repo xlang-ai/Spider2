@@ -1,0 +1,122 @@
+table_name,description,DDL
+COUNTRY,,"create or replace TABLE COUNTRY (
+	""country_id"" NUMBER(38,0),
+	""country"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+FILM_TEXT,,"create or replace TABLE FILM_TEXT (
+	""film_id"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216)
+);"
+ACTOR,,"create or replace TABLE ACTOR (
+	""actor_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+FILM,,"create or replace TABLE FILM (
+	""film_id"" NUMBER(38,0),
+	""title"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216),
+	""release_year"" VARCHAR(16777216),
+	""language_id"" NUMBER(38,0),
+	""original_language_id"" VARCHAR(16777216),
+	""rental_duration"" NUMBER(38,0),
+	""rental_rate"" FLOAT,
+	""length"" NUMBER(38,0),
+	""replacement_cost"" FLOAT,
+	""rating"" VARCHAR(16777216),
+	""special_features"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+LANGUAGE,,"create or replace TABLE LANGUAGE (
+	""language_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+FILM_CATEGORY,,"create or replace TABLE FILM_CATEGORY (
+	""film_id"" NUMBER(38,0),
+	""category_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+PAYMENT,,"create or replace TABLE PAYMENT (
+	""payment_id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""staff_id"" NUMBER(38,0),
+	""rental_id"" FLOAT,
+	""amount"" FLOAT,
+	""payment_date"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+RENTAL,,"create or replace TABLE RENTAL (
+	""rental_id"" NUMBER(38,0),
+	""rental_date"" VARCHAR(16777216),
+	""inventory_id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""return_date"" VARCHAR(16777216),
+	""staff_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+STAFF,,"create or replace TABLE STAFF (
+	""staff_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""address_id"" NUMBER(38,0),
+	""picture"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""store_id"" NUMBER(38,0),
+	""active"" NUMBER(38,0),
+	""username"" VARCHAR(16777216),
+	""password"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+ADDRESS,,"create or replace TABLE ADDRESS (
+	""address_id"" NUMBER(38,0),
+	""address"" VARCHAR(16777216),
+	""address2"" VARCHAR(16777216),
+	""district"" VARCHAR(16777216),
+	""city_id"" NUMBER(38,0),
+	""postal_code"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+CATEGORY,,"create or replace TABLE CATEGORY (
+	""category_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+CITY,,"create or replace TABLE CITY (
+	""city_id"" NUMBER(38,0),
+	""city"" VARCHAR(16777216),
+	""country_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+CUSTOMER,,"create or replace TABLE CUSTOMER (
+	""customer_id"" NUMBER(38,0),
+	""store_id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""address_id"" NUMBER(38,0),
+	""active"" VARCHAR(16777216),
+	""create_date"" VARCHAR(16777216),
+	""last_update"" VARCHAR(16777216)
+);"
+FILM_ACTOR,,"create or replace TABLE FILM_ACTOR (
+	""actor_id"" NUMBER(38,0),
+	""film_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+INVENTORY,,"create or replace TABLE INVENTORY (
+	""inventory_id"" NUMBER(38,0),
+	""film_id"" NUMBER(38,0),
+	""store_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"
+STORE,,"create or replace TABLE STORE (
+	""store_id"" NUMBER(38,0),
+	""manager_staff_id"" NUMBER(38,0),
+	""address_id"" NUMBER(38,0),
+	""last_update"" VARCHAR(16777216)
+);"

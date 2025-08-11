@@ -1,0 +1,93 @@
+## TIMESTAMP_BUCKET
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+TIMESTAMP_BUCKET(timestamp_in_bucket, bucket_width)
+
+
+TIMESTAMP_BUCKET(timestamp_in_bucket, bucket_width, bucket_origin_timestamp)
+
+**Description**
+
+Gets the lower bound of the timestamp bucket that contains a timestamp.
+
+**Definitions**
+
+* ` timestamp_in_bucket ` : A ` TIMESTAMP ` value that you can use to look up a timestamp bucket.
+* ` bucket_width ` : An ` INTERVAL ` value that represents the width of a timestamp bucket. A [ single interval ](/bigquery/docs/reference/standard-sql/data-types#single_datetime_part_interval) with [ date and time parts ](/bigquery/docs/reference/standard-sql/data-types#interval_datetime_parts) is supported.
+* ` bucket_origin_timestamp ` : A ` TIMESTAMP ` value that represents a point in time. All buckets expand left and right from this point. If this argument is not set, ` 1950-01-01 00:00:00 ` is used by default.
+
+**Return type**
+
+` TIMESTAMP `
+
+**Examples**
+
+In the following example, the origin is omitted and the default origin, `
+1950-01-01 00:00:00 ` is used. All buckets expand in both directions from the origin, and the size of each bucket is 12 hours. The lower bound of the bucket in which ` my_timestamp ` belongs is returned:
+
+
+WITH some_timestamps AS ( SELECT TIMESTAMP '1949-12-30 13:00:00.00' AS my_timestamp UNION ALL SELECT TIMESTAMP '1949-12-31 00:00:00.00' UNION ALL SELECT TIMESTAMP '1949-12-31 13:00:00.00' UNION ALL SELECT TIMESTAMP '1950-01-01 00:00:00.00' UNION ALL SELECT TIMESTAMP '1950-01-01 13:00:00.00' UNION ALL SELECT TIMESTAMP '1950-01-02 00:00:00.00'
+) SELECT TIMESTAMP_BUCKET(my_timestamp, INTERVAL 12 HOUR) AS bucket_lower_bound FROM some_timestamps;
+
+-- Display of results may differ, depending upon the environment and
+-- time zone where this query was executed.
+/*------------------------+
+| bucket_lower_bound      |
++-------------------------+
+| 2000-12-30 12:00:00 UTC |
+| 2000-12-31 00:00:00 UTC |
+| 2000-12-31 12:00:00 UTC |
+| 2000-01-01 00:00:00 UTC |
+| 2000-01-01 12:00:00 UTC |
+| 2000-01-01 00:00:00 UTC |
++-------------------------*/
+
+-- Some timestamp buckets that originate from 1950-01-01 00:00:00:
+-- + Bucket: ...
+-- + Bucket: [1949-12-30 00:00:00.00 UTC, 1949-12-30 12:00:00.00 UTC)
+-- + Bucket: [1949-12-30 12:00:00.00 UTC, 1950-01-01 00:00:00.00 UTC)
+-- + Origin: [1950-01-01 00:00:00.00 UTC]
+-- + Bucket: [1950-01-01 00:00:00.00 UTC, 1950-01-01 12:00:00.00 UTC)
+-- + Bucket: [1950-01-01 12:00:00.00 UTC, 1950-02-00 00:00:00.00 UTC)
+-- + Bucket: ...
+
+In the following example, the origin has been changed to ` 2000-12-24 12:00:00
+` , and all buckets expand in both directions from this point. The size of each bucket is seven days. The lower bound of the bucket in which `
+my_timestamp ` belongs is returned:
+
+
+WITH some_timestamps AS ( SELECT TIMESTAMP '2000-12-20 00:00:00.00' AS my_timestamp UNION ALL SELECT TIMESTAMP '2000-12-21 00:00:00.00' UNION ALL SELECT TIMESTAMP '2000-12-22 00:00:00.00' UNION ALL SELECT TIMESTAMP '2000-12-23 00:00:00.00' UNION ALL SELECT TIMESTAMP '2000-12-24 00:00:00.00' UNION ALL SELECT TIMESTAMP '2000-12-25 00:00:00.00'
+) SELECT TIMESTAMP_BUCKET( my_timestamp,
+INTERVAL 7 DAY,
+TIMESTAMP '2000-12-22 12:00:00.00') AS bucket_lower_bound FROM some_timestamps;
+
+-- Display of results may differ, depending upon the environment and
+-- time zone where this query was executed.
+/*------------------------+
+| bucket_lower_bound      |
++-------------------------+
+| 2000-12-15 12:00:00 UTC |
+| 2000-12-15 12:00:00 UTC |
+| 2000-12-15 12:00:00 UTC |
+| 2000-12-22 12:00:00 UTC |
+| 2000-12-22 12:00:00 UTC |
+| 2000-12-22 12:00:00 UTC |
++-------------------------*/
+
+-- Some timestamp buckets that originate from 2000-12-22 12:00:00:
+-- + Bucket: ...
+-- + Bucket: [2000-12-08 12:00:00.00 UTC, 2000-12-15 12:00:00.00 UTC)
+-- + Bucket: [2000-12-15 12:00:00.00 UTC, 2000-12-22 12:00:00.00 UTC)
+-- + Origin: [2000-12-22 12:00:00.00 UTC]
+-- + Bucket: [2000-12-22 12:00:00.00 UTC, 2000-12-29 12:00:00.00 UTC)
+-- + Bucket: [2000-12-29 12:00:00.00 UTC, 2000-01-05 12:00:00.00 UTC)
+-- + Bucket: ...

@@ -1,0 +1,1 @@
+SELECT txn_type, SUM(quantity) AS total_quantity FROM bitcoin_transactions GROUP BY txn_type;

@@ -1,0 +1,27 @@
+table_name,ddl
+taxi_trips,"CREATE TABLE `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+(
+  unique_key STRING NOT NULL OPTIONS(description=""Unique identifier for the trip.""),
+  taxi_id STRING NOT NULL OPTIONS(description=""A unique identifier for the taxi.""),
+  trip_start_timestamp TIMESTAMP OPTIONS(description=""When the trip started, rounded to the nearest 15 minutes.""),
+  trip_end_timestamp TIMESTAMP OPTIONS(description=""When the trip ended, rounded to the nearest 15 minutes.""),
+  trip_seconds INT64 OPTIONS(description=""Time of the trip in seconds.""),
+  trip_miles FLOAT64 OPTIONS(description=""Distance of the trip in miles.""),
+  pickup_census_tract INT64 OPTIONS(description=""The Census Tract where the trip began. For privacy, this Census Tract is not shown for some trips.""),
+  dropoff_census_tract INT64 OPTIONS(description=""The Census Tract where the trip ended. For privacy, this Census Tract is not shown for some trips.""),
+  pickup_community_area INT64 OPTIONS(description=""The Community Area where the trip began.""),
+  dropoff_community_area INT64 OPTIONS(description=""The Community Area where the trip ended.""),
+  fare FLOAT64 OPTIONS(description=""The fare for the trip.""),
+  tips FLOAT64 OPTIONS(description=""The tip for the trip. Cash tips generally will not be recorded.""),
+  tolls FLOAT64 OPTIONS(description=""The tolls for the trip.""),
+  extras FLOAT64 OPTIONS(description=""Extra charges for the trip.""),
+  trip_total FLOAT64 OPTIONS(description=""Total cost of the trip, the total of the fare, tips, tolls, and extras.""),
+  payment_type STRING OPTIONS(description=""Type of payment for the trip.""),
+  company STRING OPTIONS(description=""The taxi company.""),
+  pickup_latitude FLOAT64 OPTIONS(description=""The latitude of the center of the pickup census tract or the community area if the census tract has been hidden for privacy.""),
+  pickup_longitude FLOAT64 OPTIONS(description=""The longitude of the center of the pickup census tract or the community area if the census tract has been hidden for privacy.""),
+  pickup_location STRING OPTIONS(description=""The location of the center of the pickup census tract or the community area if the census tract has been hidden for privacy.""),
+  dropoff_latitude FLOAT64 OPTIONS(description=""The latitude of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy.""),
+  dropoff_longitude FLOAT64 OPTIONS(description=""The longitude of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy.""),
+  dropoff_location STRING OPTIONS(description=""The location of the center of the dropoff census tract or the community area if the census tract has been hidden for privacy."")
+);"

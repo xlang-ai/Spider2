@@ -1,0 +1,1 @@
+SELECT price FROM bitcoin_prices WHERE ticker = 'ETH' AND market_date = '2023-04-01';

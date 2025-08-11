@@ -1,0 +1,128 @@
+{
+    "table_name": "rendering",
+    "table_fullname": "bigquery-public-data.sec_quarterly_financials.rendering",
+    "column_names": [
+        "submission_number",
+        "report",
+        "file_type",
+        "menu_category",
+        "shortname",
+        "longname",
+        "roleuri",
+        "parentroleuri",
+        "parentreport",
+        "ultimate_parent_report",
+        "_PARTITIONTIME"
+    ],
+    "column_types": [
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "INT64",
+        "TIMESTAMP"
+    ],
+    "nested_column_names": [
+        "submission_number",
+        "report",
+        "file_type",
+        "menu_category",
+        "shortname",
+        "longname",
+        "roleuri",
+        "parentroleuri",
+        "parentreport",
+        "ultimate_parent_report"
+    ],
+    "nested_column_types": [
+        "STRING",
+        "INT64",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "STRING",
+        "INT64",
+        "INT64"
+    ],
+    "description": [
+        "Accession Number. The 20-character string formed from the 18-digit number assigned by the Commission to each EDGAR submission. submission_number: [adsh]",
+        "Represents the report grouping. The numeric value refers to the \\\"R file\\\" as computed by the renderer and posted on the EDGAR website. Note that in some situations the numbers skip.",
+        "The type of interactive data file rendered on the EDGAR website, H = .htm file, X = .xml file. file_type: [rfile]",
+        "If available, one of the menu categories as computed by the renderer: C=Cover, S=Statements, N=Notes, P=Policies, T=Tables, D=Details, O=Other, and U=Uncategorized. menu_category: [menucat]",
+        "The portion of the long name used in the renderer menu.",
+        "The space-normalized text of the XBRL link \\\"definition\\\" element content.",
+        "The XBRL \\\"roleuri\\\" of the role.",
+        "The XBRL roleuri of a role for which this role has a matching shortname prefix and a higher level menu category, as computed by the renderer.",
+        "The value of the report field for the role where roleuri equals this parentroleuri.",
+        "The highest ancestor report reachable by following parentreport relationships. A note (menucat = N) is its own ultimate parent. ultimate_parent_report: [ultparentrpt]"
+    ],
+    "sample_rows": [
+        {
+            "submission_number": "0001558370-18-000022",
+            "report": 85,
+            "file_type": "H",
+            "menu_category": "D",
+            "shortname": "STOCKHOLDERS' EQUITY",
+            "longname": "41503 - Disclosure - STOCKHOLDERS' EQUITY - Dividends (Details)",
+            "roleuri": "http://www.lambweston.com/role/DisclosureStockholdersEquityDividendsDetails",
+            "parentroleuri": null,
+            "parentreport": null,
+            "ultimate_parent_report": null
+        },
+        {
+            "submission_number": "0001558370-18-000022",
+            "report": 86,
+            "file_type": "H",
+            "menu_category": "D",
+            "shortname": "STOCKHOLDERS' EQUITY",
+            "longname": "41504 - Disclosure - STOCKHOLDERS' EQUITY - Changes in AOCI (Details)",
+            "roleuri": "http://www.lambweston.com/role/DisclosureStockholdersEquityChangesInAociDetails",
+            "parentroleuri": null,
+            "parentreport": null,
+            "ultimate_parent_report": null
+        },
+        {
+            "submission_number": "0001558370-18-000022",
+            "report": 87,
+            "file_type": "H",
+            "menu_category": "D",
+            "shortname": "STOCKHOLDERS' EQUITY",
+            "longname": "41505 - Disclosure - STOCKHOLDERS' EQUITY - AOCI - Settlement Gains on Pension and Post-retirement Benefits (Details)",
+            "roleuri": "http://www.lambweston.com/role/DisclosureStockholdersEquityAociSettlementGainsOnPensionAndPostRetirementBenefitsDetails",
+            "parentroleuri": null,
+            "parentreport": null,
+            "ultimate_parent_report": null
+        },
+        {
+            "submission_number": "0001558370-18-000022",
+            "report": 88,
+            "file_type": "H",
+            "menu_category": "D",
+            "shortname": "SEGMENTS",
+            "longname": "41601 - Disclosure - SEGMENTS - General Information (Details)",
+            "roleuri": "http://www.lambweston.com/role/DisclosureSegmentsGeneralInformationDetails",
+            "parentroleuri": null,
+            "parentreport": null,
+            "ultimate_parent_report": null
+        },
+        {
+            "submission_number": "0001558370-18-000022",
+            "report": 89,
+            "file_type": "H",
+            "menu_category": "D",
+            "shortname": "SEGMENTS",
+            "longname": "41602 - Disclosure - SEGMENTS - General Financial Information (Details)",
+            "roleuri": "http://www.lambweston.com/role/DisclosureSegmentsGeneralFinancialInformationDetails",
+            "parentroleuri": null,
+            "parentreport": null,
+            "ultimate_parent_report": null
+        }
+    ]
+}

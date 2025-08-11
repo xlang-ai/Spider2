@@ -1,0 +1,65 @@
+## MIN
+
+MIN( expression )
+[ OVER over_clause ]
+
+over_clause:
+{ named_window | ( [ window_specification ] ) }
+
+window_specification:
+[ named_window ]
+[ PARTITION BY partition_expression [, ...] ]
+[ ORDER BY expression [ { ASC | DESC }  ] [, ...] ]
+[ window_frame_clause ]
+
+
+**Description**
+
+Returns the minimum non- ` NULL ` value in an aggregated group.
+
+Caveats:
+
+* If the aggregated group is empty or the argument is ` NULL ` for all rows in the group, returns ` NULL ` .
+* If the argument is ` NaN ` for any row in the group, returns ` NaN ` .
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+To learn more about the ` OVER ` clause and how to use it, see [ Window function calls ](/bigquery/docs/reference/standard-sql/window-function-calls) .
+
+This function supports specifying [ collation
+](/bigquery/docs/reference/standard-sql/collation-concepts#collate_about) .
+
+**Supported Argument Types**
+
+Any [ orderable data type ](/bigquery/docs/reference/standard-sql/data-
+types#data_type_properties) except for ` ARRAY ` .
+
+**Return Data Types**
+
+The data type of the input values.
+
+**Examples**
+
+
+SELECT MIN(x) AS min FROM UNNEST([8, 37, 4, 55]) AS x;
+
+/*-----*
+| min |
++-----+
+| 4   |
+*-----*/
+
+
+SELECT x, MIN(x) OVER (PARTITION BY MOD(x, 2)) AS min FROM UNNEST([8, NULL, 37, 4, NULL, 55]) AS x;
+
+/*------+------*
+| x    | min  |
++------+------+
+| NULL | NULL |
+| NULL | NULL |
+| 8    | 4    |
+| 4    | 4    |
+| 37   | 37   |
+| 55   | 37   |
+*------+------*/

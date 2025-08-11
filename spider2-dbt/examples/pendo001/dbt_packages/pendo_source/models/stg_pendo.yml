@@ -1,0 +1,563 @@
+version: 2
+
+models:
+
+  - name: stg_pendo__account_history
+    description: >
+      Table capturing the historical records of each account utilizing your product via Pendo. 
+      Note that this table may contain custom metadata columns which can be passed through via `pendo__account_history_pass_through_columns`.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - last_updated_at
+    columns:
+      - name: account_id
+        description: Unique identifier of the account.
+      - name: first_visit_at
+        description: The timestamp (UTC) of when the account or visitor was created. 
+      - name: account_id_hash
+        description: 32-bit hash of the account ID. 
+      - name: last_updated_at
+        description: The timestamp (UTC) of when the account was last updated.
+      - name: last_visit_at
+        description: The timestamp (UTC) of when Pendo last recorded an event for the account.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__application_history
+    description: Table capturing changes to your tracked application(s).
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - application_id
+            - last_updated_at
+    columns:
+      - name: agent_policy_prod
+        description: Production application policy.
+      - name: agent_policy_staging
+        description: Staging application policy.
+      - name: agent_version_prod
+        description: Version of the production app.
+      - name: agent_version_staging
+        description: Version of the staging app. 
+      - name: created_at
+        description: Timestamp of when the application version record was created. 
+      - name: created_by_user_id
+        description: Foreign key referencing the `USER` who created the application.
+      - name: description
+        description: Description of the application. 
+      - name: disabled_at
+        description: Timestamp of when the application version was disabled. 
+      - name: display_name
+        description: Display name of the application. 
+      - name: event_count
+        description: Count of events tracked in this application. 
+      - name: first_event_at
+        description: Timestamp of when the first event was tracked for this application.
+      - name: application_id
+        description: Unique ID of the application.
+      - name: is_integrated
+        description: Boolean that is true if the app is integrated.
+      - name: is_deleted
+        description: Boolean that is true if the app version is deleted.
+      - name: last_updated_at
+        description: Timestamp of when the app was last updated.
+      - name: last_updated_by_user_id
+        description: Foreign key referencing the `USER` who last updated the app. 
+      - name: application_name
+        description: Title of the application.
+      - name: platform
+        description: Platform on which the application is served. 
+      - name: subscription_id
+        description: ID of the app's Pendo subscription.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__event
+    description: >
+      Table capturing all recorded click and pageview events (tagged or untagged).
+      May contain custom columns passed through via the `pendo__event_pass_through_columns` variable.
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` associated with the event, if any.
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the event was tracked in.
+      - name: num_events
+        description: Number of events tracked for this unique combination of day/hour, visitorId, accountId, server name, and IP address.
+      - name: num_minutes
+        description: Number of unique minutes of activity tracked for this unique combination of day/hour, visitorId, accountId, server name, and IP address.
+      - name: page_id
+        description: Foreign key referencing the `PAGE` that the event occurred on.
+      - name: remote_ip
+        description: The IP address of the event triggerer.
+      - name: server_name
+        description: Name of the server (your website) on which the event was tracked.
+      - name: occurred_at
+        description: Day/hour-part timestamp of when the event occurred.
+      - name: user_agent
+        description: String identifying the browser and operating system on which the event was triggered.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` who triggered the event.
+      - name: _fivetran_id
+        description: Fivetran created id hashed on the `property_*` and `param_*` fields.
+      - name: event_key
+        description: Unique key hashed on ['visitor_id', 'timestamp', 'account_id', 'user_agent', 'server_name', 'remote_ip', '_fivetran_id'].
+        tests:
+          - unique
+          - not_null
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__feature_event
+    description: >
+      Table capturing all recorded click events matching tagged features. Contains custom
+      columns passed through via the `pendo__feature_event_pass_through_columns` variable.
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` associated with the event, if any.
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the event was tracked in.
+      - name: feature_id
+        description: Foreign key referencing the `FEATURE` that the event is tagged with.
+      - name: num_events
+        description: Number of feature events tracked for this unique combination of day/hour, visitorId, accountId, server name, and IP address.
+      - name: num_minutes
+        description: Number of feature events minutes tracked for this unique combination of day/hour, visitorId, accountId, server name, and IP address.
+      - name: remote_ip
+        description: The IP address of the event triggerer.
+      - name: server_name
+        description: Name of the server (your website) on which the event was tracked.
+      - name: occurred_at
+        description: Day/hour-part timestamp of when the event occurred.
+      - name: user_agent
+        description: String identifying the browser and operating system on which the event was triggered.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` who triggered the event. 
+      - name: _fivetran_id
+        description: Fivetran created id hashed on the `property_*` and `param_*` fields.
+      - name: feature_event_key
+        description: Unique key hashed on ['visitor_id', 'timestamp', 'account_id', 'server_name', 'feature_id', 'remote_ip', 'user_agent', '_fivetran_id'].
+        tests:
+          - unique
+          - not_null
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__feature_history
+    description: Table capturing historical records of features in Pendo.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - feature_id
+            - last_updated_at
+    columns:
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the feature is a part of.
+      - name: created_at
+        description: Timestamp of when the feature was created. 
+      - name: created_by_user_id
+        description: Foreign key referencing the `USER` that created the feature.
+      - name: is_dirty
+        description: Boolean value returned if feature is processing at the time of request.
+      - name: group_id
+        description: Foreign key referencing the `GROUP` (product area) that the feature is tagged under.
+      - name: feature_id
+        description: Unique identifier of the feature.
+      - name: is_core_event
+        description: Boolean that is true if the feature is tagged as a core event/key feature of the product.
+      - name: last_updated_at
+        description: Timestamp of when the feature was last updated.
+      - name: last_updated_by_user_id
+        description: Foreign key referencing the `USER` that last updated the feature.
+      - name: feature_name
+        description: Name of the feature.
+      - name: page_id
+        description: Foreign key referencing the `PAGE` that the feature is placed on.
+      - name: root_version_id
+        description: The unique identifier of the root entity, which nominally matches the public id field of the feature.
+      - name: stable_version_id
+        description: The unique identifier for the current version of the feature.
+      - name: valid_through
+        description: Timestamp that indicates when data was last processed.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__group
+    description: Table capturing the product areas (groups) that pages and features can be tagged with.
+    columns:
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the product area lives in.
+      - name: created_at
+        description: Timestamp of when the product area was created.
+      - name: created_by_user_id
+        description: Foreign key referencing the `USER` who created the product area.
+      - name: description
+        description: Description of the product area.
+      - name: group_id
+        description: Unique identifier of the product area.
+        tests:
+          - unique
+          - not_null 
+      - name: last_updated_at
+        description: Timestamp of when the product area was last updated.
+      - name: last_updated_by_user_id
+        description: Foreign key referencing the `USER` who last updated the product area.
+      - name: group_name
+        description: Name of the product area.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__guide_event
+    description: Table capturing events related to guides. Each row is a unique event around `guideAdvanced`, `guideSeen`, `guideDismissed`, `guideSnoozed`, `guideTimeout`, `guideActivity`.
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` associated with the event triggerer, if any. 
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` the event was triggered in.
+      - name: country
+        description: Country in which the guide event was recorded.
+      - name: guide_id
+        description: Foreign key referencing the `GUIDE` that was interacted with.
+      - name: guide_step_id
+        description: Foreign key referencing the `STEP` within the guide that was interacted with specifically. 
+      - name: latitude
+        description: Latitude of where the event was triggered from, if location is provided.
+      - name: longitude
+        description: Longitude of where the event was triggered from, if location is provided.
+      - name: region
+        description: Geographic region of the triggered event, if location is provided.
+      - name: remote_ip
+        description: IP Address of the event triggerer.
+      - name: server_name
+        description: Name of the server (your website) on which the event was tracked.
+      - name: occurred_at
+        description: Timestamp of when the event occurred.
+      - name: type
+        description: Type of guide event that was tracked. Can be one of `guideAdvanced`, `guideSeen`, `guideDismissed`, `guideSnoozed`, `guideTimeout`, `guideActivity`.
+      - name: url
+        description: URL on which the guide event was recorded.
+      - name: user_agent
+        description: String identifying the browser and operating system on which the event was triggered.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` who triggered the event.
+      - name: _fivetran_id
+        description: Fivetran created primary key.
+      - name: guide_event_key
+        description: Unique key hashed on ['visitor_id', 'timestamp', 'account_id', 'server_name', 'guide_id', 'user_agent', 'remote_ip', '_fivetran_id']
+        tests:
+          - unique
+          - not_null
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__guide_history
+    description: Table capturing historical records of guides in pendo.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - guide_id
+            - last_updated_at
+    columns:
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the guide belongs in.
+      - name: device_type
+        description: The current state of the guide - 'all', 'desktop', 'mobile'.
+      - name: created_at
+        description: Timestamp of when the guide was created.
+      - name: created_by_user_id
+        description: Foreign key referencing the `USER` who created the guide. 
+      - name: guide_id
+        description: Unique identifier of the guide.
+      - name: is_multi_step
+        description: Returns true if guide has multiple steps (walkthrough).
+      - name: is_training
+        description: Boolean that is true if the guide is for training.
+      - name: last_updated_at
+        description: Timestamp of when the guide was last updated.
+      - name: last_updated_by_user_id
+        description: Foreign key referencing the `USER` who last updated the guide. 
+      - name: launch_method
+        description: Activation method of the guide (ie auto, badge, dom).
+      - name: guide_name
+        description: Name of the guide. 
+      - name: published_at
+        description: Timestamp of when the guide was officially published.
+      - name: recurrence
+        description: How frequent the guide is scheduled to recur. 
+      - name: recurrence_eligibility_window
+        description: Eligible interval in which guides can be repeatedly activated. 
+      - name: reset_at
+        description: Timestamp of when the guide was reset for visitors. 
+      - name: root_version_id
+        description: The unique identifier of the root entity, which nominally matches the public id field of the guide.
+      - name: stable_version_id
+        description: The unique identifier for the current version of the guide.
+      - name: state
+        description: The current state of the guide. published, staged, draft, and disabled.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__guide_step_history
+    description: Table associating guides with the steps they include. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - guide_id
+            - guide_last_updated_at
+            - step_id
+    columns:
+      - name: guide_id
+        description: Foreign key referencing the `GUIDE` with steps.
+      - name: guide_last_updated_at
+        description: Timestamp of when the guide was last updated. 
+      - name: step_id
+        description: Foreign key referencing the `STEP` that the guide includes. 
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__page_event
+    description: >
+      Table capturing all recorded pageviews matching tagged pages. Contains custom
+      columns passed through the `pendo__page_event_pass_through_columns` variable.
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` associated with the event, if any.
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the event was tracked in.
+      - name: num_events
+        description: Number of pageviews matching tagged pages.
+      - name: num_minutes
+        description: >
+          Page time on site calculations are in 1 minute buckets. So if you are logged in to your app as a user (Pendo Visitor) 
+          when you load a page’s URL, 1 minute time on site is calculated. Every time you click on that page, the time on site 
+          calculation keeps running and totaling the successive minutes you’ve spent on that page.
+          See https://support.pendo.io/hc/en-us/articles/360032203171-How-is-Site-Page-Interaction-Calculated-.
+      - name: page_id
+        description: Foreign key referencing the `PAGE` being loaded.
+      - name: remote_ip
+        description: The IP address of the event triggerer.
+      - name: server_name
+        description: Name of the server (your website) on which the event was tracked.
+      - name: occurred_at
+        description: Day/hour-part timestamp of when the event occurred.
+      - name: user_agent
+        description: String identifying the browser and operating system on which the event was triggered.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` who triggered the event. 
+      - name: _fivetran_id
+        description: Fivetran created id hashed on the `param_*` fields.
+      - name: page_event_key
+        description: Unique key hashed on ['visitor_id', 'timestamp', 'account_id', 'server_name', 'page_id', 'user_agent', 'remote_ip', '_fivetran_id'].
+        tests:
+          - unique
+          - not_null
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__page_history
+    description: Table capturing the historical records of pages tagged in Pendo.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - page_id
+            - last_updated_at
+    columns:
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the page is associated with.
+      - name: created_at
+        description: Timestamp of when the page was first created. 
+      - name: created_by_user_id
+        description: Foreign key referencing the `USER` who created the page. 
+      - name: is_dirty
+        description: Boolean value returned if page is processing at the time of request.
+      - name: group_id
+        description: Foreign key referencing the `GROUP` (product area) that the page is tagged under.
+      - name: page_id
+        description: Unique identifier of the page.
+      - name: last_updated_at
+        description: Timestamp of when the page was updated. 
+      - name: last_updated_by_user_id
+        description: Foreign key referencing the `USER` who last updated the page. 
+      - name: page_name
+        description: Name of the page as displayed in Pendo. 
+      - name: root_version_id
+        description: The unique identifier of the root entity, which nominally matches the public id field of the page.
+      - name: stable_version_id
+        description: The unique identifier for the current version of the page.
+      - name: valid_through
+        description: Timestamp that indicates when data was last processed.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__page_rule_history
+    description: Table capturing historical records of rules associated with pages. 
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - page_id
+            - page_last_updated_at
+            - rule
+    columns:
+      - name: designer_hint
+        description: String of what the page's url will look like, including site domain. 
+      - name: page_id
+        description: Foreign key referencing the `PAGE` that the rule pertains to.
+      - name: page_last_updated_at
+        description: Timestamp of when the page was last updated at.
+      - name: parsed_rule
+        description: The url rule of the page, completely parsed out. 
+      - name: rule
+        description: Bare-bones URL rule of the page.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__user
+    description: Table capturing internal Pendo users.
+    columns:
+      - name: deleted_at
+        description: Timestamp of when the user was deleted at.
+      - name: first_name
+        description: First name of the user.
+      - name: user_id
+        description: Unique identifier of the user.
+        tests:
+          - unique
+          - not_null
+      - name: last_name
+        description: Last name of the user. 
+      - name: user_type
+        description: Type of user. 
+      - name: username
+        description: Username of the user, typically their email.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__visitor_history
+    description: Table capturing historical records of visitors.
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - visitor_id
+            - last_updated_at
+    columns:
+      - name: account_id
+        description: >
+          Foreign key referencing the `ACCOUNT` associated with this visitor. Visitors can belong to multiple accounts, however.
+          Refer to `VISITOR_ACCOUNT_HISTORY` for all accounts associated with individual visitors.
+      - name: first_visit_at
+        description: Timestamp of when an event was first captured for the visitor.
+      - name: visitor_id
+        description: Unique identifier of the visitor.
+      - name: visitor_id_hash
+        description: 32-bit hash of the visitor ID. 
+      - name: last_browser_name
+        description: Most recent browser name.
+      - name: last_browser_version
+        description: Most recent browser version.
+      - name: last_operating_system
+        description: Most recent operating system.
+      - name: last_server_name
+        description: Most recent server name.
+      - name: last_updated_at
+        description: Timestamp of when the visitor was last updated.
+      - name: last_user_agent
+        description: Most recent user agent (unparsed).
+      - name: last_visit
+        description: Timestamp of the user's last visit.
+      - name: n_id
+        description: Numeric id for the visitor.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__poll
+    description: Table capturing polls administered via Pendo. 
+    columns:
+      - name: attribute_display
+        description: Type of way to answer (ie select, radio, null for freeform answers).
+      - name: follow_up_poll_id
+        description: Self-referencing id of the follow-up `POLL` question, if any.
+      - name: attribute_max_length
+        description: Max length for the answer, if any.
+      - name: attribute_type
+        description: Type of poll question.
+      - name: poll_id
+        description: Unique identifier of the poll.
+        tests:
+          - unique
+          - not_null
+      - name: question
+        description: The content of the poll question.
+      - name: reset_at
+        description: The timestamp when the poll's data was last reset.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__poll_event
+    description: Table capturing individual responses to polls.
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` associated with the event, if any.
+      - name: app_id
+        description: Foreign key referencing the `APPLICATION` that the event was tracked in.
+      - name: country
+        description: Country in which the poll event was recorded.
+      - name: guide_id
+        description: Foreign key referencing the `GUIDE` that the poll is a part of.
+      - name: guide_step_id
+        description: Foreign key referencing the `GUIDE_STEP` that the poll is a part of.
+      - name: latitude
+        description: Latitude of where the event was triggered from, if location is provided. 
+      - name: longitude
+        description: Longitude of where the event was triggered from, if location is provided.
+      - name: poll_id
+        description: Foreign key referencing the `POLL` that the event was in response to.
+      - name: poll_response
+        description: >
+          Depending on the kind of poll, the content of the poll response. For ratings, this will be an integer,
+          and for freeform text responses, this will be the content. For pick-lists, this will be an ID that does not point anywhere....
+      - name: region
+        description: Geographic region of the triggered event, if location is provided.
+      - name: remote_ip
+        description: IP Address of the event triggerer.
+      - name: server_name
+        description: Name of the server (your website) on which the event was tracked.
+      - name: occurred_at
+        description: Timestamp of when the poll event was triggered.
+      - name: type
+        description: Type of guide event that was tracked. This table only captures poll responses.
+      - name: url
+        description: URL on which the poll response was recorded.
+      - name: user_agent
+        description: String identifying the browser and operating system on which the event was triggered.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` who triggered the event.
+      - name: _fivetran_id
+        description: Fivetran created primary key.
+      - name: poll_event_key
+        description: Unique key hashed on ['visitor_id', 'timestamp', 'account_id', 'server_name', 'poll_id', 'guide_id', 'user_agent', 'remote_ip', '_fivetran_id'].
+        tests:
+          - unique
+          - not_null
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.
+
+  - name: stg_pendo__visitor_account_history
+    description: >
+      Table of historical records of associations between visitors and accounts. Though the visitor
+      table has an `account_id` column, refer to this table for all potential related accounts.  
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - account_id
+            - visitor_last_updated_at
+            - visitor_id
+    columns:
+      - name: account_id
+        description: Foreign key referencing the `ACCOUNT` that the visitor is associated with.
+      - name: visitor_id
+        description: Foreign key referencing the `VISITOR` associated with the account. 
+      - name: visitor_last_updated_at
+        description: Timestamp of when the visitor was last updated.
+      - name: _fivetran_synced
+        description: UTC timestamp that indicates the time when Fivetran last successfully synced the row.

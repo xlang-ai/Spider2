@@ -1,0 +1,43 @@
+table_name,ddl
+food_enforcement,"CREATE TABLE `bigquery-public-data.fda_food.food_enforcement`
+(
+  classification STRING OPTIONS(description=""Numerical designation (I, II, or III) that is assigned by FDA to a particular product recall that indicates the relative degree of health hazard. Class I = Dangerous or defective products that predictably could cause serious health problems or death. Examples include: food found to contain botulinum toxin, food with undeclared allergens, a label mix-up on a lifesaving drug, or a defective artificial heart valve. Class II = Products that might cause a temporary health problem, or pose only a slight threat of a serious nature. Example: a drug that is under-strength but that is not used to treat life-threatening situations. Class III = Products that are unlikely to cause any adverse health reaction, but that violate FDA labeling or manufacturing laws. Examples include: a minor container defect and lack of English labeling in a retail food.""),
+  center_classification_date DATE OPTIONS(description=""""),
+  report_date DATE OPTIONS(description=""Date that the FDA issued the enforcement report for the product recall.""),
+  postal_code STRING OPTIONS(description=""""),
+  termination_date DATE OPTIONS(description=""""),
+  recall_initiation_date DATE OPTIONS(description=""Date that the firm first began notifying the public or their consignees of the recall.""),
+  recall_number STRING OPTIONS(description=""A numerical designation assigned by FDA to a specific recall event used for tracking purposes.""),
+  city STRING OPTIONS(description=""The city in which the recalling firm is located.""),
+  event_id INT64 OPTIONS(description=""A numerical designation assigned by FDA to a specific recall event used for tracking purposes.""),
+  distribution_pattern STRING OPTIONS(description=""General area of initial distribution such as, “Distributors in 6 states: NY, VA, TX, GA, FL and MA; the Virgin Islands; Canada and Japan”. The term “nationwide” is defined to mean the fifty states or a significant portion. Note that subsequent distribution by the consignees to other parties may not be included.""),
+  recalling_firm STRING OPTIONS(description=""The firm that initiates a recall or, in the case of an FDA requested recall or FDA mandated recall, the firm that has primary responsibility for the manufacture and (or) marketing of the product to be recalled.""),
+  voluntary_mandated STRING OPTIONS(description=""Describes who initiated the recall. Recalls are almost always voluntary, meaning initiated by a firm. A recall is deemed voluntary when the firm voluntarily removes or corrects marketed products or the FDA requests the marketed products be removed or corrected. A recall is mandated when the firm was ordered by the FDA to remove or correct the marketed products, under section 518(e) of the FD&C Act, National Childhood Vaccine Injury Act of 1986, 21 CFR 1271.440, Infant Formula Act of 1980 and its 1986 amendments, or the Food Safety Modernization Act (FSMA).""),
+  state STRING OPTIONS(description=""The U.S. state in which the recalling firm is located.""),
+  reason_for_recall STRING OPTIONS(description=""Information describing how the product is defective and violates the FD&C Act or related statutes.""),
+  initial_firm_notification STRING OPTIONS(description=""The method(s) by which the firm initially notified the public or their consignees of a recall. A consignee is a person or firm named in a bill of lading to whom or to whose order the product has or will be delivered.""),
+  status STRING OPTIONS(description=""On-Going = A recall which is currently in progress.  Completed = The recall action reaches the point at which the firm has actually retrieved and impounded all outstanding product that could reasonably be expected to be recovered, or has completed all product corrections. Terminated = FDA has determined that all reasonable efforts have been made to remove or correct the violative product in accordance with the recall strategy, and proper disposition has been made according to the degree of hazard. Pending = Actions that have been determined to be recalls, but that remain in the process of being classified.""),
+  product_type STRING OPTIONS(description=""""),
+  country STRING OPTIONS(description=""The country in which the recalling firm is located.""),
+  product_description STRING OPTIONS(description=""Brief description of the product being recalled.""),
+  code_info STRING OPTIONS(description=""A list of all lot and/or serial numbers, product numbers, packer or manufacturer numbers, sell or use by dates, etc., which appear on the product or its labeling.""),
+  address_1 STRING OPTIONS(description=""""),
+  address_2 STRING OPTIONS(description=""""),
+  product_quantity STRING OPTIONS(description=""The amount of defective product subject to recall.""),
+  more_code_info STRING OPTIONS(description="""")
+);"
+food_events,"CREATE TABLE `bigquery-public-data.fda_food.food_events`
+(
+  report_number STRING OPTIONS(description=""The report number""),
+  reactions STRING OPTIONS(description=""Information on the reactions or symptoms experienced by the individual involved""),
+  outcomes STRING OPTIONS(description=""Information on known outcomes or consequences of the adverse event. For more info, refer: https://open.fda.gov/food/event/reference/""),
+  products_brand_name STRING OPTIONS(description=""The reported brand name of the product.""),
+  products_industry_code STRING OPTIONS(description=""The FDA industry code for the product. Results in this endpoint are generally limited to products tagged with industry codes related to human food and nutritional supplements or cosmetics.  For more info, refer: https://open.fda.gov/food/event/reference/""),
+  products_role STRING OPTIONS(description=""""),
+  products_industry_name STRING OPTIONS(description=""The FDA industry name associated with the product.""),
+  date_created DATE OPTIONS(description=""Date the report was received by FDA.""),
+  date_started DATE OPTIONS(description=""Date of the adverse event (when it was considered to have started).""),
+  consumer_gender STRING OPTIONS(description=""The reported gender of the consumer. Female = Female Male = Male Not Available = Unknown""),
+  consumer_age FLOAT64 OPTIONS(description=""The reported age of the consumer at the time of the adverse event report, expressed in the unit in the field age_unit""),
+  consumer_age_unit STRING OPTIONS(description=""Encodes the unit in which the age of the consumer is expressed.  Day(s) = age is expressed in days Week(s) = age is expressed in weeks Month(s) = age is expressed in months Year(s) = age is expressed in years Decade(s) = age is expressed in decades Not Available = Unknown"")
+);"

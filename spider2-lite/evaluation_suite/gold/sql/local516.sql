@@ -1,0 +1,1 @@
+SELECT bm.region, SUM(bt.quantity) AS total_btc_bought FROM bitcoin_transactions bt JOIN bitcoin_members bm ON bt.member_id = bm.member_id WHERE bt.txn_type = 'BUY' AND bt.ticker = 'BTC' GROUP BY bm.region;

@@ -1,0 +1,115 @@
+## GENERATE_RANGE_ARRAY
+
+**Preview**
+
+This product or feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [ Service Specific Terms
+](/terms/service-terms) . Pre-GA products and features are available "as is"
+and might have limited support. For more information, see the [ launch stage descriptions ](/products#product-launch-stages) .
+
+**Note:** To provide feedback or request support for this feature, send an email to [ bigquery-time-series-preview-support@google.com ](mailto:bigquery-
+time-series-preview-support@google.com) .
+
+
+GENERATE_RANGE_ARRAY(range_to_split, step_interval)
+
+
+GENERATE_RANGE_ARRAY(range_to_split, step_interval, include_last_partial_range)
+
+**Description**
+
+Splits a range into an array of subranges.
+
+**Definitions**
+
+* ` range_to_split ` : The ` RANGE<T> ` value to split.
+* ` step_interval ` : The ` INTERVAL ` value, which determines the maximum size of each subrange in the resulting array. An [ interval single date and time part ](/bigquery/docs/reference/standard-sql/data-types#single_datetime_part_interval) is supported, but an interval range of date and time parts is not.
+
+* If ` range_to_split ` is ` RANGE<DATE> ` , these interval date parts are supported: ` YEAR ` to ` DAY ` .
+
+* If ` range_to_split ` is ` RANGE<DATETIME> ` , these interval date and time parts are supported: ` YEAR ` to ` SECOND ` .
+
+* If ` range_to_split ` is ` RANGE<TIMESTAMP> ` , these interval date and time parts are supported: ` DAY ` to ` SECOND ` .
+
+* ` include_last_partial_range ` : A ` BOOL ` value, which determines whether or not to include the last subrange if it's a partial subrange. If this argument is not specified, the default value is ` TRUE ` .
+
+* ` TRUE ` (default): The last subrange is included, even if it's smaller than ` step_interval ` .
+
+* ` FALSE ` : Exclude the last subrange if it's smaller than ` step_interval ` .
+
+**Details**
+
+Returns ` NULL ` if any input is ` NULL ` .
+
+**Return type**
+
+` ARRAY<RANGE<T>> `
+
+**Examples**
+
+In the following example, a date range between ` 2020-01-01 ` and ` 2020-01-06
+` is split into an array of subranges that are one day long. There are no partial ranges.
+
+
+SELECT GENERATE_RANGE_ARRAY( RANGE(DATE '2020-01-01', DATE '2020-01-06'),
+INTERVAL 1 DAY) AS results;
+
+/*----------------------------+
+| results                    |
++----------------------------+
+| [                          |
+|  [2020-01-01, 2020-01-02), |
+|  [2020-01-02, 2020-01-03), |
+|  [2020-01-03, 2020-01-04), |
+|  [2020-01-04, 2020-01-05), |
+|  [2020-01-05, 2020-01-06), |
+| ]                          |
++----------------------------*/
+
+In the following examples, a date range between ` 2020-01-01 ` and `
+2020-01-06 ` is split into an array of subranges that are two days long. The final subrange is smaller than two days:
+
+
+SELECT GENERATE_RANGE_ARRAY( RANGE(DATE '2020-01-01', DATE '2020-01-06'),
+INTERVAL 2 DAY) AS results;
+
+/*----------------------------+
+| results                    |
++----------------------------+
+| [                          |
+|  [2020-01-01, 2020-01-03), |
+|  [2020-01-03, 2020-01-05), |
+|  [2020-01-05, 2020-01-06)  |
+| ]                          |
++----------------------------*/
+
+
+SELECT GENERATE_RANGE_ARRAY( RANGE(DATE '2020-01-01', DATE '2020-01-06'),
+INTERVAL 2 DAY,
+TRUE) AS results;
+
+/*----------------------------+
+| results                    |
++----------------------------+
+| [                          |
+|  [2020-01-01, 2020-01-03), |
+|  [2020-01-03, 2020-01-05), |
+|  [2020-01-05, 2020-01-06)  |
+| ]                          |
++----------------------------*/
+
+In the following example, a date range between ` 2020-01-01 ` and ` 2020-01-06
+` is split into an array of subranges that are two days long, but the final subrange is excluded because it's smaller than two days:
+
+
+SELECT GENERATE_RANGE_ARRAY( RANGE(DATE '2020-01-01', DATE '2020-01-06'),
+INTERVAL 2 DAY,
+FALSE) AS results;
+
+/*----------------------------+
+| results                    |
++----------------------------+
+| [                          |
+|  [2020-01-01, 2020-01-03), |
+|  [2020-01-03, 2020-01-05)  |
+| ]                          |
++----------------------------*/

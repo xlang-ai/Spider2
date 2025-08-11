@@ -1,0 +1,208 @@
+table_name,description,DDL
+ADJACENT_COUNTIES,,"create or replace TABLE ADJACENT_COUNTIES (
+	""county"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""county_fips_code"" VARCHAR(16777216),
+	""neighbors"" VARIANT,
+	""neighbors_state"" VARIANT,
+	""neighbors_fips_code"" VARIANT
+);"
+NWS_FORECAST_REGIONS,,"create or replace TABLE NWS_FORECAST_REGIONS (
+	""state"" VARCHAR(16777216),
+	""cwa"" VARCHAR(16777216),
+	""time_zone"" VARCHAR(16777216),
+	""fe_area"" VARCHAR(16777216),
+	""zone"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""state_zone"" VARCHAR(16777216),
+	""lon"" FLOAT,
+	""lat"" FLOAT,
+	""shortname"" VARCHAR(16777216),
+	""shape_geometry"" BINARY(8388608)
+);"
+CSA,,"create or replace TABLE CSA (
+	""geo_id"" VARCHAR(16777216),
+	""csa_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""msa_lsad_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_lon"" FLOAT,
+	""internal_point_lat"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""csa_geom"" BINARY(8388608)
+);"
+URBAN_AREAS,,"create or replace TABLE URBAN_AREAS (
+	""geo_id"" VARCHAR(16777216),
+	""urban_area_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""area_lsad_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_lon"" FLOAT,
+	""internal_point_lat"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""urban_area_geom"" BINARY(8388608)
+);"
+ADJACENT_STATES,,"create or replace TABLE ADJACENT_STATES (
+	""state"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""neighbors_state"" VARIANT,
+	""neighbors_fips_code"" VARIANT
+);"
+CBSA,,"create or replace TABLE CBSA (
+	""geo_id"" VARCHAR(16777216),
+	""csa_geo_id"" VARCHAR(16777216),
+	""cbsa_fips_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""msa_indicator"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_latitude"" FLOAT,
+	""internal_point_longitude"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""cbsa_geom"" BINARY(8388608)
+);"
+COUNTIES,,"create or replace TABLE COUNTIES (
+	""geo_id"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""county_fips_code"" VARCHAR(16777216),
+	""county_gnis_code"" VARCHAR(16777216),
+	""county_name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""fips_class_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""csa_fips_code"" VARCHAR(16777216),
+	""cbsa_fips_code"" VARCHAR(16777216),
+	""met_div_fips_code"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""int_point_lat"" FLOAT,
+	""int_point_lon"" FLOAT,
+	""int_point_geom"" BINARY(8388608),
+	""county_geom"" BINARY(8388608)
+);"
+STATES,,"create or replace TABLE STATES (
+	""geo_id"" VARCHAR(16777216),
+	""region_code"" VARCHAR(16777216),
+	""division_code"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""state_gnis_code"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""int_point_lat"" FLOAT,
+	""int_point_lon"" FLOAT,
+	""int_point_geom"" BINARY(8388608),
+	""state_geom"" BINARY(8388608)
+);"
+ZIP_CODES,,"create or replace TABLE ZIP_CODES (
+	""zip_code"" VARCHAR(16777216),
+	""city"" VARCHAR(16777216),
+	""county"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""state_code"" VARCHAR(16777216),
+	""state_name"" VARCHAR(16777216),
+	""fips_class_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""functional_status"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_lat"" FLOAT,
+	""internal_point_lon"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""zip_code_geom"" BINARY(8388608)
+);"
+CONGRESS_DISTRICT_116,,"create or replace TABLE CONGRESS_DISTRICT_116 (
+	""geo_id"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""district_fips_code"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""congress_session"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""functional_status"" BOOLEAN,
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""int_point_lat"" FLOAT,
+	""int_point_lon"" FLOAT,
+	""int_point_geom"" BINARY(8388608),
+	""district_geom"" BINARY(8388608)
+);"
+NATIONAL_OUTLINE,,"create or replace TABLE NATIONAL_OUTLINE (
+	""us_outline_geom"" BINARY(8388608),
+	""aff_geo_id"" VARCHAR(16777216),
+	""geo_id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216)
+);"
+RAILWAYS,,"create or replace TABLE RAILWAYS (
+	""geo_id"" NUMBER(38,0),
+	""full_name"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""railway_geom"" VARCHAR(16777216)
+);"
+CNECTA,,"create or replace TABLE CNECTA (
+	""geo_id"" VARCHAR(16777216),
+	""cnecta_fips_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""name_lsad"" VARCHAR(16777216),
+	""lsad"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""int_point_lat"" FLOAT,
+	""int_point_lon"" FLOAT,
+	""cnecta_geom"" BINARY(8388608)
+);"
+COASTLINE,,"create or replace TABLE COASTLINE (
+	""name"" VARCHAR(16777216),
+	""coastline_geom"" BINARY(8388608)
+);"
+CONGRESS_DISTRICT_115,,"create or replace TABLE CONGRESS_DISTRICT_115 (
+	""geo_id"" VARCHAR(16777216),
+	""state_fips_code"" VARCHAR(16777216),
+	""district_fips_code"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""congress_session"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""functional_status"" BOOLEAN,
+	""area_land_meters"" NUMBER(38,0),
+	""area_water_meters"" NUMBER(38,0),
+	""int_point_lat"" FLOAT,
+	""int_point_lon"" FLOAT,
+	""int_point_geom"" BINARY(8388608),
+	""district_geom"" BINARY(8388608)
+);"
+METROPOLITAN_DIVISIONS,,"create or replace TABLE METROPOLITAN_DIVISIONS (
+	""geo_id"" VARCHAR(16777216),
+	""csa_code"" VARCHAR(16777216),
+	""cbsa_code"" VARCHAR(16777216),
+	""metdiv_code"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""lsad_name"" VARCHAR(16777216),
+	""lsad_code"" VARCHAR(16777216),
+	""mtfcc_feature_class_code"" VARCHAR(16777216),
+	""area_land_meters"" FLOAT,
+	""area_water_meters"" FLOAT,
+	""internal_point_latitude"" FLOAT,
+	""internal_point_longitude"" FLOAT,
+	""internal_point_geom"" BINARY(8388608),
+	""metdiv_geom"" BINARY(8388608)
+);"

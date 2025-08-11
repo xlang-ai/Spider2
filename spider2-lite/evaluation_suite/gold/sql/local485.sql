@@ -1,0 +1,1 @@
+SELECT AVG(CAST(strftime('%s', e.event_time) - strftime('%s', u.start_date) AS REAL)) / 86400.0 AS avg_days FROM shopping_cart_users u JOIN shopping_cart_events e ON u.cookie_id = e.cookie_id WHERE e.sequence_number = 1;

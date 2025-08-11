@@ -1,0 +1,1 @@
+SELECT ph.page_name, COUNT(e.visit_id) AS total_visits FROM shopping_cart_events e JOIN shopping_cart_page_hierarchy ph ON e.page_id = ph.page_id GROUP BY ph.page_name;

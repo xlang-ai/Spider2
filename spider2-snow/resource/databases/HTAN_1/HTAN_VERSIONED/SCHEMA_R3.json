@@ -1,0 +1,102 @@
+{
+    "table_name": "HTAN_VERSIONED.SCHEMA_R3",
+    "table_fullname": "HTAN_1.HTAN_VERSIONED.SCHEMA_R3",
+    "column_names": [
+        "Required",
+        "DependsOn_Component",
+        "Validation_Rules",
+        "Properties",
+        "Attribute",
+        "Parent",
+        "DependsOn",
+        "Source",
+        "Valid_Values",
+        "Description"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Indicate if specifying value for attribute X is mandatory or optional by default. Set to TRUE or FALSE. If TRUE, a data contributor must provide a value for attribute X (e.g. one of the valid values in 'Valid Values', if any are specified). If FALSE, a data contributor may select between 'Not Applicable' or 'Not Specified' as a value for attribute X. Note that an attribute may not be required by default (i.e. 'Required' is set to FALSE), but it could be required by virtue of being an attribute of another required attribute (e.g. see ERCC).",
+        "Each component is a high level ontology class in which entities/objects are categorized/componentized; a component is an entity on its own that needs to be defined in the schema",
+        "What type of data is allowed in the Valid Values column. Only relevant if Valid Values are not present in the row. E.g. string, list, integer",
+        "Properties specific to a particular attribute; note that properties could be attributes themselves (i.e. listed under the 'Attributes' column).",
+        "Key characteristic X of the assay, related protocol, or downstream data that we want to record as metadata feature.",
+        "Parent class of this attribute - i.e. where to 'hook' this attribute into an existing schema. Note that this assumes a single existing schema/a single json-ld schema context; if we need to support classes/attributes/properties defined across multiple schemas/json-ld contexts we'd need to add a schema/context column that specifies the context of each attribute, if different from the context of the attribute's parent.",
+        "Important characteristics, if any, of attribute X that need to be recorded as metadata features given attribute X is specified. These characteristics could be attributes or properties of attributes (i.e. they are listed in the 'Attribute' column and/or under the 'Properties' column). Comma separated.",
+        "The source for the description of the term, usually an URI. Ontologies can be used as sources. E.g. Library Construction Method has source: http://purl.obolibrary.org/obo/OBI_0000711",
+        "The range of attribute X: the values that can be assigned to attribute X; these values can include/be other attributes (i.e. listed in the 'Attribute' columns) themselves. Comma separated. If none provided any non-null value is valid for attribute X.",
+        "Provide a definition or a reference containing the definition of attribute X. Preferably provide a source ontology link or code in addition to the definition. Leave blank if the final description is pending."
+    ],
+    "sample_rows": [
+        {
+            "Attribute": "Library Construction Method",
+            "Description": "Process which results in the creation of a library from fragments of DNA using cloning vectors or oligonucleotides with the role of adaptors [OBI_0000711]",
+            "Valid_Values": "Smart-seq2, Smart-SeqV4, 10xV1.0, 10xV1.1, 10xV2, 10xV3,10xV3.1, CEL-seq2, Drop-seq, inDropsV2, inDropsV3, TruDrop, sci-ATAC-seq",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": null,
+            "Source": "http://purl.obolibrary.org/obo/OBI_0000711",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Alignment Workflow Type",
+            "Description": "Generic name for the workflow used to analyze a data set.",
+            "Valid_Values": "BWA, BWA with BQSR, BWA-aln, BWA-mem, BWA with Mark Duplicates and BQSR, STAR 2-Pass, STAR 2-Pass Chimeric, STAR 2-Pass Genome, STAR 2-Pass Transcriptome, Bowtie, Bismark, GSNAP, BSMAP, BSmooth, BS-Seeker2, BS-Seeker, RMAP, MethylCoder, BRAT-BW, Pash, Segemehl, Bisulfighter, BatMeth, LAST, ERNE-BS5, B-SOLANA, SOCS-B, BWA-meth, Other Alignment Workflow, None",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": null,
+            "Source": "https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&id=alignment_workflow",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Data Category",
+            "Description": "Specific content type of the data file.",
+            "Valid_Values": "Gene Expression, Transcript Expression, Exon Expression Quantification, Gene Expression Quantification, Isoform Expression Quantification, Splice Junction Quantification, Other",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": null,
+            "Source": "https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&id=gene_expression",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Analyte Type",
+            "Description": "The kind of molecular specimen analyte: a molecular derivative (I.e. RNA / DNA / Protein Lysate) obtained from a specimen",
+            "Valid_Values": "cfDNA Analyte, DNA Analyte, RNA Analyte, Total RNA Analyte, Tissue Block Analyte, Tissue Section Analyte, PBMCs or Plasma or Serum Analyte, cDNA Libraries Analyte, PBMCs, Plasma, Serum Analyte",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cdebrowser.nci.nih.gov/cdebrowserClient/cdeBrowser.html#/search?publicId=2513915&version=2.0",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Acquisition Method Type",
+            "Description": "Records the method of acquisition or source for the specimen under consideration.",
+            "Valid_Values": "Autopsy, Biopsy, Fine Needle Aspirate, Surgical Resection, Punch Biopsy, Shave Biopsy, Excision, Re-excision, Sentinel Node Biopsy, Lymphadenectomy - Regional Nodes, Other Acquisition Method, Non induced sputum, Induced sputum, BAL (bronchial alveolar lavage), Cytobrush, Blood draw, Fluid collection, Forceps biopsy, Core needle biopsy, Endoscopic biopsy, Not specified",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cdebrowser.nci.nih.gov/cdebrowserClient/cdeBrowser.html#/search?publicId=6626651&version=1.0",
+            "Validation_Rules": null
+        }
+    ]
+}

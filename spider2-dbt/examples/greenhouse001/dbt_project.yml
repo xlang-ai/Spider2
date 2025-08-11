@@ -1,0 +1,53 @@
+name: 'greenhouse'
+version: 0.6.0
+config-version: 2
+require-dbt-version: [">=1.3.0", "<2.0.0"]
+
+
+profile: "greenhouse"
+
+vars:
+  greenhouse_schema: main
+  greenhouse_source:
+    greenhouse_activity_identifier: "activity"
+    greenhouse_pplication_identifier: "application"
+    greenhouse_application_history_identifier: "application_history"
+    greenhouse_attachment_identifier: "attachment"
+    greenhouse_candidate_identifier: "candidate"
+    greenhouse_candidate_tag_identifier: "candidate_tag"
+    greenhouse_department_identifier: "department"
+    greenhouse_eeoc_identifier: "eeoc"
+    greenhouse_email_address_identifier: "email_address"
+    greenhouse_hiring_team_identifier: "hiring_team"
+    greenhouse_interview_identifier: "interview"
+    greenhouse_job_identifier: "job"
+    greenhouse_job_department_identifier: "job_department"
+    greenhouse_job_office_identifier: "job_office"
+    greenhouse_job_opening_identifier: "job_opening"
+    greenhouse_job_post_identifier: "job_post"
+    greenhouse_job_stage_identifier: "job_stage"
+    greenhouse_job_application_identifier: "job_application"
+    greenhouse_office_identifier: "office"
+    greenhouse_phone_number_identifier: "phone_number"
+    greenhouse_prospect_pool_identifier: "prospect_pool"
+    greenhouse_prospect_stage_identifier: "prospect_stage"
+    greenhouse_scorecard_identifier: "scorecard"
+    greenhouse_scorecard_attribute_identifier: "scorecard_attribute"
+    greenhouse_social_media_address_identifier: "social_media_address"
+    greenhouse_source_identifier: "source"
+    greenhouse_tag_identifier: "tag"
+    greenhouse_user_identifier: "user"
+    greenhouse_user_email_identifier: "user_email"
+    greenhouse_scheduled_interviewer_identifier: "scheduled_interviewer"
+    greenhouse_scheduled_interview_identifier: "scheduled_interview"
+
+  greenhouse_using_eeoc: true
+  greenhouse_using_app_history: true
+  greenhouse_using_prospects: true
+  greenhouse_using_job_office: true
+  greenhouse_using_job_department: true
+models:
+  greenhouse:
+    +materialized: table
+    intermediate:
+      +materialized: ephemeral

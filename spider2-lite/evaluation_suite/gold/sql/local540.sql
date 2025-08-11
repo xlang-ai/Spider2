@@ -1,0 +1,1 @@
+SELECT vc.category_name, SUM(vt.`qty_sold(kg)`) AS total_qty FROM veg_txn_df vt JOIN veg_cat vc ON vt.item_code = vc.item_code GROUP BY vc.category_name;

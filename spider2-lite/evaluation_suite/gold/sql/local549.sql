@@ -1,0 +1,1 @@
+SELECT SUM(`qty_sold(kg)` * `unit_selling_px_rmb/kg` * (1 - `discount(%)` / 100.0)) AS total_revenue FROM veg_txn_df;

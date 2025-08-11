@@ -1,0 +1,93 @@
+## LPAD
+
+LPAD(original_value, return_length[, pattern])
+
+**Description**
+
+Returns a ` STRING ` or ` BYTES ` value that consists of ` original_value `
+prepended with ` pattern ` . The ` return_length ` is an ` INT64 ` that specifies the length of the returned value. If ` original_value ` is of type `
+BYTES ` , ` return_length ` is the number of bytes. If ` original_value ` is of type ` STRING ` , ` return_length ` is the number of characters.
+
+The default value of ` pattern ` is a blank space.
+
+Both ` original_value ` and ` pattern ` must be the same data type.
+
+If ` return_length ` is less than or equal to the ` original_value ` length,
+this function returns the ` original_value ` value, truncated to the value of
+` return_length ` . For example, ` LPAD('hello world', 7); ` returns ` 'hello w' ` .
+
+If ` original_value ` , ` return_length ` , or ` pattern ` is ` NULL ` , this function returns ` NULL ` .
+
+This function returns an error if:
+
+* ` return_length ` is negative
+* ` pattern ` is empty
+
+**Return type**
+
+` STRING ` or ` BYTES `
+
+**Examples**
+
+
+SELECT t, len, FORMAT('%T', LPAD(t, len)) AS LPAD FROM UNNEST([
+STRUCT('abc' AS t, 5 AS len),
+('abc', 2),
+('例子', 4)
+]);
+
+/*------+-----+----------*
+| t    | len | LPAD     |
+|------|-----|----------|
+| abc  | 5   | "  abc"  |
+| abc  | 2   | "ab"     |
+| 例子  | 4   | "  例子" |
+*------+-----+----------*/
+
+
+SELECT t, len, pattern, FORMAT('%T', LPAD(t, len, pattern)) AS LPAD FROM UNNEST([
+STRUCT('abc' AS t, 8 AS len, 'def' AS pattern),
+('abc', 5, '-'),
+('例子', 5, '中文')
+]);
+
+/*------+-----+---------+--------------*
+| t    | len | pattern | LPAD         |
+|------|-----|---------|--------------|
+| abc  | 8   | def     | "defdeabc"   |
+| abc  | 5   | -       | "--abc"      |
+| 例子  | 5   | 中文    | "中文中例子"   |
+*------+-----+---------+--------------*/
+
+
+SELECT FORMAT('%T', t) AS t, len, FORMAT('%T', LPAD(t, len)) AS LPAD FROM UNNEST([
+STRUCT(b'abc' AS t, 5 AS len),
+(b'abc', 2),
+(b'\xab\xcd\xef', 4)
+]);
+
+/*-----------------+-----+------------------*
+| t               | len | LPAD             |
+|-----------------|-----|------------------|
+| b"abc"          | 5   | b"  abc"         |
+| b"abc"          | 2   | b"ab"            |
+| b"\xab\xcd\xef" | 4   | b" \xab\xcd\xef" |
+*-----------------+-----+------------------*/
+
+
+SELECT FORMAT('%T', t) AS t,
+len,
+FORMAT('%T', pattern) AS pattern,
+FORMAT('%T', LPAD(t, len, pattern)) AS LPAD FROM UNNEST([
+STRUCT(b'abc' AS t, 8 AS len, b'def' AS pattern),
+(b'abc', 5, b'-'),
+(b'\xab\xcd\xef', 5, b'\x00')
+]);
+
+/*-----------------+-----+---------+-------------------------*
+| t               | len | pattern | LPAD                    |
+|-----------------|-----|---------|-------------------------|
+| b"abc"          | 8   | b"def"  | b"defdeabc"             |
+| b"abc"          | 5   | b"-"    | b"--abc"                |
+| b"\xab\xcd\xef" | 5   | b"\x00" | b"\x00\x00\xab\xcd\xef" |
+*-----------------+-----+---------+-------------------------*/

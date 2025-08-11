@@ -1,0 +1,1 @@
+SELECT interest_summary FROM interest_map WHERE interest_name = 'Data Science';

@@ -1,0 +1,227 @@
+version: 2
+
+models:
+
+  - name: dim_date
+    description: This is a dimension model which contains the date calendar. One row per date.
+    columns:
+      - name: dim_date_key
+        description: This is the unique surrogate key of each date
+        tests:
+            - unique
+            - not_null
+
+  - name: dim_tournament
+    description: >
+      Dimension table for ATP tournaments. This table includes tournament-level details
+      such as tournament name, level, surface type, draw size, and the number of matches held in the tournament.
+    tags:
+      - mart
+      - dimension
+    columns:
+      - name: dim_tournament_key
+        description: >
+          Unique identifier for each tournament.
+        tests:
+          - not_null
+          - unique
+      - name: tournament_id
+        description: >
+          The identifier for the tournament, often used to distinguish between different tournaments.
+      - name: tournament_name
+        description: >
+          The name of the ATP tournament.
+      - name: tournament_level
+        description: >
+          The level of the tournament, such as Grand Slam, Masters 1000, or ATP 500.
+      - name: tournament_date
+        description: >
+          The date when the tournament was held.
+      - name: surface
+        description: >
+          The type of court surface (e.g., clay, grass, hard) used in the tournament.
+      - name: draw_size
+        description: >
+          The size of the tournament draw, representing the number of participants.
+      - name: num_of_matches
+        description: >
+          Total number of matches played during the tournament.
+    refs:
+      - name: stg_atp_tour__matches
+      - name: ref_unknown_values
+
+  - name: dim_player
+    description: >
+      Dimension table for ATP players. This table includes player-level details such as name, nationality,
+      date of birth, career statistics (wins, losses), height, and other biographical information.
+    tags:
+      - mart
+      - dimension
+    columns:
+      - name: dim_player_key
+        description: >
+          Unique identifier for each player.
+        tests:
+          - not_null
+          - unique
+      - name: player_id
+        description: >
+          The identifier for the player, often used to distinguish between different players.
+      - name: player_name
+        description: >
+          The full name of the player.
+      - name: player_aka
+        description: >
+          Alternative name or alias for the player, used when the player is known by different names.
+      - name: first_name
+        description: >
+          Player's first name.
+      - name: last_name
+        description: >
+          Player's last name.
+      - name: dominant_hand
+        description: >
+          The hand the player uses to play (e.g., left or right).
+      - name: date_of_birth
+        description: >
+          The player's birth date.
+      - name: nationality
+        description: >
+          The player's nationality.
+      - name: country_iso_code
+        description: >
+          ISO code representing the player's country.
+      - name: country_name
+        description: >
+          Full name of the player's country.
+      - name: height_in_centimeters
+        description: >
+          Player's height in centimeters.
+      - name: height_in_inches
+        description: >
+          Player's height in inches.
+      - name: career_wins_vs_losses
+        description: >
+          The number of career wins and losses, displayed as a ratio.
+      - name: career_win_ratio
+        description: >
+          The player's career win percentage, calculated based on the number of wins and losses.
+      - name: num_of_wins
+        description: >
+          Total number of career wins by the player.
+      - name: num_of_losses
+        description: >
+          Total number of career losses by the player.
+    refs:
+      - name: stg_atp_tour__players
+      - name: stg_atp_tour__matches
+      - name: stg_atp_tour__countries
+      - name: ref_unknown_values
+
+  - name: fct_match
+    description: This is a fact model which contains match events. One row per match.
+    columns:
+      - name: dim_tournament_key
+        description: This is the foreign key to dim_tournament
+        tests:
+            - not_null
+
+      - name: dim_tournament_date_key
+        description: This is the foreign key to dim_date
+        tests:
+            - not_null
+
+      - name: dim_player_winner_key
+        description: This is the foreign key to dim_player
+        tests:
+            - not_null
+
+      - name: dim_player_loser_key
+        description: This is the foreign key to dim_player
+        tests:
+            - not_null
+
+      - name: dim_date_winner_date_of_birth_key
+        description: This is the foreign key to dim_date of the winner's date of birth
+        tests:
+            - not_null
+
+      - name: dim_date_loser_date_of_birth_key
+        description: This is the foreign key to dim_date of the loser's date of birth
+        tests:
+            - not_null
+
+  - name: rpt_match_summary
+    description: >
+      A report summarizing the results of ATP matches, including match dates, tournaments, player performance (winners and losers), and match statistics like aces, rounds, and scores.
+    tags:
+      - mart
+      - report
+    columns:
+      - name: Date
+        description: >
+          The date on which the match took place.
+        tests:
+          - not_null
+      - name: Tournament
+        description: >
+          The name of the ATP tournament where the match was played.
+        tests:
+          - not_null
+      - name: Surface
+        description: >
+          The type of surface the match was played on (e.g., clay, grass, hard).
+        tests:
+          - not_null
+      - name: Round
+        description: >
+          The round in which the match was played (e.g., Quarterfinal, Semifinal, Final).
+        tests:
+          - not_null
+      - name: Winner
+        description: >
+          The name of the player who won the match.
+        tests:
+          - not_null
+      - name: Loser
+        description: >
+          The name of the player who lost the match.
+        tests:
+          - not_null
+      - name: Score
+        description: >
+          The final score of the match, indicating the set scores.
+        tests:
+          - not_null
+      - name: Matches
+        description: >
+          The number of matches played during the event.
+        tests:
+          - not_null
+      - name: Aces
+        description: >
+          The number of aces served by the winner during the match.
+      - name: Year
+        description: >
+          The year in which the match took place.
+        tests:
+          - not_null
+      - name: Hand
+        description: >
+          The dominant hand (left or right) of the player who won the match.
+        tests:
+          - not_null
+
+    refs:
+      - name: fct_match
+        description: >
+          The fact table containing detailed match data for ATP matches.
+      - name: dim_date
+        description: >
+          The dimension table for dates, used to track the date of each match.
+      - name: dim_tournament
+        description: >
+          The dimension table for tournaments, providing information about the tournament where each match was played.
+      - name: dim_player
+        description: >
+          The dimension table for players, containing details about the winning and losing players in each match.

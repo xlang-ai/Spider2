@@ -1,0 +1,25 @@
+## ARRAY_REVERSE
+
+ARRAY_REVERSE(value)
+
+**Description**
+
+Returns the input ` ARRAY ` with elements in reverse order.
+
+**Return type**
+
+` ARRAY `
+
+**Examples**
+
+
+WITH example AS ( SELECT [1, 2, 3] AS arr UNION ALL SELECT [4, 5] AS arr UNION ALL SELECT [] AS arr ) SELECT arr,
+ARRAY_REVERSE(arr) AS reverse_arr FROM example;
+
+/*-----------+-------------*
+| arr       | reverse_arr |
++-----------+-------------+
+| [1, 2, 3] | [3, 2, 1]   |
+| [4, 5]    | [5, 4]      |
+| []        | []          |
+*-----------+-------------*/

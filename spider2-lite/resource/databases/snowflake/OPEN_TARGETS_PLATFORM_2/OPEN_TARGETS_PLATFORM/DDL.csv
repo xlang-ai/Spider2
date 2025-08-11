@@ -1,0 +1,410 @@
+table_name,description,DDL
+ASSOCIATIONBYOVERALLDIRECT,,"create or replace TABLE ASSOCIATIONBYOVERALLDIRECT (
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+DISEASETOPHENOTYPE,,"create or replace TABLE DISEASETOPHENOTYPE (
+	""disease"" VARCHAR(16777216),
+	""phenotype"" VARCHAR(16777216),
+	""evidence"" VARIANT
+);"
+EVIDENCE,,"create or replace TABLE EVIDENCE (
+	""datasourceId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""_corrupt_record"" VARCHAR(16777216),
+	""alleleOrigins"" VARIANT,
+	""allelicRequirements"" VARIANT,
+	""ancestry"" VARCHAR(16777216),
+	""ancestryId"" VARCHAR(16777216),
+	""beta"" FLOAT,
+	""betaConfidenceIntervalLower"" FLOAT,
+	""betaConfidenceIntervalUpper"" FLOAT,
+	""biologicalModelAllelicComposition"" VARCHAR(16777216),
+	""biologicalModelGeneticBackground"" VARCHAR(16777216),
+	""biologicalModelId"" VARCHAR(16777216),
+	""biomarkerName"" VARCHAR(16777216),
+	""biomarkers"" VARIANT,
+	""biosamplesFromSource"" VARIANT,
+	""cellType"" VARCHAR(16777216),
+	""clinicalPhase"" FLOAT,
+	""clinicalSignificances"" VARIANT,
+	""clinicalStatus"" VARCHAR(16777216),
+	""cohortDescription"" VARCHAR(16777216),
+	""cohortId"" VARCHAR(16777216),
+	""cohortPhenotypes"" VARIANT,
+	""cohortShortName"" VARCHAR(16777216),
+	""confidence"" VARCHAR(16777216),
+	""contrast"" VARCHAR(16777216),
+	""crisprScreenLibrary"" VARCHAR(16777216),
+	""datatypeId"" VARCHAR(16777216),
+	""diseaseCellLines"" VARIANT,
+	""diseaseFromSource"" VARCHAR(16777216),
+	""diseaseFromSourceId"" VARCHAR(16777216),
+	""diseaseFromSourceMappedId"" VARCHAR(16777216),
+	""diseaseModelAssociatedHumanPhenotypes"" VARIANT,
+	""diseaseModelAssociatedModelPhenotypes"" VARIANT,
+	""drugFromSource"" VARCHAR(16777216),
+	""drugId"" VARCHAR(16777216),
+	""drugResponse"" VARCHAR(16777216),
+	""geneticBackground"" VARCHAR(16777216),
+	""literature"" VARIANT,
+	""log2FoldChangePercentileRank"" NUMBER(38,0),
+	""log2FoldChangeValue"" FLOAT,
+	""mutatedSamples"" VARIANT,
+	""oddsRatio"" FLOAT,
+	""oddsRatioConfidenceIntervalLower"" FLOAT,
+	""oddsRatioConfidenceIntervalUpper"" FLOAT,
+	""pValueExponent"" NUMBER(38,0),
+	""pValueMantissa"" FLOAT,
+	""pathways"" VARIANT,
+	""pmcIds"" VARIANT,
+	""projectId"" VARCHAR(16777216),
+	""publicationFirstAuthor"" VARCHAR(16777216),
+	""publicationYear"" NUMBER(38,0),
+	""reactionId"" VARCHAR(16777216),
+	""reactionName"" VARCHAR(16777216),
+	""releaseDate"" VARCHAR(16777216),
+	""releaseVersion"" VARCHAR(16777216),
+	""resourceScore"" FLOAT,
+	""sex"" VARIANT,
+	""significantDriverMethods"" VARIANT,
+	""statisticalMethod"" VARCHAR(16777216),
+	""statisticalMethodOverview"" VARCHAR(16777216),
+	""statisticalTestTail"" VARCHAR(16777216),
+	""studyCases"" NUMBER(38,0),
+	""studyCasesWithQualifyingVariants"" NUMBER(38,0),
+	""studyId"" VARCHAR(16777216),
+	""studyOverview"" VARCHAR(16777216),
+	""studySampleSize"" NUMBER(38,0),
+	""studyStartDate"" VARCHAR(16777216),
+	""studyStopReason"" VARCHAR(16777216),
+	""studyStopReasonCategories"" VARIANT,
+	""targetFromSource"" VARCHAR(16777216),
+	""targetFromSourceId"" VARCHAR(16777216),
+	""targetInModel"" VARCHAR(16777216),
+	""targetInModelEnsemblId"" VARCHAR(16777216),
+	""targetInModelMgiId"" VARCHAR(16777216),
+	""targetModulation"" VARCHAR(16777216),
+	""textMiningSentences"" VARIANT,
+	""urls"" VARIANT,
+	""variantAminoacidDescriptions"" VARIANT,
+	""variantFunctionalConsequenceFromQtlId"" VARCHAR(16777216),
+	""variantFunctionalConsequenceId"" VARCHAR(16777216),
+	""variantHgvsId"" VARCHAR(16777216),
+	""variantId"" VARCHAR(16777216),
+	""variantRsId"" VARCHAR(16777216),
+	""diseaseId"" VARCHAR(16777216),
+	""id"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""variantEffect"" VARCHAR(16777216),
+	""directionOnTrait"" VARCHAR(16777216),
+	""sourceId"" VARCHAR(16777216)
+);"
+GO,,"create or replace TABLE GO (
+	""id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216)
+);"
+REACTOME,,"create or replace TABLE REACTOME (
+	""id"" VARCHAR(16777216),
+	""label"" VARCHAR(16777216),
+	""ancestors"" VARIANT,
+	""descendants"" VARIANT,
+	""children"" VARIANT,
+	""parents"" VARIANT,
+	""path"" VARIANT
+);"
+SIGNIFICANTADVERSEDRUGREACTIONS,,"create or replace TABLE SIGNIFICANTADVERSEDRUGREACTIONS (
+	""chembl_id"" VARCHAR(16777216),
+	""event"" VARCHAR(16777216),
+	""count"" NUMBER(38,0),
+	""llr"" FLOAT,
+	""critval"" FLOAT,
+	""meddraCode"" VARCHAR(16777216)
+);"
+TARGETSPRIORISATION,,"create or replace TABLE TARGETSPRIORISATION (
+	""targetId"" VARCHAR(16777216),
+	""isInMembrane"" NUMBER(38,0),
+	""isSecreted"" NUMBER(38,0),
+	""hasSafetyEvent"" NUMBER(38,0),
+	""hasPocket"" NUMBER(38,0),
+	""hasLigand"" NUMBER(38,0),
+	""geneticConstraint"" FLOAT,
+	""paralogMaxIdentityPercentage"" FLOAT,
+	""mouseOrthologMaxIdentityPercentage"" FLOAT,
+	""isCancerDriverGene"" NUMBER(38,0),
+	""hasTEP"" NUMBER(38,0),
+	""hasMouseKO"" NUMBER(38,0),
+	""hasHighQualityChemicalProbes"" NUMBER(38,0),
+	""maxClinicalTrialPhase"" FLOAT,
+	""tissueSpecificity"" FLOAT,
+	""tissueDistribution"" FLOAT
+);"
+TARGETS,,"create or replace TABLE TARGETS (
+	""id"" VARCHAR(16777216),
+	""approvedSymbol"" VARCHAR(16777216),
+	""biotype"" VARCHAR(16777216),
+	""transcriptIds"" VARIANT,
+	""canonicalTranscript"" VARIANT,
+	""canonicalExons"" VARIANT,
+	""genomicLocation"" VARIANT,
+	""alternativeGenes"" VARIANT,
+	""approvedName"" VARCHAR(16777216),
+	""go"" VARIANT,
+	""hallmarks"" VARIANT,
+	""synonyms"" VARIANT,
+	""symbolSynonyms"" VARIANT,
+	""nameSynonyms"" VARIANT,
+	""functionDescriptions"" VARIANT,
+	""subcellularLocations"" VARIANT,
+	""targetClass"" VARIANT,
+	""obsoleteSymbols"" VARIANT,
+	""obsoleteNames"" VARIANT,
+	""constraint"" VARIANT,
+	""tep"" VARIANT,
+	""proteinIds"" VARIANT,
+	""dbXrefs"" VARIANT,
+	""chemicalProbes"" VARIANT,
+	""homologues"" VARIANT,
+	""tractability"" VARIANT,
+	""safetyLiabilities"" VARIANT,
+	""pathways"" VARIANT
+);"
+ASSOCIATIONBYDATASOURCEDIRECT,,"create or replace TABLE ASSOCIATIONBYDATASOURCEDIRECT (
+	""datatypeId"" VARCHAR(16777216),
+	""datasourceId"" VARCHAR(16777216),
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+ASSOCIATIONBYOVERALLINDIRECT,,"create or replace TABLE ASSOCIATIONBYOVERALLINDIRECT (
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+DRUGWARNINGS,,"create or replace TABLE DRUGWARNINGS (
+	""chemblIds"" VARIANT,
+	""toxicityClass"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""description"" VARCHAR(16777216),
+	""id"" NUMBER(38,0),
+	""references"" VARIANT,
+	""warningType"" VARCHAR(16777216),
+	""year"" NUMBER(38,0),
+	""efo_term"" VARCHAR(16777216),
+	""efo_id"" VARCHAR(16777216),
+	""efo_id_for_warning_class"" VARCHAR(16777216)
+);"
+MOLECULE,,"create or replace TABLE MOLECULE (
+	""id"" VARCHAR(16777216),
+	""canonicalSmiles"" VARCHAR(16777216),
+	""inchiKey"" VARCHAR(16777216),
+	""drugType"" VARCHAR(16777216),
+	""blackBoxWarning"" BOOLEAN,
+	""name"" VARCHAR(16777216),
+	""yearOfFirstApproval"" NUMBER(38,0),
+	""maximumClinicalTrialPhase"" FLOAT,
+	""parentId"" VARCHAR(16777216),
+	""hasBeenWithdrawn"" BOOLEAN,
+	""isApproved"" BOOLEAN,
+	""tradeNames"" VARIANT,
+	""synonyms"" VARIANT,
+	""crossReferences"" VARIANT,
+	""childChemblIds"" VARIANT,
+	""linkedDiseases"" VARIANT,
+	""linkedTargets"" VARIANT,
+	""description"" VARCHAR(16777216)
+);"
+DISEASES,,"create or replace TABLE DISEASES (
+	""id"" VARCHAR(16777216),
+	""code"" VARCHAR(16777216),
+	""dbXRefs"" VARIANT,
+	""description"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""directLocationIds"" VARIANT,
+	""obsoleteTerms"" VARIANT,
+	""parents"" VARIANT,
+	""synonyms"" VARIANT,
+	""ancestors"" VARIANT,
+	""descendants"" VARIANT,
+	""children"" VARIANT,
+	""therapeuticAreas"" VARIANT,
+	""indirectLocationIds"" VARIANT,
+	""ontology"" VARIANT
+);"
+ASSOCIATIONBYDATATYPEINDIRECT,,"create or replace TABLE ASSOCIATIONBYDATATYPEINDIRECT (
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""datatypeId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+EXPRESSIONSPECIFICITY,,"create or replace TABLE EXPRESSIONSPECIFICITY (
+	""ensemblGeneId"" VARCHAR(16777216),
+	""expression"" VARIANT,
+	""expressionSpecificity"" VARIANT
+);"
+INDICATION,,"create or replace TABLE INDICATION (
+	""id"" VARCHAR(16777216),
+	""indications"" VARIANT,
+	""approvedIndications"" VARIANT,
+	""indicationCount"" NUMBER(38,0)
+);"
+KNOWNDRUGSAGGREGATED,,"create or replace TABLE KNOWNDRUGSAGGREGATED (
+	""drugId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""diseaseId"" VARCHAR(16777216),
+	""phase"" FLOAT,
+	""status"" VARCHAR(16777216),
+	""urls"" VARIANT,
+	""ancestors"" VARIANT,
+	""label"" VARCHAR(16777216),
+	""approvedSymbol"" VARCHAR(16777216),
+	""approvedName"" VARCHAR(16777216),
+	""targetClass"" VARIANT,
+	""prefName"" VARCHAR(16777216),
+	""tradeNames"" VARIANT,
+	""synonyms"" VARIANT,
+	""drugType"" VARCHAR(16777216),
+	""mechanismOfAction"" VARCHAR(16777216),
+	""targetName"" VARCHAR(16777216)
+);"
+MECHANISMOFACTION,,"create or replace TABLE MECHANISMOFACTION (
+	""actionType"" VARCHAR(16777216),
+	""mechanismOfAction"" VARCHAR(16777216),
+	""chemblIds"" VARIANT,
+	""targetName"" VARCHAR(16777216),
+	""targetType"" VARCHAR(16777216),
+	""targets"" VARIANT,
+	""references"" VARIANT
+);"
+TARGETESSENTIALITY,,"create or replace TABLE TARGETESSENTIALITY (
+	""id"" VARCHAR(16777216),
+	""geneEssentiality"" VARIANT
+);"
+INTERACTION,,"create or replace TABLE INTERACTION (
+	""sourceDatabase"" VARCHAR(16777216),
+	""targetA"" VARCHAR(16777216),
+	""intA"" VARCHAR(16777216),
+	""intABiologicalRole"" VARCHAR(16777216),
+	""targetB"" VARCHAR(16777216),
+	""intB"" VARCHAR(16777216),
+	""intBBiologicalRole"" VARCHAR(16777216),
+	""speciesA"" VARIANT,
+	""speciesB"" VARIANT,
+	""count"" NUMBER(38,0),
+	""scoring"" FLOAT
+);"
+PHARMACOGENOMICS,,"create or replace TABLE PHARMACOGENOMICS (
+	""datasourceId"" VARCHAR(16777216),
+	""datasourceVersion"" VARCHAR(16777216),
+	""datatypeId"" VARCHAR(16777216),
+	""directionality"" VARCHAR(16777216),
+	""evidenceLevel"" VARCHAR(16777216),
+	""genotype"" VARCHAR(16777216),
+	""genotypeAnnotationText"" VARCHAR(16777216),
+	""genotypeId"" VARCHAR(16777216),
+	""haplotypeFromSourceId"" VARCHAR(16777216),
+	""haplotypeId"" VARCHAR(16777216),
+	""literature"" VARIANT,
+	""pgxCategory"" VARCHAR(16777216),
+	""phenotypeFromSourceId"" VARCHAR(16777216),
+	""phenotypeText"" VARCHAR(16777216),
+	""studyId"" VARCHAR(16777216),
+	""targetFromSourceId"" VARCHAR(16777216),
+	""variantFunctionalConsequenceId"" VARCHAR(16777216),
+	""variantRsId"" VARCHAR(16777216),
+	""isDirectTarget"" BOOLEAN,
+	""drugs"" VARIANT
+);"
+ASSOCIATIONBYDATASOURCEINDIRECT,,"create or replace TABLE ASSOCIATIONBYDATASOURCEINDIRECT (
+	""datatypeId"" VARCHAR(16777216),
+	""datasourceId"" VARCHAR(16777216),
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+ASSOCIATIONBYDATATYPEDIRECT,,"create or replace TABLE ASSOCIATIONBYDATATYPEDIRECT (
+	""diseaseId"" VARCHAR(16777216),
+	""targetId"" VARCHAR(16777216),
+	""datatypeId"" VARCHAR(16777216),
+	""score"" FLOAT,
+	""evidenceCount"" NUMBER(38,0)
+);"
+BASELINEEXPRESSION,,"create or replace TABLE BASELINEEXPRESSION (
+	""id"" VARCHAR(16777216),
+	""tissues"" VARIANT
+);"
+HPO,,"create or replace TABLE HPO (
+	""dbXRefs"" VARIANT,
+	""description"" VARCHAR(16777216),
+	""id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216),
+	""namespace"" VARIANT,
+	""obsolete_terms"" VARIANT,
+	""parents"" VARIANT
+);"
+MOUSEPHENOTYPES,,"create or replace TABLE MOUSEPHENOTYPES (
+	""biologicalModels"" VARIANT,
+	""modelPhenotypeClasses"" VARIANT,
+	""modelPhenotypeId"" VARCHAR(16777216),
+	""modelPhenotypeLabel"" VARCHAR(16777216),
+	""targetFromSourceId"" VARCHAR(16777216),
+	""targetInModel"" VARCHAR(16777216),
+	""targetInModelEnsemblId"" VARCHAR(16777216),
+	""targetInModelMgiId"" VARCHAR(16777216)
+);"
+INTERACTIONEVIDENCE,,"create or replace TABLE INTERACTIONEVIDENCE (
+	""hostOrganismTissue"" VARIANT,
+	""targetB"" VARCHAR(16777216),
+	""evidenceScore"" FLOAT,
+	""intBBiologicalRole"" VARCHAR(16777216),
+	""interactionResources"" VARIANT,
+	""interactionTypeMiIdentifier"" VARCHAR(16777216),
+	""interactionDetectionMethodShortName"" VARCHAR(16777216),
+	""intA"" VARCHAR(16777216),
+	""intBSource"" VARCHAR(16777216),
+	""speciesB"" VARIANT,
+	""interactionIdentifier"" VARCHAR(16777216),
+	""hostOrganismTaxId"" NUMBER(38,0),
+	""participantDetectionMethodA"" VARIANT,
+	""expansionMethodShortName"" VARCHAR(16777216),
+	""speciesA"" VARIANT,
+	""intASource"" VARCHAR(16777216),
+	""intB"" VARCHAR(16777216),
+	""pubmedId"" VARCHAR(16777216),
+	""intABiologicalRole"" VARCHAR(16777216),
+	""hostOrganismScientificName"" VARCHAR(16777216),
+	""interactionScore"" FLOAT,
+	""interactionTypeShortName"" VARCHAR(16777216),
+	""expansionMethodMiIdentifier"" VARCHAR(16777216),
+	""targetA"" VARCHAR(16777216),
+	""participantDetectionMethodB"" VARIANT,
+	""interactionDetectionMethodMiIdentifier"" VARCHAR(16777216)
+);"
+OT_RELEASE,,"create or replace TABLE OT_RELEASE (
+	""release"" VARCHAR(16777216)
+);"
+TARGETPRIORITISATION,,"create or replace TABLE TARGETPRIORITISATION (
+	""targetId"" VARCHAR(16777216),
+	""isInMembrane"" NUMBER(38,0),
+	""isSecreted"" NUMBER(38,0),
+	""hasSafetyEvent"" NUMBER(38,0),
+	""hasPocket"" NUMBER(38,0),
+	""hasLigand"" NUMBER(38,0),
+	""hasSmallMoleculeBinder"" NUMBER(38,0),
+	""geneticConstraint"" FLOAT,
+	""paralogMaxIdentityPercentage"" FLOAT,
+	""mouseOrthologMaxIdentityPercentage"" FLOAT,
+	""isCancerDriverGene"" NUMBER(38,0),
+	""hasTEP"" NUMBER(38,0),
+	""mouseKOScore"" FLOAT,
+	""hasHighQualityChemicalProbes"" NUMBER(38,0),
+	""maxClinicalTrialPhase"" FLOAT,
+	""tissueSpecificity"" FLOAT,
+	""tissueDistribution"" FLOAT
+);"

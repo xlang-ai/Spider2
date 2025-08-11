@@ -1,0 +1,175 @@
+## LAX_FLOAT64
+
+LAX_FLOAT64(json_expr)
+
+**Description**
+
+Attempts to convert a JSON value to a SQL ` FLOAT64 ` value.
+
+Arguments:
+
+* ` json_expr ` : JSON. For example:
+
+JSON '9.8'
+
+Details:
+
+* If ` json_expr ` is SQL ` NULL ` , the function returns SQL ` NULL ` .
+* See the conversion rules in the next section for additional ` NULL ` handling.
+
+**Conversion rules**
+
+From JSON type  |  To SQL ` FLOAT64 `
+---|---
+boolean  |  ` NULL `
+string  |  If the JSON string represents a JSON number, parses it as a `
+BIGNUMERIC ` value, and then safe casts the result as a ` FLOAT64 ` value. If the JSON string can't be converted, returns ` NULL ` .
+number  |  Casts the JSON number as a ` FLOAT64 ` value. Large JSON numbers are rounded.
+other type or null  |  ` NULL `
+
+**Return type**
+
+` FLOAT64 `
+
+**Examples**
+
+Examples with inputs that are JSON numbers:
+
+
+SELECT LAX_FLOAT64(JSON '9.8') AS result;
+
+/*--------*
+| result |
++--------+
+| 9.8    |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '9') AS result;
+
+/*--------*
+| result |
++--------+
+| 9.0    |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '9007199254740993') AS result;
+
+/*--------------------*
+| result             |
++--------------------+
+| 9007199254740992.0 |
+*--------------------*/
+
+
+SELECT LAX_FLOAT64(JSON '1e100') AS result;
+
+/*--------*
+| result |
++--------+
+| 1e+100 |
+*--------*/
+
+Examples with inputs that are JSON booleans:
+
+
+SELECT LAX_FLOAT64(JSON 'true') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON 'false') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/
+
+Examples with inputs that are JSON strings:
+
+
+SELECT LAX_FLOAT64(JSON '"10"') AS result;
+
+/*--------*
+| result |
++--------+
+| 10.0   |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '"1.1"') AS result;
+
+/*--------*
+| result |
++--------+
+| 1.1    |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '"1.1e2"') AS result;
+
+/*--------*
+| result |
++--------+
+| 110.0  |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '"9007199254740993"') AS result;
+
+/*--------------------*
+| result             |
++--------------------+
+| 9007199254740992.0 |
+*--------------------*/
+
+
+SELECT LAX_FLOAT64(JSON '"+1.5"') AS result;
+
+/*--------*
+| result |
++--------+
+| 1.5    |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '"NaN"') AS result;
+
+/*--------*
+| result |
++--------+
+| NaN    |
+*--------*/
+
+
+SELECT LAX_FLOAT64(JSON '"Inf"') AS result;
+
+/*----------*
+| result   |
++----------+
+| Infinity |
+*----------*/
+
+
+SELECT LAX_FLOAT64(JSON '"-InfiNiTY"') AS result;
+
+/*-----------*
+| result    |
++-----------+
+| -Infinity |
+*-----------*/
+
+
+SELECT LAX_FLOAT64(JSON '"foo"') AS result;
+
+/*--------*
+| result |
++--------+
+| NULL   |
+*--------*/

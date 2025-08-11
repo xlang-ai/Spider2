@@ -1,0 +1,963 @@
+version: 2
+
+models:
+
+  - name: stg_salesforce__account
+    description: Represents an individual account, which is an organization or person involved with your business (such as customers, competitors, and partners).
+    columns:
+      - name: account_id
+        description: The unique, system-generated ID assigned during creation
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced 
+        description: The time at which fivetran last synced this record
+      - name: account_number
+        description: Account number assigned to this account (not the unique, system-generated ID assigned during creation).
+      - name: account_source 
+        description: The source of the account record. For example, Advertisement, Data.com, or Trade Show.
+      - name: annual_revenue 
+        description: Estimated annual revenue of the account.
+      - name: billing_city 
+        description: Details for the billing address of this account.
+      - name: billing_country 
+        description: Details for the billing address of this account.
+      - name: billing_country_code 
+        description: The ISO country code for the account’s billing address.
+      - name: billing_geocode_accuracy 
+        description: Accuracy level of the geocode for the billing address. See Compound Field Considerations and Limitations for details on geolocation compound fields.
+      - name: billing_latitude 
+        description: Used with BillingLongitude to specify the precise geolocation of a billing address.
+      - name: billing_longitude 
+        description: Used with BillingLatitude to specify the precise geolocation of a billing address.
+      - name: billing_postal_code 
+        description: Details for the billing address of this account.
+      - name: billing_state 
+        description: Details for the billing address of this account.
+      - name: billing_state_code 
+        description: The ISO state code for the account’s billing address.
+      - name: billing_street 
+        description: Street address for the billing address of this account.
+      - name: account_description 
+        description: Text description of the account.
+      - name: fax 
+        description: Fax number for the account.
+      - name: industry
+        description: An industry associated with this account.
+      - name: is_deleted
+        description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false).
+      - name: jigsaw_company_id 
+        description: References the ID of a company in Data.com. If an account has a value in this field, it means that the account was imported from Data.com.
+      - name: last_activity_date
+        description: Value is one of the following, whichever is the most recent
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: master_record_id
+        description: If this object was deleted as the result of a merge, this field contains the ID of the record that was kept. If this object was deleted for any other reason, or has not been deleted, the value is null.
+      - name: account_name 
+        description: Required. Name of the account.
+      - name: number_of_employees 
+        description: Number of employees working at the company represented by this account.
+      - name: owner_id 
+        description: The ID of the user who currently owns this account.
+      - name: ownership 
+        description: Ownership type for the account, for example Private, Public, or Subsidiary.
+      - name: parent_id 
+        description: ID of the parent object, if any.
+      - name: phone 
+        description: Phone number for this account.
+      - name: photo_url
+        description: Path to be combined with the URL of a Salesforce instance (for example, https://yourInstance.salesforce.com/) to generate a URL to request the social network profile image associated with the account.
+      - name: rating 
+        description: The account’s prospect rating, for example Hot, Warm, or Cold.
+      - name: record_type_id 
+        description: ID of the record type assigned to this object.
+      - name: shipping_city 
+        description: Details of the shipping address for this account
+      - name: shipping_country 
+        description: Details of the shipping address for this account. Country
+      - name: shipping_country_code 
+        description: The ISO country code for the account’s shipping address.
+      - name: shipping_geocode_accuracy 
+        description: Accuracy level of the geocode for the shipping address.
+      - name: shipping_latitude 
+        description: Used with ShippingLongitude to specify the precise geolocation of a shipping address.
+      - name: shipping_longitude 
+        description: Used with ShippingLatitude to specify the precise geolocation of an address.
+      - name: shipping_postal_code 
+        description: Details of the shipping address for this account. Postal code
+      - name: shipping_state 
+        description: Details of the shipping address for this account. State
+      - name: shipping_state_code 
+        description: The ISO state code for the account’s shipping address.
+      - name: shipping_street 
+        description: The street address of the shipping address for this account.
+      - name: sic 
+        description: Standard Industrial Classification code of the company’s main business categorization, for example, 57340 for Electronics.
+      - name: sic_desc 
+        description: A brief description of an organization’s line of business, based on its SIC code.
+      - name: site 
+        description: Name of the account’s location, for example Headquarters or London.
+      - name: ticker_symbol 
+        description: The stock market symbol for this account. This field is available on business accounts, not person accounts.
+      - name: type 
+        description: Type of account, for example, Customer, Competitor, or Partner.
+      - name: website 
+        description: The website of this account.
+
+  - name: stg_salesforce__opportunity
+    description: Represents an opportunity, which is a sale or pending deal.
+    columns:
+      - name: opportunity_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced 
+        description: The time at which fivetran last synced this record 
+      - name: account_id
+        description: ID of the account associated with this opportunity.
+      - name: amount
+        description: Estimated total sale amount. For opportunities with products, the amount is the sum of the related products.
+      - name: campaign_id
+        description: ID of a related Campaign. This field is defined only for those organizations that have the campaign feature Campaigns enabled.
+      - name: close_date
+        description: Required. Date when the opportunity is expected to close. The Close Date will change as you work the sale. It should never be set in stone as it affects your sales pipeline, and it should never be in the past.
+      - name: created_date
+        description: Date when the opportunity was created.
+      - name: opportunity_description
+        description: Text description of the opportunity.
+      - name: expected_revenue
+        description: Read-only field that is equal to the product of the opportunity Amount field and the Probability.
+      - name: fiscal
+        description: If fiscal years are not enabled, the name of the fiscal quarter or period in which the opportunity CloseDate falls.
+      - name: fiscal_quarter
+        description: Represents the fiscal quarter. Valid values are 1, 2, 3, or 4.
+      - name: fiscal_year
+        description: Represents the fiscal year, for example, 2006.
+      - name: forecast_category
+        description: Restricted picklist field.
+      - name: forecast_category_name
+        description: The name of the forecast category.
+      - name: has_open_activity
+        description: Indicates whether an opportunity has an open event or task (true) or not (false).
+      - name: has_opportunity_line_item
+        description: Read-only field that indicates whether the opportunity has associated line items. A value of true means that Opportunity line items have been created for the opportunity.
+      - name: has_overdue_task
+        description: Indicates whether an opportunity has an overdue task (true) or not (false).
+      - name: is_closed
+        description: True, if Stage Name Label is Closed.
+      - name: is_deleted
+        description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false).
+      - name: is_excluded_from_territory_2_filter
+        description: Used for Filter-Based Opportunity Territory Assignment. Indicates whether the opportunity is excluded (True) or included (False) each time the APEX filter is executed.
+      - name: is_won
+        description: True, if Stage Name Label is Won.
+      - name: last_activity_date
+        description: Value is one of the following, whichever is the most recent:Due date of the most recent event logged against the record or Due date of the most recently closed task associated with the record.
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: lead_source
+        description: Source of this opportunity, such as Advertisement or Trade Show.
+      - name: opportunity_name
+        description: Required. A name for this opportunity.
+      - name: next_step
+        description: Description of next task in closing opportunity.
+      - name: owner_id
+        description: ID of the User who has been assigned to work this opportunity.
+      - name: Pricebook2Id
+        description: ID of a related Pricebook2 object. The Pricebook2Id field indicates which Pricebook2 applies to this opportunity. The Pricebook2Id field is defined only for those organizations that have products enabled as a feature. You can specify values for only one field (Pricebook2Id or PricebookId)—not both fields. For this reason, both fields are declared nillable.
+      - name: pricebook_2_id
+        description: Unavailable as of version 3.0. As of version 8.0, the Pricebook object is no longer available. Use the Pricebook2Id field instead, specifying the ID of the Pricebook2 record.
+      - name: probability
+        description: Percentage of estimated confidence in closing the opportunity.
+      - name: record_type_id
+        description: ID of the record type assigned to this object.
+      - name: stage_name
+        description: Required. Current stage of this record. The StageName field controls several other fields on an opportunity.
+      - name: synced_quote_id
+        description: The ID of the Quote that syncs with the opportunity.
+      - name: territory_2_id
+        description: The ID of the territory that is assigned to the opportunity.
+      - name: type
+        description: Type of opportunity. For example, Existing Business or New Business.
+      - name: is_created_this_month
+        description: Yes, if the opportunity created date is in the current month.
+      - name: is_created_this_quarter
+        description: Yes, if the opportunity created date is in the current quarter.
+      - name: days_since_created
+        description: The difference, in days, between the opportunity created date and the current timestamp.
+      - name: days_to_close
+        description: The difference, in days, between the opportunity created date and the opportunity close date.
+      - name: is_closed_this_month
+        description: Yes, if the opportunity close date is in the current month.
+      - name: is_closed_this_quarter
+        description: Yes, if the opportunity close date is in the current quarter.
+
+  - name: stg_salesforce__user
+    description: Represents a user in your organization.
+    columns:
+      - name: user_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced 
+        description: The time at which fivetran last synced this record 
+      - name: _fivetran_deleted 
+        description: True, if this field has been deleted
+      - name: about_me
+        description: Information about the user, such as areas of interest or skills.
+      - name: account_id
+        description: ID of the Account associated with a Customer Portal user. This field is null for Salesforce users.
+      - name: alias
+        description: Required. The user’s alias. For example, jsmith.
+      - name: badge_text
+        description: The community role, displayed on the user profile page just below the user name.
+      - name: banner_photo_url
+        description: The URL for the user's banner photo.
+      - name: call_center_id
+        description: If Salesforce CRM Call Center is enabled, represents the call center to which this user is assigned.
+      - name: city
+        description: The city associated with the user. Up to 40 characters allowed.
+      - name: community_nickname
+        description: Name used to identify this user in the Community application, which includes the ideas and answers features.
+      - name: company_name
+        description: The name of the user’s company.
+      - name: contact_id
+        description: ID of the Contact associated with this account. The contact must have a value in the AccountId field or an error occurs.
+      - name: country
+        description: The country associated with the user.
+      - name: country_code
+        description: The ISO country code associated with the user.
+      - name: default_group_notification_frequency
+        description: The default frequency for sending the user's Chatter group email notifications when the user joins groups.
+      - name: delegated_approver_id
+        description: Id of the user who is a delegated approver for this user.
+      - name: department
+        description: The company department associated with the user.
+      - name: digest_frequency
+        description: The frequency at which the system sends the user’s Chatter personal email digest.
+      - name: division
+        description: The division associated with this user, similar to Department and unrelated to DefaultDivision.
+      - name: email
+        description: Required. The user’s email address.
+      - name: email_encoding_key
+        description: Required. The email encoding for the user, such as ISO-8859-1 or UTF-8.
+      - name: email_preferences_auto_bcc
+        description: Determines whether the user receives copies of sent emails. This option applies only if compliance BCC emails are not enabled.
+      - name: employee_number
+        description: The user’s employee number.
+      - name: extension
+        description: The user’s phone extension number.
+      - name: fax
+        description: The user’s fax number.
+      - name: federation_identifier
+        description: Indicates the value that must be listed in the Subject element of a Security Assertion Markup Language (SAML) IDP certificate to authenticate the user for a client application using single sign-on.
+      - name: first_name
+        description: The user’s first name.
+      - name: forecast_enabled
+        description: Indicates whether the user is enabled as a forecast manager (true) or not (false).
+      - name: full_photo_url
+        description: The URL for the user's profile photo.
+      - name: geocode_accuracy
+        description: The level of accuracy of a location’s geographical coordinates compared with its physical address.
+      - name: individual_id
+        description: ID of the data privacy record associated with this user. This field is available if Data Protection and Privacy is enabled.
+      - name: is_active
+        description: Indicates whether the user has access to log in (true) or not (false).
+      - name: is_profile_photo_active
+        description: Indicates whether a user has a profile photo (true) or not (false).
+      - name: language_locale_key
+        description: Required. The user’s language, such as “French” or “Chinese (Traditional).”
+      - name: last_login_date
+        description: The date and time when the user last successfully logged in. This value is updated if 60 seconds have elapsed since the user’s last login.
+      - name: last_name
+        description: Required. The user’s last name.
+      - name: last_referenced_date
+        description: The timestamp for when the current user last viewed a record related to this record.
+      - name: last_viewed_date
+        description: The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed.
+      - name: latitude
+        description: Used with Longitude to specify the precise geolocation of an address.
+      - name: locale_sid_key
+        description: Required. This field is a restricted picklist field. The value of the field affects formatting and parsing of values, especially numeric values, in the user interface.
+      - name: longitude
+        description: Used with Latitude to specify the precise geolocation of an address.
+      - name: manager_id
+        description: The Id of the user who manages this user.
+      - name: medium_banner_photo_url
+        description: The URL for the medium-sized user profile banner photo.
+      - name: mobile_phone
+        description: The user’s mobile or cellular phone number.
+      - name: user_name
+        description: Concatenation of FirstName and LastName.
+      - name: offline_trial_expiration_date
+        description: The date and time when the user’s Connect Offline trial expires.
+      - name: phone
+        description: The user’s phone number.
+      - name: postal_code
+        description: The user’s postal or ZIP code.
+      - name: profile_id
+        description: Required. ID of the user’s Profile. Use this value to cache metadata based on profile. In earlier releases, this was RoleId.
+      - name: receives_admin_info_emails
+        description: Indicates whether the user receives email for administrators from Salesforce (true) or not (false).
+      - name: receives_info_emails
+        description: Indicates whether the user receives informational email from Salesforce (true) or not (false).
+      - name: sender_email
+        description: The email address used as the From address when the user sends emails. This address is the same value shown in Setup on the My Email Settings page.
+      - name: sender_name
+        description: The name used as the email sender when the user sends emails. This name is the same value shown in Setup on the My Email Settings page.
+      - name: signature
+        description: The signature text added to emails.
+      - name: small_banner_photo_url
+        description: The URL for the small user profile banner photo.
+      - name: small_photo_url
+        description: The URL for a thumbnail of the user's profile photo.
+      - name: state
+        description: The state associated with the User.
+      - name: state_code
+        description: The ISO state code associated with the user.
+      - name: street
+        description: The street address associated with the User.
+      - name: time_zone_sid_key
+        description: Required. This field is a restricted picklist field. A User time zone affects the offset used when displaying or entering times in the user interface.
+      - name: title
+        description: The user’s business title, such as “Vice President.”
+      - name: username
+        description: Contains the name that a user enters to log in. The value for this field must be in the form of an email address, using all lowercase characters. It must also be unique across all organizations.
+      - name: user_role_id
+        description: ID of the user’s UserRole.
+      - name: user_type
+        description: The category of user license.
+
+  - name: stg_salesforce__user_role
+    description: Represents a user role in your organization.
+    columns:
+      - name: user_role_id
+        description: The unique, system-generated ID assigned during creation
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced 
+        description: The time at which fivetran last synced this record 
+      - name: _fivetran_deleted 
+        description: True, if this field has been deleted
+      - name: case_access_for_account_owner
+        description: The case access level for the account owner.
+      - name: contact_access_for_account_owner
+        description: The contact access level for the account owner.
+      - name: developer_name
+        description: The unique name of the object in the API.
+      - name: forecast_user_id
+        description: The ID of the forecast manager associated with this role.
+      - name: may_forecast_manager_share
+        description: Indicates whether the forecast manager can manually share their own forecast.
+      - name: user_role_name
+        description: Required. Name of the role. Corresponds to Label on the user interface.
+      - name: opportunity_access_for_account_owner
+        description: Required. The opportunity access level for the account owner.
+      - name: parent_role_id
+        description: The ID of the parent role.
+      - name: portal_type
+        description: This value indicates the type of portal for the role
+      - name: rollup_description
+        description: Description of the forecast rollup.
+
+  - name: stg_salesforce__contact
+    description: Represents a contact, which is a person associated with an account.
+    columns:
+      - name: contact_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: account_id
+        description: ID of the account that’s the parent of this contact.
+      - name: department
+        description: The contact’s department.
+      - name: contact_description
+        description: A description of the contact. Label is Contact Description up to 32 KB.
+      - name: email
+        description: The contact’s email address.
+      - name: first_name
+        description: The contact’s first name up to 40 characters.
+      - name: home_phone
+        description: The contact’s home telephone number.
+      - name: individual_id
+        description: ID of the data privacy record associated with this contact. This field is available if Data Protection and Privacy is enabled. This is a relationship field.
+      - name: is_deleted
+        description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.
+      - name: last_activity_date
+        description: > 
+          Value is the most recent of either:
+          Due date of the most recent event logged against the record.
+          Due date of the most recently closed task associated with the record.
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: last_name
+        description: Required. Last name of the contact up to 80 characters.
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: lead_source
+        description: The lead’s source.
+      - name: mailing_city
+        description: Mailing address details.
+      - name: mailing_country
+        description: Mailing address details. 
+      - name: mailing_country_code
+        description: The ISO codes for the mailing address’s state and country.
+      - name: mailing_postal_code
+        description: Mailing address details.
+      - name: mailing_state
+        description: Mailing address details.
+      - name: mailing_state_code
+        description: The ISO codes for the mailing address’s state and country.
+      - name: mailing_street
+        description: Street address for mailing address.
+      - name: master_record_id
+        description: >
+          If this record was deleted as the result of a merge, this field contains the ID of the record that remains. If this record was deleted for any other reason, or has not been deleted, the value is null.
+          This is a relationship field.
+      - name: mobile_phone
+        description: Contact’s mobile phone number.
+      - name: contact_name
+        description: Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces.
+      - name: owner_id
+        description: >
+          The ID of the owner of the account associated with this contact.
+          This is a relationship field.
+      - name: phone
+        description: Telephone number for the contact. Label is Business Phone.
+      - name: reports_to_id
+        description: > 
+          This field doesn’t appear if IsPersonAccount is true.
+          This is a relationship field.
+      - name: title
+        description: Title
+
+  - name: stg_salesforce__event 
+    description: Represents an event in the calendar. In the user interface, event and task records are collectively referred to as activities.
+    columns:
+      - name: event_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: account_id
+        description: >
+          Represents the ID of the related account. The AccountId is determined as follows.
+          If the value of WhatId is any of the following objects, then Salesforce uses that object’s AccountId.
+
+          Account
+          Opportunity
+          Contract
+          Custom object that is a child of Account
+          If the value of the WhatId field is any other object, and the value of the WhoId field is a contact object, then Salesforce uses that contact’s AccountId. (If your org uses Shared Activities, Salesforce uses the AccountId of the primary contact.)
+
+          Otherwise, Salesforce sets the value of the AccountId field to null.
+
+          For information on IDs, see ID Field Type.
+
+          This is a relationship field.
+      - name: activity_date
+        description: >
+          Contains the event’s due date if the IsAllDayEvent flag is set to true. This field is a date field with a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone. Don’t attempt to alter the timestamp to account for time zone differences. Label is Due Date Only.
+          This field is required in versions 12.0 and earlier if the IsAllDayEvent flag is set to true.
+
+          The value for this field and StartDateTime must match, or one of them must be null.
+      - name: activity_date_time
+        description: >
+          Contains the event’s due date if the IsAllDayEvent flag is set to false. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate. Label is Due Date Time.
+          This field is required in versions 12.0 and earlier if the IsAllDayEvent flag is set to false.
+
+          The value for this field and StartDateTime must match, or one of them must be null.
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: event_description
+        description: Contains a text description of the event.
+      - name: duration_in_minutes
+        description: >
+          Contains the event length, in minutes
+      - name: end_date
+        description: Read-only. Available in versions 46.0 and later. This field supplies the date value that appears in the EndDateTime field. This field is a date field with a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone.
+      - name: end_date_time
+        description: Available in versions 13.0 and later. The time portion of this field is always transferred in the Coordinated Universal Time (UTC) time zone. Translate the time portion to or from a local time zone for the user or the application, as appropriate.
+      - name: event_subtype
+        description: Provides standard subtypes to facilitate creating and searching for events. This field isn’t updateable.
+      - name: group_event_type
+        description: Group Event Type
+      - name: is_archived
+        description: Indicates whether the event has been archived.
+      - name: is_child
+        description: Indicates whether the event is a child of another event (true) or not (false). For a child event, you can update IsReminderSet and ReminderDateTime only. You can query and delete a child event. If the objects related to the child event are different from those objects related to the parent event (this difference is possible if you use API version 25.0 or earlier) and one of the objects related to the child event is deleted, the objects related to the parent event are updated to ensure data integrity.
+      - name: is_deleted
+        description: Deleted
+      - name: is_group_event
+        description: Indicates whether the event is a group event—that is, whether it has invitees (true) or not (false).
+      - name: is_recurrence
+        description: Indicates whether a Salesforce Classic event is scheduled to repeat itself (true) or only occurs one time (false). This field is read-only when updating records, but not when creating them. If this field value is true, then RecurrenceEndDateOnly, RecurrenceStartDateTime, RecurrenceType, and any recurrence fields associated with the given recurrence type must be populated. Label is Create recurring series of events.
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: location
+        description: Contains the location of the event.
+      - name: owner_id
+        description: Contains the ID of the user or public calendar who owns the event. Label is Assigned to ID. This is a polymorphic relationship field.
+      - name: start_date_time
+        description: > 
+          Indicates the start date and time of the event. Available in versions 13.0 and later.
+
+          If this field has a value, then ActivityDate and ActivityDateTime must either be null or match the value of this field.
+      - name: subject
+        description: The subject line of the event, such as Call, Email, or Meeting. 
+      - name: type
+        description: Indicates the event type, such as Call, Email, or Meeting.
+      - name: what_count
+        description: Available if your organization has enabled Shared Activities. Represents the count of related EventRelations pertaining to the WhatId. The count of the WhatId must be 1 or less.
+      - name: what_id
+        description: The WhatId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. WhatIds are polymorphic. Polymorphic means a WhatId is equivalent to the ID of a related object. The label is Related To ID. This is a polymorphic relationship field.
+      - name: who_count
+        description: Available to organizations that have Shared Activities enabled. Represents the count of related EventRelations pertaining to the WhoId.
+      - name: who_id
+        description: >
+          The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID.
+        
+  - name: stg_salesforce__lead
+    description: Represents a prospect or lead.
+    columns:
+      - name: lead_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: annual_revenue
+        description: Annual revenue for the lead’s company.
+      - name: city
+        description: City for the lead’s address.
+      - name: company
+        description: Required. The lead’s company.
+      - name: converted_account_id
+        description: Object reference ID that points to the account into which the lead converted. This is a relationship field.
+      - name: converted_contact_id
+        description: Object reference ID that points to the contact into which the lead converted. This is a relationship field.
+      - name: converted_date
+        description: Date on which this lead was converted.
+      - name: converted_opportunity_id
+        description: Object reference ID that points to the opportunity into which the lead has been converted. This is a relationship field.
+      - name: country
+        description: The lead’s country.
+      - name: country_code
+        description: The ISO country code for the lead’s address.
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: lead_description
+        description: The lead’s description.
+      - name: email
+        description: The lead’s email address.
+      - name: email_bounced_date
+        description: If bounce management is activated and an email sent to the lead bounced, the date and time of the bounce.
+      - name: email_bounced_reason
+        description: If bounce management is activated and an email sent to the lead bounced, the reason for the bounce.
+      - name: fax
+        description: The lead’s fax number.
+      - name: first_name
+        description: The lead’s first name up to 40 characters. 
+      - name: has_opted_out_of_email
+        description: Indicates whether the lead doesn’t want to receive email from Salesforce (true) or does (false). Label is Email Opt Out.
+      - name: individual_id
+        description: ID of the data privacy record associated with this lead. This field is available if you enabled Data Protection and Privacy in Setup.
+      - name: industry
+        description: Industry in which the lead works.
+      - name: is_converted
+        description: Indicates whether the lead has been converted (true) or not (false). Label is Converted.
+      - name: is_deleted
+        description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.
+      - name: is_unread_by_owner
+        description: If true, lead has been assigned, but not yet viewed. See Unread Leads for more information. Label is Unread By Owner.
+      - name: jigsaw_contact_id
+        description: Jigsaw Contact ID
+      - name: last_activity_date
+        description: > 
+          'Value is the most recent of either: Due date of the most recent event logged against the record.
+          Due date of the most recently closed task associated with the record.'
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: last_name
+        description: Required. Last name of the lead up to 80 characters.
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view. 
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: latitude
+        description: Used with Longitude to specify the precise geolocation of an address. Acceptable values are numbers between –90 and 90 up to 15 decimal places.
+      - name: lead_source
+        description: The lead’s source.
+      - name: longitude
+        description: Used with Latitude to specify the precise geolocation of an address. Acceptable values are numbers between –180 and 180 up to 15 decimal places.
+      - name: master_record_id
+        description: If this record was deleted as the result of a merge, this field contains the ID of the record that was kept. If this record was deleted for any other reason, or has not been deleted, the value is null.
+      - name: mobile_phone
+        description: The lead’s mobile phone number.
+      - name: lead_name
+        description: Concatenation of FirstName, MiddleName, LastName, and Suffix up to 203 characters, including whitespaces. 
+      - name: number_of_employees
+        description: Number of employees at the lead’s company. Label is Employees.
+      - name: owner_id
+        description: ID of the lead’s owner. This is a polymorphic relationship field.
+      - name: phone
+        description: The lead’s phone number.
+      - name: photo_url
+        description: Path to be combined with the URL of a Salesforce instance 
+      - name: postal_code
+        description: Postal code for the address of the lead. Label is Zip/Postal Code.
+      - name: salutation
+        description: Salutation for the lead.
+      - name: state
+        description: State for the address of the lead.
+      - name: state_code
+        description: The ISO state code for the lead’s address.
+      - name: status
+        description: Status code for this converted lead. Status codes are defined in Status and represented in the API by the LeadStatus object.
+      - name: street
+        description: Street number and name for the address of the lead.
+      - name: system_modstamp
+        description: System Modstamp
+      - name: title
+        description: Title for the lead, such as CFO or CEO.
+      - name: website
+        description: Website for the lead.
+      
+  - name: stg_salesforce__opportunity_line_item
+    description: Represents an opportunity line item, which is a member of the list of Product2 products associated with an Opportunity.
+    columns:
+      - name: opportunity_line_item_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: opportunity_line_item_description
+        description: Text description of the opportunity line item.
+      - name: discount
+        description: >
+          Discount for the product as a percentage. When updating these records:
+          If you specify Discount without specifying TotalPrice, the TotalPrice is adjusted to accommodate the new Discount value, and the UnitPrice is held constant.
+          If you specify both Discount and Quantity, you must also specify either TotalPrice or UnitPrice so the system knows which one to automatically adjust.
+      - name: has_quantity_schedule
+        description: Read-only. Indicates whether a quantity schedule has been created for this object (true) or not (false). 
+      - name: has_revenue_schedule
+        description: Indicates whether a revenue schedule has been created for this object (true) or not (false). If this object has a revenue schedule, the Quantity and TotalPrice fields can’t be updated. In addition, the Quantity field can’t be updated if this object has a quantity schedule. Update requests aren’t rejected but the updated values are ignored.
+      - name: has_schedule
+        description: If either HasQuantitySchedule or HasRevenueSchedule is true, this field is also true.
+      - name: opportunity_line_item_id
+        description: Line Item ID
+      - name: is_deleted
+        description: Deleted
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: last_referenced_date
+        description: The timestamp for when the current user last viewed a record related to this record. Available in API version 50.0 and later.
+      - name: last_viewed_date
+        description: The timestamp for when the current user last viewed this record. If this value is null, this record might only have been referenced (LastReferencedDate) and not viewed. Available in API version 50.0 and later.
+      - name: list_price
+        description: Corresponds to the UnitPrice on the PricebookEntry that is associated with this line item, which can be in the standard price book or a custom price book. A client application can use this information to show whether the unit price (or sales price) of the line item differs from the price book entry list price.
+      - name: opportunity_line_item_name
+        description: The opportunity line item name (known as “Opportunity Product” in the user interface). This read-only field is available in API version 30.0 and later.
+      - name: opportunity_id
+        description: Required. ID of the associated Opportunity. This is a relationship field.
+      - name: pricebook_entry_id
+        description: Required. ID of the associated PricebookEntry. Exists only for those organizations that have Products enabled as a feature. In API versions 1.0 and 2.0, you can specify values for either this field or ProductId, but not both. For this reason, both fields are declared nillable. In API version 3.0 and later, you must specify values for this field instead of ProductId. This is a relationship field.
+      - name: product_2_id
+        description: >
+          The ID of the related Product2 record. This is a read-only field available in API version 30.0 and later.
+          Use the PricebookEntryId field instead, specifying the ID of the PricebookEntry record.
+      - name: product_code
+        description: This read-only field is available in API version 30.0 and later. It references the value in the ProductCode field of the related Product2 record.
+      - name: quantity
+        description: >
+          Read-only if this record has a quantity schedule, a revenue schedule, or both a quantity and a revenue schedule.
+          When updating these records:
+          If you specify Quantity without specifying the UnitPrice, the UnitPrice value will be adjusted to accommodate the new Quantity value, and the TotalPrice will be held constant.
+          If you specify both Discount and Quantity, you must also specify either TotalPrice or UnitPrice so the system can determine which one to automatically adjust.
+      - name: service_date
+        description: >
+          Date when the product revenue will be recognized and the product quantity will be shipped. Opportunity Close Date—ServiceDate is ignored.
+          Product Date—ServiceDate is used if not null.
+          Schedule Date—ServiceDate is used if not null and there are no revenue schedules present for this line item, that is, there are no OpportunityLineItemSchedule records with a field Type value of Revenue that are children of this record.
+      - name: sort_order
+        description: Number indicating the sort order selected by the user. Client applications can use this to match the sort order in Salesforce.
+      - name: total_price
+        description: >
+          This field is available only for backward compatibility. It represents the total price of the OpportunityLineItem.
+          If you do not specify UnitPrice, this field is required. If you specify Discount and Quantity, this field or UnitPrice is required. When updating these records, you can change either this value or the UnitPrice, but not both at the same time.
+
+          This field is nullable, but you can’t set both TotalPrice and UnitPrice to null in the same update request. To insert the TotalPrice via the API (given only a unit price and the quantity), calculate this field as the unit price multiplied by the quantity. This field is read-only if the opportunity line item has a revenue schedule. If the opportunity line item does not have a schedule or only has quantity schedule, this field can be updated.
+      - name: unit_price
+        description: >
+          The unit price for the opportunity line item. In the Salesforce user interface, this field’s value is calculated by dividing the total price of the opportunity line item by the quantity listed for that line item. Label is Sales Price.
+          This field or TotalPrice is required. You can’t specify both.
+
+          If you specify Discount and Quantity, this field or TotalPrice is required.
+        
+  - name: stg_salesforce__order
+    description: Represents an order associated with a contract or an account.
+    columns:
+      - name: order_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: account_id
+        description: Required. ID of the Account associated with this order. Can only be updated when the order’s StatusCode value is Draft. This is a relationship field.
+      - name: activated_by_id
+        description: ID of the User who activated this order. This is a relationship field.
+      - name: activated_date
+        description: Date and time when the order was activated.
+      - name: billing_city
+        description: City for the billing address for this order. Maximum size is 40 characters.
+      - name: billing_country
+        description: Country for the billing address for this order. Maximum size is 80 characters.
+      - name: billing_country_code
+        description: ISO country code for the billing address for this order.
+      - name: billing_geocode_accuracy
+        description: Accuracy level of the geocode of the address.
+      - name: billing_postal_code
+        description: Postal code for the billing address for this order. Maximum size is 20 characters.
+      - name: billing_state
+        description: State for the billing address for this order. Maximum size is 80 characters.
+      - name: billing_state_code
+        description: ISO state code for the order’s billing address.
+      - name: billing_street
+        description: Street address for the billing address.
+      - name: contract_id
+        description: ID of the contract associated with this order. Can only be updated when the order’s StatusCode value is Draft. This is a relationship field. 
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: order_description
+        description: Description of the order.
+      - name: end_date
+        description: Date at which the order ends. Label is Order End Date.
+      - name: order_id
+        description: order id
+      - name: is_deleted
+        description: deleted
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: opportunity_id
+        description: ID for the opportunity that’s associated with this order.
+      - name: order_number
+        description: Order number assigned to this order (not the unique, system-generated ID assigned during creation). Maximum size is 30 characters.
+      - name: original_order_id
+        description: Optional. ID of the original order that a reduction order is reducing, if the reduction order is reducing a single order. Label is Original Order. Editable only if isReductionOrder is true. If the reduction order is reducing more than one order, leave blank. This is a relationship field.
+      - name: owner_id
+        description: Required. ID of the User or queue that owns this order. This is a polymorphic relationship field.
+      - name: pricebook_2_id
+        description: Required. ID of the price book associated with this order. This is a relationship field.
+      - name: shipping_city
+        description: City of the shipping address. Maximum size is 40 characters.
+      - name: shipping_country
+        description: Country of the shipping address. Maximum size is 80 characters.
+      - name: shipping_country_code
+        description: ISO country code for the order’s shipping address. 
+      - name: shipping_geocode_accuracy
+        description: Accuracy level of the geocode of the shipping address.
+      - name: shipping_postal_code
+        description: Postal code of the shipping address. Maximum size is 20 characters.
+      - name: shipping_state
+        description: State of the shipping address. Maximum size is 80 characters.
+      - name: shipping_state_code
+        description: ISO state code for the order’s shipping address.
+      - name: shipping_street
+        description: Street address of the shipping address. Maximum of 255 characters. 
+      - name: status
+        description: Picklist of values that indicate order status. Each value is within one of two status categories defined in StatusCode. For example, the status picklist might contain Draft, Ready for Review, and Ready for Activation values with a StatusCode of Draft. 
+      - name: status_code
+        description: The status category for the order. An order can be either Draft or Activated. Label is Status Category.
+      - name: total_amount
+        description: The total amount for the order products associated with this order. This field is available in API v48.0 and later. 
+      - name: type
+        description: If you want to show more information about your order, you can add custom values to the Type picklist. By default, the Type field doesn't perform any actions or show any values.
+      
+  - name: stg_salesforce__product_2
+    description: Represents a product that your company sells.
+    columns:
+      - name: product_2_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: product_2_description
+        description: A text description of this record. Label is Product Description.
+      - name: display_url
+        description: URL leading to a specific version of a record in the linked external data source.
+      - name: external_data_source_id
+        description: ID of the related external data source.
+      - name: external_id
+        description: The unique identifier of a record in the linked external data source. For example, ID #123.
+      - name: family
+        description: Name of the product family associated with this record. Product families are configured as picklists in the user interface. To obtain a list of valid values, call describeSObjects() and process the DescribeSObjectResult for the values associated with the Family field. Label is Product Family.
+      - name: is_active
+        description: Indicates whether this record is active (true) or not (false). Inactive Product2 records are hidden in many areas in the user interface. You can change the IsActive flag on a Product2 object as often as necessary. Label is Active.
+      - name: is_archived
+        description: Describes whether the product is archived. The default value is false.
+      - name: is_deleted
+        description: Indicates whether the object has been moved to the Recycle Bin (true) or not (false). Label is Deleted.
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: last_referenced_date
+        description: The timestamp when the current user last accessed this record, a record related to this record, or a list view.
+      - name: last_viewed_date
+        description: The timestamp when the current user last viewed this record or list view. If this value is null, the user might have only accessed this record or list view (LastReferencedDate) but not viewed it.
+      - name: product_2_name
+        description: Required. Default name of this record. Label is Product Name.
+      - name: number_of_quantity_installments
+        description: If the product has a quantity schedule, the number of installments.
+      - name: number_of_revenue_installments
+        description: If the product has a revenue schedule, the number of installments.
+      - name: product_code
+        description: Default product code for this record. Your org defines the product code naming pattern.
+      - name: quantity_installment_period
+        description: If the product has a quantity schedule, the amount of time covered by the schedule.
+      - name: quantity_schedule_type
+        description: The type of the quantity schedule, if the product has one.
+      - name: quantity_unit_of_measure
+        description: Unit of the product; for example, kilograms, liters, or cases. This field comes with only one value, Each, so consider creating your own. The QuantityUnitOfMeasure field on ProductItem inherits this field’s values.
+      - name: record_type_id
+        description: ID of the record type assigned to this object.
+      - name: revenue_installment_period
+        description: If the product has a revenue schedule, the time period covered by the schedule.
+      - name: revenue_schedule_type
+        description: The type of the revenue schedule, if the product has one.
+      - name: stock_keeping_unit
+        description: The SKU for the product. Use in tandem with or instead of the ProductCode field. For example, you can track the manufacturer’s identifying code in the Product Code field and assign the product a SKU when you resell it.
+      - name: system_modstamp
+        description: System Modstamp 
+      
+  - name: stg_salesforce__task
+    description: Represents a business activity such as making a phone call or other to-do items. In the user interface, Task and Event records are collectively referred to as activities.
+    columns:
+      - name: task_id
+        description: The unique, system-generated ID assigned during creation.
+        tests: 
+          - not_null
+          - unique
+      - name: _fivetran_synced
+        description: The time at which fivetran last synced this record
+      - name: _fivetran_active
+        description: True if record is active, used to filter out only active records if History Mode is enabled
+      - name: account_id
+        description: Represents the ID of the related Account. The AccountId is determined as follows. If the value of WhatId is any of the following objects, then Salesforce uses that object’s AccountId. Account Opportunity Contract Custom object that is a child of Account If the value of the WhatIdfield is any other object, and the value of the WhoId field is a Contact object, then Salesforce uses that contact’s AccountId. (If your organization uses Shared Activities, then Salesforce uses the AccountId of the primary contact.) Otherwise, Salesforce sets the value of the AccountId field to null. This is a relationship field.
+      - name: activity_date
+        description: Represents the due date of the task. This field has a timestamp that is always set to midnight in the Coordinated Universal Time (UTC) time zone. The timestamp is not relevant; do not attempt to alter it to accommodate time zone differences. Label is Due Date.
+      - name: call_disposition
+        description: Represents the result of a given call, for example, “we'll call back,” or “call unsuccessful.” Limit is 255 characters. Not subject to field-level security, available for any user in an organization with Salesforce CRM Call Center. 
+      - name: call_duration_in_seconds
+        description: Duration of the call in seconds. Not subject to field-level security, available for any user in an organization with Salesforce CRM Call Center.
+      - name: call_object
+        description: Name of a call center. Limit is 255 characters. Not subject to field-level security, available for any user in an organization with Salesforce CRM Call Center.
+      - name: call_type
+        description: 'The type of call being answered: Inbound, Internal, or Outbound.'
+      - name: completed_date_time
+        description: The date and time the task was saved with a Closed status. For insert, if the task is saved with a Closed status the field is set. If the task is saved with an Open status the field is set to NULL. For update, if the task is saved with a new Closed status, the field is reset. If the task is saved with a new non-closed status, the field is reset to NULL. If the task is saved with the same closed status (that is, unchanged) there is no change to the field.
+      - name: created_by_id
+        description: Created By ID
+      - name: created_date
+        description: Created Date
+      - name: task_description
+        description: Contains a text description of the task.
+      - name: is_archived
+        description: Indicates whether the event has been archived.
+      - name: is_closed
+        description: Indicates whether the task has been completed (true) or not (false). Is only set indirectly via the Status picklist. Label is Closed.
+      - name: is_deleted
+        description: Deleted
+      - name: is_high_priority
+        description: Indicates a high-priority task. This field is derived from the Priority field.
+      - name: last_modified_by_id
+        description: Last Modified By ID
+      - name: last_modified_date
+        description: Last Modified Date
+      - name: owner_id
+        description: ID of the User or Group who owns the record. Label is Assigned To ID. This field accepts Groups of type Queue only. In the user interface, Group IDs correspond with the queue’s list view names. To create or update tasks assigned to Group, use v48.0 or later. This is a polymorphic relationship field.
+      - name: priority
+        description: Required. Indicates the importance or urgency of a task, such as high or low.
+      - name: record_type_id
+        description: ID of the record type assigned to this object.
+      - name: status
+        description: Required. The status of the task, such as In Progress or Completed. Each predefined Status field implies a value for the IsClosed flag. To obtain picklist values, query the TaskStatus object.
+      - name: subject
+        description: The subject line of the task, such as “Call” or “Send Quote.”
+      - name: system_modstamp
+        description: System Modstamp 
+      - name: task_subtype
+        description: Provides standard subtypes to facilitate creating and searching for specific task subtypes.
+      - name: type
+        description: The type of task, such as Call or Meeting.
+      - name: what_count
+        description: Available to organizations that have Shared Activities enabled. Count of related TaskRelations pertaining to WhatId. Count of the WhatId must be 1 or less.
+      - name: what_id
+        description: The WhatId represents nonhuman objects such as accounts, opportunities, campaigns, cases, or custom objects. WhatIds are polymorphic. Polymorphic means a WhatId is equivalent to the ID of a related object. The label is Related To ID. This is a polymorphic relationship field.
+      - name: who_count
+        description: Available to organizations that have Shared Activities enabled. Count of related TaskRelations pertaining to WhoId.
+      - name: who_id
+        description: The WhoId represents a human such as a lead or a contact. WhoIds are polymorphic. Polymorphic means a WhoId is equivalent to a contact’s ID or a lead’s ID. The label is Name ID. If Shared Activities is enabled, the value of this field is the ID of the related lead or primary contact. If you add, update, or remove the WhoId field, you might encounter problems with triggers, workflows, and data validation rules that are associated with the record. The label is Name ID. Beginning in API version 37.0, if the contact or lead ID in the WhoId field is not in the TaskWhoIds list, no error occurs and the ID is added to the TaskWhoIds as the primary WhoId. If WhoId is set to null, an arbitrary ID from the existing TaskWhoIds list is promoted to the primary position. 
+

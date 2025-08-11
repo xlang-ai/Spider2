@@ -1,0 +1,1 @@
+SELECT DISTINCT platform FROM weekly_sales;

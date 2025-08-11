@@ -1,0 +1,102 @@
+{
+    "table_name": "HTAN_VERSIONED.SCHEMA_R4",
+    "table_fullname": "HTAN_1.HTAN_VERSIONED.SCHEMA_R4",
+    "column_names": [
+        "Properties",
+        "Parent",
+        "Validation_Rules",
+        "Valid_Values",
+        "DependsOn",
+        "Source",
+        "Required",
+        "DependsOn_Component",
+        "Description",
+        "Attribute"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Properties specific to a particular attribute; note that properties could be attributes themselves (i.e. listed under the 'Attributes' column).",
+        "Parent class of this attribute - i.e. where to 'hook' this attribute into an existing schema. Note that this assumes a single existing schema/a single json-ld schema context; if we need to support classes/attributes/properties defined across multiple schemas/json-ld contexts we'd need to add a schema/context column that specifies the context of each attribute, if different from the context of the attribute's parent.",
+        "What type of data is allowed in the Valid Values column. Only relevant if Valid Values are not present in the row. E.g. string, list, integer",
+        "The range of attribute X: the values that can be assigned to attribute X; these values can include/be other attributes (i.e. listed in the 'Attribute' columns) themselves. Comma separated. If none provided any non-null value is valid for attribute X.",
+        "Important characteristics, if any, of attribute X that need to be recorded as metadata features given attribute X is specified. These characteristics could be attributes or properties of attributes (i.e. they are listed in the 'Attribute' column and/or under the 'Properties' column). Comma separated.",
+        "The source for the description of the term, usually an URI. Ontologies can be used as sources. E.g. Library Construction Method has source: http://purl.obolibrary.org/obo/OBI_0000711",
+        "Indicate if specifying value for attribute X is mandatory or optional by default. Set to TRUE or FALSE. If TRUE, a data contributor must provide a value for attribute X (e.g. one of the valid values in 'Valid Values', if any are specified). If FALSE, a data contributor may select between 'Not Applicable' or 'Not Specified' as a value for attribute X. Note that an attribute may not be required by default (i.e. 'Required' is set to FALSE), but it could be required by virtue of being an attribute of another required attribute (e.g. see ERCC).",
+        "Each component is a high level ontology class in which entities/objects are categorized/componentized; a component is an entity on its own that needs to be defined in the schema",
+        "Provide a definition or a reference containing the definition of attribute X. Preferably provide a source ontology link or code in addition to the definition. Leave blank if the final description is pending.",
+        "Key characteristic X of the assay, related protocol, or downstream data that we want to record as metadata feature."
+    ],
+    "sample_rows": [
+        {
+            "Attribute": "Reverse Transcription Primer",
+            "Description": "An oligo to which new deoxyribonucleotides can be added by DNA polymerase [SO_0000112]. The type of primer used for reverse transcription, e.g. oligo-dT or random primer. This allows users to identify content of the cDNA library input e.g. enriched for mRNA",
+            "Valid_Values": "Oligo-dT, Poly-dT, Feature barcoding, Random",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "scRNA-seq Level 1",
+            "DependsOn_Component": null,
+            "Source": "http://www.sequenceontology.org/so_wiki/index.php/Category:SO:0000112_!_primer",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Data Category",
+            "Description": "Specific content type of the data file.",
+            "Valid_Values": "Gene Expression, Transcript Expression, Exon Expression Quantification, Gene Expression Quantification, Isoform Expression Quantification, Splice Junction Quantification, Other",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Sequencing",
+            "DependsOn_Component": null,
+            "Source": "https://docs.gdc.cancer.gov/Data_Dictionary/viewer/#?view=table-definition-view&id=gene_expression",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Analyte Type",
+            "Description": "The kind of molecular specimen analyte: a molecular derivative (I.e. RNA / DNA / Protein Lysate) obtained from a specimen",
+            "Valid_Values": "cfDNA Analyte, DNA Analyte, RNA Analyte, Total RNA Analyte, Tissue Block Analyte, Tissue Section Analyte, PBMCs or Plasma or Serum Analyte, cDNA Libraries Analyte, PBMCs, Plasma, Serum Analyte, protein, metabolite, lipid",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cadsr.cancer.gov/onedata/dmdirect/NIH/NCI/CO/CDEDD?filter=CDEDD.ITEM_ID=2513915&version=2.0",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Fixative Type",
+            "Description": "Text term to identify the type of fixative used to preserve a tissue specimen",
+            "Valid_Values": "Acetone, Alcohol, Formalin, Glutaraldehyde, OCT media, RNAlater, Saline, 95% Ethanol, Dimidoester, Carbodiimide, Dimethylacetamide, Para-benzoquinone, PAXgene tissue, TCL lysis buffer, NP40 lysis buffer, Methacarn, Cryo-store, Carnoy's Fixative, Polaxamer, Other, None, unknown",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cadsr.cancer.gov/onedata/dmdirect/NIH/NCI/CO/CDEDD?filter=CDEDD.ITEM_ID=65078&version=3.0",
+            "Validation_Rules": null
+        },
+        {
+            "Attribute": "Specimen Laterality",
+            "Description": "For tumors in paired organs, designates the side on which the specimen was obtained.",
+            "Valid_Values": "Bilateral, Left, Right, unknown, Not Reported, Not Applicable",
+            "DependsOn": null,
+            "Properties": null,
+            "Required": "TRUE",
+            "Parent": "Biospecimen",
+            "DependsOn_Component": null,
+            "Source": "https://cadsr.cancer.gov/onedata/dmdirect/NIH/NCI/CO/CDEDD?filter=CDEDD.ITEM_ID=2007875&version=1.0",
+            "Validation_Rules": null
+        }
+    ]
+}

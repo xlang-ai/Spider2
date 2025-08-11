@@ -1,0 +1,137 @@
+## PARSE_NUMERIC
+
+PARSE_NUMERIC(string_expression)
+
+**Description**
+
+Converts a ` STRING ` to a ` NUMERIC ` value.
+
+The numeric literal contained in the string must not exceed the [ maximum precision or range ](/bigquery/docs/reference/standard-sql/data-
+types#decimal_types) of the ` NUMERIC ` type, or an error occurs. If the number of digits after the decimal point exceeds nine, then the resulting `
+NUMERIC ` value rounds [ half away from zero
+](https://en.wikipedia.org/wiki/Rounding#Round_half_away_from_zero) to have nine digits after the decimal point.
+
+
+-- This example shows how a string with a decimal point is parsed.
+SELECT PARSE_NUMERIC("123.45") AS parsed;
+
+/*--------*
+| parsed |
++--------+
+| 123.45 |
+*--------*/
+
+-- This example shows how a string with an exponent is parsed.
+SELECT PARSE_NUMERIC("12.34E27") as parsed;
+
+/*-------------------------------*
+| parsed                        |
++-------------------------------+
+| 12340000000000000000000000000 |
+*-------------------------------*/
+
+-- This example shows the rounding when digits after the decimal point exceeds 9.
+SELECT PARSE_NUMERIC("1.0123456789") as parsed;
+
+/*-------------*
+| parsed      |
++-------------+
+| 1.012345679 |
+*-------------*/
+
+This function is similar to using the  ` CAST AS NUMERIC ` function except that the ` PARSE_NUMERIC ` function only accepts string inputs and allows the following in the string:
+
+* Spaces between the sign (+/-) and the number
+* Signs (+/-) after the number
+
+Rules for valid input strings:
+
+Rule  |  Example Input  |  Output
+---|---|---
+The string can only contain digits, commas, decimal points and signs.  |  "-
+12,34567,89.0"  |  -123456789 Whitespaces are allowed anywhere except between digits.  |  " - 12.345 "  |
+-12.345 Only digits and commas are allowed before the decimal point.  |  " 12,345,678"
+|  12345678 Only digits are allowed after the decimal point.  |  "1.234 "  |  1.234 Use ` E ` or ` e ` for exponents. After the ` e ` , digits and a leading sign indicator are allowed.  |  " 123.45e-1"  |  12.345 If the integer part is not empty, then it must contain at least one digit.  |
+" 0,.12 -"  |  -0.12 If the string contains a decimal point, then it must contain at least one digit.  |  " .1"  |  0.1 The string cannot contain more than one sign.  |  " 0.5 +"  |  0.5
+
+**Return Data Type**
+
+` NUMERIC `
+
+**Examples**
+
+This example shows an input with spaces before, after, and between the sign and the number:
+
+
+SELECT PARSE_NUMERIC("  -  12.34 ") as parsed;
+
+/*--------*
+| parsed |
++--------+
+| -12.34 |
+*--------*/
+
+This example shows an input with an exponent as well as the sign after the number:
+
+
+SELECT PARSE_NUMERIC("12.34e-1-") as parsed;
+
+/*--------*
+| parsed |
++--------+
+| -1.234 |
+*--------*/
+
+This example shows an input with multiple commas in the integer part of the number:
+
+
+SELECT PARSE_NUMERIC("  1,2,,3,.45 + ") as parsed;
+
+/*--------*
+| parsed |
++--------+
+| 123.45 |
+*--------*/
+
+This example shows an input with a decimal point and no digits in the whole number part:
+
+
+SELECT PARSE_NUMERIC(".1234  ") as parsed;
+
+/*--------*
+| parsed |
++--------+
+| 0.1234 |
+*--------*/
+
+**Examples of invalid inputs**
+
+This example is invalid because the whole number part contains no digits:
+
+
+SELECT PARSE_NUMERIC(",,,.1234  ") as parsed;
+
+This example is invalid because there are whitespaces between digits:
+
+
+SELECT PARSE_NUMERIC("1  23.4 5  ") as parsed;
+
+This example is invalid because the number is empty except for an exponent:
+
+
+SELECT PARSE_NUMERIC("  e1 ") as parsed;
+
+This example is invalid because the string contains multiple signs:
+
+
+SELECT PARSE_NUMERIC("  - 12.3 - ") as parsed;
+
+This example is invalid because the value of the number falls outside the range of ` BIGNUMERIC ` :
+
+
+SELECT PARSE_NUMERIC("12.34E100 ") as parsed;
+
+This example is invalid because the string contains invalid characters:
+
+
+SELECT PARSE_NUMERIC("$12.34") as parsed;

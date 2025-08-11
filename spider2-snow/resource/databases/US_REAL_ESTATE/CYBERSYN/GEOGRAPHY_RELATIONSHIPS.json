@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "GEO_NAME": "Black Oak",
+            "GEO_ID": "geoId/0506610",
+            "LEVEL": "City",
+            "RELATED_GEO_NAME": "72414",
+            "RELATED_GEO_ID": "zip/72414",
+            "RELATED_LEVEL": "CensusZipCodeTabulationArea",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "Census Tract 9506, Ouachita County, Arkansas",
+            "GEO_ID": "geoId/05103950600",
+            "LEVEL": "CensusTract",
+            "RELATED_GEO_NAME": "Block Group 5; Census Tract 9506; Ouachita County; Arkansas",
+            "RELATED_GEO_ID": "censusBlockGroup/051039506005",
+            "RELATED_LEVEL": "CensusBlockGroup",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Census Tract 701, McDonald County, Missouri",
+            "GEO_ID": "geoId/29119070100",
+            "LEVEL": "CensusTract",
+            "RELATED_GEO_NAME": "Block Group 2, Census Tract 701, McDonald County, Missouri",
+            "RELATED_GEO_ID": "censusBlockGroup/291190701002",
+            "RELATED_LEVEL": "CensusBlockGroup",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Illinois",
+            "GEO_ID": "geoId/17",
+            "LEVEL": "State",
+            "RELATED_GEO_NAME": "Millstadt Township",
+            "RELATED_GEO_ID": "geoId/1749399",
+            "RELATED_LEVEL": "City",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Denton County",
+            "GEO_ID": "geoId/48121",
+            "LEVEL": "County",
+            "RELATED_GEO_NAME": "Block Group 4, Census Tract 216.15, Denton County, Texas",
+            "RELATED_GEO_ID": "censusBlockGroup/481210216154",
+            "RELATED_LEVEL": "CensusBlockGroup",
+            "RELATIONSHIP_TYPE": "Contains"
+        }
+    ],
+    "table_name": "GEOGRAPHY_RELATIONSHIPS",
+    "table_fullname": "US_REAL_ESTATE.CYBERSYN.GEOGRAPHY_RELATIONSHIPS",
+    "column_names": [
+        "RELATED_GEO_NAME",
+        "RELATED_LEVEL",
+        "RELATED_GEO_ID",
+        "RELATIONSHIP_TYPE",
+        "GEO_ID",
+        "GEO_NAME",
+        "LEVEL"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Name of the place related to GEO_NAME. This is a place that overlaps or is contained within the primary geo (e.g., city within a state)",
+        "Geographic level or hierarchy of the related place (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "A unique identifier for the related place joinable to the GEOGRAPHY_INDEX table",
+        "Relationship between the two places. Contains means the RELATED_GEO_ID is fully contained within the GEO_ID (e.g., relationship of state to a city) while Overlaps indicates the GEO_ID is a subpart of the RELATED_GEO_ID (e.g., relationship of city to a state)",
+        "A unique identifier for a place joinable to the GEOGRAPHY_INDEX table",
+        "Full name of the place",
+        "Geographic level or hierarchy (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)"
+    ]
+}

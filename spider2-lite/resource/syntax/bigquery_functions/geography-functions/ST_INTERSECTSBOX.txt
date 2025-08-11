@@ -1,0 +1,39 @@
+## ST_INTERSECTSBOX
+
+ST_INTERSECTSBOX(geography, lng1, lat1, lng2, lat2)
+
+**Description**
+
+Returns ` TRUE ` if ` geography ` intersects the rectangle between ` [lng1,
+lng2] ` and ` [lat1, lat2] ` . The edges of the rectangle follow constant lines of longitude and latitude. ` lng1 ` and ` lng2 ` specify the westmost and eastmost constant longitude lines that bound the rectangle, and ` lat1 `
+and ` lat2 ` specify the minimum and maximum constant latitude lines that bound the rectangle.
+
+Specify all longitude and latitude arguments in degrees.
+
+**Constraints**
+
+The input arguments are subject to the following constraints:
+
+* Latitudes should be in the ` [-90, 90] ` degree range.
+* Longitudes should follow either of the following rules:
+* Both longitudes are in the ` [-180, 180] ` degree range.
+* One of the longitudes is in the ` [-180, 180] ` degree range, and ` lng2 - lng1 ` is in the ` [0, 360] ` interval.
+
+**Return type**
+
+` BOOL `
+
+**Example**
+
+
+SELECT p, ST_INTERSECTSBOX(p, -90, 0, 90, 20) AS box1,
+ST_INTERSECTSBOX(p, 90, 0, -90, 20) AS box2 FROM UNNEST([ST_GEOGPOINT(10, 10), ST_GEOGPOINT(170, 10),
+ST_GEOGPOINT(30, 30)]) p
+
+/*----------------+--------------+--------------*
+| p              | box1         | box2         |
++----------------+--------------+--------------+
+| POINT(10 10)   | TRUE         | FALSE        |
+| POINT(170 10)  | FALSE        | TRUE         |
+| POINT(30 30)   | FALSE        | FALSE        |
+*----------------+--------------+--------------*/

@@ -1,0 +1,840 @@
+version: 2
+
+models:
+  - name: person
+    columns:
+      - name: person_id
+        description: "A unique identifier for each person."
+        tests:
+          - unique
+          - not_null
+      - name: gender_concept_id
+        tests:
+          - not_null
+      - name: year_of_birth
+        description: "The year of birth of the person."
+        tests:
+          - not_null
+      - name: month_of_birth
+        description: "The month of birth of the person."
+      - name: day_of_birth
+        description: "The day of birth of the person."
+      - name: birth_datetime
+        description: "The date and time of birth of the person."
+      - name: race_concept_id
+        tests:
+          - not_null
+      - name: ethnicity_concept_id
+        tests:
+          - not_null
+      - name: location_id
+        description: "A foreign key to the location table."
+      - name: provider_id
+        description: "A foreign key to the provider table."
+      - name: care_site_id
+        description: "A foreign key to the care site table."
+      - name: person_source_value
+      - name: gender_source_value
+      - name: gender_source_concept_id
+      - name: race_source_value
+      - name: race_source_concept_id
+      - name: ethnicity_source_value
+      - name: ethnicity_source_concept_id
+  
+  - name: care_site
+    columns:
+      - name: care_site_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: care_site_name
+        type: varchar
+      - name: care_site_source_value
+        type: varchar
+      - name: location_id
+        type: integer
+      - name: place_of_service_concept_id
+        type: integer
+      - name: place_of_service_source_value
+        type: varchar
+
+  - name: cdm_source
+    columns:
+      - name: cdm_etl_reference
+        type: string
+      - name: cdm_holder
+        type: string
+        tests:
+          - not_null
+      - name: cdm_release_date
+        type: date
+        tests:
+          - not_null
+      - name: cdm_source_abbreviation
+        type: string
+        tests:
+          - not_null
+      - name: cdm_source_name
+        type: string
+        tests:
+          - not_null
+      - name: cdm_version
+        type: string
+      - name: cdm_version_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: source_description
+        type: string
+      - name: source_documentation_reference
+        type: string
+      - name: source_release_date
+        type: date
+        tests:
+          - not_null
+      - name: vocabulary_version
+        type: string
+        tests:
+          - not_null
+
+  - name: condition_era
+    columns:
+      - name: condition_era_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: condition_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: condition_era_start_date
+        type: datetime
+        tests:
+          - not_null
+      - name: condition_era_end_date
+        type: datetime
+        tests:
+          - not_null
+      - name: condition_occurrence_count
+        type: integer
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+
+  - name: condition_occurrence
+    columns:
+      - name: condition_occurrence_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: condition_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: condition_start_date
+        type: date
+        tests:
+          - not_null
+      - name: condition_start_datetime
+        type: datetime
+      - name: condition_end_date
+        type: date
+      - name: condition_end_datetime
+        type: datetime
+      - name: condition_type_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: condition_status_concept_id
+        type: integer
+      - name: condition_source_value
+        type: string
+      - name: condition_source_concept_id
+        type: integer
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: provider_id
+        type: integer
+      - name: stop_reason
+        type: string
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+
+  - name: cost
+    description: >
+      The `cost` model aggregates financial data related to various healthcare events, such as conditions, drug exposures, and procedures.
+      It calculates the total cost, charges, payments, and other financial attributes for healthcare services.
+      
+    columns:
+      - name: cost_id
+        description: "Unique identifier for each cost record."
+        type: integer
+        tests:
+          - unique
+          - not_null
+
+      - name: amount_allowed
+        description: "The maximum amount allowed for the event cost."
+        type: float
+
+      - name: cost_domain_id
+        description: "The domain to which the cost belongs, such as 'Drug', 'Procedure', etc."
+        type: string
+        tests:
+          - not_null
+
+      - name: cost_event_id
+        description: "Unique identifier for the healthcare event associated with the cost."
+        type: integer
+        tests:
+          - not_null
+
+      - name: cost_type_concept_id
+        description: "OMOP concept ID representing the type of cost."
+        type: integer
+        tests:
+          - not_null
+
+      - name: currency_concept_id
+        description: "OMOP concept ID representing the currency used for the cost."
+        type: integer
+
+      - name: drg_concept_id
+        description: "OMOP concept ID representing the Diagnosis-Related Group (DRG) code."
+        type: integer
+
+      - name: drg_source_value
+        description: "The source value representing the DRG code."
+        type: string
+
+      - name: paid_by_patient
+        description: "Total amount paid by the patient for the event."
+        type: float
+
+      - name: paid_by_payer
+        description: "Total amount covered by the payer (insurance) for the event."
+        type: float
+
+      - name: paid_by_primary
+        description: "Amount paid by the primary insurance or payer for the event."
+        type: float
+
+      - name: paid_dispensing_fee
+        description: "Fee paid for the dispensing of medications, typically related to drug exposure."
+        type: float
+
+      - name: paid_ingredient_cost
+        description: "The cost of the ingredients in the medication (for drug exposure events)."
+        type: float
+
+      - name: paid_patient_coinsurance
+        description: "Coinsurance amount paid by the patient."
+        type: float
+
+      - name: paid_patient_copay
+        description: "Copay amount paid by the patient for the event."
+        type: float
+
+      - name: paid_patient_deductible
+        description: "Deductible amount paid by the patient."
+        type: float
+
+      - name: payer_plan_period_id
+        description: "Unique identifier for the payer plan period covering the healthcare event."
+        type: integer
+
+      - name: revenue_code_concept_id
+        description: "OMOP concept ID for the revenue code associated with the event."
+        type: integer
+
+      - name: revenue_code_source_value
+        description: "The source value representing the revenue code for the event."
+        type: string
+
+      - name: total_charge
+        description: "Total amount charged for the event, including all associated costs."
+        type: float
+
+      - name: total_cost
+        description: "The total cost incurred for the event, including all related expenses."
+        type: float
+
+      - name: total_paid
+        description: "Total amount paid for the event, including payments by both the patient and payer."
+        type: float
+
+    refs:
+      - name: int__cost_condition
+      - name: int__cost_drug_exposure_1
+      - name: int__cost_drug_exposure_2
+      - name: int__cost_procedure
+
+
+  - name: death
+    columns:
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: cause_concept_id
+        type: integer
+      - name: cause_source_concept_id
+        type: integer
+      - name: cause_source_value
+        type: string
+      - name: death_date
+        type: date
+        tests:
+          - not_null
+      - name: death_datetime
+        type: datetime
+      - name: death_type_concept_id
+        type: integer
+
+  - name: device_exposure
+    columns:
+      - name: device_exposure_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: device_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: device_exposure_start_date
+        type: date
+        tests:
+          - not_null
+      - name: device_exposure_start_datetime
+        type: datetime
+      - name: device_exposure_end_date
+        type: date
+      - name: device_exposure_end_datetime
+        type: datetime
+      - name: device_type_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: device_source_concept_id
+        type: integer
+      - name: device_source_value
+        type: string
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: provider_id
+        type: integer
+      - name: quantity
+        type: integer
+      - name: unique_device_id
+        type: string
+      - name: unit_concept_id
+        type: integer
+      - name: unit_source_concept_id
+        type: integer
+      - name: unit_source_value
+        type: string
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+
+  - name: drug_era
+    columns:
+      - name: drug_era_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: drug_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: drug_era_start_date
+        type: datetime
+        tests:
+          - not_null
+      - name: drug_era_end_date
+        type: datetime
+        tests:
+          - not_null
+      - name: drug_exposure_count
+        type: integer
+      - name: gap_days
+        type: integer
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+
+  - name: drug_exposure
+    columns:
+      - name: drug_exposure_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: drug_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: drug_exposure_start_date
+        type: date
+        tests:
+          - not_null
+      - name: drug_exposure_start_datetime
+        type: datetime
+      - name: drug_exposure_end_date
+        type: date
+      - name: drug_exposure_end_datetime
+        type: datetime
+      - name: drug_type_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: drug_source_concept_id
+        type: integer
+      - name: drug_source_value
+        type: string
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: provider_id
+        type: integer
+      - name: quantity
+        type: float
+      - name: refills
+        type: integer
+      - name: route_concept_id
+        type: integer
+      - name: route_source_value
+        type: string
+      - name: sig
+        type: string
+      - name: stop_reason
+        type: string
+      - name: verbatim_end_date
+        type: date
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+
+  - name: location
+    columns:
+      - name: location_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: address_1
+        type: string
+      - name: address_2
+        type: string
+      - name: city
+        type: string
+      - name: state
+        type: string
+      - name: county
+        type: string
+      - name: zip
+        type: string
+      - name: country_concept_id
+        type: integer
+      - name: country_source_value
+        type: string
+      - name: latitude
+        type: float
+      - name: longitude
+        type: float
+      - name: location_source_value
+        type: string
+
+  - name: measurement
+    columns:
+      - name: measurement_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: meas_event_field_concept_id
+        type: integer
+      - name: measurement_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: measurement_date
+        type: date
+        tests:
+          - not_null
+      - name: measurement_datetime
+        type: datetime
+      - name: measurement_event_id
+        type: bigint
+      - name: measurement_source_concept_id
+        type: integer
+      - name: measurement_source_value
+        type: string
+      - name: measurement_type_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: operator_concept_id
+        type: integer
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: provider_id
+        type: integer
+      - name: range_high
+        type: float
+      - name: range_low
+        type: float
+      - name: unit_concept_id
+        type: integer
+      - name: unit_source_concept_id
+        type: integer
+      - name: unit_source_value
+        type: string
+      - name: value_as_concept_id
+        type: integer
+      - name: value_as_number
+        type: float
+      - name: value_source_value
+        type: string
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+
+  - name: observation
+    columns:
+      - name: observation_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: obs_event_field_concept_id
+        type: integer
+      - name: observation_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: observation_date
+        type: date
+        tests:
+          - not_null
+      - name: observation_datetime
+        type: datetime
+      - name: observation_event_id
+        type: bigint
+      - name: observation_source_concept_id
+        type: integer
+      - name: observation_source_value
+        type: string
+      - name: observation_type_concept_id
+        type: integer
+        tests:
+          - not_null
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: provider_id
+        type: integer
+      - name: qualifier_concept_id
+        type: integer
+      - name: qualifier_source_value
+        type: string
+      - name: unit_concept_id
+        type: integer
+      - name: unit_source_value
+        type: string
+      - name: value_as_concept_id
+        type: Integer
+      - name: value_as_number
+        type: float
+      - name: value_as_string
+        type: string
+      - name: value_source_value
+        type: string
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+
+  - name: observation_period
+    columns:
+      - name: observation_period_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: observation_period_start_date
+        type: date
+        tests:
+          - not_null
+      - name: observation_period_end_date
+        type: date
+        tests:
+          - not_null
+      - name: period_type_concept_id
+        type: integer
+        tests:
+          - not_null
+
+  - name: payer_plan_period
+    columns:
+      - name: payer_plan_period_id
+        type: integer
+        tests:
+          - unique
+          - not_null
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: payer_concept_id
+        type: integer
+      - name: payer_source_concept_id
+        type: integer
+      - name: payer_source_value
+        type: string
+      - name: plan_concept_id
+        type: integer
+      - name: plan_source_concept_id
+        type: integer
+      - name: plan_source_value
+        type: string
+      - name: sponsor_concept_id
+        type: integer
+      - name: sponsor_source_concept_id
+        type: integer
+      - name: sponsor_source_value
+        type: string
+      - name: family_source_value
+        type: string
+      - name: payer_plan_period_start_date
+        type: date
+        tests:
+          - not_null
+      - name: payer_plan_period_end_date
+        type: date
+        tests:
+          - not_null
+      - name: stop_reason_concept_id
+        type: integer
+
+  - name: dose_era
+    columns: 
+      - name: dose_era_id
+        type: integer
+      - name: person_id
+        type: integer
+      - name: drug_concept_id
+        type: integer
+      - name: unit_concept_id
+        type: integer
+      - name: dose_value
+        type: float
+      - name: dose_era_start_date
+        type: datetime
+      - name: dose_era_end_date
+        type: datetime
+  
+  - name: episode
+    columns:
+      - name: episode_id
+        type: integer
+        tests:
+          - not_null
+      - name: person_id
+        type: integer
+        tests:
+          - not_null
+      - name: episode_concept_id
+        type: integer
+      - name: episode_start_date
+        type: date
+        tests:
+          - not_null
+      - name: episode_start_datetime
+        type: datetime
+      - name: episode_end_date
+        type: date
+        tests:
+          - not_null
+      - name: episode_end_datetime
+        type: datetime
+      - name: episode_parent_id
+        type: integer
+      - name: episode_number
+        type: integer
+      - name: episode_object_concept_id
+        type: integer
+      - name: episode_type_concept_id
+        type: integer
+      - name: episode_source_value
+        type: string
+      - name: episode_source_concept_id
+        type: integer
+  
+  - name: episode_event
+    columns:
+      - name: episode_id
+        type: integer
+      - name: event_id
+        type: integer
+      - name: episode_event_field_concept_id
+        type: integer
+  
+  - name: fact_relationship
+    columns:
+      - name: domain_concept_id_1
+        type: integer
+      - name: fact_id_1
+        type: integer
+      - name: domain_concept_id_2
+        type: integer
+      - name: fact_id_2
+        type: integer
+      - name: relationship_concept_id
+        type: integer
+  
+  - name: metadata
+    columns:
+    - name: metadata
+      columns:
+      - name: metadata_id
+        type: integer
+      - name: metadata_concept_id
+        type: integer
+      - name: metadata_type_concept_id
+        type: integer
+      - name: name
+        type: string
+      - name: value_as_string
+        type: string
+      - name: value_as_concept_id
+        type: integer
+      - name: value_as_number
+        type: float
+      - name: metadata_date
+        type: date
+      - name: metadata_datetime
+        type: datetime
+  
+  - name: note_nlp
+    columns:
+    - name: note_nlp_id
+      type: integer
+    - name: note_id
+      type: integer
+    - name: section_concept_id
+      type: integer
+    - name: snippet
+      type: string
+    - name: offset
+      type: integer
+    - name: lexical_variant
+      type: string
+    - name: note_nlp_concept_id
+      type: integer
+    - name: note_nlp_source_concept_id
+      type: integer
+    - name: nlp_system
+      type: string
+    - name: nlp_date
+      type: date
+    - name: nlp_datetime
+      type: datetime
+    - name: term_exists
+      type: string
+    - name: term_temporal
+      type: string
+    - name: term_modifiers
+      type: string
+
+  - name: note
+    columns:
+      - name: note_id
+        type: integer
+      - name: person_id
+        type: integer
+      - name: note_date
+        type: date
+      - name: note_datetime
+        type: datetime
+      - name: note_type_concept_id
+        type: integer
+      - name: note_class_concept_id
+        type: integer
+      - name: note_title
+        type: string
+      - name: note_text
+        type: string
+      - name: encoding_concept_id
+        type: integer
+      - name: language_concept_id
+        type: integer
+      - name: provider_id
+        type: integer
+      - name: visit_occurrence_id
+        type: integer
+      - name: visit_detail_id
+        type: integer
+      - name: note_source_value
+        type: string
+      - name: note_event_id
+        type: integer
+      - name: note_event_field_concept_id
+        type: integer
+  
+  - name: specimen
+    columns:
+      - name: specimen_id
+        type: integer
+      - name: person_id
+        type: integer
+      - name: specimen_concept_id
+        type: integer
+      - name: specimen_type_concept_id
+        type: integer
+      - name: specimen_date
+        type: date
+      - name: specimen_datetime
+        type: datetime
+      - name: quantity
+        type: float
+      - name: unit_concept_id
+        type: integer
+      - name: anatomic_site_concept_id
+        type: integer
+      - name: disease_status_concept_id
+        type: integer
+      - name: specimen_source_id
+        type: integer
+      - name: specimen_source_value
+        type: string
+      - name: unit_source_value
+        type: string
+      - name: anatomic_site_source_value
+        type: string
+      - name: disease_status_source_value
+        type: string

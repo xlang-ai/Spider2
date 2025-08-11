@@ -1,0 +1,49 @@
+## BIT_XOR
+
+BIT_XOR(
+[ DISTINCT ]
+expression )
+
+**Description**
+
+Performs a bitwise XOR operation on ` expression ` and returns the result.
+
+To learn more about the optional aggregate clauses that you can pass into this function, see [ Aggregate function calls ](/bigquery/docs/reference/standard-
+sql/aggregate-function-calls) .
+
+**Supported Argument Types**
+
+* INT64
+
+**Returned Data Types**
+
+INT64
+
+**Examples**
+
+
+SELECT BIT_XOR(x) AS bit_xor FROM UNNEST([5678, 1234]) AS x;
+
+/*---------*
+| bit_xor |
++---------+
+| 4860    |
+*---------*/
+
+
+SELECT BIT_XOR(x) AS bit_xor FROM UNNEST([1234, 5678, 1234]) AS x;
+
+/*---------*
+| bit_xor |
++---------+
+| 5678    |
+*---------*/
+
+
+SELECT BIT_XOR(DISTINCT x) AS bit_xor FROM UNNEST([1234, 5678, 1234]) AS x;
+
+/*---------*
+| bit_xor |
++---------+
+| 4860    |
+*---------*/

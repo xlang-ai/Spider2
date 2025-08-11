@@ -1,0 +1,1 @@
+SELECT * FROM veg_txn_df WHERE `discount(%)` > 20;

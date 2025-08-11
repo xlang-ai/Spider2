@@ -1,0 +1,1 @@
+SELECT e.sequence_number, ie.event_name FROM shopping_cart_events e JOIN shopping_cart_event_identifier ie ON e.event_type = ie.event_type WHERE e.visit_id = 'abc-123' ORDER BY e.sequence_number;

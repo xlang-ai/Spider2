@@ -1,0 +1,1 @@
+SELECT * FROM shopping_cart_events ORDER BY event_time;

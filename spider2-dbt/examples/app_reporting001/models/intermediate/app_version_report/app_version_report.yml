@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: int_apple_store__app_version
+    description: >
+      Intermediate model for aggregating app version data from the Apple Store, including deletions and crashes by app version.
+    columns:
+      - name: source_relation
+        description: "Source of the Apple Store app version data."
+      - name: date_day
+        description: "Date of the app version activity."
+      - name: app_platform
+        description: "The platform of the app, in this case, 'apple_store'."
+      - name: app_name
+        description: "The name of the app."
+      - name: app_version
+        description: "The version of the app."
+      - name: deletions
+        description: "Total number of deletions for the app version on the specified date."
+      - name: crashes
+        description: "Total number of crashes for the app version on the specified date."
+    refs:
+      - name: apple_store__app_version_report
+        description: "Source table containing raw Apple Store app version data."
+
+  - name: int_google_play__app_version
+    description: >
+      Intermediate model for aggregating app version data from Google Play, including deletions and crashes by app version.
+    columns:
+      - name: source_relation
+        description: "Source of the Google Play app version data."
+      - name: date_day
+        description: "Date of the app version activity."
+      - name: app_platform
+        description: "The platform of the app, in this case, 'google_play'."
+      - name: app_name
+        description: "The name of the app."
+      - name: app_version
+        description: "The version of the app."
+      - name: deletions
+        description: "Total number of device uninstalls (deletions) for the app version on the specified date."
+      - name: crashes
+        description: "Total number of crashes for the app version on the specified date."
+    refs:
+      - name: google_play__app_version_report
+        description: "Source table containing raw Google Play app version data."

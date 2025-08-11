@@ -1,0 +1,1 @@
+SELECT cr.region_name, COUNT(cn.customer_id) AS customer_count FROM customer_regions cr LEFT JOIN customer_nodes cn ON cr.region_id = cn.region_id GROUP BY cr.region_name;

@@ -1,0 +1,1 @@
+SELECT region, platform, total_transactions, rank FROM ( SELECT region, platform, SUM(transactions) AS total_transactions, ROW_NUMBER() OVER (PARTITION BY region ORDER BY SUM(transactions) DESC) AS rank FROM weekly_sales GROUP BY region, platform ) WHERE rank <= 3;

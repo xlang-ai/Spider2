@@ -1,0 +1,1 @@
+SELECT * FROM interest_map WHERE created_at > '2024-01-01';

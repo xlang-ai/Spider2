@@ -1,0 +1,181 @@
+table_name,ddl
+us_states_area,"CREATE TABLE `bigquery-public-data.utility_us.us_states_area`
+(
+  region_code STRING OPTIONS(description=""Current region code. Regions consist of 2 or more divisions""),
+  division_code STRING OPTIONS(description=""Current division code. Divisions consist of 2 or more states""),
+  state_fips_code STRING OPTIONS(description=""Two digit FIPS code that uniquely identifies each state. See https://www.census.gov/geo/reference/ansi_statetables.html for more information\n\nState names and their corresponding FIPS codes can be found in BigQuery: bigquery-public-data.census_fips_codes.states_2016""),
+  state_gnis_code STRING OPTIONS(description=""Current state GNIS code as maintained by USGS. GNIS is a database that contains name and locative information about more than two million physical and cultural features.""),
+  state_geo_id STRING OPTIONS(description=""Unique identifier for each state. Identical to state_fips_code""),
+  state_abbreviation STRING OPTIONS(description=""2 letter abbreviation of state name as determined by the United States Postal Service""),
+  state_name STRING OPTIONS(description=""Full text name of state""),
+  legal_area_code STRING OPTIONS(description=""Current legal/statistical area description code for state""),
+  feature_class_code STRING OPTIONS(description=""MAF/TIGER feature class code. G4000 indicates \""State or Equivalent Feature\""""),
+  functional_status_code STRING OPTIONS(description=""Current functional status code. A full list of possible results can be found: https://www.census.gov/geo/reference/funcstat.html""),
+  area_land_meters INT64 OPTIONS(description=""Current land area, in square meters""),
+  area_water_meters INT64 OPTIONS(description=""Current water area, in square meters""),
+  internal_point_lat STRING OPTIONS(description=""Current latitude of the internal point, which is the point at or closest to the state's geographic center""),
+  internal_point_lon STRING OPTIONS(description=""Current longitude of the internal point, which is the point at or closest to the state's geographic center""),
+  state_geom GEOGRAPHY OPTIONS(description=""Points of a polygon that encompass the state. Should be used for geographic visualization"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+us_border_area,"CREATE TABLE `bigquery-public-data.utility_us.us_border_area`
+(
+  name STRING,
+  geo_id STRING,
+  aff_geo_id STRING,
+  us_border_geom GEOGRAPHY
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+us_msa_area,"CREATE TABLE `bigquery-public-data.utility_us.us_msa_area`
+(
+  csa_code STRING OPTIONS(description=""Current Combined Statistical Area (CSA) code of the CSA that contains the metropolitan statistical area/micropolitan statistical area (MSA)""),
+  msa_code STRING OPTIONS(description=""Current metropolitan statistical area/micropolitan\nstatistical area (MSA) code""),
+  geo_code STRING OPTIONS(description=""Unique identifier for each MSA. Matches msa_code""),
+  name STRING OPTIONS(description=""Full text name of the metropolitan statistical area/micropolitan statistical area""),
+  lsad_name STRING OPTIONS(description=""Current name and the translated legal/statistical area description for metropolitan statistical area/micropolitan statistical area""),
+  lsad_code STRING OPTIONS(description=""Legal/Statistical area description (LSAD) code for a given MSA.\n\nM1 indicates a \""metro area (suffix)\""\nM2 indicates a \""micro area (suffix)\""""),
+  status_indicator STRING OPTIONS(description=""Current metropolitan/micropolitan status indicator. \n\n1 indicates a metropolitan statistical area. Each metropolitan statistical area must have at least one urbanized area of 50,000 or more inhabitants.\n2 indicates a micropolitan statistical area. Each micropolitan statistical area must have at least one urban cluster of at least 10,000 inhabitants, with no more than 49,999""),
+  feature_class_code STRING OPTIONS(description=""MAF/TIGER feature class code \n\nG3110 indicates either a metropolitan or micropolitan statistical area""),
+  area_land_meters NUMERIC OPTIONS(description=""Current land area, in square meters""),
+  area_water_meters NUMERIC OPTIONS(description=""Current water area, in square meters""),
+  int_point_lat STRING OPTIONS(description=""Current latitude of the internal point, which is the point at or closest to the MSA's geographic center""),
+  int_point_lon STRING OPTIONS(description=""Current longitude of the internal point, which is the point at or closest to the MSA's geographic center""),
+  msa_geom GEOGRAPHY OPTIONS(description=""Points of a polygon that encompass the state. Should be used for geographic visualization"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+us_cities_area,"CREATE TABLE `bigquery-public-data.utility_us.us_cities_area`
+(
+  urban_area_code STRING OPTIONS(description=""Urban area code from the 2010 Census""),
+  geo_code STRING OPTIONS(description=""Unique identifier for each urban area; Same as urban_area_code""),
+  name STRING OPTIONS(description=""Full text name for the urban area""),
+  lsad_name STRING OPTIONS(description=""2010 Census name and the translated legal/statistical area description of a given urban area""),
+  lsad_code STRING OPTIONS(description=""Legal/Statistical area description (LSAD) code for a given urban area. \n\n75 indicates an \""urbanized area\""\n76 indicates an \""urban cluster\""""),
+  feature_class_code STRING OPTIONS(description=""5-digit code assigned by the Census Bureau intended to classify and describe geographic objects or features. \n\""G3500\"" indicates \""urban area\""""),
+  area_type STRING OPTIONS(description=""2010 Census urban area type. \n\nC indicates an \""urban cluster\"", which is an area with a population between 2,500 and 49,999 \nU indicates an \""urbanized area\"", which is an area with a population greater than or equal to 50,000\n\nMore information on how the Census Bureau made these determinations can be found here: https://www.census.gov/geo/reference/urban-rural.html""),
+  functional_status STRING OPTIONS(description=""Current functional status code. A full list of possible results can be found: https://www.census.gov/geo/reference/funcstat.html \n\""A\"" refers to \""active government providing primary general-purpose functions\""""),
+  area_land_meters NUMERIC OPTIONS(description=""Current land area, in square meters""),
+  area_water_meters NUMERIC OPTIONS(description=""Current water area, in square meters""),
+  int_point_lat STRING OPTIONS(description=""Current latitude of the internal point, which is the point at or closest to the state's geographic center""),
+  int_point_lon STRING OPTIONS(description=""Current longitude of the internal point, which is the point at or closest to the state's geographic center""),
+  city_geom GEOGRAPHY OPTIONS(description=""Points of a polygon that encompass the urban area. Should be used for geographic visualization"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+zipcode_area,"CREATE TABLE `bigquery-public-data.utility_us.zipcode_area`
+(
+  zipcode STRING NOT NULL OPTIONS(description=""Five digit ZIP Code Tabulation Area Census Code""),
+  area_land_meters INT64 OPTIONS(description=""Land Area (square meters) - Created for statistical purposes only""),
+  area_water_meters INT64 OPTIONS(description=""Water Area (square meters) - Created for statistical purposes only""),
+  area_land_miles FLOAT64 OPTIONS(description=""Land Area (square miles) - Created for statistical purposes only""),
+  area_water_miles FLOAT64 OPTIONS(description=""Water Area (square miles) - Created for statistical purposes only""),
+  latitude FLOAT64 OPTIONS(description=""Latitude (decimal degrees) First character is blank or \""-\"" denoting North or South latitude respectively""),
+  longitude FLOAT64 OPTIONS(description=""Longitude (decimal degrees) First character is blank or \""-\"" denoting East or West longitude respectively""),
+  state_code STRING OPTIONS(description=""Abbreviations of the state for the zipcode""),
+  state_name STRING OPTIONS(description=""Name of the state for the zipcode""),
+  city STRING OPTIONS(description=""Comma-separated list of cities""),
+  county STRING OPTIONS(description=""Comma-separated list of counties""),
+  state_fips STRING OPTIONS(description=""FIPS state code for the zipcode""),
+  zipcode_geom STRING OPTIONS(description=""Generalized areal representations of United States Postal Service (USPS) ZIP Codes as polygons"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.\n\nCombining a variety of sources, mainly from the Census Bureau (such as National Places: https://www2.census.gov/geo/docs/reference/codes/files/national_places.txt), we've derived a useful US zipcode and general geographic table.""
+);"
+country_code_iso,"CREATE TABLE `bigquery-public-data.utility_us.country_code_iso`
+(
+  country_name STRING NOT NULL OPTIONS(description=""""),
+  fips_code STRING OPTIONS(description=""""),
+  alpha_2_code STRING OPTIONS(description=""""),
+  alpha_3_code STRING OPTIONS(description=""""),
+  numeric_code STRING OPTIONS(description=""""),
+  stanag_code STRING OPTIONS(description=""""),
+  cctlds STRING OPTIONS(description=""""),
+  continent_code STRING OPTIONS(description=""""),
+  continent_name STRING OPTIONS(description=""Note: Australia has been grouped into the Oceania region.""),
+  sub_continent_name STRING OPTIONS(description="""")
+);"
+num_999999,"CREATE TABLE `bigquery-public-data.utility_us.num_999999`
+(
+  num INT64 OPTIONS(description=""Num as INTEGER - [0, 999999]"")
+);"
+time,"CREATE TABLE `bigquery-public-data.utility_us.time`
+(
+  time TIME OPTIONS(description=""Time as TIME - CAST('23:59:59' AS TIME)""),
+  hour INT64 OPTIONS(description=""Hour as INTEGER - [0, 23]""),
+  minute INT64 OPTIONS(description=""Minute as INTEGER - [0, 59]""),
+  second INT64 OPTIONS(description=""Second as INTEGER - [0, 59]""),
+  second_in_day INT64 OPTIONS(description=""Seconds as INTEGER - [0, 86399]; 00:00:00 = 0, 23:59:59 = 86399""),
+  hour_ampm INT64 OPTIONS(description=""Hour as INTEGER - [1, 12]""),
+  is_pm BOOL OPTIONS(description=""AM = False, PM = True"")
+);"
+date_greg,"CREATE TABLE `bigquery-public-data.utility_us.date_greg`
+(
+  date DATE OPTIONS(description=""Date as DATE - CAST('2000-12-31' AS DATE); [1582-10-15, 2199-12-31]""),
+  date_str STRING OPTIONS(description=""Date as STRING - '20001231'""),
+  date_int INT64 OPTIONS(description=""Date as INTEGER - 20001231""),
+  date_dash STRING OPTIONS(description=""Date as STRING - '2000-12-31'""),
+  date_slash STRING OPTIONS(description=""Date as STRING - '2000/12/31'""),
+  day INT64 OPTIONS(description=""Day as Integer - [1, 31]""),
+  day_abbr STRING OPTIONS(description=""Day as 3-letter STRING - [mon, tue, wed, thu, fri, sat, sun]""),
+  dow_mon17 INT64 OPTIONS(description=""1 = mon, 7 = sun ; https://en.wikipedia.org/wiki/ISO_week_date)""),
+  dow_mon06 INT64 OPTIONS(description=""0 = mon, 6 = sun""),
+  dow_sun17 INT64 OPTIONS(description=""1 = sun, 7 = sat""),
+  dow_sun06 INT64 OPTIONS(description=""0 = sun, 6 = sat""),
+  week_mon INT64 OPTIONS(description=""Week Number - First Monday - [0, 53]""),
+  week_sun INT64 OPTIONS(description=""Week Number - First Sunday - [0, 53]""),
+  week_iso INT64 OPTIONS(description=""Week Number - First Thursday (ISO) - [0, 53] ; https://en.wikipedia.org/wiki/ISO_week_date""),
+  month INT64 OPTIONS(description=""Month as Integer - [1, 12]""),
+  month_abbr STRING OPTIONS(description=""Month as 3-letter STRING - [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]""),
+  month_first_day DATE OPTIONS(description=""First Day of Month as DATE - [2000-01-01, 2000-02-01, 2000-03-01, ..., 2000-12-01]""),
+  quarter INT64 OPTIONS(description=""Quarter as Integer - [1, 4]""),
+  quarter_first_day DATE OPTIONS(description=""First Day of Quarter as DATE - [2000-01-01, 2000-04-01, 2000-07-01, 2000-10-01]""),
+  half INT64 OPTIONS(description=""Half as Integer - [1, 2]""),
+  half_first_day DATE OPTIONS(description=""First Day of Half as DATE - [2000-01-01, 2000-07-01]""),
+  year INT64 OPTIONS(description=""Year as Integer - [1, 9999]""),
+  year_iso INT64 OPTIONS(description=""Year ISO ; https://en.wikipedia.org/wiki/ISO_week_date""),
+  year_first_day DATE OPTIONS(description=""First Day of Year as DATE - [2000-01-01, 2001-01-01, 2002-01-01, ...]"")
+);"
+us_coastline_area,"CREATE TABLE `bigquery-public-data.utility_us.us_coastline_area`
+(
+  name STRING,
+  coastline_geom GEOGRAPHY
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+us_county_area,"CREATE TABLE `bigquery-public-data.utility_us.us_county_area`
+(
+  state_fips_code STRING OPTIONS(description=""Two digit state FIPS code.  Unique identifier for states. More detail on FIPS codes and other geographic areas can be found here: https://www2.census.gov/geo/pdfs/reference/GARM/Ch4GARM.pdf\n\nState names and their corresponding FIPS codes can be found in BigQuery: bigquery-public-data.census_fips_codes.states_2016""),
+  county_fips_code STRING OPTIONS(description=""Four-digit county FIPS code. \n\nCounty names and their corresponding FIPS codes can be found in BigQuery: bigquery-public-data.census_fips_codes.counties_2016""),
+  county_gnis_code STRING OPTIONS(description=""Identifier for the USGS-maintained Geographic Names Information System (GNIS). GNIS database contains information about physical and cultural geographic features of all types in the United States, associated areas, and Antarctica, current and historical, but not including roads and highways. The database holds the Federally recognized name of each feature and defines the feature location by state, county, USGS topographic map, and geographic coordinates. Other attributes include names or spellings other than the official name, feature designations, feature classification, historical and descriptive information, and for some categories the geometric boundaries.""),
+  aff_geo_code STRING OPTIONS(description=""14-digit codes that identify the summary level of data, the geographic component of the data and FIPS codes that uniquely identify the data. Corresponds to geo_id from American Fact Finder data""),
+  geo_id STRING OPTIONS(description=""Unique county identifier. It is a concatenation of current state FIPS code and county FIPS code.""),
+  county_name STRING OPTIONS(description=""Full text name of the county""),
+  legal_area_code STRING OPTIONS(description=""Current legal/statistical area description code. Full list of these can be found: https://www.census.gov/geo/reference/lsad.html""),
+  area_land_meters INT64 OPTIONS(description=""Current land area, in square meters""),
+  area_water_meters INT64 OPTIONS(description=""Current water area, in square meters""),
+  county_geom GEOGRAPHY OPTIONS(description=""Geographical representation of the polygon that defines the perimeter of each county. This column should be used as the GEO column for visualization in BigQuery Geo Viz"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"
+us_csa_area,"CREATE TABLE `bigquery-public-data.utility_us.us_csa_area`
+(
+  csa_code STRING OPTIONS(description=""Current Combined Statistical Area (CSA) code""),
+  aff_geo_code STRING OPTIONS(description=""14-digit codes that identify the summary level of data, the geographic component of the data and FIPS codes that uniquely identify the data. Corresponds to geo_id from American Fact Finder data""),
+  geo_code STRING OPTIONS(description=""Unique identifier for each CSA; should be same as csa_code""),
+  name STRING OPTIONS(description=""Current full text name of CSA""),
+  lsad_code STRING OPTIONS(description=""Legal/Statistical area description (LSAD) code for a given CSA.\n\nM0 indicates \""CSA (suffix)\"".  A full list of LSAD codes can be found here: https://www.census.gov/geo/reference/lsad.html""),
+  area_land_meters INT64 OPTIONS(description=""Current land area, in square meters""),
+  area_water_meters INT64 OPTIONS(description=""Current water area, in square meters""),
+  csa_geom GEOGRAPHY OPTIONS(description=""Geographical representation of the polygon that defines the perimeter of each CSA. This should be used for geographic visualization"")
+)
+OPTIONS(
+  description=""This dataset has moved!\n\nYou can find all of the datasets that define the polygons of US political and statistical boundaries, including this one, in the new bigquery-public-data:geo_us_boundaries dataset.""
+);"

@@ -1,0 +1,135 @@
+table_name,description,DDL
+WEB_ORDERS,,"create or replace TABLE WEB_ORDERS (
+	""id"" NUMBER(38,0),
+	""account_id"" NUMBER(38,0),
+	""occurred_at"" VARCHAR(16777216),
+	""standard_qty"" NUMBER(38,0),
+	""gloss_qty"" NUMBER(38,0),
+	""poster_qty"" NUMBER(38,0),
+	""total"" NUMBER(38,0),
+	""standard_amt_usd"" FLOAT,
+	""gloss_amt_usd"" FLOAT,
+	""poster_amt_usd"" FLOAT,
+	""total_amt_usd"" FLOAT
+);"
+HARDWARE_FACT_MANUFACTURING_COST,,"create or replace TABLE HARDWARE_FACT_MANUFACTURING_COST (
+	""product_code"" VARCHAR(16777216),
+	""cost_year"" NUMBER(38,0),
+	""manufacturing_cost"" FLOAT
+);"
+SALARYDATASET,,"create or replace TABLE SALARYDATASET (
+	""index"" NUMBER(38,0),
+	""CompanyName"" VARCHAR(16777216),
+	""JobTitle"" VARCHAR(16777216),
+	""SalariesReported"" FLOAT,
+	""Location"" VARCHAR(16777216),
+	""Salary"" VARCHAR(16777216)
+);"
+WEB_SALES_REPS,,"create or replace TABLE WEB_SALES_REPS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""region_id"" NUMBER(38,0)
+);"
+HARDWARE_DIM_PRODUCT,,"create or replace TABLE HARDWARE_DIM_PRODUCT (
+	""product_code"" VARCHAR(16777216),
+	""division"" VARCHAR(16777216),
+	""segment"" VARCHAR(16777216),
+	""category"" VARCHAR(16777216),
+	""product"" VARCHAR(16777216),
+	""variant"" VARCHAR(16777216)
+);"
+HARDWARE_FACT_GROSS_PRICE,,"create or replace TABLE HARDWARE_FACT_GROSS_PRICE (
+	""product_code"" VARCHAR(16777216),
+	""fiscal_year"" NUMBER(38,0),
+	""gross_price"" FLOAT
+);"
+HARDWARE_FACT_SALES_MONTHLY,,"create or replace TABLE HARDWARE_FACT_SALES_MONTHLY (
+	""date"" VARCHAR(16777216),
+	""product_code"" VARCHAR(16777216),
+	""customer_code"" NUMBER(38,0),
+	""sold_quantity"" NUMBER(38,0),
+	""fiscal_year"" NUMBER(38,0)
+);"
+UNIVERSITY_FACULTY,,"create or replace TABLE UNIVERSITY_FACULTY (
+	""FacNo"" NUMBER(38,0),
+	""FacFirstName"" VARCHAR(16777216),
+	""FacLastName"" VARCHAR(16777216),
+	""FacCity"" VARCHAR(16777216),
+	""FacState"" VARCHAR(16777216),
+	""FacDept"" VARCHAR(16777216),
+	""FacRank"" VARCHAR(16777216),
+	""FacSalary"" NUMBER(38,0),
+	""FacSupervisor"" FLOAT,
+	""FacHireDate"" VARCHAR(16777216),
+	""FacZipCode"" VARCHAR(16777216)
+);"
+WEB_EVENTS,,"create or replace TABLE WEB_EVENTS (
+	""id"" NUMBER(38,0),
+	""account_id"" NUMBER(38,0),
+	""occurred_at"" VARCHAR(16777216),
+	""channel"" VARCHAR(16777216)
+);"
+HARDWARE_DIM_CUSTOMER,,"create or replace TABLE HARDWARE_DIM_CUSTOMER (
+	""customer_code"" NUMBER(38,0),
+	""customer"" VARCHAR(16777216),
+	""platform"" VARCHAR(16777216),
+	""channel"" VARCHAR(16777216),
+	""market"" VARCHAR(16777216),
+	""sub_zone"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216)
+);"
+STAFFHOURS,,"create or replace TABLE STAFFHOURS (
+	""StaffMember"" VARCHAR(16777216),
+	""EventDate"" VARCHAR(16777216),
+	""EventTime"" VARCHAR(16777216),
+	""EventType"" VARCHAR(16777216)
+);"
+UNIVERSITY_COURSE,,"create or replace TABLE UNIVERSITY_COURSE (
+	""CourseNo"" VARCHAR(16777216),
+	""CrsDesc"" VARCHAR(16777216),
+	""CrsUnits"" NUMBER(38,0)
+);"
+UNIVERSITY_ENROLLMENT,,"create or replace TABLE UNIVERSITY_ENROLLMENT (
+	""OfferNo"" NUMBER(38,0),
+	""StdNo"" NUMBER(38,0),
+	""EnrGrade"" FLOAT
+);"
+UNIVERSITY_OFFERING,,"create or replace TABLE UNIVERSITY_OFFERING (
+	""OfferNo"" NUMBER(38,0),
+	""CourseNo"" VARCHAR(16777216),
+	""OffTerm"" VARCHAR(16777216),
+	""OffYear"" NUMBER(38,0),
+	""OffLocation"" VARCHAR(16777216),
+	""OffTime"" VARCHAR(16777216),
+	""FacNo"" FLOAT,
+	""OffDays"" VARCHAR(16777216)
+);"
+UNIVERSITY_STUDENT,,"create or replace TABLE UNIVERSITY_STUDENT (
+	""StdNo"" NUMBER(38,0),
+	""StdFirstName"" VARCHAR(16777216),
+	""StdLastName"" VARCHAR(16777216),
+	""StdCity"" VARCHAR(16777216),
+	""StdState"" VARCHAR(16777216),
+	""StdZip"" VARCHAR(16777216),
+	""StdMajor"" VARCHAR(16777216),
+	""StdClass"" VARCHAR(16777216),
+	""StdGPA"" FLOAT
+);"
+WEB_ACCOUNTS,,"create or replace TABLE WEB_ACCOUNTS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""website"" VARCHAR(16777216),
+	""lat"" FLOAT,
+	""long"" FLOAT,
+	""primary_poc"" VARCHAR(16777216),
+	""sales_rep_id"" NUMBER(38,0)
+);"
+WEB_REGION,,"create or replace TABLE WEB_REGION (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+HARDWARE_FACT_PRE_INVOICE_DEDUCTIONS,,"create or replace TABLE HARDWARE_FACT_PRE_INVOICE_DEDUCTIONS (
+	""customer_code"" NUMBER(38,0),
+	""fiscal_year"" NUMBER(38,0),
+	""pre_invoice_discount_pct"" FLOAT
+);"

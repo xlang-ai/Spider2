@@ -1,0 +1,1 @@
+SELECT region, COUNT(*) AS member_count FROM bitcoin_members GROUP BY region;

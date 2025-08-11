@@ -1,0 +1,1 @@
+SELECT `loss_rate_%` FROM veg_loss_rate_df WHERE item_name = 'Potato';

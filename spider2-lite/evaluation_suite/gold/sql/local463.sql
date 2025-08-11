@@ -1,0 +1,1 @@
+SELECT week_date, sales, transactions FROM weekly_sales WHERE region = 'USA';

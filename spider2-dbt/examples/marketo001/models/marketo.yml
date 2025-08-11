@@ -1,0 +1,478 @@
+version: 2
+
+models:
+  - name: marketo__campaigns
+    description: Each record is Marketo campaign.
+    columns:
+      - name: campaign_id
+        description: ID of the campaign.
+        tests:
+          - unique
+          - not_null
+            
+      - name: campaign_name
+        description: Name of the campaign.
+            
+      - name: campaign_type
+        description: Type of campaign, either 'batch' or 'trigger'.
+            
+      - name: created_timestamp
+        description: Timestamp when the campaign was created.
+            
+      - name: description
+        description: Description of the campaign
+            
+      - name: is_active
+        description: Whether the campaign is active. Only applicable to trigger campaigns.
+            
+      - name: program_id
+        description: ID of the parent program, if applicable.
+            
+      - name: program_name
+        description: Name of the parent program, if applicable.
+            
+      - name: updated_timestamp
+        description: Timestamp when the campaign was most recently updated.
+            
+      - name: workspace_name
+        description: Name of the parent workspace, if applicable.
+      
+      - name: count_sends
+        description: '{{ doc("count_sends") }}'
+
+      - name: count_opens
+        description: '{{ doc("count_opens") }}'
+
+      - name: count_bounces
+        description: '{{ doc("count_bounces") }}'
+
+      - name: count_clicks
+        description: '{{ doc("count_clicks") }}'
+
+      - name: count_deliveries
+        description: '{{ doc("count_deliveries") }}'
+
+      - name: count_unsubscribes
+        description: '{{ doc("count_unsubscribes") }}'
+
+      - name: count_unique_opens
+        description: '{{ doc("count_unique_opens") }}'
+
+      - name: count_unique_clicks
+        description: '{{ doc("count_unique_clicks") }}'
+
+  - name: marketo__email_sends
+    description: Each record is a sent email in Marketo to a user.
+    columns:
+      - name: email_send_id
+        description: The inferred ID for the email sent.
+        tests:
+          - unique
+          - not_null
+      
+      - name: activity_id
+        description: The ID of the activity. 
+
+      - name: activity_rank
+        description: Assigned rank for a given email_send_id, determined by ascending order of activity_timestamp. Earliest activity_timestamp gets rank 1.
+
+      - name: activity_timestamp
+        description: The timestamp the email was sent.
+            
+      - name: activity_type_id
+        description: The ID of the activity type.
+            
+      - name: campaign_id
+        description: The ID of the email's campaign.
+            
+      - name: campaign_run_id
+        description: The ID of the email's campaign run.
+            
+      - name: choice_number
+        description: The choice number of the current step that triggered the activity.
+            
+      - name: email_send_id
+        description: The inferred ID for the email sent.
+            
+      - name: email_template_id
+        description: The ID of the email's template.
+            
+      - name: lead_id
+        description: The ID of the lead related to the activity.
+            
+      - name: primary_attribute_value
+        description: The primary attribute of the activity.
+            
+      - name: primary_attribute_value_id
+        description: The ID of the primary attribute of the activity.
+            
+      - name: step_id
+        description: The Id of the current step in the flow.
+
+      - name: count_opens
+        description: '{{ doc("count_opens") }}'
+
+      - name: count_bounces
+        description: '{{ doc("count_bounces") }}'
+
+      - name: count_clicks
+        description: '{{ doc("count_clicks") }}'
+
+      - name: count_deliveries
+        description: '{{ doc("count_deliveries") }}'
+
+      - name: count_unsubscribes
+        description: '{{ doc("count_unsubscribes") }}'
+
+      - name: was_opened
+        description: Whether the email send was opened.
+
+      - name: was_bounced
+        description: Whether the email send bounced.
+
+      - name: was_clicked
+        description: Whether the email send was clicked.
+
+      - name: was_delivered
+        description: Whether the email send was delivered.
+
+      - name: was_unsubscribed
+        description: Whether the email send resulted in the user unsubscribing.
+
+      - name: campaign_type
+        description: The type of the email send's campaign.
+
+      - name: program_id
+        description: The ID of the email send's program.
+
+      - name: is_operational
+        description: Whether the email send was operational.
+
+  - name: marketo__email_templates
+    description: |
+      This model combines the most recent version of each email template with aggregated email performance metrics. 
+      It pulls data from the following sources:
+      
+      - `email_template_history`: Retrieves the latest version of each email template.
+      - `marketo__email_stats__by_email_template`: Provides aggregated email performance statistics like sends, opens, bounces, clicks, deliveries, and unsubscribes for each email template.
+
+    columns:
+      - name: email_template_id
+        description: ID of the email template.
+        tests:
+          - unique
+          - not_null
+
+      - name: created_timestamp
+        description: Timestamp the email template was created.
+            
+      - name: description
+        description: Description of the email template.
+            
+      - name: email_subject
+        description: Subject line of the email.
+            
+      - name: email_template_history_id
+        description: ID of the version of the email template.
+            
+      - name: email_template_id
+        description: ID of the email template
+            
+      - name: email_template_name
+        description: Name of the email template.
+            
+      - name: email_template_status
+        description: Status filter for draft or approved versions.
+            
+      - name: email_template_url
+        description: URL of the email template in the Marketo UI.
+            
+      - name: folder_name
+        description: The name of the email template's folder.
+            
+      - name: folder_id
+        description: The ID of the email template's folder.
+            
+      - name: folder_type
+        description: The type of the email template's folder.
+            
+      - name: folder_value
+        description: The value of the email template's folder.
+            
+      - name: from_email
+        description: The 'From' address of the email.
+            
+      - name: from_name
+        description: The 'From' name of the email.
+            
+      - name: has_web_view_enabled
+        description: Whether 'View as Webpage' function is enabled for the email.
+            
+      - name: inferred_version
+        description: Incrementing integer version of the email template.
+            
+      - name: is_most_recent_version
+        description: Whether it is the most recent version of the email template.
+            
+      - name: is_operational
+        description: Whether the email is operational. Operational emails bypass unsubscribe status. Defaults to false.
+            
+      - name: is_text_only
+        description: Setting to include text-only version of email when sent.
+            
+      - name: parent_template_id
+        description: ID of the parent template.
+            
+      - name: program_id
+        description: The ID of the email template's program.
+            
+      - name: publish_to_msi
+        description: Whether the email is published to Marketo Sales Insight.
+            
+      - name: reply_email
+        description: Reply-To address of the Email.
+
+      - name: total_count_of_versions
+        description: Count of records for a given email_template_id.
+
+      - name: updated_timestamp
+        description: Timestamp the email template was last updated.
+            
+      - name: valid_from
+        description: When the version of the email template was is valid from.
+            
+      - name: valid_to
+        description: When the version of the email template was is valid to.
+            
+      - name: version_type
+        description: The type version of the email, either '1' or '2'.
+            
+      - name: workspace_name
+        description: Name of the workspace.
+
+      - name: count_sends
+        description: '{{ doc("count_sends") }}'
+
+      - name: count_opens
+        description: '{{ doc("count_opens") }}'
+
+      - name: count_bounces
+        description: '{{ doc("count_bounces") }}'
+
+      - name: count_clicks
+        description: '{{ doc("count_clicks") }}'
+
+      - name: count_deliveries
+        description: '{{ doc("count_deliveries") }}'
+
+      - name: count_unsubscribes
+        description: '{{ doc("count_unsubscribes") }}'
+
+      - name: count_unique_opens
+        description: '{{ doc("count_unique_opens") }}'
+
+      - name: count_unique_clicks
+        description: '{{ doc("count_unique_clicks") }}'
+
+  - name: marketo__lead_history
+    description: Each record is what a Marketo lead looked like on each day.
+    columns:
+      - name: lead_history_id
+        description: Surrogate key combining date_day and lead_id.
+        tests:
+          - unique
+          - not_null
+
+      - name: lead_id
+        description: ID of the lead.
+        tests:
+          - not_null
+      
+      - name: date_day
+        description: The date of the lead was observed in this state.
+
+  - name: marketo__leads
+    description: Each record is a Marketo lead.
+    columns:
+      - name: lead_id
+        description: ID of the lead.
+        tests:
+          - unique
+          - not_null
+
+      - name: created_timestamp
+        description: Timestamp for when each lead was created.
+
+      - name: updated_timestamp
+        description: Timestamp for when each lead was updated.
+      
+      - name: email
+        description: The email address of the lead.
+
+      - name: first_name
+        description: The first name of the lead.
+        
+      - name: last_name
+        description: The last name of the lead.
+
+      - name: phone
+        description: Lead’s Phone Number.
+
+      - name: main_phone
+        description: Primary phone number of the lead’s company
+
+      - name: mobile_phone
+        description: Lead’s mobile phone number
+
+      - name: company
+        description: Lead’s company name
+
+      - name: inferred_company
+        description: Company name inferred by reverse IP lookup of the lead’s first recorded web visit
+
+      - name: address_lead
+        description: Second address associated with the lead.
+
+      - name: address
+        description: Lead’s address. 
+
+      - name: city
+        description: Lead’s city
+
+      - name: state
+        description: Lead’s state
+
+      - name: state_code
+        description: Alpha-2 code of the Lead’s state
+
+      - name: country
+        description: Lead’s country
+
+      - name: country_code
+        description: Alpha-2 code of the Lead’s country
+
+      - name: postal_code
+        description: Lead’s postal code
+
+      - name: billing_street
+        description: Billing street address of the lead’s company
+
+      - name: billing_city
+        description: City of the lead’s billing address
+
+      - name: billing_state
+        description: State or province of the lead’s billing address
+
+      - name: billing_state_code
+        description: Alpha-2 code of the state or province of the lead’s billing address
+
+      - name: billing_country
+        description: Country of the lead’s billing address
+
+      - name: billing_country_code
+        description: Alpha-2 code of the country of the lead’s billing address
+
+      - name: billing_postal_code
+        description: Postal code of the lead’s billing address
+
+      - name: inferred_city
+        description: Lead’s city inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_state_region
+        description: Lead’s state region inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_country
+        description: Country inferred by reverse IP lookup of the lead’s first recorded web visit
+
+      - name: inferred_postal_code
+        description: Lead’s postal code inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: inferred_phone_area_code
+        description: Lead’s phone area code inferred by reverse IP lookup of lead’s first recorded web visit.
+
+      - name: anonymous_ip
+        description: IP address of the lead’s first recorded web visit
+
+      - name: is_unsubscribed
+        description: Lead’s email-unsubscribed status (boolean). Partially system managed. Will prevent receipt of non-operational emails if set to true.
+
+      - name: is_email_invalid
+        description: Email invalid status (boolean). All emails to the address will be blocked if set to true. Bounces indicating that the email is invalid will automatically set this field to true.
+
+      - name: do_not_call
+        description: Lead’s do-not-call preference (boolean)
+
+  - name: marketo__programs
+    description: Each record is a Marketo program.
+    columns:
+      - name: program_id
+        description: ID of the program.
+        tests:
+          - unique
+          - not_null
+
+      - name: channel
+        description: Channel of the program.
+            
+      - name: created_timestamp
+        description: Timestamp the program was created at
+            
+      - name: description
+        description: Description of the program.
+            
+      - name: end_timestamp
+        description: End date of the program. Applicable to event, email, and webinar type programs.
+            
+      - name: program_name
+        description: Name of the program.
+            
+      - name: program_status
+        description:  |
+              Status of the program. Only valid for Email and engagement program types.
+              Allowed values: locked, unlocked, on, off
+            
+      - name: program_type
+        description: |
+              Type of the program. Allowed values: program, event, webinar, nurture
+            
+      - name: sfdc_id
+        description:  SFDC id of the program if linked to an SFDC campaign.
+            
+      - name: sfdc_name
+        description: Name of the linked SFDC campaign if applicable.
+            
+      - name: start_timestamp
+        description: Start date of program. Applicable to event, email and webinar type programs.
+            
+      - name: updated_timestamp
+        description: Timestamp the program was most recently updated.
+            
+      - name: url
+        description: URL of the program in the Marketo UI.
+            
+      - name: workspace
+        description: Name of the workspace.
+
+      - name: count_sends
+        description: '{{ doc("count_sends") }}'
+
+      - name: count_opens
+        description: '{{ doc("count_opens") }}'
+
+      - name: count_bounces
+        description: '{{ doc("count_bounces") }}'
+
+      - name: count_clicks
+        description: '{{ doc("count_clicks") }}'
+
+      - name: count_deliveries
+        description: '{{ doc("count_deliveries") }}'
+
+      - name: count_unsubscribes
+        description: '{{ doc("count_unsubscribes") }}'
+
+      - name: count_unique_opens
+        description: '{{ doc("count_unique_opens") }}'
+
+      - name: count_unique_clicks
+        description: '{{ doc("count_unique_clicks") }}'

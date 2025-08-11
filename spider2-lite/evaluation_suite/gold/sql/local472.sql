@@ -1,0 +1,1 @@
+SELECT * FROM cleaned_weekly_sales WHERE demographic = 'Youth';

@@ -1,0 +1,103 @@
+table_name,description,DDL
+ZTBLDAYS,,"create or replace TABLE ZTBLDAYS (
+	""DateField"" VARCHAR(16777216)
+);"
+ENGAGEMENTS,,"create or replace TABLE ENGAGEMENTS (
+	""EngagementNumber"" NUMBER(38,0),
+	""StartDate"" VARCHAR(16777216),
+	""EndDate"" VARCHAR(16777216),
+	""StartTime"" VARCHAR(16777216),
+	""StopTime"" VARCHAR(16777216),
+	""ContractPrice"" NUMBER(38,0),
+	""CustomerID"" NUMBER(38,0),
+	""AgentID"" NUMBER(38,0),
+	""EntertainerID"" NUMBER(38,0)
+);"
+ENTERTAINERS,,"create or replace TABLE ENTERTAINERS (
+	""EntertainerID"" NUMBER(38,0),
+	""EntStageName"" VARCHAR(16777216),
+	""EntSSN"" VARCHAR(16777216),
+	""EntStreetAddress"" VARCHAR(16777216),
+	""EntCity"" VARCHAR(16777216),
+	""EntState"" VARCHAR(16777216),
+	""EntZipCode"" VARCHAR(16777216),
+	""EntPhoneNumber"" VARCHAR(16777216),
+	""EntWebPage"" VARCHAR(16777216),
+	""EntEMailAddress"" VARCHAR(16777216),
+	""DateEntered"" VARCHAR(16777216)
+);"
+ENTERTAINER_MEMBERS,,"create or replace TABLE ENTERTAINER_MEMBERS (
+	""EntertainerID"" NUMBER(38,0),
+	""MemberID"" NUMBER(38,0),
+	""Status"" NUMBER(38,0)
+);"
+ENTERTAINER_STYLES,,"create or replace TABLE ENTERTAINER_STYLES (
+	""EntertainerID"" NUMBER(38,0),
+	""StyleID"" NUMBER(38,0),
+	""StyleStrength"" NUMBER(38,0)
+);"
+MUSICAL_STYLES,,"create or replace TABLE MUSICAL_STYLES (
+	""StyleID"" NUMBER(38,0),
+	""StyleName"" VARCHAR(16777216)
+);"
+ZTBLWEEKS,,"create or replace TABLE ZTBLWEEKS (
+	""WeekStart"" VARCHAR(16777216),
+	""WeekEnd"" VARCHAR(16777216)
+);"
+ZTBLSKIPLABELS,,"create or replace TABLE ZTBLSKIPLABELS (
+	""LabelCount"" NUMBER(38,0)
+);"
+MEMBERS,,"create or replace TABLE MEMBERS (
+	""MemberID"" NUMBER(38,0),
+	""MbrFirstName"" VARCHAR(16777216),
+	""MbrLastName"" VARCHAR(16777216),
+	""MbrPhoneNumber"" VARCHAR(16777216),
+	""Gender"" VARCHAR(16777216)
+);"
+AGENTS,,"create or replace TABLE AGENTS (
+	""AgentID"" NUMBER(38,0),
+	""AgtFirstName"" VARCHAR(16777216),
+	""AgtLastName"" VARCHAR(16777216),
+	""AgtStreetAddress"" VARCHAR(16777216),
+	""AgtCity"" VARCHAR(16777216),
+	""AgtState"" VARCHAR(16777216),
+	""AgtZipCode"" VARCHAR(16777216),
+	""AgtPhoneNumber"" VARCHAR(16777216),
+	""DateHired"" VARCHAR(16777216),
+	""Salary"" NUMBER(38,0),
+	""CommissionRate"" FLOAT
+);"
+CUSTOMERS,,"create or replace TABLE CUSTOMERS (
+	""CustomerID"" NUMBER(38,0),
+	""CustFirstName"" VARCHAR(16777216),
+	""CustLastName"" VARCHAR(16777216),
+	""CustStreetAddress"" VARCHAR(16777216),
+	""CustCity"" VARCHAR(16777216),
+	""CustState"" VARCHAR(16777216),
+	""CustZipCode"" VARCHAR(16777216),
+	""CustPhoneNumber"" VARCHAR(16777216)
+);"
+MUSICAL_PREFERENCES,,"create or replace TABLE MUSICAL_PREFERENCES (
+	""CustomerID"" NUMBER(38,0),
+	""StyleID"" NUMBER(38,0),
+	""PreferenceSeq"" NUMBER(38,0)
+);"
+ZTBLMONTHS,,"create or replace TABLE ZTBLMONTHS (
+	""MonthYear"" VARCHAR(16777216),
+	""YearNumber"" NUMBER(38,0),
+	""MonthNumber"" NUMBER(38,0),
+	""MonthStart"" VARCHAR(16777216),
+	""MonthEnd"" VARCHAR(16777216),
+	""January"" NUMBER(38,0),
+	""February"" NUMBER(38,0),
+	""March"" NUMBER(38,0),
+	""April"" NUMBER(38,0),
+	""May"" NUMBER(38,0),
+	""June"" NUMBER(38,0),
+	""July"" NUMBER(38,0),
+	""August"" NUMBER(38,0),
+	""September"" NUMBER(38,0),
+	""October"" NUMBER(38,0),
+	""November"" NUMBER(38,0),
+	""December"" NUMBER(38,0)
+);"

@@ -1,0 +1,1 @@
+SELECT * FROM veg_cat WHERE category_code = 5;

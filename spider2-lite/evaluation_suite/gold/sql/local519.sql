@@ -1,0 +1,1 @@
+SELECT ticker, price, market_date FROM bitcoin_prices WHERE market_date = (SELECT MAX(market_date) FROM bitcoin_prices);

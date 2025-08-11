@@ -1,0 +1,93 @@
+table_name,description,DDL
+LEADS_QUALIFIED,,"create or replace TABLE LEADS_QUALIFIED (
+	""mql_id"" VARCHAR(16777216),
+	""first_contact_date"" VARCHAR(16777216),
+	""landing_page_id"" VARCHAR(16777216),
+	""origin"" VARCHAR(16777216)
+);"
+GEOLOCATION,,"create or replace TABLE GEOLOCATION (
+	""geolocation_zip_code_prefix"" NUMBER(38,0),
+	""geolocation_lat"" FLOAT,
+	""geolocation_lng"" FLOAT,
+	""geolocation_city"" VARCHAR(16777216),
+	""geolocation_state"" VARCHAR(16777216)
+);"
+LEADS_CLOSED,,"create or replace TABLE LEADS_CLOSED (
+	""mql_id"" VARCHAR(16777216),
+	""seller_id"" VARCHAR(16777216),
+	""sdr_id"" VARCHAR(16777216),
+	""sr_id"" VARCHAR(16777216),
+	""won_date"" VARCHAR(16777216),
+	""business_segment"" VARCHAR(16777216),
+	""lead_type"" VARCHAR(16777216),
+	""lead_behaviour_profile"" VARCHAR(16777216),
+	""has_company"" FLOAT,
+	""has_gtin"" FLOAT,
+	""average_stock"" VARCHAR(16777216),
+	""business_type"" VARCHAR(16777216),
+	""declared_product_catalog_size"" FLOAT,
+	""declared_monthly_revenue"" FLOAT
+);"
+ORDER_ITEMS,,"create or replace TABLE ORDER_ITEMS (
+	""order_id"" VARCHAR(16777216),
+	""order_item_id"" NUMBER(38,0),
+	""product_id"" VARCHAR(16777216),
+	""seller_id"" VARCHAR(16777216),
+	""shipping_limit_date"" VARCHAR(16777216),
+	""price"" FLOAT,
+	""freight_value"" FLOAT
+);"
+SELLERS,,"create or replace TABLE SELLERS (
+	""seller_id"" VARCHAR(16777216),
+	""seller_zip_code_prefix"" NUMBER(38,0),
+	""seller_city"" VARCHAR(16777216),
+	""seller_state"" VARCHAR(16777216)
+);"
+CUSTOMERS,,"create or replace TABLE CUSTOMERS (
+	""customer_id"" VARCHAR(16777216),
+	""customer_unique_id"" VARCHAR(16777216),
+	""customer_zip_code_prefix"" NUMBER(38,0),
+	""customer_city"" VARCHAR(16777216),
+	""customer_state"" VARCHAR(16777216)
+);"
+ORDER_REVIEWS,,"create or replace TABLE ORDER_REVIEWS (
+	""review_id"" VARCHAR(16777216),
+	""order_id"" VARCHAR(16777216),
+	""review_score"" NUMBER(38,0),
+	""review_comment_title"" VARCHAR(16777216),
+	""review_comment_message"" VARCHAR(16777216),
+	""review_creation_date"" VARCHAR(16777216),
+	""review_answer_timestamp"" VARCHAR(16777216)
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	""product_id"" VARCHAR(16777216),
+	""product_category_name"" VARCHAR(16777216),
+	""product_name_lenght"" FLOAT,
+	""product_description_lenght"" FLOAT,
+	""product_photos_qty"" FLOAT,
+	""product_weight_g"" FLOAT,
+	""product_length_cm"" FLOAT,
+	""product_height_cm"" FLOAT,
+	""product_width_cm"" FLOAT
+);"
+PRODUCT_CATEGORY_NAME_TRANSLATION,,"create or replace TABLE PRODUCT_CATEGORY_NAME_TRANSLATION (
+	""product_category_name"" VARCHAR(16777216),
+	""product_category_name_english"" VARCHAR(16777216)
+);"
+ORDERS,,"create or replace TABLE ORDERS (
+	""order_id"" VARCHAR(16777216),
+	""customer_id"" VARCHAR(16777216),
+	""order_status"" VARCHAR(16777216),
+	""order_purchase_timestamp"" VARCHAR(16777216),
+	""order_approved_at"" VARCHAR(16777216),
+	""order_delivered_carrier_date"" VARCHAR(16777216),
+	""order_delivered_customer_date"" VARCHAR(16777216),
+	""order_estimated_delivery_date"" VARCHAR(16777216)
+);"
+ORDER_PAYMENTS,,"create or replace TABLE ORDER_PAYMENTS (
+	""order_id"" VARCHAR(16777216),
+	""payment_sequential"" NUMBER(38,0),
+	""payment_type"" VARCHAR(16777216),
+	""payment_installments"" NUMBER(38,0),
+	""payment_value"" FLOAT
+);"

@@ -1,0 +1,1 @@
+SELECT * FROM bitcoin_transactions WHERE ticker = 'BTC';

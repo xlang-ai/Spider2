@@ -1,0 +1,1 @@
+SELECT interest_id, ranking FROM interest_metrics ORDER BY index_value DESC;

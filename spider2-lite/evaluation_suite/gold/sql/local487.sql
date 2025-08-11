@@ -1,0 +1,1 @@
+SELECT ie.event_name, COUNT(e.event_type) AS event_count FROM shopping_cart_events e JOIN shopping_cart_event_identifier ie ON e.event_type = ie.event_type GROUP BY ie.event_name;

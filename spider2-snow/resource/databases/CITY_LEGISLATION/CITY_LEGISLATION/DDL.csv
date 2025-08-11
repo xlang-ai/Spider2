@@ -1,0 +1,164 @@
+table_name,description,DDL
+ALIENS,,"create or replace TABLE ALIENS (
+	""id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""gender"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""birth_year"" NUMBER(38,0)
+);"
+ALIENS_DETAILS,,"create or replace TABLE ALIENS_DETAILS (
+	""detail_id"" NUMBER(38,0),
+	""favorite_food"" VARCHAR(16777216),
+	""feeding_frequency"" VARCHAR(16777216),
+	""aggressive"" NUMBER(38,0)
+);"
+SKILLS_DIM,,"create or replace TABLE SKILLS_DIM (
+	""skill_id"" NUMBER(38,0),
+	""skills"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216)
+);"
+ALIENS_LOCATION,,"create or replace TABLE ALIENS_LOCATION (
+	""loc_id"" NUMBER(38,0),
+	""current_location"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216),
+	""occupation"" VARCHAR(16777216)
+);"
+ALIEN_DATA,,"create or replace TABLE ALIEN_DATA (
+	""id"" NUMBER(38,0),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""email"" VARCHAR(16777216),
+	""gender"" VARCHAR(16777216),
+	""type"" VARCHAR(16777216),
+	""birth_year"" NUMBER(38,0),
+	""age"" NUMBER(38,0),
+	""favorite_food"" VARCHAR(16777216),
+	""feeding_frequency"" VARCHAR(16777216),
+	""aggressive"" NUMBER(38,0),
+	""occupation"" VARCHAR(16777216),
+	""current_location"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""us_region"" VARCHAR(16777216),
+	""country"" VARCHAR(16777216)
+);"
+CITIES,,"create or replace TABLE CITIES (
+	""city_id"" NUMBER(38,0),
+	""city_name"" VARCHAR(16777216),
+	""latitude"" FLOAT,
+	""longitude"" FLOAT,
+	""country_code_2"" VARCHAR(16777216),
+	""capital"" NUMBER(38,0),
+	""population"" FLOAT,
+	""insert_date"" VARCHAR(16777216)
+);"
+CITIES_COUNTRIES,,"create or replace TABLE CITIES_COUNTRIES (
+	""country_id"" NUMBER(38,0),
+	""country_name"" VARCHAR(16777216),
+	""country_code_2"" VARCHAR(16777216),
+	""country_code_3"" VARCHAR(16777216),
+	""region"" VARCHAR(16777216),
+	""sub_region"" VARCHAR(16777216),
+	""intermediate_region"" VARCHAR(16777216),
+	""created_on"" VARCHAR(16777216)
+);"
+CITIES_CURRENCIES,,"create or replace TABLE CITIES_CURRENCIES (
+	""currency_id"" NUMBER(38,0),
+	""country_code_2"" VARCHAR(16777216),
+	""currency_name"" VARCHAR(16777216),
+	""currency_code"" VARCHAR(16777216)
+);"
+LEGISLATORS,,"create or replace TABLE LEGISLATORS (
+	""full_name"" VARCHAR(16777216),
+	""first_name"" VARCHAR(16777216),
+	""last_name"" VARCHAR(16777216),
+	""middle_name"" VARCHAR(16777216),
+	""nickname"" VARCHAR(16777216),
+	""suffix"" VARCHAR(16777216),
+	""other_names_end"" VARCHAR(16777216),
+	""other_names_middle"" VARCHAR(16777216),
+	""other_names_last"" VARCHAR(16777216),
+	""birthday"" VARCHAR(16777216),
+	""gender"" VARCHAR(16777216),
+	""id_bioguide"" VARCHAR(16777216),
+	""id_bioguide_previous_0"" VARCHAR(16777216),
+	""id_govtrack"" NUMBER(38,0),
+	""id_icpsr"" FLOAT,
+	""id_wikipedia"" VARCHAR(16777216),
+	""id_wikidata"" VARCHAR(16777216),
+	""id_google_entity_id"" VARCHAR(16777216),
+	""id_house_history"" FLOAT,
+	""id_house_history_alternate"" FLOAT,
+	""id_thomas"" FLOAT,
+	""id_cspan"" FLOAT,
+	""id_votesmart"" FLOAT,
+	""id_lis"" VARCHAR(16777216),
+	""id_ballotpedia"" VARCHAR(16777216),
+	""id_opensecrets"" VARCHAR(16777216),
+	""id_fec_0"" VARCHAR(16777216),
+	""id_fec_1"" VARCHAR(16777216),
+	""id_fec_2"" VARCHAR(16777216)
+);"
+LEGISLATORS_TERMS,,"create or replace TABLE LEGISLATORS_TERMS (
+	""id_bioguide"" VARCHAR(16777216),
+	""term_number"" NUMBER(38,0),
+	""term_id"" VARCHAR(16777216),
+	""term_type"" VARCHAR(16777216),
+	""term_start"" VARCHAR(16777216),
+	""term_end"" VARCHAR(16777216),
+	""state"" VARCHAR(16777216),
+	""district"" FLOAT,
+	""class"" FLOAT,
+	""party"" VARCHAR(16777216),
+	""how"" VARCHAR(16777216),
+	""url"" VARCHAR(16777216),
+	""address"" VARCHAR(16777216),
+	""phone"" VARCHAR(16777216),
+	""fax"" VARCHAR(16777216),
+	""contact_form"" VARCHAR(16777216),
+	""office"" VARCHAR(16777216),
+	""state_rank"" VARCHAR(16777216),
+	""rss_url"" VARCHAR(16777216),
+	""caucus"" VARCHAR(16777216)
+);"
+SKILLS_JOB_DIM,,"create or replace TABLE SKILLS_JOB_DIM (
+	""job_id"" NUMBER(38,0),
+	""skill_id"" NUMBER(38,0)
+);"
+CITIES_LANGUAGES,,"create or replace TABLE CITIES_LANGUAGES (
+	""language_id"" NUMBER(38,0),
+	""language"" VARCHAR(16777216),
+	""country_code_2"" VARCHAR(16777216)
+);"
+JOB_POSTINGS_FACT,,"create or replace TABLE JOB_POSTINGS_FACT (
+	""job_id"" NUMBER(38,0),
+	""company_id"" NUMBER(38,0),
+	""job_title_short"" VARCHAR(16777216),
+	""job_title"" VARCHAR(16777216),
+	""job_location"" VARCHAR(16777216),
+	""job_via"" VARCHAR(16777216),
+	""job_schedule_type"" VARCHAR(16777216),
+	""job_work_from_home"" NUMBER(38,0),
+	""search_location"" VARCHAR(16777216),
+	""job_posted_date"" VARCHAR(16777216),
+	""job_no_degree_mention"" NUMBER(38,0),
+	""job_health_insurance"" NUMBER(38,0),
+	""job_country"" VARCHAR(16777216),
+	""salary_rate"" VARCHAR(16777216),
+	""salary_year_avg"" FLOAT,
+	""salary_hour_avg"" FLOAT
+);"
+LEGISLATION_DATE_DIM,,"create or replace TABLE LEGISLATION_DATE_DIM (
+	""date"" VARCHAR(16777216),
+	""month_name"" VARCHAR(16777216),
+	""day_of_month"" NUMBER(38,0)
+);"
+JOB_COMPANY,,"create or replace TABLE JOB_COMPANY (
+	""company_id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""link"" VARCHAR(16777216),
+	""link_google"" VARCHAR(16777216),
+	""thumbnail"" VARCHAR(16777216)
+);"

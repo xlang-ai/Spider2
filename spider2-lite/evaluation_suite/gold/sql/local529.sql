@@ -1,0 +1,1 @@
+SELECT * FROM customer_transactions WHERE txn_date >= date('now', '-30 days');

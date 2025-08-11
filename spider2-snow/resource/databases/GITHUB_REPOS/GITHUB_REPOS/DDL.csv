@@ -1,0 +1,47 @@
+table_name,description,DDL
+SAMPLE_FILES,,"create or replace TABLE SAMPLE_FILES (
+	""repo_name"" VARCHAR(16777216),
+	""ref"" VARCHAR(16777216),
+	""path"" VARCHAR(16777216),
+	""mode"" NUMBER(38,0),
+	""id"" VARCHAR(16777216),
+	""symlink_target"" VARCHAR(16777216)
+);"
+LANGUAGES,,"create or replace TABLE LANGUAGES (
+	""repo_name"" VARCHAR(16777216),
+	""language"" VARIANT
+);"
+LICENSES,,"create or replace TABLE LICENSES (
+	""repo_name"" VARCHAR(16777216),
+	""license"" VARCHAR(16777216)
+);"
+SAMPLE_COMMITS,,"create or replace TABLE SAMPLE_COMMITS (
+	""commit"" VARCHAR(16777216),
+	""tree"" VARCHAR(16777216),
+	""parent"" VARIANT,
+	""author"" VARIANT,
+	""committer"" VARIANT,
+	""subject"" VARCHAR(16777216),
+	""message"" VARCHAR(16777216),
+	""trailer"" VARIANT,
+	""difference"" VARIANT,
+	""difference_truncated"" BOOLEAN,
+	""repo_name"" VARCHAR(16777216),
+	""encoding"" VARCHAR(16777216)
+);"
+SAMPLE_CONTENTS,,"create or replace TABLE SAMPLE_CONTENTS (
+	""id"" VARCHAR(16777216),
+	""size"" NUMBER(38,0),
+	""content"" VARCHAR(16777216),
+	""binary"" BOOLEAN,
+	""copies"" NUMBER(38,0),
+	""sample_repo_name"" VARCHAR(16777216),
+	""sample_ref"" VARCHAR(16777216),
+	""sample_path"" VARCHAR(16777216),
+	""sample_mode"" NUMBER(38,0),
+	""sample_symlink_target"" VARCHAR(16777216)
+);"
+SAMPLE_REPOS,,"create or replace TABLE SAMPLE_REPOS (
+	""repo_name"" VARCHAR(16777216),
+	""watch_count"" NUMBER(38,0)
+);"

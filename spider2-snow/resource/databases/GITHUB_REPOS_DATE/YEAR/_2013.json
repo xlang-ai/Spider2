@@ -1,0 +1,94 @@
+{
+    "table_name": "YEAR._2013",
+    "table_fullname": "GITHUB_REPOS_DATE.YEAR._2013",
+    "column_names": [
+        "org",
+        "type",
+        "repo",
+        "public",
+        "other",
+        "created_at",
+        "payload",
+        "actor",
+        "id"
+    ],
+    "column_types": [
+        "VARIANT",
+        "TEXT",
+        "VARIANT",
+        "BOOLEAN",
+        "TEXT",
+        "NUMBER",
+        "TEXT",
+        "VARIANT",
+        "TEXT"
+    ],
+    "description": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+    ],
+    "sample_rows": [
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"59cf3a2404dc5d678ee16249764b7effd6ecd485\",\"d2e0b76d386d2ff8303d8fff1525f06dfbd4c0c6@gmail.com\",\"Add create_sid to session_set_save_handler and SessionHandler\\n\\nA lot of code already existed to allow a custom create_sid handler, but\\nlacked a specific implementation.\\n\\nTherefore I have added a 7th (optional) argument\\nsession_set_save_handler, to allow a user function to be supplied for\\nsession id generation.\\n\\nIf a create_sid function is not supplied, the default function is\\ncalled in its absence to preserve backwards compatibility.\\n\\nLikewise create_sid only added to SessionHandler class, and not the\\ninterface to maintain backwards compatibility. If the result is not\\noverridden, the default is called.\",\"Leigh\",true],[\"6809c388b5d8bb03515f7b4ba391724f9a8df8e0\",\"d2e0b76d386d2ff8303d8fff1525f06dfbd4c0c6@gmail.com\",\"Tests, fixes and optimisations\\n\\n* Amended existing tests to cater for new functionality.\\n* Implemented fixes and optimisations recommended by NikiC\\n* Added create_sid to the registered interface. This was breaking\\ntests. It also now breaks BC for people implementing the interface\\ndirectly instead of extending the class.\",\"Leigh\",true],[\"1f97fde89e5e54c4f360b07d348d0f14634808b3\",\"fd2b0a636ed0c80c1646cd2c2e72f7a758b42b5b@php.net\",\"Merge branch 'PHP-5.5' of ssh://git.php.net/php-src into PHP-5.5\",\"Andrey Hristov\",false],[\"ba1af298052cbef7329e330f2d3f9749b9be65bb\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"more check for php_stream_fopen_tmpfile failure\",\"Pierre Joye\",true],[\"7ec2e5314eb62d9cd2ef23e0b62445eb50cc23c0\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.3' into PHP-5.4\\n\\n* PHP-5.3:\\n  more check for php_stream_fopen_tmpfile failure\",\"Pierre Joye\",true],[\"42a186e22d6621dfb606fa2e562140faa08e8c99\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.4' into PHP-5.5\\n\\n* PHP-5.4:\\n  more check for php_stream_fopen_tmpfile failure\",\"Pierre Joye\",true],[\"3ed4bf8fd9c61336c2a3dda8db2cba4409078261\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.5'\\n\\n* PHP-5.5:\\n  more check for php_stream_fopen_tmpfile failure\",\"Pierre Joye\",true],[\"86db5fb4c2b7199dc862dfce99c345c49305ba8a\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"Fix unitialized vars when sql.safe_mode=1\\n\\nwhich can break the subsequent mysqlnd_connect() call\",\"Anatol Belski\",true],[\"de82e7edf7c91afab236a087ce4900868066b5d7\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"Merge branch 'PHP-5.3' into PHP-5.4\\n\\n* PHP-5.3:\\n  Fix unitialized vars when sql.safe_mode=1\\n  more check for php_stream_fopen_tmpfile failure\",\"Anatol Belski\",true],[\"077b575d51630641fbd4b664bd18cfc335f76ebe\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"Merge branch 'PHP-5.4' into PHP-5.5\\n\\n* PHP-5.4:\\n  Fix unitialized vars when sql.safe_mode=1\\n  more check for php_stream_fopen_tmpfile failure\",\"Anatol Belski\",true],[\"d8e44e3d70a898354c0eecb3125a159e5e28e0e5\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"Merge branch 'PHP-5.5'\\n\\n* PHP-5.5:\\n  Fix unitialized vars when sql.safe_mode=1\\n  more check for php_stream_fopen_tmpfile failure\",\"Anatol Belski\",true],[\"082ee90b9bc9b6487b36831f34acfc901c671c41\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"fixe preprocessor definition\",\"Anatol Belski\",true],[\"8fa8591cfa12fd382e309231532d30956ef484fd\",\"da23614e02469a0d7c7bd1bdab5c9c474b1904dc@php.net\",\"Merge branch 'PHP-5.5'\\n\\n* PHP-5.5:\\n  fixe preprocessor definition\",\"Anatol Belski\",true],[\"139e9824adfa52c68ac45a0d8886f50ae50c0164\",\"e0a42df31a8e65b27981df4a4f5534453cec3035@php.net\",\"Fix array_colum segfault\\n\\nSeparate zval to avoid gc from freeing\",\"David Soria Parra\",true],[\"c5841f8cb7d1d373cffc87ed97a71da85f8a53ce\",\"e0a42df31a8e65b27981df4a4f5534453cec3035@php.net\",\"Merge branch 'PHP-5.5'\\n\\n* PHP-5.5:\\n  Fix array_colum segfault\",\"David Soria Parra\",true],[\"09470ebf35a47ac34c3ffa5524ccb47ff404cd5a\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.4' of git.php.net:php-src into PHP-5.4\",\"Pierre Joye\",true],[\"bfb50d17cb2e989548ded36f1dec1be9fd09b592\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.5' of git.php.net:php-src into PHP-5.5\",\"Pierre Joye\",true],[\"9accfee55f80ec7da23bb948c49fcaa3e97bc2ca\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.4' into PHP-5.5\\n\\n* PHP-5.4:\",\"Pierre Joye\",true],[\"ebadc022735bec492a88ff33f0406ed44a9b3098\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'master' of git.php.net:php-src\",\"Pierre Joye\",true],[\"f5d5a50a1c3fe406d87edaa6396e690588c7be81\",\"59abcfbc74ec9db32f8062e211631ee081d4f643@gmail.com\",\"Merge branch 'PHP-5.5'\\n\\n* PHP-5.5:\",\"Pierre Joye\",true]],\"size\":544,\"ref\":\"refs/heads/master\",\"head\":\"1db66942e1c2e16b36ee614d827605b9fd9b611f\"}",
+            "repo": "{\n  \"id\": 10056139,\n  \"name\": \"php-src\",\n  \"url\": \"https://github.com/notti/php-src\"\n}",
+            "actor": "{\n  \"gravatar_id\": \"34484cc45da1a8916428de1884780379\",\n  \"login\": \"notti\"\n}",
+            "org": "null",
+            "created_at": 1372662508000000,
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"The PHP Interpreter\",\"homepage\":\"http://www.php.net\",\"watchers\":0,\"stargazers\":0,\"forks\":0,\"fork\":true,\"size\":6892,\"owner\":\"notti\",\"private\":false,\"open_issues\":0,\"has_issues\":false,\"has_downloads\":true,\"has_wiki\":false,\"language\":\"C\",\"created_at\":\"2013-05-14T06:51:16-07:00\",\"pushed_at\":\"2013-07-01T00:08:20-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"Gernot Vormayr\",\"location\":\"Vienna\",\"email\":\"536f7288993e159c8c7c512f073229e93ffecea6@gmail.com\"},\"url\":\"https://github.com/notti/php-src/compare/09cc4484a2...1db66942e1\"}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"8fb19bfca6b43e82cc81f79d77228bea5ab666c8\",\"aa743a0aaec8f7d7a1f01442503957f4d7a2d634@larlet.fr\",\"Adding the portal link to both app and user summary (bug 924673)\",\"David Larlet\",true]],\"size\":1,\"ref\":\"refs/heads/924673-bango-portal-for-admins\",\"head\":\"8fb19bfca6b43e82cc81f79d77228bea5ab666c8\"}",
+            "repo": "{\n  \"id\": 11496429,\n  \"name\": \"zamboni\",\n  \"url\": \"https://github.com/davidbgk/zamboni\"\n}",
+            "actor": "{\n  \"gravatar_id\": \"daac2028dd52a4cda7c9133b5c22a0db\",\n  \"login\": \"davidbgk\"\n}",
+            "org": "null",
+            "created_at": 1382374951000000,
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"A clandestine operation to make AMO happy\",\"homepage\":\"http://zamboni.readthedocs.org/en/latest/\",\"watchers\":0,\"stargazers\":0,\"forks\":0,\"fork\":true,\"size\":112605,\"owner\":\"davidbgk\",\"private\":false,\"open_issues\":0,\"has_issues\":false,\"has_downloads\":false,\"has_wiki\":false,\"language\":\"Python\",\"created_at\":\"2013-07-18T00:01:28-07:00\",\"pushed_at\":\"2013-10-21T10:02:29-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"David Larlet\",\"company\":\"http://scopyleft.fr\",\"blog\":\"https://larlet.fr/david/code/\",\"location\":\"Arles, France\",\"email\":\"aa743a0aaec8f7d7a1f01442503957f4d7a2d634@larlet.fr\"},\"url\":\"https://github.com/davidbgk/zamboni/compare/d178442d8c...8fb19bfca6\"}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"7819a919b417ac0122d99e4d4e34724485e657b6\",\"b21c847246280261d5fe11f70e3204798e70c825@gmail.com\",\"locate: added some \\\"documentation\\\"\",\"Thomas Refis\",true]],\"size\":1,\"ref\":\"refs/heads/experimental\",\"head\":\"7819a919b417ac0122d99e4d4e34724485e657b6\"}",
+            "repo": "{\n  \"id\": 8048400,\n  \"name\": \"merlin\",\n  \"url\": \"https://github.com/def-lkb/merlin\"\n}",
+            "actor": "{\n  \"gravatar_id\": \"fb4544042a321331108124809de365d3\",\n  \"login\": \"trefis\"\n}",
+            "org": "null",
+            "created_at": 1376853644000000,
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"Context sensitive completion for Ocaml in Vim and Emacs\",\"watchers\":46,\"stargazers\":46,\"forks\":8,\"fork\":false,\"size\":2571,\"owner\":\"def-lkb\",\"private\":false,\"open_issues\":22,\"has_issues\":true,\"has_downloads\":true,\"has_wiki\":true,\"language\":\"OCaml\",\"created_at\":\"2013-02-06T01:38:04-08:00\",\"pushed_at\":\"2013-08-18T12:20:44-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"name\":\"Thomas Refis\",\"location\":\"Paris\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/def-lkb/merlin/compare/348ec54ab8...7819a919b4\"}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"03f9ec5bc2d463314a8053cbd76a6675a59bc4d4\",\"a5e9d5392a8c83407d6bf254d7197eb2f1aeea59@gmail.com\",\"cybergame fix\",\"Ndragomirov\",true]],\"size\":1,\"ref\":\"refs/heads/master\",\"head\":\"03f9ec5bc2d463314a8053cbd76a6675a59bc4d4\"}",
+            "repo": "{\n  \"id\": 8136673,\n  \"name\": \"tviggr\",\n  \"url\": \"https://github.com/Ndragomirov/tviggr\"\n}",
+            "actor": "{\n  \"gravatar_id\": \"78c677bb1fa8a8f3f2ec3777a45b0acc\",\n  \"login\": \"Ndragomirov\"\n}",
+            "org": "null",
+            "created_at": 1361178166000000,
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"tviggr chrome extension\",\"watchers\":1,\"stargazers\":1,\"forks\":0,\"fork\":false,\"size\":1120,\"owner\":\"Ndragomirov\",\"private\":false,\"open_issues\":1,\"has_issues\":true,\"has_downloads\":true,\"has_wiki\":true,\"language\":\"JavaScript\",\"created_at\":\"2013-02-11T03:07:54-08:00\",\"pushed_at\":\"2013-02-18T01:02:45-08:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"name\":\"Nikita Dragomirov\",\"location\":\"Russia\",\"type\":\"User\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/Ndragomirov/tviggr/compare/81f4537d6b...03f9ec5bc2\"}"
+        },
+        {
+            "type": "PushEvent",
+            "public": true,
+            "payload": "{\"shas\":[[\"5eac693129019274c0b2278d452fef38d947c5db\",\"53dae05b3dd9ec61be1d2a2f92fef22fb5df91fc@gmail.com\",\"BUILDCONFIG\",\"Eileen\",true]],\"size\":1,\"ref\":\"refs/heads/master\",\"head\":\"5eac693129019274c0b2278d452fef38d947c5db\"}",
+            "repo": "{\n  \"id\": 14073578,\n  \"name\": \"HackANote\",\n  \"url\": \"https://github.com/scytop/HackANote\"\n}",
+            "actor": "{\n  \"gravatar_id\": \"bf421160ae4650a8022f5a9f8bec923e\",\n  \"login\": \"the-eileen\"\n}",
+            "org": "null",
+            "created_at": 1383451245000000,
+            "id": null,
+            "other": "{\"repository\":{\"description\":\"\",\"watchers\":0,\"stargazers\":0,\"forks\":1,\"fork\":false,\"size\":10962,\"owner\":\"scytop\",\"private\":false,\"open_issues\":0,\"has_issues\":true,\"has_downloads\":true,\"has_wiki\":true,\"created_at\":\"2013-11-02T12:37:51-07:00\",\"pushed_at\":\"2013-11-02T21:00:45-07:00\",\"master_branch\":\"master\"},\"actor_attributes\":{\"type\":\"User\",\"email\":\"da39a3ee5e6b4b0d3255bfef95601890afd80709\"},\"url\":\"https://github.com/scytop/HackANote/compare/4c94bfec25...5eac693129\"}"
+        }
+    ]
+}

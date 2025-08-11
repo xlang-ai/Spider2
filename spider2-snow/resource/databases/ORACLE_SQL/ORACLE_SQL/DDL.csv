@@ -1,0 +1,201 @@
+table_name,description,DDL
+BREWERIES,,"create or replace TABLE BREWERIES (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+CONWAY_GEN_ZERO,,"create or replace TABLE CONWAY_GEN_ZERO (
+	""x"" VARCHAR(16777216),
+	""y"" VARCHAR(16777216),
+	""alive"" VARCHAR(16777216)
+);"
+CUSTOMER_REVIEWS,,"create or replace TABLE CUSTOMER_REVIEWS (
+	""customer_id"" NUMBER(38,0),
+	""review_list"" VARCHAR(16777216)
+);"
+EMPLOYEES,,"create or replace TABLE EMPLOYEES (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216),
+	""supervisor_id"" FLOAT
+);"
+ID_NAME_COLL_TYPE,,"create or replace TABLE ID_NAME_COLL_TYPE (
+	""collection_id"" VARCHAR(16777216)
+);"
+MONTHLY_BUDGET,,"create or replace TABLE MONTHLY_BUDGET (
+	""product_id"" NUMBER(38,0),
+	""mth"" VARCHAR(16777216),
+	""qty"" FLOAT
+);"
+MONTHLY_SALES,,"create or replace TABLE MONTHLY_SALES (
+	""product_id"" NUMBER(38,0),
+	""mth"" VARCHAR(16777216),
+	""qty"" NUMBER(38,0)
+);"
+ORDERLINES,,"create or replace TABLE ORDERLINES (
+	""id"" NUMBER(38,0),
+	""order_id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""qty"" FLOAT,
+	""amount"" FLOAT
+);"
+PRODUCTS,,"create or replace TABLE PRODUCTS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""group_id"" NUMBER(38,0)
+);"
+PRODUCT_GROUPS,,"create or replace TABLE PRODUCT_GROUPS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+PURCHASES,,"create or replace TABLE PURCHASES (
+	""id"" NUMBER(38,0),
+	""purchased"" VARCHAR(16777216),
+	""brewery_id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""qty"" NUMBER(38,0),
+	""cost"" FLOAT
+);"
+LOCATIONS,,"create or replace TABLE LOCATIONS (
+	""id"" NUMBER(38,0),
+	""warehouse"" NUMBER(38,0),
+	""aisle"" VARCHAR(16777216),
+	""position"" NUMBER(38,0)
+);"
+PACKAGING_RELATIONS,,"create or replace TABLE PACKAGING_RELATIONS (
+	""packaging_id"" NUMBER(38,0),
+	""contains_id"" NUMBER(38,0),
+	""qty"" NUMBER(38,0)
+);"
+WEB_APPS,,"create or replace TABLE WEB_APPS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+WEB_PAGES,,"create or replace TABLE WEB_PAGES (
+	""app_id"" NUMBER(38,0),
+	""page_no"" NUMBER(38,0),
+	""friendly_url"" VARCHAR(16777216)
+);"
+CUSTOMERS,,"create or replace TABLE CUSTOMERS (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+CUSTOMER_FAVORITES,,"create or replace TABLE CUSTOMER_FAVORITES (
+	""customer_id"" NUMBER(38,0),
+	""favorite_list"" VARCHAR(16777216)
+);"
+ID_NAME_TYPE,,"create or replace TABLE ID_NAME_TYPE (
+	""id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216)
+);"
+ORDERS,,"create or replace TABLE ORDERS (
+	""id"" NUMBER(38,0),
+	""customer_id"" NUMBER(38,0),
+	""ordered"" VARCHAR(16777216),
+	""delivery"" VARCHAR(16777216)
+);"
+PICKING_LOG,,"create or replace TABLE PICKING_LOG (
+	""picklist_id"" NUMBER(38,0),
+	""log_time"" VARCHAR(16777216),
+	""activity"" VARCHAR(16777216),
+	""location_id"" FLOAT,
+	""pickline_no"" FLOAT
+);"
+PRODUCT_MINIMUMS,,"create or replace TABLE PRODUCT_MINIMUMS (
+	""product_id"" NUMBER(38,0),
+	""qty_minimum"" FLOAT,
+	""qty_purchase"" FLOAT
+);"
+STOCK,,"create or replace TABLE STOCK (
+	""symbol"" VARCHAR(16777216),
+	""company"" VARCHAR(16777216)
+);"
+TICKER,,"create or replace TABLE TICKER (
+	""symbol"" VARCHAR(16777216),
+	""day"" VARCHAR(16777216),
+	""price"" FLOAT
+);"
+PICKING_LINE,,"create or replace TABLE PICKING_LINE (
+	""picklist_id"" NUMBER(38,0),
+	""line_no"" NUMBER(38,0),
+	""location_id"" NUMBER(38,0),
+	""order_id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""qty"" FLOAT
+);"
+WEB_COUNTER_HIST,,"create or replace TABLE WEB_COUNTER_HIST (
+	""app_id"" NUMBER(38,0),
+	""page_no"" NUMBER(38,0),
+	""day"" VARCHAR(16777216),
+	""counter"" NUMBER(38,0)
+);"
+CHANNELS_DIM,,"create or replace TABLE CHANNELS_DIM (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216),
+	""shortcut"" VARCHAR(16777216)
+);"
+EMP_HIRE_PERIODS,,"create or replace TABLE EMP_HIRE_PERIODS (
+	""emp_id"" NUMBER(38,0),
+	""start_"" VARCHAR(16777216),
+	""end_"" VARCHAR(16777216),
+	""title"" VARCHAR(16777216)
+);"
+WEB_DEVICES,,"create or replace TABLE WEB_DEVICES (
+	""day"" VARCHAR(16777216),
+	""pc"" NUMBER(38,0),
+	""tablet"" NUMBER(38,0),
+	""phone"" NUMBER(38,0)
+);"
+WEB_DEMOGRAPHICS,,"create or replace TABLE WEB_DEMOGRAPHICS (
+	""day"" VARCHAR(16777216),
+	""m_tw_cnt"" NUMBER(38,0),
+	""m_tw_qty"" NUMBER(38,0),
+	""m_fb_cnt"" NUMBER(38,0),
+	""m_fb_qty"" NUMBER(38,0),
+	""f_tw_cnt"" NUMBER(38,0),
+	""f_tw_qty"" NUMBER(38,0),
+	""f_fb_cnt"" NUMBER(38,0),
+	""f_fb_qty"" NUMBER(38,0)
+);"
+FAVORITE_COLL_TYPE,,"create or replace TABLE FAVORITE_COLL_TYPE (
+	""id"" VARCHAR(16777216)
+);"
+GENDER_DIM,,"create or replace TABLE GENDER_DIM (
+	""letter"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216)
+);"
+ID_NAME_COLL_ENTRIES,,"create or replace TABLE ID_NAME_COLL_ENTRIES (
+	""collection_id"" VARCHAR(16777216),
+	""id"" VARCHAR(16777216),
+	""name"" VARCHAR(16777216)
+);"
+INVENTORY,,"create or replace TABLE INVENTORY (
+	""id"" NUMBER(38,0),
+	""location_id"" NUMBER(38,0),
+	""product_id"" NUMBER(38,0),
+	""purchase_id"" NUMBER(38,0),
+	""qty"" FLOAT
+);"
+PACKAGING,,"create or replace TABLE PACKAGING (
+	""id"" NUMBER(38,0),
+	""name"" VARCHAR(16777216)
+);"
+PICKING_LIST,,"create or replace TABLE PICKING_LIST (
+	""id"" NUMBER(38,0),
+	""created"" VARCHAR(16777216),
+	""picker_emp_id"" NUMBER(38,0)
+);"
+WEB_PAGE_VISITS,,"create or replace TABLE WEB_PAGE_VISITS (
+	""client_ip"" VARCHAR(16777216),
+	""visit_time"" VARCHAR(16777216),
+	""app_id"" NUMBER(38,0),
+	""page_no"" NUMBER(38,0)
+);"
+PRODUCT_ALCOHOL,,"create or replace TABLE PRODUCT_ALCOHOL (
+	""product_id"" NUMBER(38,0),
+	""sales_volume"" FLOAT,
+	""abv"" FLOAT
+);"
+SERVER_HEARTBEAT,,"create or replace TABLE SERVER_HEARTBEAT (
+	""server"" VARCHAR(16777216),
+	""beat_time"" VARCHAR(16777216)
+);"

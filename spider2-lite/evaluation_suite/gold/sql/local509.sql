@@ -1,0 +1,1 @@
+SELECT * FROM bitcoin_prices WHERE ticker = 'BTC' AND market_date = '2024-05-01';

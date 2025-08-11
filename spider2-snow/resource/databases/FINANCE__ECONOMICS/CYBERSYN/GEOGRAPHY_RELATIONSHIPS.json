@@ -1,0 +1,78 @@
+{
+    "sample_rows": [
+        {
+            "GEO_NAME": "Sumter County",
+            "GEO_ID": "geoId/45085",
+            "LEVEL": "County",
+            "RELATED_GEO_NAME": "Block Group 3, Census Tract 4, Sumter County, South Carolina",
+            "RELATED_GEO_ID": "censusBlockGroup/450850004003",
+            "RELATED_LEVEL": "CensusBlockGroup",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Census Tract 5035.10, Santa Clara County, California",
+            "GEO_ID": "geoId/06085503510",
+            "LEVEL": "CensusTract",
+            "RELATED_GEO_NAME": "Block Group 2; Census Tract 5035.10; Santa Clara County; California",
+            "RELATED_GEO_ID": "censusBlockGroup/060855035102",
+            "RELATED_LEVEL": "CensusBlockGroup",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "Northern America",
+            "GEO_ID": "countrySubRegion/021",
+            "LEVEL": "CountrySubRegion",
+            "RELATED_GEO_NAME": "Census Tract 107.30, Sandoval County, New Mexico",
+            "RELATED_GEO_ID": "geoId/35043010730",
+            "RELATED_LEVEL": "CensusTract",
+            "RELATIONSHIP_TYPE": "Contains"
+        },
+        {
+            "GEO_NAME": "59150306",
+            "GEO_ID": "statcanId/S051259150306",
+            "LEVEL": "DisseminationArea",
+            "RELATED_GEO_NAME": "Greater Vancouver",
+            "RELATED_GEO_ID": "statcanId/A00035915",
+            "RELATED_LEVEL": "CensusDivision",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        },
+        {
+            "GEO_NAME": "35230419",
+            "GEO_ID": "statcanId/S051235230419",
+            "LEVEL": "DisseminationArea",
+            "RELATED_GEO_NAME": "Guelph/Eramosa",
+            "RELATED_GEO_ID": "statcanId/A00053523009",
+            "RELATED_LEVEL": "CensusSubdivision",
+            "RELATIONSHIP_TYPE": "Overlaps"
+        }
+    ],
+    "table_name": "GEOGRAPHY_RELATIONSHIPS",
+    "table_fullname": "FINANCE__ECONOMICS.CYBERSYN.GEOGRAPHY_RELATIONSHIPS",
+    "column_names": [
+        "RELATED_GEO_NAME",
+        "RELATED_LEVEL",
+        "RELATIONSHIP_TYPE",
+        "RELATED_GEO_ID",
+        "GEO_ID",
+        "GEO_NAME",
+        "LEVEL"
+    ],
+    "column_types": [
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Name of the place related to GEO_NAME. This is a place that overlaps or is contained within the primary geo (e.g., city within a state)",
+        "Geographic level or hierarchy of the related place (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)",
+        "Relationship between the two places. Contains means the RELATED_GEO_ID is fully contained within the GEO_ID (e.g., relationship of state to a city) while Overlaps indicates the GEO_ID is a subpart of the RELATED_GEO_ID (e.g., relationship of city to a state)",
+        "A unique identifier for the related place joinable to the GEOGRAPHY_INDEX table",
+        "A unique identifier for a place joinable to the GEOGRAPHY_INDEX table",
+        "Full name of the place",
+        "Geographic level or hierarchy (e.g., Country, State, County, City, Continent, CountrySubRegion, etc.)"
+    ]
+}

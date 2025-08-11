@@ -1,0 +1,110 @@
+{
+    "table_name": "PANCANCER_ATLAS.TCGA_CDR",
+    "table_fullname": "PANCANCER_ATLAS_2.PANCANCER_ATLAS.TCGA_CDR",
+    "column_names": [
+        "DFI",
+        "PFI_time",
+        "PFI",
+        "OS",
+        "Redaction",
+        "OS_time",
+        "DSS_time",
+        "DFI_time",
+        "DSS",
+        "Study",
+        "ParticipantBarcode"
+    ],
+    "column_types": [
+        "NUMBER",
+        "NUMBER",
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "NUMBER",
+        "NUMBER",
+        "NUMBER",
+        "NUMBER",
+        "TEXT",
+        "TEXT"
+    ],
+    "description": [
+        "Disease-free interval event, 1 for patient having new tumor event whether it is a local recurrence, distant metastasis, new primary tumor of the cancer, including cases with a new tumor event whose type is N/A.  Disease free was defined by: first, treatment_outcome_first_course is \"Complete Remission/Response\"; if the tumor type doesn't have \"treatment_outcome_first_course\" then disease-free was defined by the value \"R0\" in the field of \"residual_tumor\"; otherwise, disease-free was defined by the value \"negative\" in the field of \"margin_status\". If the tumor type did not have any of these fields, then its DFI was NA. 0 for censored otherwise. New primary tumor in other organ was censored; patients who were Dead with tumor without new tumor event are excluded; patients wih stage IV are excluded too.",
+        "Progression-free interval time in days, for events, either new_tumor_event_dx_days_to or death_days_to,  whichever is applicable; or for censored cases, either last_contact_days_to or death_days_to, whichever is applicable",
+        "Progression-free interval event, 1 for patient having new tumor event whether it was a progression of disease, local recurrence, distant metastasis, new primary tumors all sites, or died with the cancer without new tumor event, including cases with a new tumor event whose type is N/A. 0 for censored otherwise. ",
+        "Overall survival event, 1 for death from any cause, 0 for alive",
+        "To show if the case is redacted.",
+        "Overall survival time in days, last_contact_days_to or death_days_to, whichever is larger",
+        "Disease-specific survival time in days, last_contact_days_to or death_days_to, whichever is larger.",
+        "Disease-free interval time in days, new_tumor_event_dx_days_to for events, or for censored cases, either last_contact_days_to or death_days_to, whichever is applicable.",
+        "Disease-specific survival event, 1 for patient whose vital_status was Dead and tumor_status was WITH TUMOR. If a patient died from the disease shown in field of cause_of_death, the status of DSS would be 1 for the patient.  0 for patient whose vital_status was Alive or whose vital_status was Dead and tumor_status was  TUMOR FREE. This is not a 100% accurate definition but is the best we could do with this dataset. Technically a patient could be with tumor but died of a car accident and therefore incorrectly considered as an event.",
+        "TCGA study abbreviation, eg LAML. Full list available at https://gdc.cancer.gov/resources-tcga-users/tcga-code-tables/tcga-study-abbreviations",
+        "TCGA barcode identifier for the study participant, eg TCGA-02-0001"
+    ],
+    "sample_rows": [
+        {
+            "ParticipantBarcode": "TCGA-AB-2870",
+            "Study": "LAML",
+            "OS": 1,
+            "OS_time": 153.0,
+            "DSS": null,
+            "DSS_time": NaN,
+            "DFI": null,
+            "DFI_time": null,
+            "PFI": NaN,
+            "PFI_time": NaN,
+            "Redaction": null
+        },
+        {
+            "ParticipantBarcode": "TCGA-AB-2944",
+            "Study": "LAML",
+            "OS": 1,
+            "OS_time": NaN,
+            "DSS": null,
+            "DSS_time": NaN,
+            "DFI": null,
+            "DFI_time": null,
+            "PFI": NaN,
+            "PFI_time": NaN,
+            "Redaction": null
+        },
+        {
+            "ParticipantBarcode": "TCGA-TS-A7PB",
+            "Study": "MESO",
+            "OS": 1,
+            "OS_time": 982.0,
+            "DSS": null,
+            "DSS_time": 982.0,
+            "DFI": null,
+            "DFI_time": null,
+            "PFI": 0.0,
+            "PFI_time": 982.0,
+            "Redaction": null
+        },
+        {
+            "ParticipantBarcode": "TCGA-DY-A1DF",
+            "Study": "READ",
+            "OS": 1,
+            "OS_time": 734.0,
+            "DSS": null,
+            "DSS_time": 734.0,
+            "DFI": null,
+            "DFI_time": null,
+            "PFI": 0.0,
+            "PFI_time": 734.0,
+            "Redaction": null
+        },
+        {
+            "ParticipantBarcode": "TCGA-25-2401",
+            "Study": "OV",
+            "OS": 1,
+            "OS_time": 90.0,
+            "DSS": null,
+            "DSS_time": 90.0,
+            "DFI": null,
+            "DFI_time": null,
+            "PFI": 0.0,
+            "PFI_time": 90.0,
+            "Redaction": null
+        }
+    ]
+}

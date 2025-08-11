@@ -1,0 +1,1 @@
+SELECT * FROM shopping_cart_events WHERE page_id = 101;

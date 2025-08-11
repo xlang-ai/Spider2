@@ -1,0 +1,1 @@
+SELECT `whsle_px_rmb-kg` FROM veg_whsle_df WHERE item_code = 3005 AND whsle_date = '2023-06-10';

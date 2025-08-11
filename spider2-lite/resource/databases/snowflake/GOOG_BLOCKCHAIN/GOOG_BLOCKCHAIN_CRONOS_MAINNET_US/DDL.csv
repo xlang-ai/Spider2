@@ -1,0 +1,43 @@
+table_name,description,DDL
+BLOCKS,,"create or replace TABLE BLOCKS (
+	""block_hash"" VARCHAR(16777216),
+	""block_number"" NUMBER(38,0),
+	""block_timestamp"" TIMESTAMP_NTZ(9),
+	""parent_hash"" VARCHAR(16777216),
+	""size"" NUMBER(38,0),
+	""extra_data"" VARCHAR(16777216),
+	""gas_limit"" NUMBER(38,0),
+	""gas_used"" NUMBER(38,0),
+	""base_fee_per_gas"" NUMBER(38,0),
+	""mix_hash"" VARCHAR(16777216),
+	""nonce"" NUMBER(38,0),
+	""difficulty"" VARCHAR(16777216),
+	""total_difficulty"" VARCHAR(16777216),
+	""miner"" VARCHAR(16777216),
+	""uncles_sha3"" VARCHAR(16777216),
+	""uncles"" VARCHAR(16777216),
+	""transactions_root"" VARCHAR(16777216),
+	""receipts_root"" VARCHAR(16777216),
+	""state_root"" VARCHAR(16777216),
+	""logs_bloom"" VARCHAR(16777216)
+);"
+TRANSACTIONS,,"create or replace TABLE TRANSACTIONS (
+	""block_hash"" VARCHAR(16777216),
+	""block_timestamp"" TIMESTAMP_NTZ(9),
+	""transaction_hash"" VARCHAR(16777216),
+	""transaction_index"" NUMBER(38,0),
+	""nonce"" NUMBER(38,0),
+	""from_address"" VARCHAR(16777216),
+	""to_address"" VARCHAR(16777216),
+	""value"" VARCHAR(16777216),
+	""input"" VARCHAR(16777216),
+	""gas"" NUMBER(38,0),
+	""gas_price"" VARCHAR(16777216),
+	""max_fee_per_gas"" NUMBER(38,0),
+	""max_priority_fee_per_gas"" NUMBER(38,0),
+	""transaction_type"" NUMBER(38,0),
+	""access_list"" VARCHAR(16777216),
+	""r"" VARCHAR(16777216),
+	""s"" VARCHAR(16777216),
+	""v"" VARCHAR(16777216)
+);"

@@ -1,0 +1,74 @@
+table_name,description,DDL
+DELIVERIES,,"create or replace TABLE DELIVERIES (
+	""delivery_id"" NUMBER(38,0),
+	""delivery_order_id"" NUMBER(38,0),
+	""driver_id"" FLOAT,
+	""delivery_distance_meters"" FLOAT,
+	""delivery_status"" VARCHAR(16777216)
+);"
+PAYMENTS,,"create or replace TABLE PAYMENTS (
+	""payment_id"" NUMBER(38,0),
+	""payment_order_id"" NUMBER(38,0),
+	""payment_amount"" FLOAT,
+	""payment_fee"" FLOAT,
+	""payment_method"" VARCHAR(16777216),
+	""payment_status"" VARCHAR(16777216)
+);"
+STORES,,"create or replace TABLE STORES (
+	""store_id"" NUMBER(38,0),
+	""hub_id"" NUMBER(38,0),
+	""store_name"" VARCHAR(16777216),
+	""store_segment"" VARCHAR(16777216),
+	""store_plan_price"" FLOAT,
+	""store_latitude"" FLOAT,
+	""store_longitude"" FLOAT
+);"
+ORDERS,,"create or replace TABLE ORDERS (
+	""order_id"" NUMBER(38,0),
+	""store_id"" NUMBER(38,0),
+	""channel_id"" NUMBER(38,0),
+	""payment_order_id"" NUMBER(38,0),
+	""delivery_order_id"" NUMBER(38,0),
+	""order_status"" VARCHAR(16777216),
+	""order_amount"" FLOAT,
+	""order_delivery_fee"" FLOAT,
+	""order_delivery_cost"" FLOAT,
+	""order_created_hour"" NUMBER(38,0),
+	""order_created_minute"" NUMBER(38,0),
+	""order_created_day"" NUMBER(38,0),
+	""order_created_month"" NUMBER(38,0),
+	""order_created_year"" NUMBER(38,0),
+	""order_moment_created"" VARCHAR(16777216),
+	""order_moment_accepted"" VARCHAR(16777216),
+	""order_moment_ready"" VARCHAR(16777216),
+	""order_moment_collected"" VARCHAR(16777216),
+	""order_moment_in_expedition"" VARCHAR(16777216),
+	""order_moment_delivering"" VARCHAR(16777216),
+	""order_moment_delivered"" VARCHAR(16777216),
+	""order_moment_finished"" VARCHAR(16777216),
+	""order_metric_collected_time"" FLOAT,
+	""order_metric_paused_time"" FLOAT,
+	""order_metric_production_time"" FLOAT,
+	""order_metric_walking_time"" FLOAT,
+	""order_metric_expediton_speed_time"" FLOAT,
+	""order_metric_transit_time"" FLOAT,
+	""order_metric_cycle_time"" FLOAT
+);"
+CHANNELS,,"create or replace TABLE CHANNELS (
+	""channel_id"" NUMBER(38,0),
+	""channel_name"" VARCHAR(16777216),
+	""channel_type"" VARCHAR(16777216)
+);"
+DRIVERS,,"create or replace TABLE DRIVERS (
+	""driver_id"" NUMBER(38,0),
+	""driver_modal"" VARCHAR(16777216),
+	""driver_type"" VARCHAR(16777216)
+);"
+HUBS,,"create or replace TABLE HUBS (
+	""hub_id"" NUMBER(38,0),
+	""hub_name"" VARCHAR(16777216),
+	""hub_city"" VARCHAR(16777216),
+	""hub_state"" VARCHAR(16777216),
+	""hub_latitude"" FLOAT,
+	""hub_longitude"" FLOAT
+);"
