@@ -1,5 +1,5 @@
 SELECT
-  COUNT(*) AS "total_count"
+  COUNT(DISTINCT "StudyInstanceUID") AS "total_count"
 FROM
   IDC.IDC_V17.DICOM_PIVOT AS "dicom_pivot"
 WHERE
@@ -15,7 +15,7 @@ WHERE
         FROM
           IDC.IDC_V17.DICOM_PIVOT AS "dicom_pivot"
         WHERE
-          LOWER("dicom_pivot"."SegmentedPropertyTypeCodeSequence") LIKE LOWER('15825003')
+          LOWER("dicom_pivot"."SegmentedPropertyTypeCodeSequence") = LOWER('15825003')
         GROUP BY
           "StudyInstanceUID"
         INTERSECT
