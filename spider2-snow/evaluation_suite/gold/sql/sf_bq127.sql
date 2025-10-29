@@ -1,102 +1,132 @@
-WITH fam AS (
+WITH "FAMS" AS (
+  SELECT
+    "family_id",
+    MIN("publication_date") AS "earliest_publication_date_num"
+  FROM "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS"
+  WHERE "family_id" IS NOT NULL
+  GROUP BY "family_id"
+  HAVING MIN("publication_date") BETWEEN 20150101 AND 20150131
+),
+"FAMILY_PUBS" AS (
+  SELECT
+    "F"."family_id",
+    "F"."earliest_publication_date_num",
+    TRIM("P"."publication_number") AS "publication_number",
+    TRIM("P"."country_code") AS "country_code",
+    "P"."cpc" AS "cpc",
+    "P"."ipc" AS "ipc",
+    "P"."citation" AS "citation"
+  FROM "FAMS" AS "F"
+  JOIN "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS "P"
+    ON "P"."family_id" = "F"."family_id"
+),
+"PUBS_AGG" AS (
+  SELECT
+    "family_id",
+    LISTAGG(DISTINCT "publication_number", ', ') WITHIN GROUP (ORDER BY "publication_number") AS "publication_numbers"
+  FROM "FAMILY_PUBS"
+  GROUP BY "family_id"
+),
+"COUNTRIES_AGG" AS (
+  SELECT
+    "family_id",
+    LISTAGG(DISTINCT "country_code", ', ') WITHIN GROUP (ORDER BY "country_code") AS "country_codes"
+  FROM "FAMILY_PUBS"
+  WHERE "country_code" IS NOT NULL AND "country_code" != ''
+  GROUP BY "family_id"
+),
+"CPC_AGG" AS (
+  SELECT
+    "FP"."family_id",
+    LISTAGG(DISTINCT TRIM("CPC_ITEM"."VALUE":"code"::STRING), ', ')
+      WITHIN GROUP (ORDER BY TRIM("CPC_ITEM"."VALUE":"code"::STRING)) AS "cpc_codes"
+  FROM "FAMILY_PUBS" AS "FP",
+       LATERAL FLATTEN(INPUT => "FP"."cpc") AS "CPC_ITEM"
+  WHERE "CPC_ITEM"."VALUE":"code" IS NOT NULL
+    AND TRIM("CPC_ITEM"."VALUE":"code"::STRING) != ''
+  GROUP BY "FP"."family_id"
+),
+"IPC_AGG" AS (
+  SELECT
+    "FP"."family_id",
+    LISTAGG(DISTINCT TRIM("IPC_ITEM"."VALUE":"code"::STRING), ', ')
+      WITHIN GROUP (ORDER BY TRIM("IPC_ITEM"."VALUE":"code"::STRING)) AS "ipc_codes"
+  FROM "FAMILY_PUBS" AS "FP",
+       LATERAL FLATTEN(INPUT => "FP"."ipc") AS "IPC_ITEM"
+  WHERE "IPC_ITEM"."VALUE":"code" IS NOT NULL
+    AND TRIM("IPC_ITEM"."VALUE":"code"::STRING) != ''
+  GROUP BY "FP"."family_id"
+),
+"CITED_PUBS" AS (
+  SELECT
+    "FP"."family_id" AS "source_family_id",
+    TRIM("CIT"."VALUE":"publication_number"::STRING) AS "cited_pubnum"
+  FROM "FAMILY_PUBS" AS "FP",
+       LATERAL FLATTEN(INPUT => "FP"."citation") AS "CIT"
+  WHERE TRIM("CIT"."VALUE":"publication_number"::STRING) IS NOT NULL
+    AND TRIM("CIT"."VALUE":"publication_number"::STRING) != ''
+),
+"CITED_FAMILIES" AS (
   SELECT DISTINCT
-    "family_id"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS"
+    "CP"."source_family_id",
+    "P_CITED"."family_id" AS "cited_family_id"
+  FROM "CITED_PUBS" AS "CP"
+  JOIN "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS "P_CITED"
+    ON TRIM("P_CITED"."publication_number") = "CP"."cited_pubnum"
+  WHERE "P_CITED"."family_id" IS NOT NULL
+    AND "P_CITED"."family_id" != "CP"."source_family_id"
 ),
-
-crossover AS (
+"CITED_FAMILIES_AGG" AS (
   SELECT
-    "publication_number",
-    "family_id"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS"
+    "source_family_id" AS "family_id",
+    LISTAGG(DISTINCT "cited_family_id", ', ')
+      WITHIN GROUP (ORDER BY "cited_family_id") AS "families_cited"
+  FROM "CITED_FAMILIES"
+  GROUP BY "source_family_id"
 ),
-
-pub AS (
+"CITING_PUBS" AS (
   SELECT
-    "family_id",
-    MIN("publication_date") AS "publication_date",
-    LISTAGG("publication_number", ',') WITHIN GROUP (ORDER BY "publication_number") AS "publication_number",
-    LISTAGG("country_code", ',') WITHIN GROUP (ORDER BY "country_code") AS "country_code"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS p
-  GROUP BY
-    "family_id"
+    "FP"."family_id" AS "target_family_id",
+    TRIM("CB"."VALUE":"publication_number"::STRING) AS "citing_pubnum"
+  FROM "FAMILY_PUBS" AS "FP"
+  JOIN "PATENTS_GOOGLE"."PATENTS_GOOGLE"."ABS_AND_EMB" AS "A"
+    ON "A"."publication_number" = "FP"."publication_number",
+       LATERAL FLATTEN(INPUT => "A"."cited_by") AS "CB"
+  WHERE TRIM("CB"."VALUE":"publication_number"::STRING) IS NOT NULL
+    AND TRIM("CB"."VALUE":"publication_number"::STRING) != ''
 ),
-
-tech_class AS (
-  SELECT
-    p."family_id",
-    LISTAGG(DISTINCT cpc.value:"code"::STRING, ',') WITHIN GROUP (ORDER BY cpc.value:"code"::STRING) AS "cpc",
-    LISTAGG(DISTINCT ipc.value:"code"::STRING, ',') WITHIN GROUP (ORDER BY ipc.value:"code"::STRING) AS "ipc"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS p
-    CROSS JOIN LATERAL FLATTEN(input => p."cpc") AS cpc
-    CROSS JOIN LATERAL FLATTEN(input => p."ipc") AS ipc
-  GROUP BY
-    p."family_id"
+"CITING_FAMILIES" AS (
+  SELECT DISTINCT
+    "CP"."target_family_id",
+    "P_ALL"."family_id" AS "citing_family_id"
+  FROM "CITING_PUBS" AS "CP"
+  JOIN "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS "P_ALL"
+    ON TRIM("P_ALL"."publication_number") = "CP"."citing_pubnum"
+  WHERE "P_ALL"."family_id" IS NOT NULL
+    AND "P_ALL"."family_id" != "CP"."target_family_id"
 ),
-
-cit AS (
+"CITING_FAMILIES_AGG" AS (
   SELECT
-    p."family_id",
-    LISTAGG(crossover."family_id", ',') WITHIN GROUP (ORDER BY crossover."family_id" ASC) AS "citation"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."PUBLICATIONS" AS p
-    CROSS JOIN LATERAL FLATTEN(input => p."citation") AS citation
-    LEFT JOIN
-      crossover
-    ON
-      citation.value:"publication_number"::STRING = crossover."publication_number"
-  GROUP BY
-    p."family_id"
-),
-
-tmp_gpr AS (
-  SELECT
-    "family_id",
-    LISTAGG(crossover."publication_number", ',') AS "cited_by_publication_number"
-  FROM
-    "PATENTS_GOOGLE"."PATENTS_GOOGLE"."ABS_AND_EMB" AS p
-    CROSS JOIN LATERAL FLATTEN(input => p."cited_by") AS cited_by
-    LEFT JOIN
-      crossover
-    ON
-      cited_by.value:"publication_number"::STRING = crossover."publication_number"
-  GROUP BY
-    "family_id"
-),
-
-gpr AS (
-  SELECT
-    tmp_gpr."family_id",
-    LISTAGG(crossover."family_id", ',') WITHIN GROUP (ORDER BY crossover."family_id" ASC) AS "cited_by"
-  FROM
-    tmp_gpr
-    CROSS JOIN LATERAL FLATTEN(input => SPLIT(tmp_gpr."cited_by_publication_number", ',')) AS cited_by_publication_number
-    LEFT JOIN
-      crossover
-    ON
-      cited_by_publication_number.value::STRING = crossover."publication_number"
-  GROUP BY
-    tmp_gpr."family_id"
+    "target_family_id" AS "family_id",
+    LISTAGG(DISTINCT "citing_family_id", ', ')
+      WITHIN GROUP (ORDER BY "citing_family_id") AS "families_citing"
+  FROM "CITING_FAMILIES"
+  GROUP BY "target_family_id"
 )
-
 SELECT
-  fam."family_id",
-  pub."publication_date",
-  pub."publication_number",
-  pub."country_code",
-  tech_class."cpc",
-  tech_class."ipc",
-  cit."citation",
-  gpr."cited_by"
-FROM
-  fam
-  LEFT JOIN pub ON fam."family_id" = pub."family_id"
-  LEFT JOIN tech_class ON fam."family_id" = tech_class."family_id"
-  LEFT JOIN cit ON fam."family_id" = cit."family_id"
-  LEFT JOIN gpr ON fam."family_id" = gpr."family_id"
-WHERE
-  pub."publication_date" BETWEEN 20150101 AND 20150131;
+  "F"."family_id",
+  TO_DATE("F"."earliest_publication_date_num"::STRING, 'YYYYMMDD') AS "earliest_publication_date",
+  COALESCE("PA"."publication_numbers", '') AS "publication_numbers",
+  COALESCE("CA"."country_codes", '') AS "country_codes",
+  COALESCE("CC"."cpc_codes", '') AS "cpc_codes",
+  COALESCE("IC"."ipc_codes", '') AS "ipc_codes",
+  COALESCE("CFA"."families_cited", '') AS "families_cited",
+  COALESCE("CIA"."families_citing", '') AS "families_citing"
+FROM "FAMS" AS "F"
+LEFT JOIN "PUBS_AGG" AS "PA" ON "PA"."family_id" = "F"."family_id"
+LEFT JOIN "COUNTRIES_AGG" AS "CA" ON "CA"."family_id" = "F"."family_id"
+LEFT JOIN "CPC_AGG" AS "CC" ON "CC"."family_id" = "F"."family_id"
+LEFT JOIN "IPC_AGG" AS "IC" ON "IC"."family_id" = "F"."family_id"
+LEFT JOIN "CITED_FAMILIES_AGG" AS "CFA" ON "CFA"."family_id" = "F"."family_id"
+LEFT JOIN "CITING_FAMILIES_AGG" AS "CIA" ON "CIA"."family_id" = "F"."family_id"
+ORDER BY "F"."family_id";

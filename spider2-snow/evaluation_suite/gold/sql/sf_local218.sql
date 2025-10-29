@@ -1,46 +1,40 @@
-WITH goals_per_club AS (
-    SELECT 
-        "team",
-        "season",
-        SUM("goals") AS "total_goals"
-    FROM (
-        SELECT 
-            "home_team_api_id" AS "team",
-            "season",
-            "home_team_goal" AS "goals"
-        FROM 
-            EU_SOCCER.EU_SOCCER."MATCH"
-        UNION ALL
-        SELECT 
-            "away_team_api_id" AS "team",
-            "season",
-            "away_team_goal" AS "goals"
-        FROM 
-            EU_SOCCER.EU_SOCCER."MATCH"
-    ) AS "goals_data"
-    GROUP BY 
-        "team", "season"
+WITH team_goals_by_season AS (
+  -- Get goals scored by each team in each season (as home team)
+  SELECT 
+    "home_team_api_id" AS "team_api_id",
+    "season",
+    SUM("home_team_goal") AS "goals"
+  FROM "EU_SOCCER"."EU_SOCCER"."MATCH"
+  GROUP BY "home_team_api_id", "season"
+  
+  UNION ALL
+  
+  -- Get goals scored by each team in each season (as away team)
+  SELECT 
+    "away_team_api_id" AS "team_api_id",
+    "season",
+    SUM("away_team_goal") AS "goals"
+  FROM "EU_SOCCER"."EU_SOCCER"."MATCH"
+  GROUP BY "away_team_api_id", "season"
+),
+total_goals_per_team_season AS (
+  -- Combine home and away goals for each team in each season
+  SELECT 
+    "team_api_id",
+    "season",
+    SUM("goals") AS "total_goals"
+  FROM team_goals_by_season
+  GROUP BY "team_api_id", "season"
 ),
 max_goals_per_team AS (
-    SELECT 
-        "team",
-        MAX("total_goals") AS "max_goals"
-    FROM 
-        goals_per_club
-    GROUP BY 
-        "team"
-),
-ranked_goals AS (
-    SELECT 
-        "max_goals",
-        ROW_NUMBER() OVER (ORDER BY "max_goals") AS "row_num",
-        COUNT(*) OVER () AS "total_count"
-    FROM 
-        max_goals_per_team
+  -- Find the maximum goals for each team across all seasons
+  SELECT 
+    "team_api_id",
+    MAX("total_goals") AS "max_season_goals"
+  FROM total_goals_per_team_season
+  GROUP BY "team_api_id"
 )
+-- Calculate the median of the maximum season goals
 SELECT 
-    AVG("max_goals") AS "median_max_goals"
-FROM 
-    ranked_goals
-WHERE 
-    "row_num" IN (( "total_count" + 1) / 2, ( "total_count" + 2) / 2);
+  MEDIAN("max_season_goals") AS "median_of_highest_season_goals"
+FROM max_goals_per_team;

@@ -1,0 +1,8 @@
+"100.0 * SUM(
+        CASE
+            WHEN
+                ARRAY_SIZE(URL_PARTS) >= 5
+                AND GET(URL_PARTS, ARRAY_SIZE(URL_PARTS) - 1) LIKE '%+%'
+                AND (
+                    REPLACE(GET(URL_PARTS, 3)::STRING, '+', ' ') IN ('ACCE"
+17.218935

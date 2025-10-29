@@ -1,56 +1,54 @@
-WITH activity_log_with_session_click_conversion_flag AS (
-  SELECT
-    "session",
-    "stamp",
-    "path",
-    "search_type",
-    CASE
-      WHEN LAG("path") OVER (PARTITION BY "session" ORDER BY "stamp" DESC) = '/detail'
-        THEN 1
-      ELSE 0
-    END AS "has_session_click",
-    SIGN(
-      SUM(CASE WHEN "path" = '/complete' THEN 1 ELSE 0 END)
-      OVER (PARTITION BY "session" ORDER BY "stamp" DESC
-        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)
-    ) AS "has_session_conversion"
-  FROM
-    LOG.LOG.ACTIVITY_LOG
+WITH "events" AS (
+    SELECT
+        "session",
+        "stamp",
+        "path",
+        "search_type"
+    FROM "LOG"."LOG"."ACTIVITY_LOG"
 ),
 
-counts AS (
-  SELECT
-    "session",
-    "path",
-    "search_type",
-    COUNT(*) AS "count_zeros"
-  FROM
-    activity_log_with_session_click_conversion_flag
-  WHERE
-    "has_session_click" = 0
-    AND "has_session_conversion" = 0
-    AND "search_type" IS NOT NULL
-    AND TRIM("search_type") <> ''
-  GROUP BY
-    "session",
-    "path",
-    "search_type"
+"first_target" AS (
+    SELECT
+        "session",
+        "path",
+        "search_type",
+        "stamp"      AS "target_stamp"
+    FROM (
+        SELECT
+            "session",
+            "path",
+            "search_type",
+            "stamp",
+            ROW_NUMBER() OVER (PARTITION BY "session" ORDER BY "stamp") AS "rn"
+        FROM "events"
+        WHERE "path" ILIKE '%/detail%' OR "path" ILIKE '%/complete%'
+    ) t
+    WHERE "rn" = 1
 ),
 
-min_count AS (
-  SELECT
-    MIN("count_zeros") AS "min_zeros"
-  FROM
-    counts
+"pre_counts" AS (
+    SELECT
+        ft."session",
+        ft."path"          AS "target_path",
+        ft."search_type"   AS "target_search_type",
+        COUNT(e.*) AS "pre_event_count"
+    FROM "first_target" ft
+    LEFT JOIN "events" e      /* LEFT JOIN so zero counts are kept */
+      ON  e."session" = ft."session"
+      AND e."stamp"   < ft."target_stamp"               -- strictly before
+      AND e."search_type" IS NOT NULL
+      AND e."search_type" <> ''
+    GROUP BY ft."session", ft."path", ft."search_type"
+),
+
+"min_count" AS (
+    SELECT MIN("pre_event_count") AS "min_cnt" FROM "pre_counts"
 )
 
 SELECT
-  c."session",
-  c."path",
-  c."search_type"
-FROM
-  counts c
-JOIN
-  min_count mc ON c."count_zeros" = mc."min_zeros"
-ORDER BY
-  c."count_zeros";
+    p."session",
+    p."target_path"  AS "path",
+    p."target_search_type" AS "search_type"
+FROM "pre_counts" p
+JOIN "min_count"  m  ON p."pre_event_count" = m."min_cnt"
+ORDER BY p."session";

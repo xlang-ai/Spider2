@@ -1,40 +1,27 @@
-WITH UserPairUpvotes AS (
+WITH "DIRECTED" AS (
   SELECT
-    ToUsers."UserName" AS "ToUserName",
-    FromUsers."UserName" AS "FromUserName",
-    COUNT(DISTINCT "ForumMessageVotes"."Id") AS "UpvoteCount"
-  FROM META_KAGGLE.META_KAGGLE.FORUMMESSAGEVOTES AS "ForumMessageVotes"
-  INNER JOIN META_KAGGLE.META_KAGGLE.USERS AS FromUsers
-    ON FromUsers."Id" = "ForumMessageVotes"."FromUserId"
-  INNER JOIN META_KAGGLE.META_KAGGLE.USERS AS ToUsers
-    ON ToUsers."Id" = "ForumMessageVotes"."ToUserId"
-  GROUP BY
-    ToUsers."UserName",
-    FromUsers."UserName"
-),
-TopPairs AS (
-  SELECT
-    "ToUserName",
-    "FromUserName",
-    "UpvoteCount",
-    ROW_NUMBER() OVER (ORDER BY "UpvoteCount" DESC) AS "Rank"
-  FROM UserPairUpvotes
-),
-ReciprocalUpvotes AS (
-  SELECT
-    t."ToUserName",
-    t."FromUserName",
-    t."UpvoteCount" AS "UpvotesReceived",
-    COALESCE(u."UpvoteCount", 0) AS "UpvotesGiven"
-  FROM TopPairs t
-  LEFT JOIN UserPairUpvotes u
-    ON t."ToUserName" = u."FromUserName" AND t."FromUserName" = u."ToUserName"
-  WHERE t."Rank" = 1
+    "v"."FromUserId" AS "FROM_USER_ID",
+    "v"."ToUserId" AS "TO_USER_ID",
+    COUNT(DISTINCT "v"."ForumMessageId") AS "RECEIVED_CNT"
+  FROM "META_KAGGLE"."META_KAGGLE"."FORUMMESSAGEVOTES" AS "v"
+  WHERE "v"."FromUserId" IS NOT NULL
+    AND "v"."ToUserId" IS NOT NULL
+    AND "v"."FromUserId" != "v"."ToUserId"
+  GROUP BY "v"."FromUserId", "v"."ToUserId"
 )
 SELECT
-  "ToUserName" AS "UpvotedUserName",
-  "FromUserName" AS "UpvotingUserName",
-  "UpvotesReceived" AS "UpvotesReceivedByUpvotedUser",
-  "UpvotesGiven" AS "UpvotesGivenByUpvotedUser"
-FROM ReciprocalUpvotes
-ORDER BY "UpvotesReceived" DESC, "UpvotesGiven" DESC;
+  COALESCE("u_from"."UserName", "u_from"."DisplayName") AS "GiverUserName",
+  COALESCE("u_to"."UserName", "u_to"."DisplayName") AS "ReceiverUserName",
+  "d"."RECEIVED_CNT" AS "ReceivedUpvotes",
+  COALESCE("d2"."RECEIVED_CNT", 0) AS "ReturnedUpvotes"
+FROM "DIRECTED" AS "d"
+LEFT JOIN "DIRECTED" AS "d2"
+  ON "d2"."FROM_USER_ID" = "d"."TO_USER_ID"
+ AND "d2"."TO_USER_ID" = "d"."FROM_USER_ID"
+LEFT JOIN "META_KAGGLE"."META_KAGGLE"."USERS" AS "u_from"
+  ON "u_from"."Id" = "d"."FROM_USER_ID"
+LEFT JOIN "META_KAGGLE"."META_KAGGLE"."USERS" AS "u_to"
+  ON "u_to"."Id" = "d"."TO_USER_ID"
+ORDER BY "d"."RECEIVED_CNT" DESC,
+         COALESCE("d2"."RECEIVED_CNT", 0) DESC
+FETCH FIRST 1 ROWS ONLY;

@@ -1,57 +1,101 @@
-SELECT
-  overtake_type,
-  COUNT(*) AS overtake_count
-FROM (
-  SELECT DISTINCT
-    lap_positions."race_id",
-    lap_positions."driver_id" AS overtaking_driver_id,
-    lap_positions."lap",
-    cars_behind_this_lap."driver_id" AS overtaken_driver_id,
+WITH "curr" AS (
+  SELECT "race_id", "lap", "driver_id", "position"
+  FROM "F1"."F1"."LAP_POSITIONS"
+  WHERE "lap_type" = 'Race' AND "lap" BETWEEN 1 AND 5
+),
+"prev_race" AS (
+  SELECT "race_id", "lap", "driver_id", "position"
+  FROM "F1"."F1"."LAP_POSITIONS"
+  WHERE "lap_type" = 'Race' AND "lap" BETWEEN 1 AND 4
+),
+"grid" AS (
+  SELECT "race_id", "driver_id", "grid"
+  FROM "F1"."F1"."RESULTS"
+),
+"pairs_lap1" AS (
+  SELECT
+    c1."race_id",
+    1 AS "lap",
+    c1."driver_id" AS "overtaker_id",
+    c2."driver_id" AS "overtaken_id",
+    g1."grid" AS "grid_overtaker",
+    g2."grid" AS "grid_overtaken",
+    c1."position" AS "curr_pos_overtaker",
+    c2."position" AS "curr_pos_overtaken"
+  FROM "curr" c1
+  JOIN "curr" c2
+    ON c1."race_id" = c2."race_id"
+   AND c1."lap" = 1 AND c2."lap" = 1
+   AND c1."driver_id" != c2."driver_id"
+  LEFT JOIN "grid" g1 ON g1."race_id" = c1."race_id" AND g1."driver_id" = c1."driver_id"
+  LEFT JOIN "grid" g2 ON g2."race_id" = c2."race_id" AND g2."driver_id" = c2."driver_id"
+  WHERE g1."grid" IS NOT NULL AND g2."grid" IS NOT NULL
+    AND g1."grid" > g2."grid"
+    AND c1."position" < c2."position"
+),
+"pairs_lap2to5" AS (
+  SELECT
+    c1."race_id",
+    c1."lap" AS "lap",
+    c1."driver_id" AS "overtaker_id",
+    c2."driver_id" AS "overtaken_id",
+    g1."grid" AS "grid_overtaker",
+    g2."grid" AS "grid_overtaken"
+  FROM "curr" c1
+  JOIN "curr" c2
+    ON c1."race_id" = c2."race_id"
+   AND c1."lap" BETWEEN 2 AND 5
+   AND c2."lap" = c1."lap"
+   AND c1."driver_id" != c2."driver_id"
+  JOIN "prev_race" p1 ON p1."race_id" = c1."race_id" AND p1."lap" = c1."lap" - 1 AND p1."driver_id" = c1."driver_id"
+  JOIN "prev_race" p2 ON p2."race_id" = c2."race_id" AND p2."lap" = c2."lap" - 1 AND p2."driver_id" = c2."driver_id"
+  LEFT JOIN "grid" g1 ON g1."race_id" = c1."race_id" AND g1."driver_id" = c1."driver_id"
+  LEFT JOIN "grid" g2 ON g2."race_id" = c2."race_id" AND g2."driver_id" = c2."driver_id"
+  WHERE p1."position" > p2."position"
+    AND c1."position" < c2."position"
+),
+"all_pairs" AS (
+  SELECT "race_id", "lap", "overtaker_id", "overtaken_id", "grid_overtaker", "grid_overtaken"
+  FROM "pairs_lap1"
+  UNION ALL
+  SELECT "race_id", "lap", "overtaker_id", "overtaken_id", "grid_overtaker", "grid_overtaken"
+  FROM "pairs_lap2to5"
+),
+"classified" AS (
+  SELECT
+    a."race_id",
+    a."lap",
+    a."overtaker_id",
+    a."overtaken_id",
     CASE
-      WHEN retirements."driver_id" IS NOT NULL THEN 'R'
-      WHEN pit_stops."lap" = lap_positions."lap" THEN 'P'
-      WHEN pit_stops."milliseconds" > overtaking_lap_times."running_milliseconds" - overtaken_lap_times."running_milliseconds" THEN 'P'
-      WHEN lap_positions."lap" = 1 AND (previous_lap."position" - cars_behind_this_lap_results."grid") <= 2 THEN 'S'
+      WHEN EXISTS (
+        SELECT 1 FROM "F1"."F1"."RETIREMENTS" r
+        WHERE r."race_id" = a."race_id"
+          AND r."driver_id" = a."overtaken_id"
+          AND r."lap" = a."lap"
+      ) THEN 'R'
+      WHEN EXISTS (
+        SELECT 1 FROM "F1"."F1"."PIT_STOPS" ps
+        WHERE ps."race_id" = a."race_id"
+          AND ps."driver_id" = a."overtaken_id"
+          AND (ps."lap" = a."lap" OR ps."lap" = a."lap" - 1)
+      ) THEN 'P'
+      WHEN a."lap" = 1
+        AND a."grid_overtaker" IS NOT NULL
+        AND a."grid_overtaken" IS NOT NULL
+        AND abs(a."grid_overtaker" - a."grid_overtaken") <= 2 THEN 'S'
       ELSE 'T'
-    END AS overtake_type
-  FROM F1.F1.LAP_POSITIONS lap_positions
-    INNER JOIN F1.F1.RACES_EXT AS races
-      ON races."race_id" = lap_positions."race_id"
-      AND races."is_pit_data_available" = 1
-    INNER JOIN F1.F1.LAP_POSITIONS AS previous_lap
-      ON previous_lap."race_id" = lap_positions."race_id"
-      AND previous_lap."driver_id" = lap_positions."driver_id"
-      AND previous_lap."lap" = lap_positions."lap" - 1
-    INNER JOIN F1.F1.LAP_POSITIONS AS cars_behind_this_lap
-      ON cars_behind_this_lap."race_id" = lap_positions."race_id"
-      AND cars_behind_this_lap."lap" = lap_positions."lap"
-      AND cars_behind_this_lap."position" > lap_positions."position"
-    LEFT JOIN F1.F1.RESULTS AS cars_behind_this_lap_results
-      ON cars_behind_this_lap_results."race_id" = lap_positions."race_id"
-      AND cars_behind_this_lap_results."driver_id" = cars_behind_this_lap."driver_id"
-    LEFT JOIN F1.F1.LAP_POSITIONS AS cars_behind_last_lap
-      ON cars_behind_last_lap."race_id" = lap_positions."race_id"
-      AND cars_behind_last_lap."lap" = lap_positions."lap" - 1
-      AND cars_behind_last_lap."driver_id" = cars_behind_this_lap."driver_id"
-      AND cars_behind_last_lap."position" > previous_lap."position"
-    LEFT JOIN F1.F1.RETIREMENTS AS retirements
-      ON retirements."race_id" = lap_positions."race_id"
-      AND retirements."lap" = lap_positions."lap"
-      AND retirements."driver_id" = cars_behind_this_lap."driver_id"
-    LEFT JOIN F1.F1.PIT_STOPS AS pit_stops
-      ON pit_stops."race_id" = lap_positions."race_id"
-      AND pit_stops."lap" BETWEEN lap_positions."lap" - 1 AND lap_positions."lap"
-      AND pit_stops."driver_id" = cars_behind_this_lap."driver_id"
-    LEFT JOIN F1.F1.LAP_TIMES_EXT AS overtaking_lap_times
-      ON overtaking_lap_times."race_id" = lap_positions."race_id"
-      AND overtaking_lap_times."driver_id" = lap_positions."driver_id"
-      AND overtaking_lap_times."lap" = pit_stops."lap" - 1
-    LEFT JOIN F1.F1.LAP_TIMES_EXT AS overtaken_lap_times
-      ON overtaken_lap_times."race_id" = lap_positions."race_id"
-      AND overtaken_lap_times."driver_id" = pit_stops."driver_id"
-      AND overtaken_lap_times."lap" = pit_stops."lap" - 1
-  WHERE
-    cars_behind_last_lap."driver_id" IS NULL
-    AND lap_positions."lap" <= 5 /* Filter for the first five laps */
-) AS overtakes
-GROUP BY overtake_type;
+    END AS "category"
+  FROM "all_pairs" a
+)
+SELECT
+  CASE "category"
+    WHEN 'R' THEN 'Retirements'
+    WHEN 'P' THEN 'Pit Stops'
+    WHEN 'S' THEN 'Start-Related'
+    ELSE 'On-Track'
+  END AS "category",
+  COUNT(*) AS "overtakes"
+FROM "classified"
+GROUP BY "category"
+ORDER BY CASE "category" WHEN 'Retirements' THEN 1 WHEN 'Pit Stops' THEN 2 WHEN 'Start-Related' THEN 3 ELSE 4 END;

@@ -1,63 +1,67 @@
-WITH AA AS (
-    SELECT 
-        FIRST_VALUE("assignee_harmonized") OVER (PARTITION BY "application_number" ORDER BY "application_number") AS assignee_harmonized,
-        FIRST_VALUE("filing_date") OVER (PARTITION BY "application_number" ORDER BY "application_number") AS filing_date,
-        "application_number"
-    FROM 
-        PATENTS.PATENTS.PUBLICATIONS AS pubs
-        , LATERAL FLATTEN(input => pubs."cpc") AS c
-    WHERE 
-        c.value:"code" LIKE 'A61%'
+WITH a61_applications AS (
+  SELECT DISTINCT p."application_number"
+  FROM "PATENTS"."PATENTS"."PUBLICATIONS" p, LATERAL FLATTEN(input => p."cpc") c
+  WHERE p."filing_date" IS NOT NULL
+    AND p."filing_date" > 0
+    AND c.value:"code"::string LIKE 'A61%'
+    AND p."application_number" IS NOT NULL
+  UNION
+  SELECT DISTINCT p."application_number"
+  FROM "PATENTS"."PATENTS"."PUBLICATIONS" p, LATERAL FLATTEN(input => p."ipc") i
+  WHERE p."filing_date" IS NOT NULL
+    AND p."filing_date" > 0
+    AND i.value:"code"::string LIKE 'A61%'
+    AND p."application_number" IS NOT NULL
 ),
-
-PatentApplications AS (
-    SELECT 
-        ANY_VALUE(assignee_harmonized) as assignee_harmonized,
-        ANY_VALUE(filing_date) as filing_date
-    FROM AA
-    GROUP BY "application_number"
+apps_with_meta AS (
+  SELECT
+    p."application_number",
+    CAST(FLOOR(p."filing_date" / 10000) AS INTEGER) AS "filing_year",
+    p."assignee_harmonized",
+    p."assignee"
+  FROM "PATENTS"."PATENTS"."PUBLICATIONS" p
+  JOIN a61_applications a ON a."application_number" = p."application_number"
 ),
+assignee_apps AS (
+  SELECT
+    UPPER(TRIM(ah.value:"name"::string)) AS "assignee_name",
+    awm."application_number",
+    awm."filing_year"
+  FROM apps_with_meta awm,
+       LATERAL FLATTEN(input => awm."assignee_harmonized") ah
+  WHERE ah.value:"name" IS NOT NULL
 
-AssigneeApplications AS (
-SELECT 
-    COUNT(*) AS total_applications,
-    a.value::STRING AS assignee_name,
-    CAST(FLOOR(filing_date / 10000) AS INT) AS filing_year
-FROM 
-    PatentApplications
-    , LATERAL FLATTEN(input => assignee_harmonized) AS a
-GROUP BY 
-    a.value::STRING, filing_year
+  UNION ALL
+
+  SELECT
+    UPPER(TRIM(a.value::string)) AS "assignee_name",
+    awm."application_number",
+    awm."filing_year"
+  FROM apps_with_meta awm,
+       LATERAL FLATTEN(input => awm."assignee") a
+  WHERE (awm."assignee_harmonized" IS NULL OR ARRAY_SIZE(awm."assignee_harmonized") = 0)
+    AND a.value IS NOT NULL
 ),
-
-TotalApplicationsPerAssignee AS (
-    SELECT
-        assignee_name,
-        SUM(total_applications) AS total_applications
-    FROM 
-        AssigneeApplications
-    GROUP BY 
-        assignee_name
-    ORDER BY 
-        total_applications DESC
-    LIMIT 1
+assignee_totals AS (
+  SELECT
+    "assignee_name",
+    COUNT(DISTINCT "application_number") AS "total_apps"
+  FROM assignee_apps
+  GROUP BY "assignee_name"
 ),
-
-MaxYearForTopAssignee AS (
-    SELECT
-        aa.assignee_name,
-        aa.filing_year,
-        aa.total_applications
-    FROM 
-        AssigneeApplications aa
-    INNER JOIN
-        TotalApplicationsPerAssignee tapa ON aa.assignee_name = tapa.assignee_name
-    ORDER BY 
-        aa.total_applications DESC
-    LIMIT 1
+top_assignee AS (
+  SELECT "assignee_name"
+  FROM assignee_totals
+  QUALIFY ROW_NUMBER() OVER (ORDER BY "total_apps" DESC, "assignee_name" ASC) = 1
+),
+year_counts AS (
+  SELECT
+    aa."filing_year" AS "year",
+    COUNT(DISTINCT aa."application_number") AS "cnt"
+  FROM assignee_apps aa
+  JOIN top_assignee ta ON aa."assignee_name" = ta."assignee_name"
+  GROUP BY aa."filing_year"
 )
-
-SELECT filing_year
-FROM 
-    MaxYearForTopAssignee
-    
+SELECT "year"
+FROM year_counts
+QUALIFY ROW_NUMBER() OVER (ORDER BY "cnt" DESC, "year" ASC) = 1;

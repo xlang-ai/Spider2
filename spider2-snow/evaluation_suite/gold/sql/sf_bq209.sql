@@ -1,67 +1,39 @@
-WITH patents_sample AS (
-    SELECT
-        t1."publication_number",
-        t1."application_number"
-    FROM
-        PATENTS.PATENTS.PUBLICATIONS t1
-    WHERE
-        TO_DATE(
-            CASE
-                WHEN t1."grant_date" != 0 THEN TO_CHAR(t1."grant_date")
-                ELSE NULL
-            END, 
-            'YYYYMMDD'
-        ) BETWEEN TO_DATE('20100101', 'YYYYMMDD') AND TO_DATE('20101231', 'YYYYMMDD')
+WITH temp_view_2 AS (
+SELECT "publication_number", "application_number", "filing_date"
+FROM "PATENTS"."PATENTS"."PUBLICATIONS"
+WHERE "application_kind" = 'A'
+AND "grant_date" >= 20100101
+AND "grant_date" <= 20101231
 ),
-forward_citation AS (
-    SELECT
-        patents_sample."publication_number",
-        COUNT(DISTINCT t3."citing_application_number") AS "forward_citations"
-    FROM
-        patents_sample
-        LEFT JOIN (
-            SELECT
-                x2."publication_number",
-                TO_DATE(
-                    CASE
-                        WHEN x2."filing_date" != 0 THEN TO_CHAR(x2."filing_date")
-                        ELSE NULL
-                    END,
-                    'YYYYMMDD'
-                ) AS "filing_date"
-            FROM
-                PATENTS.PATENTS.PUBLICATIONS x2
-            WHERE
-                x2."filing_date" != 0
-        ) t2
-            ON t2."publication_number" = patents_sample."publication_number"
-        LEFT JOIN (
-            SELECT
-                x3."publication_number" AS "citing_publication_number",
-                x3."application_number" AS "citing_application_number",
-                TO_DATE(
-                    CASE
-                        WHEN x3."filing_date" != 0 THEN TO_CHAR(x3."filing_date")
-                        ELSE NULL
-                    END,
-                    'YYYYMMDD'
-                ) AS "joined_filing_date",
-                cite.value:"publication_number"::STRING AS "cited_publication_number"
-            FROM
-                PATENTS.PATENTS.PUBLICATIONS x3,
-                LATERAL FLATTEN(INPUT => x3."citation") cite
-            WHERE
-                x3."filing_date" != 0
-        ) t3
-            ON patents_sample."publication_number" = t3."cited_publication_number"
-            AND t3."joined_filing_date" BETWEEN t2."filing_date" AND DATEADD(YEAR, 10, t2."filing_date")
-    GROUP BY
-        patents_sample."publication_number"
+citations_parsed AS (
+SELECT 
+    p."publication_number" AS citing_patent,
+    c.value:publication_number::STRING AS cited_patent
+FROM "PATENTS"."PATENTS"."PUBLICATIONS" p,
+LATERAL FLATTEN(input => p."citation") c
+WHERE p."citation" IS NOT NULL
+AND c.value:publication_number::STRING IS NOT NULL
+AND c.value:publication_number::STRING != ''
+),
+temp_view_6 AS (
+SELECT 
+    cp.citing_patent,
+    cp.cited_patent,
+    tv2."application_number",
+    tv2."filing_date"
+FROM citations_parsed cp
+INNER JOIN temp_view_2 tv2 ON cp.cited_patent = tv2."publication_number"
+),
+temp_view_7 AS (
+SELECT 
+    tv6.cited_patent,
+    COUNT(DISTINCT p_citing."application_number") AS distinct_citing_applications
+FROM temp_view_6 tv6
+INNER JOIN "PATENTS"."PATENTS"."PUBLICATIONS" p_citing ON tv6.citing_patent = p_citing."publication_number"
+WHERE p_citing."filing_date" >= tv6."filing_date"
+AND p_citing."filing_date" <= tv6."filing_date" + 100000
+GROUP BY tv6.cited_patent
 )
-
-SELECT
-    COUNT(*)
-FROM
-    forward_citation
-WHERE
-    "forward_citations" = 1;
+SELECT COUNT(*) AS patents_with_exactly_one_citation
+FROM temp_view_7
+WHERE distinct_citing_applications = 1

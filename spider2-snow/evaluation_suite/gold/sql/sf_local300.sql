@@ -1,47 +1,69 @@
-WITH RECURSIVE customer_date_series AS (
-    SELECT "customer_id", 
-           MIN("txn_date")::DATE AS "date_series",
-           MAX("txn_date")::DATE AS "last_date"
+WITH customer_date_range AS (
+    SELECT 
+        "customer_id",
+        MIN(TO_DATE("txn_date")) AS start_date,
+        MAX(TO_DATE("txn_date")) AS end_date
     FROM "BANK_SALES_TRADING"."BANK_SALES_TRADING"."CUSTOMER_TRANSACTIONS"
     GROUP BY "customer_id"
-    UNION ALL
-    SELECT "customer_id", 
-           DATEADD(DAY, 1, "date_series") AS "date_series",
-           "last_date"
-    FROM customer_date_series
-    WHERE DATEADD(DAY, 1, "date_series") <= "last_date"
 ),
-customer_txn AS (
-    SELECT *,
-           CASE WHEN "txn_type" = 'deposit' THEN "txn_amount"
-                ELSE -1 * "txn_amount" END AS "txn_group"
+all_days AS (
+    SELECT 
+        cdr."customer_id",
+        DATEADD(day, seq.seq, cdr.start_date) AS date_day
+    FROM customer_date_range cdr
+    CROSS JOIN (
+        SELECT ROW_NUMBER() OVER (ORDER BY NULL) - 1 AS seq
+        FROM TABLE(GENERATOR(ROWCOUNT => 1000))
+    ) seq
+    WHERE DATEADD(day, seq.seq, cdr.start_date) <= cdr.end_date
+),
+daily_transactions AS (
+    SELECT 
+        "customer_id",
+        TO_DATE("txn_date") AS txn_date,
+        SUM(CASE 
+            WHEN "txn_type" = 'deposit' THEN "txn_amount"
+            WHEN "txn_type" = 'purchase' THEN -"txn_amount"
+            WHEN "txn_type" = 'withdrawal' THEN -"txn_amount"
+            ELSE 0 
+        END) AS daily_net_change
     FROM "BANK_SALES_TRADING"."BANK_SALES_TRADING"."CUSTOMER_TRANSACTIONS"
+    GROUP BY "customer_id", TO_DATE("txn_date")
 ),
-customer_balance AS (
-    SELECT s."customer_id", 
-           s."date_series", 
-           COALESCE(b."txn_group", 0) AS "txn_group",
-           SUM(COALESCE(b."txn_group", 0)) OVER (PARTITION BY s."customer_id" ORDER BY s."date_series") AS "balance"
-    FROM customer_date_series s
-    LEFT JOIN customer_txn b 
-        ON s."customer_id" = b."customer_id" 
-        AND s."date_series" = b."txn_date"
-    ORDER BY s."customer_id", s."date_series"
+daily_balances AS (
+    SELECT 
+        ad."customer_id",
+        ad.date_day,
+        COALESCE(dt.daily_net_change, 0) AS daily_change,
+        SUM(COALESCE(dt.daily_net_change, 0)) OVER (
+            PARTITION BY ad."customer_id" 
+            ORDER BY ad.date_day 
+            ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+        ) AS running_balance
+    FROM all_days ad
+    LEFT JOIN daily_transactions dt 
+        ON ad."customer_id" = dt."customer_id" 
+        AND ad.date_day = dt.txn_date
 ),
-customer_data AS (
-    SELECT "customer_id", 
-           "date_series",
-           CASE WHEN "balance" < 0 THEN 0
-                ELSE "balance" END AS "data_storage"
-    FROM customer_balance
+non_negative_balances AS (
+    SELECT 
+        "customer_id",
+        date_day,
+        GREATEST(running_balance, 0) AS daily_balance,
+        DATE_TRUNC('month', date_day) AS month_start
+    FROM daily_balances
+),
+monthly_max_balances AS (
+    SELECT 
+        "customer_id",
+        month_start,
+        MAX(daily_balance) AS max_daily_balance
+    FROM non_negative_balances
+    GROUP BY "customer_id", month_start
 )
-SELECT "month", 
-       SUM("data_allocation") AS "total_allocation"
-FROM (
-    SELECT "customer_id",
-           TO_CHAR("date_series", 'YYYY-MM') AS "month",
-           MAX("data_storage") AS "data_allocation"
-    FROM customer_data
-    GROUP BY "customer_id", TO_CHAR("date_series", 'YYYY-MM')
-) AS tmp
-GROUP BY "month";
+SELECT 
+    month_start,
+    SUM(max_daily_balance) AS monthly_total_max_balance
+FROM monthly_max_balances
+GROUP BY month_start
+ORDER BY month_start;

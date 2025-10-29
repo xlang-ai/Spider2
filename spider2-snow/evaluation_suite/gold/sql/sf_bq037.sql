@@ -1,62 +1,40 @@
-WITH A AS (
-    SELECT
+WITH min_max AS (
+    SELECT 
         "reference_bases",
-        "start_position"
-    FROM
-        "HUMAN_GENOME_VARIANTS"."HUMAN_GENOME_VARIANTS"."_1000_GENOMES_PHASE_3_OPTIMIZED_SCHEMA_VARIANTS_20150220"
-    WHERE
-        "reference_bases" IN ('AT', 'TA')
-),
-B AS (
-    SELECT
-        "reference_bases",
-        MIN("start_position") AS "min_start_position",
-        MAX("start_position") AS "max_start_position",
-        COUNT(1) AS "total_count"
-    FROM
-        A
-    GROUP BY
-        "reference_bases"
+        MIN("start_position") as min_start,
+        MAX("start_position") as max_start,
+        COUNT(*) as total_count
+    FROM HUMAN_GENOME_VARIANTS.HUMAN_GENOME_VARIANTS._1000_GENOMES_PHASE_3_OPTIMIZED_SCHEMA_VARIANTS_20150220
+    WHERE "reference_bases" IN ('AT', 'TA')
+    GROUP BY "reference_bases"
 ),
 min_counts AS (
-    SELECT
-        A."reference_bases",  -- Explicitly referencing the column from table A
-        A."start_position" AS "min_start_position",
-        COUNT(1) AS "min_count"
-    FROM
-        A
-    INNER JOIN B 
-        ON A."reference_bases" = B."reference_bases"
-    WHERE
-        A."start_position" = B."min_start_position"
-    GROUP BY
-        A."reference_bases", A."start_position"
+    SELECT 
+        v."reference_bases",
+        v."start_position",
+        COUNT(*) as extreme_count
+    FROM HUMAN_GENOME_VARIANTS.HUMAN_GENOME_VARIANTS._1000_GENOMES_PHASE_3_OPTIMIZED_SCHEMA_VARIANTS_20150220 v
+    INNER JOIN min_max mm ON v."reference_bases" = mm."reference_bases"
+    WHERE v."start_position" = mm.min_start
+    GROUP BY v."reference_bases", v."start_position"
 ),
 max_counts AS (
-    SELECT
-        A."reference_bases",  -- Explicitly referencing the column from table A
-        A."start_position" AS "max_start_position",
-        COUNT(1) AS "max_count"
-    FROM
-        A
-    INNER JOIN B
-        ON A."reference_bases" = B."reference_bases"
-    WHERE
-        A."start_position" = B."max_start_position"
-    GROUP BY
-        A."reference_bases", A."start_position"
+    SELECT 
+        v."reference_bases",
+        v."start_position",
+        COUNT(*) as extreme_count
+    FROM HUMAN_GENOME_VARIANTS.HUMAN_GENOME_VARIANTS._1000_GENOMES_PHASE_3_OPTIMIZED_SCHEMA_VARIANTS_20150220 v
+    INNER JOIN min_max mm ON v."reference_bases" = mm."reference_bases"
+    WHERE v."start_position" = mm.max_start
+    GROUP BY v."reference_bases", v."start_position"
 )
-SELECT
-    B."reference_bases",  -- Explicitly referencing the column from table B
-    B."min_start_position",
-    CAST(min_counts."min_count" AS FLOAT) / B."total_count" AS "min_position_ratio",
-    B."max_start_position",
-    CAST(max_counts."max_count" AS FLOAT) / B."total_count" AS "max_position_ratio"
-FROM
-    B
-LEFT JOIN
-    min_counts ON B."reference_bases" = min_counts."reference_bases" AND B."min_start_position" = min_counts."min_start_position"
-LEFT JOIN
-    max_counts ON B."reference_bases" = max_counts."reference_bases" AND B."max_start_position" = max_counts."max_start_position"
-ORDER BY
-    B."reference_bases";
+SELECT 
+    mm."reference_bases",
+    mm.min_start,
+    mm.max_start,
+    COALESCE(mc.extreme_count, 0) * 1.0 / mm.total_count AS prop_min,
+    COALESCE(mx.extreme_count, 0) * 1.0 / mm.total_count AS prop_max
+FROM min_max mm
+LEFT JOIN min_counts mc ON mm."reference_bases" = mc."reference_bases"
+LEFT JOIN max_counts mx ON mm."reference_bases" = mx."reference_bases"
+ORDER BY mm."reference_bases";

@@ -1,21 +1,90 @@
-WITH ytd_performance AS (
-  SELECT
-    ticker,
-    MIN(date) OVER (PARTITION BY ticker) AS start_of_year_date,
-    FIRST_VALUE(value) OVER (PARTITION BY ticker ORDER BY date ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS start_of_year_price,
-    MAX(date) OVER (PARTITION BY ticker) AS latest_date,
-    LAST_VALUE(value) OVER (PARTITION BY ticker ORDER BY date ASC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS latest_price
-  FROM FINANCE__ECONOMICS.CYBERSYN.stock_price_timeseries
-  WHERE
-    ticker IN ('AAPL', 'MSFT', 'AMZN', 'GOOGL', 'META', 'TSLA', 'NVDA')
-    AND date BETWEEN DATE '2024-01-01' AND DATE '2024-06-30'  -- Adjusted to cover only from the start of 2024 to the end of June 2024
-    AND variable_name = 'Post-Market Close'
+WITH "tickers" AS (
+    SELECT column1 AS "TICKER"
+    FROM (VALUES 
+        ('AAPL'),
+        ('MSFT'),
+        ('GOOGL'),
+        ('AMZN'),
+        ('NVDA'),
+        ('META'),
+        ('TSLA')
+    ) AS "v"(column1)
+),
+"filtered" AS (
+    SELECT
+        "s"."TICKER",
+        "s"."DATE",
+        "s"."VALUE"
+    FROM "FINANCE__ECONOMICS"."CYBERSYN"."STOCK_PRICE_TIMESERIES" AS "s"
+    INNER JOIN "tickers" AS "t"
+        ON "s"."TICKER" = "t"."TICKER"
+    WHERE "s"."VARIABLE" = 'post-market_close'
+        AND "s"."DATE" BETWEEN '2024-01-01' AND '2024-06-30'
+),
+"start_prices" AS (
+    SELECT
+        "TICKER",
+        "DATE" AS "START_DATE",
+        "VALUE" AS "START_VALUE"
+    FROM (
+        SELECT
+            "TICKER",
+            "DATE",
+            "VALUE",
+            ROW_NUMBER() OVER (PARTITION BY "TICKER" ORDER BY "DATE") AS "RN"
+        FROM "filtered"
+    )
+    WHERE "RN" = 1
+),
+"end_prices" AS (
+    SELECT
+        "TICKER",
+        "DATE" AS "END_DATE",
+        "VALUE" AS "END_VALUE"
+    FROM (
+        SELECT
+            "TICKER",
+            "DATE",
+            "VALUE",
+            ROW_NUMBER() OVER (PARTITION BY "TICKER" ORDER BY "DATE" DESC) AS "RN"
+        FROM "filtered"
+    )
+    WHERE "RN" = 1
+),
+"split_candidates" AS (
+    SELECT
+        "TICKER",
+        "DATE",
+        "PREV_VALUE" / NULLIF("VALUE", 0) AS "RATIO"
+    FROM (
+        SELECT
+            "TICKER",
+            "DATE",
+            "VALUE",
+            LAG("VALUE") OVER (PARTITION BY "TICKER" ORDER BY "DATE") AS "PREV_VALUE"
+        FROM "filtered"
+    )
+    WHERE "PREV_VALUE" IS NOT NULL
+),
+"split_factors" AS (
+    SELECT
+        "TICKER",
+        EXP(SUM(LN(ROUND("RATIO")))) AS "TOTAL_FACTOR"
+    FROM "split_candidates"
+    WHERE "RATIO" >= 1.5
+      AND ABS("RATIO" - ROUND("RATIO")) <= 0.2
+    GROUP BY "TICKER"
 )
 SELECT
-  ticker,
-  (latest_price - start_of_year_price) / start_of_year_price * 100 AS percentage_change_ytd
-FROM
-  ytd_performance
-GROUP BY
-  ticker, start_of_year_date, start_of_year_price, latest_date, latest_price
-ORDER BY percentage_change_ytd DESC;
+    "sp"."TICKER",
+    "sp"."START_DATE",
+    "ep"."END_DATE",
+    ROUND("sp"."START_VALUE" / COALESCE("sf"."TOTAL_FACTOR", 1), 2) AS "ADJUSTED_START_PRICE",
+    ROUND("ep"."END_VALUE", 2) AS "END_PRICE",
+    ROUND((("ep"."END_VALUE" - ("sp"."START_VALUE" / COALESCE("sf"."TOTAL_FACTOR", 1))) / ("sp"."START_VALUE" / COALESCE("sf"."TOTAL_FACTOR", 1))) * 100, 2) AS "PERCENT_CHANGE"
+FROM "start_prices" AS "sp"
+INNER JOIN "end_prices" AS "ep"
+    ON "sp"."TICKER" = "ep"."TICKER"
+LEFT JOIN "split_factors" AS "sf"
+    ON "sp"."TICKER" = "sf"."TICKER"
+ORDER BY "sp"."TICKER";

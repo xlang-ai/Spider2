@@ -1,98 +1,83 @@
-WITH copy AS (
-  SELECT 
-    "case_barcode", 
-    "chromosome", 
-    "start_pos", 
-    "end_pos", 
-    MAX("copy_number") AS "copy_number"
-  FROM 
-    "TCGA_MITELMAN"."TCGA_VERSIONED"."COPY_NUMBER_SEGMENT_ALLELIC_HG38_GDC_R23" 
-  WHERE  
-    "project_short_name" = 'TCGA-KIRC'
-  GROUP BY 
-    "case_barcode", 
-    "chromosome", 
-    "start_pos", 
-    "end_pos"
+WITH "kirc_total" AS (
+  SELECT COUNT(DISTINCT "case_barcode") AS "total_cases"
+  FROM "TCGA_MITELMAN"."TCGA_VERSIONED"."COPY_NUMBER_SEGMENT_ALLELIC_HG38_GDC_R23"
+  WHERE "project_short_name" = 'TCGA-KIRC'
 ),
-total_cases AS (
-  SELECT COUNT(DISTINCT "case_barcode") AS "total"
-  FROM copy 
+"seg_band" AS (
+  SELECT
+    s."case_barcode",
+    s."sample_barcode",
+    s."chromosome",
+    b."cytoband_name",
+    s."copy_number"
+  FROM "TCGA_MITELMAN"."TCGA_VERSIONED"."COPY_NUMBER_SEGMENT_ALLELIC_HG38_GDC_R23" s
+  JOIN "TCGA_MITELMAN"."PROD"."CYTOBANDS_HG38" b
+    ON s."chromosome" = b."chromosome"
+   AND LEAST(s."end_pos", b."hg38_stop") - GREATEST(s."start_pos", b."hg38_start") > 0
+  WHERE s."project_short_name" = 'TCGA-KIRC'
 ),
-cytob AS (
-  SELECT 
-    "chromosome", 
-    "cytoband_name", 
-    "hg38_start", 
-    "hg38_stop"
-  FROM 
-    "TCGA_MITELMAN"."PROD"."CYTOBANDS_HG38"
-),
-joined AS (
-  SELECT 
-    cytob."chromosome", 
-    cytob."cytoband_name", 
-    cytob."hg38_start", 
-    cytob."hg38_stop",
-    copy."case_barcode",
-    copy."copy_number"  
-  FROM 
-    copy
-  LEFT JOIN cytob
-    ON cytob."chromosome" = copy."chromosome" 
-  WHERE 
-    (cytob."hg38_start" >= copy."start_pos" AND copy."end_pos" >= cytob."hg38_start")
-    OR (copy."start_pos" >= cytob."hg38_start" AND copy."start_pos" <= cytob."hg38_stop")
-),
-cbands AS (
-  SELECT 
-    "chromosome", 
-    "cytoband_name", 
-    "hg38_start", 
-    "hg38_stop", 
+"sample_band_max" AS (
+  SELECT
     "case_barcode",
-    MAX("copy_number") AS "copy_number"
-  FROM 
-    joined
-  GROUP BY 
-    "chromosome", 
-    "cytoband_name", 
-    "hg38_start", 
-    "hg38_stop", 
-    "case_barcode"
+    "sample_barcode",
+    "chromosome",
+    "cytoband_name",
+    MAX("copy_number") AS "sample_max_copy"
+  FROM "seg_band"
+  GROUP BY "case_barcode", "sample_barcode", "chromosome", "cytoband_name"
 ),
-aberrations AS (
+"case_band_max" AS (
+  SELECT
+    "case_barcode",
+    "chromosome",
+    "cytoband_name",
+    MAX("sample_max_copy") AS "case_max_copy"
+  FROM "sample_band_max"
+  GROUP BY "case_barcode", "chromosome", "cytoband_name"
+),
+"case_band_category" AS (
+  SELECT
+    "case_barcode",
+    "chromosome",
+    "cytoband_name",
+    CASE
+      WHEN "case_max_copy" > 3 THEN 'Amplification'
+      WHEN "case_max_copy" = 3 THEN 'Gain'
+      WHEN "case_max_copy" = 2 THEN 'Normal'
+      WHEN "case_max_copy" = 1 THEN 'Heterozygous Deletion'
+      WHEN "case_max_copy" = 0 THEN 'Homozygous Deletion'
+      ELSE 'Unknown'
+    END AS "category"
+  FROM "case_band_max"
+),
+"band_counts" AS (
   SELECT
     "chromosome",
     "cytoband_name",
-    -- Amplifications: more than two copies for diploid > 4
-    SUM( CASE WHEN "copy_number" > 3 THEN 1 ELSE 0 END ) AS "total_amp",
-    -- Gains: at most two extra copies
-    SUM( CASE WHEN "copy_number" = 3 THEN 1 ELSE 0 END ) AS "total_gain",
-    -- Homozygous deletions, or complete deletions
-    SUM( CASE WHEN "copy_number" = 0 THEN 1 ELSE 0 END ) AS "total_homodel",
-    -- Heterozygous deletions, 1 copy lost
-    SUM( CASE WHEN "copy_number" = 1 THEN 1 ELSE 0 END ) AS "total_heterodel",
-    -- Normal for Diploid = 2
-    SUM( CASE WHEN "copy_number" = 2 THEN 1 ELSE 0 END ) AS "total_normal"
-  FROM 
-    cbands
-  GROUP BY 
-    "chromosome", 
-    "cytoband_name"
+    SUM(CASE WHEN "category" = 'Amplification' THEN 1 ELSE 0 END) AS "n_amplification",
+    SUM(CASE WHEN "category" = 'Gain' THEN 1 ELSE 0 END) AS "n_gain",
+    SUM(CASE WHEN "category" = 'Homozygous Deletion' THEN 1 ELSE 0 END) AS "n_homdel",
+    SUM(CASE WHEN "category" = 'Heterozygous Deletion' THEN 1 ELSE 0 END) AS "n_hetdel",
+    SUM(CASE WHEN "category" = 'Normal' THEN 1 ELSE 0 END) AS "n_normal"
+  FROM "case_band_category"
+  GROUP BY "chromosome", "cytoband_name"
 )
-SELECT 
-  aberrations."chromosome", 
-  aberrations."cytoband_name",
-  total_cases."total",  
-  100 * aberrations."total_amp" / total_cases."total" AS "freq_amp", 
-  100 * aberrations."total_gain" / total_cases."total" AS "freq_gain",
-  100 * aberrations."total_homodel" / total_cases."total" AS "freq_homodel", 
-  100 * aberrations."total_heterodel" / total_cases."total" AS "freq_heterodel", 
-  100 * aberrations."total_normal" / total_cases."total" AS "freq_normal"  
-FROM 
-  aberrations, 
-  total_cases
-ORDER BY 
-  aberrations."chromosome", 
-  aberrations."cytoband_name";
+SELECT
+  bc."chromosome",
+  bc."cytoband_name",
+  100.0 * bc."n_amplification" / kt."total_cases" AS "amplification_pct",
+  100.0 * bc."n_gain" / kt."total_cases" AS "gain_pct",
+  100.0 * bc."n_homdel" / kt."total_cases" AS "homozygous_deletion_pct",
+  100.0 * bc."n_hetdel" / kt."total_cases" AS "heterozygous_deletion_pct",
+  100.0 * bc."n_normal" / kt."total_cases" AS "normal_pct"
+FROM "band_counts" bc
+CROSS JOIN "kirc_total" kt
+ORDER BY
+  CASE
+    WHEN REGEXP_LIKE(REGEXP_REPLACE(bc."chromosome", '^chr', ''), '^[0-9]+$')
+      THEN TO_NUMBER(REGEXP_REPLACE(bc."chromosome", '^chr', ''))
+    WHEN REGEXP_REPLACE(bc."chromosome", '^chr', '') = 'X' THEN 23
+    WHEN REGEXP_REPLACE(bc."chromosome", '^chr', '') = 'Y' THEN 24
+    ELSE 25
+  END,
+  bc."cytoband_name";

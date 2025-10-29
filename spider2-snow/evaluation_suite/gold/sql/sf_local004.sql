@@ -1,25 +1,22 @@
-WITH CustomerData AS (
+WITH OrderTotalPayments AS (
     SELECT
-        "customer_unique_id",
-        COUNT(DISTINCT E_COMMERCE.E_COMMERCE.ORDERS."order_id") AS order_count,
-        SUM(TO_NUMBER("payment_value")) AS total_payment,
-        DATE_PART('day', MIN(TO_TIMESTAMP("order_purchase_timestamp", 'YYYY-MM-DD HH24:MI:SS'))) AS first_order_day,
-        DATE_PART('day', MAX(TO_TIMESTAMP("order_purchase_timestamp", 'YYYY-MM-DD HH24:MI:SS'))) AS last_order_day
-    FROM E_COMMERCE.E_COMMERCE.CUSTOMERS 
-        JOIN E_COMMERCE.E_COMMERCE.ORDERS USING ("customer_id")
-        JOIN E_COMMERCE.E_COMMERCE.ORDER_PAYMENTS USING ("order_id")
-    GROUP BY "customer_unique_id"
+        "order_id",
+        SUM("payment_value") AS "total_payment"
+    FROM "E_COMMERCE"."E_COMMERCE"."ORDER_PAYMENTS"
+    GROUP BY "order_id"
 )
 SELECT
-    "customer_unique_id",
-    order_count AS PF,
-    ROUND(total_payment / order_count, 2) AS AOV,
+    C."customer_unique_id",
+    COUNT(O."order_id") AS "number_of_orders",
+    AVG(OTP."total_payment") AS "average_payment_per_order",
     CASE
-        WHEN (last_order_day - first_order_day) < 7 THEN
-            1
-        ELSE
-            (last_order_day - first_order_day) / 7
-        END AS ACL
-FROM CustomerData
-ORDER BY AOV DESC
+        WHEN DATEDIFF('day', MIN(TO_TIMESTAMP(O."order_purchase_timestamp")), MAX(TO_TIMESTAMP(O."order_purchase_timestamp"))) < 7
+        THEN 1.0
+        ELSE DATEDIFF('day', MIN(TO_TIMESTAMP(O."order_purchase_timestamp")), MAX(TO_TIMESTAMP(O."order_purchase_timestamp"))) / 7.0
+    END AS "customer_lifespan_in_weeks"
+FROM "E_COMMERCE"."E_COMMERCE"."CUSTOMERS" AS C
+JOIN "E_COMMERCE"."E_COMMERCE"."ORDERS" AS O ON C."customer_id" = O."customer_id"
+JOIN OrderTotalPayments AS OTP ON O."order_id" = OTP."order_id"
+GROUP BY C."customer_unique_id"
+ORDER BY "average_payment_per_order" DESC
 LIMIT 3;

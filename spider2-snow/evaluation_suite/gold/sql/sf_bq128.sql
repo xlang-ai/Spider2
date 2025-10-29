@@ -1,68 +1,62 @@
-SELECT
-    patent."title",
-    patent."abstract",
-    app."date" AS publication_date,
-    filterData."bkwdCitations",
-    filterData."fwrdCitations_5"
-FROM
-    "PATENTSVIEW"."PATENTSVIEW"."PATENT" AS patent
-JOIN
-    "PATENTSVIEW"."PATENTSVIEW"."APPLICATION" AS app
-    ON app."patent_id" = patent."id"
-JOIN (
+WITH "filings" AS (
     SELECT
-        DISTINCT cpc."patent_id",
-        IFNULL(citation_5."bkwdCitations", 0) AS "bkwdCitations",
-        IFNULL(citation_5."fwrdCitations_5", 0) AS "fwrdCitations_5"
-    FROM
-        "PATENTSVIEW"."PATENTSVIEW"."CPC_CURRENT" AS cpc
-    LEFT JOIN (
-        SELECT
-            b."patent_id",
-            b."bkwdCitations",
-            f."fwrdCitations_5"
-        FROM (
-            SELECT 
-                cited."citation_id" AS "patent_id",
-                IFNULL(COUNT(*), 0) AS "fwrdCitations_5"
-            FROM 
-                "PATENTSVIEW"."PATENTSVIEW"."USPATENTCITATION" AS cited
-            JOIN
-                "PATENTSVIEW"."PATENTSVIEW"."APPLICATION" AS apps
-                ON cited."citation_id" = apps."patent_id"
-            WHERE
-                apps."country" = 'US'
-                AND cited."date" >= apps."date"
-                AND TRY_CAST(cited."date" AS DATE) <= DATEADD(YEAR, 5, TRY_CAST(apps."date" AS DATE)) -- 5-year citation window
-            GROUP BY 
-                cited."citation_id"
-        ) AS f
-        JOIN (
-            SELECT 
-                cited."patent_id",
-                IFNULL(COUNT(*), 0) AS "bkwdCitations"
-            FROM 
-                "PATENTSVIEW"."PATENTSVIEW"."USPATENTCITATION" AS cited
-            JOIN
-                "PATENTSVIEW"."PATENTSVIEW"."APPLICATION" AS apps
-                ON cited."patent_id" = apps."patent_id"
-            WHERE
-                apps."country" = 'US'
-                AND cited."date" < apps."date" -- backward citation count
-            GROUP BY 
-                cited."patent_id"
-        ) AS b
-        ON b."patent_id" = f."patent_id"
-        WHERE
-            b."bkwdCitations" IS NOT NULL
-            AND f."fwrdCitations_5" IS NOT NULL
-    ) AS citation_5 
-    ON cpc."patent_id" = citation_5."patent_id"
-    WHERE 
-        cpc."subsection_id" IN ('C05', 'C06', 'C07', 'C08', 'C09', 'C10', 'C11', 'C12', 'C13')
-        OR cpc."group_id" IN ('A01G', 'A01H', 'A61K', 'A61P', 'A61Q', 'B01F', 'B01J', 'B81B', 'B82B', 'B82Y', 'G01N', 'G16H')
-) AS filterData
-ON app."patent_id" = filterData."patent_id"
-WHERE
-    TRY_CAST(app."date" AS DATE) < '2014-02-01' 
-    AND TRY_CAST(app."date" AS DATE) >= '2014-01-01';
+        "patent_id",
+        MIN(TRY_TO_DATE("date")) AS "filing_date"
+    FROM "PATENTSVIEW"."PATENTSVIEW"."APPLICATION"
+    WHERE "country" = 'US'
+      AND TRY_TO_DATE("date") IS NOT NULL
+    GROUP BY "patent_id"
+),
+"qualified_cpc" AS (
+    SELECT DISTINCT
+        "patent_id"
+    FROM "PATENTSVIEW"."PATENTSVIEW"."CPC_CURRENT"
+    WHERE "subsection_id" IN ('C05','C06','C07','C08','C09','C10','C11','C12','C13')
+       OR "group_id" IN ('A01G','A01H','A61K','A61P','A61Q','B01F','B01J','B81B','B82B','B82Y','G01N','G16H')
+),
+"base_pats" AS (
+    SELECT DISTINCT
+        p."id" AS "patent_id",
+        p."title",
+        p."abstract",
+        TRY_TO_DATE(p."date") AS "publication_date",
+        f."filing_date"
+    FROM "PATENTSVIEW"."PATENTSVIEW"."PATENT" p
+    JOIN "filings" f ON p."id" = f."patent_id"
+    JOIN "qualified_cpc" qc ON p."id" = qc."patent_id"
+    WHERE p."country" = 'US'
+      AND f."filing_date" BETWEEN TO_DATE('2014-01-01') AND TO_DATE('2014-02-01')
+      AND TRY_TO_DATE(p."date") IS NOT NULL
+),
+"backward_counts" AS (
+    SELECT
+        bc."patent_id",
+        COUNT(DISTINCT bc."citation_id") AS "backward_citations"
+    FROM "PATENTSVIEW"."PATENTSVIEW"."USPATENTCITATION" bc
+    JOIN "base_pats" b ON bc."patent_id" = b."patent_id"
+    WHERE TRY_TO_DATE(bc."date") IS NOT NULL
+      AND TRY_TO_DATE(bc."date") < b."filing_date"
+    GROUP BY bc."patent_id"
+),
+"forward_counts" AS (
+    SELECT
+        fc."citation_id" AS "patent_id",
+        COUNT(DISTINCT fc."patent_id") AS "forward_citations"
+    FROM "PATENTSVIEW"."PATENTSVIEW"."USPATENTCITATION" fc
+    JOIN "base_pats" b ON fc."citation_id" = b."patent_id"
+    JOIN "PATENTSVIEW"."PATENTSVIEW"."PATENT" pc ON pc."id" = fc."patent_id"
+    WHERE TRY_TO_DATE(pc."date") IS NOT NULL
+      AND TRY_TO_DATE(pc."date") >= b."publication_date"
+      AND TRY_TO_DATE(pc."date") <= DATEADD(year, 5, b."publication_date")
+    GROUP BY fc."citation_id"
+)
+SELECT
+    b."title",
+    b."abstract",
+    b."publication_date",
+    COALESCE(back."backward_citations", 0) AS "backward_citation_count",
+    COALESCE(fwd."forward_citations", 0) AS "forward_citation_count"
+FROM "base_pats" b
+LEFT JOIN "backward_counts" back ON back."patent_id" = b."patent_id"
+LEFT JOIN "forward_counts" fwd ON fwd."patent_id" = b."patent_id"
+ORDER BY b."publication_date", b."title"

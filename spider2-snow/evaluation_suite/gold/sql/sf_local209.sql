@@ -1,37 +1,42 @@
-WITH store_order_counts AS (
+WITH "top_store" AS (
     SELECT
-        s."store_name",
-        COUNT(o."order_id") AS total_orders
-    FROM
-        DELIVERY_CENTER.DELIVERY_CENTER.ORDERS o 
-    LEFT JOIN
-        DELIVERY_CENTER.DELIVERY_CENTER.STORES s ON o."store_id" = s."store_id" 
-    GROUP BY 
-        s."store_name"
-    ORDER BY 
-        total_orders DESC
-    LIMIT 1  
-),
-deliveries_completed AS (
-    SELECT
-        s."store_name",
-        COUNT(o."order_id") AS deliveries_completed
-    FROM
-        DELIVERY_CENTER.DELIVERY_CENTER.ORDERS o 
-    LEFT JOIN
-        DELIVERY_CENTER.DELIVERY_CENTER.STORES s ON o."store_id" = s."store_id" 
-    INNER JOIN (
-            SELECT 
-                DISTINCT "delivery_order_id"
-            FROM DELIVERY_CENTER.DELIVERY_CENTER.DELIVERIES
-            WHERE "delivery_status" = 'DELIVERED'
-        ) AS ud ON o."delivery_order_id" = ud."delivery_order_id"
-    GROUP BY 
-        s."store_name"
+        o."store_id"
+    FROM "DELIVERY_CENTER"."DELIVERY_CENTER"."ORDERS" o
+    GROUP BY o."store_id"
+    ORDER BY COUNT(*) DESC, o."store_id"
+    FETCH FIRST 1 ROW ONLY
 )
 SELECT
-    CAST(dc.deliveries_completed AS REAL) / NULLIF(CAST(soc.total_orders AS REAL), 0) AS completion_ratio
-FROM
-    store_order_counts soc
-LEFT JOIN
-    deliveries_completed dc ON soc."store_name" = dc."store_name";
+    ts."store_id",
+    s."store_name",
+    COUNT(*) AS "total_orders",
+    SUM(
+        CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM "DELIVERY_CENTER"."DELIVERY_CENTER"."DELIVERIES" d
+                WHERE d."delivery_order_id" = o."delivery_order_id"
+                  AND d."delivery_status" = 'DELIVERED'
+            ) THEN 1
+            ELSE 0
+        END
+    ) AS "delivered_orders",
+    SUM(
+        CASE
+            WHEN EXISTS (
+                SELECT 1
+                FROM "DELIVERY_CENTER"."DELIVERY_CENTER"."DELIVERIES" d
+                WHERE d."delivery_order_id" = o."delivery_order_id"
+                  AND d."delivery_status" = 'DELIVERED'
+            ) THEN 1
+            ELSE 0
+        END
+    )::FLOAT / COUNT(*) AS "delivered_ratio"
+FROM "DELIVERY_CENTER"."DELIVERY_CENTER"."ORDERS" o
+JOIN "top_store" ts
+    ON o."store_id" = ts."store_id"
+JOIN "DELIVERY_CENTER"."DELIVERY_CENTER"."STORES" s
+    ON s."store_id" = ts."store_id"
+GROUP BY
+    ts."store_id",
+    s."store_name";

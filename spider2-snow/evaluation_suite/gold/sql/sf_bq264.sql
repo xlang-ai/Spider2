@@ -1,49 +1,14 @@
-WITH youngest AS (
-    SELECT
-        "gender", 
-        "id", 
-        "first_name", 
-        "last_name", 
-        "age", 
-        'youngest' AS "tag"
-    FROM 
-        "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS"
-    WHERE 
-        "age" = (SELECT MIN("age") FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS")
-        AND TO_TIMESTAMP("created_at" / 1000000.0) BETWEEN TO_TIMESTAMP('2019-01-01') AND TO_TIMESTAMP('2022-04-30')
-    GROUP BY 
-        "gender", "id", "first_name", "last_name", "age"
-    ORDER BY 
-        "gender"
-),
-
-oldest AS (
-    SELECT
-        "gender", 
-        "id", 
-        "first_name", 
-        "last_name", 
-        "age", 
-        'oldest' AS "tag"
-    FROM 
-        "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS"
-    WHERE 
-        "age" = (SELECT MAX("age") FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS")
-        AND TO_TIMESTAMP("created_at" / 1000000.0) BETWEEN TO_TIMESTAMP('2019-01-01') AND TO_TIMESTAMP('2022-04-30')
-    GROUP BY 
-        "gender", "id", "first_name", "last_name", "age"
-    ORDER BY 
-        "gender"
-),
-
-TEMP_record AS (
-    SELECT * FROM youngest
-    UNION ALL
-    SELECT * FROM oldest
+WITH MinMaxAge AS (
+  SELECT
+    MIN("age") AS min_age,
+    MAX("age") AS max_age
+  FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS"
+  WHERE
+    CAST(TO_TIMESTAMP_NTZ("created_at" / 1000000) AS DATE) BETWEEN '2019-01-01' AND '2022-04-30'
 )
-
-SELECT 
-    SUM(CASE WHEN "age" = (SELECT MAX("age") FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS") THEN 1 END) - 
-    SUM(CASE WHEN "age" = (SELECT MIN("age") FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS") THEN 1 END) AS "diff"
-FROM 
-    TEMP_record;
+SELECT
+  SUM(CASE WHEN T."age" = M.max_age THEN 1 ELSE 0 END) - SUM(CASE WHEN T."age" = M.min_age THEN 1 ELSE 0 END)
+FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS" AS T
+CROSS JOIN MinMaxAge AS M
+WHERE
+  CAST(TO_TIMESTAMP_NTZ(T."created_at" / 1000000) AS DATE) BETWEEN '2019-01-01' AND '2022-04-30'

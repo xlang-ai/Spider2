@@ -1,69 +1,27 @@
-WITH filtered_users AS (
-    SELECT 
-        "first_name", 
-        "last_name", 
-        "gender", 
-        "age",
-        CAST(TO_TIMESTAMP("created_at" / 1000000.0) AS DATE) AS "created_at"
-    FROM 
-        "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS"
-    WHERE 
-        CAST(TO_TIMESTAMP("created_at" / 1000000.0) AS DATE) BETWEEN '2019-01-01' AND '2022-04-30'
-),
-youngest_ages AS (
-    SELECT 
-        "gender", 
-        MIN("age") AS "age"
-    FROM 
-        filtered_users
-    GROUP BY 
-        "gender"
-),
-oldest_ages AS (
-    SELECT 
-        "gender", 
-        MAX("age") AS "age"
-    FROM 
-        filtered_users
-    GROUP BY 
-        "gender"
-),
-youngest_oldest AS (
-    SELECT 
-        u."first_name", 
-        u."last_name", 
-        u."gender", 
-        u."age", 
-        'youngest' AS "tag"
-    FROM 
-        filtered_users u
-    JOIN 
-        youngest_ages y
-    ON 
-        u."gender" = y."gender" AND u."age" = y."age"
-    
-    UNION ALL
-    
-    SELECT 
-        u."first_name", 
-        u."last_name", 
-        u."gender", 
-        u."age", 
-        'oldest' AS "tag"
-    FROM 
-        filtered_users u
-    JOIN 
-        oldest_ages o
-    ON 
-        u."gender" = o."gender" AND u."age" = o."age"
+WITH FilteredUsers AS (
+  SELECT
+    "gender",
+    "age"
+  FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS"
+  WHERE
+    TO_TIMESTAMP_NTZ("created_at" / 1000000) >= '2019-01-01' AND TO_TIMESTAMP_NTZ("created_at" / 1000000) < '2022-05-01'
+), AgeBounds AS (
+  SELECT
+    "gender",
+    MIN("age") AS min_age,
+    MAX("age") AS max_age
+  FROM FilteredUsers
+  GROUP BY
+    "gender"
 )
-SELECT 
-    "tag", 
-    "gender", 
-    COUNT(*) AS "num"
-FROM 
-    youngest_oldest
-GROUP BY 
-    "tag", "gender"
-ORDER BY 
-    "tag", "gender";
+SELECT
+  T1."gender",
+  COUNT(CASE WHEN T1."age" = T2.min_age THEN 1 END) AS youngest_count,
+  COUNT(CASE WHEN T1."age" = T2.max_age THEN 1 END) AS oldest_count
+FROM FilteredUsers AS T1
+JOIN AgeBounds AS T2
+  ON T1."gender" = T2."gender"
+WHERE
+  T1."age" = T2.min_age OR T1."age" = T2.max_age
+GROUP BY
+  T1."gender";

@@ -1,92 +1,74 @@
-WITH TABLE_1 AS (
-    SELECT 
-        MATCH."id",
-        COUNTRY."name" AS country_name, 
-        LEAGUE."name" AS league_name, 
-        "season", 
-        "stage", 
-        "date",
-        HT."team_long_name" AS home_team,
-        AT."team_long_name" AS away_team,
-        "home_team_goal", 
-        "away_team_goal",
-        CASE
-            WHEN "home_team_goal" > "away_team_goal" THEN 'Win'
-            WHEN "home_team_goal" < "away_team_goal" THEN 'Loss'
-            ELSE 'Tie'
-        END AS home_team_result, 
-        CASE
-            WHEN "away_team_goal" > "home_team_goal" THEN 'Win'
-            WHEN "away_team_goal" < "home_team_goal" THEN 'Loss'
-            ELSE 'Tie'
-        END AS away_team_result
-    FROM EU_SOCCER.EU_SOCCER.MATCH
-    JOIN EU_SOCCER.EU_SOCCER.COUNTRY ON COUNTRY."id" = MATCH."country_id"
-    JOIN EU_SOCCER.EU_SOCCER.LEAGUE ON LEAGUE."id" = MATCH."league_id"
-    LEFT JOIN EU_SOCCER.EU_SOCCER.TEAM AS HT ON HT."team_api_id" = MATCH."home_team_api_id"
-    LEFT JOIN EU_SOCCER.EU_SOCCER.TEAM AS AT ON AT."team_api_id" = MATCH."away_team_api_id"
+WITH per_team_match AS (
+  SELECT
+    m."season",
+    m."league_id",
+    m."home_team_api_id" AS "team_api_id",
+    m."home_team_goal" AS "gf",
+    m."away_team_goal" AS "ga",
+    CASE
+      WHEN m."home_team_goal" > m."away_team_goal" THEN 3
+      WHEN m."home_team_goal" = m."away_team_goal" THEN 1
+      ELSE 0
+    END AS "points"
+  FROM "EU_SOCCER"."EU_SOCCER"."MATCH" AS m
+  WHERE m."home_team_goal" IS NOT NULL AND m."away_team_goal" IS NOT NULL
+  UNION ALL
+  SELECT
+    m."season",
+    m."league_id",
+    m."away_team_api_id" AS "team_api_id",
+    m."away_team_goal" AS "gf",
+    m."home_team_goal" AS "ga",
+    CASE
+      WHEN m."away_team_goal" > m."home_team_goal" THEN 3
+      WHEN m."away_team_goal" = m."home_team_goal" THEN 1
+      ELSE 0
+    END AS "points"
+  FROM "EU_SOCCER"."EU_SOCCER"."MATCH" AS m
+  WHERE m."home_team_goal" IS NOT NULL AND m."away_team_goal" IS NOT NULL
 ),
-HOME_TEAM AS (
-    SELECT 
-        "id",
-        country_name, 
-        league_name, 
-        "season", 
-        "stage", 
-        "date",
-        home_team AS team, 
-        'Home' AS team_type,
-        "home_team_goal" AS goals,
-        home_team_result AS result
-    FROM TABLE_1
+team_season_points AS (
+  SELECT
+    p."season",
+    p."league_id",
+    p."team_api_id",
+    SUM(p."points") AS "total_points",
+    SUM(p."gf") AS "goals_for",
+    SUM(p."ga") AS "goals_against"
+  FROM per_team_match p
+  GROUP BY p."season", p."league_id", p."team_api_id"
 ),
-AWAY_TEAM AS (
-    SELECT 
-        "id",
-        country_name, 
-        league_name, 
-        "season", 
-        "stage", 
-        "date",
-        away_team AS team, 
-        'Away' AS team_type,
-        "away_team_goal" AS goals,
-        away_team_result AS result
-    FROM TABLE_1
-), 
-TABLE_2 AS (
-    SELECT * 
-    FROM HOME_TEAM
-    UNION ALL
-    SELECT * 
-    FROM AWAY_TEAM
-),
-TABLE_3 AS (
-    SELECT *, 
-        CASE 
-            WHEN result = 'Win' THEN 3
-            WHEN result = 'Tie' THEN 1
-            ELSE 0
-        END AS points
-    FROM TABLE_2
-), 
-TABLE_4 AS (
-    SELECT
-        "season",
-        team,
-        league_name,
-        country_name,
-        SUM(points) AS total_points,
-        RANK() OVER(PARTITION BY "season" ORDER BY SUM(points) DESC) AS season_rank
-    FROM TABLE_3
-    GROUP BY 
-        "season", 
-        team,
-        league_name,
-        country_name
-    ORDER BY total_points DESC
+ranked_champions AS (
+  SELECT
+    tsp."season",
+    tsp."league_id",
+    tsp."team_api_id",
+    tsp."total_points",
+    tsp."goals_for",
+    tsp."goals_against",
+    ROW_NUMBER() OVER (
+      PARTITION BY tsp."season", tsp."league_id"
+      ORDER BY tsp."total_points" DESC,
+               (tsp."goals_for" - tsp."goals_against") DESC,
+               tsp."goals_for" DESC,
+               t."team_long_name" ASC
+    ) AS "rn"
+  FROM team_season_points tsp
+  JOIN "EU_SOCCER"."EU_SOCCER"."TEAM" t
+    ON tsp."team_api_id" = t."team_api_id"
 )
-SELECT * 
-FROM TABLE_4 
-WHERE season_rank = 1
-ORDER BY total_points DESC;
+SELECT
+  rc."season",
+  t."team_long_name" AS "champion_team",
+  l."name" AS "league",
+  c."name" AS "country",
+  rc."total_points"
+FROM ranked_champions rc
+JOIN "EU_SOCCER"."EU_SOCCER"."TEAM" t
+  ON rc."team_api_id" = t."team_api_id"
+JOIN "EU_SOCCER"."EU_SOCCER"."LEAGUE" l
+  ON rc."league_id" = l."id"
+JOIN "EU_SOCCER"."EU_SOCCER"."COUNTRY" c
+  ON l."country_id" = c."id"
+WHERE rc."rn" = 1
+ORDER BY rc."season", c."name", l."name", "champion_team";

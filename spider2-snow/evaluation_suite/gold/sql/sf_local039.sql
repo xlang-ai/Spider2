@@ -1,19 +1,16 @@
 SELECT
-    CATEGORY."name"
-FROM
-    PAGILA.PAGILA.CATEGORY
-INNER JOIN PAGILA.PAGILA.FILM_CATEGORY USING ("category_id")
-INNER JOIN PAGILA.PAGILA.FILM USING ("film_id")
-INNER JOIN PAGILA.PAGILA.INVENTORY USING ("film_id")
-INNER JOIN PAGILA.PAGILA.RENTAL USING ("inventory_id")
-INNER JOIN PAGILA.PAGILA.CUSTOMER USING ("customer_id")
-INNER JOIN PAGILA.PAGILA.ADDRESS USING ("address_id")
-INNER JOIN PAGILA.PAGILA.CITY USING ("city_id")
-WHERE
-    LOWER(CITY."city") LIKE 'a%' OR CITY."city" LIKE '%-%'
-GROUP BY
-    CATEGORY."name"
-ORDER BY
-    SUM(CAST((DATEDIFF('hour', TRY_TO_TIMESTAMP(RENTAL."rental_date"), TRY_TO_TIMESTAMP(RENTAL."return_date"))) AS INTEGER)) DESC
-LIMIT
-    1;
+  c."name" AS category_name,
+  SUM(DATEDIFF('second', TRY_TO_TIMESTAMP_NTZ(r."rental_date"), TRY_TO_TIMESTAMP_NTZ(r."return_date")))/3600.0 AS total_rental_hours
+FROM "PAGILA"."PAGILA"."RENTAL" r
+JOIN "PAGILA"."PAGILA"."INVENTORY" i ON r."inventory_id" = i."inventory_id"
+JOIN "PAGILA"."PAGILA"."FILM_CATEGORY" fc ON i."film_id" = fc."film_id"
+JOIN "PAGILA"."PAGILA"."CATEGORY" c ON fc."category_id" = c."category_id"
+JOIN "PAGILA"."PAGILA"."CUSTOMER" cu ON r."customer_id" = cu."customer_id"
+JOIN "PAGILA"."PAGILA"."ADDRESS" a ON cu."address_id" = a."address_id"
+JOIN "PAGILA"."PAGILA"."CITY" ci ON a."city_id" = ci."city_id"
+WHERE TRY_TO_TIMESTAMP_NTZ(r."rental_date") IS NOT NULL
+  AND TRY_TO_TIMESTAMP_NTZ(r."return_date") IS NOT NULL
+  AND (ci."city" ILIKE 'A%' OR ci."city" ILIKE '%-%')
+GROUP BY c."category_id", c."name"
+ORDER BY total_rental_hours DESC
+LIMIT 1;

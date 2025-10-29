@@ -1,45 +1,39 @@
-WITH FLIGHT_INFO AS (
-    SELECT    
-        FLIGHTS."flight_id",
-        PARSE_JSON(DEPARTURE."city"):"en" AS "from_city",
-        CAST(SUBSTR(DEPARTURE."coordinates", 2, POSITION(',' IN DEPARTURE."coordinates") - 2) AS DOUBLE) AS "from_longitude",
-        CAST(SUBSTR(DEPARTURE."coordinates", POSITION(',' IN DEPARTURE."coordinates") + 1, LENGTH(DEPARTURE."coordinates") - POSITION(',' IN DEPARTURE."coordinates") - 2) AS DOUBLE) AS "from_latitude",
-        PARSE_JSON(ARRIVAL."city"):"en" AS "to_city",
-        CAST(SUBSTR(ARRIVAL."coordinates", 2, POSITION(',' IN ARRIVAL."coordinates") - 2) AS DOUBLE) AS "to_longitude",
-        CAST(SUBSTR(ARRIVAL."coordinates", POSITION(',' IN ARRIVAL."coordinates") + 1, LENGTH(ARRIVAL."coordinates") - POSITION(',' IN ARRIVAL."coordinates") - 2) AS DOUBLE) AS "to_latitude"
-    FROM
-        AIRLINES.AIRLINES.FLIGHTS 
-    LEFT JOIN AIRLINES.AIRLINES.AIRPORTS_DATA AS DEPARTURE ON FLIGHTS."departure_airport" = DEPARTURE."airport_code"
-    LEFT JOIN AIRLINES.AIRLINES.AIRPORTS_DATA AS ARRIVAL ON FLIGHTS."arrival_airport" = ARRIVAL."airport_code"
+WITH flights_abakan AS (
+  SELECT
+    f."flight_id",
+    dep."airport_code" AS "dep_code",
+    arr."airport_code" AS "arr_code",
+    TRY_PARSE_JSON(dep."city"):"en"::string AS "dep_city",
+    TRY_PARSE_JSON(arr."city"):"en"::string AS "arr_city",
+    dep."coordinates" AS "dep_coord",
+    arr."coordinates" AS "arr_coord"
+  FROM "AIRLINES"."AIRLINES"."FLIGHTS" AS f
+  JOIN "AIRLINES"."AIRLINES"."AIRPORTS_DATA" AS dep
+    ON dep."airport_code" = f."departure_airport"
+  JOIN "AIRLINES"."AIRLINES"."AIRPORTS_DATA" AS arr
+    ON arr."airport_code" = f."arrival_airport"
+  WHERE TRY_PARSE_JSON(dep."city"):"en"::string = 'Abakan'
+     OR TRY_PARSE_JSON(arr."city"):"en"::string = 'Abakan'
 ),
-DISTANCES AS (
-    SELECT
-        "flight_id",
-        "from_city",
-        "to_city",
-        CASE
-            WHEN "from_city" < "to_city" THEN "from_city" ELSE "to_city" END AS "city1",
-        CASE
-            WHEN "from_city" < "to_city" THEN "to_city" ELSE "from_city" END AS "city2",
-        2 * 6371 * ASIN(SQRT(
-            POWER(SIN(RADIANS(("to_latitude" - "from_latitude") / 2)), 2) +
-            COS(RADIANS("from_latitude")) * COS(RADIANS("to_latitude")) *
-            POWER(SIN(RADIANS(("to_longitude" - "from_longitude") / 2)), 2)
-        )) AS "distance_km"
-    FROM FLIGHT_INFO
+coords AS (
+  SELECT
+    "flight_id",
+    CAST(SPLIT_PART(REPLACE(REPLACE("dep_coord",'(',''),')',''), ',', 1) AS DOUBLE) AS "dep_lon",
+    CAST(SPLIT_PART(REPLACE(REPLACE("dep_coord",'(',''),')',''), ',', 2) AS DOUBLE) AS "dep_lat",
+    CAST(SPLIT_PART(REPLACE(REPLACE("arr_coord",'(',''),')',''), ',', 1) AS DOUBLE) AS "arr_lon",
+    CAST(SPLIT_PART(REPLACE(REPLACE("arr_coord",'(',''),')',''), ',', 2) AS DOUBLE) AS "arr_lat"
+  FROM flights_abakan
 ),
-ALL_Route AS (
-    SELECT
-        "city1",
-        "city2",
-        "distance_km",
-        COUNT(*) AS "number_of_flights" -- Count flights for both directions
-    FROM DISTANCES
-    WHERE ("city1" = 'Abakan' OR "city2" = 'Abakan')
-    GROUP BY "city1", "city2", "distance_km"
+dist AS (
+  SELECT
+    "flight_id",
+    6371 * 2 * ASIN(
+      SQRT(
+        POWER(SIN((RADIANS("arr_lat") - RADIANS("dep_lat")) / 2), 2)
+        + COS(RADIANS("dep_lat")) * COS(RADIANS("arr_lat")) * POWER(SIN((RADIANS("arr_lon") - RADIANS("dep_lon")) / 2), 2)
+      )
+    ) AS "distance_km"
+  FROM coords
 )
-SELECT 
-    "distance_km"
-FROM ALL_Route
-ORDER BY "distance_km" DESC
-LIMIT 1;
+SELECT MAX("distance_km") AS "max_distance_km"
+FROM dist;

@@ -1,87 +1,37 @@
-WITH content_extracted AS (
-    SELECT 
-        "D"."id" AS "id",
-        "repo_name",
-        "path",
-        SPLIT("content", '\n') AS "lines",
-        "language_name"
-    FROM 
-        (
-            SELECT 
-                "id",
-                "content"
-            FROM 
-                "GITHUB_REPOS"."GITHUB_REPOS"."SAMPLE_CONTENTS"
-        ) AS "D"
-    INNER JOIN 
-        (
-            SELECT 
-                "id",
-                "C"."repo_name" AS "repo_name",
-                "path",
-                "language_name"
-            FROM 
-                (
-                    SELECT 
-                        "id",
-                        "repo_name",
-                        "path"
-                    FROM 
-                        "GITHUB_REPOS"."GITHUB_REPOS"."SAMPLE_FILES"
-                    WHERE 
-                        LOWER("path") LIKE '%readme.md'
-                ) AS "C"
-            INNER JOIN 
-                (
-                    SELECT 
-                        "repo_name",
-                        "language_struct".value:"name" AS "language_name"
-                    FROM 
-                        (
-                            SELECT 
-                                "repo_name", 
-                                "language"
-                            FROM 
-                                "GITHUB_REPOS"."GITHUB_REPOS"."LANGUAGES"
-                        )
-                    CROSS JOIN 
-                        LATERAL FLATTEN(INPUT => "language") AS "language_struct"
-                ) AS "F"
-            ON 
-                "C"."repo_name" = "F"."repo_name"
-        ) AS "E"
-    ON 
-        "E"."id" = "D"."id"
+WITH readme_lines AS (
+  SELECT
+    sc."sample_repo_name" AS "repo_name",
+    TRIM(REPLACE(l.value::string, '\r', '')) AS "line_clean"
+  FROM "GITHUB_REPOS"."GITHUB_REPOS"."SAMPLE_CONTENTS" sc,
+       LATERAL FLATTEN(input => SPLIT(sc."content", '\n')) l
+  WHERE sc."sample_path" ILIKE '%README.md'
+    AND NVL(sc."binary", FALSE) = FALSE
+    AND sc."content" IS NOT NULL
 ),
-non_empty_lines AS (
-    SELECT 
-        "line".value AS "line_",
-        "language_name"
-    FROM 
-        content_extracted,
-        LATERAL FLATTEN(INPUT => "lines") AS "line"
-    WHERE 
-        TRIM("line".value) != ''
-        AND NOT STARTSWITH(TRIM("line".value), '#')
-        AND NOT STARTSWITH(TRIM("line".value), '//')
+filtered_lines AS (
+  SELECT
+    rl."repo_name",
+    rl."line_clean"
+  FROM readme_lines rl
+  WHERE rl."line_clean" != ''
+    AND LTRIM(rl."line_clean") NOT LIKE '#%'
+    AND LTRIM(rl."line_clean") NOT LIKE '//%'
 ),
-aggregated_languages AS (
-    SELECT 
-        "line_",
-        COUNT(*) AS "frequency",
-        ARRAY_AGG("language_name") AS "languages"
-    FROM 
-        non_empty_lines
-    GROUP BY 
-        "line_"
+repo_languages AS (
+  SELECT
+    lg."repo_name",
+    TRIM(fl.value:"name"::string) AS "language_name"
+  FROM "GITHUB_REPOS"."GITHUB_REPOS"."LANGUAGES" lg,
+       LATERAL FLATTEN(input => lg."language") fl
+  WHERE fl.value:"name" IS NOT NULL
+    AND TRIM(fl.value:"name"::string) != ''
 )
-
-SELECT 
-    REGEXP_REPLACE("line_", '^"|"$', '') AS "line",
-    "frequency",
-    ARRAY_TO_STRING(ARRAY_SORT("languages"), ', ') AS "languages_sorted"
-FROM 
-    aggregated_languages
-ORDER BY 
-    "frequency" DESC;
-
+SELECT
+  f."line_clean" AS "line",
+  COUNT(DISTINCT f."repo_name") AS "frequency",
+  LISTAGG(DISTINCT rl."language_name", ', ') WITHIN GROUP (ORDER BY rl."language_name") AS "languages"
+FROM filtered_lines f
+LEFT JOIN repo_languages rl
+  ON rl."repo_name" = f."repo_name"
+GROUP BY f."line_clean"
+ORDER BY "frequency" DESC, "line" ASC

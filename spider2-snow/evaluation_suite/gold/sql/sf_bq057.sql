@@ -1,94 +1,112 @@
-WITH totals AS (
-    -- Aggregate monthly totals for Bitcoin txs, input/output UTXOs,
-    -- and input/output values (UTXO stands for Unspent Transaction Output)
-    SELECT
-        "txs_tot"."block_timestamp_month" AS tx_month,
-        COUNT("txs_tot"."hash") AS tx_count,
-        SUM("txs_tot"."input_count") AS tx_inputs,
-        SUM("txs_tot"."output_count") AS tx_outputs,
-        SUM("txs_tot"."input_value") / 100000000 AS tx_input_val,
-        SUM("txs_tot"."output_value") / 100000000 AS tx_output_val
-    FROM CRYPTO.CRYPTO_BITCOIN.TRANSACTIONS AS "txs_tot"
-    WHERE "txs_tot"."block_timestamp_month" BETWEEN CAST('2021-01-01' AS DATE) AND CAST('2021-12-31' AS DATE)
-    GROUP BY "txs_tot"."block_timestamp_month"
-    ORDER BY "txs_tot"."block_timestamp_month" DESC
-),
-coinjoinOuts AS (
-    -- Builds a table where each row represents an output of a 
-    -- potential CoinJoin tx, defined as a tx that had more 
-    -- than two outputs and had a total output value less than its
-    -- input value, per Adam Fiscor's description in this article: 
+WITH monthly_transactions AS (
     SELECT 
-        "txs"."hash",
-        "txs"."block_number",
-        "txs"."block_timestamp_month",
-        "txs"."input_count",
-        "txs"."output_count",
-        "txs"."input_value",
-        "txs"."output_value",
-        "o".value:"value" AS "outputs_val"
-    FROM CRYPTO.CRYPTO_BITCOIN.TRANSACTIONS AS "txs", 
-         LATERAL FLATTEN(INPUT => "txs"."outputs") AS "o"
-    WHERE "txs"."output_count" > 2 
-      AND "txs"."output_value" <= "txs"."input_value"
-      AND "txs"."block_timestamp_month" BETWEEN CAST('2021-01-01' AS DATE) AND CAST('2021-12-31' AS DATE)
-    ORDER BY "txs"."block_number", "txs"."hash" DESC
+        EXTRACT(MONTH FROM TO_TIMESTAMP("block_timestamp"/1000000)) as month_num,
+        "hash",
+        "input_count",
+        "output_count", 
+        "input_value",
+        "output_value",
+        "outputs"
+    FROM CRYPTO.CRYPTO_BITCOIN.TRANSACTIONS 
+    WHERE EXTRACT(YEAR FROM TO_TIMESTAMP("block_timestamp"/1000000)) = 2021
+      AND "is_coinbase" = FALSE
 ),
-coinjoinTxs AS (
-    -- Builds a table of just the distinct CoinJoin tx hashes
-    -- which had more than one equal-value output.
+potential_coinjoins AS (
     SELECT 
-        "coinjoinouts"."hash" AS "cjhash",
-        "coinjoinouts"."outputs_val" AS outputVal,
-        COUNT(*) AS cjOuts
-    FROM coinjoinOuts AS "coinjoinouts"
-    GROUP BY "coinjoinouts"."hash", "coinjoinouts"."outputs_val"
-    HAVING COUNT(*) > 1
+        month_num,
+        "hash",
+        "input_count",
+        "output_count",
+        "input_value",
+        "output_value",
+        "outputs"
+    FROM monthly_transactions
+    WHERE "output_count" > 2
+      AND "output_value" <= "input_value"
 ),
-coinjoinsD AS (
-    -- Filter out all potential CoinJoin txs that did not have
-    -- more than one equal-value output. Do not list the
-    -- outputs themselves, only the distinct tx hashes and
-    -- their input/output counts and values.
+transactions_with_output_values AS (
+    SELECT 
+        t.month_num,
+        t."hash",
+        t."input_count",
+        t."output_count",
+        t."input_value", 
+        t."output_value",
+        output_flat.value:"value"::NUMBER as output_val
+    FROM potential_coinjoins t,
+    LATERAL FLATTEN(input => t."outputs") output_flat
+),
+equal_value_groups AS (
+    SELECT 
+        month_num,
+        "hash",
+        "input_count",
+        "output_count",
+        "input_value",
+        "output_value",
+        output_val,
+        COUNT(*) OVER (PARTITION BY "hash", output_val) as same_value_count
+    FROM transactions_with_output_values
+    WHERE output_val > 0
+),
+coinjoin_transactions AS (
     SELECT DISTINCT 
-        "coinjoinouts"."hash", 
-        "coinjoinouts"."block_number", 
-        "coinjoinouts"."block_timestamp_month",
-        "coinjoinouts"."input_count",
-        "coinjoinouts"."output_count",
-        "coinjoinouts"."input_value",
-        "coinjoinouts"."output_value"
-    FROM coinjoinOuts AS "coinjoinouts"
-    INNER JOIN coinjoinTxs AS "coinjointxs" 
-        ON "coinjoinouts"."hash" = "coinjointxs"."cjhash"
+        month_num,
+        "hash",
+        "input_count", 
+        "output_count",
+        "input_value",
+        "output_value"
+    FROM equal_value_groups
+    WHERE same_value_count >= 2
 ),
-coinjoins AS (
-    -- Aggregate monthly totals for CoinJoin txs, input/output UTXOs,
-    -- and input/output values
+monthly_coinjoin_stats AS (
     SELECT 
-        "cjs"."block_timestamp_month" AS cjs_month,
-        COUNT("cjs"."hash") AS cjs_count,
-        SUM("cjs"."input_count") AS cjs_inputs,
-        SUM("cjs"."output_count") AS cjs_outputs,
-        SUM("cjs"."input_value") / 100000000 AS cjs_input_val,
-        SUM("cjs"."output_value") / 100000000 AS cjs_output_val
-    FROM coinjoinsD AS "cjs"
-    GROUP BY "cjs"."block_timestamp_month"
-    ORDER BY "cjs"."block_timestamp_month" DESC
+        month_num,
+        COUNT(*) as coinjoin_count,
+        SUM("input_count") as total_coinjoin_inputs,
+        SUM("output_count") as total_coinjoin_outputs,
+        SUM("output_value") as total_coinjoin_volume
+    FROM coinjoin_transactions
+    GROUP BY month_num
+),
+monthly_total_stats AS (
+    SELECT 
+        month_num,
+        COUNT(*) as total_transactions,
+        SUM("input_count") as total_inputs,
+        SUM("output_count") as total_outputs,
+        SUM("output_value") as total_volume
+    FROM monthly_transactions
+    GROUP BY month_num
+),
+monthly_percentages AS (
+    SELECT 
+        t.month_num,
+        COALESCE(c.coinjoin_count, 0) as coinjoin_count,
+        t.total_transactions,
+        COALESCE(c.total_coinjoin_inputs, 0) as total_coinjoin_inputs,
+        COALESCE(c.total_coinjoin_outputs, 0) as total_coinjoin_outputs,
+        t.total_inputs,
+        t.total_outputs,
+        COALESCE(c.total_coinjoin_volume, 0) as total_coinjoin_volume,
+        t.total_volume,
+        ROUND((COALESCE(c.total_coinjoin_volume, 0)::DECIMAL / t.total_volume) * 100, 1) as pct_volume_coinjoin
+    FROM monthly_total_stats t
+    LEFT JOIN monthly_coinjoin_stats c ON t.month_num = c.month_num
+),
+highest_month AS (
+    SELECT 
+        month_num,
+        pct_volume_coinjoin,
+        ROW_NUMBER() OVER (ORDER BY pct_volume_coinjoin DESC) as rank
+    FROM monthly_percentages
 )
-SELECT EXTRACT(MONTH FROM tx_month) AS month,
-    -- Calculate resulting CoinJoin percentages:
-    -- tx_percent = percent of monthly Bitcoin txs that were CoinJoins
-    ROUND(coinjoins.cjs_count / totals.tx_count * 100, 1) AS tx_percent,
-    
-    -- utxos_percent = percent of monthly Bitcoin utxos that were CoinJoins
-    ROUND((coinjoins.cjs_inputs / totals.tx_inputs + coinjoins.cjs_outputs / totals.tx_outputs) / 2 * 100, 1) AS utxos_percent,
-    
-    -- value_percent = percent of monthly Bitcoin volume that took place
-    -- in CoinJoined transactions
-    ROUND(coinjoins.cjs_input_val / totals.tx_input_val * 100, 1) AS value_percent
-FROM totals
-INNER JOIN coinjoins
-    ON totals.tx_month = coinjoins.cjs_month
-ORDER BY value_percent DESC
-LIMIT 1;
+SELECT 
+    mp.month_num as month_with_highest_coinjoin_pct,
+    ROUND((mp.coinjoin_count::DECIMAL / mp.total_transactions) * 100, 1) as pct_transactions_coinjoin,
+    ROUND(((mp.total_coinjoin_inputs::DECIMAL / mp.total_inputs) + (mp.total_coinjoin_outputs::DECIMAL / mp.total_outputs)) * 50, 1) as pct_utxos_coinjoin,
+    mp.pct_volume_coinjoin
+FROM monthly_percentages mp
+JOIN highest_month hm ON mp.month_num = hm.month_num
+WHERE hm.rank = 1

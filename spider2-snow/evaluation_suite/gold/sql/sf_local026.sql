@@ -1,45 +1,56 @@
+-- Status: Finished in turn 6.
 
-WITH COMBINED_RUNS AS (
-    SELECT "match_id", "over_id", "ball_id", "innings_no", CAST("runs_scored" AS DOUBLE) AS "runs"
-    FROM IPL.IPL.BATSMAN_SCORED
-    UNION ALL
-    SELECT "match_id", "over_id", "ball_id", "innings_no", CAST("extra_runs" AS DOUBLE) AS "runs"
-    FROM IPL.IPL.EXTRA_RUNS
+WITH over_runs AS (
+  SELECT 
+    "bbb"."match_id",
+    "bbb"."over_id",
+    "bbb"."bowler",
+    COALESCE(SUM("bs"."runs_scored"), 0) + COALESCE(SUM("er"."extra_runs"), 0) AS "total_runs_conceded"
+  FROM "IPL"."IPL"."BALL_BY_BALL" "bbb"
+  LEFT JOIN "IPL"."IPL"."BATSMAN_SCORED" "bs" 
+    ON "bbb"."match_id" = "bs"."match_id" 
+    AND "bbb"."innings_no" = "bs"."innings_no"
+    AND "bbb"."over_id" = "bs"."over_id"
+    AND "bbb"."ball_id" = "bs"."ball_id"
+  LEFT JOIN "IPL"."IPL"."EXTRA_RUNS" "er"
+    ON "bbb"."match_id" = "er"."match_id"
+    AND "bbb"."innings_no" = "er"."innings_no" 
+    AND "bbb"."over_id" = "er"."over_id"
+    AND "bbb"."ball_id" = "er"."ball_id"
+  GROUP BY "bbb"."match_id", "bbb"."over_id", "bbb"."bowler"
 ),
-OVER_RUNS AS (
-    SELECT "match_id", "innings_no", "over_id", SUM("runs") AS "runs_scored"
-    FROM COMBINED_RUNS
-    GROUP BY "match_id", "innings_no", "over_id"
+max_runs_per_match AS (
+  SELECT 
+    "match_id",
+    MAX("total_runs_conceded") AS "max_runs_conceded_in_single_over"
+  FROM over_runs
+  GROUP BY "match_id"
 ),
-MAX_OVER_RUNS AS (
-    SELECT "match_id", MAX("runs_scored") AS "max_runs"
-    FROM OVER_RUNS
-    GROUP BY "match_id"
+worst_bowlers_per_match AS (
+  SELECT 
+    "or"."match_id",
+    "or"."bowler",
+    "or"."over_id",
+    "or"."total_runs_conceded"
+  FROM over_runs "or"
+  INNER JOIN max_runs_per_match "mrpm"
+    ON "or"."match_id" = "mrpm"."match_id"
+    AND "or"."total_runs_conceded" = "mrpm"."max_runs_conceded_in_single_over"
 ),
-TOP_OVERS AS (
-    SELECT o."match_id", o."innings_no", o."over_id", o."runs_scored"
-    FROM OVER_RUNS o
-    JOIN MAX_OVER_RUNS m ON o."match_id" = m."match_id" AND o."runs_scored" = m."max_runs"
-),
-TOP_BOWLERS AS (
-    SELECT
-        bb."match_id",
-        t."runs_scored" AS "maximum_runs",
-        bb."bowler"
-    FROM IPL.IPL.BALL_BY_BALL bb
-    JOIN TOP_OVERS t ON bb."match_id" = t."match_id"
-    AND bb."innings_no" = t."innings_no"
-    AND bb."over_id" = t."over_id"
-    GROUP BY bb."match_id", t."runs_scored", bb."bowler"
+top_3_worst_bowlers AS (
+  SELECT 
+    "match_id",
+    "bowler",
+    "over_id",
+    "total_runs_conceded",
+    ROW_NUMBER() OVER (ORDER BY "total_runs_conceded" DESC) AS "rank"
+  FROM worst_bowlers_per_match
 )
-SELECT
-    b."match_id",
-    p."player_name"
-FROM (
-    SELECT *
-    FROM TOP_BOWLERS
-    ORDER BY CAST("maximum_runs" AS DOUBLE) DESC
-    LIMIT 3
-) b
-JOIN IPL.IPL.PLAYER p ON p."player_id" = b."bowler"
-ORDER BY CAST(b."maximum_runs" AS DOUBLE) DESC, b."match_id", p."player_name";
+SELECT 
+  "p"."player_name",
+  "t3wb"."total_runs_conceded",
+  "t3wb"."match_id"
+FROM top_3_worst_bowlers "t3wb"
+INNER JOIN "IPL"."IPL"."PLAYER" "p"
+  ON "t3wb"."bowler" = "p"."player_id"
+WHERE "t3wb"."rank" <= 3

@@ -1,45 +1,43 @@
-WITH double_entry_book AS (
-    -- debits
-    SELECT
-        ARRAY_TO_STRING("inputs".value:addresses, ',') AS "address",  -- Use the correct JSON path notation
-        "inputs".value:type AS "type",
-        - "inputs".value:value AS "value"
-    FROM CRYPTO.CRYPTO_BITCOIN_CASH.TRANSACTIONS,
-         LATERAL FLATTEN(INPUT => "inputs") AS "inputs"
-    WHERE TO_TIMESTAMP("block_timestamp" / 1000000) >= '2014-03-01' 
-      AND TO_TIMESTAMP("block_timestamp" / 1000000) < '2014-04-01'
-
+WITH date_range AS (
+    SELECT 
+        DATE_PART(EPOCH_MICROSECOND, '2014-03-01'::TIMESTAMP) AS start_timestamp,
+        DATE_PART(EPOCH_MICROSECOND, '2014-04-01'::TIMESTAMP) AS end_timestamp
+),
+address_transactions AS (
+    -- Get all debits (inputs) within the date range
+    SELECT 
+        FLATTENED.value::STRING AS address,
+        i."type" AS address_type,
+        -i."value" AS amount,
+        i."block_timestamp"
+    FROM "CRYPTO"."CRYPTO_BITCOIN_CASH"."INPUTS" i,
+    LATERAL FLATTEN(input => PARSE_JSON(i."addresses")) FLATTENED
+    WHERE i."block_timestamp" BETWEEN (SELECT start_timestamp FROM date_range) AND (SELECT end_timestamp FROM date_range)
+    
     UNION ALL
- 
-    -- credits
-    SELECT
-        ARRAY_TO_STRING("outputs".value:addresses, ',') AS "address",  -- Use the correct JSON path notation
-        "outputs".value:type AS "type",
-        "outputs".value:value AS "value"
-    FROM CRYPTO.CRYPTO_BITCOIN_CASH.TRANSACTIONS, 
-         LATERAL FLATTEN(INPUT => "outputs") AS "outputs"
-    WHERE TO_TIMESTAMP("block_timestamp" / 1000000) >= '2014-03-01' 
-      AND TO_TIMESTAMP("block_timestamp" / 1000000) < '2014-04-01'
+    
+    -- Get all credits (outputs) within the date range
+    SELECT 
+        FLATTENED.value::STRING AS address,
+        o."type" AS address_type,
+        o."value" AS amount,
+        o."block_timestamp"
+    FROM "CRYPTO"."CRYPTO_BITCOIN_CASH"."OUTPUTS" o,
+    LATERAL FLATTEN(input => PARSE_JSON(o."addresses")) FLATTENED
+    WHERE o."block_timestamp" BETWEEN (SELECT start_timestamp FROM date_range) AND (SELECT end_timestamp FROM date_range)
 ),
 address_balances AS (
     SELECT 
-        "address",
-        "type",
-        SUM("value") AS "balance"
-    FROM double_entry_book
-    GROUP BY "address", "type"
-),
-max_min_balances AS (
-    SELECT
-        "type",
-        MAX("balance") AS max_balance,
-        MIN("balance") AS min_balance
-    FROM address_balances
-    GROUP BY "type"
+        address,
+        address_type,
+        SUM(amount) AS final_balance
+    FROM address_transactions
+    GROUP BY address, address_type
 )
-SELECT
-    REPLACE("type", '"', '') AS "type",  -- Replace double quotes with nothing
-    max_balance,
-    min_balance
-FROM max_min_balances
-ORDER BY "type";
+SELECT 
+    address_type,
+    MAX(final_balance) AS max_final_balance,
+    MIN(final_balance) AS min_final_balance
+FROM address_balances
+GROUP BY address_type
+ORDER BY address_type;

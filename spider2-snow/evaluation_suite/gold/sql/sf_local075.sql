@@ -1,87 +1,80 @@
-WITH product_viewed AS (
-    SELECT
-        t1."page_id",
-        SUM(CASE WHEN "event_type" = 1 THEN 1 ELSE 0 END) AS "n_page_views",
-        SUM(CASE WHEN "event_type" = 2 THEN 1 ELSE 0 END) AS "n_added_to_cart"
-    FROM
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_PAGE_HIERARCHY" AS t1
-    JOIN
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS" AS t2
-    ON
-        t1."page_id" = t2."page_id"
-    WHERE
-        t1."product_id" IS NOT NULL
-    GROUP BY
-        t1."page_id"
+WITH "product_events" AS (
+  SELECT
+    p."product_id",
+    p."page_name",
+    p."product_category",
+    e."visit_id",
+    e."event_type",
+    e."sequence_number"
+  FROM "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS" e
+  JOIN "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_PAGE_HIERARCHY" p
+    ON e."page_id" = p."page_id"
+  WHERE p."product_id" IS NOT NULL
+    AND p."page_id" NOT IN (1, 2, 12, 13)
 ),
-product_purchased AS (
-    SELECT
-        t2."page_id",
-        SUM(CASE WHEN "event_type" = 2 THEN 1 ELSE 0 END) AS "purchased_from_cart"
-    FROM
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_PAGE_HIERARCHY" AS t1
-    JOIN
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS" AS t2
-    ON
-        t1."page_id" = t2."page_id"
-    WHERE
-        t1."product_id" IS NOT NULL
-        AND EXISTS (
-            SELECT
-                "visit_id"
-            FROM
-                "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS"
-            WHERE
-                "event_type" = 3
-                AND t2."visit_id" = "visit_id"
-        )
-        AND t1."page_id" NOT IN (1, 2, 12, 13)
-    GROUP BY
-        t2."page_id"
+"views_agg" AS (
+  SELECT
+    "product_id",
+    "page_name",
+    "product_category",
+    COUNT(*) AS "total_views"
+  FROM "product_events"
+  WHERE "event_type" = 1
+  GROUP BY "product_id", "page_name", "product_category"
 ),
-product_abandoned AS (
-    SELECT
-        t2."page_id",
-        SUM(CASE WHEN "event_type" = 2 THEN 1 ELSE 0 END) AS "abandoned_in_cart"
-    FROM
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_PAGE_HIERARCHY" AS t1
-    JOIN
-        "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS" AS t2
-    ON
-        t1."page_id" = t2."page_id"
-    WHERE
-        t1."product_id" IS NOT NULL
-        AND NOT EXISTS (
-            SELECT
-                "visit_id"
-            FROM
-                "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS"
-            WHERE
-                "event_type" = 3
-                AND t2."visit_id" = "visit_id"
-        )
-        AND t1."page_id" NOT IN (1, 2, 12, 13)
-    GROUP BY
-        t2."page_id"
+"adds" AS (
+  SELECT
+    "product_id",
+    "page_name",
+    "product_category",
+    "visit_id",
+    "sequence_number" AS "add_seq"
+  FROM "product_events"
+  WHERE "event_type" = 2
+),
+"purchases" AS (
+  SELECT
+    "visit_id",
+    "sequence_number" AS "purchase_seq"
+  FROM "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_EVENTS"
+  WHERE "event_type" = 3
+),
+"add_outcomes" AS (
+  SELECT
+    a."product_id",
+    a."page_name",
+    a."product_category",
+    a."visit_id",
+    a."add_seq",
+    CASE WHEN EXISTS (
+      SELECT 1 FROM "purchases" p
+      WHERE p."visit_id" = a."visit_id"
+        AND p."purchase_seq" > a."add_seq"
+    ) THEN 1 ELSE 0 END AS "purchased_flag"
+  FROM "adds" a
+),
+"add_agg" AS (
+  SELECT
+    "product_id",
+    "page_name",
+    "product_category",
+    COUNT(*) AS "total_adds_to_cart",
+    SUM("purchased_flag") AS "total_purchases",
+    COUNT(*) - SUM("purchased_flag") AS "left_in_cart_without_purchase"
+  FROM "add_outcomes"
+  GROUP BY "product_id", "page_name", "product_category"
 )
 SELECT
-    t1."page_id",
-    t1."page_name",
-    t2."n_page_views" AS "number of product being viewed",
-    t2."n_added_to_cart" AS "number added to the cart",
-    t4."abandoned_in_cart" AS "without being purchased in cart",
-    t3."purchased_from_cart" AS "count of actual purchases"
-FROM
-    "BANK_SALES_TRADING"."BANK_SALES_TRADING"."SHOPPING_CART_PAGE_HIERARCHY" AS t1
-JOIN
-    product_viewed AS t2 
-ON
-    t2."page_id" = t1."page_id"
-JOIN
-    product_purchased AS t3 
-ON 
-    t3."page_id" = t1."page_id"
-JOIN
-    product_abandoned AS t4 
-ON 
-    t4."page_id" = t1."page_id";
+  v."product_id",
+  v."page_name",
+  v."product_category",
+  v."total_views",
+  COALESCE(a."total_adds_to_cart", 0) AS "total_adds_to_cart",
+  COALESCE(a."left_in_cart_without_purchase", 0) AS "left_in_cart_without_purchase",
+  COALESCE(a."total_purchases", 0) AS "total_purchases"
+FROM "views_agg" v
+LEFT JOIN "add_agg" a
+  ON v."product_id" = a."product_id"
+ AND v."page_name" = a."page_name"
+ AND v."product_category" = a."product_category"
+ORDER BY v."product_id";

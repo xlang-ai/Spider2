@@ -1,51 +1,68 @@
-WITH model_scores AS (
-    SELECT 
-        "name", 
-        "version", 
-        "step", 
-        MAX(CASE WHEN "model" <> 'Stack' THEN "test_score" END) AS max_test_score,
-        MAX(CASE WHEN "model" = 'Stack' THEN "test_score" END) AS stack_score
-    FROM STACKING.STACKING.MODEL_SCORE
-    GROUP BY "name", "version", "step"
+WITH step_comp AS (
+  SELECT
+    "name",
+    "version",
+    "step",
+    MAX(CASE WHEN "model" = 'Stack' THEN "test_score" END) AS "stack_score",
+    MAX(CASE WHEN "model" != 'Stack' THEN "test_score" END) AS "max_non_stack"
+  FROM "STACKING"."STACKING"."MODEL_SCORE"
+  GROUP BY "name", "version", "step"
 ),
-combined AS (
-    SELECT 
-        A."name", 
-        A."version", 
-        A."step", 
-        C."L1_model", 
-        CASE 
-            WHEN A.max_test_score < A.stack_score THEN 'strong'
-            WHEN A.max_test_score = A.stack_score THEN 'soft'
-        END AS "status"
-    FROM model_scores A
-    INNER JOIN STACKING.STACKING.MODEL C 
-        ON A."name" = C."name" 
-        AND A."version" = C."version"
-    WHERE A.max_test_score IS NOT NULL 
-      AND A.stack_score IS NOT NULL
+model_status AS (
+  SELECT
+    "name",
+    "version",
+    CASE
+      WHEN MAX(CASE WHEN "stack_score" > "max_non_stack" THEN 1 ELSE 0 END) = 1 THEN 'strong'
+      WHEN MAX(CASE WHEN "stack_score" = "max_non_stack" THEN 1 ELSE 0 END) = 1 THEN 'soft'
+      ELSE NULL
+    END AS "status"
+  FROM step_comp
+  WHERE "stack_score" IS NOT NULL AND "max_non_stack" IS NOT NULL
+  GROUP BY "name", "version"
 ),
-frequency AS (
-    SELECT 
-        "L1_model", 
-        "status", 
-        COUNT(*) AS cnt
-    FROM combined
-    GROUP BY "L1_model", "status"
+l1_per_model AS (
+  SELECT
+    "name",
+    "version",
+    "L1_model"
+  FROM (
+    SELECT
+      "name",
+      "version",
+      "L1_model",
+      COUNT(DISTINCT "step") AS "cnt",
+      ROW_NUMBER() OVER (PARTITION BY "name", "version" ORDER BY COUNT(DISTINCT "step") DESC, "L1_model" ASC) AS "rn"
+    FROM "STACKING"."STACKING"."MODEL"
+    WHERE "L1_model" IS NOT NULL
+    GROUP BY "name", "version", "L1_model"
+  )
+  WHERE "rn" = 1
 ),
-max_frequency AS (
-    SELECT 
-        "status", 
-        MAX(cnt) AS max_cnt
-    FROM frequency
-    GROUP BY "status"
+status_l1_counts AS (
+  SELECT
+    ms."status",
+    lpm."L1_model",
+    COUNT(*) AS "occurrence_count"
+  FROM model_status ms
+  JOIN l1_per_model lpm
+    ON ms."name" = lpm."name"
+   AND ms."version" = lpm."version"
+  WHERE ms."status" IN ('strong', 'soft')
+  GROUP BY ms."status", lpm."L1_model"
+),
+top_l1_per_status AS (
+  SELECT
+    "status",
+    "L1_model",
+    "occurrence_count",
+    RANK() OVER (PARTITION BY "status" ORDER BY "occurrence_count" DESC) AS "rnk"
+  FROM status_l1_counts
 )
-SELECT 
-    f."status",
-    f."L1_model",
-    m.max_cnt
-FROM frequency f
-INNER JOIN max_frequency m 
-    ON f."status" = m."status" 
-    AND f.cnt = m.max_cnt
-ORDER BY f."status";
+SELECT
+  "status",
+  "L1_model",
+  "occurrence_count"
+FROM top_l1_per_status
+WHERE "rnk" = 1
+ORDER BY "status", "L1_model"

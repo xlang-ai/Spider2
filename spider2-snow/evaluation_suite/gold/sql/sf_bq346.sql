@@ -1,47 +1,60 @@
-WITH
-  sampled_sops AS (
-    SELECT
-      "collection_id",
-      "SeriesDescription",
-      "SeriesInstanceUID",
-      "SOPInstanceUID" AS "seg_SOPInstanceUID",
-      COALESCE(
-        "ReferencedSeriesSequence"[0]."ReferencedInstanceSequence"[0]."ReferencedSOPInstanceUID",
-        "ReferencedImageSequence"[0]."ReferencedSOPInstanceUID",
-        "SourceImageSequence"[0]."ReferencedSOPInstanceUID"
-      ) AS "referenced_sop"
-    FROM
-      "IDC"."IDC_V17"."DICOM_ALL"
-    WHERE
-      "Modality" = 'SEG'
-      AND "SOPClassUID" = '1.2.840.10008.5.1.4.1.1.66.4'
-      AND "access" = 'Public'
-  ),
-  segmentations_data AS (
-    SELECT
-      dicom_all."collection_id",
-      dicom_all."PatientID",
-      dicom_all."SOPInstanceUID",
-      REPLACE(segmentations."SegmentedPropertyCategory":CodeMeaning::STRING, '"', '') AS "segmentation_category",
-      REPLACE(segmentations."SegmentedPropertyType":CodeMeaning::STRING, '"', '') AS "segmentation_type"
-    FROM
-      sampled_sops
-    JOIN
-      "IDC"."IDC_V17"."DICOM_ALL" AS dicom_all
-    ON
-      sampled_sops."referenced_sop" = dicom_all."SOPInstanceUID"
-    JOIN
-      "IDC"."IDC_V17"."SEGMENTATIONS" AS segmentations
-    ON
-      segmentations."SOPInstanceUID" = sampled_sops."seg_SOPInstanceUID"
-  )
+WITH segs AS (
+  SELECT d."SOPInstanceUID"
+  FROM "IDC"."IDC_V17"."DICOM_ALL" d
+  WHERE d."access" = 'Public'
+    AND d."Modality" = 'SEG'
+    AND d."SOPClassUID" = '1.2.840.10008.5.1.4.1.1.66.4'
+),
+refs AS (
+  SELECT s."SOPInstanceUID" AS "seg_sop", d."ReferencedSOPInstanceUID"::string AS "ref_sop"
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID"
+  WHERE d."ReferencedSOPInstanceUID" IS NOT NULL
+  UNION ALL
+  SELECT s."SOPInstanceUID", f.value:"ReferencedSOPInstanceUID"::string
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID",
+       LATERAL FLATTEN(INPUT => d."SourceImageSequence") f
+  WHERE f.value:"ReferencedSOPInstanceUID" IS NOT NULL
+  UNION ALL
+  SELECT s."SOPInstanceUID", f.value:"ReferencedSOPInstanceUID"::string
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID",
+       LATERAL FLATTEN(INPUT => d."ReferencedImageSequence") f
+  WHERE f.value:"ReferencedSOPInstanceUID" IS NOT NULL
+  UNION ALL
+  SELECT s."SOPInstanceUID", f2.value:"ReferencedSOPInstanceUID"::string
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID",
+       LATERAL FLATTEN(INPUT => d."DerivationImageSequence") f1,
+       LATERAL FLATTEN(INPUT => f1.value:"SourceImageSequence") f2
+  WHERE f2.value:"ReferencedSOPInstanceUID" IS NOT NULL
+  UNION ALL
+  SELECT s."SOPInstanceUID", ri.value:"ReferencedSOPInstanceUID"::string
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID",
+       LATERAL FLATTEN(INPUT => d."ReferencedSeriesSequence") rs,
+       LATERAL FLATTEN(INPUT => rs.value:"ReferencedInstanceSequence") ri
+  WHERE ri.value:"ReferencedSOPInstanceUID" IS NOT NULL
+  UNION ALL
+  SELECT s."SOPInstanceUID", ri.value:"ReferencedSOPInstanceUID"::string
+  FROM segs s
+  JOIN "IDC"."IDC_V17"."DICOM_ALL" d ON d."SOPInstanceUID" = s."SOPInstanceUID",
+       LATERAL FLATTEN(INPUT => d."ReferencedImageEvidenceSequence") rie,
+       LATERAL FLATTEN(INPUT => rie.value:"ReferencedSeriesSequence") rs,
+       LATERAL FLATTEN(INPUT => rs.value:"ReferencedInstanceSequence") ri
+  WHERE ri.value:"ReferencedSOPInstanceUID" IS NOT NULL
+),
+seg_with_ref AS (
+  SELECT DISTINCT "seg_sop"
+  FROM refs
+)
 SELECT
-  "segmentation_category",
-  COUNT(*) AS "count_"
-FROM
-  segmentations_data
-GROUP BY
-  "segmentation_category"
-ORDER BY
-  "count_" DESC
-LIMIT 5;
+  seg."SegmentedPropertyCategory":"CodeMeaning"::string AS "SegmentedPropertyCategory_CodeMeaning",
+  COUNT(*) AS "count"
+FROM "IDC"."IDC_V17"."SEGMENTATIONS" AS seg
+JOIN seg_with_ref r
+  ON seg."SOPInstanceUID" = r."seg_sop"
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5

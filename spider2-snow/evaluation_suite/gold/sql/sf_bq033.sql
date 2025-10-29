@@ -1,43 +1,37 @@
-WITH Patent_Matches AS (
-    SELECT
-      TO_DATE(CAST(ANY_VALUE(patentsdb."filing_date") AS STRING), 'YYYYMMDD') AS Patent_Filing_Date,
-      patentsdb."application_number" AS Patent_Application_Number,
-      MAX(abstract_info.value:"text") AS Patent_Title,
-      MAX(abstract_info.value:"language") AS Patent_Title_Language
-    FROM
-      PATENTS.PATENTS.PUBLICATIONS AS patentsdb,
-      LATERAL FLATTEN(input => patentsdb."abstract_localized") AS abstract_info
-    WHERE
-      LOWER(abstract_info.value:"text") LIKE '%internet of things%'
-      AND patentsdb."country_code" = 'US'
-    GROUP BY
-      Patent_Application_Number
+WITH date_series AS (
+  SELECT
+    DATE_FROM_PARTS(2008, 1, 1) AS month_start
+  UNION ALL
+  SELECT
+    DATEADD(MONTH, 1, month_start)
+  FROM date_series
+  WHERE month_start < '2022-12-01'
 ),
-
-Date_Series_Table AS (
-    SELECT
-        DATEADD(day, seq4(), DATE '2008-01-01') AS day,
-        0 AS Number_of_Patents
-    FROM
-        TABLE(
-            GENERATOR(
-                ROWCOUNT => 5479
-            )
-        )
-    ORDER BY
-        day
+filtered_data AS (
+  SELECT
+    TO_CHAR(TRY_TO_DATE(TO_VARCHAR("filing_date"), 'YYYYMMDD'), 'YYYYMM') AS year_month,
+    "publication_number"
+  FROM
+    "PATENTS"."PUBLICATIONS",
+    LATERAL FLATTEN("abstract_localized") abs
+  WHERE
+    "country_code" = 'US'
+    AND LOWER(abs.value:"text"::STRING) LIKE '%internet of things%'
+    AND "filing_date" BETWEEN 20080101 AND 20221231
+    AND "filing_date" != 0
+  GROUP BY year_month, "publication_number"
+),
+monthly_counts AS (
+  SELECT
+    year_month,
+    COUNT("publication_number") AS application_count
+  FROM filtered_data
+  GROUP BY year_month
 )
-
 SELECT
-  TO_CHAR(Date_Series_Table.day, 'YYYY-MM') AS Patent_Date_YearMonth,
-  COUNT(Patent_Matches.Patent_Application_Number) AS Number_of_Patent_Applications
-FROM
-  Date_Series_Table
-  LEFT JOIN Patent_Matches
-    ON Date_Series_Table.day = Patent_Matches.Patent_Filing_Date
-WHERE
-    Date_Series_Table.day < DATE '2023-01-01'
-GROUP BY
-  TO_CHAR(Date_Series_Table.day, 'YYYY-MM')
-ORDER BY
-  Patent_Date_YearMonth;
+  TO_CHAR(ds.month_start, 'YYYYMM') AS "PATENT_DATE_YEARMONTH",
+  COALESCE(mc.application_count, 0) AS "NUMBER_OF_PATENT_APPLICATIONS"
+FROM date_series ds
+LEFT JOIN monthly_counts mc
+  ON TO_CHAR(ds.month_start, 'YYYYMM') = mc.year_month
+ORDER BY "PATENT_DATE_YEARMONTH"

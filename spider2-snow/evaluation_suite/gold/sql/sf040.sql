@@ -1,31 +1,46 @@
-WITH zip_areas AS (
+WITH "FL_ZIPS" AS (
     SELECT
-        geo.geo_id,
-        geo.geo_name AS zip,
-        states.related_geo_name AS state,
-        countries.related_geo_name AS country,
-        ST_AREA(TRY_TO_GEOGRAPHY(value)) AS area
-    FROM US_ADDRESSES__POI.CYBERSYN.geography_index AS geo
-    JOIN US_ADDRESSES__POI.CYBERSYN.geography_relationships AS states
-        ON (geo.geo_id = states.geo_id AND states.related_level = 'State')
-    JOIN US_ADDRESSES__POI.CYBERSYN.geography_relationships AS countries
-        ON (geo.geo_id = countries.geo_id AND countries.related_level = 'Country')
-    JOIN US_ADDRESSES__POI.CYBERSYN.geography_characteristics AS chars
-        ON (geo.geo_id = chars.geo_id AND chars.relationship_type = 'coordinates_geojson')
-    WHERE geo.level = 'CensusZipCodeTabulationArea'
+        "RELATED_GEO_ID" AS "ZIP_GEO_ID"
+    FROM "US_ADDRESSES__POI"."CYBERSYN"."GEOGRAPHY_RELATIONSHIPS"
+    WHERE "GEO_ID" = 'geoId/12'
+      AND "RELATIONSHIP_TYPE" = 'Contains'
+      AND "RELATED_LEVEL" = 'CensusZipCodeTabulationArea'
 ),
-
-zip_area_ranks AS (
+"ZIP_GEOMS" AS (
     SELECT
-        *,
-        ROW_NUMBER() OVER (PARTITION BY country, state ORDER BY area DESC, geo_id) AS zip_area_rank
-    FROM zip_areas
+        f."ZIP_GEO_ID" AS "GEO_ID",
+        TO_GEOGRAPHY(c."VALUE") AS "GEOM"
+    FROM "FL_ZIPS" f
+    JOIN "US_ADDRESSES__POI"."CYBERSYN"."GEOGRAPHY_CHARACTERISTICS" c
+      ON c."GEO_ID" = f."ZIP_GEO_ID"
+     AND c."RELATIONSHIP_TYPE" = 'coordinates_wkt'
+     AND c."VALUE" IS NOT NULL
+),
+"ZIP_AREAS" AS (
+    SELECT
+        "GEO_ID",
+        ST_AREA(ST_UNION_AGG("GEOM")) AS "AREA_M2"
+    FROM "ZIP_GEOMS"
+    GROUP BY "GEO_ID"
+),
+"LARGEST_FL_ZIP" AS (
+    SELECT "GEO_ID" AS "ZIP_GEO_ID"
+    FROM "ZIP_AREAS"
+    ORDER BY "AREA_M2" DESC
+    LIMIT 1
 )
-
-SELECT addr.number, addr.street, addr.street_type
-FROM US_ADDRESSES__POI.CYBERSYN.us_addresses AS addr
-JOIN zip_area_ranks AS areas
-    ON (addr.id_zip = areas.geo_id)
-WHERE addr.state = 'FL' AND areas.country = 'United States' AND areas.zip_area_rank = 1
-ORDER BY LATITUDE DESC
+SELECT
+    a."NUMBER" AS "ADDRESS_NUMBER",
+    a."STREET" AS "STREET_NAME",
+    a."STREET_TYPE" AS "STREET_TYPE"
+FROM "US_ADDRESSES__POI"."CYBERSYN"."US_ADDRESSES" a
+JOIN "LARGEST_FL_ZIP" z
+  ON a."ID_ZIP" = z."ZIP_GEO_ID"
+WHERE a."STATE" = 'FL'
+  AND a."LATITUDE" IS NOT NULL
+  AND a."NUMBER" IS NOT NULL
+  AND REGEXP_LIKE(a."NUMBER", '^[0-9]+$')
+  AND a."STREET" IS NOT NULL AND TRIM(a."STREET") != ''
+  AND a."STREET_TYPE" IS NOT NULL AND TRIM(a."STREET_TYPE") != ''
+ORDER BY a."LATITUDE" DESC, a."LONGITUDE" DESC
 LIMIT 10;

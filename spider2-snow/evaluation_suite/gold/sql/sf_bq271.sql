@@ -1,47 +1,32 @@
-WITH
-orders_x_order_items AS (
-  SELECT orders.*,
-         order_items."inventory_item_id",
-         order_items."sale_price"
-  FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."ORDERS" AS orders
-  LEFT JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."ORDER_ITEMS" AS order_items
-  ON orders."order_id" = order_items."order_id"
-  WHERE TO_TIMESTAMP_NTZ(orders."created_at" / 1000000) BETWEEN TO_TIMESTAMP_NTZ('2021-01-01') AND TO_TIMESTAMP_NTZ('2021-12-31')
-),
-
-orders_x_inventory AS (
-  SELECT orders_x_order_items.*,
-         inventory_items."product_category",
-         inventory_items."product_department",
-         inventory_items."product_retail_price",
-         inventory_items."product_distribution_center_id",
-         inventory_items."cost",
-         distribution_centers."name"
-  FROM orders_x_order_items
-  LEFT JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."INVENTORY_ITEMS" AS inventory_items
-  ON orders_x_order_items."inventory_item_id" = inventory_items."id"
-  LEFT JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."DISTRIBUTION_CENTERS" AS distribution_centers
-  ON inventory_items."product_distribution_center_id" = distribution_centers."id"
-  WHERE TO_TIMESTAMP_NTZ(inventory_items."created_at" / 1000000) BETWEEN TO_TIMESTAMP_NTZ('2021-01-01') AND TO_TIMESTAMP_NTZ('2021-12-31')
-),
-
-orders_x_users AS (
-  SELECT orders_x_inventory.*,
-         users."country" AS "users_country"
-  FROM orders_x_inventory
-  LEFT JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS" AS users
-  ON orders_x_inventory."user_id" = users."id"
-  WHERE TO_TIMESTAMP_NTZ(users."created_at" / 1000000) BETWEEN TO_TIMESTAMP_NTZ('2021-01-01') AND TO_TIMESTAMP_NTZ('2021-12-31')
-)
-
-SELECT 
-  DATE_TRUNC('MONTH', TO_DATE(TO_TIMESTAMP_NTZ(orders_x_users."created_at" / 1000000))) AS "reporting_month",
-  orders_x_users."users_country",
-  orders_x_users."product_department",
-  orders_x_users."product_category",
-  COUNT(DISTINCT orders_x_users."order_id") AS "n_order",
-  COUNT(DISTINCT orders_x_users."user_id") AS "n_purchasers",
-  SUM(orders_x_users."product_retail_price") - SUM(orders_x_users."cost") AS "profit"
-FROM orders_x_users
-GROUP BY 1, 2, 3, 4
-ORDER BY "reporting_month";
+SELECT
+  TO_CHAR(DATE_TRUNC('month', TO_TIMESTAMP_LTZ("ORDERS"."created_at" / 1000000)), 'YYYY-MM') AS "order_month",
+  "USERS"."country" AS "country",
+  "INVENTORY_ITEMS"."product_department" AS "product_department",
+  "INVENTORY_ITEMS"."product_category" AS "product_category",
+  COUNT(DISTINCT "ORDERS"."order_id") AS "num_orders",
+  COUNT(DISTINCT "ORDERS"."user_id") AS "unique_purchasers",
+  SUM(COALESCE("INVENTORY_ITEMS"."product_retail_price",0)) - SUM(COALESCE("INVENTORY_ITEMS"."cost",0)) AS "profit"
+FROM "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."ORDERS" "ORDERS"
+JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."USERS" "USERS"
+  ON "ORDERS"."user_id" = "USERS"."id"
+JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."ORDER_ITEMS" "ORDER_ITEMS"
+  ON "ORDERS"."order_id" = "ORDER_ITEMS"."order_id"
+JOIN "THELOOK_ECOMMERCE"."THELOOK_ECOMMERCE"."INVENTORY_ITEMS" "INVENTORY_ITEMS"
+  ON "ORDER_ITEMS"."inventory_item_id" = "INVENTORY_ITEMS"."id"
+WHERE
+  "ORDERS"."created_at" >= 1609459200000000
+  AND "ORDERS"."created_at" < 1640995200000000
+  AND "USERS"."created_at" >= 1609459200000000
+  AND "USERS"."created_at" < 1640995200000000
+  AND "INVENTORY_ITEMS"."created_at" >= 1609459200000000
+  AND "INVENTORY_ITEMS"."created_at" < 1640995200000000
+GROUP BY
+  DATE_TRUNC('month', TO_TIMESTAMP_LTZ("ORDERS"."created_at" / 1000000)),
+  "USERS"."country",
+  "INVENTORY_ITEMS"."product_department",
+  "INVENTORY_ITEMS"."product_category"
+ORDER BY
+  "order_month",
+  "country",
+  "product_department",
+  "product_category";

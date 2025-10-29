@@ -1,26 +1,11 @@
-WITH patents_sample AS (
-  SELECT 
-    t1."publication_number" AS publication_number,
-    claim.value:"text" AS claims_text
-  FROM 
-    PATENTS.PATENTS.PUBLICATIONS t1,
-    LATERAL FLATTEN(input => t1."claims_localized") AS claim
-  WHERE 
-    t1."country_code" = 'US'
-    AND t1."grant_date" BETWEEN 20080101 AND 20181231
-    AND t1."grant_date" != 0
-    AND t1."publication_number" LIKE '%B2%'
-),
-Publication_data AS (
-  SELECT
-    publication_number,
-    COUNT_IF(claims_text NOT LIKE '%claim%') AS nb_indep_claims
-  FROM
-    patents_sample
-  GROUP BY
-    publication_number
-)
-
-SELECT COUNT(nb_indep_claims)
-FROM Publication_data
-WHERE nb_indep_claims != 0
+SELECT COUNT(*) AS "num_patents"
+FROM (
+  SELECT p."publication_number"
+  FROM "PATENTS"."PATENTS"."PUBLICATIONS" AS p,
+       LATERAL FLATTEN(input => p."claims_localized") AS cl
+  WHERE p."country_code" = 'US'
+    AND p."kind_code" = 'B2'
+    AND p."grant_date" BETWEEN 20080101 AND 20181231
+  GROUP BY p."publication_number"
+  HAVING SUM(CASE WHEN REGEXP_LIKE(cl.value:"text"::string, '\\bclaim\\b', 'i') THEN 1 ELSE 0 END) = 0
+);

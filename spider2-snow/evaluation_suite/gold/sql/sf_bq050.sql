@@ -1,98 +1,114 @@
-WITH data AS (
-    SELECT
-        "ZIPSTARTNAME"."borough" AS "borough_start",
-        "ZIPSTARTNAME"."neighborhood" AS "neighborhood_start",
-        "ZIPENDNAME"."borough" AS "borough_end",
-        "ZIPENDNAME"."neighborhood" AS "neighborhood_end",
-        CAST("TRI"."tripduration" / 60 AS NUMERIC) AS "trip_minutes",
-        "WEA"."temp" AS "temperature",
-        CAST("WEA"."wdsp" AS NUMERIC) AS "wind_speed",
-        "WEA"."prcp" AS "precipitation",
-        EXTRACT(MONTH FROM DATE("TRI"."starttime")) AS "start_month"
-    FROM
-        "NEW_YORK_CITIBIKE_1"."NEW_YORK_CITIBIKE"."CITIBIKE_TRIPS" AS "TRI"
-    INNER JOIN
-        "NEW_YORK_CITIBIKE_1"."GEO_US_BOUNDARIES"."ZIP_CODES" AS "ZIPSTART"
-        ON ST_WITHIN(
-            ST_POINT("TRI"."start_station_longitude", "TRI"."start_station_latitude"),
-            ST_GEOGFROMWKB("ZIPSTART"."zip_code_geom")
-        )
-    INNER JOIN
-        "NEW_YORK_CITIBIKE_1"."GEO_US_BOUNDARIES"."ZIP_CODES" AS "ZIPEND"
-        ON ST_WITHIN(
-            ST_POINT("TRI"."end_station_longitude", "TRI"."end_station_latitude"),
-            ST_GEOGFROMWKB("ZIPEND"."zip_code_geom")
-        )
-    INNER JOIN
-        "NEW_YORK_CITIBIKE_1"."NOAA_GSOD"."GSOD2014" AS "WEA"
-        ON TO_DATE(CONCAT("WEA"."year", LPAD("WEA"."mo", 2, '0'), LPAD("WEA"."da", 2, '0')), 'YYYYMMDD') = DATE("TRI"."starttime")
-    INNER JOIN
-        "NEW_YORK_CITIBIKE_1"."CYCLISTIC"."ZIP_CODES" AS "ZIPSTARTNAME"
-        ON "ZIPSTART"."zip_code" = CAST("ZIPSTARTNAME"."zip" AS STRING)
-    INNER JOIN
-        "NEW_YORK_CITIBIKE_1"."CYCLISTIC"."ZIP_CODES" AS "ZIPENDNAME"
-        ON "ZIPEND"."zip_code" = CAST("ZIPENDNAME"."zip" AS STRING)
-    WHERE
-        "WEA"."wban" = (
-            SELECT "wban" 
-            FROM "NEW_YORK_CITIBIKE_1"."NOAA_GSOD"."STATIONS"
-            WHERE
-                "state" = 'NY'
-                AND LOWER("name") LIKE LOWER('%New York Central Park%')
-            LIMIT 1
-        )
-        AND EXTRACT(YEAR FROM DATE("TRI"."starttime")) = 2014
+WITH "trips_2014" AS (
+  SELECT
+    t.*,
+    TO_TIMESTAMP_NTZ("starttime", 6) AS "start_ts"
+  FROM "NEW_YORK_CITIBIKE_1"."NEW_YORK_CITIBIKE"."CITIBIKE_TRIPS" t
+  WHERE YEAR(TO_TIMESTAMP_NTZ("starttime", 6)) = 2014
 ),
-agg_data AS (
-    SELECT
-        "borough_start",
-        "neighborhood_start",
-        "borough_end",
-        "neighborhood_end",
-        COUNT(*) AS "num_trips",
-        ROUND(AVG("trip_minutes"), 1) AS "avg_trip_minutes",
-        ROUND(AVG("temperature"), 1) AS "avg_temperature",
-        ROUND(AVG("wind_speed"), 1) AS "avg_wind_speed",
-        ROUND(AVG("precipitation"), 1) AS "avg_precipitation"
-    FROM data
-    GROUP BY
-        "borough_start",
-        "neighborhood_start",
-        "borough_end",
-        "neighborhood_end"
+"trip_with_zips" AS (
+  SELECT
+    t.*,
+    CAST(szs."zip_code" AS NUMBER) AS "start_zip",
+    CAST(sze."zip_code" AS NUMBER) AS "end_zip"
+  FROM "trips_2014" t
+  JOIN "NEW_YORK_CITIBIKE_1"."GEO_US_BOUNDARIES"."ZIP_CODES" szs
+    ON szs."state_code" = 'NY'
+   AND ST_WITHIN(ST_POINT(t."start_station_longitude", t."start_station_latitude"), TO_GEOGRAPHY(szs."zip_code_geom"))
+  JOIN "NEW_YORK_CITIBIKE_1"."GEO_US_BOUNDARIES"."ZIP_CODES" sze
+    ON sze."state_code" = 'NY'
+   AND ST_WITHIN(ST_POINT(t."end_station_longitude", t."end_station_latitude"), TO_GEOGRAPHY(sze."zip_code_geom"))
 ),
-most_common_months AS (
+"trip_neighborhoods" AS (
+  SELECT
+    twz.*,
+    czs."borough" AS "start_borough",
+    czs."neighborhood" AS "start_neighborhood",
+    cze."borough" AS "end_borough",
+    cze."neighborhood" AS "end_neighborhood"
+  FROM "trip_with_zips" twz
+  JOIN "NEW_YORK_CITIBIKE_1"."CYCLISTIC"."ZIP_CODES" czs
+    ON czs."zip" = twz."start_zip"
+  JOIN "NEW_YORK_CITIBIKE_1"."CYCLISTIC"."ZIP_CODES" cze
+    ON cze."zip" = twz."end_zip"
+),
+"weather_central_park" AS (
+  SELECT
+    w."year",
+    w."mo",
+    w."da",
+    w."wban",
+    NULLIF(w."temp", 9999.9) AS "temp_f",
+    CAST(NULLIF(w."wdsp", '999.9') AS FLOAT) AS "wdsp_knots",
+    NULLIF(w."prcp", 99.99) AS "prcp_inches"
+  FROM "NEW_YORK_CITIBIKE_1"."NOAA_GSOD"."GSOD2014" w
+  WHERE w."wban" = '94728' AND w."year" = '2014'
+),
+"trip_with_weather" AS (
+  SELECT
+    tn.*,
+    wc."temp_f",
+    wc."wdsp_knots",
+    wc."prcp_inches"
+  FROM "trip_neighborhoods" tn
+  LEFT JOIN "weather_central_park" wc
+    ON wc."mo" = LPAD(CAST(EXTRACT(MONTH FROM tn."start_ts") AS VARCHAR), 2, '0')
+   AND wc."da" = LPAD(CAST(EXTRACT(DAY FROM tn."start_ts") AS VARCHAR), 2, '0')
+   AND wc."year" = '2014'
+),
+"aggregated" AS (
+  SELECT
+    "start_borough",
+    "start_neighborhood",
+    "end_borough",
+    "end_neighborhood",
+    COUNT(*) AS "total_trips",
+    ROUND(AVG("tripduration")/60, 1) AS "avg_trip_duration_min",
+    ROUND(AVG("temp_f"), 1) AS "avg_temp",
+    ROUND(AVG("wdsp_knots" * 0.514444), 1) AS "avg_wind_speed_ms",
+    ROUND(AVG("prcp_inches" * 2.54), 1) AS "avg_precip_cm"
+  FROM "trip_with_weather"
+  GROUP BY "start_borough","start_neighborhood","end_borough","end_neighborhood"
+),
+"monthly_counts" AS (
+  SELECT
+    "start_neighborhood",
+    "end_neighborhood",
+    EXTRACT(MONTH FROM "start_ts") AS "month_num",
+    COUNT(*) AS "trips_in_month"
+  FROM "trip_with_weather"
+  GROUP BY "start_neighborhood","end_neighborhood",EXTRACT(MONTH FROM "start_ts")
+),
+"top_month" AS (
+  SELECT
+    "start_neighborhood",
+    "end_neighborhood",
+    "month_num"
+  FROM (
     SELECT
-        "borough_start",
-        "neighborhood_start",
-        "borough_end",
-        "neighborhood_end",
-        "start_month",
-        ROW_NUMBER() OVER (
-            PARTITION BY "borough_start", "neighborhood_start", "borough_end", "neighborhood_end" 
-            ORDER BY COUNT(*) DESC
-        ) AS "row_num"
-    FROM data
-    GROUP BY
-        "borough_start",
-        "neighborhood_start",
-        "borough_end",
-        "neighborhood_end",
-        "start_month"
+      "start_neighborhood",
+      "end_neighborhood",
+      "month_num",
+      "trips_in_month",
+      ROW_NUMBER() OVER (
+        PARTITION BY "start_neighborhood","end_neighborhood"
+        ORDER BY "trips_in_month" DESC, "month_num"
+      ) AS "rn"
+    FROM "monthly_counts"
+  )
+  WHERE "rn" = 1
 )
-
 SELECT
-    a.*,
-    m."start_month" AS "most_common_month"
-FROM
-    agg_data a
-JOIN
-    most_common_months m
-    ON a."borough_start" = m."borough_start" 
-    AND a."neighborhood_start" = m."neighborhood_start" 
-    AND a."borough_end" = m."borough_end" 
-    AND a."neighborhood_end" = m."neighborhood_end" 
-    AND m."row_num" = 1
-ORDER BY 
-    a."neighborhood_start", 
-    a."neighborhood_end";
+  a."start_borough",
+  a."start_neighborhood",
+  a."end_borough",
+  a."end_neighborhood",
+  a."total_trips",
+  a."avg_trip_duration_min",
+  a."avg_temp",
+  a."avg_wind_speed_ms",
+  a."avg_precip_cm",
+  tm."month_num" AS "month_with_most_trips"
+FROM "aggregated" a
+JOIN "top_month" tm
+  ON a."start_neighborhood" = tm."start_neighborhood" AND a."end_neighborhood" = tm."end_neighborhood"
+ORDER BY a."start_borough", a."start_neighborhood", a."end_borough", a."end_neighborhood";

@@ -1,37 +1,46 @@
-WITH temp_t1 AS (
-    SELECT 
-        MIN("Milliseconds") AS Limit1,
-        AVG("Milliseconds") AS avg_milliseconds,
-        (avg_milliseconds + MIN("Milliseconds")) / 2 AS Limit2,
-        (MAX("Milliseconds") + avg_milliseconds) / 2 AS Limit3,
-        MAX("Milliseconds") AS Limit4
-    FROM MUSIC.MUSIC.TRACK
+WITH stats AS (
+    SELECT
+        MIN("Milliseconds") / 60000.0 AS min_length,
+        AVG("Milliseconds") / 60000.0 AS avg_length,
+        MAX("Milliseconds") / 60000.0 AS max_length
+    FROM "MUSIC"."MUSIC"."TRACK"
 ),
-categ AS (
-    SELECT 
+track_lengths AS (
+    SELECT
         "TrackId",
-        CASE 
-            WHEN t."Milliseconds" < (SELECT Limit2 FROM temp_t1) THEN 'Short'
-            WHEN t."Milliseconds" < (SELECT Limit3 FROM temp_t1) THEN 'Medium'
-            WHEN t."Milliseconds" <= (SELECT Limit4 FROM temp_t1) THEN 'Long'
-        END AS LengthCateg
-    FROM MUSIC.MUSIC.TRACK t
+        "Milliseconds" / 60000.0 AS length_minutes
+    FROM "MUSIC"."MUSIC"."TRACK"
+),
+revenue AS (
+    SELECT
+        "TrackId",
+        SUM("UnitPrice" * "Quantity") AS track_revenue
+    FROM "MUSIC"."MUSIC"."INVOICELINE"
+    GROUP BY "TrackId"
+),
+track_data AS (
+    SELECT
+        tl."TrackId",
+        tl.length_minutes,
+        COALESCE(rv.track_revenue, 0) AS track_revenue,
+        st.min_length,
+        st.avg_length,
+        st.max_length,
+        (st.min_length + st.avg_length) / 2 AS lower_midpoint,
+        (st.avg_length + st.max_length) / 2 AS upper_midpoint
+    FROM track_lengths tl
+    CROSS JOIN stats st
+    LEFT JOIN revenue rv ON tl."TrackId" = rv."TrackId"
 )
-SELECT 
-    CASE 
-        WHEN c.LengthCateg = 'Short' THEN (SELECT Limit1 / 60000.0 FROM temp_t1)
-        WHEN c.LengthCateg = 'Medium' THEN (SELECT Limit2 / 60000.0 FROM temp_t1)
-        WHEN c.LengthCateg = 'Long' THEN (SELECT Limit3 / 60000.0 FROM temp_t1)
-    END AS From_Minutes,
-    CASE 
-        WHEN c.LengthCateg = 'Short' THEN (SELECT Limit2 / 60000.0 FROM temp_t1)
-        WHEN c.LengthCateg = 'Medium' THEN (SELECT Limit3 / 60000.0 FROM temp_t1)
-        WHEN c.LengthCateg = 'Long' THEN (SELECT Limit4 / 60000.0 FROM temp_t1)
-    END AS To_Minutes,
-    c.LengthCateg,
-    SUM(i."UnitPrice" * i."Quantity") AS TotalPrice
-FROM categ c
-JOIN MUSIC.MUSIC.INVOICELINE i ON c."TrackId" = i."TrackId"
-GROUP BY c.LengthCateg
-HAVING c.LengthCateg IS NOT NULL
-ORDER BY TotalPrice;
+SELECT
+    CASE
+        WHEN length_minutes < lower_midpoint THEN 'short'
+        WHEN length_minutes < upper_midpoint THEN 'medium'
+        ELSE 'long'
+    END AS category,
+    MIN(length_minutes) AS min_minutes,
+    MAX(length_minutes) AS max_minutes,
+    SUM(track_revenue) AS total_revenue
+FROM track_data
+GROUP BY category
+ORDER BY category

@@ -1,58 +1,21 @@
-WITH requests AS (
-    SELECT 
-        D."id",
-        D."content",
-        E."repo_name",
-        E."path"
-    FROM 
-        (
-            SELECT 
-                "id",
-                "content"
-            FROM 
-                GITHUB_REPOS.GITHUB_REPOS.SAMPLE_CONTENTS
-            GROUP BY 
-                "id", "content"
-        ) AS D
-    INNER JOIN 
-        (
-            SELECT 
-                C."id",
-                C."repo_name",
-                C."path"
-            FROM 
-                (
-                    SELECT 
-                        "id",
-                        "repo_name",
-                        "path"
-                    FROM 
-                        GITHUB_REPOS.GITHUB_REPOS.SAMPLE_FILES
-                    WHERE 
-                        LOWER("path") LIKE '%readme.md'
-                    GROUP BY 
-                        "path", "id", "repo_name"
-                ) AS C
-            INNER JOIN 
-                (
-                    SELECT 
-                        "repo_name",
-                        language_struct.value:"name"::STRING AS "language_name"
-                    FROM 
-                        GITHUB_REPOS.GITHUB_REPOS.LANGUAGES,
-                        LATERAL FLATTEN(input => "language") AS language_struct
-                    WHERE 
-                        LOWER(language_struct.value:"name"::STRING) NOT LIKE '%python%'
-                    GROUP BY 
-                        "language_name", "repo_name"
-                ) AS F
-            ON 
-                C."repo_name" = F."repo_name"
-        ) AS E
-    ON 
-        D."id" = E."id"
-)
-SELECT 
-    (SELECT COUNT(*) FROM requests WHERE "content" LIKE '%Copyright (c)%') / COUNT(*) AS "proportion"
-FROM 
-    requests;
+-- Answer: proportion of README.md files (in non-Python repositories) whose contents include "Copyright (c)"
+-- 1) Filter SAMPLE_CONTENTS to files whose path contains "readme.md" (case-insensitive).
+-- 2) Exclude any repository that uses a language whose name contains the substring "python" (case-insensitive).
+--    To detect such repositories, FLATTEN the VARIANT array "language" and look at the "name" field.
+-- 3) Compute the proportion = (# files with the phrase) / (total # README.md files) as a floating value.
+
+SELECT
+    /* numerator: files whose content contains the phrase */
+    COUNT_IF(LOWER(sc."content") LIKE '%copyright (c)%')::DOUBLE
+    /
+    /* denominator: total README.md files in non-Python repos */
+    NULLIF(COUNT(*), 0)                                       AS "proportion"
+FROM "GITHUB_REPOS"."GITHUB_REPOS"."SAMPLE_CONTENTS" sc
+WHERE LOWER(sc."sample_path") LIKE '%readme.md%'
+  AND NOT EXISTS (
+        SELECT 1
+        FROM "GITHUB_REPOS"."GITHUB_REPOS"."LANGUAGES" l,
+             LATERAL FLATTEN(input => l."language") f
+        WHERE l."repo_name" = sc."sample_repo_name"
+          AND LOWER(f.value:"name"::string) LIKE '%python%'
+  );

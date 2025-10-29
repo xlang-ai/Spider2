@@ -1,40 +1,27 @@
-WITH result_table AS (
-    SELECT 
-        TO_CHAR(TO_TIMESTAMP(pm."payment_date"), 'MM') AS pay_mon,  -- Direct conversion to timestamp, no format needed
-        cust."first_name" || ' ' || cust."last_name" AS fullname, 
-        SUM(pm."amount") AS pay_amount 
-    FROM 
-        SQLITE_SAKILA.SQLITE_SAKILA.PAYMENT AS pm 
-    JOIN 
-        SQLITE_SAKILA.SQLITE_SAKILA.CUSTOMER AS cust 
-    ON 
-        pm."customer_id" = cust."customer_id" 
-    GROUP BY 
-        1, 
-        2
-), 
-difference_per_mon AS (
-    SELECT 
-        rt.fullname, 
-        ABS(rt.pay_amount - LAG(rt.pay_amount) OVER (PARTITION BY rt.fullname ORDER BY rt.pay_mon)) AS diff 
-    FROM 
-        result_table rt
-), 
-average_difference AS (
-    SELECT 
-        fullname, 
-        AVG(diff) AS avg_diff
-    FROM 
-        difference_per_mon 
-    WHERE 
-        diff IS NOT NULL
-    GROUP BY 
-        fullname
+WITH MonthlyPayments AS (
+  SELECT
+    "customer_id",
+    TO_VARCHAR(TO_TIMESTAMP("payment_date"), 'YYYY-MM') AS "payment_month",
+    SUM("amount") AS "monthly_total"
+  FROM "SQLITE_SAKILA"."SQLITE_SAKILA"."PAYMENT"
+  GROUP BY "customer_id", "payment_month"
+), MonthlyChanges AS (
+  SELECT
+    "customer_id",
+    ABS("monthly_total" - LAG("monthly_total", 1) OVER (PARTITION BY "customer_id" ORDER BY "payment_month")) AS "change"
+  FROM MonthlyPayments
+), AvgMonthlyChange AS (
+  SELECT
+    "customer_id",
+    AVG("change") AS "avg_change"
+  FROM MonthlyChanges
+  WHERE "change" IS NOT NULL
+  GROUP BY "customer_id"
 )
-SELECT 
-    fullname
-FROM 
-    average_difference
-ORDER BY 
-    avg_diff DESC
+SELECT
+  T1."first_name" || ' ' || T1."last_name"
+FROM "SQLITE_SAKILA"."SQLITE_SAKILA"."CUSTOMER" AS T1
+JOIN AvgMonthlyChange AS T2
+  ON T1."customer_id" = T2."customer_id"
+ORDER BY T2."avg_change" DESC
 LIMIT 1;

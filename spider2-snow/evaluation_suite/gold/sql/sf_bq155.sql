@@ -1,69 +1,51 @@
-WITH cohort AS (
-    SELECT "case_barcode"
+WITH FilteredCases AS (
+    SELECT
+        "case_barcode"
     FROM "TCGA_HG38_DATA_V0"."TCGA_BIOCLIN_V0"."CLINICAL"
-    WHERE "project_short_name" = 'TCGA-BRCA'
+    WHERE
+        "project_short_name" = 'TCGA-BRCA'
         AND "age_at_diagnosis" <= 80
         AND "pathologic_stage" IN ('Stage I', 'Stage II', 'Stage IIA')
 ),
-table1 AS (
+SNORA31_Expression AS (
     SELECT
-        "symbol",
-        "data" AS "rnkdata",
-        "ParticipantBarcode"
-    FROM (
-        SELECT
-            "gene_name" AS "symbol", 
-            AVG(LOG(10, "HTSeq__Counts" + 1)) AS "data",
-            "case_barcode" AS "ParticipantBarcode"
-        FROM "TCGA_HG38_DATA_V0"."TCGA_HG38_DATA_V0"."RNASEQ_GENE_EXPRESSION"
-        WHERE "case_barcode" IN (SELECT "case_barcode" FROM cohort)
-            AND "gene_name" = 'SNORA31'
-            AND "HTSeq__Counts" IS NOT NULL
-        GROUP BY
-            "ParticipantBarcode", "symbol"
-    )
-),
-table2 AS (
-    SELECT
-        "symbol",
-        "data" AS "rnkdata",
-        "ParticipantBarcode"
-    FROM (
-        SELECT
-            "mirna_id" AS "symbol", 
-            AVG("reads_per_million_miRNA_mapped") AS "data",
-            "case_barcode" AS "ParticipantBarcode"
-        FROM "TCGA_HG38_DATA_V0"."TCGA_HG38_DATA_V0"."MIRNASEQ_EXPRESSION"
-        WHERE "case_barcode" IN (SELECT "case_barcode" FROM cohort)
-            AND "mirna_id" IS NOT NULL
-            AND "reads_per_million_miRNA_mapped" IS NOT NULL
-        GROUP BY
-            "ParticipantBarcode", "symbol"
-    )
-),
-summ_table AS (
-    SELECT 
-        n1."symbol" AS "symbol1",
-        n2."symbol" AS "symbol2",
-        COUNT(n1."ParticipantBarcode") AS "n",
-        CORR(n1."rnkdata", n2."rnkdata") AS "correlation"
-    FROM
-        table1 AS n1
-    INNER JOIN
-        table2 AS n2
-    ON
-        n1."ParticipantBarcode" = n2."ParticipantBarcode"
+        T1."case_barcode",
+        LOG(10, AVG(T1."HTSeq__Counts") + 1) AS snora31_log_expr
+    FROM "TCGA_HG38_DATA_V0"."TCGA_HG38_DATA_V0"."RNASEQ_GENE_EXPRESSION" AS T1
+    INNER JOIN FilteredCases AS T2
+        ON T1."case_barcode" = T2."case_barcode"
+    WHERE
+        T1."gene_name" = 'SNORA31'
     GROUP BY
-        "symbol1", "symbol2"
+        T1."case_barcode"
+),
+miRNA_Expression AS (
+    SELECT
+        T1."case_barcode",
+        T1."mirna_id",
+        AVG(T1."reads_per_million_miRNA_mapped") AS mirna_avg_expr
+    FROM "TCGA_HG38_DATA_V0"."TCGA_HG38_DATA_V0"."MIRNASEQ_EXPRESSION" AS T1
+    INNER JOIN FilteredCases AS T2
+        ON T1."case_barcode" = T2."case_barcode"
+    GROUP BY
+        T1."case_barcode",
+        T1."mirna_id"
+),
+CorrelationData AS (
+    SELECT
+        T2."mirna_id",
+        CORR(T1.snora31_log_expr, T2.mirna_avg_expr) AS pearson_corr,
+        COUNT(*) AS sample_count
+    FROM SNORA31_Expression AS T1
+    INNER JOIN miRNA_Expression AS T2
+        ON T1."case_barcode" = T2."case_barcode"
+    GROUP BY
+        T2."mirna_id"
 )
-
-SELECT 
-    "symbol1", 
-    "symbol2", 
-    ABS("correlation") * SQRT(( "n" - 2 ) / (1 - "correlation" * "correlation")) AS "t"
-FROM 
-    summ_table
-WHERE 
-    "n" > 25 
-    AND ABS("correlation") >= 0.3 
-    AND ABS("correlation") < 1.0;
+SELECT
+    "mirna_id",
+    pearson_corr * SQRT((sample_count - 2) / (1 - pearson_corr * pearson_corr)) AS t_statistic
+FROM CorrelationData
+WHERE
+    sample_count > 25
+    AND ABS(pearson_corr) BETWEEN 0.3 AND 1.0

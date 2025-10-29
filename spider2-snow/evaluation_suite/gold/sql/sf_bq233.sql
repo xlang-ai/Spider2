@@ -1,99 +1,106 @@
-WITH extracted_modules AS (
-SELECT 
-    el."file_id" AS "file_id", 
-    el."repo_name", 
-    el."path" AS "path_", 
-    REPLACE(line.value, '"', '') AS "line_",
-    CASE
-        WHEN ENDSWITH(el."path", '.py') THEN 'python'
-        WHEN ENDSWITH(el."path", '.r') THEN 'r'
-        ELSE NULL
-    END AS "language",
-    CASE
-        WHEN ENDSWITH(el."path", '.py') THEN
-            ARRAY_CAT(
-                ARRAY_CONSTRUCT(REGEXP_SUBSTR(line.value, '\\bimport\\s+(\\w+)', 1, 1, 'e')),
-                ARRAY_CONSTRUCT(REGEXP_SUBSTR(line.value, '\\bfrom\\s+(\\w+)', 1, 1, 'e'))
-            )
-        WHEN ENDSWITH(el."path", '.r') THEN
-            ARRAY_CONSTRUCT(REGEXP_SUBSTR(line.value, 'library\\s*\\(\\s*([^\\s)]+)\\s*\\)', 1, 1, 'e'))
-        ELSE ARRAY_CONSTRUCT()
-    END AS "modules"
-FROM (
-    SELECT
-        ct."id" AS "file_id", 
-        fl."repo_name" AS "repo_name", 
-        fl."path", 
-        SPLIT(REPLACE(ct."content", '\n', ' \n'), '\n') AS "lines"
-    FROM 
-        GITHUB_REPOS_DATE.GITHUB_REPOS.SAMPLE_FILES AS fl
-    JOIN 
-        GITHUB_REPOS_DATE.GITHUB_REPOS.SAMPLE_CONTENTS AS ct 
-        ON fl."id" = ct."id"
-) AS el,
-LATERAL FLATTEN(input => el."lines") AS line 
-WHERE
-    (
-        ENDSWITH("path_", '.py') 
-        AND 
-        (
-            "line_" LIKE 'import %' 
-            OR 
-            "line_" LIKE 'from %'
-        )
-    )
-    OR
-    (
-        ENDSWITH("path_", '.r') 
-        AND 
-        "line_" LIKE 'library%('
-    )
-
+WITH python_files AS (
+  SELECT 
+    sf."path",
+    sc."content",
+    'Python' as language
+  FROM GITHUB_REPOS.GITHUB_REPOS.SAMPLE_FILES sf 
+  JOIN GITHUB_REPOS.GITHUB_REPOS.SAMPLE_CONTENTS sc ON sf."id" = sc."id" 
+  WHERE sc."binary" = FALSE 
+  AND sf."path" ILIKE '%.py'
 ),
-module_counts AS (
-    SELECT 
-        em."language",
-        f.value::STRING AS "module",
-        COUNT(*) AS "occurrence_count"
-    FROM 
-        extracted_modules AS em,
-        LATERAL FLATTEN(input => em."modules") AS f
-    WHERE 
-        em."modules" IS NOT NULL
-        AND f.value IS NOT NULL
-    GROUP BY 
-        em."language", 
-        f.value
+python_import_lines AS (
+  SELECT 
+    language,
+    "path",
+    TRIM(line.value) as line_content
+  FROM python_files,
+  LATERAL SPLIT_TO_TABLE("content", '\n') line
+  WHERE TRIM(line.value) LIKE 'import %' 
+     OR TRIM(line.value) LIKE 'from %import%'
 ),
-python AS (
-    SELECT 
-        "language",
-        "module",
-        "occurrence_count"
-    FROM 
-        module_counts
-    WHERE 
-        "language" = 'python'
+parsed_python_imports AS (
+  SELECT 
+    language,
+    CASE 
+      -- Handle "import module" statements - extract first module name
+      WHEN line_content LIKE 'import %' AND line_content NOT LIKE 'from %' THEN
+        TRIM(SPLIT_PART(SPLIT_PART(line_content, 'import ', 2), ',', 1))
+      -- Handle "from module import ..." statements - extract the main module
+      WHEN line_content LIKE 'from %import%' THEN
+        TRIM(SPLIT_PART(SPLIT_PART(line_content, 'from ', 2), ' import', 1))
+      ELSE NULL
+    END as full_module_name
+  FROM python_import_lines
+  WHERE line_content IS NOT NULL AND line_content != ''
 ),
-rlanguage AS (
-    SELECT 
-        "language",
-        "module",
-        "occurrence_count"
-    FROM 
-        module_counts AS mc_inner
-    WHERE 
-        "language" = 'r'
+python_base_modules AS (
+  SELECT 
+    language,
+    -- Extract the base module name (first part before dot)
+    SPLIT_PART(full_module_name, '.', 1) as module_name
+  FROM parsed_python_imports
+  WHERE full_module_name IS NOT NULL AND full_module_name != ''
+),
+python_results AS (
+  SELECT 
+    language,
+    module_name,
+    COUNT(*) as occurrence_count
+  FROM python_base_modules
+  WHERE module_name IS NOT NULL AND module_name != ''
+  GROUP BY language, module_name
+),
+r_files AS (
+  SELECT 
+    "sample_path" as r_path,
+    "content",
+    'R' as language
+  FROM GITHUB_REPOS.GITHUB_REPOS.SAMPLE_CONTENTS 
+  WHERE "binary" = FALSE 
+  AND ("sample_path" ILIKE '%.r' OR "sample_path" ILIKE '%.R' OR "sample_path" ILIKE '%.Rmd')
+),
+r_import_lines AS (
+  SELECT 
+    language,
+    r_path,
+    TRIM(line.value) as line_content
+  FROM r_files,
+  LATERAL SPLIT_TO_TABLE("content", '\n') line
+  WHERE TRIM(line.value) LIKE 'library(%' 
+     OR TRIM(line.value) LIKE 'require(%'
+),
+parsed_r_imports AS (
+  SELECT 
+    language,
+    CASE 
+      -- Handle library() statements
+      WHEN line_content LIKE 'library(%' THEN
+        TRIM(REPLACE(REPLACE(SPLIT_PART(SPLIT_PART(line_content, 'library(', 2), ')', 1), '"', ''), '\\', ''))
+      -- Handle require() statements  
+      WHEN line_content LIKE 'require(%' THEN
+        TRIM(REPLACE(REPLACE(SPLIT_PART(SPLIT_PART(line_content, 'require(', 2), ')', 1), '"', ''), '\\', ''))
+      ELSE NULL
+    END as library_name
+  FROM r_import_lines
+  WHERE line_content IS NOT NULL AND line_content != ''
+),
+r_results AS (
+  SELECT 
+    language,
+    library_name as module_name,
+    COUNT(*) as occurrence_count
+  FROM parsed_r_imports
+  WHERE library_name IS NOT NULL AND library_name != ''
+  GROUP BY language, library_name
+),
+combined_results AS (
+  SELECT language, module_name, occurrence_count FROM python_results
+  UNION ALL
+  SELECT language, module_name, occurrence_count FROM r_results
 )
 SELECT 
-    *
-FROM 
-    python
-UNION ALL
-SELECT 
-    *
-FROM 
-    rlanguage
-ORDER BY 
-    "language", 
-    "occurrence_count" DESC;
+  language,
+  module_name,
+  occurrence_count
+FROM combined_results
+ORDER BY language, occurrence_count DESC, module_name

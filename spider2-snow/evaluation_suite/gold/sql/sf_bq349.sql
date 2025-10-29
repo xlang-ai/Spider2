@@ -1,56 +1,70 @@
-WITH bounding_area AS (
-    SELECT 
-        "osm_id",
-        "geometry" AS geometry,
-        ST_AREA(ST_GEOGRAPHYFROMWKB("geometry")) AS area
-    FROM GEO_OPENSTREETMAP.GEO_OPENSTREETMAP.PLANET_FEATURES,
-    LATERAL FLATTEN(INPUT => PLANET_FEATURES."all_tags") AS "tag"
-    WHERE 
-        "feature_type" = 'multipolygons'
-        AND "tag".value:"key" = 'boundary'
-        AND "tag".value:"value" = 'administrative'
+WITH admin_candidates AS (
+  SELECT
+    pf."osm_id",
+    pf."geometry",
+    pf."osm_timestamp"
+  FROM GEO_OPENSTREETMAP.GEO_OPENSTREETMAP.PLANET_FEATURES AS pf,
+       LATERAL FLATTEN(INPUT => pf."all_tags") tag
+  WHERE pf."feature_type" = 'multipolygons'
+    AND tag.value:"key"::STRING = 'boundary'
+    AND LOWER(TRIM(tag.value:"value"::STRING)) = 'administrative'
+    AND pf."osm_id" IS NOT NULL
+    AND pf."geometry" IS NOT NULL
 ),
-
-poi AS (
-    SELECT 
-        nodes."id" AS poi_id,
-        nodes."geometry" AS poi_geometry,
-        tags.value:"value" AS poitype
-    FROM GEO_OPENSTREETMAP.GEO_OPENSTREETMAP.PLANET_NODES AS nodes,
-    LATERAL FLATTEN(INPUT => nodes."all_tags") AS tags
-    WHERE tags.value:"key" = 'amenity'
+admin_polygons AS (
+  SELECT "osm_id", "geometry"
+  FROM (
+    SELECT ac.*,
+           ROW_NUMBER() OVER (PARTITION BY ac."osm_id" ORDER BY ac."osm_timestamp" DESC NULLS LAST, ac."osm_id" ASC) AS rn
+    FROM admin_candidates ac
+  ) WHERE rn = 1
 ),
-
-poi_counts AS (
-    SELECT
-        ba."osm_id",
-        COUNT(poi.poi_id) AS total_pois
-    FROM bounding_area ba
-    JOIN poi
-    ON ST_DWITHIN(
-        ST_GEOGRAPHYFROMWKB(ba.geometry), 
-        ST_GEOGRAPHYFROMWKB(poi.poi_geometry), 
-        0.0
-    )
-    GROUP BY ba."osm_id"
+polygons_geog AS (
+  SELECT
+    "osm_id",
+    ST_GEOGRAPHYFROMWKB("geometry") AS "geom"
+  FROM admin_polygons
 ),
-
-median_value AS (
-    SELECT 
-        PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_pois) AS median_pois
-    FROM poi_counts
+amenity_nodes AS (
+  SELECT DISTINCT
+    pn."id" AS "node_id",
+    pn."latitude" AS "latitude",
+    pn."longitude" AS "longitude"
+  FROM GEO_OPENSTREETMAP.GEO_OPENSTREETMAP.PLANET_NODES AS pn,
+       LATERAL FLATTEN(INPUT => pn."all_tags") tag
+  WHERE tag.value:"key"::STRING = 'amenity'
+    AND pn."latitude" IS NOT NULL
+    AND pn."longitude" IS NOT NULL
 ),
-
-closest_to_median AS (
-    SELECT
-        "osm_id",
-        total_pois,
-        ABS(total_pois - (SELECT median_pois FROM median_value)) AS diff_from_median
-    FROM poi_counts
+nodes_geog AS (
+  SELECT
+    "node_id",
+    ST_MAKEPOINT("longitude", "latitude") AS "pt"
+  FROM amenity_nodes
+),
+counts_per_polygon AS (
+  SELECT
+    p."osm_id" AS "osm_id",
+    COALESCE(COUNT(DISTINCT n."node_id"), 0) AS "cnt"
+  FROM polygons_geog p
+  LEFT JOIN nodes_geog n
+    ON ST_DWITHIN(p."geom", n."pt", 0.0)
+  GROUP BY p."osm_id"
+),
+median_val AS (
+  SELECT
+    PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY "cnt") AS "median_cnt"
+  FROM counts_per_polygon
+),
+distances AS (
+  SELECT
+    c."osm_id",
+    c."cnt",
+    ABS(c."cnt" - m."median_cnt") AS "dist"
+  FROM counts_per_polygon c
+  CROSS JOIN median_val m
 )
-
-SELECT
-    "osm_id"
-FROM closest_to_median
-ORDER BY diff_from_median
+SELECT "osm_id"
+FROM distances
+ORDER BY "dist" ASC NULLS LAST, "osm_id" ASC
 LIMIT 1;

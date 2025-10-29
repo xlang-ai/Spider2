@@ -1,98 +1,60 @@
-WITH
-    table1 AS (
-        SELECT
-            "symbol",
-            "avgdata" AS "data",
-            "ParticipantBarcode"
-        FROM (
-            SELECT
-                'histological_type' AS "symbol", 
-                "histological_type" AS "avgdata",
-                "bcr_patient_barcode" AS "ParticipantBarcode"
-            FROM 
-                "PANCANCER_ATLAS_1"."PANCANCER_ATLAS_FILTERED"."CLINICAL_PANCAN_PATIENT_WITH_FOLLOWUP_FILTERED"
-            WHERE 
-                "acronym" = 'BRCA' 
-                AND "histological_type" IS NOT NULL      
+WITH Cdh1MutatedPatients AS (
+    SELECT DISTINCT
+        "ParticipantBarcode"
+    FROM "PANCANCER_ATLAS_1"."PANCANCER_ATLAS_FILTERED"."MC3_MAF_V5_ONE_PER_TUMOR_SAMPLE"
+    WHERE
+        "Hugo_Symbol" = 'CDH1' AND "FILTER" = 'PASS'
+), PatientData AS (
+    SELECT
+        T1."histological_type",
+        CASE
+            WHEN T2."ParticipantBarcode" IS NOT NULL THEN 'mutated'
+            ELSE 'not_mutated'
+        END AS mutation_status
+    FROM "PANCANCER_ATLAS_1"."PANCANCER_ATLAS_FILTERED"."CLINICAL_PANCAN_PATIENT_WITH_FOLLOWUP_FILTERED" AS T1
+    LEFT JOIN Cdh1MutatedPatients AS T2
+        ON T1."bcr_patient_barcode" = T2."ParticipantBarcode"
+    WHERE
+        T1."acronym" = 'BRCA'
+        AND T1."histological_type" IS NOT NULL
+), InitialContingency AS (
+    SELECT
+        "histological_type",
+        mutation_status,
+        COUNT(*) AS observed
+    FROM PatientData
+    GROUP BY
+        "histological_type",
+        mutation_status
+), FilteredContingency AS (
+    SELECT
+        "histological_type",
+        mutation_status,
+        observed
+    FROM InitialContingency
+    WHERE
+        "histological_type" IN (
+            SELECT "histological_type"
+            FROM InitialContingency
+            GROUP BY "histological_type"
+            HAVING SUM(observed) > 10
         )
-    ),
-    table2 AS (
-        SELECT
-            "symbol",
-            "ParticipantBarcode"
-        FROM (
-            SELECT
-                "Hugo_Symbol" AS "symbol", 
-                "ParticipantBarcode" AS "ParticipantBarcode"
-            FROM 
-                "PANCANCER_ATLAS_1"."PANCANCER_ATLAS_FILTERED"."MC3_MAF_V5_ONE_PER_TUMOR_SAMPLE"
-            WHERE 
-                "Study" = 'BRCA' 
-                AND "Hugo_Symbol" = 'CDH1'
-                AND "FILTER" = 'PASS'  
-            GROUP BY
-                "ParticipantBarcode", "symbol"
+        AND mutation_status IN (
+            SELECT mutation_status
+            FROM InitialContingency
+            GROUP BY mutation_status
+            HAVING SUM(observed) > 10
         )
-    ),
-    summ_table AS (
-        SELECT 
-            n1."data" AS "data1",
-            CASE 
-                WHEN n2."ParticipantBarcode" IS NULL THEN 'NO' 
-                ELSE 'YES' 
-            END AS "data2",
-            COUNT(*) AS "Nij"
-        FROM
-            table1 AS n1
-        LEFT JOIN
-            table2 AS n2 
-            ON n1."ParticipantBarcode" = n2."ParticipantBarcode"
-        GROUP BY
-            n1."data", "data2"
-    ),
-    expected_table AS (
-        SELECT 
-            "data1", 
-            "data2"
-        FROM (     
-            SELECT 
-                "data1", 
-                SUM("Nij") AS "Ni"   
-            FROM 
-                summ_table
-            GROUP BY 
-                "data1"
-        ) AS Ni_table
-        CROSS JOIN ( 
-            SELECT 
-                "data2", 
-                SUM("Nij") AS "Nj"
-            FROM 
-                summ_table
-            GROUP BY 
-                "data2"
-        ) AS Nj_table
-        WHERE 
-            Ni_table."Ni" > 10 
-            AND Nj_table."Nj" > 10
-    ),
-    contingency_table AS (
-        SELECT
-            T1."data1",
-            T1."data2",
-            COALESCE(T2."Nij", 0) AS "Nij",
-            (SUM(T2."Nij") OVER (PARTITION BY T1."data1")) * 
-            (SUM(T2."Nij") OVER (PARTITION BY T1."data2")) / 
-            SUM(T2."Nij") OVER () AS "E_nij"
-        FROM
-            expected_table AS T1
-        LEFT JOIN
-            summ_table AS T2
-        ON 
-            T1."data1" = T2."data1" 
-            AND T1."data2" = T2."data2"
-    )
+), ChiSquareInput AS (
+    SELECT
+        "histological_type",
+        mutation_status,
+        observed,
+        SUM(observed) OVER (PARTITION BY "histological_type") AS row_total,
+        SUM(observed) OVER (PARTITION BY mutation_status) AS col_total,
+        SUM(observed) OVER () AS grand_total
+    FROM FilteredContingency
+)
 SELECT
-    SUM( ( "Nij" - "E_nij" ) * ( "Nij" - "E_nij" ) / "E_nij" ) AS "Chi2"
-FROM 
-    contingency_table;
+    SUM(POWER(observed - (row_total * col_total / grand_total), 2) / (row_total * col_total / grand_total))
+FROM ChiSquareInput;

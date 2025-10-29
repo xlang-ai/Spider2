@@ -1,56 +1,24 @@
-WITH drives_prelim AS (
-  SELECT DISTINCT
-    races."year",
-    results."driver_id",
-    races."round",
-    results."constructor_id",
-    COALESCE(
-      CASE 
-        WHEN results."constructor_id" = LAG(results."constructor_id") OVER (
-          PARTITION BY races."year", results."driver_id"
-          ORDER BY races."round" ASC
-        ) THEN 0 
-        ELSE 1 
-      END, 1
-    ) AS "is_first_race",
-    COALESCE(
-      CASE 
-        WHEN results."constructor_id" = LEAD(results."constructor_id") OVER (
-          PARTITION BY races."year", results."driver_id"
-          ORDER BY races."round" ASC
-        ) THEN 0 
-        ELSE 1 
-      END, 1
-    ) AS "is_last_race"
-  FROM 
-      F1.F1.RESULTS results
-  INNER JOIN F1.F1.RACES races ON races."race_id" = results."race_id"
-),
-first_last_races AS (
+
+SELECT
+  d."full_name" AS name,
+  t."year" AS year,
+  c."name" AS constructor_name,
+  t.num_unique_rounds AS num_unique_rounds
+FROM (
   SELECT
-    "year",
-    "driver_id",
-    MIN("round") AS "first_round",
-    MAX("round") AS "last_round"
-  FROM 
-      drives_prelim
-  GROUP BY 
-      "year", 
-      "driver_id"
-)
-SELECT DISTINCT
-  dp."driver_id"
-FROM 
-    drives_prelim dp
-INNER JOIN first_last_races flr
-  ON dp."year" = flr."year"
-  AND dp."driver_id" = flr."driver_id"
-  AND (dp."round" = flr."first_round" OR dp."round" = flr."last_round")
-WHERE 
-    dp."is_first_race" = 0
-  AND dp."is_last_race" = 0
-  AND dp."year" BETWEEN 1950 AND 1959
-GROUP BY 
-    dp."driver_id"
-HAVING 
-    COUNT(DISTINCT dp."round") > 1;
+    r."driver_id",
+    ra."year",
+    MIN_BY(r."constructor_id", ra."round") AS first_constructor_id,
+    MAX_BY(r."constructor_id", ra."round") AS last_constructor_id,
+    COUNT(DISTINCT ra."round") AS num_unique_rounds
+  FROM F1.F1.RESULTS r
+  JOIN F1.F1.RACES ra ON r."race_id" = ra."race_id"
+  WHERE ra."year" BETWEEN 1950 AND 1959
+  GROUP BY r."driver_id", ra."year"
+  HAVING
+    COUNT(DISTINCT ra."round") >= 2
+    AND MIN_BY(r."constructor_id", ra."round") = MAX_BY(r."constructor_id", ra."round")
+) t
+JOIN F1.F1.DRIVERS d ON t."driver_id" = d."driver_id"
+JOIN F1.F1.CONSTRUCTORS c ON t.first_constructor_id = c."constructor_id"
+ORDER BY name, year

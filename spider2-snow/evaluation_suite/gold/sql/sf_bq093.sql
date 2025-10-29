@@ -1,68 +1,93 @@
-WITH double_entry_book AS (
-    -- Debits
-    SELECT 
-        "to_address" AS "address", 
-        "value" AS "value"
-    FROM 
-        CRYPTO.CRYPTO_ETHEREUM_CLASSIC.TRACES
-    WHERE 
-        "to_address" IS NOT NULL
-        AND "status" = 1
-        AND ("call_type" NOT IN ('delegatecall', 'callcode', 'staticcall') OR "call_type" IS NULL)
-        AND TO_DATE(TO_TIMESTAMP("block_timestamp" / 1000000)) = '2016-10-14'
-
-    UNION ALL
-    
-    -- Credits
-    SELECT 
-        "from_address" AS "address", 
-        - "value" AS "value"
-    FROM 
-        CRYPTO.CRYPTO_ETHEREUM_CLASSIC.TRACES
-    WHERE 
-        "from_address" IS NOT NULL
-        AND "status" = 1
-        AND ("call_type" NOT IN ('delegatecall', 'callcode', 'staticcall') OR "call_type" IS NULL)
-        AND TO_DATE(TO_TIMESTAMP("block_timestamp" / 1000000)) = '2016-10-14'
-
-    UNION ALL
-
-    -- Transaction Fees Debits
-    SELECT 
-        "miner" AS "address", 
-        SUM(CAST("receipt_gas_used" AS NUMERIC) * CAST("gas_price" AS NUMERIC)) AS "value"
-    FROM 
-        CRYPTO.CRYPTO_ETHEREUM_CLASSIC.TRANSACTIONS AS "transactions"
-    JOIN 
-        CRYPTO.CRYPTO_ETHEREUM_CLASSIC.BLOCKS AS "blocks" 
-        ON "blocks"."number" = "transactions"."block_number"
-    WHERE 
-        TO_DATE(TO_TIMESTAMP("block_timestamp" / 1000000)) = '2016-10-14'
-    GROUP BY 
-        "blocks"."miner"
-
-    UNION ALL
-    
-    -- Transaction Fees Credits
-    SELECT 
-        "from_address" AS "address", 
-        -(CAST("receipt_gas_used" AS NUMERIC) * CAST("gas_price" AS NUMERIC)) AS "value"
-    FROM 
-        CRYPTO.CRYPTO_ETHEREUM_CLASSIC.TRANSACTIONS
-    WHERE 
-        TO_DATE(TO_TIMESTAMP("block_timestamp" / 1000000)) = '2016-10-14'
+WITH "FILTERED_TX" AS (
+    SELECT
+        t."hash",
+        t."from_address",
+        COALESCE(t."to_address", t."receipt_contract_address") AS "to_address",
+        COALESCE(t."value", 0) AS "value",
+        COALESCE(t."receipt_gas_used", 0) AS "receipt_gas_used",
+        COALESCE(t."gas_price", 0) AS "gas_price",
+        COALESCE(t."receipt_gas_used", 0) * COALESCE(t."gas_price", 0) AS "gas_fee",
+        b."miner"
+    FROM
+        CRYPTO.CRYPTO_ETHEREUM_CLASSIC."TRANSACTIONS" t
+        JOIN CRYPTO.CRYPTO_ETHEREUM_CLASSIC."BLOCKS" b
+            ON t."block_number" = b."number"
+    WHERE
+        t."receipt_status" = 1
+        AND TO_DATE(TO_TIMESTAMP_NTZ(t."block_timestamp" / 1000000)) = '2016-10-14'
 ),
-net_changes AS (
-    SELECT 
+"ADDRESS_CHANGES" AS (
+    SELECT
         "address",
-        SUM("value") AS "net_change"
-    FROM 
-        double_entry_book
-    GROUP BY 
+        SUM("amount") AS "net_change"
+    FROM (
+        SELECT
+            t."from_address" AS "address",
+            -CAST(t."value" AS NUMBER(38, 9)) AS "amount"
+        FROM
+            "FILTERED_TX" t
+        UNION ALL
+        SELECT
+            t."to_address" AS "address",
+            CAST(t."value" AS NUMBER(38, 9)) AS "amount"
+        FROM
+            "FILTERED_TX" t
+        WHERE
+            t."to_address" IS NOT NULL
+        UNION ALL
+        SELECT
+            t."from_address" AS "address",
+            -CAST(t."gas_fee" AS NUMBER(38, 9)) AS "amount"
+        FROM
+            "FILTERED_TX" t
+        UNION ALL
+        SELECT
+            t."miner" AS "address",
+            CAST(t."gas_fee" AS NUMBER(38, 9)) AS "amount"
+        FROM
+            "FILTERED_TX" t
+    ) AS contributions
+    WHERE
+        "address" IS NOT NULL
+    GROUP BY
         "address"
+),
+"MAX_ADDR" AS (
+    SELECT
+        "address",
+        "net_change"
+    FROM
+        "ADDRESS_CHANGES"
+    QUALIFY ROW_NUMBER() OVER (ORDER BY "net_change" DESC, "address") = 1
+),
+"MIN_ADDR" AS (
+    SELECT
+        "address",
+        "net_change"
+    FROM
+        "ADDRESS_CHANGES"
+    QUALIFY ROW_NUMBER() OVER (ORDER BY "net_change" ASC, "address") = 1
 )
-SELECT 
-    MAX("net_change") AS "max_net_change",
-    MIN("net_change") AS "min_net_change"
-FROM
-    net_changes;
+SELECT
+    metrics."metric",
+    metrics."address",
+    metrics."net_change"
+FROM (
+    SELECT
+        'MAX' AS "metric",
+        max_addr."address",
+        COALESCE(max_addr."net_change", stats."max_change", 0) AS "net_change"
+    FROM
+        (SELECT MAX("net_change") AS "max_change" FROM "ADDRESS_CHANGES") stats
+        LEFT JOIN "MAX_ADDR" max_addr ON 1 = 1
+    UNION ALL
+    SELECT
+        'MIN' AS "metric",
+        min_addr."address",
+        COALESCE(min_addr."net_change", stats."min_change", 0) AS "net_change"
+    FROM
+        (SELECT MIN("net_change") AS "min_change" FROM "ADDRESS_CHANGES") stats
+        LEFT JOIN "MIN_ADDR" min_addr ON 1 = 1
+) metrics
+ORDER BY
+    metrics."metric" DESC;
