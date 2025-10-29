@@ -10,8 +10,8 @@
 
 - **2025-10-29**: Major update!
   1. We fixed the evaluation-suite issue, so scores are now more accurate and stable. We also refreshed the affected methods on the [leaderboard](https://spider2-sql.github.io/).
-  2. If you are willing to cover the Snowflake hosting cost (spider2-snow is free by default, but queries are queued), we can share the Spider2 Snowflake data directly to your own Snowflake project. See [Spider2_Data_Host.md](https://github.com/xlang-ai/Spider2/assets/Spider2_Data_Host.md) for details.
-  3. If you run into MF2A connection errors—meaning your credentials cannot access the Snowflake warehouse—check [Credential_issue.md](https://github.com/xlang-ai/Spider2/assets/Credential_issue.md) for guidance and see [issue #143](https://github.com/xlang-ai/Spider2/issues/143) for context.
+  2. If you are willing to cover the Snowflake hosting cost (spider2-snow is free by default, but queries are queued), we can share the Spider2 Snowflake data directly to your own Snowflake project. See [Spider2_Data_Host.md](https://github.com/xlang-ai/Spider2/blob/main/assets/Spider2_Data_Host.md) for details.
+  3. If you run into MF2A connection errors—meaning your credentials cannot access the Snowflake warehouse—check [Credential_issue.md](https://github.com/xlang-ai/Spider2/blob/main/assets/Credential_issue.md) for guidance and see [issue #143](https://github.com/xlang-ai/Spider2/issues/143) for context.
 
 
 - **2025-07-13**: We update [`spider2-snow.jsonl`](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow.jsonl) to resolve ambiguities, with the previous version renamed to [`spider2-snow-0713.jsonl`](https://github.com/xlang-ai/Spider2/blob/main/spider2-snow/spider2-snow-0713.jsonl) for reference.
