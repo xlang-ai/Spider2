@@ -7,7 +7,6 @@ If you are willing to absorb your own Snowflake usage costs to avoid shared-queu
 
 Send an email to lfy79001@gmail.com with the following details:
 - Your Snowflake account identifier in the format `<ORG_NAME>.<ACCOUNT_NAME>` (example: `NDSOEBE.RAI_DEV_XXXX_AWS_US_WEST_2_TEST`).
-- Your Snowflake cloud provider and region (for example, `AWS us-west-2`). If we are on different regions or clouds, we may need to set up a Snowflake Listing or use the repack/share flow.
 
 
 **The account must be in AWS US West (Oregon) (us-west-2).**
