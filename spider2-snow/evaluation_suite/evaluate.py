@@ -97,7 +97,7 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     """
     # print('condition_cols', condition_cols)
     
-    tolerance = 1e-1
+    tolerance = 1e-2
 
     def normalize(value):
         if pd.isna(value):
