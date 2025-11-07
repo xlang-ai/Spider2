@@ -79,9 +79,19 @@ This only needs to be done **once**.
 ### 5. Successful Login
 
 
+check the databases
+
+
+<p align="center">
+  <img src="spider2_update_1107_assets/13.png" alt="Select Snowflake" width="80%">
+</p>
+
+
 <p align="center">
   <img src="spider2_update_1107_assets/7.png" alt="Select Snowflake" width="80%">
 </p>
+
+
 
 
 ------------
