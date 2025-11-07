@@ -8,6 +8,11 @@
 
 ## 📰 News 
 
+- **2025-11-06**: We apologize for the recent Snowflake login and credential issues caused by Snowflake’s password & MFA policy upgrade. Both **Web UI login** and **Python credential access** behaviors have changed.  
+  Please **carefully review the updated Snowflake guideline** before continuing:
+  https://github.com/xlang-ai/Spider2/blob/main/assets/Snowflake_Guideline.md  
+  Thank you for your patience and understanding!
+
 - **2025-10-29**: Major update!
   1. We fixed the evaluation-suite issue, so scores are now more accurate and stable. We also refreshed the affected methods on the [leaderboard](https://spider2-sql.github.io/).
   2. If you are willing to cover the Snowflake hosting cost (spider2-snow is free by default, but queries are queued), we can share the Spider2 Snowflake data directly to your own Snowflake project. See [Spider2_Data_Host.md](https://github.com/xlang-ai/Spider2/blob/main/assets/Spider2_Data_Host.md) for details.
