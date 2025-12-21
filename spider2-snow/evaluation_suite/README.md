@@ -1,4 +1,4 @@
-# Spider 2.0-Snow Evaluation Suite
+ # Spider 2.0-Snow Evaluation Suite
 
 
 ## Folder Structure
@@ -40,13 +40,13 @@ Put your own `snowflake_credential.json` in this folder.
 ### Evaluation
 
 ```
-python evaluate.py --result_dir <your_predicted_sqls_folder> --model sql
+python evaluate.py --result_dir <your_predicted_sqls_folder> --mode sql
 ```
 
 or
 
 ```
-python evaluate.py --result_dir <your_predicted_CSVs_folder> --model exec_result
+python evaluate.py --result_dir <your_predicted_CSVs_folder> --mode exec_result
 ```
 
 
