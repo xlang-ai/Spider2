@@ -4,6 +4,7 @@ import pandas as pd
 SQLITE_DB_DIR = "/data/zvzv1919/Spider2/spider2-lite/resource/databases/spider2-localdb"
 
 def query_sqlite(query: str, db: str) -> pd.DataFrame:
+    # optimize possible
     conn = sqlite3.connect(f"{SQLITE_DB_DIR}/{db}.sqlite")
     try:
         return pd.read_sql_query(query, conn)
