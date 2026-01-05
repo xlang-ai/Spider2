@@ -104,6 +104,7 @@ def chat(
                 f"[WARN] Rate limit hit (attempt {attempt + 1}/{max_retries}). "
                 f"Waiting {wait_time}s before retry (from {retry_after_source}). Error: {e}"
             )
+            time.sleep(wait_time)
         
         except Exception as e:
             print(f"[ERROR] Error: {e}")

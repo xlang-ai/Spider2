@@ -3,6 +3,10 @@ import os
 import re
 import sqlite3
 from pathlib import Path
+from dotenv import load_dotenv
+import pandas as pd
+from datasets import Dataset
+from huggingface_hub import add_collection_item
 
 EVIDENCE_QUESTION_TAMPLATE = """
 Given the following external knowledge:
@@ -315,40 +319,25 @@ def extract_sqlite_constraints(sqlite_path: str) -> dict:
 def push_csv_to_huggingface(
     csv_path: str,
     repo_id: str,
-    token: str = None,
     private: bool = False,
-    commit_message: str = "Upload dataset"
+    commit_message: str = "Upload dataset",
+    collection: str = "Genies/Text-to-SQL" # None to not add to collection
 ):
-    """
-    Push a CSV file to Hugging Face as a dataset.
     
-    Args:
-        csv_path: Path to the CSV file to upload
-        repo_id: The Hugging Face dataset repository ID (e.g., "username/dataset-name")
-        token: Hugging Face token. If None, uses HF_TOKEN environment variable
-        private: Whether the dataset should be private (default: False)
-        commit_message: Commit message for the upload
-    """
-    from datasets import Dataset
-    import pandas as pd
-    
-    if token is None:
-        token = os.environ.get("HF_TOKEN")
-        if token is None:
-            raise ValueError("HF_TOKEN environment variable not set and no token provided")
-    
+    # from huggingface_hub import add_collection_item
+    load_dotenv() # Load environment variables from .env file
     df = pd.read_csv(csv_path)
     dataset = Dataset.from_pandas(df)
     
     dataset.push_to_hub(
         repo_id,
-        token=token,
+        token=os.environ.get("HF_TOKEN"),
         private=private,
         commit_message=commit_message
     )
-    
-    print(f"Successfully pushed {csv_path} to https://huggingface.co/datasets/{repo_id}")
-
+    if collection:
+        add_collection_item(collection, repo_id, item_type="dataset")
 
 if __name__ == "__main__":
-    generate_all_omnistyle_schemas("spider2-lite/resource/databases/sqlite")
+    # generate_all_omnistyle_schemas("spider2-lite/resource/databases/sqlite")
+    push_csv_to_huggingface("benchmark.csv", "Genies/arctic-full", collection="Genies/text-to-sql")
