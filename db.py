@@ -11,7 +11,6 @@ SQLITE_DB_DIR = "/data/zvzv1919/Spider2/spider2-lite/resource/databases/spider2-
 BIGQUERY_CREDENTIAL_PATH = "/data/zvzv1919/Spider2/bigquery_credential.json"
 SNOWFLAKE_CREDENTIAL_PATH = "/data/zvzv1919/Spider2/snowflake_credential.json"
 
-
 def query_sqlite(query: str, db: str, timeout_seconds: float = 300.0) -> pd.DataFrame:
     start_time = time.time()
 
@@ -24,34 +23,28 @@ def query_sqlite(query: str, db: str, timeout_seconds: float = 300.0) -> pd.Data
     conn.set_progress_handler(progress_handler, 1000)  # Check every 1000 VM instructions
     try:
         return pd.read_sql_query(query, conn)
-    except sqlite3.OperationalError as e:
-        if "interrupted" in str(e).lower():
-            raise TimeoutError(f"Query exceeded {timeout_seconds}s timeout") from e
-        raise
     finally:
         conn.close()
 
-
-def query_snowflake(query: str) -> pd.DataFrame:
+def query_snowflake(query: str, timeout_seconds: float = 300.0) -> pd.DataFrame:
     with open(SNOWFLAKE_CREDENTIAL_PATH) as f:
         credentials = json.load(f)
     
     conn = snowflake.connector.connect(**credentials)
     try:
         cursor = conn.cursor()
-        cursor.execute(query)
+        cursor.execute(query, timeout=int(timeout_seconds))
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
         return pd.DataFrame(results, columns=columns)
     finally:
         conn.close()
 
-
-def query_bigquery(query: str) -> pd.DataFrame:
+def query_bigquery(query: str, timeout_seconds: float = 300.0) -> pd.DataFrame:
     os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", BIGQUERY_CREDENTIAL_PATH)
     client = bigquery.Client()
     query_job = client.query(query)
-    return query_job.result().to_dataframe()
+    return query_job.result(timeout=timeout_seconds).to_dataframe()
 
 def load_sql_file(file_path: str) -> str:
     with open(file_path, "r") as file:
@@ -68,7 +61,7 @@ def demo():
     df.to_csv("tmp_bq.csv", index=False)
     try:
         df = query_sqlite(sqlite_timeout_query, "E_commerce", timeout_seconds=10.0)
-    except TimeoutError as e:
+    except Exception as e:
         print(f"{e}")
 
 if __name__ == "__main__":
