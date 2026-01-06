@@ -1,70 +1,75 @@
+import json
+import os
 import sqlite3
+import time
+
 import pandas as pd
+import snowflake.connector
+from google.cloud import bigquery
 
 SQLITE_DB_DIR = "/data/zvzv1919/Spider2/spider2-lite/resource/databases/spider2-localdb"
+BIGQUERY_CREDENTIAL_PATH = "/data/zvzv1919/Spider2/bigquery_credential.json"
+SNOWFLAKE_CREDENTIAL_PATH = "/data/zvzv1919/Spider2/snowflake_credential.json"
 
-def query_sqlite(query: str, db: str) -> pd.DataFrame:
-    # optimize possible
+
+def query_sqlite(query: str, db: str, timeout_seconds: float = 300.0) -> pd.DataFrame:
+    start_time = time.time()
+
+    def progress_handler():
+        if time.time() - start_time > timeout_seconds:
+            return 1  # Non-zero interrupts the query
+        return 0
+
     conn = sqlite3.connect(f"{SQLITE_DB_DIR}/{db}.sqlite")
+    conn.set_progress_handler(progress_handler, 1000)  # Check every 1000 VM instructions
     try:
         return pd.read_sql_query(query, conn)
+    except sqlite3.OperationalError as e:
+        if "interrupted" in str(e).lower():
+            raise TimeoutError(f"Query exceeded {timeout_seconds}s timeout") from e
+        raise
     finally:
         conn.close()
 
+
+def query_snowflake(query: str) -> pd.DataFrame:
+    with open(SNOWFLAKE_CREDENTIAL_PATH) as f:
+        credentials = json.load(f)
+    
+    conn = snowflake.connector.connect(**credentials)
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query)
+        results = cursor.fetchall()
+        columns = [desc[0] for desc in cursor.description]
+        return pd.DataFrame(results, columns=columns)
+    finally:
+        conn.close()
+
+
+def query_bigquery(query: str) -> pd.DataFrame:
+    os.environ.setdefault("GOOGLE_APPLICATION_CREDENTIALS", BIGQUERY_CREDENTIAL_PATH)
+    client = bigquery.Client()
+    query_job = client.query(query)
+    return query_job.result().to_dataframe()
+
+def load_sql_file(file_path: str) -> str:
+    with open(file_path, "r") as file:
+        return file.read()
+
+def demo():
+    sqlite_timeout_query = "WITH RECURSIVE r(x) AS (SELECT 1 UNION ALL SELECT x+1 FROM r) SELECT * FROM r"
+    bigquery_query = load_sql_file("/data/zvzv1919/Spider2/spider2-lite/evaluation_suite/gold/sql/bq001.sql")
+    snowflake_query = load_sql_file("/data/zvzv1919/Spider2/spider2-lite/evaluation_suite/gold/sql/sf_bq012.sql")
+
+    df = query_snowflake(snowflake_query)
+    df.to_csv("tmp_sf.csv", index=False)
+    df = query_bigquery(bigquery_query)
+    df.to_csv("tmp_bq.csv", index=False)
+    try:
+        df = query_sqlite(sqlite_timeout_query, "E_commerce", timeout_seconds=10.0)
+    except TimeoutError as e:
+        print(f"{e}")
+
 if __name__ == "__main__":
-    query = '''
-    WITH DateRange AS (
-    SELECT '2017-01-01' AS date
-    UNION ALL
-    SELECT DATE(date, '+1 day')
-    FROM DateRange
-    WHERE date < '2018-08-29'
-),
-DailySales AS (
-    SELECT 
-        dr.date,
-        SUM(oi.price) AS total_sales
-    FROM DateRange dr
-    LEFT JOIN order_items oi ON DATE(oi.shipping_limit_date) = dr.date
-    LEFT JOIN products p ON oi.product_id = p.product_id
-    WHERE p.product_category_name = 'toys'
-    GROUP BY dr.date
-),
-PredictedSales AS (
-    SELECT 
-        ds.date,
-        ds.total_sales,
-        (ds.total_sales - LAG(ds.total_sales, 1) OVER (ORDER BY ds.date)) AS sales_diff,
-        (ds.total_sales - LAG(ds.total_sales, 1) OVER (ORDER BY ds.date)) * (ds.date - LAG(ds.date, 1) OVER (ORDER BY ds.date)) AS sales_diff_product_date,
-        (ds.total_sales - LAG(ds.total_sales, 1) OVER (ORDER BY ds.date)) * (ds.total_sales - LAG(ds.total_sales, 1) OVER (ORDER BY ds.date)) AS sales_diff_squared
-    FROM DailySales ds
-),
-LinearRegression AS (
-    SELECT 
-        ps.date,
-        ps.total_sales,
-        SUM(ps.sales_diff_product_date) OVER () / SUM(ps.sales_diff_squared) OVER () AS slope,
-        AVG(ps.sales_diff) OVER () AS intercept
-    FROM PredictedSales ps
-),
-FinalSales AS (
-    SELECT 
-        lr.date,
-        lr.total_sales,
-        lr.slope * (lr.date - (SELECT MIN(date) FROM DailySales)) + lr.intercept AS predicted_sales
-    FROM LinearRegression lr
-),
-MovingAverage AS (
-    SELECT 
-        fs.date,
-        AVG(fs.predicted_sales) OVER (ORDER BY fs.date ROWS BETWEEN 2 PRECEDING AND 2 FOLLOWING) AS moving_average
-    FROM FinalSales fs
-)
-SELECT 
-    SUM(ma.moving_average) AS total_moving_average
-FROM MovingAverage ma
-WHERE ma.date BETWEEN '2018-12-05' AND '2018-12-08';
-    '''
-    # sql_df = query_sqlite("SELECT * FROM orders LIMIT 5", "E_commerce")
-    sql_df = query_sqlite(query, "E_commerce")
-    print(sql_df)
+    demo()
