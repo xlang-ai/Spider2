@@ -59,7 +59,7 @@ def run_arctic_queries(
 ) -> pd.DataFrame:
 
     df['arctic_response'] = None
-    df['execution_time'] = None
+    df['llm_execution_time'] = None
     def query_row(idx: int, schema: str, evidence_question: str) -> tuple[int, str]:
         """Query a single row and return (index, response, execution_time)."""
         start_time = time.time()
@@ -79,7 +79,7 @@ def run_arctic_queries(
             try:
                 idx, response, execution_time = future.result()
                 df.at[idx, 'arctic_response'] = response
-                df.at[idx, 'execution_time'] = execution_time
+                df.at[idx, 'llm_execution_time'] = execution_time
             except Exception as e:
                 idx = futures[future]
                 print(f"Error processing row {idx}: {e}")
@@ -119,14 +119,20 @@ def extract_sql(response: str) -> str:
 
 def generate_prediction_csvs(benchmark_df: pd.DataFrame, output_dir: str, max_workers: int = 10):
     benchmark_df['query_result'] = None
+    benchmark_df['sql_execution_time'] = None
     def run_query(idx: int, instance_id: str, sql: str, db: str) -> tuple[int, str]:
         """Run a single query, save to CSV, and return (index, result_string)."""
+        start_time = time.time()
         try:
             result_df = query_sqlite(sql, db)
             result_df.to_csv(f"{output_dir}/{instance_id}.csv", index=False)
-            return idx, result_df.to_string(index=False)
+            end_time = time.time()
+            execution_time = end_time - start_time
+            return idx, result_df.to_string(index=False), execution_time
         except Exception as e:
-            return idx, f"Error: {e}"
+            end_time = time.time()
+            execution_time = end_time - start_time
+            return idx, f"Error: {e}", execution_time
     
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         futures = [
@@ -135,8 +141,9 @@ def generate_prediction_csvs(benchmark_df: pd.DataFrame, output_dir: str, max_wo
         ]
         
         for future in tqdm(as_completed(futures), total=len(futures), desc="Running SQL queries"):
-            idx, result = future.result()
+            idx, result, execution_time = future.result()
             benchmark_df.at[idx, 'query_result'] = result
+            benchmark_df.at[idx, 'sql_execution_time'] = execution_time
     return benchmark_df
 
 def demo():
@@ -171,4 +178,8 @@ if __name__ == "__main__":
 
     df = prepare_benchmark()
     df.to_csv("benchmark_1.csv", index=False)
-    push_csv_to_huggingface("benchmark_1.csv", "Genies/vllm_profile", collection="Genies/text-to-sql")
+
+    # df = pd.read_csv("benchmark_1.csv")
+    # df = generate_prediction_csvs(df, "tmp")
+    # df.to_csv("benchmark_1.csv", index=False)
+    # push_csv_to_huggingface("benchmark_1.csv", "Genies/vllm_profile", collection="Genies/text-to-sql")
