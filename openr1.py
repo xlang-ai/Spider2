@@ -306,7 +306,7 @@ def demo():
 
     ## START THE WORKFLOW NOW BY PROPOSING A PLAN AND TAKING FIRST STEP TO SOLVE GIVEN SNOWFLAKE PROBLEM (in json format as mentioned above)
     '''
-    result = run_openr1_agent(
+    result = run_agent_one(
         prompt=prompt,
         instance_id="sf_bq029",
         db="PATENTS",  # Not used for BigQuery
