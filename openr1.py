@@ -4,11 +4,16 @@ Prompts from: open-r1-0717/src/open_r1/inference_configs/spider-2-lite-bigquery.
 """
 import json
 import re
+import time
 from typing import Any
 
 import llm
 from db import query_sqlite, query_bigquery, query_snowflake
-
+from datasets import load_dataset
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
+import pandas as pd
+from utils import push_csv_to_huggingface
 # From spider-2-lite-bigquery.yaml
 SYSTEM_PROMPT = """
 You will craft BigQuery SQL queries to address the user's specific problems.
@@ -95,10 +100,6 @@ Final Step (Mandatory):
   * In "reasoning", briefly confirm that all requirements are satisfied.
   * In "task", write exactly: "Construct the final SQL query".
   * In "sql", provide the single complete SQL query that produces the final solution.
-* After this step, the process is complete. Any further steps MUST use:
-
-  * "task": "N/A"
-  * "sql": "N/A"
 """.strip()
 
 # From spider-2-lite-bigquery.yaml
@@ -120,24 +121,23 @@ If task is already solved, provide 'N/A' for sql
 DEFAULT_DEPTH = 10      # run.depth
 DEFAULT_WINDOW = 10     # run.window
 DEFAULT_TEMPERATURE = 0.8  # generation.temperature
-DEFAULT_MAX_TOKENS = 2048  # generation.max_tokens
 
 
-def extract_json(text: str) -> dict | None:
+
+def extract_json(text: str) -> dict:
     """Extract JSON block from response."""
     try:
         start = text.find("{")
         end = text.rfind("}") + 1
         if start == -1 or end == 0:
-            return None
+            return {}
         parsed = json.loads(text[start:end])
         # Validate required fields
         if "reasoning" not in parsed or "task" not in parsed or "sql" not in parsed:
-            return None
+            return {}
         return parsed
     except json.JSONDecodeError:
-        return None
-
+        return {}
 
 def extract_sql(text: str) -> str:
     """Extract SQL from ```sql blocks or raw text."""
@@ -148,7 +148,6 @@ def extract_sql(text: str) -> str:
             s = s[:-3]
         return s.strip()
     return s
-
 
 def execute_sql(sql: str, instance_id: str, db: str, timeout: float = 300.0) -> str:
     """Execute SQL against the appropriate database based on instance_id."""
@@ -168,32 +167,18 @@ def execute_sql(sql: str, instance_id: str, db: str, timeout: float = 300.0) -> 
             result = result[:500] + "\n... (truncated)"
         return result
     except Exception as e:
-        return f"Error 500: {e}"
+        return f"Error executing SQL: {e}"
 
-
-def run_agent(
+def run_agent_one(
     prompt: str,
     instance_id: str,
     db: str,
+    idx: int = 0, # Index of the row in the dataset, needed by run_agent_all
     depth: int = DEFAULT_DEPTH,
     window: int = DEFAULT_WINDOW,
     temperature: float = DEFAULT_TEMPERATURE,
 ) -> dict[str, Any]:
-    """
-    Run multi-step SQL agent.
-    
-    Args:
-        prompt: The user's question/problem (already formatted with schema)
-        instance_id: e.g. "local001", "bq001", "sf001", "ga001"
-        db: Database name (for SQLite)
-        depth: Maximum iterations (default: 10)
-        window: Keep last 2*window messages in history (default: 10)
-        temperature: LLM temperature (default: 0.8)
-    
-    Returns:
-        dict with final_sql, steps, solved, etc.
-    """
-    # Initial messages (prefix that stays constant)
+    start_time = time.time()
     messages_prefix = [
         {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": prompt},
@@ -202,84 +187,138 @@ def run_agent(
     messages_intermediate = []
     
     steps = []
-    final_sql = None
-    final_exec_out = None
     
     for step in range(depth):
-        # Build full message list with windowing
-        messages = messages_prefix + messages_intermediate[-2 * window:]
-        
-        # Get LLM response
-        response = llm.chat(messages, temperature=temperature)
-        
-        # Parse JSON
-        parsed = extract_json(response)
-        if not parsed:
-            steps.append({
-                "step": step,
-                "error": "Failed to parse JSON",
-                "response": response[:500],
-            })
-            continue  # Try again next step
-        
+        new_step = {
+            "instance_id": instance_id,
+            "step": step,
+            "llm_messages": [],
+            "llm_response": "N/A",
+            "sql": "N/A",
+            "sql_exec_out": "N/A",
+            "solved": False,
+            "llm_execution_time": "N/A",
+            "sql_execution_time": "N/A",
+        }
+
+        # 1. Obtain LLM response
+        new_step["llm_messages"] = messages_prefix + messages_intermediate[-2 * window:]
+        llm_start_time = time.time()
+        try:    
+            response = llm.chat(new_step["llm_messages"], temperature=temperature)
+        except Exception as e:
+            response = f"Error calling LLM: {e}"
+        new_step["llm_response"] = response
+        new_step["llm_execution_time"] = time.time() - llm_start_time
+
+        # 2. Parse LLM response
+        parsed = extract_json(response)        
         sql_raw = parsed.get("sql", "N/A")
         task = parsed.get("task", "")
+        reasoning = parsed.get("reasoning", "")
+        if task == "Construct the final SQL query" and sql_raw != "N/A":
+            new_step["solved"] = True
         
-        # Check if done (task is N/A or sql is N/A)
-        if sql_raw == "N/A" or task == "N/A":
-            steps.append({
-                "step": step,
-                "reasoning": parsed.get("reasoning"),
-                "task": task,
-                "sql": None,
-                "solved": True,
-            })
-            break
-        
-        # Extract and execute SQL
-        sql = extract_sql(sql_raw)
-        exec_result = execute_sql(sql, instance_id, db)
-        final_sql = sql
-        final_exec_out = exec_result
-        
-        steps.append({
-            "step": step,
-            "reasoning": parsed.get("reasoning"),
-            "task": task,
-            "sql": sql,
-            "exec_out": exec_result,
-        })
-        
-        # Check if this was the final step ("Construct the final SQL query")
-        if "final" in task.lower() and "sql" in task.lower():
-            steps[-1]["solved"] = True
-            break
+        # 3. Execute SQL
+        new_step["sql"] = extract_sql(sql_raw)
+        sql_start_time = time.time()
+        new_step["sql_exec_out"] = execute_sql(new_step["sql"], instance_id, db)
+        new_step["sql_execution_time"] = time.time() - sql_start_time
         
         # Add to conversation (intermediate messages)
         messages_intermediate.append({"role": "assistant", "content": response})
         messages_intermediate.append({
             "role": "user",
-            "content": CONTINUE_TEMPLATE.format(sql_query=sql, sql_exec_out=exec_result),
+            "content": CONTINUE_TEMPLATE.format(sql_query=new_step["sql"], sql_exec_out=new_step["sql_exec_out"]),
         })
+        steps.append(new_step)
+        if new_step["solved"]:
+            break
     
-    solved = steps[-1].get("solved", False) if steps else False
-    
+    execution_time = time.time() - start_time
     return {
-        "final_sql": final_sql,
-        "final_exec_out": final_exec_out,
-        "solved": solved,
+        "idx": idx,
+        "instance_id": instance_id,
+        "final_sql": steps[-1]["sql"],
+        "final_exec_out": steps[-1]["sql_exec_out"],
+        "solved": steps[-1]["solved"],
         "num_steps": len(steps),
         "steps": steps,
+        "execution_time": execution_time,
     }
 
+def run_agent_all(dataset = "Genies/spider-2-lite-bigquery", max_workers: int = 500):
+    df = load_dataset(dataset, split="train").to_pandas()
+    df['final_sql'] = None
+    df['final_exec_out'] = None
+    df['solved'] = None
+    df['num_steps'] = None
+    df['execution_time'] = None
+    
+    all_steps = []
 
-if __name__ == "__main__":
-    # Example usage
-    result = run_agent(
-        prompt="What are the top 5 products by sales?",
-        instance_id="bq001",
-        db="",  # Not used for BigQuery
+    # Run parallel queries
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [
+            executor.submit(run_agent_one, row['prompt'], row['id'], row['db_id'], idx)
+            for idx, row in df.iterrows()
+        ]
+        
+        for future in tqdm(as_completed(futures), total=len(futures), desc="Running agent"):
+            try:               
+                result = future.result()
+                idx = result['idx']
+                df.at[idx, 'final_sql'] = result['final_sql']
+                df.at[idx, 'final_exec_out'] = result['final_exec_out']
+                df.at[idx, 'solved'] = result['solved']
+                df.at[idx, 'num_steps'] = result['num_steps']
+                df.at[idx, 'execution_time'] = result['execution_time']                
+                all_steps.extend(result['steps'])
+
+            except Exception as e:
+                print(f"Error processing row {idx}: {e}")
+
+    steps_df = pd.DataFrame(all_steps)
+    return df, steps_df
+
+def demo():
+    prompt = '''
+    Solve the given problem according to instructions given above:
+
+    ## Your SYSTEM Inputs
+    1. **Actual Database Names**:
+    - PATENTS
+
+    2. **Database**: PATENTS
+    3. **User Question**: Get the average number of inventors per patent and the total count of patent publications in Canada (CA) for each 5-year period from 1960 to 2020, based on publication dates. Only include patents that have at least one inventor listed, and group results by 5-year intervals (1960-1964, 1965-1969, etc.).
+
+    ## OUTPUT FORMAT
+
+    You should always return a json in the following format:
+
+    ```json
+    {
+    "reasoning": "...",
+    "task": "...",
+    "sql": "```sql...```"
+    }
+    ```
+
+    ## START THE WORKFLOW NOW BY PROPOSING A PLAN AND TAKING FIRST STEP TO SOLVE GIVEN SNOWFLAKE PROBLEM (in json format as mentioned above)
+    '''
+    result = run_openr1_agent(
+        prompt=prompt,
+        instance_id="sf_bq029",
+        db="PATENTS",  # Not used for BigQuery
         depth=10,
         window=10,
     )
     print(json.dumps(result, indent=2))
+
+if __name__ == "__main__":
+    df, steps_df = run_agent_all()
+    df.to_csv("openr1_sf.csv", index=False)
+    steps_df.to_csv("openr1_sf_steps.csv", index=False)
+    push_csv_to_huggingface("openr1_sf.csv", "Genies/openr1-sf", collection="Genies/text-to-sql")
+    push_csv_to_huggingface("openr1_sf_steps.csv", "Genies/openr1-sf-steps", collection="Genies/text-to-sql")
+

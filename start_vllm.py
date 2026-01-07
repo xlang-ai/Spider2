@@ -85,12 +85,20 @@ def inference_offline_llm(model: str, max_model_len: int, gpu_memory_utilization
         print(f"\n{out.prompt} → {out.outputs[0].text}")
 
 if __name__ == "__main__":
+    # create_openai_api_llm(
+    #     model="Snowflake/Arctic-Text2SQL-R1-7B",
+    #     max_model_len=32000,
+    #     gpu_memory_utilization=0.9,
+    #     port=8001,
+    #     host="0.0.0.0",
+    #     api_key="JOSHUA",
+    # )
+    
     create_openai_api_llm(
-        model="Snowflake/Arctic-Text2SQL-R1-7B",
+        model="/data/deema/rec/text2sql-rl/checkpoints/text2sql-grpo-d6-e17-deema/",
         max_model_len=32000,
         gpu_memory_utilization=0.9,
         port=8001,
         host="0.0.0.0",
         api_key="JOSHUA",
     )
-    
