@@ -30,7 +30,7 @@ def build_question_evidence(question, evidence_file_path):
         evidence = f.read().strip()
     return EVIDENCE_QUESTION_TAMPLATE.format(external_knowledge=evidence, question=question)
 
-def generate_omnistyle_schema(db_folder: str):
+def generate_omnistyle_schema(db_folder: str, output_dir: str):
     """
     Generate a schema file in omni-style format from a database folder containing JSON table definitions.
     Saves the schema file to omnistyle_schema_sqlite/{db_name}.txt
@@ -39,7 +39,7 @@ def generate_omnistyle_schema(db_folder: str):
     db_name = db_folder.name
     
     # Collect all JSON files (table definitions)
-    json_files = sorted(db_folder.glob("*.json"))
+    json_files = sorted(db_folder.rglob("*.json"))
     
     if not json_files:
         raise ValueError(f"No JSON files found in {db_folder}")
@@ -49,7 +49,7 @@ def generate_omnistyle_schema(db_folder: str):
         with open(json_file, "r", encoding="utf-8") as f:
             table_data = json.load(f)
         
-        table_name = table_data.get("table_name", json_file.stem)
+        table_fullname = table_data.get("table_fullname", json_file.stem)
         column_names = table_data.get("column_names", [])
         column_types = table_data.get("column_types", [])
         descriptions = table_data.get("description", [""] * len(column_names))
@@ -65,8 +65,8 @@ def generate_omnistyle_schema(db_folder: str):
         
         # Build table schema
         table_schema = {
-            "table_name": table_name,
-            "table_description": table_data.get("table_description", f"Table containing {table_name} data."),
+            "table_name": table_fullname,
+            "table_description": table_data.get("table_description", f"Table containing {table_fullname} data."),
             "column_names": column_names,
             "column_types": column_types,
             "column_descriptions": descriptions if any(d for d in descriptions) else [f"Column {col}" for col in column_names],
@@ -83,13 +83,15 @@ def generate_omnistyle_schema(db_folder: str):
     }
     
     # Write schema file
-    output_file = f"omnistyle_schema_sqlite/{db_name}.txt"
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    output_file = f"{output_dir}/{db_name}.txt"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(schema, f, indent=2, ensure_ascii=False)
     
     print(f"Generated schema: {output_file}")
 
-def generate_all_omnistyle_schemas(base_path: str, output_dir: str = "omnistyle_schema_sqlite"):
+def generate_all_omnistyle_schemas(base_path: str, output_dir: str = "omnistyle_schema"):
     """
     Loop through all database directories in base_path and generate omnistyle schemas for each.
     
@@ -111,7 +113,7 @@ def generate_all_omnistyle_schemas(base_path: str, output_dir: str = "omnistyle_
     
     for db_dir in db_dirs:
         try:
-            generate_omnistyle_schema(str(db_dir))
+            generate_omnistyle_schema(str(db_dir), output_dir)
             success_count += 1
         except Exception as e:
             print(f"Error processing {db_dir.name}: {e}")
@@ -319,7 +321,7 @@ def extract_sqlite_constraints(sqlite_path: str) -> dict:
 def push_csv_to_huggingface(
     csv_path: str,
     repo_id: str,
-    private: bool = False,
+    private: bool = True,
     commit_message: str = "Upload dataset",
     collection: str = "Genies/Text-to-SQL" # None to not add to collection
 ):
@@ -339,5 +341,6 @@ def push_csv_to_huggingface(
         add_collection_item(collection, repo_id, item_type="dataset")
 
 if __name__ == "__main__":
-    # generate_all_omnistyle_schemas("spider2-lite/resource/databases/sqlite")
-    push_csv_to_huggingface("benchmark.csv", "Genies/arctic-full", collection="Genies/text-to-sql")
+    generate_all_omnistyle_schemas("spider2-lite/resource/databases/bigquery", "omnistyle_schema/bq")
+    generate_all_omnistyle_schemas("spider2-lite/resource/databases/snowflake", "omnistyle_schema/sf")
+    # push_csv_to_huggingface("benchmark.csv", "Genies/arctic-full", collection="Genies/text-to-sql")

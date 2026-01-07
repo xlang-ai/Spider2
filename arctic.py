@@ -3,7 +3,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import llm
 from utils import load_text, build_question_evidence, push_csv_to_huggingface
-from db import query_sqlite
+from db import query_sqlite, query_bigquery, query_snowflake
 import pandas as pd
 from tqdm import tqdm
 import time
@@ -19,9 +19,10 @@ Can you calculate the 5-day symmetric moving average of predicted toy sales for 
 '''
 BENCHMARK_JSONL_PATH = "/data/zvzv1919/Spider2/spider2-lite/spider2-lite.jsonl"
 EXTERNAL_KNOWLEDGE_DIR = "/data/zvzv1919/Spider2/spider2-lite/resource/documents"
-SCHEMA_DIR = "omnistyle_schema_sqlite"
+SCHEMA_DIR = "omnistyle_schema"
+SCHEMA_MAX_CHARS = 90000
 
-def prepare_benchmark():
+def prepare_benchmark(db_type: str = "local"):
     '''
     Prepare the benchmark for Arctic SQL generation by 
     1. Loading the benchmark jsonl into df
@@ -32,10 +33,12 @@ def prepare_benchmark():
     The prepared benchmark should have everything except the query execution result.
     '''
     df = pd.read_json(BENCHMARK_JSONL_PATH, lines=True)
-    df = df[df['instance_id'].str.startswith('local')]
+    df = df[df['instance_id'].str.startswith(db_type)]
     
     # Build schema column
-    df['schema'] = df['db'].apply(lambda db: load_text(f"{SCHEMA_DIR}/{db}.txt"))
+    df['schema'] = df['db'].apply(lambda db: load_text(f"{SCHEMA_DIR}/{db_type}/{db}.txt"))
+    df['schema_truncate_ratio'] = df['schema'].apply(lambda schema: SCHEMA_MAX_CHARS / len(schema) if len(schema) > SCHEMA_MAX_CHARS else 1)
+    df['schema'] = df['schema'].apply(lambda schema: schema[:SCHEMA_MAX_CHARS])
     
     # Build evidence_question column
     df['evidence_question'] = df.apply(
@@ -47,7 +50,7 @@ def prepare_benchmark():
     )
     # df = df[:10]
     # Build arctic_response column
-    df = run_arctic_queries(df, max_workers=32, temperature=0.0)
+    df = run_arctic_queries(df, max_workers=500, temperature=0.0)
     df['arctic_sql'] = df['arctic_response'].apply(extract_sql)
     return df
 
@@ -117,14 +120,22 @@ def extract_sql(response: str) -> str:
         return answer[sql_start:sql_end].strip()
     return ""
 
-def generate_prediction_csvs(benchmark_df: pd.DataFrame, output_dir: str, max_workers: int = 10):
+def generate_prediction_csvs(benchmark_df: pd.DataFrame, output_dir: str, max_workers: int = 500):
     benchmark_df['query_result'] = None
     benchmark_df['sql_execution_time'] = None
     def run_query(idx: int, instance_id: str, sql: str, db: str) -> tuple[int, str]:
         """Run a single query, save to CSV, and return (index, result_string)."""
         start_time = time.time()
         try:
-            result_df = query_sqlite(sql, db)
+            result_df = None
+            if instance_id.startswith("local"):
+                result_df = query_sqlite(sql, db)
+            elif instance_id.startswith("bq"):
+                result_df = query_bigquery(sql, timeout_seconds=300)
+            elif instance_id.startswith("sf"):
+                result_df = query_snowflake(sql, timeout_seconds=300)
+            else:
+                raise ValueError(f"Unsupported instance id: {instance_id}")
             result_df.to_csv(f"{output_dir}/{instance_id}.csv", index=False)
             end_time = time.time()
             execution_time = end_time - start_time
@@ -176,10 +187,18 @@ if __name__ == "__main__":
     # df = generate_prediction_csvs(df, "prediction_csvs_arctic")
     # df.to_csv("benchmark.csv", index=False)
 
-    df = prepare_benchmark()
-    df.to_csv("benchmark_1.csv", index=False)
+    # df = prepare_benchmark(db_type="bq")
+    # df.to_csv("benchmark_bq.csv", index=False)
+    # df = pd.read_csv("benchmark_bq.csv")
+    # df = generate_prediction_csvs(df, "prediction_csvs_arctic_bq")
+    # df.to_csv("benchmark_bq.csv", index=False)
+    # push_csv_to_huggingface("benchmark_bq.csv", "Genies/arctic-bq", collection="Genies/text-to-sql")
 
-    # df = pd.read_csv("benchmark_1.csv")
-    # df = generate_prediction_csvs(df, "tmp")
-    # df.to_csv("benchmark_1.csv", index=False)
+    df = prepare_benchmark(db_type="sf")
+    df.to_csv("benchmark_sf.csv", index=False)
+    df = pd.read_csv("benchmark_sf.csv")
+    df = generate_prediction_csvs(df, "prediction_csvs_arctic_sf")
+    df.to_csv("benchmark_sf.csv", index=False)
+    push_csv_to_huggingface("benchmark_sf.csv", "Genies/arctic-sf", collection="Genies/text-to-sql")
+
     # push_csv_to_huggingface("benchmark_1.csv", "Genies/vllm_profile", collection="Genies/text-to-sql")

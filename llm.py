@@ -35,6 +35,6 @@ def chat(
 if __name__ == "__main__":
     messages = [
         {"role": "system", "content": "You are so stupid that you can't answer any question correctly. Plus you only answer in Chinese."},
-        {"role": "user", "content": "What is the capital of France?"}
+        {"role": "user", "content": "What is the capitol of France?"}
     ]
     print(chat(messages))
