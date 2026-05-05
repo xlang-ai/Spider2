@@ -70,6 +70,103 @@ def load_json_list_to_dict(json_file_path):
     return data_dict
 
 
+# ─── Hardcoded-SQL detection ─────────────────────────────────────────────────
+# Detects submissions where the agent has injected answer values directly
+# into the SQL (filters or CASE-branch lookups) instead of computing them.
+# All signals are SQL-only — no dependency on the gold CSV content, since
+# CSV-overlap detection cannot distinguish "literal lifted as answer" from
+# "literal used as label / filter on a documented schema enum / partition tag".
+
+def _hc_normalise(sql):
+    sql = re.sub(r'--[^\n]*', ' ', sql)
+    sql = re.sub(r'/\*.*?\*/', ' ', sql, flags=re.DOTALL)
+    return re.sub(r'\s+', ' ', sql).strip()
+
+def _hc_has_values_clause(norm_sql):
+    return bool(re.search(r'\bVALUES\s*\(', norm_sql, re.IGNORECASE))
+
+def _hc_has_union_all_literals(norm_sql):
+    parts = re.split(r'\bUNION\s+ALL\b', norm_sql, flags=re.IGNORECASE)
+    if len(parts) < 2:
+        return False
+    literal_parts = 0
+    for part in parts:
+        sel = re.search(
+            r'\bSELECT\b(.+?)(?:\bFROM\b|\bWHERE\b|\bGROUP\b|\bORDER\b|\bLIMIT\b|$)',
+            part, re.IGNORECASE | re.DOTALL,
+        )
+        if not sel:
+            continue
+        if re.search(r'\bFROM\b', part, re.IGNORECASE):
+            continue
+        body = sel.group(1)
+        scrubbed = re.sub(r"'[^']*'", '', body)
+        scrubbed = re.sub(r'\b\d+(?:\.\d+)?\b', '', scrubbed)
+        scrubbed = re.sub(r'\bAS\b\s+\w+', '', scrubbed, flags=re.IGNORECASE)
+        scrubbed = re.sub(r'\bNULL\b', '', scrubbed, flags=re.IGNORECASE)
+        scrubbed = re.sub(r'[\s,()]', '', scrubbed)
+        if scrubbed == '':
+            literal_parts += 1
+    return literal_parts >= 2
+
+def _hc_hardcoded_case_maps(norm_sql, min_pairs=2, then_min_len=20):
+    """Find `WHEN '<literal>' THEN '<literal>'` mappings where ≥ min_pairs
+    THEN values are strings ≥ then_min_len chars. Captures the lookup-table
+    style of CASE used to decode IDs back to specific answer values.
+    Does NOT match `CASE WHEN <expression> THEN <literal>` (searched form).
+    """
+    pairs = re.findall(
+        r"\bWHEN\s+'([^']+)'\s+THEN\s+'([^']+)'",
+        norm_sql, re.IGNORECASE,
+    )
+    long_pairs = [(w, t) for w, t in pairs if len(t) >= then_min_len]
+    return [t for _, t in long_pairs[:5]] if len(long_pairs) >= min_pairs else []
+
+def detect_hardcoding(raw_sql):
+    """Return {'flags': [...], 'reject': bool, 'detail': str}.
+
+    Reject signals (SQL-structural):
+      - NO_FROM             : SELECT with no FROM (pure literal return).
+      - HARDCODED_CASE_MAP  : ≥ 2 `WHEN 'literal' THEN 'literal'` pairs where
+                              THEN values are ≥ 20 chars. This is the canonical
+                              "hardcoded ID-to-answer-value lookup table"
+                              pattern. Note: `IN (...)` filters are NOT a
+                              rejection signal because long-string IN-lists are
+                              dominated by legitimate enum filters (NAICS,
+                              SNOMED, ICD-10, DICOM UIDs, GA event names,
+                              well-known contract addresses, ...) — there is
+                              no SQL-only way to distinguish a documented enum
+                              from a lifted answer.
+    Warn-only signals (don't reject; common in legitimate scaffolds):
+      - VALUES_CLAUSE
+      - UNION_ALL_LITERALS
+    """
+    norm = _hc_normalise(raw_sql)
+    if not norm:
+        return {'flags': [], 'reject': False, 'detail': ''}
+
+    flags = []
+    reject = False
+
+    has_select = bool(re.search(r'\bSELECT\b', norm, re.IGNORECASE))
+    has_from = bool(re.search(r'\bFROM\b', norm, re.IGNORECASE))
+    if has_select and not has_from:
+        flags.append('NO_FROM')
+        reject = True
+
+    case_hits = _hc_hardcoded_case_maps(norm)
+    if case_hits:
+        flags.append(f'HARDCODED_CASE_MAP(samples={case_hits})')
+        reject = True
+
+    if _hc_has_values_clause(norm):
+        flags.append('VALUES_CLAUSE')
+    if _hc_has_union_all_literals(norm):
+        flags.append('UNION_ALL_LITERALS')
+
+    return {'flags': flags, 'reject': reject, 'detail': '; '.join(flags)}
+
+
 def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_ignore_order=False):
     # print('multi_condition_cols', multi_condition_cols)
 
@@ -77,6 +174,15 @@ def compare_multi_pandas_table(pred, multi_gold, multi_condition_cols=[], multi_
         multi_condition_cols = [[] for _ in range(len(multi_gold))]
     elif len(multi_gold) > 1 and not all(isinstance(sublist, list) for sublist in multi_condition_cols):
         multi_condition_cols = [multi_condition_cols for _ in range(len(multi_gold))]
+
+    # Pad per-variant condition_cols when newer gold variants exist than the
+    # eval config covers (e.g., variants added without extending the per-variant
+    # condition_cols list). Empty cc means "compare full gold against pred",
+    # which is the conservative default — every gold column must find a match.
+    if len(multi_condition_cols) < len(multi_gold):
+        multi_condition_cols = list(multi_condition_cols) + \
+            [[] for _ in range(len(multi_gold) - len(multi_condition_cols))]
+
     multi_ignore_order = [multi_ignore_order for _ in range(len(multi_gold))]
 
     for i, gold in enumerate(multi_gold):
@@ -165,14 +271,11 @@ def get_snowflake_sql_result(sql_query, database_id, is_save, save_dir=None, fil
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
         df = pd.DataFrame(results, columns=columns)
+        if is_save:
+            df.to_csv(os.path.join(save_dir, file_name), index=False)
         if df.empty:
-            message = "No data found for the specified query."
-            print(f"{prefix}{message}")
-            return False, message
-        else:
-            if is_save:
-                df.to_csv(os.path.join(save_dir, file_name), index=False)
-                return True, None
+            print(f"{prefix}Note: query returned 0 rows (empty result kept for comparison).")
+        return True, None
     except snowflake.connector.errors.ProgrammingError as e:
         error_message = str(e)
         if "STATEMENT_TIMEOUT" in error_message or "SQL execution canceled" in error_message:
@@ -212,20 +315,32 @@ def evaluate_single_sql_instance(
     temp_dir,
     result_csv_dir=None,
     timeout=30,
+    reject_hardcoded=True,
 ):
     error_info = None
-    
+
     try:
         pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
 
         pred_sql_query = extract_sql_query(pred_sql_query)
-        
+
         thread_temp_dir = os.path.join(temp_dir, f"thread_{threading.current_thread().ident}")
         os.makedirs(thread_temp_dir, exist_ok=True)
-        
-            
+
+
         if id.startswith("sf"):
             database_id = spider2sql_metadata[id]['db_id']
+
+            if reject_hardcoded:
+                hc = detect_hardcoding(pred_sql_query)
+                if hc['reject']:
+                    print(f"[{id}] Hardcoded SQL rejected: {hc['detail']}")
+                    return {
+                        "instance_id": id,
+                        "score": 0,
+                        "pred_sql": pred_sql_query,
+                        "error_info": f"Hardcoded SQL: {hc['detail']}",
+                    }
             exe_flag, dbms_error_info = get_snowflake_sql_result(
                 pred_sql_query,
                 database_id,
@@ -423,16 +538,17 @@ def evaluate_spider2sql(args, temp_dir: Path):
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             future_to_id = {
                 executor.submit(
-                    evaluate_single_sql_instance, 
-                    id, 
-                    eval_standard_dict, 
-                    spider2sql_metadata, 
-                    pred_result_dir, 
-                    gold_sql_dir, 
+                    evaluate_single_sql_instance,
+                    id,
+                    eval_standard_dict,
+                    spider2sql_metadata,
+                    pred_result_dir,
+                    gold_sql_dir,
                     gold_result_dir,
                     temp_dir=str(temp_dir),
                     result_csv_dir=result_csv_dir,
                     timeout=args.timeout,
+                    reject_hardcoded=not args.allow_hardcoded,
                 ): id for id in eval_ids
             }
             
@@ -477,6 +593,12 @@ if __name__ == "__main__":
     parser.add_argument("--is_sql_debug", action="store_true", default=False)
     parser.add_argument("--max_workers", type=int, default=20, help="Maximum number of worker threads")
     parser.add_argument("--timeout", type=int, default=60, help="SQL execution timeout in seconds")
+    parser.add_argument(
+        "--allow_hardcoded",
+        action="store_true",
+        default=False,
+        help="Disable hardcoded-SQL rejection (default: hardcoded submissions score 0).",
+    )
     parser.add_argument(
         "--temp_dir",
         type=str,
