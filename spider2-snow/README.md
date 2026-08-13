@@ -60,3 +60,38 @@ cd ../../spider2-snow/evaluation_suite
 python evaluate.py --mode exec_result --result_dir gpt-4o-test1
 
 ```
+
+## Dataset audit
+
+`tools/audit_dataset.py` performs a read-only audit of `spider2-snow.jsonl`. It
+checks each declared `external_knowledge` document, records whether Gold SQL is
+available, and verifies released execution-result files. Gold SQL is intentionally
+not public for every instance, so unavailable Gold SQL is repository policy rather
+than a defect. The summary reports this coverage as `gold_sql_available` and
+`gold_sql_unavailable`. The audit also reports the known Issue #195 semantic
+conflict when the Haversine document specifies an undirected city pair but
+available Gold SQL groups directly by the directional `(from_city, to_city)` pair.
+
+From the repository root, run:
+
+```bash
+python spider2-snow/tools/audit_dataset.py --output audit-report.json
+```
+
+Omit `--output` to emit JSON on stdout. The report contains a summary and one
+entry per instance, including matched result variants such as `_a.csv` and all
+semantic findings. Normal audit mode exits successfully even when findings are
+present. Use `--strict` in CI to return status 1 for missing required files or
+semantic conflicts. Unavailable Gold SQL does not make `summary.ok` false and
+does not cause strict mode to fail:
+
+```bash
+python spider2-snow/tools/audit_dataset.py --strict > audit-report.json
+```
+
+All input locations can be overridden with `--dataset`, `--documents-dir`,
+`--gold-sql-dir`, and `--gold-results-dir`. Run the dependency-free tests with:
+
+```bash
+python -m unittest discover -s spider2-snow/tests -v
+```
