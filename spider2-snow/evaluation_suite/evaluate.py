@@ -144,6 +144,47 @@ def compare_pandas_table(pred, gold, condition_cols=[], ignore_order=False):
     return score
 
 
+def relax_rescore(pred_pd, gold_pds, condition_cols, ignore_order,
+                  pred_sql=None, gold_sqls=None, sql_dialect="snowflake"):
+    """Second pass for a pair the strict comparison rejected (``--relax``).
+
+    Tries canonicalization (a CSV-parse fold and the wide/long pivot), each
+    of which only ever adds a pass, and a roll-up derivability check, which
+    never does: a pair whose finer result rolls up exactly to the coarser one
+    is reported as GRAIN_MISMATCH and scored 0, because the question fixed a
+    grain.  Returns (score, route) where route names the rewriting that
+    produced the pass, or the verdict when nothing did.
+
+    ``pred_sql`` and ``gold_sqls`` are optional and only ever withdraw a pass:
+    the pivot route pairs columns with dimension values by searching the data,
+    and a query that declares a different pairing refutes that search.  They
+    are passed in ``--mode sql``, where the submission is a query; in
+    ``--mode exec_result`` there is no query and the comparator is unchanged.
+    """
+    import os, sys
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                    "..", "..", "evaluation_common"))
+    from relax.relaxed_compare import relaxed_compare_multi
+    res = relaxed_compare_multi(pred_pd, gold_pds, compare_pandas_table,
+                                condition_cols, ignore_order,
+                                pred_sql=pred_sql, gold_sqls=gold_sqls,
+                                sql_dialect=sql_dialect)
+    return (1 if res.passed else 0), (res.route if res.passed else res.verdict)
+
+
+def read_gold_sql(gold_sql_dir, id):
+    """The gold query for ``id``, or None.
+
+    Only the primary gold has one -- an alternative gold ships as a CSV alone,
+    so the alternatives are compared without corroboration.
+    """
+    path = os.path.join(gold_sql_dir, f"{id}.sql")
+    try:
+        return open(path).read() if os.path.exists(path) else None
+    except OSError:
+        return None
+
+
 
 def get_snowflake_sql_result(sql_query, database_id, is_save, save_dir=None, file_name="result.csv", timeout=30, instance_id=None):
     snowflake_credential = json.load(open('snowflake_credential.json'))
@@ -212,8 +253,10 @@ def evaluate_single_sql_instance(
     temp_dir,
     result_csv_dir=None,
     timeout=30,
+    relax=False,
 ):
     error_info = None
+    relax_route = None
     
     try:
         pred_sql_query = open(os.path.join(pred_result_dir, f"{id}.sql")).read()
@@ -263,6 +306,14 @@ def evaluate_single_sql_instance(
                             eval_standard_dict.get(id)['condition_cols'],
                             eval_standard_dict.get(id)['ignore_order'],
                         )
+                        if score == 0 and relax:
+                            score, relax_route = relax_rescore(
+                                pred_pd, [gold_pd],
+                                eval_standard_dict.get(id)['condition_cols'],
+                                eval_standard_dict.get(id)['ignore_order'],
+                                pred_sql=pred_sql_query,
+                                gold_sqls=[read_gold_sql(gold_sql_dir, id)],
+                            )
                     except Exception as e:
                         print(f"{id}: compare against {base_file_path} failed: {e}")
                         score = 0
@@ -279,6 +330,16 @@ def evaluate_single_sql_instance(
                             eval_standard_dict.get(id)['condition_cols'],
                             eval_standard_dict.get(id)['ignore_order'],
                         )
+                        if score == 0 and relax:
+                            gold_sql = read_gold_sql(gold_sql_dir, id)
+                            score, relax_route = relax_rescore(
+                                pred_pd, gold_pds,
+                                eval_standard_dict.get(id)['condition_cols'],
+                                eval_standard_dict.get(id)['ignore_order'],
+                                pred_sql=pred_sql_query,
+                                gold_sqls=[gold_sql if os.path.basename(p) == f"{id}.csv" else None
+                                           for p in csv_file_paths],
+                            )
                     except Exception as e:
                         print(f"{id}: multi-compare against {csv_file_paths} failed: {e}")
                         score = 0
@@ -300,13 +361,15 @@ def evaluate_single_sql_instance(
         "instance_id": id, 
         "score": score,
         "pred_sql": pred_sql_query,
-        "error_info": error_info
+        "error_info": error_info,
+        "relax_route": relax_route,
     }
 
 
-def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir, gold_result_dir):
+def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir, gold_result_dir, relax=False):
     # print(f">>>Evaluating {id}...")
     error_info = None
+    relax_route = None
     
     try:
         pred_pd = pd.read_csv(os.path.join(pred_result_dir, f"{id}.csv"))
@@ -330,6 +393,12 @@ def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir
                     eval_standard_dict.get(id)['condition_cols'],
                     eval_standard_dict.get(id)['ignore_order'],
                 )
+                if score == 0 and relax:
+                    score, relax_route = relax_rescore(
+                        pred_pd, [gold_pd],
+                        eval_standard_dict.get(id)['condition_cols'],
+                        eval_standard_dict.get(id)['ignore_order'],
+                    )
             except Exception as e:
                 print(f"{id}: compare against {base_file_path} failed: {e}")
                 score = 0
@@ -347,6 +416,12 @@ def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir
                     eval_standard_dict.get(id)['condition_cols'],
                     eval_standard_dict.get(id)['ignore_order'],
                 )
+                if score == 0 and relax:
+                    score, relax_route = relax_rescore(
+                        pred_pd, gold_pds,
+                        eval_standard_dict.get(id)['condition_cols'],
+                        eval_standard_dict.get(id)['ignore_order'],
+                    )
             except Exception as e:
                 print(f"{id}: multi-compare against {csv_file_paths} failed: {e}")
                 score = 0
@@ -366,7 +441,8 @@ def evaluate_single_exec_result_instance(id, eval_standard_dict, pred_result_dir
         "instance_id": id, 
         "score": score,
         "pred_sql": None,
-        "error_info": error_info
+        "error_info": error_info,
+        "relax_route": relax_route,
     }
 
 
@@ -433,6 +509,7 @@ def evaluate_spider2sql(args, temp_dir: Path):
                     temp_dir=str(temp_dir),
                     result_csv_dir=result_csv_dir,
                     timeout=args.timeout,
+                    relax=args.relax,
                 ): id for id in eval_ids
             }
             
@@ -448,7 +525,8 @@ def evaluate_spider2sql(args, temp_dir: Path):
                     id,
                     eval_standard_dict,
                     pred_result_dir,
-                    gold_result_dir
+                    gold_result_dir,
+                    relax=args.relax,
                 ): id for id in eval_ids
             }
             
@@ -461,6 +539,16 @@ def evaluate_spider2sql(args, temp_dir: Path):
 
     print(f"Final score: {correct_examples / len(output_results)}, Correct examples: {correct_examples}, Total examples: {len(output_results)}")
     print(f"Real score: {correct_examples / 547}, Correct examples: {correct_examples}, Total examples: 547")
+    if args.relax:
+        relaxed = [item for item in output_results
+                   if item.get("relax_route") not in (None, "FAIL", "UNDECIDABLE", "GRAIN_MISMATCH")]
+        by_route = {}
+        for item in relaxed:
+            by_route[item["relax_route"]] = by_route.get(item["relax_route"], 0) + 1
+        grain = sum(1 for item in output_results if item.get("relax_route") == "GRAIN_MISMATCH")
+        undecidable = sum(1 for item in output_results if item.get("relax_route") == "UNDECIDABLE")
+        print(f"Relaxed passes (rejected by strict comparison, accepted after rewriting): {len(relaxed)} {by_route}")
+        print(f"Reported, not scored: GRAIN_MISMATCH {grain} (rolls up exactly to the gold's grain), UNDECIDABLE {undecidable}")
     
     if mode == "sql" and result_csv_dir:
         print(f"Execution results saved to: {result_csv_dir}")
@@ -477,6 +565,13 @@ if __name__ == "__main__":
     parser.add_argument("--is_sql_debug", action="store_true", default=False)
     parser.add_argument("--max_workers", type=int, default=20, help="Maximum number of worker threads")
     parser.add_argument("--timeout", type=int, default=60, help="SQL execution timeout in seconds")
+    parser.add_argument(
+        "--relax",
+        action="store_true",
+        default=False,
+        help="After a strict comparison fails, retry under the wide/long pivot "
+             "canonicalization and a roll-up derivability check. Off by default; never removes a pass.",
+    )
     parser.add_argument(
         "--temp_dir",
         type=str,

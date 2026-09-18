@@ -223,6 +223,51 @@ def resolve_gold_paths(instance_id: str, gold_result_dir: str):
     return [Path(gold_result_dir) / file for file in csv_files], False
 
 
+def dialect_for(instance_id: str) -> str:
+    """The SQL dialect an instance's query is written in.
+
+    Lite runs against two backends and the id says which, exactly as the
+    execution path above decides it.  Only sqlglot sees this; a wrong guess
+    would make a query fail to parse, which skips the query-reading routes
+    rather than deciding anything.
+    """
+    return "bigquery" if instance_id.startswith(("bq", "ga")) else "sqlite"
+
+
+def read_gold_sql(gold_dir: str, instance_id: str):
+    """The gold query for ``instance_id``, or None.
+
+    Only the primary gold has one -- an alternative gold ships as a CSV alone,
+    so the alternatives are compared without corroboration.
+    """
+    path = Path(gold_dir) / "sql" / f"{instance_id}.sql"
+    try:
+        return path.read_text() if path.exists() else None
+    except OSError:
+        return None
+
+
+def relax_rescore(pred_pd, gold_pds, condition_cols, ignore_order,
+                  pred_sql=None, gold_sqls=None, sql_dialect=None):
+    """Second pass for a pair the strict comparison rejected (``--relax``).
+
+    Tries canonicalization (a CSV-parse fold, a case fold and the wide/long
+    pivot), each of which only ever adds a pass, and a roll-up derivability
+    check, which never does: a pair whose finer result rolls up exactly to the
+    coarser one is reported as GRAIN_MISMATCH and scored 0, because the
+    question fixed a grain.  Returns (score, route).
+
+    ``pred_sql`` and ``gold_sqls`` are optional and only ever withdraw a pass.
+    """
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent / "evaluation_common"))
+    from relax.relaxed_compare import relaxed_compare_multi
+    res = relaxed_compare_multi(pred_pd, gold_pds, compare_pandas_table,
+                                condition_cols, ignore_order,
+                                pred_sql=pred_sql, gold_sqls=gold_sqls,
+                                sql_dialect=sql_dialect)
+    return (1 if res.passed else 0), (res.route if res.passed else res.verdict)
+
+
 def evaluate_single_sql_instance(
     instance_id: str,
     eval_standard_dict: dict,
@@ -233,12 +278,14 @@ def evaluate_single_sql_instance(
     result_csv_dir: str = None,
     timeout: int = 60,
     sqlite_base_dir: Path = None,
+    relax: bool = False,
 ):
     del timeout  # timeout currently unused for lite databases
 
     error_info = None
     score = 0
     pred_sql_query = ""
+    relax_route = None
 
     try:
         pred_sql_path = Path(pred_result_dir) / f"{instance_id}.sql"
@@ -299,6 +346,12 @@ def evaluate_single_sql_instance(
                 try:
                     gold_pd = load_gold_csv(str(gold_paths[0]))
                     score = compare_pandas_table(pred_pd, gold_pd, condition_cols, ignore_order)
+                    if score == 0 and relax:
+                        score, relax_route = relax_rescore(
+                            pred_pd, [gold_pd], condition_cols, ignore_order,
+                            pred_sql=pred_sql_query,
+                            gold_sqls=[read_gold_sql(gold_result_dir, instance_id)],
+                            sql_dialect=dialect_for(instance_id))
                 except Exception as e:
                     print(f"{instance_id}: compare against {gold_paths[0]} failed: {e}")
                     score = 0
@@ -309,6 +362,14 @@ def evaluate_single_sql_instance(
                 try:
                     gold_pds = [load_gold_csv(str(path)) for path in gold_paths]
                     score = compare_multi_pandas_table(pred_pd, gold_pds, condition_cols, ignore_order)
+                    if score == 0 and relax:
+                        gold_sql = read_gold_sql(gold_result_dir, instance_id)
+                        score, relax_route = relax_rescore(
+                            pred_pd, gold_pds, condition_cols, ignore_order,
+                            pred_sql=pred_sql_query,
+                            gold_sqls=[gold_sql if Path(p).name == f"{instance_id}.csv" else None
+                                       for p in gold_paths],
+                            sql_dialect=dialect_for(instance_id))
                 except Exception as e:
                     print(f"{instance_id}: multi-compare against {gold_paths} failed: {e}")
                     score = 0
@@ -327,6 +388,7 @@ def evaluate_single_sql_instance(
         "score": score,
         "pred_sql": pred_sql_query,
         "error_info": error_info,
+        "relax_route": relax_route,
     }
 
 
@@ -335,8 +397,10 @@ def evaluate_single_exec_result_instance(
     eval_standard_dict: dict,
     pred_result_dir: str,
     gold_result_dir: str,
+    relax: bool = False,
 ):
     error_info = None
+    relax_route = None
 
     try:
         pred_pd = pd.read_csv(Path(pred_result_dir) / f"{instance_id}.csv")
@@ -353,6 +417,9 @@ def evaluate_single_exec_result_instance(
             try:
                 gold_pd = load_gold_csv(str(gold_paths[0]))
                 score = compare_pandas_table(pred_pd, gold_pd, condition_cols, ignore_order)
+                if score == 0 and relax:
+                    score, relax_route = relax_rescore(
+                        pred_pd, [gold_pd], condition_cols, ignore_order)
             except Exception as e:
                 print(f"{instance_id}: compare against {gold_paths[0]} failed: {e}")
                 score = 0
@@ -363,6 +430,9 @@ def evaluate_single_exec_result_instance(
             try:
                 gold_pds = [load_gold_csv(str(path)) for path in gold_paths]
                 score = compare_multi_pandas_table(pred_pd, gold_pds, condition_cols, ignore_order)
+                if score == 0 and relax:
+                    score, relax_route = relax_rescore(
+                        pred_pd, gold_pds, condition_cols, ignore_order)
             except Exception as e:
                 print(f"{instance_id}: multi-compare against {gold_paths} failed: {e}")
                 score = 0
@@ -380,6 +450,7 @@ def evaluate_single_exec_result_instance(
         "score": score,
         "pred_sql": None,
         "error_info": error_info,
+        "relax_route": relax_route,
     }
 
 
@@ -450,6 +521,7 @@ def evaluate_spider2sql(args, temp_dir: Path):
                     result_csv_dir=result_csv_dir,
                     timeout=args.timeout,
                     sqlite_base_dir=sqlite_base_dir,
+                    relax=args.relax,
                 ): instance_id
                 for instance_id in eval_ids
             }
@@ -466,6 +538,7 @@ def evaluate_spider2sql(args, temp_dir: Path):
                     eval_standard_dict,
                     pred_result_dir,
                     gold_result_dir,
+                    args.relax,
                 ): instance_id
                 for instance_id in eval_ids
             }
@@ -479,6 +552,16 @@ def evaluate_spider2sql(args, temp_dir: Path):
     correct_examples = sum(item["score"] for item in output_results)
 
     print(f"Final score: {correct_examples / len(output_results)}, Correct examples: {correct_examples}, Total examples: {len(output_results)}")
+    if getattr(args, "relax", False):
+        relaxed = [item for item in output_results
+                   if item.get("relax_route") not in (None, "FAIL", "UNDECIDABLE", "GRAIN_MISMATCH")]
+        by_route = {}
+        for item in relaxed:
+            by_route[item["relax_route"]] = by_route.get(item["relax_route"], 0) + 1
+        grain = sum(1 for item in output_results if item.get("relax_route") == "GRAIN_MISMATCH")
+        undecidable = sum(1 for item in output_results if item.get("relax_route") == "UNDECIDABLE")
+        print(f"Relaxed passes (rejected by strict comparison, accepted after rewriting): {len(relaxed)} {by_route}")
+        print(f"Reported, not scored: GRAIN_MISMATCH {grain} (rolls up exactly to the gold's grain), UNDECIDABLE {undecidable}")
     print(f"Real score: {correct_examples / 547}, Correct examples: {correct_examples}, Total examples: 547")
 
     if mode == "sql" and result_csv_dir:
@@ -496,6 +579,14 @@ if __name__ == "__main__":
     parser.add_argument("--result_dir", type=str, default="spider2sql_example_submit_result", help="Result directory")
     parser.add_argument("--gold_dir", type=str, default="gold", help="Result directory")
     parser.add_argument("--is_sql_debug", action="store_true", default=False)
+    parser.add_argument(
+        "--relax",
+        action="store_true",
+        default=False,
+        help="Retry a rejected pair under layout/spelling canonicalization, and report "
+             "roll-up derivability. Off by default; it can only add passes the strict "
+             "comparison refused, never remove one it granted.",
+    )
     parser.add_argument("--max_workers", type=int, default=20, help="Maximum number of worker threads")
     parser.add_argument("--timeout", type=int, default=60, help="SQL execution timeout in seconds")
     parser.add_argument(
